@@ -35,90 +35,90 @@
 
 ## 저장 규칙
 
-아이템은 assets/items/이름.png에 한 장씩 저장. 해당 문서는 생성 후 파일 링크와 상태를 갱신한다. 위 이후 목록은 이번 소품 20종과 구분하며 아직 생성하지 않은 것을 완료로 표시하지 않는다.
+아이템은 04_images/IT번호_이름.png에 한 장씩 저장. 해당 문서는 생성 후 파일 링크와 상태를 갱신한다. 위 이후 목록은 이번 소품 20종과 구분하며 아직 생성하지 않은 것을 완료로 표시하지 않는다.
 
 
 ## 생성 이미지
 
 ### IT01 마음 일기
 
-![마음_일기](assets/items/마음_일기.png)
+![마음_일기](04_images/IT01_마음_일기.png)
 
 ### IT02 룬 램프
 
-![룬_램프](assets/items/룬_램프.png)
+![룬_램프](04_images/IT02_룬_램프.png)
 
 ### IT03 차 세트
 
-![차_세트](assets/items/차_세트.png)
+![차_세트](04_images/IT03_차_세트.png)
 
 ### IT04 약초 화분
 
-![약초_화분](assets/items/약초_화분.png)
+![약초_화분](04_images/IT04_약초_화분.png)
 
 ### IT05 룬 조각
 
-![룬_조각](assets/items/룬_조각.png)
+![룬_조각](04_images/IT05_룬_조각.png)
 
 ### IT06 추억 액자
 
-![추억_액자](assets/items/추억_액자.png)
+![추억_액자](04_images/IT06_추억_액자.png)
 
 ### IT07 마이룸 책상
 
-![마이룸_책상](assets/items/마이룸_책상.png)
+![마이룸_책상](04_images/IT07_마이룸_책상.png)
 
 ### IT08 마이룸 의자
 
-![마이룸_의자](assets/items/마이룸_의자.png)
+![마이룸_의자](04_images/IT08_마이룸_의자.png)
 
 ### IT09 마이룸 침대
 
-![마이룸_침대](assets/items/마이룸_침대.png)
+![마이룸_침대](04_images/IT09_마이룸_침대.png)
 
 ### IT10 마이룸 책장
 
-![마이룸_책장](assets/items/마이룸_책장.png)
+![마이룸_책장](04_images/IT10_마이룸_책장.png)
 
 ### IT11 마이룸 러그
 
-![마이룸_러그](assets/items/마이룸_러그.png)
+![마이룸_러그](04_images/IT11_마이룸_러그.png)
 
 ### IT12 룬 오브제
 
-![룬_오브제](assets/items/룬_오브제.png)
+![룬_오브제](04_images/IT12_룬_오브제.png)
 
 ### IT13 룬 고서
 
-![룬_고서](assets/items/룬_고서.png)
+![룬_고서](04_images/IT13_룬_고서.png)
 
 ### IT14 양피지 편지
 
-![양피지_편지](assets/items/양피지_편지.png)
+![양피지_편지](04_images/IT14_양피지_편지.png)
 
 ### IT15 마석 공방 도구
 
-![마석_공방_도구](assets/items/마석_공방_도구.png)
+![마석_공방_도구](04_images/IT15_마석_공방_도구.png)
 
 ### IT16 훈련용 목검
 
-![훈련용_목검](assets/items/훈련용_목검.png)
+![훈련용_목검](04_images/IT16_훈련용_목검.png)
 
 ### IT17 공방 마석
 
-![공방_마석](assets/items/공방_마석.png)
+![공방_마석](04_images/IT17_공방_마석.png)
 
 ### IT18 마음 룬
 
-![마음_룬](assets/items/마음_룬.png)
+![마음_룬](04_images/IT18_마음_룬.png)
 
 ### IT19 그림자 룬
 
-![그림자_룬](assets/items/그림자_룬.png)
+![그림자_룬](04_images/IT19_그림자_룬.png)
 
 ### IT20 정화된 룬
 
-![정화된_룬](assets/items/정화된_룬.png)
+![정화된_룬](04_images/IT20_정화된_룬.png)
 
 ## 적용 전 확인 사항
 

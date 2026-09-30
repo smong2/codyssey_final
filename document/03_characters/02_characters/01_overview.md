@@ -24,7 +24,7 @@ Work에서 이 폴더와 `C:/Users/josep/Desktop/Final Project`의 자료에 접
 
 ## 기준 문서
 
-[전체 제작 명세서](../LUMIA_DESIGN_BIBLE_v1.0.md)
+[전체 제작 명세서](../01_design/01_design_spec.md)
 
 원문과 시안은 읽기 전용 참조로 보존한다. 새 이미지와 수정본은 별도 출력 폴더에 저장한다.
 
@@ -32,3 +32,9 @@ Work에서 이 폴더와 `C:/Users/josep/Desktop/Final Project`의 자료에 접
 
 학생 이미지 파일은 manifest.json의 image_file에서 연결한다. 참조 이미지 경로는 제작 당시 로컬 원본 경로이며 저장소에는 원본 참조를 포함하지 않는다. 레이어 분리·Idle·최종 적용 QA는 미완료.
 
+
+## 저장 순서
+
+- [02 프롬프트](02_prompts/): COMMON_LOCKS + CH01~CH32, NPC01~NPC03 DELTA.
+- [03 파일 목록](03_manifest.json): 캐릭터별 이미지·프롬프트 연결.
+- [04 이미지](04_images/): CH01_카엘.png부터 CH32_리코.png까지. NPC 이미지는 미생성.
