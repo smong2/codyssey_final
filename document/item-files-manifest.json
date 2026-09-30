@@ -1,0 +1,182 @@
+[
+  {
+    "id": "IT01",
+    "name": "마음_일기",
+    "file": "assets/items/마음_일기.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "9B601C8143450DDA570B9D567CD4DA498216943D9B12D4B726B3A81634970522"
+  },
+  {
+    "id": "IT02",
+    "name": "룬_램프",
+    "file": "assets/items/룬_램프.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "08502D94632E1DF4BCAF497F3DFBCABF0276F342DABD37D155C861873812713B"
+  },
+  {
+    "id": "IT03",
+    "name": "차_세트",
+    "file": "assets/items/차_세트.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "B49F01FEA330216D53A08C460C2ED4C9BE77D18F9E074AB5A40D1D4106C282EA"
+  },
+  {
+    "id": "IT04",
+    "name": "약초_화분",
+    "file": "assets/items/약초_화분.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "E633B1C6697DB940C7A437C1A786F7E5877F823A154042215EE424924B89D896"
+  },
+  {
+    "id": "IT05",
+    "name": "룬_조각",
+    "file": "assets/items/룬_조각.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "EF9DA3D18C09076D7FF7C16CF715C3B07ED4121CAB0076047E6165489F9B5863"
+  },
+  {
+    "id": "IT06",
+    "name": "추억_액자",
+    "file": "assets/items/추억_액자.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "7B78528CC6EAE81BE4AFBD62288C63ABBD4A78BBD18B502CDC823511A2CFD214"
+  },
+  {
+    "id": "IT07",
+    "name": "마이룸_책상",
+    "file": "assets/items/마이룸_책상.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "EA8E94031FC86E2A3A38A2C03DA6901A28C1F88C3951DE562E04E0A7D841ABFD"
+  },
+  {
+    "id": "IT08",
+    "name": "마이룸_의자",
+    "file": "assets/items/마이룸_의자.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "450FF9C90592F10455CE2B5966DA280F967DCA98FB551B19B15CC79E00E513B9"
+  },
+  {
+    "id": "IT09",
+    "name": "마이룸_침대",
+    "file": "assets/items/마이룸_침대.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "18BE04E528E3C12BA4CBBB12FEAA6C2851CECF23DF2FA876D3058D0BAB9AE87A"
+  },
+  {
+    "id": "IT10",
+    "name": "마이룸_책장",
+    "file": "assets/items/마이룸_책장.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "5BBED6554D31958CF0320666723331DDFC0BB6A308AFACDFB9F3A1DBC4E6942D"
+  },
+  {
+    "id": "IT11",
+    "name": "마이룸_러그",
+    "file": "assets/items/마이룸_러그.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "D3C2A14986FE48D6F3B95077B64C59551CEC95DAD7AA4FABA9A13A53F86580D3"
+  },
+  {
+    "id": "IT12",
+    "name": "룬_오브제",
+    "file": "assets/items/룬_오브제.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "B1C7D4CB025B13B56476F037CB3FFDCBACC2C81A01B584CE1816297F7DDEF864"
+  },
+  {
+    "id": "IT13",
+    "name": "룬_고서",
+    "file": "assets/items/룬_고서.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "DDDA7686504CA2E4E92F43E70DF4B01869A67E8CFF787F8234BD763CA1732993"
+  },
+  {
+    "id": "IT14",
+    "name": "양피지_편지",
+    "file": "assets/items/양피지_편지.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "50376021158CA2BE2E16C9F00F27F6AF61A88E2260C65E46B2192AF121D87189"
+  },
+  {
+    "id": "IT15",
+    "name": "마석_공방_도구",
+    "file": "assets/items/마석_공방_도구.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "83D2714DDA11B4ACAB7C56405CD3C08D61C59DEFD013BC9F952FF1BD08D99252"
+  },
+  {
+    "id": "IT16",
+    "name": "훈련용_목검",
+    "file": "assets/items/훈련용_목검.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "170A8FBDB83E4B08690E72FAD8CEFA14611583738F443A7FECBF6E8F3A4DE13A"
+  },
+  {
+    "id": "IT17",
+    "name": "공방_마석",
+    "file": "assets/items/공방_마석.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "4B05C7E91A849EAEEC86DCE9973B6BF7A388E2E3114095541329B7E5177C5078"
+  },
+  {
+    "id": "IT18",
+    "name": "마음_룬",
+    "file": "assets/items/마음_룬.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "7AAD1BA6D83BB6C2AD635F9CFD8A6C64E96B0540F16AED6A1ABE04B4C9722271"
+  },
+  {
+    "id": "IT19",
+    "name": "그림자_룬",
+    "file": "assets/items/그림자_룬.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "040BCAE27171468A6987937EE01738D2C02FE39CE89BF5CAD4034F6554D772F6"
+  },
+  {
+    "id": "IT20",
+    "name": "정화된_룬",
+    "file": "assets/items/정화된_룬.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "sha256": "A8E3757EB100602A17512B25C89E5FE50349201795BD56CE6A7E4A43FB3DA68B"
+  }
+]
