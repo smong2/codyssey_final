@@ -2,7 +2,7 @@
   {
     "id": "BG01",
     "name": "아르카디아_입구와_호수",
-    "file": "assets/backgrounds/아르카디아_입구와_호수.png",
+    "file": "document/03_characters/assets/backgrounds/아르카디아_입구와_호수.png",
     "width": 1672,
     "height": 941,
     "sha256": "E6E33244FC03D50989EEC741EBE041C7305B93AD8FE2F06537C42544316050EB",
@@ -11,7 +11,7 @@
   {
     "id": "BG02",
     "name": "시계탑_광장",
-    "file": "assets/backgrounds/시계탑_광장.png",
+    "file": "document/03_characters/assets/backgrounds/시계탑_광장.png",
     "width": 1672,
     "height": 941,
     "sha256": "FE8598CA3861D847AE2F3F6E295B9A686B79B37A4D01A3D093A4C5DD4AFCDFCB",
@@ -20,7 +20,7 @@
   {
     "id": "BG03",
     "name": "빈_마이룸",
-    "file": "assets/backgrounds/빈_마이룸.png",
+    "file": "document/03_characters/assets/backgrounds/빈_마이룸.png",
     "width": 1672,
     "height": 941,
     "sha256": "3264EF9FFC28B6A2381A46B7F41DB5E300C4D646069BAD8D20E2FE1920FF32F1",
@@ -29,7 +29,7 @@
   {
     "id": "BG04",
     "name": "학원_기숙사",
-    "file": "assets/backgrounds/학원_기숙사.png",
+    "file": "document/03_characters/assets/backgrounds/학원_기숙사.png",
     "width": 1672,
     "height": 941,
     "sha256": "FDB5C4AC0EEBB6674CEF7F3A719B385FAFFFA94827BFAA45D65E3E26429AAB88",
@@ -38,7 +38,7 @@
   {
     "id": "BG05",
     "name": "대서고",
-    "file": "assets/backgrounds/대서고.png",
+    "file": "document/03_characters/assets/backgrounds/대서고.png",
     "width": 1672,
     "height": 941,
     "sha256": "70AC5A6CD0F4ADDBFA0DAD8589FA4B82D5CDEC78DF63FDC7BE3F42427F89F6CD",
@@ -47,7 +47,7 @@
   {
     "id": "BG06",
     "name": "별빛_천문대",
-    "file": "assets/backgrounds/별빛_천문대.png",
+    "file": "document/03_characters/assets/backgrounds/별빛_천문대.png",
     "width": 1672,
     "height": 941,
     "sha256": "EEB2C74593F620427F8A8F825B503249D962DABD0E0D9E847E6807F5655ECDE0",
@@ -56,7 +56,7 @@
   {
     "id": "BG07",
     "name": "유리_온실",
-    "file": "assets/backgrounds/유리_온실.png",
+    "file": "document/03_characters/assets/backgrounds/유리_온실.png",
     "width": 1672,
     "height": 941,
     "sha256": "EFE37767D7033BDB4A1893F8A2B55C3A0CAEF09622F0B2F115B1BBED5B0B7435",
@@ -65,7 +65,7 @@
   {
     "id": "BG08",
     "name": "치유의_약초원",
-    "file": "assets/backgrounds/치유의_약초원.png",
+    "file": "document/03_characters/assets/backgrounds/치유의_약초원.png",
     "width": 1672,
     "height": 941,
     "sha256": "8E2057E40587AE09B7F7B575AF9F904982DA6B45C345C65D629A691784D70444",
@@ -74,7 +74,7 @@
   {
     "id": "BG09",
     "name": "마도_공방",
-    "file": "assets/backgrounds/마도_공방.png",
+    "file": "document/03_characters/assets/backgrounds/마도_공방.png",
     "width": 1672,
     "height": 941,
     "sha256": "F9EEDAA585E60A280851C2CBC3870C9AD6C7E2A547789D11116B81FE52415D17",
@@ -83,7 +83,7 @@
   {
     "id": "BG10",
     "name": "룬_수련장",
-    "file": "assets/backgrounds/룬_수련장.png",
+    "file": "document/03_characters/assets/backgrounds/룬_수련장.png",
     "width": 1672,
     "height": 941,
     "sha256": "A399E3B374AD23CC28F7E64F64A803FFFE45D64605E394EBCB2EAEB39519520B",

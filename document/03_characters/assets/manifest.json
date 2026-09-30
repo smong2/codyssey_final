@@ -3,496 +3,496 @@
     "id": "CH01",
     "name": "카엘",
     "category": "character",
-    "file": "assets/characters/카엘.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH01_DELTA.txt",
+    "file": "document/03_characters/assets/characters/카엘.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH01_DELTA.txt",
     "sha256": "308FD302FAEE5C970C4DCF26B5ABD05BCA8CB644FE45AFCC1C0A849115109924"
   },
   {
     "id": "CH02",
     "name": "세라",
     "category": "character",
-    "file": "assets/characters/세라.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH02_DELTA.txt",
+    "file": "document/03_characters/assets/characters/세라.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH02_DELTA.txt",
     "sha256": "1C0158747E6B786A491624A5B59610547B7DC09AFE81B18CD74C8E15D748C5F4"
   },
   {
     "id": "CH03",
     "name": "시온",
     "category": "character",
-    "file": "assets/characters/시온.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH03_DELTA.txt",
+    "file": "document/03_characters/assets/characters/시온.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH03_DELTA.txt",
     "sha256": "5DAB2777D8A6FFB50EF9DFE67AA8009836B14B1113BAB7E852207005BA01FE30"
   },
   {
     "id": "CH04",
     "name": "로엔",
     "category": "character",
-    "file": "assets/characters/로엔.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH04_DELTA.txt",
+    "file": "document/03_characters/assets/characters/로엔.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH04_DELTA.txt",
     "sha256": "FF00251FC60BBA87D46263D5082170140844FC7E41577A65C0703057A0DDE58C"
   },
   {
     "id": "CH05",
     "name": "레온",
     "category": "character",
-    "file": "assets/characters/레온.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH05_DELTA.txt",
+    "file": "document/03_characters/assets/characters/레온.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH05_DELTA.txt",
     "sha256": "E9566CEFBF9E33540836137B97E95E1D77C8F48026C8E1AA4985AF4D90DAC0AA"
   },
   {
     "id": "CH06",
     "name": "벨라",
     "category": "character",
-    "file": "assets/characters/벨라.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH06_DELTA.txt",
+    "file": "document/03_characters/assets/characters/벨라.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH06_DELTA.txt",
     "sha256": "73EA1F7C6DC4C21FF36EE874A8F8F0615A15EB5DA6723613100A926E497DFE0A"
   },
   {
     "id": "CH07",
     "name": "유안",
     "category": "character",
-    "file": "assets/characters/유안.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH07_DELTA.txt",
+    "file": "document/03_characters/assets/characters/유안.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH07_DELTA.txt",
     "sha256": "BEFE8959A3AF45E186B5C6F899E3FBAF5546E2F4CCCB74A176731E033AFB52C1"
   },
   {
     "id": "CH08",
     "name": "아이리스",
     "category": "character",
-    "file": "assets/characters/아이리스.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH08_DELTA.txt",
+    "file": "document/03_characters/assets/characters/아이리스.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH08_DELTA.txt",
     "sha256": "6A3319EF11844690095642852933321BF3AA9DFBF1FF71055A9900231067650E"
   },
   {
     "id": "CH09",
     "name": "에녹",
     "category": "character",
-    "file": "assets/characters/에녹.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH09_DELTA.txt",
+    "file": "document/03_characters/assets/characters/에녹.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH09_DELTA.txt",
     "sha256": "91733F163576629967B4C5B39DF3216DAF9137D22035E40B6A36E5929E4056DE"
   },
   {
     "id": "CH10",
     "name": "엘리아",
     "category": "character",
-    "file": "assets/characters/엘리아.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH10_DELTA.txt",
+    "file": "document/03_characters/assets/characters/엘리아.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH10_DELTA.txt",
     "sha256": "E601AFD9C4891DE62DBBD04EB41D7E826BB97935A7F34E2EB0372B2E1527AA05"
   },
   {
     "id": "CH11",
     "name": "루카",
     "category": "character",
-    "file": "assets/characters/루카.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH11_DELTA.txt",
+    "file": "document/03_characters/assets/characters/루카.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH11_DELTA.txt",
     "sha256": "7EA1668C787D7751382833984F4BCCB064AE48D444F6F3AD37C286D420AC5647"
   },
   {
     "id": "CH12",
     "name": "리네",
     "category": "character",
-    "file": "assets/characters/리네.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH12_DELTA.txt",
+    "file": "document/03_characters/assets/characters/리네.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH12_DELTA.txt",
     "sha256": "6C13C6574809E49FBFD911D540DD5DAD012FEF926E681D47B164E3A7518AB55D"
   },
   {
     "id": "CH13",
     "name": "아드리안",
     "category": "character",
-    "file": "assets/characters/아드리안.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH13_DELTA.txt",
+    "file": "document/03_characters/assets/characters/아드리안.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH13_DELTA.txt",
     "sha256": "DAB5B76EFC3E25B0A58467BC53A30A3A2C5D9AB23CE3604148C8C35AB6B910BA"
   },
   {
     "id": "CH14",
     "name": "스텔라",
     "category": "character",
-    "file": "assets/characters/스텔라.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH14_DELTA.txt",
+    "file": "document/03_characters/assets/characters/스텔라.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH14_DELTA.txt",
     "sha256": "3BBD73BEBEFE1A928C3A036ABFCAEC571544C15623B01BCF261EEAC41D4185A5"
   },
   {
     "id": "CH15",
     "name": "로빈",
     "category": "character",
-    "file": "assets/characters/로빈.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH15_DELTA.txt",
+    "file": "document/03_characters/assets/characters/로빈.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH15_DELTA.txt",
     "sha256": "F0C843BB08A4F9E620D8ED65F903B77F9BA2BB5455D6A30794A88B8BD39B2BE2"
   },
   {
     "id": "CH16",
     "name": "티아",
     "category": "character",
-    "file": "assets/characters/티아.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH16_DELTA.txt",
+    "file": "document/03_characters/assets/characters/티아.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH16_DELTA.txt",
     "sha256": "8DD71F593B1A1C4CF357063E18F6C9DC17F0ED9A6054315B95A5E70D896D7B28"
   },
   {
     "id": "CH17",
     "name": "바론",
     "category": "character",
-    "file": "assets/characters/바론.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH17_DELTA.txt",
+    "file": "document/03_characters/assets/characters/바론.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH17_DELTA.txt",
     "sha256": "BA9CFB342215E7510F07352B3BB51E0CC2D7080F4C08AF663A6CE8A0DDB73103"
   },
   {
     "id": "CH18",
     "name": "클레어",
     "category": "character",
-    "file": "assets/characters/클레어.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH18_DELTA.txt",
+    "file": "document/03_characters/assets/characters/클레어.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH18_DELTA.txt",
     "sha256": "3B6019421B7F62D7BA0340C4AEA7CA0E0E7432822622EF1FF80DB8076120B661"
   },
   {
     "id": "CH19",
     "name": "요한",
     "category": "character",
-    "file": "assets/characters/요한.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH19_DELTA.txt",
+    "file": "document/03_characters/assets/characters/요한.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH19_DELTA.txt",
     "sha256": "30732AEC93D754C9E51704174B7BE9CFC7F20A161954F0DE303DBC7431570300"
   },
   {
     "id": "CH20",
     "name": "하젤",
     "category": "character",
-    "file": "assets/characters/하젤.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH20_DELTA.txt",
+    "file": "document/03_characters/assets/characters/하젤.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH20_DELTA.txt",
     "sha256": "42524E15B4B5E5B7B27BE074750FB8DD6740478B44197E0398369F19843431E2"
   },
   {
     "id": "CH21",
     "name": "빅터",
     "category": "character",
-    "file": "assets/characters/빅터.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH21_DELTA.txt",
+    "file": "document/03_characters/assets/characters/빅터.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH21_DELTA.txt",
     "sha256": "E3424B5C712463832D0144335208C53F258E960DE718660C4540723A8B1786AE"
   },
   {
     "id": "CH22",
     "name": "로렌",
     "category": "character",
-    "file": "assets/characters/로렌.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH22_DELTA.txt",
+    "file": "document/03_characters/assets/characters/로렌.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH22_DELTA.txt",
     "sha256": "4AD81D0FD804694CD86C942B9A2F348DE1ADAD06661DDC41FF42746580A31FD7"
   },
   {
     "id": "CH23",
     "name": "테오",
     "category": "character",
-    "file": "assets/characters/테오.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH23_DELTA.txt",
+    "file": "document/03_characters/assets/characters/테오.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH23_DELTA.txt",
     "sha256": "F497C6125CF0562F139BD9AD9CEA5DC70E3AA66AA867D082BB5DC3503636B0D2"
   },
   {
     "id": "CH24",
     "name": "미리엄",
     "category": "character",
-    "file": "assets/characters/미리엄.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH24_DELTA.txt",
+    "file": "document/03_characters/assets/characters/미리엄.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH24_DELTA.txt",
     "sha256": "EB6ED849587FFDD093D434C7FBF009D64EFF885A37EBEB31A0F337F3A9E96754"
   },
   {
     "id": "CH25",
     "name": "렌",
     "category": "character",
-    "file": "assets/characters/렌.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH25_DELTA.txt",
+    "file": "document/03_characters/assets/characters/렌.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH25_DELTA.txt",
     "sha256": "BFB545F848A1276A92390C7FC003E89034C274EC5DE2761E37CC4390246DD019"
   },
   {
     "id": "CH26",
     "name": "다나",
     "category": "character",
-    "file": "assets/characters/다나.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH26_DELTA.txt",
+    "file": "document/03_characters/assets/characters/다나.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH26_DELTA.txt",
     "sha256": "4349463222160ACBC8A1DB25BDBA16EAFCA26C84463B070D3DE62761E41A23FF"
   },
   {
     "id": "CH27",
     "name": "미엘",
     "category": "character",
-    "file": "assets/characters/미엘.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH27_DELTA.txt",
+    "file": "document/03_characters/assets/characters/미엘.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH27_DELTA.txt",
     "sha256": "29F93E0B31AE62EB13618F630223ED46D9E1C353C5CFF76CA0DD4D10D2C9FD2A"
   },
   {
     "id": "CH28",
     "name": "실비아",
     "category": "character",
-    "file": "assets/characters/실비아.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH28_DELTA.txt",
+    "file": "document/03_characters/assets/characters/실비아.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH28_DELTA.txt",
     "sha256": "F643982707B8BD54D679FE11EE292EAFBB7D2830C03FEB501AE3EF68F3328FED"
   },
   {
     "id": "CH29",
     "name": "카일",
     "category": "character",
-    "file": "assets/characters/카일.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH29_DELTA.txt",
+    "file": "document/03_characters/assets/characters/카일.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH29_DELTA.txt",
     "sha256": "8C83885F08BE33638C8650C59FE99277FBDA41F3EE9C74E463AB5A04BE40E90D"
   },
   {
     "id": "CH30",
     "name": "제나",
     "category": "character",
-    "file": "assets/characters/제나.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH30_DELTA.txt",
+    "file": "document/03_characters/assets/characters/제나.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH30_DELTA.txt",
     "sha256": "A3496F698613168F3EF1D5FF4DF25C322E6F3FDA8409B3BE7FD88F36999064FE"
   },
   {
     "id": "CH31",
     "name": "니코",
     "category": "character",
-    "file": "assets/characters/니코.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH31_DELTA.txt",
+    "file": "document/03_characters/assets/characters/니코.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH31_DELTA.txt",
     "sha256": "DCBA932284A87238A8E2C0504C02B01956624B505C87DE2234B14006AED56215"
   },
   {
     "id": "CH32",
     "name": "리코",
     "category": "character",
-    "file": "assets/characters/리코.png",
-    "prompt": "document/LUMIA_GENERATION_PACK/CH32_DELTA.txt",
+    "file": "document/03_characters/assets/characters/리코.png",
+    "prompt": "document/03_characters/LUMIA_GENERATION_PACK/CH32_DELTA.txt",
     "sha256": "914D245CEB8B56ECAF8C25E2D5AA5BD38B0EACC6594E591968214A0376073ADF"
   },
   {
     "id": "IT01",
     "name": "마음_일기",
     "category": "item",
-    "file": "assets/items/마음_일기.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/마음_일기.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "9B601C8143450DDA570B9D567CD4DA498216943D9B12D4B726B3A81634970522"
   },
   {
     "id": "IT02",
     "name": "룬_램프",
     "category": "item",
-    "file": "assets/items/룬_램프.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/룬_램프.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "08502D94632E1DF4BCAF497F3DFBCABF0276F342DABD37D155C861873812713B"
   },
   {
     "id": "IT03",
     "name": "차_세트",
     "category": "item",
-    "file": "assets/items/차_세트.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/차_세트.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "B49F01FEA330216D53A08C460C2ED4C9BE77D18F9E074AB5A40D1D4106C282EA"
   },
   {
     "id": "IT04",
     "name": "약초_화분",
     "category": "item",
-    "file": "assets/items/약초_화분.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/약초_화분.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "E633B1C6697DB940C7A437C1A786F7E5877F823A154042215EE424924B89D896"
   },
   {
     "id": "IT05",
     "name": "룬_조각",
     "category": "item",
-    "file": "assets/items/룬_조각.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/룬_조각.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "EF9DA3D18C09076D7FF7C16CF715C3B07ED4121CAB0076047E6165489F9B5863"
   },
   {
     "id": "IT06",
     "name": "추억_액자",
     "category": "item",
-    "file": "assets/items/추억_액자.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/추억_액자.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "7B78528CC6EAE81BE4AFBD62288C63ABBD4A78BBD18B502CDC823511A2CFD214"
   },
   {
     "id": "IT07",
     "name": "마이룸_책상",
     "category": "item",
-    "file": "assets/items/마이룸_책상.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/마이룸_책상.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "EA8E94031FC86E2A3A38A2C03DA6901A28C1F88C3951DE562E04E0A7D841ABFD"
   },
   {
     "id": "IT08",
     "name": "마이룸_의자",
     "category": "item",
-    "file": "assets/items/마이룸_의자.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/마이룸_의자.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "450FF9C90592F10455CE2B5966DA280F967DCA98FB551B19B15CC79E00E513B9"
   },
   {
     "id": "IT09",
     "name": "마이룸_침대",
     "category": "item",
-    "file": "assets/items/마이룸_침대.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/마이룸_침대.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "18BE04E528E3C12BA4CBBB12FEAA6C2851CECF23DF2FA876D3058D0BAB9AE87A"
   },
   {
     "id": "IT10",
     "name": "마이룸_책장",
     "category": "item",
-    "file": "assets/items/마이룸_책장.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/마이룸_책장.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "5BBED6554D31958CF0320666723331DDFC0BB6A308AFACDFB9F3A1DBC4E6942D"
   },
   {
     "id": "IT11",
     "name": "마이룸_러그",
     "category": "item",
-    "file": "assets/items/마이룸_러그.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/마이룸_러그.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "D3C2A14986FE48D6F3B95077B64C59551CEC95DAD7AA4FABA9A13A53F86580D3"
   },
   {
     "id": "IT12",
     "name": "룬_오브제",
     "category": "item",
-    "file": "assets/items/룬_오브제.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/룬_오브제.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "B1C7D4CB025B13B56476F037CB3FFDCBACC2C81A01B584CE1816297F7DDEF864"
   },
   {
     "id": "IT13",
     "name": "룬_고서",
     "category": "item",
-    "file": "assets/items/룬_고서.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/룬_고서.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "DDDA7686504CA2E4E92F43E70DF4B01869A67E8CFF787F8234BD763CA1732993"
   },
   {
     "id": "IT14",
     "name": "양피지_편지",
     "category": "item",
-    "file": "assets/items/양피지_편지.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/양피지_편지.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "50376021158CA2BE2E16C9F00F27F6AF61A88E2260C65E46B2192AF121D87189"
   },
   {
     "id": "IT15",
     "name": "마석_공방_도구",
     "category": "item",
-    "file": "assets/items/마석_공방_도구.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/마석_공방_도구.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "83D2714DDA11B4ACAB7C56405CD3C08D61C59DEFD013BC9F952FF1BD08D99252"
   },
   {
     "id": "IT16",
     "name": "훈련용_목검",
     "category": "item",
-    "file": "assets/items/훈련용_목검.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/훈련용_목검.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "170A8FBDB83E4B08690E72FAD8CEFA14611583738F443A7FECBF6E8F3A4DE13A"
   },
   {
     "id": "IT17",
     "name": "공방_마석",
     "category": "item",
-    "file": "assets/items/공방_마석.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/공방_마석.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "4B05C7E91A849EAEEC86DCE9973B6BF7A388E2E3114095541329B7E5177C5078"
   },
   {
     "id": "IT18",
     "name": "마음_룬",
     "category": "item",
-    "file": "assets/items/마음_룬.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/마음_룬.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "7AAD1BA6D83BB6C2AD635F9CFD8A6C64E96B0540F16AED6A1ABE04B4C9722271"
   },
   {
     "id": "IT19",
     "name": "그림자_룬",
     "category": "item",
-    "file": "assets/items/그림자_룬.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/그림자_룬.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "040BCAE27171468A6987937EE01738D2C02FE39CE89BF5CAD4034F6554D772F6"
   },
   {
     "id": "IT20",
     "name": "정화된_룬",
     "category": "item",
-    "file": "assets/items/정화된_룬.png",
-    "prompt": "document/item-generation-prompts.json",
+    "file": "document/03_characters/assets/items/정화된_룬.png",
+    "prompt": "document/03_characters/item-generation-prompts.json",
     "sha256": "A8E3757EB100602A17512B25C89E5FE50349201795BD56CE6A7E4A43FB3DA68B"
   },
   {
     "id": "BG01",
     "name": "아르카디아_입구와_호수",
     "category": "background",
-    "file": "assets/backgrounds/아르카디아_입구와_호수.png",
-    "prompt": "document/background-generation-prompts.json",
+    "file": "document/03_characters/assets/backgrounds/아르카디아_입구와_호수.png",
+    "prompt": "document/03_characters/background-generation-prompts.json",
     "sha256": "E6E33244FC03D50989EEC741EBE041C7305B93AD8FE2F06537C42544316050EB"
   },
   {
     "id": "BG02",
     "name": "시계탑_광장",
     "category": "background",
-    "file": "assets/backgrounds/시계탑_광장.png",
-    "prompt": "document/background-generation-prompts.json",
+    "file": "document/03_characters/assets/backgrounds/시계탑_광장.png",
+    "prompt": "document/03_characters/background-generation-prompts.json",
     "sha256": "FE8598CA3861D847AE2F3F6E295B9A686B79B37A4D01A3D093A4C5DD4AFCDFCB"
   },
   {
     "id": "BG03",
     "name": "빈_마이룸",
     "category": "background",
-    "file": "assets/backgrounds/빈_마이룸.png",
-    "prompt": "document/background-generation-prompts.json",
+    "file": "document/03_characters/assets/backgrounds/빈_마이룸.png",
+    "prompt": "document/03_characters/background-generation-prompts.json",
     "sha256": "3264EF9FFC28B6A2381A46B7F41DB5E300C4D646069BAD8D20E2FE1920FF32F1"
   },
   {
     "id": "BG04",
     "name": "학원_기숙사",
     "category": "background",
-    "file": "assets/backgrounds/학원_기숙사.png",
-    "prompt": "document/background-generation-prompts.json",
+    "file": "document/03_characters/assets/backgrounds/학원_기숙사.png",
+    "prompt": "document/03_characters/background-generation-prompts.json",
     "sha256": "FDB5C4AC0EEBB6674CEF7F3A719B385FAFFFA94827BFAA45D65E3E26429AAB88"
   },
   {
     "id": "BG05",
     "name": "대서고",
     "category": "background",
-    "file": "assets/backgrounds/대서고.png",
-    "prompt": "document/background-generation-prompts.json",
+    "file": "document/03_characters/assets/backgrounds/대서고.png",
+    "prompt": "document/03_characters/background-generation-prompts.json",
     "sha256": "70AC5A6CD0F4ADDBFA0DAD8589FA4B82D5CDEC78DF63FDC7BE3F42427F89F6CD"
   },
   {
     "id": "BG06",
     "name": "별빛_천문대",
     "category": "background",
-    "file": "assets/backgrounds/별빛_천문대.png",
-    "prompt": "document/background-generation-prompts.json",
+    "file": "document/03_characters/assets/backgrounds/별빛_천문대.png",
+    "prompt": "document/03_characters/background-generation-prompts.json",
     "sha256": "EEB2C74593F620427F8A8F825B503249D962DABD0E0D9E847E6807F5655ECDE0"
   },
   {
     "id": "BG07",
     "name": "유리_온실",
     "category": "background",
-    "file": "assets/backgrounds/유리_온실.png",
-    "prompt": "document/background-generation-prompts.json",
+    "file": "document/03_characters/assets/backgrounds/유리_온실.png",
+    "prompt": "document/03_characters/background-generation-prompts.json",
     "sha256": "EFE37767D7033BDB4A1893F8A2B55C3A0CAEF09622F0B2F115B1BBED5B0B7435"
   },
   {
     "id": "BG08",
     "name": "치유의_약초원",
     "category": "background",
-    "file": "assets/backgrounds/치유의_약초원.png",
-    "prompt": "document/background-generation-prompts.json",
+    "file": "document/03_characters/assets/backgrounds/치유의_약초원.png",
+    "prompt": "document/03_characters/background-generation-prompts.json",
     "sha256": "8E2057E40587AE09B7F7B575AF9F904982DA6B45C345C65D629A691784D70444"
   },
   {
     "id": "BG09",
     "name": "마도_공방",
     "category": "background",
-    "file": "assets/backgrounds/마도_공방.png",
-    "prompt": "document/background-generation-prompts.json",
+    "file": "document/03_characters/assets/backgrounds/마도_공방.png",
+    "prompt": "document/03_characters/background-generation-prompts.json",
     "sha256": "F9EEDAA585E60A280851C2CBC3870C9AD6C7E2A547789D11116B81FE52415D17"
   },
   {
     "id": "BG10",
     "name": "룬_수련장",
     "category": "background",
-    "file": "assets/backgrounds/룬_수련장.png",
-    "prompt": "document/background-generation-prompts.json",
+    "file": "document/03_characters/assets/backgrounds/룬_수련장.png",
+    "prompt": "document/03_characters/background-generation-prompts.json",
     "sha256": "A399E3B374AD23CC28F7E64F64A803FFFE45D64605E394EBCB2EAEB39519520B"
   }
 ]

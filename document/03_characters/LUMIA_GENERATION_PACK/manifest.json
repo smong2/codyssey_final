@@ -7,7 +7,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/카엘.png",
+    "image_file": "../assets/characters/카엘.png",
     "original_output_file": "CH01_v001.png"
   },
   {
@@ -18,7 +18,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/세라.png",
+    "image_file": "../assets/characters/세라.png",
     "original_output_file": "CH02_v001.png"
   },
   {
@@ -29,7 +29,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/시온.png",
+    "image_file": "../assets/characters/시온.png",
     "original_output_file": "CH03_v001.png"
   },
   {
@@ -40,7 +40,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/로엔.png",
+    "image_file": "../assets/characters/로엔.png",
     "original_output_file": "CH04_v001.png"
   },
   {
@@ -51,7 +51,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/레온.png",
+    "image_file": "../assets/characters/레온.png",
     "original_output_file": "CH05_v001.png"
   },
   {
@@ -62,7 +62,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/벨라.png",
+    "image_file": "../assets/characters/벨라.png",
     "original_output_file": "CH06_v001.png"
   },
   {
@@ -73,7 +73,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/유안.png",
+    "image_file": "../assets/characters/유안.png",
     "original_output_file": "CH07_v001.png"
   },
   {
@@ -84,7 +84,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/아이리스.png",
+    "image_file": "../assets/characters/아이리스.png",
     "original_output_file": "CH08_v001.png"
   },
   {
@@ -95,7 +95,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/에녹.png",
+    "image_file": "../assets/characters/에녹.png",
     "original_output_file": "CH09_v001.png"
   },
   {
@@ -106,7 +106,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/엘리아.png",
+    "image_file": "../assets/characters/엘리아.png",
     "original_output_file": "CH10_v001.png"
   },
   {
@@ -117,7 +117,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/루카.png",
+    "image_file": "../assets/characters/루카.png",
     "original_output_file": "CH11_v001.png"
   },
   {
@@ -128,7 +128,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/리네.png",
+    "image_file": "../assets/characters/리네.png",
     "original_output_file": "CH12_v001.png"
   },
   {
@@ -139,7 +139,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/아드리안.png",
+    "image_file": "../assets/characters/아드리안.png",
     "original_output_file": "CH13_v001.png"
   },
   {
@@ -150,7 +150,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/스텔라.png",
+    "image_file": "../assets/characters/스텔라.png",
     "original_output_file": "CH14_v001.png"
   },
   {
@@ -161,7 +161,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/로빈.png",
+    "image_file": "../assets/characters/로빈.png",
     "original_output_file": "CH15_v001.png"
   },
   {
@@ -172,7 +172,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/티아.png",
+    "image_file": "../assets/characters/티아.png",
     "original_output_file": "CH16_v001.png"
   },
   {
@@ -183,7 +183,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/바론.png",
+    "image_file": "../assets/characters/바론.png",
     "original_output_file": "CH17_v001.png"
   },
   {
@@ -194,7 +194,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/클레어.png",
+    "image_file": "../assets/characters/클레어.png",
     "original_output_file": "CH18_v001.png"
   },
   {
@@ -205,7 +205,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/요한.png",
+    "image_file": "../assets/characters/요한.png",
     "original_output_file": "CH19_v001.png"
   },
   {
@@ -216,7 +216,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/하젤.png",
+    "image_file": "../assets/characters/하젤.png",
     "original_output_file": "CH20_v001.png"
   },
   {
@@ -227,7 +227,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/빅터.png",
+    "image_file": "../assets/characters/빅터.png",
     "original_output_file": "CH21_v001.png"
   },
   {
@@ -238,7 +238,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/로렌.png",
+    "image_file": "../assets/characters/로렌.png",
     "original_output_file": "CH22_v001.png"
   },
   {
@@ -249,7 +249,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/테오.png",
+    "image_file": "../assets/characters/테오.png",
     "original_output_file": "CH23_v001.png"
   },
   {
@@ -260,7 +260,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/미리엄.png",
+    "image_file": "../assets/characters/미리엄.png",
     "original_output_file": "CH24_v001.png"
   },
   {
@@ -271,7 +271,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/렌.png",
+    "image_file": "../assets/characters/렌.png",
     "original_output_file": "CH25_v001.png"
   },
   {
@@ -282,7 +282,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/다나.png",
+    "image_file": "../assets/characters/다나.png",
     "original_output_file": "CH26_v001.png"
   },
   {
@@ -293,7 +293,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/미엘.png",
+    "image_file": "../assets/characters/미엘.png",
     "original_output_file": "CH27_v001.png"
   },
   {
@@ -304,7 +304,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/실비아.png",
+    "image_file": "../assets/characters/실비아.png",
     "original_output_file": "CH28_v001.png"
   },
   {
@@ -315,7 +315,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/카일.png",
+    "image_file": "../assets/characters/카일.png",
     "original_output_file": "CH29_v001.png"
   },
   {
@@ -326,7 +326,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/제나.png",
+    "image_file": "../assets/characters/제나.png",
     "original_output_file": "CH30_v001.png"
   },
   {
@@ -337,7 +337,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/니코.png",
+    "image_file": "../assets/characters/니코.png",
     "original_output_file": "CH31_v001.png"
   },
   {
@@ -348,7 +348,7 @@
     "locks": "COMMON_LOCKS.txt",
     "status": "generated_pending_production_qa",
     "image_generated": true,
-    "image_file": "../../assets/characters/리코.png",
+    "image_file": "../assets/characters/리코.png",
     "original_output_file": "CH32_v001.png"
   },
   {

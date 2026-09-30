@@ -4,63 +4,63 @@
 
 ## BG01 아르카디아 입구와 호수
 
-1672 × 941 px · [PNG 원본](../assets/backgrounds/아르카디아_입구와_호수.png)
+1672 × 941 px · [PNG 원본](assets/backgrounds/아르카디아_입구와_호수.png)
 
-![아르카디아_입구와_호수](../assets/backgrounds/아르카디아_입구와_호수.png)
+![아르카디아_입구와_호수](assets/backgrounds/아르카디아_입구와_호수.png)
 
 ## BG02 시계탑 광장
 
-1672 × 941 px · [PNG 원본](../assets/backgrounds/시계탑_광장.png)
+1672 × 941 px · [PNG 원본](assets/backgrounds/시계탑_광장.png)
 
-![시계탑_광장](../assets/backgrounds/시계탑_광장.png)
+![시계탑_광장](assets/backgrounds/시계탑_광장.png)
 
 ## BG03 빈 마이룸
 
-1672 × 941 px · [PNG 원본](../assets/backgrounds/빈_마이룸.png)
+1672 × 941 px · [PNG 원본](assets/backgrounds/빈_마이룸.png)
 
-![빈_마이룸](../assets/backgrounds/빈_마이룸.png)
+![빈_마이룸](assets/backgrounds/빈_마이룸.png)
 
 ## BG04 학원 기숙사
 
-1672 × 941 px · [PNG 원본](../assets/backgrounds/학원_기숙사.png)
+1672 × 941 px · [PNG 원본](assets/backgrounds/학원_기숙사.png)
 
-![학원_기숙사](../assets/backgrounds/학원_기숙사.png)
+![학원_기숙사](assets/backgrounds/학원_기숙사.png)
 
 ## BG05 대서고
 
-1672 × 941 px · [PNG 원본](../assets/backgrounds/대서고.png)
+1672 × 941 px · [PNG 원본](assets/backgrounds/대서고.png)
 
-![대서고](../assets/backgrounds/대서고.png)
+![대서고](assets/backgrounds/대서고.png)
 
 ## BG06 별빛 천문대
 
-1672 × 941 px · [PNG 원본](../assets/backgrounds/별빛_천문대.png)
+1672 × 941 px · [PNG 원본](assets/backgrounds/별빛_천문대.png)
 
-![별빛_천문대](../assets/backgrounds/별빛_천문대.png)
+![별빛_천문대](assets/backgrounds/별빛_천문대.png)
 
 ## BG07 유리 온실
 
-1672 × 941 px · [PNG 원본](../assets/backgrounds/유리_온실.png)
+1672 × 941 px · [PNG 원본](assets/backgrounds/유리_온실.png)
 
-![유리_온실](../assets/backgrounds/유리_온실.png)
+![유리_온실](assets/backgrounds/유리_온실.png)
 
 ## BG08 치유의 약초원
 
-1672 × 941 px · [PNG 원본](../assets/backgrounds/치유의_약초원.png)
+1672 × 941 px · [PNG 원본](assets/backgrounds/치유의_약초원.png)
 
-![치유의_약초원](../assets/backgrounds/치유의_약초원.png)
+![치유의_약초원](assets/backgrounds/치유의_약초원.png)
 
 ## BG09 마도 공방
 
-1672 × 941 px · [PNG 원본](../assets/backgrounds/마도_공방.png)
+1672 × 941 px · [PNG 원본](assets/backgrounds/마도_공방.png)
 
-![마도_공방](../assets/backgrounds/마도_공방.png)
+![마도_공방](assets/backgrounds/마도_공방.png)
 
 ## BG10 룬 수련장
 
-1672 × 941 px · [PNG 원본](../assets/backgrounds/룬_수련장.png)
+1672 × 941 px · [PNG 원본](assets/backgrounds/룬_수련장.png)
 
-![룬_수련장](../assets/backgrounds/룬_수련장.png)
+![룬_수련장](assets/backgrounds/룬_수련장.png)
 
 ## 적용 메모
 

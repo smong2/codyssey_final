@@ -2,7 +2,7 @@
   {
     "id": "IT01",
     "name": "마음_일기",
-    "file": "assets/items/마음_일기.png",
+    "file": "document/03_characters/assets/items/마음_일기.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -11,7 +11,7 @@
   {
     "id": "IT02",
     "name": "룬_램프",
-    "file": "assets/items/룬_램프.png",
+    "file": "document/03_characters/assets/items/룬_램프.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -20,7 +20,7 @@
   {
     "id": "IT03",
     "name": "차_세트",
-    "file": "assets/items/차_세트.png",
+    "file": "document/03_characters/assets/items/차_세트.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -29,7 +29,7 @@
   {
     "id": "IT04",
     "name": "약초_화분",
-    "file": "assets/items/약초_화분.png",
+    "file": "document/03_characters/assets/items/약초_화분.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -38,7 +38,7 @@
   {
     "id": "IT05",
     "name": "룬_조각",
-    "file": "assets/items/룬_조각.png",
+    "file": "document/03_characters/assets/items/룬_조각.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -47,7 +47,7 @@
   {
     "id": "IT06",
     "name": "추억_액자",
-    "file": "assets/items/추억_액자.png",
+    "file": "document/03_characters/assets/items/추억_액자.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -56,7 +56,7 @@
   {
     "id": "IT07",
     "name": "마이룸_책상",
-    "file": "assets/items/마이룸_책상.png",
+    "file": "document/03_characters/assets/items/마이룸_책상.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -65,7 +65,7 @@
   {
     "id": "IT08",
     "name": "마이룸_의자",
-    "file": "assets/items/마이룸_의자.png",
+    "file": "document/03_characters/assets/items/마이룸_의자.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -74,7 +74,7 @@
   {
     "id": "IT09",
     "name": "마이룸_침대",
-    "file": "assets/items/마이룸_침대.png",
+    "file": "document/03_characters/assets/items/마이룸_침대.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -83,7 +83,7 @@
   {
     "id": "IT10",
     "name": "마이룸_책장",
-    "file": "assets/items/마이룸_책장.png",
+    "file": "document/03_characters/assets/items/마이룸_책장.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -92,7 +92,7 @@
   {
     "id": "IT11",
     "name": "마이룸_러그",
-    "file": "assets/items/마이룸_러그.png",
+    "file": "document/03_characters/assets/items/마이룸_러그.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -101,7 +101,7 @@
   {
     "id": "IT12",
     "name": "룬_오브제",
-    "file": "assets/items/룬_오브제.png",
+    "file": "document/03_characters/assets/items/룬_오브제.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -110,7 +110,7 @@
   {
     "id": "IT13",
     "name": "룬_고서",
-    "file": "assets/items/룬_고서.png",
+    "file": "document/03_characters/assets/items/룬_고서.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -119,7 +119,7 @@
   {
     "id": "IT14",
     "name": "양피지_편지",
-    "file": "assets/items/양피지_편지.png",
+    "file": "document/03_characters/assets/items/양피지_편지.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -128,7 +128,7 @@
   {
     "id": "IT15",
     "name": "마석_공방_도구",
-    "file": "assets/items/마석_공방_도구.png",
+    "file": "document/03_characters/assets/items/마석_공방_도구.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -137,7 +137,7 @@
   {
     "id": "IT16",
     "name": "훈련용_목검",
-    "file": "assets/items/훈련용_목검.png",
+    "file": "document/03_characters/assets/items/훈련용_목검.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -146,7 +146,7 @@
   {
     "id": "IT17",
     "name": "공방_마석",
-    "file": "assets/items/공방_마석.png",
+    "file": "document/03_characters/assets/items/공방_마석.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -155,7 +155,7 @@
   {
     "id": "IT18",
     "name": "마음_룬",
-    "file": "assets/items/마음_룬.png",
+    "file": "document/03_characters/assets/items/마음_룬.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -164,7 +164,7 @@
   {
     "id": "IT19",
     "name": "그림자_룬",
-    "file": "assets/items/그림자_룬.png",
+    "file": "document/03_characters/assets/items/그림자_룬.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
@@ -173,7 +173,7 @@
   {
     "id": "IT20",
     "name": "정화된_룬",
-    "file": "assets/items/정화된_룬.png",
+    "file": "document/03_characters/assets/items/정화된_룬.png",
     "width": 1254,
     "height": 1254,
     "format": "Format32bppArgb",
