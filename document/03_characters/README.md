@@ -95,3 +95,8 @@
 
 [02 크기 기준·미제작 파일 목록](01_design/02_size_and_production_plan.md) · [03 파일별 크기 실측](01_design/03_size_audit.json)
 
+
+## 2026-10-01 Prototype 제작 기준
+
+[05 중복 검사·카테고리별 체크리스트](01_design/05_prototype_checklist.md) · [06 생성 큐](01_design/06_prototype_queue.json) · [신규 기준 문서](01_design/04_source_documents/)
+

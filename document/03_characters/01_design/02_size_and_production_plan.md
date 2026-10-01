@@ -119,3 +119,6 @@
 
 매 생성 전: 카테고리·ID·파일명·최종 규격 확인 → 공통 LOCK+DELTA 전달 → 실제 픽셀·투명도 검사 → 구도/발 기준선/소품 여백 확인 → 이미지·프롬프트·매칭표 연결 검증. 규격 불일치는 pending_normalization, 원화만 생성된 것은 generated_pending_production_qa로 기록한다. 기존 원본 덮어쓰기 금지. 모든 후속 파일은 document/03_characters 아래에서 관리한다.
 
+
+> 2026-10-01 갱신: 이 문서는 이전 전체 게임 제작 계획이다. 현재 실행 범위·초기 규격은 [05 Prototype 체크리스트](05_prototype_checklist.md)를 우선한다. 전체 표정175개와 추가 장소/소품 일괄 생성은 보류한다.
+
