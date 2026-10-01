@@ -102,3 +102,4 @@
 
 - [Prototype 02_characters](02_characters/01_prototype_overview.md)
 - [Prototype 05_ui](05_ui/01_overview.md)
+- [Prototype 06_effects](06_effects/01_overview.md)
