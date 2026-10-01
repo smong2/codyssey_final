@@ -791,5 +791,16 @@
     "status": "generated_pending_game_qa",
     "width": 768,
     "height": 2048
+  },
+  {
+    "id": "PZ01",
+    "name": "퍼즐_타일_바탕",
+    "category": "10_puzzle",
+    "file": "document/03_characters/10_puzzle/04_images/PZ01_퍼즐_타일_바탕.png",
+    "prompt": "document/03_characters/10_puzzle/02_prototype_prompts.json",
+    "sha256": "9224DE8D86941A6A1B893EE215397C369CFFD02FB10F4E55E26C3DA1FBA46AEB",
+    "status": "generated_pending_game_qa",
+    "width": 256,
+    "height": 256
   }
 ]
