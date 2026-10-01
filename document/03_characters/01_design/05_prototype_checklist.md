@@ -20,11 +20,11 @@
 체크는 생성 파일 저장 여부를 뜻한다. 게임 적용 승인·크기 합격·반복 타일 합격과는 구분한다. 세부 상태는 06_prototype_queue.json 및 카테고리 파일 목록을 따른다.
 
 - [x] NPC03 — `02_characters/04_images/NPC03_베른.png` — 1024×1536 — 초기 제작 기준
-- [ ] UI01 — `05_ui/04_images/UI01_양피지_타일.png` — 512×512 — 초기 제작 기준
-- [ ] UI02 — `05_ui/04_images/UI02_프레임_모서리.png` — 192×192 — 초기 제작 기준
-- [ ] UI03 — `05_ui/04_images/UI03_캐릭터_카드_배경.png` — 480×640 — 초기 제작 기준
-- [ ] UI04 — `05_ui/04_images/UI04_전신_미리보기_배경.png` — 800×1200 — 초기 제작 기준
-- [ ] UI07 — `05_ui/04_images/UI07_입학_초대장.png` — 1200×800 — 초기 제작 기준
+- [x] UI01 — `05_ui/04_images/UI01_양피지_타일.png` — 512×512 — 초기 제작 기준
+- [x] UI02 — `05_ui/04_images/UI02_프레임_모서리.png` — 192×192 — 초기 제작 기준
+- [x] UI03 — `05_ui/04_images/UI03_캐릭터_카드_배경.png` — 480×640 — 초기 제작 기준
+- [x] UI04 — `05_ui/04_images/UI04_전신_미리보기_배경.png` — 800×1200 — 초기 제작 기준
+- [x] UI07 — `05_ui/04_images/UI07_입학_초대장.png` — 1200×800 — 초기 제작 기준
 - [ ] FX01 — `06_effects/04_images/FX01_공통_룬_빛.png` — 512×512 — 초기 제작 기준
 - [ ] ENV01 — `07_adventure_environment/04_images/ENV01_온실_바닥_기본.png` — 128×128 — 초기 테스트값, 게임 Scale 검증 전
 - [ ] ENV02 — `07_adventure_environment/04_images/ENV02_온실_바닥_변형_A.png` — 128×128 — 초기 테스트값, 게임 Scale 검증 전
@@ -81,5 +81,11 @@
 ## 5. 저장 규칙
 
 모든 결과는 document/03_characters 아래 기존 번호 체계를 유지한다. 02_characters는 베른을 추가, 05_ui·06_effects·07_adventure_environment·08_adventure_objects는 이번 생성 항목에 필요한 분류다. 각 분류는 01_overview.md / 02_prompts.json / 03_manifest.json / 04_images 순서. 카테고리 생성 종료마다 체크리스트와 파일 목록을 갱신하고 GitHub에 commit/push한다. 크기 미일치나 게임 QA 미완료를 숨기지 않는다.
+
+
+
+
+
+
 
 

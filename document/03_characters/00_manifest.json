@@ -505,5 +505,60 @@
     "status": "generated_pending_game_qa",
     "width": 1024,
     "height": 1536
+  },
+  {
+    "id": "UI01",
+    "name": "양피지_타일",
+    "category": "05_ui",
+    "file": "document/03_characters/05_ui/04_images/UI01_양피지_타일.png",
+    "prompt": "document/03_characters/05_ui/02_prototype_prompts.json",
+    "sha256": "B9F4ADA9047B585BD71227AE83670D77B8CB3FC41DF7273E692B575A17AB3CD9",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512
+  },
+  {
+    "id": "UI02",
+    "name": "프레임_모서리",
+    "category": "05_ui",
+    "file": "document/03_characters/05_ui/04_images/UI02_프레임_모서리.png",
+    "prompt": "document/03_characters/05_ui/02_prototype_prompts.json",
+    "sha256": "B0990071B4E828237786F989665E22EE0A619D1E7CA2D87AB81FAAD23DF694EC",
+    "status": "generated_pending_game_qa",
+    "width": 192,
+    "height": 192
+  },
+  {
+    "id": "UI03",
+    "name": "캐릭터_카드_배경",
+    "category": "05_ui",
+    "file": "document/03_characters/05_ui/04_images/UI03_캐릭터_카드_배경.png",
+    "prompt": "document/03_characters/05_ui/02_prototype_prompts.json",
+    "sha256": "97067EC7D964AE9000DB127D132A7CFAC108732C3A737745AB6A4F724D2D1006",
+    "status": "generated_pending_game_qa",
+    "width": 480,
+    "height": 640
+  },
+  {
+    "id": "UI04",
+    "name": "전신_미리보기_배경",
+    "category": "05_ui",
+    "file": "document/03_characters/05_ui/04_images/UI04_전신_미리보기_배경.png",
+    "prompt": "document/03_characters/05_ui/02_prototype_prompts.json",
+    "sha256": "782B8F2F06212B86D395EBA52EC6EAFC18BC1C21E3B0B8EF447680515C637C4C",
+    "status": "generated_pending_game_qa",
+    "width": 800,
+    "height": 1200
+  },
+  {
+    "id": "UI07",
+    "name": "입학_초대장",
+    "category": "05_ui",
+    "file": "document/03_characters/05_ui/04_images/UI07_입학_초대장.png",
+    "prompt": "document/03_characters/05_ui/02_prototype_prompts.json",
+    "sha256": "8B90282ED8EEABB9671DB8DFB819C356E5AC3FEFDC438246E8A0B57FD6EE7624",
+    "status": "generated_pending_game_qa",
+    "width": 1200,
+    "height": 800
   }
 ]

@@ -10,16 +10,17 @@ if(-not $a){throw 'Unknown ID'}
 $cat=Join-Path $b $a.category
 New-Item -ItemType Directory -Force -Path "$cat/04_images","$cat/05_sources" | Out-Null
 $raw="$cat/05_sources/$($a.id)_$($a.name)_source.png"
-if(Test-Path -LiteralPath $raw){throw 'Source already saved'}
-Copy-Item -LiteralPath $Source -Destination $raw
+if(Test-Path -LiteralPath $raw){
+ if([IO.Path]::GetFullPath($Source) -ne [IO.Path]::GetFullPath($raw)){throw 'Source already saved'}
+}else{Copy-Item -LiteralPath $Source -Destination $raw}
 $im=[System.Drawing.Bitmap]::FromFile($raw)
 $w=$im.Width; $h=$im.Height
 $out=Join-Path $b $a.file
-if($w -eq $a.width -and $h -eq $a.height){Copy-Item -LiteralPath $raw -Destination $out}
+if($w -eq $a.width -and $h -eq $a.height -and $a.transparent){Copy-Item -LiteralPath $raw -Destination $out}
 else{
  $bmp=New-Object System.Drawing.Bitmap([int]$a.width,[int]$a.height,[System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
  $g=[System.Drawing.Graphics]::FromImage($bmp)
- $g.Clear([System.Drawing.Color]::Transparent)
+ if($a.transparent){$g.Clear([System.Drawing.Color]::Transparent)}else{$g.Clear([System.Drawing.Color]::FromArgb(255,248,243,228))}
  $g.InterpolationMode=[System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
  $g.PixelOffsetMode=[System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
  # Export geometry only; preserve aspect, contain for cutouts and cover for opaque backgrounds.
