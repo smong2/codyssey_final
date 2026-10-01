@@ -769,5 +769,27 @@
     "status": "generated_pending_game_qa",
     "width": 512,
     "height": 512
+  },
+  {
+    "id": "SD01",
+    "name": "카엘_기준",
+    "category": "09_sd_character",
+    "file": "document/03_characters/09_sd_character/04_images/SD01_카엘_기준.png",
+    "prompt": "document/03_characters/09_sd_character/02_prototype_prompts.json",
+    "sha256": "EEA0CE8CC22E96D1BD375D99C3B16D70B74E911C638D577A972E4CECC95F0679",
+    "status": "generated_pending_game_qa",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "id": "SD02",
+    "name": "카엘_걷기_마스터",
+    "category": "09_sd_character",
+    "file": "document/03_characters/09_sd_character/04_images/SD02_카엘_걷기_마스터.png",
+    "prompt": "document/03_characters/09_sd_character/02_prototype_prompts.json",
+    "sha256": "A3FFBFFE772D6803AC8070B5CCD40F2FECC1C37F1667E6D2833611AB41B07599",
+    "status": "generated_pending_game_qa",
+    "width": 768,
+    "height": 2048
   }
 ]
