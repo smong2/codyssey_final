@@ -494,5 +494,16 @@
     "file": "document/03_characters/04_backgrounds/04_images/BG10_룬_수련장.png",
     "prompt": "document/03_characters/04_backgrounds/02_prompts.json",
     "sha256": "A399E3B374AD23CC28F7E64F64A803FFFE45D64605E394EBCB2EAEB39519520B"
+  },
+  {
+    "id": "NPC03",
+    "name": "베른",
+    "category": "02_characters",
+    "file": "document/03_characters/02_characters/04_images/NPC03_베른.png",
+    "prompt": "document/03_characters/02_characters/02_prototype_prompts.json",
+    "sha256": "79B1C19FFE73A81E733B8B2DC89084A653563BF816955285C4E9A7F252A016F3",
+    "status": "generated_pending_game_qa",
+    "width": 1024,
+    "height": 1536
   }
 ]

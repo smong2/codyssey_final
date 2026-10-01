@@ -100,3 +100,4 @@
 
 [05 중복 검사·카테고리별 체크리스트](01_design/05_prototype_checklist.md) · [06 생성 큐](01_design/06_prototype_queue.json) · [신규 기준 문서](01_design/04_source_documents/)
 
+- [Prototype 02_characters](02_characters/01_prototype_overview.md)
