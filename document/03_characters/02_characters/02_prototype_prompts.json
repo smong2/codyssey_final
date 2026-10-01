@@ -19,7 +19,8 @@
       "alpha_min_sampled": 0,
       "alpha_max_sampled": 254,
       "sha256": "79B1C19FFE73A81E733B8B2DC89084A653563BF816955285C4E9A7F252A016F3",
-      "source_file": "02_characters/05_sources/NPC03_베른_source.png"
+      "source_file": "02_characters/05_sources/NPC03_베른_source.png",
+      "qa_status": "needs_halo_cleanup"
     }
   ]
 }

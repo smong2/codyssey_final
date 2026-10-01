@@ -11,9 +11,9 @@
 - [x] 베른은 문서에 Existing으로 적혀 있으나 이미지 없음. NPC03 신규 필요. 이시스/발렌티누스는 Prototype 캐스팅이 정해지기 전 보류.
 - [x] 통합 기획 구 8장 Life 직접 이동 표현은 상단 확정 설계·13장·Designer Guide의 Life/Adventure 분리와 충돌한다. 최신 명시 설계에 따라 Life는 정적, Adventure만 SD 조작.
 - [x] 파일 규격은 현재 Prototype 권장(큰 인물1024×1536, Life1920×1080)을 우선하며 이전 마스터2048×3072/배경2560×1440은 현 단계 필수 아님.
-- [x] 현재 수량: 베른1 + UI재료5 + 공통FX1 + 온실 환경 테스트13 + 사건 오브젝트5 = 25개 생성/편집 시안.
+- [x] 최초 큐 25개 + SD2개 + 퍼즐 바탕1개 = 28개 생성/편집 시안. 퍼즐 SVG 8개 별도.
 - [ ] 생성 결과의 실제 크기·투명도·상태 연속성 검수. 반환 크기가 다르면 pending_normalization으로 기록.
-- [ ] 생성 원본은 보존하고 테스트/납품 크기와 구분. 단순 확대를 고해상도 원화로 칭하지 않음.
+- [x] 생성 원본은 보존하고 테스트/납품 크기와 구분. 단순 확대를 고해상도 원화로 칭하지 않음.
 
 ## 2. 파일별 생성 큐
 
@@ -55,10 +55,10 @@
 | 1.2 | Character Select | 기존32인 재사용, 카드 재료 신규. Tab/정보패널/확대/확인창은 공통 UI 조합. 노출 인원 TBD |
 | 1.3 | Life Background | 기존10장 재사용 후보, Prototype은 광장/온실/마이룸. 1920×1080 Export는 원본 보존 후 별도 검수, 새 장소 그림 없음 |
 | 1.4 | Dialogue UI | 큰 인물 재사용. 추가 표정은 캐스팅·대본 후. Dialogue/Choice/Objective/Notification 공통 Panel/Button, 이동 UI TBD |
-| 1.5 | SD Character | 대표1인·8방향 Base→3Frame Walk 최대24, Cell/대표 인물 미확정. 답변/테스트 전 보류, Idle 중립 프레임 재사용 |
+| 1.5 | SD Character | 사용자 위임으로 카엘·256 Cell 시험. 기준과 시트 생성, 시트 방향 오류로 게임용 분리 미완료 |
 | 1.6 | Tile/Environment | 위 ENV01~13 테스트 세트, 화분은 IT04 재사용 검토. 게임 Scale·반복 경계·가림 적용 검수 필요 |
 | 1.7 | Investigation | OBJ01~05, 약초 Icon은 원본 축소 우선. 유리꽃 씨앗/Icon Optional 보류 |
-| 1.8 | Puzzle | Connect/Rotate 규칙만 확정. Grid/Tile TBD이므로 Rune Tile·직선/곡선·Start/Goal 크기 임의 확정 금지. Panel은 공통 UI, FX01 재사용 |
+| 1.8 | Puzzle | Connect/Rotate 규칙만 확정. 사용자 위임으로 3×3 Grid, 256 Tile 시험. 바탕 및 연결선 8종 생성. Panel은 공통 UI, FX01 재사용 |
 | 1.9 | Mini Game | Prototype 제외, 신규 제작 없음 |
 | 1.10 | HUD/Inventory/Knowledge/Hint | 공통 UI 조합. Bag/Journal/Hint/Interaction/Slot/Joystick/Action/키안내는 SVG/CSS. Hint 3단계 같은 Panel |
 | 1.11 | World Change | OBJ01→02, OBJ04→05와 FX01 재사용. 별도 전면 화면 없음 |
@@ -82,17 +82,6 @@
 
 모든 결과는 document/03_characters 아래 기존 번호 체계를 유지한다. 02_characters는 베른을 추가, 05_ui·06_effects·07_adventure_environment·08_adventure_objects는 이번 생성 항목에 필요한 분류다. 각 분류는 01_overview.md / 02_prompts.json / 03_manifest.json / 04_images 순서. 카테고리 생성 종료마다 체크리스트와 파일 목록을 갱신하고 GitHub에 commit/push한다. 크기 미일치나 게임 QA 미완료를 숨기지 않는다.
 
-
-
-
-
-
-
-
-
-
-
-
 ## 6. 사용자 후속 지시에 따른 테스트 규격 결정
 
 사용자가 용어 설명 후 크기·비율 판단을 위임했다. 앞의 SD/퍼즐 결정 대기 표시는 이 항목에 한해 해제한다. 최종 게임 규격 확정이 아니라 시험 제작이다.
@@ -101,27 +90,18 @@
 - 바닥128×128, SD 표시64×64(원본25%), 실험 화면1920×1080. 실제 플레이테스트 전 추가 인물 양산 금지.
 - 퍼즐3×3, 타일256×256, 조각 사이16px 기준800×800 보드. 원본 타일 바탕1개 + SVG 직선/곡선/시작/도착 활성·비활성으로 제작. 회전은 코드.
 - [x] SD01 — 09_sd_character/04_images/SD01_카엘_기준.png — 256×256
-- [x] SD02 — 09_sd_character/04_images/SD02_카엘_걷기_마스터.png — 768×2048, 24칸 자동 분리 후 방향·자세 QA
+- [x] SD02 — 09_sd_character/04_images/SD02_카엘_걷기_마스터.png — 768×2048 시안 저장. 방향·후광 QA 불합격으로 게임용 24칸 자동 분리 미완료
 - [x] PZ01 — 10_puzzle/04_images/PZ01_퍼즐_타일_바탕.png — 256×256
-- [ ] 퍼즐 직선/곡선·시작/도착 SVG, 활성/비활성 2상태, 256×256 viewBox
+- [x] 퍼즐 직선/곡선·시작/도착 SVG 8종, 활성/비활성 2상태, 256×256 viewBox
 추가 후 생성/편집 큐는28개(24프레임 파생 파일과 SVG 제외).
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## 7. 최종 저장·검수 기록
+- [x] 신규 PNG 28개 목표 크기 일치 확인.
+- [x] 전체 PNG 90개 파일 경로·해시 대조.
+- [x] 카테고리별 생성 결과 GitHub 저장.
+- [ ] SD 방향·후광 수정 후 게임용 24프레임 분리.
+- [ ] 바닥 반복 경계·후광·식물 상태 기준점 검수 통과.
+상세: [제작·검수 결과](09_production_review.md).
 

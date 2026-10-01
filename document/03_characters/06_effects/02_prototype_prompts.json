@@ -19,7 +19,8 @@
       "alpha_min_sampled": 0,
       "alpha_max_sampled": 254,
       "sha256": "A9F52C051ADB49233DC31E3171DBD9D76B002FF01AC16A4AF5563E73D0C7B786",
-      "source_file": "06_effects/05_sources/FX01_공통_룬_빛_source.png"
+      "source_file": "06_effects/05_sources/FX01_공통_룬_빛_source.png",
+      "qa_status": "pending_in_game_visual_qa"
     }
   ]
 }

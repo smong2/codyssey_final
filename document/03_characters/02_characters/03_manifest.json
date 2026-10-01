@@ -375,7 +375,9 @@
     "reference": "",
     "delta_file": "02_prompts/NPC03_DELTA.txt",
     "locks": "02_prompts/COMMON_LOCKS.txt",
-    "status": "ready_for_generation",
-    "image_generated": false
+    "status": "generated_pending_production_qa",
+    "image_generated": true,
+    "image_file": "04_images/NPC03_베른.png",
+    "production_prompt": "02_prototype_prompts.json"
   }
 ]

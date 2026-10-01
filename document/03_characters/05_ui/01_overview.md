@@ -19,7 +19,7 @@
 ## UI03 캐릭터_카드_배경
 
 - 원본: 1086×1448 / 테스트 파일: 480×640
-- 상태: generated_pending_game_qa, 샘플 알파: 221~255
+- 상태: generated_pending_game_qa, 샘플 알파: 255~255
 
 ![캐릭터_카드_배경](04_images/UI03_캐릭터_카드_배경.png)
 
@@ -36,5 +36,3 @@
 - 상태: generated_pending_game_qa, 샘플 알파: 0~255
 
 ![입학_초대장](04_images/UI07_입학_초대장.png)
-
-

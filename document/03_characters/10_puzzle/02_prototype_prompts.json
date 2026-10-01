@@ -19,7 +19,8 @@
       "alpha_min_sampled": 0,
       "alpha_max_sampled": 255,
       "sha256": "9224DE8D86941A6A1B893EE215397C369CFFD02FB10F4E55E26C3DA1FBA46AEB",
-      "source_file": "10_puzzle/05_sources/PZ01_퍼즐_타일_바탕_source.png"
+      "source_file": "10_puzzle/05_sources/PZ01_퍼즐_타일_바탕_source.png",
+      "qa_status": "pending_in_game_visual_qa"
     }
   ]
 }

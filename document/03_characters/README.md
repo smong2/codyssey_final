@@ -8,12 +8,18 @@
 | 02 | [캐릭터](02_characters/01_overview.md) | 학생 32인 이미지, 학생·NPC 프롬프트 |
 | 03 | [아이템](03_items/01_overview.md) | 소품·가구 20종 |
 | 04 | [배경](04_backgrounds/01_overview.md) | 장소 10종 |
+| 05 | [UI 재료](05_ui/01_overview.md) | 5종 |
+| 06 | [효과](06_effects/01_overview.md) | 공통 룬 빛 1종 |
+| 07 | [탐험 환경](07_adventure_environment/01_overview.md) | 온실 13종 |
+| 08 | [조사 오브젝트](08_adventure_objects/01_overview.md) | 상태 변화 포함 5종 |
+| 09 | [SD 캐릭터](09_sd_character/01_overview.md) | 카엘 기준·걷기 시안 2종, 걷기 QA 불합격 |
+| 10 | [퍼즐](10_puzzle/01_overview.md) | 바탕 1종·연결선 SVG 8종 |
 
 분류 내부: 01 안내 문서 → 02 프롬프트 → 03 파일 목록 → 04 이미지. 이미지 파일은 고유 ID 순서로 정렬한다. 전체 파일 목록은 [00_manifest.json](00_manifest.json)에 기록한다.
 
 ## 전체 이미지 매칭표
 
-캐릭터 32장 + 아이템 20장 + 배경 10장 = 총 62장. ID·이름·파일·프롬프트를 연결한다. NPC는 미생성이므로 이미지 목록에 포함하지 않는다.
+기존 학생 32장 + 아이템 20장 + 배경 10장 = 62장. 이번 Prototype 제작 이미지 28장(베른 포함)을 더해 등록 PNG 90장이다. 원본 보관본·수정 시안과 퍼즐 SVG 8종은 이 수량에서 제외한다. 생성 저장과 게임 적용 QA 합격은 다르다.
 
 | ID | 이름 | 이미지 | 프롬프트 |
 |---|---|---|---|
@@ -107,3 +113,6 @@
 - [Prototype 08_adventure_objects](08_adventure_objects/01_overview.md)
 - [Prototype 09_sd_character](09_sd_character/01_overview.md)
 - [Prototype 10_puzzle](10_puzzle/01_overview.md)
+
+
+[최신 제작·검수 결과와 미완료 항목](01_design/09_production_review.md)

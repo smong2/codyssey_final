@@ -17,7 +17,8 @@
     "alpha_min_sampled": 255,
     "alpha_max_sampled": 255,
     "sha256": "B9F4ADA9047B585BD71227AE83670D77B8CB3FC41DF7273E692B575A17AB3CD9",
-    "source_file": "05_ui/05_sources/UI01_양피지_타일_source.png"
+    "source_file": "05_ui/05_sources/UI01_양피지_타일_source.png",
+    "qa_status": "pending_in_game_visual_qa"
   },
   {
     "category": "05_ui",
@@ -37,7 +38,8 @@
     "alpha_min_sampled": 0,
     "alpha_max_sampled": 255,
     "sha256": "B0990071B4E828237786F989665E22EE0A619D1E7CA2D87AB81FAAD23DF694EC",
-    "source_file": "05_ui/05_sources/UI02_프레임_모서리_source.png"
+    "source_file": "05_ui/05_sources/UI02_프레임_모서리_source.png",
+    "qa_status": "pending_in_game_visual_qa"
   },
   {
     "category": "05_ui",
@@ -54,10 +56,11 @@
     "source_height": 1448,
     "export_width": 480,
     "export_height": 640,
-    "alpha_min_sampled": 221,
+    "alpha_min_sampled": 255,
     "alpha_max_sampled": 255,
-    "sha256": "97067EC7D964AE9000DB127D132A7CFAC108732C3A737745AB6A4F724D2D1006",
-    "source_file": "05_ui/05_sources/UI03_캐릭터_카드_배경_source.png"
+    "sha256": "E93A40ABDC7972EC720E30B216A27F319DBD62B5967DFFB8D7AF39A1FED53622",
+    "source_file": "05_ui/05_sources/UI03_캐릭터_카드_배경_source.png",
+    "qa_status": "pending_in_game_visual_qa"
   },
   {
     "category": "05_ui",
@@ -77,7 +80,8 @@
     "alpha_min_sampled": 255,
     "alpha_max_sampled": 255,
     "sha256": "782B8F2F06212B86D395EBA52EC6EAFC18BC1C21E3B0B8EF447680515C637C4C",
-    "source_file": "05_ui/05_sources/UI04_전신_미리보기_배경_source.png"
+    "source_file": "05_ui/05_sources/UI04_전신_미리보기_배경_source.png",
+    "qa_status": "pending_in_game_visual_qa"
   },
   {
     "category": "05_ui",
@@ -97,6 +101,7 @@
     "alpha_min_sampled": 0,
     "alpha_max_sampled": 255,
     "sha256": "8B90282ED8EEABB9671DB8DFB819C356E5AC3FEFDC438246E8A0B57FD6EE7624",
-    "source_file": "05_ui/05_sources/UI07_입학_초대장_source.png"
+    "source_file": "05_ui/05_sources/UI07_입학_초대장_source.png",
+    "qa_status": "needs_halo_cleanup"
   }
 ]

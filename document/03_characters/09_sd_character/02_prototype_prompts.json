@@ -19,7 +19,8 @@
       "alpha_min_sampled": 0,
       "alpha_max_sampled": 255,
       "sha256": "EEA0CE8CC22E96D1BD375D99C3B16D70B74E911C638D577A972E4CECC95F0679",
-      "source_file": "09_sd_character/05_sources/SD01_카엘_기준_source.png"
+      "source_file": "09_sd_character/05_sources/SD01_카엘_기준_source.png",
+      "qa_status": "pending_in_game_visual_qa"
     },
     {
       "category": "09_sd_character",
@@ -39,7 +40,8 @@
       "alpha_min_sampled": 0,
       "alpha_max_sampled": 254,
       "sha256": "A3FFBFFE772D6803AC8070B5CCD40F2FECC1C37F1667E6D2833611AB41B07599",
-      "source_file": "09_sd_character/05_sources/SD02_카엘_걷기_마스터_source.png"
+      "source_file": "09_sd_character/05_sources/SD02_카엘_걷기_마스터_source.png",
+      "qa_status": "failed_direction_and_halo"
     }
   ]
 }
