@@ -39,11 +39,11 @@
 - [x] ENV11 — `07_adventure_environment/04_images/ENV11_온실_구조물.png` — 1024×1024 — 초기 테스트값, 게임 Scale 검증 전
 - [x] ENV12 — `07_adventure_environment/04_images/ENV12_전경_식물_A.png` — 1024×1024 — 초기 테스트값, 게임 Scale 검증 전
 - [x] ENV13 — `07_adventure_environment/04_images/ENV13_전경_식물_B.png` — 1024×1024 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] OBJ01 — `08_adventure_objects/04_images/OBJ01_조사_식물_시듦.png` — 512×512 — 초기 제작 기준
-- [ ] OBJ02 — `08_adventure_objects/04_images/OBJ02_조사_식물_회복.png` — 512×512 — 초기 제작 기준 — 기존/직전 원본 편집
-- [ ] OBJ03 — `08_adventure_objects/04_images/OBJ03_달빛_약초.png` — 256×256 — 초기 제작 기준
-- [ ] OBJ04 — `08_adventure_objects/04_images/OBJ04_사건_룬_비활성.png` — 512×512 — 초기 제작 기준 — 기존/직전 원본 편집
-- [ ] OBJ05 — `08_adventure_objects/04_images/OBJ05_사건_룬_활성.png` — 512×512 — 초기 제작 기준 — 기존/직전 원본 편집
+- [x] OBJ01 — `08_adventure_objects/04_images/OBJ01_조사_식물_시듦.png` — 512×512 — 초기 제작 기준
+- [x] OBJ02 — `08_adventure_objects/04_images/OBJ02_조사_식물_회복.png` — 512×512 — 초기 제작 기준 — 기존/직전 원본 편집
+- [x] OBJ03 — `08_adventure_objects/04_images/OBJ03_달빛_약초.png` — 256×256 — 초기 제작 기준
+- [x] OBJ04 — `08_adventure_objects/04_images/OBJ04_사건_룬_비활성.png` — 512×512 — 초기 제작 기준 — 기존/직전 원본 편집
+- [x] OBJ05 — `08_adventure_objects/04_images/OBJ05_사건_룬_활성.png` — 512×512 — 초기 제작 기준 — 기존/직전 원본 편집
 
 온실 환경은 문서 수량의 최소 테스트 세트(바닥1+변형2, 경계1, 작은식물2, 큰식물2, 화단1, 덩굴1, 구조1, 전경2)만 제작한다. 정확한 게임 Tile/Atlas는 미확정이며 이 시안을 32인/다른 장소에 확대 생산하지 않는다. 식물은 잎마다 분리하지 않는다.
 
@@ -105,6 +105,11 @@
 - [ ] PZ01 — 10_puzzle/04_images/PZ01_퍼즐_타일_바탕.png — 256×256
 - [ ] 퍼즐 직선/곡선·시작/도착 SVG, 활성/비활성 2상태, 256×256 viewBox
 추가 후 생성/편집 큐는28개(24프레임 파생 파일과 SVG 제외).
+
+
+
+
+
 
 
 

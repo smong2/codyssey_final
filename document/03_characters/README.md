@@ -104,3 +104,4 @@
 - [Prototype 05_ui](05_ui/01_overview.md)
 - [Prototype 06_effects](06_effects/01_overview.md)
 - [Prototype 07_adventure_environment](07_adventure_environment/01_overview.md)
+- [Prototype 08_adventure_objects](08_adventure_objects/01_overview.md)

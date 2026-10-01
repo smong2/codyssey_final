@@ -714,5 +714,60 @@
     "status": "generated_pending_game_qa",
     "width": 1024,
     "height": 1024
+  },
+  {
+    "id": "OBJ01",
+    "name": "조사_식물_시듦",
+    "category": "08_adventure_objects",
+    "file": "document/03_characters/08_adventure_objects/04_images/OBJ01_조사_식물_시듦.png",
+    "prompt": "document/03_characters/08_adventure_objects/02_prototype_prompts.json",
+    "sha256": "A7F290A0EE5BA81DE6DC0E98A80F038B513FECD0A194AC84289CB85981B0AAE3",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512
+  },
+  {
+    "id": "OBJ02",
+    "name": "조사_식물_회복",
+    "category": "08_adventure_objects",
+    "file": "document/03_characters/08_adventure_objects/04_images/OBJ02_조사_식물_회복.png",
+    "prompt": "document/03_characters/08_adventure_objects/02_prototype_prompts.json",
+    "sha256": "118A24297AA587774B1B677CC8E2439DBEBF4305EE92A7C7DD3332D566831634",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512
+  },
+  {
+    "id": "OBJ03",
+    "name": "달빛_약초",
+    "category": "08_adventure_objects",
+    "file": "document/03_characters/08_adventure_objects/04_images/OBJ03_달빛_약초.png",
+    "prompt": "document/03_characters/08_adventure_objects/02_prototype_prompts.json",
+    "sha256": "C34D157AA8501C878D65BF0ADDDB7DE95975D95203A50AE36606E172619F109A",
+    "status": "generated_pending_game_qa",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "id": "OBJ04",
+    "name": "사건_룬_비활성",
+    "category": "08_adventure_objects",
+    "file": "document/03_characters/08_adventure_objects/04_images/OBJ04_사건_룬_비활성.png",
+    "prompt": "document/03_characters/08_adventure_objects/02_prototype_prompts.json",
+    "sha256": "966B46353301C9FE3EEA7FC9723C6E5951190E53C5541848F5B5F9C9CBD34F10",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512
+  },
+  {
+    "id": "OBJ05",
+    "name": "사건_룬_활성",
+    "category": "08_adventure_objects",
+    "file": "document/03_characters/08_adventure_objects/04_images/OBJ05_사건_룬_활성.png",
+    "prompt": "document/03_characters/08_adventure_objects/02_prototype_prompts.json",
+    "sha256": "C91E956B0DB28EED4BAC678D41C0A6DFFC2390B939D5143ECD2473CEF2B097C8",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512
   }
 ]
