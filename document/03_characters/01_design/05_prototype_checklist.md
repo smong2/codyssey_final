@@ -26,19 +26,19 @@
 - [x] UI04 — `05_ui/04_images/UI04_전신_미리보기_배경.png` — 800×1200 — 초기 제작 기준
 - [x] UI07 — `05_ui/04_images/UI07_입학_초대장.png` — 1200×800 — 초기 제작 기준
 - [x] FX01 — `06_effects/04_images/FX01_공통_룬_빛.png` — 512×512 — 초기 제작 기준
-- [ ] ENV01 — `07_adventure_environment/04_images/ENV01_온실_바닥_기본.png` — 128×128 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV02 — `07_adventure_environment/04_images/ENV02_온실_바닥_변형_A.png` — 128×128 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV03 — `07_adventure_environment/04_images/ENV03_온실_바닥_변형_B.png` — 128×128 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV04 — `07_adventure_environment/04_images/ENV04_온실_경계.png` — 128×128 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV05 — `07_adventure_environment/04_images/ENV05_작은_식물_A.png` — 256×256 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV06 — `07_adventure_environment/04_images/ENV06_작은_식물_B.png` — 256×256 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV07 — `07_adventure_environment/04_images/ENV07_큰_식물_A.png` — 512×512 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV08 — `07_adventure_environment/04_images/ENV08_큰_식물_B.png` — 512×512 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV09 — `07_adventure_environment/04_images/ENV09_온실_화단.png` — 1024×512 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV10 — `07_adventure_environment/04_images/ENV10_온실_덩굴.png` — 512×512 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV11 — `07_adventure_environment/04_images/ENV11_온실_구조물.png` — 1024×1024 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV12 — `07_adventure_environment/04_images/ENV12_전경_식물_A.png` — 1024×1024 — 초기 테스트값, 게임 Scale 검증 전
-- [ ] ENV13 — `07_adventure_environment/04_images/ENV13_전경_식물_B.png` — 1024×1024 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV01 — `07_adventure_environment/04_images/ENV01_온실_바닥_기본.png` — 128×128 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV02 — `07_adventure_environment/04_images/ENV02_온실_바닥_변형_A.png` — 128×128 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV03 — `07_adventure_environment/04_images/ENV03_온실_바닥_변형_B.png` — 128×128 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV04 — `07_adventure_environment/04_images/ENV04_온실_경계.png` — 128×128 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV05 — `07_adventure_environment/04_images/ENV05_작은_식물_A.png` — 256×256 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV06 — `07_adventure_environment/04_images/ENV06_작은_식물_B.png` — 256×256 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV07 — `07_adventure_environment/04_images/ENV07_큰_식물_A.png` — 512×512 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV08 — `07_adventure_environment/04_images/ENV08_큰_식물_B.png` — 512×512 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV09 — `07_adventure_environment/04_images/ENV09_온실_화단.png` — 1024×512 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV10 — `07_adventure_environment/04_images/ENV10_온실_덩굴.png` — 512×512 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV11 — `07_adventure_environment/04_images/ENV11_온실_구조물.png` — 1024×1024 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV12 — `07_adventure_environment/04_images/ENV12_전경_식물_A.png` — 1024×1024 — 초기 테스트값, 게임 Scale 검증 전
+- [x] ENV13 — `07_adventure_environment/04_images/ENV13_전경_식물_B.png` — 1024×1024 — 초기 테스트값, 게임 Scale 검증 전
 - [ ] OBJ01 — `08_adventure_objects/04_images/OBJ01_조사_식물_시듦.png` — 512×512 — 초기 제작 기준
 - [ ] OBJ02 — `08_adventure_objects/04_images/OBJ02_조사_식물_회복.png` — 512×512 — 초기 제작 기준 — 기존/직전 원본 편집
 - [ ] OBJ03 — `08_adventure_objects/04_images/OBJ03_달빛_약초.png` — 256×256 — 초기 제작 기준
@@ -81,6 +81,32 @@
 ## 5. 저장 규칙
 
 모든 결과는 document/03_characters 아래 기존 번호 체계를 유지한다. 02_characters는 베른을 추가, 05_ui·06_effects·07_adventure_environment·08_adventure_objects는 이번 생성 항목에 필요한 분류다. 각 분류는 01_overview.md / 02_prompts.json / 03_manifest.json / 04_images 순서. 카테고리 생성 종료마다 체크리스트와 파일 목록을 갱신하고 GitHub에 commit/push한다. 크기 미일치나 게임 QA 미완료를 숨기지 않는다.
+
+
+
+
+
+
+
+
+
+
+
+
+## 6. 사용자 후속 지시에 따른 테스트 규격 결정
+
+사용자가 용어 설명 후 크기·비율 판단을 위임했다. 앞의 SD/퍼즐 결정 대기 표시는 이 항목에 한해 해제한다. 최종 게임 규격 확정이 아니라 시험 제작이다.
+- 대표 SD: 기존 CH01 카엘을 우선 사용. 원본 정체성 유지.
+- SD Cell 256×256, 3열×8행 마스터 768×2048. 행 S/SW/W/NW/N/NE/E/SE, 열 왼발/중립/오른발. 중립 재사용 Idle.
+- 바닥128×128, SD 표시64×64(원본25%), 실험 화면1920×1080. 실제 플레이테스트 전 추가 인물 양산 금지.
+- 퍼즐3×3, 타일256×256, 조각 사이16px 기준800×800 보드. 원본 타일 바탕1개 + SVG 직선/곡선/시작/도착 활성·비활성으로 제작. 회전은 코드.
+- [ ] SD01 — 09_sd_character/04_images/SD01_카엘_기준.png — 256×256
+- [ ] SD02 — 09_sd_character/04_images/SD02_카엘_걷기_마스터.png — 768×2048, 24칸 자동 분리 후 방향·자세 QA
+- [ ] PZ01 — 10_puzzle/04_images/PZ01_퍼즐_타일_바탕.png — 256×256
+- [ ] 퍼즐 직선/곡선·시작/도착 SVG, 활성/비활성 2상태, 256×256 viewBox
+추가 후 생성/편집 큐는28개(24프레임 파생 파일과 SVG 제외).
+
+
 
 
 
