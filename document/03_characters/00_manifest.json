@@ -1320,5 +1320,16 @@
     "height": 256,
     "sha256": "98493FF60755A515603B088952CE6D815265877F5FEFECB4EE7CABAD766873C8",
     "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD04_N_02_bookfix",
+    "name": "카엘 후면 소품 수정 실패 시안",
+    "category": "09_sd_character",
+    "file": "document/03_characters/09_sd_character/04_images/SD04_N_02_bookfix.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "5FCD4C1848404FBBB6EFCFDAB6D6227DF03DA79A25C732086F7DCE9CF41468C7",
+    "status": "rejected_accessory_not_relocated",
+    "prompt": "document/03_characters/09_sd_character/02_SD04_edit_record.json"
   }
 ]
