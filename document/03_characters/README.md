@@ -125,3 +125,7 @@
 [공통 UI 재사용 검수 페이지](05_ui/08_ui_review.html) · [검수 결과](05_ui/09_ui_review_results.md)
 
 [SC01 마이룸 완성 화면 시안](04_backgrounds/07_scene_reviews/06_review.md) — 1920×1080, 기존 에셋 참조 목표 화면.
+
+## 11. 조립 화면 시안 (2026-10-02)
+[게임 시작·캐릭터 선택·온실 모험 3종 및 검수 기록](11_screen_mockups/06_review_and_delivery.md). 기존 에셋 재사용, 1920×1080 검토용 출력. 사용자 시안 확인 후 다음 제작 진행.
+
