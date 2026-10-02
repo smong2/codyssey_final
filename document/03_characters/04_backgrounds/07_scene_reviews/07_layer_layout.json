@@ -1,0 +1,75 @@
+{
+  "canvas": [
+    1920,
+    1080
+  ],
+  "units": "percent_of_canvas_width_for_width; percent_of_canvas_height_for_top",
+  "background": "../06_exports/BG03_빈_마이룸_1920x1080.png",
+  "status": "initial_existing_asset_layout_unapproved",
+  "preservation": "Image pixels unchanged; no filters, masks, recoloring, or perspective warping. All original alpha retained.",
+  "layers": [
+    {
+      "id": "IT11",
+      "name": "러그",
+      "src": "../../03_items/04_images/IT11_마이룸_러그.png",
+      "left": 25,
+      "top": 57,
+      "width": 47,
+      "z": 1
+    },
+    {
+      "id": "IT09",
+      "name": "침대",
+      "src": "../../03_items/04_images/IT09_마이룸_침대.png",
+      "left": 48,
+      "top": 24,
+      "width": 29,
+      "z": 2
+    },
+    {
+      "id": "IT07",
+      "name": "책상",
+      "src": "../../03_items/04_images/IT07_마이룸_책상.png",
+      "left": 0,
+      "top": 37,
+      "width": 34,
+      "z": 3
+    },
+    {
+      "id": "IT02",
+      "name": "룬 램프",
+      "src": "../../03_items/04_images/IT02_룬_램프.png",
+      "left": 8,
+      "top": 34,
+      "width": 7,
+      "z": 4
+    },
+    {
+      "id": "IT01",
+      "name": "마음 일기",
+      "src": "../../03_items/04_images/IT01_마음_일기.png",
+      "left": 18,
+      "top": 46,
+      "width": 7,
+      "z": 5
+    },
+    {
+      "id": "IT08",
+      "name": "의자",
+      "src": "../../03_items/04_images/IT08_마이룸_의자.png",
+      "left": 16,
+      "top": 47,
+      "width": 17,
+      "z": 6
+    },
+    {
+      "id": "NPC03",
+      "name": "베른",
+      "src": "../../02_characters/04_images/NPC03_베른.png",
+      "left": 65,
+      "top": 37,
+      "width": 21,
+      "z": 7
+    }
+  ]
+}
