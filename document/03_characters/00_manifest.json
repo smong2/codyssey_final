@@ -1331,5 +1331,16 @@
     "sha256": "5FCD4C1848404FBBB6EFCFDAB6D6227DF03DA79A25C732086F7DCE9CF41468C7",
     "status": "rejected_accessory_not_relocated",
     "prompt": "document/03_characters/09_sd_character/02_SD04_edit_record.json"
+  },
+  {
+    "id": "SC01",
+    "name": "마이룸 완성 화면 목표 시안",
+    "category": "04_backgrounds/07_scene_reviews",
+    "file": "document/03_characters/04_backgrounds/07_scene_reviews/04_images/SC01_마이룸_완성시안.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "303511E3B9D218AF2DCEC11A1C2C26EC3D88330FF97EC640EA066C2ACA2E929E",
+    "status": "visual_direction_mockup_reviewed_not_engine_composite",
+    "prompt": "document/03_characters/04_backgrounds/07_scene_reviews/02_myroom_prompt.json"
   }
 ]

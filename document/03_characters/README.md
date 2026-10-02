@@ -123,3 +123,5 @@
 [최신 제한 수정·미제작 UI 납품 기록](01_design/16_delivery_record.md) · [UI08~UI10](05_ui/07_icon_guide.md)
 
 [공통 UI 재사용 검수 페이지](05_ui/08_ui_review.html) · [검수 결과](05_ui/09_ui_review_results.md)
+
+[SC01 마이룸 완성 화면 시안](04_backgrounds/07_scene_reviews/06_review.md) — 1920×1080, 기존 에셋 참조 목표 화면.
