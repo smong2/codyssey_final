@@ -1,0 +1,49 @@
+{
+  "imagegen_calls": 0,
+  "new_image_assets": 0,
+  "reused_ids": [
+    "UI01",
+    "UI02",
+    "UI08",
+    "UI09",
+    "UI10"
+  ],
+  "renders": [
+    {
+      "id": "UI08",
+      "size": 32,
+      "pass": true
+    },
+    {
+      "id": "UI08",
+      "size": 48,
+      "pass": true
+    },
+    {
+      "id": "UI09",
+      "size": 32,
+      "pass": true
+    },
+    {
+      "id": "UI09",
+      "size": 48,
+      "pass": true
+    },
+    {
+      "id": "UI10",
+      "size": 32,
+      "pass": true
+    },
+    {
+      "id": "UI10",
+      "size": 48,
+      "pass": true
+    }
+  ],
+  "references_checked": 14,
+  "missing_references": 0,
+  "originals_preserved": 5,
+  "icons_preserved": 3,
+  "browser_interaction_test": "not_run",
+  "device_test": "not_run"
+}

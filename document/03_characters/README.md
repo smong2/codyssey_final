@@ -121,3 +121,5 @@
 [완료·미완료·다음 작업](01_design/10_work_status.md). 등록 PNG는 원본·시안·수정·파생·내보내기 포함 139개, SVG 8개 별도. 고유 디자인 수 또는 게임 승인본 수가 아님.
 
 [최신 제한 수정·미제작 UI 납품 기록](01_design/16_delivery_record.md) · [UI08~UI10](05_ui/07_icon_guide.md)
+
+[공통 UI 재사용 검수 페이지](05_ui/08_ui_review.html) · [검수 결과](05_ui/09_ui_review_results.md)
