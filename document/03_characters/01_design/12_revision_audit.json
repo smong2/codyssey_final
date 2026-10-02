@@ -1,0 +1,499 @@
+{
+  "indexed_pngs": 139,
+  "new_index_entries": 49,
+  "new_entries": [
+    {
+      "id": "NPC03_베른_v3",
+      "name": "NPC03_베른_v3",
+      "category": "02_characters",
+      "file": "document/03_characters/02_characters/04_images/NPC03_베른_v3.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "8A87EEDDFC8343270A0827A7C0191A34258F602DEDD14C3B4425DFDA3807F019",
+      "status": "rejected_halo_not_removed"
+    },
+    {
+      "id": "NPC03_베른_v4",
+      "name": "NPC03_베른_v4",
+      "category": "02_characters",
+      "file": "document/03_characters/02_characters/04_images/NPC03_베른_v4.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "06CEA61392FAEBCF05756A6AC31FAC3A24A0EFC98C0866EEC4985804F3326EF9",
+      "status": "rejected_halo_not_removed"
+    },
+    {
+      "id": "CH10_엘리아_1024x1536",
+      "name": "CH10_엘리아_1024x1536",
+      "category": "02_characters",
+      "file": "document/03_characters/02_characters/06_exports/CH10_엘리아_1024x1536.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "D399C122042CA971366F3DBD8A190E00524E44FDA8AD40C419DB8DBD66FAF3D7",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "BG01_아르카디아_입구와_호수_1920x1080",
+      "name": "BG01_아르카디아_입구와_호수_1920x1080",
+      "category": "04_backgrounds",
+      "file": "document/03_characters/04_backgrounds/06_exports/BG01_아르카디아_입구와_호수_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "569EC458024FC025DF3A51DE5DFE12326BD5B56651653C0C04C78DC37278E0A5",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "BG02_시계탑_광장_1920x1080",
+      "name": "BG02_시계탑_광장_1920x1080",
+      "category": "04_backgrounds",
+      "file": "document/03_characters/04_backgrounds/06_exports/BG02_시계탑_광장_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "A08485C8B7927BB084B6115FBB65F42A0EC336BD4892FAB7B076FB342827E3FA",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "BG03_빈_마이룸_1920x1080",
+      "name": "BG03_빈_마이룸_1920x1080",
+      "category": "04_backgrounds",
+      "file": "document/03_characters/04_backgrounds/06_exports/BG03_빈_마이룸_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "716E865DBEA31B380FC13BF2B61FBD174A97ACC9F5B2D9ADEFF85B7881955E5C",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "BG04_학원_기숙사_1920x1080",
+      "name": "BG04_학원_기숙사_1920x1080",
+      "category": "04_backgrounds",
+      "file": "document/03_characters/04_backgrounds/06_exports/BG04_학원_기숙사_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "58D52E5FEF1E663DE065544B3C2284C1C50A58E5EF4A3D2A62456201B5FB4791",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "BG05_대서고_1920x1080",
+      "name": "BG05_대서고_1920x1080",
+      "category": "04_backgrounds",
+      "file": "document/03_characters/04_backgrounds/06_exports/BG05_대서고_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "D8136E12DE5CF0E0F2DCEFAF4737C714AD800F83A40EE0C2AEB133B18031592B",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "BG06_별빛_천문대_1920x1080",
+      "name": "BG06_별빛_천문대_1920x1080",
+      "category": "04_backgrounds",
+      "file": "document/03_characters/04_backgrounds/06_exports/BG06_별빛_천문대_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "D4FA16B1BC70B79F90070B8C79C07C1559D20C9029829F8D4DDDC5657761B5E7",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "BG07_유리_온실_1920x1080",
+      "name": "BG07_유리_온실_1920x1080",
+      "category": "04_backgrounds",
+      "file": "document/03_characters/04_backgrounds/06_exports/BG07_유리_온실_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "2B8AEF53081F42BC0A1107FD7F4B00F9F927DE9AAE006BEDD115FF2A7B1CCBA0",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "BG08_치유의_약초원_1920x1080",
+      "name": "BG08_치유의_약초원_1920x1080",
+      "category": "04_backgrounds",
+      "file": "document/03_characters/04_backgrounds/06_exports/BG08_치유의_약초원_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "989ED3EF3D98ADF4AEA3286279A6922FA7600318ABE0D3716DBEAF2D3096BD3A",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "BG09_마도_공방_1920x1080",
+      "name": "BG09_마도_공방_1920x1080",
+      "category": "04_backgrounds",
+      "file": "document/03_characters/04_backgrounds/06_exports/BG09_마도_공방_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "878E4BED49678E15C1F5740140C43C1A663C591F3C7E4C0D2E446033440D1878",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "BG10_룬_수련장_1920x1080",
+      "name": "BG10_룬_수련장_1920x1080",
+      "category": "04_backgrounds",
+      "file": "document/03_characters/04_backgrounds/06_exports/BG10_룬_수련장_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "705B85F20B5EF593A5A951EA1687B8B8CCC0654ABB69463DFDFEE2F77E81D662",
+      "status": "normalized_export_original_preserved"
+    },
+    {
+      "id": "ENV02_온실_바닥_변형_A_v2",
+      "name": "ENV02_온실_바닥_변형_A_v2",
+      "category": "07_adventure_environment",
+      "file": "document/03_characters/07_adventure_environment/04_images/ENV02_온실_바닥_변형_A_v2.png",
+      "width": 128,
+      "height": 128,
+      "sha256": "BF5B4FA92592E46FE309E45C5821FC0277666F6493F146CA941EE1974ABCCAB0",
+      "status": "repeat_layout_visually_checked_in_game_qa_pending"
+    },
+    {
+      "id": "ENV03_온실_바닥_변형_B_v2",
+      "name": "ENV03_온실_바닥_변형_B_v2",
+      "category": "07_adventure_environment",
+      "file": "document/03_characters/07_adventure_environment/04_images/ENV03_온실_바닥_변형_B_v2.png",
+      "width": 128,
+      "height": 128,
+      "sha256": "4A7B4F8AEC3A8C6012B911E21C12CE24DA19F74084FEF33C2E7C589D13D07DEC",
+      "status": "repeat_layout_visually_checked_in_game_qa_pending"
+    },
+    {
+      "id": "OBJ02_조사_식물_회복_v2",
+      "name": "OBJ02_조사_식물_회복_v2",
+      "category": "08_adventure_objects",
+      "file": "document/03_characters/08_adventure_objects/04_images/OBJ02_조사_식물_회복_v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "4261D54FF1D037F4D8F427BA1A8F8AEA7089C5F3E707EC9E2CA176710698D903",
+      "status": "posture_improved_pot_alignment_pending"
+    },
+    {
+      "id": "SD03_카엘_8방향_검수시트",
+      "name": "SD03_카엘_8방향_검수시트",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_카엘_8방향_검수시트.png",
+      "width": 768,
+      "height": 2048,
+      "sha256": "13CA3593E7ABE5E9081B74D0D22AA7F6F81B75FCBD47B504468AB199D3FC6C3B",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_E_strip",
+      "name": "SD03_E_strip",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_E_strip.png",
+      "width": 768,
+      "height": 256,
+      "sha256": "252582BE878CFF8B82A58B554A99CFD9BD9D07AA41B8AF80AEB86933DE34FE2D",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_N_strip",
+      "name": "SD03_N_strip",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_N_strip.png",
+      "width": 768,
+      "height": 256,
+      "sha256": "5C68EAFF922E1FAA1892085483CC646A0CED02DD8F30B0B0B09189920939B23C",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_NE_strip",
+      "name": "SD03_NE_strip",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_NE_strip.png",
+      "width": 768,
+      "height": 256,
+      "sha256": "F42B2016BFE211C611C431702808551AE33BD2B13F6E82276CF2E79BE6D6DF81",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_NW_strip",
+      "name": "SD03_NW_strip",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_NW_strip.png",
+      "width": 768,
+      "height": 256,
+      "sha256": "7509884E901D4D452981CB8CA1D21C5D0C096E40C110D45D56BBA9C48DEAFE9C",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_S_strip",
+      "name": "SD03_S_strip",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_S_strip.png",
+      "width": 768,
+      "height": 256,
+      "sha256": "56F1213FFA9F922CC3E19E633AEEB408F82D9D75F3FB4EDD71EFF345DFB55002",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_SE_strip",
+      "name": "SD03_SE_strip",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_SE_strip.png",
+      "width": 768,
+      "height": 256,
+      "sha256": "A40342B0D4521CE01A7CE785294867C85FEA0A6D358FF30705B9C7C7B3AF01AA",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_SW_strip",
+      "name": "SD03_SW_strip",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_SW_strip.png",
+      "width": 768,
+      "height": 256,
+      "sha256": "4321CD100AAE251D51C59D842F752F6C77D15D76984EB9F697E4AAC59EF4049F",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_W_strip",
+      "name": "SD03_W_strip",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_W_strip.png",
+      "width": 768,
+      "height": 256,
+      "sha256": "412499654E0275DFF14F732E9E54A673A137F0A032ED14E4F5ABE524EE87BF84",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_E_00",
+      "name": "SD03_E_00",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_E_00.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "BBF285265D5224EFB514123ADD482990CFA8728F4D79012DE8F49A81C48E857E",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_E_01",
+      "name": "SD03_E_01",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_E_01.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "E555CD50F60AAAE02A3A2378D28518FFFEB5AEA020BEC6F408A491CE22D696FE",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_E_02",
+      "name": "SD03_E_02",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_E_02.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "EE0F6AA65ED4DFC21824873B2601471B166E2AD5810E26782EFED569516DA9FC",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_N_00",
+      "name": "SD03_N_00",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_N_00.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "7B8570655657300B5789947E66C1E7613BBC3969C9B4F227B5AFA91DC25DC9F8",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_N_01",
+      "name": "SD03_N_01",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_N_01.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "D0B9317A7058A4213B39059A50D4C78E5F0CFCB42C46ECEF509A2A91C7464F69",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_N_02",
+      "name": "SD03_N_02",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_N_02.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "E60C00E23DFD8B430864FA082C1FD7CFFC5B879FAC5CFB71AF63CCCA9AF61387",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_NE_00",
+      "name": "SD03_NE_00",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_NE_00.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "78BE22B5E37D8D72F98920ABC15C245FEF53014512AC260A2DF0A6237C06E754",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_NE_01",
+      "name": "SD03_NE_01",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_NE_01.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "4DE3F4D1866FC2A2BB453D74A143CAB8FC1FC867C90CD138C607AB962EFD8507",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_NE_02",
+      "name": "SD03_NE_02",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_NE_02.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "1358D0A17999420DBA836D8AC6581D03A0AA12AE6E64E73C5F90F2F1B207A4F6",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_NW_00",
+      "name": "SD03_NW_00",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_NW_00.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "9975556DA228069F6CD2BA2F89F068D41748EB491096A643F21BA4B1CACD3435",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_NW_01",
+      "name": "SD03_NW_01",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_NW_01.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "AE8541631106AD7C6CA1B1DBC952118B61EE3B567F4D5EBDDBB7359803F39577",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_NW_02",
+      "name": "SD03_NW_02",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_NW_02.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "D2219D7C76B6BF2F7C18C9798209B0FB6967D92B4FAD1FC0AEE4FC4F3786364F",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_S_00",
+      "name": "SD03_S_00",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_S_00.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "8BDD1A686E770EB39D5CA2B2A1E775599D67871E16C5F62B7A48B301EEB4248B",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_S_01",
+      "name": "SD03_S_01",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_S_01.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "51568141EE212680B65BD66829ABF62E65B0DE854BC40A669C9199F608BF7FAC",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_S_02",
+      "name": "SD03_S_02",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_S_02.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "0811368FE7D35C1B6C9787BC6B0458EF7F366E20A77BA2AE8A4A4EEEDCF1684C",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_SE_00",
+      "name": "SD03_SE_00",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_SE_00.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "CF21209D8D047C8B01D1546E8AC79255124357FE016FB7A65DA1894A6DD284F9",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_SE_01",
+      "name": "SD03_SE_01",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_SE_01.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "3DF5559BAA11727E05608BB0B0DEA91CBFC803546DA9ADD6EF1AA420913572B7",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_SE_02",
+      "name": "SD03_SE_02",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_SE_02.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "9EF9870F4CA28CAB04766A2A121451629A2C5643DA869819CC9D80A79B939ED1",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_SW_00",
+      "name": "SD03_SW_00",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_SW_00.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "5D01FC535FD1E8AE6B5DBF3329BD1F7ACCE509D31FD9D200C24417D0903BAA87",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_SW_01",
+      "name": "SD03_SW_01",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_SW_01.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "C61ED720754A78E37B9237693F2E603D8BB0760F7362757B7436AA5F01AE9640",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_SW_02",
+      "name": "SD03_SW_02",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_SW_02.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "D81C25167EC61AC3FDEA4BBCC4D2BDBD78B975C443E7DCD2244FDF65C72733FE",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_W_00",
+      "name": "SD03_W_00",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_W_00.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "99F4F8E88FEB35FFD1120A7185E338A988856969AF3DC0D259908639872AD39F",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_W_01",
+      "name": "SD03_W_01",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_W_01.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "C5CAC9C0C6E8A3F53845900E8901B8CFEE219F27900D376DE191F800BE42871B",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    },
+    {
+      "id": "SD03_W_02",
+      "name": "SD03_W_02",
+      "category": "09_sd_character",
+      "file": "document/03_characters/09_sd_character/04_images/SD03_frames/SD03_W_02.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "98493FF60755A515603B088952CE6D815265877F5FEFECB4EE7CABAD766873C8",
+      "status": "direction_corrected_motion_accessory_qa_pending"
+    }
+  ],
+  "ui07_outer_2px_alpha_max": 0,
+  "sd_frame_count": 24,
+  "errors": []
+}

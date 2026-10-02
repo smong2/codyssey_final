@@ -125,7 +125,7 @@
       "alpha_max_sampled": 255,
       "sha256": "8B90282ED8EEABB9671DB8DFB819C356E5AC3FEFDC438246E8A0B57FD6EE7624",
       "source_file": "05_ui/05_sources/UI07_입학_초대장_source.png",
-      "qa_status": "needs_halo_cleanup"
+      "qa_status": "no_wide_halo_observed_outer_edge_alpha_zero_in_game_qa_pending"
     },
     {
       "category": "06_effects",
