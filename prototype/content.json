@@ -1,0 +1,49 @@
+{
+ "title":"빛을 잃은 온실","subtitle":"LUMIA · 마음을 품은 룬",
+ "assets":{
+  "entrance":"assets/BG01_아르카디아_입구와_호수_1920x1080.png",
+  "plaza":"assets/BG02_시계탑_광장_1920x1080.png",
+  "greenhouse":"assets/BG07_유리_온실_1920x1080.png",
+  "room":"assets/BG03_빈_마이룸_1920x1080.png",
+  "kael":"assets/CH01_카엘.png","sion":"assets/CH03_시온.png","bern":"assets/NPC03_베른.png",
+  "paper":"assets/UI01_양피지_타일.png","corner":"assets/UI02_프레임_모서리.png","invite":"assets/UI07_입학_초대장.png",
+  "bag":"assets/UI08_가방.svg","journal":"assets/UI09_발견기록.svg","hint":"assets/UI10_힌트.svg",
+  "floor":"assets/ENV01_온실_바닥_기본.png","floorA":"assets/ENV02_온실_바닥_변형_A_v2.png","floorB":"assets/ENV03_온실_바닥_변형_B_v2.png",
+  "small":"assets/ENV05_작은_식물_A.png","large":"assets/ENV07_큰_식물_A.png","bed":"assets/ENV09_온실_화단.png","structure":"assets/ENV11_온실_구조물.png","foreground":"assets/ENV12_전경_식물_A.png",
+  "wilted":"assets/OBJ01_조사_식물_시듦.png","recovered":"assets/OBJ02_조사_식물_회복_v2.png","herb":"assets/OBJ03_달빛_약초.png","runeOff":"assets/OBJ04_사건_룬_비활성.png","runeOn":"assets/OBJ05_사건_룬_활성.png","glow":"assets/FX01_공통_룬_빛.png",
+  "tile":"assets/PZ01_퍼즐_타일_바탕.png","straight":"assets/PZ_straight_inactive.svg","elbow":"assets/PZ_elbow_inactive.svg","start":"assets/PZ_start_inactive.svg","goal":"assets/PZ_goal_inactive.svg",
+  "desk":"assets/IT07_마이룸_책상.png","lamp":"assets/IT02_룬_램프.png",
+  "straightActive":"assets/PZ_straight_active.svg","elbowActive":"assets/PZ_elbow_active.svg","startActive":"assets/PZ_start_active.svg","goalActive":"assets/PZ_goal_active.svg"
+ },
+ "sd":{"prefix":"assets/SD03_","suffix":"_strip.png","directions":["S","SW","W","NW","N","NE","E","SE"],"frameWidth":256,"frameHeight":256,"displayWidth":128,"footY":218,"fps":7},
+ "character":{"name":"카엘","title":"그림자 도서관의 전략가","age":17,"description":"말보다 관찰을 믿는 조용한 연구생. 계획이 흔들리는 순간에도 친구를 위한 길을 찾는다.","quote":"변수부터 살펴보자. 놓친 단서가 있을 거야."},
+ "dialogue":{
+  "plaza":[{"speaker":"시온","portrait":"sion","text":"카엘, 잠깐… 온실의 유리꽃들이 빛을 잃었어. 물을 줘도 잎이 고개를 들지 않아."},{"speaker":"카엘","portrait":"kael","text":"모든 식물이 동시에? 뿌리보다는 빛을 보내는 룬에 문제가 있을지도 몰라. 온실에 가 보자."}],
+  "greenhouse":[{"speaker":"시온","portrait":"sion","text":"온실 깊은 곳에 빛을 보내는 오래된 룬이 있어. 오늘은… 어쩐지 조용하네."},{"speaker":"카엘","portrait":"kael","text":"잎과 룬을 직접 살펴볼게. 내가 찾은 사실부터 차근차근 연결해 보자."}],
+  "reaction":[{"speaker":"시온","portrait":"sion","text":"빛이 돌아왔네… 사실 어제 내가 룬의 배열을 바꿨어. 더 밝아질 줄 알았는데, 흐름을 끊어 버린 거야."},{"speaker":"시온","portrait":"sion","text":"실패했다는 말을 듣기 무서워서 아무에게도 말하지 못했어. 기다리면 저절로 괜찮아질 줄 알았는데…"}],
+  "room":[{"speaker":"베른","portrait":"bern","text":"어서 오세요, 카엘. 온실에 빛이 돌아왔다고 들었어요. 오늘의 이야기는 어떤 장면으로 남았나요?"}]
+ },
+ "knowledge":{"id":"light-flow","title":"빛은 이어진 길을 따라 흐른다","text":"잎은 축 늘어져 있지만 흙은 촉촉하다. 온실의 식물은 룬이 보내는 빛을 함께 나누고 있다. 끊긴 빛의 길을 살펴보자."},
+ "herb":{"name":"달빛 약초","text":"달빛처럼 은은한 향을 품은 약초. 가방에 한 줄기를 보관했다. 룬을 고치는 재료는 아니지만, 오늘의 발견으로 남는다."},
+ "runeObservation":"돌 표면에 빛의 길이 새겨져 있다. 조각의 홈이 맞닿아야 빛이 다음 조각으로 흐르는 것 같다.",
+ "question":{"text":"새로운 발견을 하면, 바로 시험해 보고 싶어? 아니면 조금 더 살펴보는 편이야?","answers":["직접 시험해 보고 싶어.","먼저 살펴보고 싶어."],"reaction":"그렇구나. 나는 궁금한 게 생기면 다른 걸 잊어버릴 때가 있어. 오늘은 네 시선으로 같이 살펴보자."},
+ "objectives":{"explore":"잎과 룬을 살펴보며, 끊긴 빛의 길을 찾아보자.","observed":"온실 중심의 룬에서 빛의 길을 이어 보자.","restored":"빛이 돌아왔다. 온실 입구로 돌아가 시온을 만나자."},
+ "hints":["빛은 왼쪽 위의 원에서 시작해 오른쪽 아래의 마름모로 흘러요.","맞닿은 조각의 홈이 서로 이어져야 해요. 원과 마름모는 고정되어 있어요.","윗줄 가운데 직선 조각을 한 번 돌려 가로로 놓아 보세요."],
+ "choices":[
+  {"id":"together","label":"함께 선생님께 이야기하자.","reaction":"시온이 천천히 고개를 끄덕인다. ‘함께라면… 내 입으로 말할 수 있을 것 같아.’","description":"친구와 함께 상황을 설명하는 방법을 선택했습니다."},
+  {"id":"time","label":"말할 준비가 되도록 곁에서 기다릴게.","reaction":"시온이 깊게 숨을 내쉰다. ‘고마워. 오늘 안에는 이야기할게. 그때 같이 있어 줘.’","description":"친구가 말할 준비를 할 시간을 주는 방법을 선택했습니다."},
+  {"id":"ask","label":"먼저 필요한 도움을 물어보자.","reaction":"시온이 룬을 바라본다. ‘다음에는 혼자 바꾸지 않도록, 점검하는 법을 배워 보고 싶어.’","description":"친구에게 필요한 도움이 무엇인지 묻는 방법을 선택했습니다."}
+ ],
+ "reflections":[{"id":"listen","label":"시온의 이야기를 들었던 순간"},{"id":"observe","label":"단서를 연결했던 순간"},{"id":"help","label":"함께 할 방법을 정했던 순간"}],
+ "report":{"context":"온실의 빛이 끊긴 이유를 조사하고 룬의 흐름을 다시 연결했습니다. 연구 중 실수한 친구가 그 사실을 숨긴 사정을 들었습니다.","result":"온실의 식물에 빛이 돌아왔고 시온은 자신의 실수를 이야기하기 시작했습니다.","prompt":"실수를 이야기하기 어려웠던 적이 있나요? 그때 어떤 도움이 있으면 좋았을까요?"},
+ "map":{"width":1800,"height":1100,"speed":250,"interactionRadius":125,"tileSize":128,
+  "objects":[
+   {"id":"plant","asset":"wilted","x":460,"y":700,"width":150,"originY":0.9,"label":"시든 유리꽃","action":"살펴보기"},
+   {"id":"herb","asset":"herb","x":870,"y":650,"width":110,"originY":0.9,"label":"달빛 약초","action":"채집하기"},
+   {"id":"rune","asset":"runeOff","x":1400,"y":390,"width":190,"originY":0.9,"label":"빛을 잃은 룬","action":"살펴보기"},
+   {"id":"exit","asset":null,"x":180,"y":930,"width":100,"label":"온실 입구","action":"돌아가기"}
+  ],
+  "decorations":[{"asset":"structure","x":1380,"y":310,"width":400,"originY":0.95},{"asset":"structure","x":180,"y":1010,"width":280,"originY":0.95},{"asset":"bed","x":430,"y":340,"width":390,"originY":0.9},{"asset":"bed","x":1050,"y":940,"width":390,"originY":0.9},{"asset":"large","x":1650,"y":780,"width":220,"originY":0.9},{"asset":"small","x":780,"y":350,"width":110,"originY":0.9},{"asset":"large","x":150,"y":330,"width":180,"originY":0.9},{"asset":"foreground","x":1500,"y":1040,"width":260,"originY":0.9}],
+  "collisions":[{"x":290,"y":300,"width":290,"height":65},{"x":900,"y":900,"width":290,"height":65},{"x":1590,"y":735,"width":100,"height":75}]
+ }
+}

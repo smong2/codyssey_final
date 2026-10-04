@@ -1,0 +1,1 @@
+{"name":"lumia-prototype","private":true,"type":"module","scripts":{"start":"node prototype/server.mjs","test":"node --test --test-isolation=none prototype/tests/*.test.mjs"}}
