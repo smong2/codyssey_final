@@ -129,3 +129,7 @@
 ## 11. 조립 화면 시안 (2026-10-02)
 [게임 시작·캐릭터 선택·온실 모험 3종 및 검수 기록](11_screen_mockups/06_review_and_delivery.md). 기존 에셋 재사용, 1920×1080 검토용 출력. 사용자 시안 확인 후 다음 제작 진행.
 
+
+## 12. 큰 탐험 맵과 백팩 (2026-10-04)
+[맵 조립도·부분 카메라·백팩 및 HUD 조사](12_adventure_map/06_review.md). [마이룸 다음 작업안 — 사용자 승인 대기](12_adventure_map/08_myroom_proposal_pending.md).
+
