@@ -8,6 +8,7 @@
 | 01 | [01_sources](01_sources/00_README.md) |
 | 02 | [02_flow_images](02_flow_images/00_README.md) |
 | 03 | [03_closeup_reviews](03_closeup_reviews/00_README.md) |
+| 04 | [04_room_layout_reviews](04_room_layout_reviews/00_README.md) |
 
 ## 파일
 
@@ -32,3 +33,5 @@
 | 16 | [16_flow_delivery.md](16_flow_delivery.md) |
 | 17 | [17_flow_verification.json](17_flow_verification.json) |
 | 18 | [18_closeup_review.md](18_closeup_review.md) |
+
+| 19 | [19_room_layout_review.md](19_room_layout_review.md) |
