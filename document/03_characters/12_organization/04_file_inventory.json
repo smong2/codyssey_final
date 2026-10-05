@@ -1,0 +1,2207 @@
+[
+  {
+    "file": "document/03_characters/01_manifest.json",
+    "previous_sha256": "e4c699a67f5bee1537f74e1709ba88444c1e2801098349d57a3d7f4022f05530",
+    "sha256": "d82e9b8715ae49cf42ffe59941f2f7d850fd773dd49115f8025657329a2b4eab"
+  },
+  {
+    "file": "document/03_characters/00_README.md",
+    "previous_sha256": "1f0b1f420e6ccc404d35581aea713a73d9a53e662df6e7b0cf9483cfe811e5ad",
+    "sha256": "efc0110b6c39b098e57a296edaa99395a31682bbda70eead1794898a0dab1280"
+  },
+  {
+    "file": "document/03_characters/00_design/00_README.md",
+    "previous_sha256": "98d3200fd429b142af42854300755a5f90dda236abd47140ecbc41e0d9c85b27",
+    "sha256": "31935edc7087f67f5a728a6aed7b6d1900816c63b7291fb7a6b450bd7b743ad4"
+  },
+  {
+    "file": "document/03_characters/00_design/01_design_spec.md",
+    "previous_sha256": "1366bdeaed217b21655d943fb72b49f46f0ac552f249216714c77f25005a71ac",
+    "sha256": "1366bdeaed217b21655d943fb72b49f46f0ac552f249216714c77f25005a71ac"
+  },
+  {
+    "file": "document/03_characters/00_design/02_size_and_production_plan.md",
+    "previous_sha256": "5b6b55c85ce1b47c992b8a21d206e5d1b76ab6396e2ca4ef3eb0a9d489296897",
+    "sha256": "7ff4418b628e2b5b148d5fd931e15c2d5c40b31a994ee3ebaf2478d4cc4f63c6"
+  },
+  {
+    "file": "document/03_characters/00_design/03_size_audit.json",
+    "previous_sha256": "07ad5212de7aa41ce483122daaf4a2f017a06c4e1f4f5396b7d1c253fceedec1",
+    "sha256": "ba2b66c19ab4328ea130ee23d60f866cae860ef7b556e3dae3195a402b9a1bda"
+  },
+  {
+    "file": "document/03_characters/00_design/04_prototype_checklist.md",
+    "previous_sha256": "f3f0a6920cbd7ab3df917152c9195c6077d104b0409fe485d33f3d42f3154b66",
+    "sha256": "a7b4504ea82be6e5aa3d3dba2f42003fd543d3a0a334061c99298bff27b81e75"
+  },
+  {
+    "file": "document/03_characters/00_design/05_prototype_queue.json",
+    "previous_sha256": "0b8ba767532846262211c9cca45815863584f92d1b25d8438ed62a7b7f149d04",
+    "sha256": "743dcc53cf03687ffa7ec9ce07a15099dbc00ff980207a1547045f007087669a"
+  },
+  {
+    "file": "document/03_characters/00_design/06_test_scale_additions.json",
+    "previous_sha256": "be211a5ade9da33c6042e9f1a7665d2604d8149124a4e1ed54fe3b0940898aaa",
+    "sha256": "86fa2327d2402578ec56371eaa232456173632c3682c089505bd2aaa5710a4d5"
+  },
+  {
+    "file": "document/03_characters/00_design/07_export_verification.json",
+    "previous_sha256": "17f78e61b87e51d191b0c42a7c0abb2ebe986eb52d0189f73bb0b26136ff0696",
+    "sha256": "e903aee98eed9967b42775a65a8f903378a802d1dd7b49efe670896b04851410"
+  },
+  {
+    "file": "document/03_characters/00_design/08_production_review.md",
+    "previous_sha256": "1808c94094195762d0cd210e70c19732f3069cf69e2de835bd08a1bc41428918",
+    "sha256": "1a6dfa957bb3355616ad2726e55019478b5b158cf270b19bc26683814772a4a7"
+  },
+  {
+    "file": "document/03_characters/00_design/09_work_status.md",
+    "previous_sha256": "0c93ae1b1842705849cab424f5385471dc0638cc23c81a5e50d3e5121f7ac711",
+    "sha256": "404d8f47016c37c4539df10b15ef894c2431ed7c2cdb0d6de62d56dc961ba2a9"
+  },
+  {
+    "file": "document/03_characters/00_design/10_legacy_export_manifest.json",
+    "previous_sha256": "52c04853ea119d6603e8ab9a7948a4061ced3ffd42ac8016210547616fcd88f6",
+    "sha256": "b1fd066ecdf132b3ebf3f009a69384789f101678d3181759d42c342dc4f248b9"
+  },
+  {
+    "file": "document/03_characters/00_design/11_revision_audit.json",
+    "previous_sha256": "97600a60b84cb8441078f711b3fc084fb286c13b8f58f12fe32fbbd56277a016",
+    "sha256": "7ae49fd4e325f61deab49b07fa0cae836e996669eda02b62f8bc1b6e4d69a007"
+  },
+  {
+    "file": "document/03_characters/00_design/12_preflight_and_original_lock.json",
+    "previous_sha256": "934309f9b938251427aca20155fd1a7cb318feda0f1527ab9a8194a760de502d",
+    "sha256": "25dcc80c1053abe7523b303f55777bea4ff099585d5271d7c415893056d44a54"
+  },
+  {
+    "file": "document/03_characters/00_design/13_limited_correction_log.md",
+    "previous_sha256": "93149b0799dd61daaf859bdf0d489e6364978fa126f1dfd1fe97aba250c20a4e",
+    "sha256": "c527d9bb0bc15d4f6ae99d2e516c1504304c2a9fec595410a1905269c33e9ad6"
+  },
+  {
+    "file": "document/03_characters/00_design/14_preflight_verification.json",
+    "previous_sha256": "dce66e50b6cf4aed8b1cf4b0b3de159e209814932eb767fef7a06e27da7efdbb",
+    "sha256": "1012538f48af86c3dddedbed3e004fbdec861663e9ef530d8b418d44a49272c9"
+  },
+  {
+    "file": "document/03_characters/00_design/15_delivery_record.md",
+    "previous_sha256": "ee032a6c3ef934852afcaca4d506c8e2c797d2b0bd03ac52e06cf66bb7611f83",
+    "sha256": "ef9efca604915d025e470cb3e969a0c1c17c81e9f63240531da092d2c2e4e062"
+  },
+  {
+    "file": "document/03_characters/00_design/16_ui_reuse_preflight.md",
+    "previous_sha256": "3ec7108600ad6f34f673fd2cf5ffa6c28ca1dbcb0cb9789b19d19f5c320a0d0d",
+    "sha256": "c3980173aebc8e7b184169cfd92a3d6749059d2b798800c9b34b6e5ffc666f24"
+  },
+  {
+    "file": "document/03_characters/00_design/17_ui_reuse_verification.json",
+    "previous_sha256": "15effce7df6ffcc1265027ac7356b4c39813a0769f9e04e51673479e359e9af8",
+    "sha256": "15effce7df6ffcc1265027ac7356b4c39813a0769f9e04e51673479e359e9af8"
+  },
+  {
+    "file": "document/03_characters/00_design/18_audit-revisions.ps1",
+    "previous_sha256": "2e366ebe0f5fedc328ec1c7862820685192ed4f35ccf6b438d056d6cc3c4b0f1",
+    "sha256": "cc13a0eefe8b2a3258a0230eff83548f0037e3837c0c69c8325e4699a0b75d5b"
+  },
+  {
+    "file": "document/03_characters/00_design/19_export-prototype.ps1",
+    "previous_sha256": "b74aef034a81e4a46e19b7884052f6b2e89f1a6b7136305ec62aa651adc5d967",
+    "sha256": "723292e61c349408f4c6b6c5ea772befcaca70d208f9419d195d061c775bf959"
+  },
+  {
+    "file": "document/03_characters/00_design/20_export-revision.ps1",
+    "previous_sha256": "2c9b0e040d3d0778d43cf94a4dc60128e83b21ec23aaf3d7dd34914a67726ad0",
+    "sha256": "bb388e221341fa5e3299b5be39757e1df8a734121c1489aeb5ae2045f036afdf"
+  },
+  {
+    "file": "document/03_characters/00_design/21_export-sd-direction.ps1",
+    "previous_sha256": "7d03934edcace9e3358ee2fdfca7261e0f5283ece0abc5767860923f840c17f8",
+    "sha256": "7a68f987046a7dcd114c6a13add12f9b4a54031ad27be87e0ba646caa982f197"
+  },
+  {
+    "file": "document/03_characters/00_design/22_save-category.ps1",
+    "previous_sha256": "2cf1a129528dba78a9cb01b314dd1404d40dcb434ef7619f11745ae0adf148d2",
+    "sha256": "bdac6a8854a1f7e19a7f4e401589e781b4bae862a15ff50ebde115f881c3a615"
+  },
+  {
+    "file": "document/03_characters/00_design/23_verify-prototype.ps1",
+    "previous_sha256": "00d31c96916d0e983a5c97aea2b1a104f0ced939106f77d8ac955d6c9d070db0",
+    "sha256": "5689cb7db68ff9557e70dbc60a231b1e0d4bfe7d991986a33808c20877981e55"
+  },
+  {
+    "file": "document/03_characters/00_design/24_layout_paths.ps1",
+    "previous_sha256": "04a6e8196a1d6304b27aadf613f277c10ca4a21ee1098e2c8779af6e807fab17",
+    "sha256": "f4df6ce4c440a29528e0d7d821a7f455a70b0cc08a801b4db8237777b3385d0f"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_README.md",
+    "previous_sha256": "b763f1bf34cd52ad2ade6678bcc9d90d4d566c83f26e9cdaaa635e9ff4b6a172",
+    "sha256": "384cd33253e0ce78a9556c0acd573d2e0fa20fd7290dc040d3a6c50c9f19f6c7"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_overview.md",
+    "previous_sha256": "4b3a4e050c0c0d8f9a6b5a9329b80d4080caa51db130118870a456d3ef42ff80",
+    "sha256": "6fa22c27d594ead226f2c2c969802dee85505cd911f08522b601c4fd29f5426a"
+  },
+  {
+    "file": "document/03_characters/01_characters/02_prototype_overview.md",
+    "previous_sha256": "1cd34f055278f34fa21232813da267e33c971648719d5fcea0e2d8bdeb62ac47",
+    "sha256": "0e3699952c19bd290120b667c69b9c28cf0ebb12c43fb5e2380fe9c185d8bc1c"
+  },
+  {
+    "file": "document/03_characters/01_characters/03_prototype_prompts.json",
+    "previous_sha256": "b9032817efe7972f6f43ba9409b52ca3d3b7a1e33142e573c505715829843054",
+    "sha256": "b29d7359db3691583db28fc09638478e2951dcd66b3fed2baf429307f6475ca9"
+  },
+  {
+    "file": "document/03_characters/01_characters/04_revision_prompts.json",
+    "previous_sha256": "828d0d9c3797102a86c8709c33d546f3814cc1b771e47e0e230e5c067499ec37",
+    "sha256": "828d0d9c3797102a86c8709c33d546f3814cc1b771e47e0e230e5c067499ec37"
+  },
+  {
+    "file": "document/03_characters/01_characters/05_manifest.json",
+    "previous_sha256": "0e577532da5f87897eb22059d6d2da9d66ac70474aaaf6c339fa247343505451",
+    "sha256": "f690dd9afb22e5b62280870cbe1736ce6f0602c7248a7d7b220897785ce69d46"
+  },
+  {
+    "file": "document/03_characters/01_characters/06_NPC03_베른_v3.json",
+    "previous_sha256": "6f4fd3c2cedaeb936ab6dfd3427c1cd61e16534c39cbafe9c052376863208b39",
+    "sha256": "7f161c454ef1b8459674a582a0d435e90a30ea43feff8debecf770e15d8490b9"
+  },
+  {
+    "file": "document/03_characters/01_characters/07_NPC03_베른_v4.json",
+    "previous_sha256": "8f0a61fffcae2d0d9b3b3517373c7d1ddfcbbb1a23ec4085a6fd85709c39d1b2",
+    "sha256": "7a5dc11826ebf39ef449c39462067aa2a8687d91469898bd4fc7263320740a9c"
+  },
+  {
+    "file": "document/03_characters/01_characters/08_prototype_manifest.json",
+    "previous_sha256": "2c5a030d0681ce7d929add2fda074284965de195fc1113b3bb588f65e7668daf",
+    "sha256": "5b128351c0afa08a61be0722d145f0f48e93cfccfaba93cb9a8aa2ce911e1966"
+  },
+  {
+    "file": "document/03_characters/02_items/00_README.md",
+    "previous_sha256": "cbe29b381d64bb1ce99e990ab718b10128cb1208863cd79b06eb1bdd6a5a5d53",
+    "sha256": "97e65065e1bd64a66733c348be5fe7fa9dcaa800329847ea07f3a9fccacf9a7e"
+  },
+  {
+    "file": "document/03_characters/02_items/01_overview.md",
+    "previous_sha256": "b514dc12a2cf66c4df7a93f18ff391d4ccfb43788cd9bb75996d81e6cdac79df",
+    "sha256": "05ed75296701e525215ffb81292735e8ad0ec03735a655c08ec48ac47a3cbbf0"
+  },
+  {
+    "file": "document/03_characters/02_items/02_prompts.json",
+    "previous_sha256": "d274a1fd0768b39f44496ca6d1e1522fdfc2fa5b83821ce5e35b03d463457c17",
+    "sha256": "d274a1fd0768b39f44496ca6d1e1522fdfc2fa5b83821ce5e35b03d463457c17"
+  },
+  {
+    "file": "document/03_characters/02_items/03_manifest.json",
+    "previous_sha256": "c263a9fb045e4350dd4aad51a22050ce1605d58f561fa55d5f9c5afa1504b96e",
+    "sha256": "ed9b96b796e6ba1d101032a4a192c8571aac67c5fe074b347304fb27b2d58f0d"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_README.md",
+    "previous_sha256": "d1ea69056d764d8ee419459354c1fcdbd3501bd71056bf75bcec59feb2d14adb",
+    "sha256": "8cf8129070027ab48d1e67d660b6d9b9d4501143e6b80fcf7cda3552cf168dcb"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_overview.md",
+    "previous_sha256": "69df3f8d211d067fa8b7a377425d1287d88208f762dcf54ce28276d132a7cdef",
+    "sha256": "5b2dd59a1004500c84609104655a79dcf694bf6397a6297b61e4ee2c4c9f1d17"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_prompts.json",
+    "previous_sha256": "98dd9042db541551530a2dea14cd3f61a01a514381f249d5c7620bb5278a8e59",
+    "sha256": "98dd9042db541551530a2dea14cd3f61a01a514381f249d5c7620bb5278a8e59"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/03_manifest.json",
+    "previous_sha256": "02cb05a3b9bf7e603d36bae7d618e470e3099be56cfe4ddf28a894849a39a50d",
+    "sha256": "461791ea5fc813cf160068a8a3aa19ce60dfd46b548cac68520f42934ba78462"
+  },
+  {
+    "file": "document/03_characters/04_ui/00_README.md",
+    "previous_sha256": "855d4f723990c57a75ad5e7011d8e0919aaddf70ee3f9b96cfe4b25428b83fa4",
+    "sha256": "1ef656864cbd1ea97a9af10436f4ea4f015a5f72b743cb99f9ae97e18a78e421"
+  },
+  {
+    "file": "document/03_characters/04_ui/01_overview.md",
+    "previous_sha256": "bb970f5f3d26d256cea014208c227789bf72ce6497d28c35d3f0efe91dc7ab23",
+    "sha256": "6419ce9b2a872cf7aae3ab3225ff0676b54d99a8a6feabe91bdd2e81ed4b45e2"
+  },
+  {
+    "file": "document/03_characters/04_ui/02_prototype_prompts.json",
+    "previous_sha256": "e13f1f0cdfbf48c275bf7880f89e3649b1b1aa241a73daa6b829825acc693bcf",
+    "sha256": "5ef2908d3419062a60d893e70065441a408fddcdbc7ea2f4c232f08f46b660a5"
+  },
+  {
+    "file": "document/03_characters/04_ui/03_UI08_UI10_spec.json",
+    "previous_sha256": "a5bdc46ffe039827d2c0668f9d4bc64d78629c188e634bfd4c2c815f42276131",
+    "sha256": "96c2eca4818601235d33e2dcad1d5eb35097e2750f9fb7ba6026895c83318668"
+  },
+  {
+    "file": "document/03_characters/04_ui/04_prototype_manifest.json",
+    "previous_sha256": "f6c79318b7a58d78e724411d3f914b12514af320b50d17b2e5d3ea42ad108698",
+    "sha256": "1e7238f513e769ad5e3b21510dc7622472e5f17aed512ce9106f2c3bdf8a2cc3"
+  },
+  {
+    "file": "document/03_characters/04_ui/05_vector_manifest.json",
+    "previous_sha256": "e1b349e0b5899ab327c9af5fc467aecdf93503ceb40ef71434d689bdeb5cd2d4",
+    "sha256": "ada30cac377bf9246f29797ba8fb2317b205ba78d7228940d35906d1338773f3"
+  },
+  {
+    "file": "document/03_characters/04_ui/06_icon_guide.md",
+    "previous_sha256": "7953230376def0ec13c0deae7097334dd70572b95042e85f54dd9743968acb65",
+    "sha256": "713c42f46ecdd954de02b766ed9b9adfcd4da4221836016dc3bbcd0e83fc94bf"
+  },
+  {
+    "file": "document/03_characters/04_ui/07_ui_review.html",
+    "previous_sha256": "505f8db37d4e77ca0f1a805fefe167c7da4623a8a91d4135b832684f9c3d0fd2",
+    "sha256": "4ed38064b35cc1411c38e91ca71fba0e1ce536e39677684ba0436c98be823fe4"
+  },
+  {
+    "file": "document/03_characters/04_ui/08_ui_review_results.md",
+    "previous_sha256": "8c96c0ecb17bce676ea9baf39ae21e9959d2f2631fd71eec98957b32f3485b18",
+    "sha256": "c4ae054dd21d812f901b9a43064125019596b2434b7f7a728dd1cd98044380f3"
+  },
+  {
+    "file": "document/03_characters/05_effects/00_README.md",
+    "previous_sha256": "f12adcbc1b18bbd1c61cda5fa9430f8c2f0f48002a88cccd569729c2d74a7750",
+    "sha256": "8eb05727d65560b51b85d704ac7618080f83cd775ca29aeca6956602a0df60f7"
+  },
+  {
+    "file": "document/03_characters/05_effects/01_overview.md",
+    "previous_sha256": "f8cab409acc632c5ed03a949a53635811c172dfd30bd777f7d9c3143d84058ce",
+    "sha256": "4e34372b02fc125cf8ed6d7a48d4b95277bb49feb2ddeb0d14d62bf5b914ac52"
+  },
+  {
+    "file": "document/03_characters/05_effects/02_prototype_prompts.json",
+    "previous_sha256": "9cb4fb4e30d80652bff3dbe1f4772e83e17c0c68512206a02b105ef7f34a985f",
+    "sha256": "2e833fa6cd70a215b39b84e904ee4745bd0af7e17711d4af13d47b37db0e6955"
+  },
+  {
+    "file": "document/03_characters/05_effects/03_prototype_manifest.json",
+    "previous_sha256": "2ca4b7cf16e415eb1375d2873bebf14d7e3960bb5d051ffe404f092e3dc21e89",
+    "sha256": "d18daba587774296336fcb2d50c676e90eb23a43135db8cf8ea50b3463506cfd"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_README.md",
+    "previous_sha256": "fbe2a088013b19f41b7408577eab40e7fb0b1e59b3ef096db3b07956bf0a11c7",
+    "sha256": "a371529ce98c57dc123dd5b7b6c78c3bb644fa6d61871210594131b75f50874f"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_overview.md",
+    "previous_sha256": "d1a97e8a857ee38b7220037f854f00204ccfe9a2cc6b750ffbefff6587e2d50c",
+    "sha256": "97484b6fca2a375bbcb34a79cef6b13117bd5f62e12d058cd03d4087c2c0c34b"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "previous_sha256": "cd4e0451c0405c08a50babc5bba9ec95ef0ac757a1c49ca514564962c1fff1ef",
+    "sha256": "2b3f776ddf8941ba21f58aa13b98478feb8eb0797f5f1a3b1b972a06a1af8fc9"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/03_revision_prompts.json",
+    "previous_sha256": "589a3f6aac449ac61f843feaf7a1632b3cad3b24de982aca31640cb936fe5eb8",
+    "sha256": "589a3f6aac449ac61f843feaf7a1632b3cad3b24de982aca31640cb936fe5eb8"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/04_ENV02_온실_바닥_변형_A_v2.json",
+    "previous_sha256": "6fa54cb020d60e7fe437b632711066fb8161468de6ca55cf81799a24245aba7c",
+    "sha256": "64348f645087f989f689e0b224d097ceb25ac6a100ce5f6d051b0754372340b3"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/05_ENV03_온실_바닥_변형_B_v2.json",
+    "previous_sha256": "7654eb47a64d4d36b6609cae0254324555a7b0ab64f354ffbeb562d126794faa",
+    "sha256": "10f42936bece1944f282b380c99caf5d346e1dd37e0606c043df2553a45cdafd"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/06_prototype_manifest.json",
+    "previous_sha256": "17c0db7a44a35d90088f5c9fee725408de892ad357ed0e3d18dc5280fdfd856d",
+    "sha256": "908b4f3f04e465171e376b8c051ccb8ef826f51c68e6b9b307089912e0ed68b9"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/07_repeat_check.png",
+    "previous_sha256": "de01db66d856347ffe37512a108d45e80140e19999bbf87848c701d4ce39422c",
+    "sha256": "de01db66d856347ffe37512a108d45e80140e19999bbf87848c701d4ce39422c"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/00_README.md",
+    "previous_sha256": "3cd15864d4accf4120f188da37ab70fa1a8113708be1f720441e5667b42015bd",
+    "sha256": "d8263680562fb75eba3d504476d3b4d1452abe116ec8802a39b45217898a8edd"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/01_overview.md",
+    "previous_sha256": "0447ce96de48084418f9cd2c99fb53a00e978f00a6c4abaa30f23474f8356068",
+    "sha256": "7dc322bb59f90ea7d18cc9479ab879f647a0529cfdc600a593bf7554238ba06f"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/02_prototype_prompts.json",
+    "previous_sha256": "caa6562bf8e1fbf42e14aebaff5c79b0d6d9b284221a5537761fd887f614fa7b",
+    "sha256": "f8294ee4d6125acb75e9b6aa077d1569eb22e166dd7642f4013172e9bdf90099"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/03_revision_prompts.json",
+    "previous_sha256": "190dacaa3a650c853d6d2e2b27021f5f2417c3a2d42986fb75dfdcaa8a1b6683",
+    "sha256": "190dacaa3a650c853d6d2e2b27021f5f2417c3a2d42986fb75dfdcaa8a1b6683"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/04_OBJ02_조사_식물_회복_v2.json",
+    "previous_sha256": "b55e82933cc66beb6d0cd23d3d9314cb4dcb8a73a79db249bfce856ff656e318",
+    "sha256": "858d5e509d45ada6e16a6d8fa6e24173c842f4f2bc964688e84dd25a08a3e1bc"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/05_prototype_manifest.json",
+    "previous_sha256": "a892ec83601c7b4b86fdb5daecf8b6ed3ed109aa4efecbc33bd6978885a83cbb",
+    "sha256": "dbb1d2e0a7437cabff6f990049a939a4305d0a71a816ab3a47f8d2bd6def674d"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_README.md",
+    "previous_sha256": "f04bd89a9c96dbc4ed5ad9cad77a94259559949e9420f0c4833a6bdf50055711",
+    "sha256": "fb3f9b6afb6e3c89e0a5457c0debe99968465e9f8a51dc7abd025849bd3f303f"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_overview.md",
+    "previous_sha256": "2451891d3b25ac0ff78de1737b5b89af7ce860c8641bba5b8280d9b8edccd3c8",
+    "sha256": "6d1175ccbd4a4598efd5e9d36bb8a9570d40c26c7aeea5eb0635d353f23f37a1"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/02_prototype_prompts.json",
+    "previous_sha256": "9268b068dbc8f6237a2f10dcac0e11a1fc5982aa871b102a1f949849648e31f4",
+    "sha256": "3e674a4df59f19ed48283c7f4c28b68961a03153683c6ede51e71378ea124e30"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/03_revision_prompts.json",
+    "previous_sha256": "3bc978406de9411c398a15ed4f83e4a8d51642a9b46028f9c3346e81194efa82",
+    "sha256": "439d26ab8342841082907e1833f54ab57400629d4b8f12fae3028cb7e4405f41"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/04_SD04_edit_record.json",
+    "previous_sha256": "8910a1ddc674871c1764bbac236a3dbbc82c5bc695a7f679109a91908aecadd8",
+    "sha256": "276c33b38479ded1ad17cbf4c85bf7150190d34e8ff2ffa8dfd23ee7051f0135"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/05_prototype_manifest.json",
+    "previous_sha256": "dd97f1e320040b83b00f0291fd865bcc82ab4c02c595b65fd1dd9f5c92f6975a",
+    "sha256": "caf14c074135f7efc6215ececdb7ca67d0233eafb6383c4d23913e4fa5d1560c"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/06_SD03_E.json",
+    "previous_sha256": "c9f0f4f945ac8bc5474bfbef2651c39cc67eab43ab53e74f29d4df09bc2c27f4",
+    "sha256": "1572ba3eabbb9cee69a16c3d18d63fc3e6b7bba0e79c3fc5c4584e5cd086fe37"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/07_SD03_manifest.json",
+    "previous_sha256": "f4070980b443ff43f64b5450a725401bd1f2ac554c2670abb954d3120db3cbf1",
+    "sha256": "7cfce5ef2827eb7c4de98611e8a00b5a8bfb986763a1236857e3bbf430dc4845"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/08_SD03_N.json",
+    "previous_sha256": "9b821b53c26a69e4eff7338f41f715d439ee929a4b6efc183de55784a6326041",
+    "sha256": "fb1899aeb9c4358c1c8cfdae713d1895c4f7eb6bd201f73da3914de9d2e82d58"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/09_SD03_NE.json",
+    "previous_sha256": "be6e3a786ee4c80c37df787f90bc2eaa3c70bb3e4e499c338971eff85446cefa",
+    "sha256": "3bb4a6c3981b0866d756634b9af7d19ff60f02ed392f112029f6b2a9d023650e"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/10_SD03_NW.json",
+    "previous_sha256": "d5d6f40b2dbc1f183f0b8c34fc4faf25b045c4dd66cf628bb47cb648bccf2c83",
+    "sha256": "fbbfe8500a324a8b26862c909a955ed81e75d3d877f9ed60b15325988e59737f"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/11_SD03_S.json",
+    "previous_sha256": "6f0c4e0bef41ff77903379fe56d7a784321b85062e8674494acc9c6bc7626b5b",
+    "sha256": "e2e71e526422c2496a8ceec92a98fb16bc37162165f42b13d4a27fc363f0dc4d"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/12_SD03_SE.json",
+    "previous_sha256": "6b622048c33e06391a8c72687009525865888a2219189b98ad7d449f30c82821",
+    "sha256": "55b050c696501251fc2c11a4b2cab906b344aa4a5666d5d288876fede3911941"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/13_SD03_SW.json",
+    "previous_sha256": "87a5b8d23ce67b86a59f83e22f66d8d11af26606fe08e3380119a6c46009490a",
+    "sha256": "1f898899c7f3691b92a0d5fecadf0901c38ad92ca167c022c5c3c672a2c9b2d0"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/14_SD03_W.json",
+    "previous_sha256": "c598141f6a793f96b3be84ac57cfa65fc4e32b57a2de147451f83fbdfae226ea",
+    "sha256": "073892726242b4f376a97296966017be6442353911c237115a476fe326d2b3dd"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/15_SD04_N_02_bookfix.json",
+    "previous_sha256": "f5cd7e13477dfe501e435f8363dccf9c2ebb24865924cdf6a921a62f6249de98",
+    "sha256": "c49568774627fcbaed4178d462a6fb04aec0c272296fe8a0595b5012b9490fd9"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/16_motion_review.html",
+    "previous_sha256": "445a61786d83b924511bc36b9552422bdc94ed152ea71464bac8c7e1440cf136",
+    "sha256": "c696f7f655fd5c0d0b7de089aaf2a52afa10ff0cb1e169acbb4dc824555d3206"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_README.md",
+    "previous_sha256": "87b4772ca819303e0cb69f0f1bfaae6e0f26048255c22bd3735f577c89dfdf1b",
+    "sha256": "ba250deae760924fc17fa819047f8ff780909b7d0800f98682ba7aaae17b0be1"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/01_overview.md",
+    "previous_sha256": "0629c0a14990ddb286f343c5b2e68b837cbd3bf22e3262acbb9c11d0a3659be4",
+    "sha256": "cad03b3cf8f7ddf436d596b8b2ea8d68ed6486a7631752e872e7a43e9973d7ab"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/02_prototype_prompts.json",
+    "previous_sha256": "e6b9609a5f5982434af948ade9cd74e8e1e3b4d193c8309739c494e7d7412c14",
+    "sha256": "113d4f146a591a4f1854f87b0420310b8d62bfe6a1070debab4b5ba522e3f3d3"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/03_prototype_manifest.json",
+    "previous_sha256": "49e8a191f6cd23f9a6d30e0fa2ecaad39fec483077a6d836781e90b5de3946fe",
+    "sha256": "94401b81c5e2de50c0b9f64a41d1a6d05ba2126d9a9127e6f26003887ad6bae5"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/04_vector_manifest.json",
+    "previous_sha256": "12c0c7bd6c4fa5fc2f6324d9d1a78ded19d76f27d6030dce7fa30eacf4d5e76a",
+    "sha256": "4957b86ea2af1b32ce925ed4db922d6842646ab15ff6e52bdede58e2b4d54750"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/05_usage.md",
+    "previous_sha256": "8a10a4c6a0d06f8b5a2bec80b08c458773f9b03bb403dd596be9c6024ab86df2",
+    "sha256": "8a10a4c6a0d06f8b5a2bec80b08c458773f9b03bb403dd596be9c6024ab86df2"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/00_README.md",
+    "previous_sha256": "ee8bcce072eb55cf64135409ecfb9a8a6a019d20e19987ae8f1a80c78d686052",
+    "sha256": "8a765f6f94da4e6d84c526d40f182b2b6f87f295059742b5e14e3442a798bd90"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/01_spec_and_checklist.md",
+    "previous_sha256": "f6594bb99484da8f0ca2977da17cb0611207c66a6da4e07d92515e1548526eb4",
+    "sha256": "d82340ffec5f1682377dae048f2a0deba359d9b447e18c716a59bb664713b4a7"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_preview.html",
+    "previous_sha256": "6b812b025a57c6ec1b5c314036cb7bd411ff3ad7d73b08b4d35c7eae4272ace9",
+    "sha256": "6e247c7d0743944b146ba52c2d8cf4eee59434edb97dcc9bf03c7dd7d62c8c2c"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/03_screen.css",
+    "previous_sha256": "f6f392e7ac9a1789c666daf80acce01f28e38a4fc2cbd3ef13886506dccd9f9d",
+    "sha256": "97a9c146f6ff13cf2411a0d2e2143ac861dae629e62b4956fae8aba82ef97b93"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/04_screen.js",
+    "previous_sha256": "4f624c01622fc0e477b0e19bc0d1794f942b0e8d9118491fc539c17c7a3b3211",
+    "sha256": "fa48a95d74fcc916820686404e54b06af422744d894ea22193f58af092562392"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/05_review_and_delivery.md",
+    "previous_sha256": "adb4e1f2f4e089ee9b45c11a2ae2c19be9399849e3c1f4c5e93c6d05c38514be",
+    "sha256": "ffd1337ef7a5952c344b98bb2b011db174c21704099eb4137f1634eff69200a3"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/06_verification.json",
+    "previous_sha256": "2ff6f5535d01de136a73027c659eb98d95dbfaa9f28d370a81bd4bc03dea664d",
+    "sha256": "d82cf45af6a6d4db0409ee82e7db4ce53880afbb0f5d52a8ac80a12ace834f5e"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/07_life_adventure_correction.md",
+    "previous_sha256": "b2336e28c88e352b2eabddc74c9f8a4977aef22ed714cdf101644acabf9a11c7",
+    "sha256": "002e0d91a1f3e20155ff35e89e6443f6f0912ca289c690cc63746f578caca688"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/08_sequential_review.md",
+    "previous_sha256": "3b57c9d8689a675c29d4b66521aa57d9a1d048097aced69ffaf259c64e4ea742",
+    "sha256": "507462c78d83fd710cca8969011afef8a8a9957443fdc7a44276c30a38d6f1c7"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/09_flow_composition_plan.md",
+    "previous_sha256": "1a447816ea811ec6b83e7c83fd1bf8db342f8b3278558132bf4cbd2e32d4f453",
+    "sha256": "ad3c7ab4cc7087471598a256e24ff229a38af1e3d9a4a0a8446cde0dc0175a0f"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/10_flow_preview.html",
+    "previous_sha256": "0b7f61c25feedbefa8c57207c0a7d3fbd47693a8805b7446514cf9d2743345d1",
+    "sha256": "d557a239cf5e8130f5e40347f5353f79258587bdd5690220b0adf8788755d95e"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/11_flow.css",
+    "previous_sha256": "10bcd325ac1aa2dfc3a4ca24bb03158809dec7ceef1e597a637baf7c642973f6",
+    "sha256": "10bcd325ac1aa2dfc3a4ca24bb03158809dec7ceef1e597a637baf7c642973f6"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/12_flow.js",
+    "previous_sha256": "43daade10635dd8e1ab0d22e5d96667c32ac5cc02fa3be9ffc6e14bfca5ab566",
+    "sha256": "b95a57be90c7443b688d0087de455b66e80abfb40da4a63655c761758928e513"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/13_flow_gallery.html",
+    "previous_sha256": "3fe0c3046477b1fa98520fef81a42718652542b462973da1197724639c05eec4",
+    "sha256": "19e5f7af7148c1e21e0dc455ba8fbe96e9386ca8479d43bb6f6e8049279616b5"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/14_browser_checks.json",
+    "previous_sha256": "82a4089cc1fddf5015683611ce0e74316f48a08a7633fae80204f2bda1afd667",
+    "sha256": "82a4089cc1fddf5015683611ce0e74316f48a08a7633fae80204f2bda1afd667"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/15_generation_prompts.json",
+    "previous_sha256": "de08fdd97c1bbd83cb998613b2060d238072be804e312c55df0bd593a5f01eb8",
+    "sha256": "f7173ad47313e420c0aa2418dc2b3be305c4f60aa6ab89168d3d3356635ae65a"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/16_flow_delivery.md",
+    "previous_sha256": "09396de3aeede3b42598cb3200f90861c84a871bcba5084eb0bc77e95104c3ad",
+    "sha256": "6f96098d3a1e058499b3c68653249f320972da3f82a0bd1528392a8f94998ec0"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/17_flow_verification.json",
+    "previous_sha256": "f40bb118150e5f3985ceece5639465d991044ba4f0a5473c812c3444cd83819f",
+    "sha256": "267ecad905010ebc83adef290bb48bdf763e06f4f141d2af90feec06312f11cd"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/00_README.md",
+    "previous_sha256": "be42b16424abd8bcb5687da722d689622289728c1f92a968c49de818e7a3d625",
+    "sha256": "c2a01262bedc1dd816186751ee6529b290342dbb223a11857e2d568b00b66e94"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/01_spec.md",
+    "previous_sha256": "189ae3d8dd4eba96c31b39bc358ced68b50a9399d31089631526fad492ffe5ee",
+    "sha256": "189ae3d8dd4eba96c31b39bc358ced68b50a9399d31089631526fad492ffe5ee"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/02_preview.html",
+    "previous_sha256": "de3a6c00adf225e3feb615a733688dee6e19581d10abca16b6b40bdc535a6ca6",
+    "sha256": "c0d061cd3a303355e522cd3a8e3218743d453362ea481541608f1a957266d739"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/03_map.js",
+    "previous_sha256": "5653d53fd9cb17c447322b6c310d07913100b5fcbf9e2d26b646886db9d64f2f",
+    "sha256": "a3de1d7b98c21add966b9ae9ec2f39d8a77f48ba577630f9473f27d71f3b79a4"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/04_hud_research.md",
+    "previous_sha256": "659cbc3d0c9a5a101faf208dc8eae5fe305f9424b6d7f2328750d6177869282b",
+    "sha256": "659cbc3d0c9a5a101faf208dc8eae5fe305f9424b6d7f2328750d6177869282b"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/05_review.md",
+    "previous_sha256": "d1285f51eb8dba8cbb30d71d482a9a21d445dc09f981bc75bc59a99ee9cad9ba",
+    "sha256": "765cb724b6c000d7d96b5b9c940deb51eec808cd97584756724e1859d7b2168b"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/06_verification.json",
+    "previous_sha256": "3f463756256d205f79add8bc4607e541fb88d4da39d579f6e64e9aaa4b30e0c6",
+    "sha256": "2dab4a6bb475a57acfb7cfebb13a02fce04d957145e378e34066b620d5506b5e"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/07_myroom_proposal_pending.md",
+    "previous_sha256": "d1b33fba079525c2407bf9c5ddf8dbe0183033ad2a28fa37657654777176a7f4",
+    "sha256": "d7667e43d29d97ebfe4be73db0b61dd01b757f72c3fe79961263536e1b43c7b5"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/08_art_revision_checklist.md",
+    "previous_sha256": "7a7f031de533e9cb314cc0d8938cd634224bf92139b106db4edd62733d4d5507",
+    "sha256": "964be1d19042387838e9992b2f42e995a42b04580e9a9365b9a8d50227ed1892"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/09_art_revision_prompts.json",
+    "previous_sha256": "73f61d5d9c82a7da8a206c3f34c6d0b0c20f53bba51b22ba40ae8f77347e76e8",
+    "sha256": "d278a085d478eee762fbe21d198c532fcace37e5f0f96287928f71b165add3d6"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/10_art_revision_review.md",
+    "previous_sha256": "9f4137c228c28a4986082c1d73068d648b5e3553f4d84a262aabe77a279dd147",
+    "sha256": "956545f9e499cd133f9ecec8ee7fcc84bdbba7addec147409fb78de9b799bad5"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/11_art_revision_verification.json",
+    "previous_sha256": "f3edb2ada1bc53bdf9b7af1c010ac5e7e259340fcf0366d3a9aad0825611689e",
+    "sha256": "f3edb2ada1bc53bdf9b7af1c010ac5e7e259340fcf0366d3a9aad0825611689e"
+  },
+  {
+    "file": "document/03_characters/12_organization/00_README.md",
+    "previous_sha256": "a83a70653dbd3fc8323089f68a48d3319eec8297607b338d9854271ad539a7bc",
+    "sha256": "c0729daac0de728594d5b7ee29afb2a1bb4aab0166412405c5afc5be597d5915"
+  },
+  {
+    "file": "document/03_characters/12_organization/01_numbering_rules.md",
+    "previous_sha256": "0f6635d6bb79d40cee5dd3387752e70c0e44822fe9cee40e9633866aeb15690e",
+    "sha256": "1cf4324b6897e63b20b35d1ebe949fabae2c917a5bd16d45c9a3b9424337233d"
+  },
+  {
+    "file": "document/03_characters/12_organization/02_path_migration.json",
+    "previous_sha256": "093744c8db62cf7cba8201b6512de90c0496fcd7dcfe356998f044e70d912e88",
+    "sha256": "fd0fcc5884a76d5f4b778dc5f588a6590bf1925cbb6b4a0a04df4a401b5a0c24"
+  },
+  {
+    "file": "document/03_characters/12_organization/03_validation.json",
+    "previous_sha256": "ca52c353307c812623e824714c9ea9a53bfd7b8513908f731ec09f4e07dbed2b",
+    "sha256": "f2b1f4c23bb4321c5ab4572f9b9c0c79d2eca71b09987a8730bc1fa205669268"
+  },
+  {
+    "file": "document/03_characters/12_organization/04_file_inventory.json",
+    "previous_sha256": "d67ebe5b6b0e21c18809ab222ac2be5d84cd6e9e1fdc3272b95a677c3fcc0f51",
+    "sha256": "b911b3544f2a24dbf3942c7cc471fe8df19abc426a8925676ab47efc281ccdf3"
+  },
+  {
+    "file": "document/03_characters/12_organization/05_validate.py",
+    "previous_sha256": "45ab493431d7239f6a3ef01814a543007514404b2031f7ba7db0bf8d03ea6b2a",
+    "sha256": "2ace0ed0643191830cb288129b06be5beb94d13801f03dd270bd82bb45e1f6bc"
+  },
+  {
+    "file": "document/03_characters/12_organization/06_browser_checks.json",
+    "previous_sha256": "d30279f532e59ec08020198a46513b17cac931d26e5f012796a938aeb919f9ec",
+    "sha256": "5606931b8cbf7e5125bb5ee93dba9f671bb19c273debbb55422a0536a96c72fb"
+  },
+  {
+    "file": "document/03_characters/12_organization/07_asset_paths.js",
+    "previous_sha256": "1e19dac5e76142ca6ca318ec102a044c7b3d53c7f838e566c35f4e02abce4985",
+    "sha256": "129ea595d1c33998d3ebfd321a0a3bf31cb87c2d890047014c953373425d95dd"
+  },
+  {
+    "file": "document/03_characters/00_design/00_source_documents/00_README.md",
+    "previous_sha256": "f17d37b19bee7d6e4fd877b875538f5cd2bf87233150ebbbcee354fd44341a94",
+    "sha256": "6a4a8ffe71e9d3c4a2899cb6f88d0279112d0a682ccb9e5ca71042617c896537"
+  },
+  {
+    "file": "document/03_characters/00_design/00_source_documents/01_LUMIA_DESIGNER_GUIDE.md",
+    "previous_sha256": "874831967cee59a04f57d20a4b11846de5ae38c3d486d260d9ec02eea832ce46",
+    "sha256": "874831967cee59a04f57d20a4b11846de5ae38c3d486d260d9ec02eea832ce46"
+  },
+  {
+    "file": "document/03_characters/00_design/00_source_documents/02_LUMIA_DESIGNER_PRODUCTION_REQUEST.md",
+    "previous_sha256": "8b9cb88152cb4ecea3307e0b539a173dac324a9afcabe9f8d307a809077d260e",
+    "sha256": "8b9cb88152cb4ecea3307e0b539a173dac324a9afcabe9f8d307a809077d260e"
+  },
+  {
+    "file": "document/03_characters/00_design/00_source_documents/03_LUMIA_GAME_DESIGN.md",
+    "previous_sha256": "f8d6cedfbf099f1a8f7603a935da1f2751dff9fbaf092747f965f265f2918061",
+    "sha256": "f8d6cedfbf099f1a8f7603a935da1f2751dff9fbaf092747f965f265f2918061"
+  },
+  {
+    "file": "document/03_characters/00_design/00_source_documents/04_LUMIA_PROTOTYPE_PLAN.md",
+    "previous_sha256": "639a10440cfc66f0790c29761e9fb8a603b274790a497ec66285253bcd3e7523",
+    "sha256": "639a10440cfc66f0790c29761e9fb8a603b274790a497ec66285253bcd3e7523"
+  },
+  {
+    "file": "document/03_characters/00_design/00_source_documents/05_skill-update.md",
+    "previous_sha256": "7167acd8ba790588ee12da4acd5a784cc210e8e482343c4a362670d79930e806",
+    "sha256": "7167acd8ba790588ee12da4acd5a784cc210e8e482343c4a362670d79930e806"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/00_README.md",
+    "previous_sha256": "48d7483d04d69b99e76191af39ebad97e6c05367417108f0a9304137fad11479",
+    "sha256": "0c04011e48b49695bfaca8af4d8855bbb82ddb3fdd58bfe7ef793766e1fd55b2"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/01_CH01_DELTA.txt",
+    "previous_sha256": "1d3d0b9b1be066dbac5c63b055ab7f10741955233981a318a9dd79fb9ec9ee4d",
+    "sha256": "1d3d0b9b1be066dbac5c63b055ab7f10741955233981a318a9dd79fb9ec9ee4d"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/02_CH02_DELTA.txt",
+    "previous_sha256": "e9399ba7a7abe25ff973bb8900907648d12c6a1c171676fed78fdcdf3ed2f98e",
+    "sha256": "e9399ba7a7abe25ff973bb8900907648d12c6a1c171676fed78fdcdf3ed2f98e"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/03_CH03_DELTA.txt",
+    "previous_sha256": "fe2292de3351e7236932ef3054e487ae3f1d03afc3cd5fca8ffaf70315ef0e59",
+    "sha256": "fe2292de3351e7236932ef3054e487ae3f1d03afc3cd5fca8ffaf70315ef0e59"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/04_CH04_DELTA.txt",
+    "previous_sha256": "2376babceaa161a1e93d5a03d7546fc8e674ceb0ae9f0a644e93fbda8366d5ce",
+    "sha256": "2376babceaa161a1e93d5a03d7546fc8e674ceb0ae9f0a644e93fbda8366d5ce"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/05_CH05_DELTA.txt",
+    "previous_sha256": "953196ee42ee6eef2eb64977968488a908f78a3ae4615ae489e081a0a5b20d1d",
+    "sha256": "953196ee42ee6eef2eb64977968488a908f78a3ae4615ae489e081a0a5b20d1d"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/06_CH06_DELTA.txt",
+    "previous_sha256": "c6ce59b0c5b0e47b475f69c577beb0490854a82747d631490d07dd13fc1d7373",
+    "sha256": "c6ce59b0c5b0e47b475f69c577beb0490854a82747d631490d07dd13fc1d7373"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/07_CH07_DELTA.txt",
+    "previous_sha256": "eb920975f8209ff9b827e6664ec5d0ef78e0eea291bc715426f520c491cade65",
+    "sha256": "eb920975f8209ff9b827e6664ec5d0ef78e0eea291bc715426f520c491cade65"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/08_CH08_DELTA.txt",
+    "previous_sha256": "2c8c9f0613328a3087374b9c9f67d0021caf0e4333158a6cd0b04e58fbc0e7b9",
+    "sha256": "2c8c9f0613328a3087374b9c9f67d0021caf0e4333158a6cd0b04e58fbc0e7b9"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/09_CH09_DELTA.txt",
+    "previous_sha256": "f484310e719f33a3cc5f4d7e3a630ac4c2d8c17242427862eb1db2821a262764",
+    "sha256": "f484310e719f33a3cc5f4d7e3a630ac4c2d8c17242427862eb1db2821a262764"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/10_CH10_DELTA.txt",
+    "previous_sha256": "f5702cf6ea0f82bb737b381faf0ddd592d1beb087e9b58a6221d68d08d3aa847",
+    "sha256": "f5702cf6ea0f82bb737b381faf0ddd592d1beb087e9b58a6221d68d08d3aa847"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/11_CH11_DELTA.txt",
+    "previous_sha256": "ef16787ed50e4d9a9b924e932ce0ac510b4259f5112d80d4917efbb858a374d2",
+    "sha256": "ef16787ed50e4d9a9b924e932ce0ac510b4259f5112d80d4917efbb858a374d2"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/12_CH12_DELTA.txt",
+    "previous_sha256": "93b7128ed5b79712c4d4e5835034468eb851660f94f693b0875a762ea45db635",
+    "sha256": "93b7128ed5b79712c4d4e5835034468eb851660f94f693b0875a762ea45db635"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/13_CH13_DELTA.txt",
+    "previous_sha256": "69e4bb0e2bddbd71d4d8218095a752c4c3d292c208e49bcaa4cdc5dc7bccfca4",
+    "sha256": "69e4bb0e2bddbd71d4d8218095a752c4c3d292c208e49bcaa4cdc5dc7bccfca4"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/14_CH14_DELTA.txt",
+    "previous_sha256": "6c59ead870315139f9d9af4261429109de4b5c1b30c46f5f1f11d854c9ee3e99",
+    "sha256": "6c59ead870315139f9d9af4261429109de4b5c1b30c46f5f1f11d854c9ee3e99"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/15_CH15_DELTA.txt",
+    "previous_sha256": "b757653d9420631e034b73be90754d140933e71942bdb3f48360e785b7c7273d",
+    "sha256": "b757653d9420631e034b73be90754d140933e71942bdb3f48360e785b7c7273d"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/16_CH16_DELTA.txt",
+    "previous_sha256": "17c56a7c415a91ed2b60c7a86304db875edc7b31669586665770867e72c8da6f",
+    "sha256": "17c56a7c415a91ed2b60c7a86304db875edc7b31669586665770867e72c8da6f"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/17_CH17_DELTA.txt",
+    "previous_sha256": "ec748915c4905b776200913ebc61403b81735446595d3226d867e5baa61b4eff",
+    "sha256": "ec748915c4905b776200913ebc61403b81735446595d3226d867e5baa61b4eff"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/18_CH18_DELTA.txt",
+    "previous_sha256": "9f831177997f9fcc6a61866a01df63cfc76fc7a49d640c366d615098c47d5621",
+    "sha256": "9f831177997f9fcc6a61866a01df63cfc76fc7a49d640c366d615098c47d5621"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/19_CH19_DELTA.txt",
+    "previous_sha256": "75b5d20a8c46ff6a388c983be8b3a79cc518f562a8732381323931ae53b80cad",
+    "sha256": "75b5d20a8c46ff6a388c983be8b3a79cc518f562a8732381323931ae53b80cad"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/20_CH20_DELTA.txt",
+    "previous_sha256": "41953fd7ffa5d2bb0b487e81b7e9bbe5929beb98522b0de34afed2b1f4c95107",
+    "sha256": "41953fd7ffa5d2bb0b487e81b7e9bbe5929beb98522b0de34afed2b1f4c95107"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/21_CH21_DELTA.txt",
+    "previous_sha256": "f66d1ebf566d708c9ecadb82f83ba9f29afb1fe7ced16a6939e14f9880101b63",
+    "sha256": "f66d1ebf566d708c9ecadb82f83ba9f29afb1fe7ced16a6939e14f9880101b63"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/22_CH22_DELTA.txt",
+    "previous_sha256": "297e8f6b74757271b5b3969f616df29a4b285fa11dd8b3e6eca58e54d2ff2a93",
+    "sha256": "297e8f6b74757271b5b3969f616df29a4b285fa11dd8b3e6eca58e54d2ff2a93"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/23_CH23_DELTA.txt",
+    "previous_sha256": "712a165bfd4456b253f6cc224d996636c26a8087e975a69f6023a5190817a610",
+    "sha256": "712a165bfd4456b253f6cc224d996636c26a8087e975a69f6023a5190817a610"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/24_CH24_DELTA.txt",
+    "previous_sha256": "45ed3e009c5b6cf24f85219babacd083c207f2ae5dc5dc8e78b8f174a892dedd",
+    "sha256": "45ed3e009c5b6cf24f85219babacd083c207f2ae5dc5dc8e78b8f174a892dedd"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/25_CH25_DELTA.txt",
+    "previous_sha256": "785e999e690a1a6b557f02810ef837b26198894357c6ad106b92ab6cffa55af7",
+    "sha256": "785e999e690a1a6b557f02810ef837b26198894357c6ad106b92ab6cffa55af7"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/26_CH26_DELTA.txt",
+    "previous_sha256": "dd544cb83e6424f024330094ad2a81dfc71962416e21491d960dd47412382d9a",
+    "sha256": "dd544cb83e6424f024330094ad2a81dfc71962416e21491d960dd47412382d9a"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/27_CH27_DELTA.txt",
+    "previous_sha256": "55bea4f4f885faf081c237a34082b51e66e5c8080c77cae1703abbafcf58aa4c",
+    "sha256": "55bea4f4f885faf081c237a34082b51e66e5c8080c77cae1703abbafcf58aa4c"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/28_CH28_DELTA.txt",
+    "previous_sha256": "40363721ab4f81dd3165e4366ed83e16f8f1300e8dccb0b429867bf67ab5bb5a",
+    "sha256": "40363721ab4f81dd3165e4366ed83e16f8f1300e8dccb0b429867bf67ab5bb5a"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/29_CH29_DELTA.txt",
+    "previous_sha256": "c6abb6ef841e9bceb6e054231934a888c7ca729927b48be2be7835a7e3b05ddb",
+    "sha256": "c6abb6ef841e9bceb6e054231934a888c7ca729927b48be2be7835a7e3b05ddb"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/30_CH30_DELTA.txt",
+    "previous_sha256": "ed5ec37fc1611cca874762d4849bf82a7f7d8c34db37af713e06299ab8217a58",
+    "sha256": "ed5ec37fc1611cca874762d4849bf82a7f7d8c34db37af713e06299ab8217a58"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/31_CH31_DELTA.txt",
+    "previous_sha256": "4c992c42c3441022dfa94b1d03c92c7bd3505527d60dd204b60dad3724251cfa",
+    "sha256": "4c992c42c3441022dfa94b1d03c92c7bd3505527d60dd204b60dad3724251cfa"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/32_CH32_DELTA.txt",
+    "previous_sha256": "7a917e7437cf13932356339fee60790b45cc20115f2fc905c2c58e7bc3a62eb0",
+    "sha256": "7a917e7437cf13932356339fee60790b45cc20115f2fc905c2c58e7bc3a62eb0"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/33_COMMON_LOCKS.txt",
+    "previous_sha256": "2a2afd57a40fbea8ea1f4c170df16eadde6cfe15372cf6ef82968afd2ac0f0d1",
+    "sha256": "2a2afd57a40fbea8ea1f4c170df16eadde6cfe15372cf6ef82968afd2ac0f0d1"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/34_NPC01_DELTA.txt",
+    "previous_sha256": "2380b5200a4448b6a696b8fe72e48259bd29a5fd125085367384e53c270476ab",
+    "sha256": "2380b5200a4448b6a696b8fe72e48259bd29a5fd125085367384e53c270476ab"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/35_NPC02_DELTA.txt",
+    "previous_sha256": "c6c25a622b8e8794e7ec994ad5c78472784f899704d8a22679d5e35ae540d614",
+    "sha256": "c6c25a622b8e8794e7ec994ad5c78472784f899704d8a22679d5e35ae540d614"
+  },
+  {
+    "file": "document/03_characters/01_characters/00_prompts/36_NPC03_DELTA.txt",
+    "previous_sha256": "9b5dc07012feef1b1c41bd30ef24f82477a3b19a398052dbaaee86a1ef893e46",
+    "sha256": "9b5dc07012feef1b1c41bd30ef24f82477a3b19a398052dbaaee86a1ef893e46"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/00_README.md",
+    "previous_sha256": "8e8feedd070e1e33b17a9b8a7be1477a398c0668ed0b80f68299e5cf4a0d9d4a",
+    "sha256": "3a61afb038d4e70ffa2dcb865b00b5691805a61e88173894d8cdaa46f050e00c"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/01_CH01_카엘.png",
+    "previous_sha256": "308fd302faee5c970c4dcf26b5abd05bca8cb644fe45afcc1c0a849115109924",
+    "sha256": "308fd302faee5c970c4dcf26b5abd05bca8cb644fe45afcc1c0a849115109924"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/02_CH02_세라.png",
+    "previous_sha256": "1c0158747e6b786a491624a5b59610547b7dc09afe81b18cd74c8e15d748c5f4",
+    "sha256": "1c0158747e6b786a491624a5b59610547b7dc09afe81b18cd74c8e15d748c5f4"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/03_CH03_시온.png",
+    "previous_sha256": "5dab2777d8a6ffb50ef9dfe67aa8009836b14b1113bab7e852207005ba01fe30",
+    "sha256": "5dab2777d8a6ffb50ef9dfe67aa8009836b14b1113bab7e852207005ba01fe30"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/04_CH04_로엔.png",
+    "previous_sha256": "ff00251fc60bba87d46263d5082170140844fc7e41577a65c0703057a0dde58c",
+    "sha256": "ff00251fc60bba87d46263d5082170140844fc7e41577a65c0703057a0dde58c"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/05_CH05_레온.png",
+    "previous_sha256": "e9566cefbf9e33540836137b97e95e1d77c8f48026c8e1aa4985af4d90dac0aa",
+    "sha256": "e9566cefbf9e33540836137b97e95e1d77c8f48026c8e1aa4985af4d90dac0aa"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/06_CH06_벨라.png",
+    "previous_sha256": "73ea1f7c6dc4c21ff36ee874a8f8f0615a15eb5da6723613100a926e497dfe0a",
+    "sha256": "73ea1f7c6dc4c21ff36ee874a8f8f0615a15eb5da6723613100a926e497dfe0a"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/07_CH07_유안.png",
+    "previous_sha256": "befe8959a3af45e186b5c6f899e3fbaf5546e2f4cccb74a176731e033afb52c1",
+    "sha256": "befe8959a3af45e186b5c6f899e3fbaf5546e2f4cccb74a176731e033afb52c1"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/08_CH08_아이리스.png",
+    "previous_sha256": "6a3319ef11844690095642852933321bf3aa9dfbf1ff71055a9900231067650e",
+    "sha256": "6a3319ef11844690095642852933321bf3aa9dfbf1ff71055a9900231067650e"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/09_CH09_에녹.png",
+    "previous_sha256": "91733f163576629967b4c5b39df3216daf9137d22035e40b6a36e5929e4056de",
+    "sha256": "91733f163576629967b4c5b39df3216daf9137d22035e40b6a36e5929e4056de"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/10_CH10_엘리아.png",
+    "previous_sha256": "e601afd9c4891de62dbbd04eb41d7e826bb97935a7f34e2eb0372b2e1527aa05",
+    "sha256": "e601afd9c4891de62dbbd04eb41d7e826bb97935a7f34e2eb0372b2e1527aa05"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/11_CH11_루카.png",
+    "previous_sha256": "7ea1668c787d7751382833984f4bccb064ae48d444f6f3ad37c286d420ac5647",
+    "sha256": "7ea1668c787d7751382833984f4bccb064ae48d444f6f3ad37c286d420ac5647"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/12_CH12_리네.png",
+    "previous_sha256": "6c13c6574809e49fbfd911d540dd5dad012fef926e681d47b164e3a7518ab55d",
+    "sha256": "6c13c6574809e49fbfd911d540dd5dad012fef926e681d47b164e3a7518ab55d"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/13_CH13_아드리안.png",
+    "previous_sha256": "dab5b76efc3e25b0a58467bc53a30a3a2c5d9ab23ce3604148c8c35ab6b910ba",
+    "sha256": "dab5b76efc3e25b0a58467bc53a30a3a2c5d9ab23ce3604148c8c35ab6b910ba"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/14_CH14_스텔라.png",
+    "previous_sha256": "3bbd73bebefe1a928c3a036abfcaec571544c15623b01bcf261eeac41d4185a5",
+    "sha256": "3bbd73bebefe1a928c3a036abfcaec571544c15623b01bcf261eeac41d4185a5"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/15_CH15_로빈.png",
+    "previous_sha256": "f0c843bb08a4f9e620d8ed65f903b77f9ba2bb5455d6a30794a88b8bd39b2be2",
+    "sha256": "f0c843bb08a4f9e620d8ed65f903b77f9ba2bb5455d6a30794a88b8bd39b2be2"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/16_CH16_티아.png",
+    "previous_sha256": "8dd71f593b1a1c4cf357063e18f6c9dc17f0ed9a6054315b95a5e70d896d7b28",
+    "sha256": "8dd71f593b1a1c4cf357063e18f6c9dc17f0ed9a6054315b95a5e70d896d7b28"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/17_CH17_바론.png",
+    "previous_sha256": "ba9cfb342215e7510f07352b3bb51e0cc2d7080f4c08af663a6ce8a0ddb73103",
+    "sha256": "ba9cfb342215e7510f07352b3bb51e0cc2d7080f4c08af663a6ce8a0ddb73103"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/18_CH18_클레어.png",
+    "previous_sha256": "3b6019421b7f62d7ba0340c4aea7ca0e0e7432822622ef1ff80db8076120b661",
+    "sha256": "3b6019421b7f62d7ba0340c4aea7ca0e0e7432822622ef1ff80db8076120b661"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/19_CH19_요한.png",
+    "previous_sha256": "30732aec93d754c9e51704174b7be9cfc7f20a161954f0de303dbc7431570300",
+    "sha256": "30732aec93d754c9e51704174b7be9cfc7f20a161954f0de303dbc7431570300"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/20_CH20_하젤.png",
+    "previous_sha256": "42524e15b4b5e5b7b27be074750fb8dd6740478b44197e0398369f19843431e2",
+    "sha256": "42524e15b4b5e5b7b27be074750fb8dd6740478b44197e0398369f19843431e2"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/21_CH21_빅터.png",
+    "previous_sha256": "e3424b5c712463832d0144335208c53f258e960de718660c4540723a8b1786ae",
+    "sha256": "e3424b5c712463832d0144335208c53f258e960de718660c4540723a8b1786ae"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/22_CH22_로렌.png",
+    "previous_sha256": "4ad81d0fd804694cd86c942b9a2f348de1adad06661ddc41ff42746580a31fd7",
+    "sha256": "4ad81d0fd804694cd86c942b9a2f348de1adad06661ddc41ff42746580a31fd7"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/23_CH23_테오.png",
+    "previous_sha256": "f497c6125cf0562f139bd9ad9cea5dc70e3aa66aa867d082bb5dc3503636b0d2",
+    "sha256": "f497c6125cf0562f139bd9ad9cea5dc70e3aa66aa867d082bb5dc3503636b0d2"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/24_CH24_미리엄.png",
+    "previous_sha256": "eb6ed849587ffdd093d434c7fbf009d64eff885a37ebeb31a0f337f3a9e96754",
+    "sha256": "eb6ed849587ffdd093d434c7fbf009d64eff885a37ebeb31a0f337f3a9e96754"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/25_CH25_렌.png",
+    "previous_sha256": "bfb545f848a1276a92390c7fc003e89034c274ec5de2761e37cc4390246dd019",
+    "sha256": "bfb545f848a1276a92390c7fc003e89034c274ec5de2761e37cc4390246dd019"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/26_CH26_다나.png",
+    "previous_sha256": "4349463222160acbc8a1db25bdba16eafca26c84463b070d3de62761e41a23ff",
+    "sha256": "4349463222160acbc8a1db25bdba16eafca26c84463b070d3de62761e41a23ff"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/27_CH27_미엘.png",
+    "previous_sha256": "29f93e0b31ae62eb13618f630223ed46d9e1c353c5cff76ca0dd4d10d2c9fd2a",
+    "sha256": "29f93e0b31ae62eb13618f630223ed46d9e1c353c5cff76ca0dd4d10d2c9fd2a"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/28_CH28_실비아.png",
+    "previous_sha256": "f643982707b8bd54d679fe11ee292eafbb7d2830c03feb501ae3ef68f3328fed",
+    "sha256": "f643982707b8bd54d679fe11ee292eafbb7d2830c03feb501ae3ef68f3328fed"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/29_CH29_카일.png",
+    "previous_sha256": "8c83885f08be33638c8650c59fe99277fbda41f3ee9c74e463ab5a04be40e90d",
+    "sha256": "8c83885f08be33638c8650c59fe99277fbda41f3ee9c74e463ab5a04be40e90d"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/30_CH30_제나.png",
+    "previous_sha256": "a3496f698613168f3ef1d5ff4df25c322e6f3fda8409b3be7fd88f36999064fe",
+    "sha256": "a3496f698613168f3ef1d5ff4df25c322e6f3fda8409b3be7fd88f36999064fe"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/31_CH31_니코.png",
+    "previous_sha256": "dcba932284a87238a8e2c0504c02b01956624b505c87de2234b14006aed56215",
+    "sha256": "dcba932284a87238a8e2c0504c02b01956624b505c87de2234b14006aed56215"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/32_CH32_리코.png",
+    "previous_sha256": "914d245ceb8b56ecaf8c25e2d5aa5bd38b0eacc6594e591968214a0376073adf",
+    "sha256": "914d245ceb8b56ecaf8c25e2d5aa5bd38b0eacc6594e591968214a0376073adf"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/33_NPC03_베른.png",
+    "previous_sha256": "79b1c19ffe73a81e733b8b2dc89084a653563bf816955285c4e9a7f252a016f3",
+    "sha256": "79b1c19ffe73a81e733b8b2dc89084a653563bf816955285c4e9a7f252a016f3"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/34_NPC03_베른_v3.png",
+    "previous_sha256": "8a87eeddfc8343270a0827a7c0191a34258f602dedd14c3b4425dfda3807f019",
+    "sha256": "8a87eeddfc8343270a0827a7c0191a34258f602dedd14c3b4425dfda3807f019"
+  },
+  {
+    "file": "document/03_characters/01_characters/01_images/35_NPC03_베른_v4.png",
+    "previous_sha256": "06cea61392faebcf05756a6ac31fac3a24a0efc98c0866eec4985804f3326ef9",
+    "sha256": "06cea61392faebcf05756a6ac31fac3a24a0efc98c0866eec4985804f3326ef9"
+  },
+  {
+    "file": "document/03_characters/01_characters/02_sources/00_README.md",
+    "previous_sha256": "18f71553d9de47afc3777f51e00504be4132191ef744fa90a07d0b9a88c8519a",
+    "sha256": "a75f7fe626d3b722d4757a2934483441a74436e650c7590f263fbe940d1484cd"
+  },
+  {
+    "file": "document/03_characters/01_characters/02_sources/01_NPC03_베른_source.png",
+    "previous_sha256": "79b1c19ffe73a81e733b8b2dc89084a653563bf816955285c4e9a7f252a016f3",
+    "sha256": "79b1c19ffe73a81e733b8b2dc89084a653563bf816955285c4e9a7f252a016f3"
+  },
+  {
+    "file": "document/03_characters/01_characters/02_sources/02_NPC03_베른_v3_source.png",
+    "previous_sha256": "469c9aa2c70328e2ac3d781edb9f134084cd5bb38dff4d056f21613ac02b1165",
+    "sha256": "469c9aa2c70328e2ac3d781edb9f134084cd5bb38dff4d056f21613ac02b1165"
+  },
+  {
+    "file": "document/03_characters/01_characters/02_sources/03_NPC03_베른_v4_source.png",
+    "previous_sha256": "545c7d40f22414d0f7f342ae8e34c0c04342645f4c4ab045951b551c5e06f33e",
+    "sha256": "545c7d40f22414d0f7f342ae8e34c0c04342645f4c4ab045951b551c5e06f33e"
+  },
+  {
+    "file": "document/03_characters/01_characters/03_exports/00_README.md",
+    "previous_sha256": "43b98be596728627a47af24286f09e6ab09d0bb005ae5c5fdfc1c4b6ddeb03d9",
+    "sha256": "295e8fb5a26a1f91c61f4bab39838395de1eead68fe7764db138243f0a488dc5"
+  },
+  {
+    "file": "document/03_characters/01_characters/03_exports/01_CH10_엘리아_1024x1536.png",
+    "previous_sha256": "d399c122042ca971366f3dbd8a190e00524e44fda8ad40c419db8dbd66faf3d7",
+    "sha256": "d399c122042ca971366f3dbd8a190e00524e44fda8ad40c419db8dbd66faf3d7"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/00_README.md",
+    "previous_sha256": "23796de063518c28f828bf06bf109c1f0710220412f4b27b6c2b9fce7da9be0c",
+    "sha256": "5b98d7f7de6c361bd19388cc4f47299ad55acb77e30504b07b8f2eebde85d10d"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/01_IT01_마음_일기.png",
+    "previous_sha256": "9b601c8143450dda570b9d567cd4da498216943d9b12d4b726b3a81634970522",
+    "sha256": "9b601c8143450dda570b9d567cd4da498216943d9b12d4b726b3a81634970522"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/02_IT02_룬_램프.png",
+    "previous_sha256": "08502d94632e1df4bcaf497f3dfbcabf0276f342dabd37d155c861873812713b",
+    "sha256": "08502d94632e1df4bcaf497f3dfbcabf0276f342dabd37d155c861873812713b"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/03_IT03_차_세트.png",
+    "previous_sha256": "b49f01fea330216d53a08c460c2ed4c9be77d18f9e074ab5a40d1d4106c282ea",
+    "sha256": "b49f01fea330216d53a08c460c2ed4c9be77d18f9e074ab5a40d1d4106c282ea"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/04_IT04_약초_화분.png",
+    "previous_sha256": "e633b1c6697db940c7a437c1a786f7e5877f823a154042215ee424924b89d896",
+    "sha256": "e633b1c6697db940c7a437c1a786f7e5877f823a154042215ee424924b89d896"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/05_IT05_룬_조각.png",
+    "previous_sha256": "ef9da3d18c09076d7ff7c16cf715c3b07ed4121cab0076047e6165489f9b5863",
+    "sha256": "ef9da3d18c09076d7ff7c16cf715c3b07ed4121cab0076047e6165489f9b5863"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/06_IT06_추억_액자.png",
+    "previous_sha256": "7b78528cc6eae81be4afbd62288c63abbd4a78bbd18b502cdc823511a2cfd214",
+    "sha256": "7b78528cc6eae81be4afbd62288c63abbd4a78bbd18b502cdc823511a2cfd214"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/07_IT07_마이룸_책상.png",
+    "previous_sha256": "ea8e94031fc86e2a3a38a2c03da6901a28c1f88c3951de562e04e0a7d841abfd",
+    "sha256": "ea8e94031fc86e2a3a38a2c03da6901a28c1f88c3951de562e04e0a7d841abfd"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/08_IT08_마이룸_의자.png",
+    "previous_sha256": "450ff9c90592f10455ce2b5966da280f967dca98fb551b19b15cc79e00e513b9",
+    "sha256": "450ff9c90592f10455ce2b5966da280f967dca98fb551b19b15cc79e00e513b9"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/09_IT09_마이룸_침대.png",
+    "previous_sha256": "18be04e528e3c12ba4cbbb12feaa6c2851cecf23df2fa876d3058d0bab9ae87a",
+    "sha256": "18be04e528e3c12ba4cbbb12feaa6c2851cecf23df2fa876d3058d0bab9ae87a"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/10_IT10_마이룸_책장.png",
+    "previous_sha256": "5bbed6554d31958cf0320666723331ddfc0bb6a308afacdfb9f3a1dbc4e6942d",
+    "sha256": "5bbed6554d31958cf0320666723331ddfc0bb6a308afacdfb9f3a1dbc4e6942d"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/11_IT11_마이룸_러그.png",
+    "previous_sha256": "d3c2a14986fe48d6f3b95077b64c59551cec95dad7aa4faba9a13a53f86580d3",
+    "sha256": "d3c2a14986fe48d6f3b95077b64c59551cec95dad7aa4faba9a13a53f86580d3"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/12_IT12_룬_오브제.png",
+    "previous_sha256": "b1c7d4cb025b13b56476f037cb3ffdcbacc2c81a01b584ce1816297f7ddef864",
+    "sha256": "b1c7d4cb025b13b56476f037cb3ffdcbacc2c81a01b584ce1816297f7ddef864"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/13_IT13_룬_고서.png",
+    "previous_sha256": "ddda7686504ca2e4e92f43e70df4b01869a67e8cff787f8234bd763ca1732993",
+    "sha256": "ddda7686504ca2e4e92f43e70df4b01869a67e8cff787f8234bd763ca1732993"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/14_IT14_양피지_편지.png",
+    "previous_sha256": "50376021158ca2be2e16c9f00f27f6af61a88e2260c65e46b2192af121d87189",
+    "sha256": "50376021158ca2be2e16c9f00f27f6af61a88e2260c65e46b2192af121d87189"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/15_IT15_마석_공방_도구.png",
+    "previous_sha256": "83d2714dda11b4acab7c56405cd3c08d61c59defd013bc9f952ff1bd08d99252",
+    "sha256": "83d2714dda11b4acab7c56405cd3c08d61c59defd013bc9f952ff1bd08d99252"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/16_IT16_훈련용_목검.png",
+    "previous_sha256": "170a8fbdb83e4b08690e72fad8cefa14611583738f443a7fecbf6e8f3a4de13a",
+    "sha256": "170a8fbdb83e4b08690e72fad8cefa14611583738f443a7fecbf6e8f3a4de13a"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/17_IT17_공방_마석.png",
+    "previous_sha256": "4b05c7e91a849eaeec86dce9973b6bf7a388e2e3114095541329b7e5177c5078",
+    "sha256": "4b05c7e91a849eaeec86dce9973b6bf7a388e2e3114095541329b7e5177c5078"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/18_IT18_마음_룬.png",
+    "previous_sha256": "7aad1ba6d83bb6c2ad635f9cfd8a6c64e96b0540f16aed6a1abe04b4c9722271",
+    "sha256": "7aad1ba6d83bb6c2ad635f9cfd8a6c64e96b0540f16aed6a1abe04b4c9722271"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/19_IT19_그림자_룬.png",
+    "previous_sha256": "040bcae27171468a6987937ee01738d2c02fe39ce89bf5cad4034f6554d772f6",
+    "sha256": "040bcae27171468a6987937ee01738d2c02fe39ce89bf5cad4034f6554d772f6"
+  },
+  {
+    "file": "document/03_characters/02_items/00_images/20_IT20_정화된_룬.png",
+    "previous_sha256": "a8e3757eb100602a17512b25c89e5fe50349201795bd56ce6a7e4a43fb3da68b",
+    "sha256": "a8e3757eb100602a17512b25c89e5fe50349201795bd56ce6a7e4a43fb3da68b"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/00_README.md",
+    "previous_sha256": "1b518960c5bf3bbcdaf07f1e1b96ca677f722b02f724ca233410f5501690ac50",
+    "sha256": "8eb21fed9c2a05811223d23be1ce987e2ff63033aa5f064ee4f3034d78c5d133"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/01_BG01_아르카디아_입구와_호수.png",
+    "previous_sha256": "e6e33244fc03d50989eec741ebe041c7305b93ad8fe2f06537c42544316050eb",
+    "sha256": "e6e33244fc03d50989eec741ebe041c7305b93ad8fe2f06537c42544316050eb"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/02_BG02_시계탑_광장.png",
+    "previous_sha256": "fe8598ca3861d847ae2f3f6e295b9a686b79b37a4d01a3d093a4c5dd4afcdfcb",
+    "sha256": "fe8598ca3861d847ae2f3f6e295b9a686b79b37a4d01a3d093a4c5dd4afcdfcb"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/03_BG03_빈_마이룸.png",
+    "previous_sha256": "3264ef9ffc28b6a2381a46b7f41db5e300c4d646069bad8d20e2fe1920ff32f1",
+    "sha256": "3264ef9ffc28b6a2381a46b7f41db5e300c4d646069bad8d20e2fe1920ff32f1"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/04_BG04_학원_기숙사.png",
+    "previous_sha256": "fdb5c4ac0eebb6674cef7f3a719b385fafffa94827bfaa45d65e3e26429aab88",
+    "sha256": "fdb5c4ac0eebb6674cef7f3a719b385fafffa94827bfaa45d65e3e26429aab88"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/05_BG05_대서고.png",
+    "previous_sha256": "70ac5a6cd0f4addbfa0dad8589fa4b82d5cdec78df63fdc7be3f42427f89f6cd",
+    "sha256": "70ac5a6cd0f4addbfa0dad8589fa4b82d5cdec78df63fdc7be3f42427f89f6cd"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/06_BG06_별빛_천문대.png",
+    "previous_sha256": "eeb2c74593f620427f8a8f825b503249d962dabd0e0d9e847e6807f5655ecde0",
+    "sha256": "eeb2c74593f620427f8a8f825b503249d962dabd0e0d9e847e6807f5655ecde0"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/07_BG07_유리_온실.png",
+    "previous_sha256": "efe37767d7033bdb4a1893f8a2b55c3a0caef09622f0b2f115b1bbed5b0b7435",
+    "sha256": "efe37767d7033bdb4a1893f8a2b55c3a0caef09622f0b2f115b1bbed5b0b7435"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/08_BG08_치유의_약초원.png",
+    "previous_sha256": "8e2057e40587ae09b7f7b575af9f904982da6b45c345c65d629a691784d70444",
+    "sha256": "8e2057e40587ae09b7f7b575af9f904982da6b45c345c65d629a691784d70444"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/09_BG09_마도_공방.png",
+    "previous_sha256": "f9eedaa585e60a280851c2cbc3870c9ad6c7e2a547789d11116b81fe52415d17",
+    "sha256": "f9eedaa585e60a280851c2cbc3870c9ad6c7e2a547789d11116b81fe52415d17"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/00_images/10_BG10_룬_수련장.png",
+    "previous_sha256": "a399e3b374ad23cc28f7e64f64a803fffe45d64605e394ebcb2eaeb39519520b",
+    "sha256": "a399e3b374ad23cc28f7e64f64a803fffe45d64605e394ebcb2eaeb39519520b"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/00_README.md",
+    "previous_sha256": "73c2728490999f571f1fb162b0e3c7c716b398d60a58b7240ed42e388cec898f",
+    "sha256": "a9b8ac5baf4fdb7a3075f23ded4f9c0f6873e8da3583e3cc20a04eccf0951f11"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/01_BG01_아르카디아_입구와_호수_1920x1080.png",
+    "previous_sha256": "569ec458024fc025df3a51de5dfe12326bd5b56651653c0c04c78dc37278e0a5",
+    "sha256": "569ec458024fc025df3a51de5dfe12326bd5b56651653c0c04c78dc37278e0a5"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/02_BG02_시계탑_광장_1920x1080.png",
+    "previous_sha256": "a08485c8b7927bb084b6115fbb65f42a0ec336bd4892fab7b076fb342827e3fa",
+    "sha256": "a08485c8b7927bb084b6115fbb65f42a0ec336bd4892fab7b076fb342827e3fa"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/03_BG03_빈_마이룸_1920x1080.png",
+    "previous_sha256": "716e865dbea31b380fc13bf2b61fbd174a97acc9f5b2d9adeff85b7881955e5c",
+    "sha256": "716e865dbea31b380fc13bf2b61fbd174a97acc9f5b2d9adeff85b7881955e5c"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/04_BG04_학원_기숙사_1920x1080.png",
+    "previous_sha256": "58d52e5fef1e663de065544b3c2284c1c50a58e5ef4a3d2a62456201b5fb4791",
+    "sha256": "58d52e5fef1e663de065544b3c2284c1c50a58e5ef4a3d2a62456201b5fb4791"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/05_BG05_대서고_1920x1080.png",
+    "previous_sha256": "d8136e12de5cf0e0f2dcefaf4737c714ad800f83a40ee0c2aeb133b18031592b",
+    "sha256": "d8136e12de5cf0e0f2dcefaf4737c714ad800f83a40ee0c2aeb133b18031592b"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/06_BG06_별빛_천문대_1920x1080.png",
+    "previous_sha256": "d4fa16b1bc70b79f90070b8c79c07c1559d20c9029829f8d4dddc5657761b5e7",
+    "sha256": "d4fa16b1bc70b79f90070b8c79c07c1559d20c9029829f8d4dddc5657761b5e7"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/07_BG07_유리_온실_1920x1080.png",
+    "previous_sha256": "2b8aef53081f42bc0a1107fd7f4b00f9f927de9aae006bedd115ff2a7b1ccba0",
+    "sha256": "2b8aef53081f42bc0a1107fd7f4b00f9f927de9aae006bedd115ff2a7b1ccba0"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/08_BG08_치유의_약초원_1920x1080.png",
+    "previous_sha256": "989ed3ef3d98adf4aea3286279a6922fa7600318abe0d3716dbeaf2d3096bd3a",
+    "sha256": "989ed3ef3d98adf4aea3286279a6922fa7600318abe0d3716dbeaf2d3096bd3a"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/09_BG09_마도_공방_1920x1080.png",
+    "previous_sha256": "878e4bed49678e15c1f5740140c43c1a663c591f3c7e4c0d2e446033440d1878",
+    "sha256": "878e4bed49678e15c1f5740140c43c1a663c591f3c7e4c0d2e446033440d1878"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/01_exports/10_BG10_룬_수련장_1920x1080.png",
+    "previous_sha256": "705b85f20b5ef593a5a951ea1687b8b8ccc0654abb69463dfdfee2f77e81d662",
+    "sha256": "705b85f20b5ef593a5a951ea1687b8b8ccc0654abb69463dfdfee2f77e81d662"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/00_README.md",
+    "previous_sha256": "48a0aa19f49b32ec98fa10c918344c439e2ad4348fe7f75e6f77f6fd584560f2",
+    "sha256": "353839e258922c094e265a37d6a3cf259cb6e7947da2750f2983eb00d0e732ff"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/01_myroom_spec.md",
+    "previous_sha256": "8909979cbece51deb63803082526593ab952858708c1028b6b5d82ca38ceb076",
+    "sha256": "8909979cbece51deb63803082526593ab952858708c1028b6b5d82ca38ceb076"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/02_myroom_prompt.json",
+    "previous_sha256": "800763f9ce202a5b911471b6231809e0146d6cfcbb673a60e1922cfbc9d54594",
+    "sha256": "b20f9b906505bf0524f98d08f89930e89d9d177934330e0bc58bb7dc13b42a9e"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/03_SC01_마이룸_완성시안.json",
+    "previous_sha256": "658236b3e70362167cb1307e87c2cd00efc872faf02e1eb7b69cae511d1fe7cc",
+    "sha256": "67e9a06f0d0ae2e02137e6c750f878ef4e1d8e961226c2fe1d743d8e312e7bbd"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/04_review.md",
+    "previous_sha256": "bce3a88171c03c8984e0264e15b845b167461991f566cb3886d76bbb96e44888",
+    "sha256": "18dfa68777a1fd5c1f2189d7d5fc9791835bb6d40a81dd8964e56bb13ad12de5"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/05_layer_layout.json",
+    "previous_sha256": "8c96977755f17e06e2f30fb672f7a151138cb0467ec123b616b9f8395d855e67",
+    "sha256": "237b552cce1d14d120fe43cd54319ca599d2b0c645c72a58f703ece190582cd2"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/06_actual_asset_comparison.html",
+    "previous_sha256": "c2350c9fd8c6a9524f292396afc50c8aad9969b8262ce272cbc7da78b0a9033a",
+    "sha256": "0eb75243fcee169f5ee2fd2b88e4c5ae5fe20f7bd59b760d8da37052ac844eec"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/07_comparison_record.md",
+    "previous_sha256": "1f2490b2ab9a0ba632920c8b3f98a0630c1c231e29e01e057e6a454b9c889468",
+    "sha256": "a582fe2ea35569cf47602e33eefa17df076422a65a2632916d7b83ce2e055c8f"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/00_images/00_README.md",
+    "previous_sha256": "e798f03205c8224878cf254376d46f107cbbe6a26fcab554291b965453d0fb52",
+    "sha256": "0aefd2f7e28743ae245d42b10fb12a0db981173bc8d6decf4c807bd03a055f8a"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/00_images/01_SC01_마이룸_완성시안.png",
+    "previous_sha256": "303511e3b9d218af2dcec11a1c2c26ec3d88330ff97ec640ea066c2aca2e929e",
+    "sha256": "303511e3b9d218af2dcec11a1c2c26ec3d88330ff97ec640ea066c2aca2e929e"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/01_sources/00_README.md",
+    "previous_sha256": "4623982a006a2aff923f50faaffd6914d20cc6785a2c17f5964b52c8473eddc6",
+    "sha256": "c01221ed68c493458314d598fff04bbcf60f007c56398e3f974cca4c9f91f610"
+  },
+  {
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/01_sources/01_SC01_마이룸_완성시안_source.png",
+    "previous_sha256": "2d869e3c5f3d9239c27c9869215a434e93d031e11ab6075a6f785cb35dcfa2e1",
+    "sha256": "2d869e3c5f3d9239c27c9869215a434e93d031e11ab6075a6f785cb35dcfa2e1"
+  },
+  {
+    "file": "document/03_characters/04_ui/00_images/00_README.md",
+    "previous_sha256": "90c3ca8b1bf959ec165c2d1c5187c7f63add60621fcad6cde2faa068a5eeef90",
+    "sha256": "831a1f5571a728c06c8553e524f6aec2495c80f59ce9d360302fc2569cf6327a"
+  },
+  {
+    "file": "document/03_characters/04_ui/00_images/01_UI01_양피지_타일.png",
+    "previous_sha256": "b9f4ada9047b585bd71227ae83670d77b8cb3fc41df7273e692b575a17ab3cd9",
+    "sha256": "b9f4ada9047b585bd71227ae83670d77b8cb3fc41df7273e692b575a17ab3cd9"
+  },
+  {
+    "file": "document/03_characters/04_ui/00_images/02_UI02_프레임_모서리.png",
+    "previous_sha256": "b0990071b4e828237786f989665e22ee0a619d1e7ca2d87ab81faad23df694ec",
+    "sha256": "b0990071b4e828237786f989665e22ee0a619d1e7ca2d87ab81faad23df694ec"
+  },
+  {
+    "file": "document/03_characters/04_ui/00_images/03_UI03_캐릭터_카드_배경.png",
+    "previous_sha256": "e93a40abdc7972ec720e30b216a27f319dbd62b5967dffb8d7af39a1fed53622",
+    "sha256": "e93a40abdc7972ec720e30b216a27f319dbd62b5967dffb8d7af39a1fed53622"
+  },
+  {
+    "file": "document/03_characters/04_ui/00_images/04_UI04_전신_미리보기_배경.png",
+    "previous_sha256": "782b8f2f06212b86d395eba52ec6eafc18bc1c21e3b0b8ef447680515c637c4c",
+    "sha256": "782b8f2f06212b86d395eba52ec6eafc18bc1c21e3b0b8ef447680515c637c4c"
+  },
+  {
+    "file": "document/03_characters/04_ui/00_images/05_UI07_입학_초대장.png",
+    "previous_sha256": "8b90282ed8eeabb9671db8dfb819c356e5ac3fefdc438246e8a0b57fd6ee7624",
+    "sha256": "8b90282ed8eeabb9671db8dfb819c356e5ac3fefdc438246e8a0b57fd6ee7624"
+  },
+  {
+    "file": "document/03_characters/04_ui/00_images/06_UI08_가방.svg",
+    "previous_sha256": "3bd3cd2786ea8ea1a7183b179566daebd82c451724d0318a8d3aff92e513366f",
+    "sha256": "3bd3cd2786ea8ea1a7183b179566daebd82c451724d0318a8d3aff92e513366f"
+  },
+  {
+    "file": "document/03_characters/04_ui/00_images/07_UI09_발견기록.svg",
+    "previous_sha256": "704f4a1eb0057ad52ae55f4c3105cb5b6012f2dc87752097d14a6ddab69a3943",
+    "sha256": "704f4a1eb0057ad52ae55f4c3105cb5b6012f2dc87752097d14a6ddab69a3943"
+  },
+  {
+    "file": "document/03_characters/04_ui/00_images/08_UI10_힌트.svg",
+    "previous_sha256": "dddf55c94e1639b689964d92c2f3472147a532021bd9ba1366d26a26c7486365",
+    "sha256": "dddf55c94e1639b689964d92c2f3472147a532021bd9ba1366d26a26c7486365"
+  },
+  {
+    "file": "document/03_characters/04_ui/01_sources/00_README.md",
+    "previous_sha256": "3cb4372c3397c0e5eab73f442d0a5e5225e0815f91d6497387f476f6229ce487",
+    "sha256": "b462b6186d538ac1bd6378b6d3643d82b290c1bfb9d49dbfe4959527c298875c"
+  },
+  {
+    "file": "document/03_characters/04_ui/01_sources/01_UI01_양피지_타일_source.png",
+    "previous_sha256": "afc07330a3a5b81ec42fd0df4f04935d75b4a71abceefe3b1f4702ddd508bd64",
+    "sha256": "afc07330a3a5b81ec42fd0df4f04935d75b4a71abceefe3b1f4702ddd508bd64"
+  },
+  {
+    "file": "document/03_characters/04_ui/01_sources/02_UI02_프레임_모서리_source.png",
+    "previous_sha256": "820692d954c700edcf6fea2fbb541f936b751f48d58890fe97fe9f670c566190",
+    "sha256": "820692d954c700edcf6fea2fbb541f936b751f48d58890fe97fe9f670c566190"
+  },
+  {
+    "file": "document/03_characters/04_ui/01_sources/03_UI03_캐릭터_카드_배경_source.png",
+    "previous_sha256": "feccfd16dbcd06bffad0b2cf26908463d107db05c75830a3c1a09c8c519240e8",
+    "sha256": "feccfd16dbcd06bffad0b2cf26908463d107db05c75830a3c1a09c8c519240e8"
+  },
+  {
+    "file": "document/03_characters/04_ui/01_sources/04_UI04_전신_미리보기_배경_source.png",
+    "previous_sha256": "dbc1ed1c5c9efe795aed5ad3165051234a28d322b83e9f507bc939e00916a18a",
+    "sha256": "dbc1ed1c5c9efe795aed5ad3165051234a28d322b83e9f507bc939e00916a18a"
+  },
+  {
+    "file": "document/03_characters/04_ui/01_sources/05_UI07_입학_초대장_source.png",
+    "previous_sha256": "9e3d714d37460d1c8afe54e7fe0e2b38b214b6b8da5e7617ecbf5caad281a823",
+    "sha256": "9e3d714d37460d1c8afe54e7fe0e2b38b214b6b8da5e7617ecbf5caad281a823"
+  },
+  {
+    "file": "document/03_characters/05_effects/00_images/00_README.md",
+    "previous_sha256": "01e680627658d4cfa45340002c2207d265f1db9f892630a6b249a861266a0208",
+    "sha256": "52214f95ca6acbb352a885114e5b0116ee15b78f0c17467681ab836d182aedb4"
+  },
+  {
+    "file": "document/03_characters/05_effects/00_images/01_FX01_공통_룬_빛.png",
+    "previous_sha256": "a9f52c051adb49233dc31e3171dbd9d76b002ff01ac16a4af5563e73d0c7b786",
+    "sha256": "a9f52c051adb49233dc31e3171dbd9d76b002ff01ac16a4af5563e73d0c7b786"
+  },
+  {
+    "file": "document/03_characters/05_effects/01_sources/00_README.md",
+    "previous_sha256": "7c29f19eb1e69f1e2ca4db5986885a8f2ad8765c1ffc75a3896c49363a5b57e0",
+    "sha256": "1fd7b81e8e4c204e24dae3a54eccd4be69caee359610976de6061e03eb79b1fb"
+  },
+  {
+    "file": "document/03_characters/05_effects/01_sources/01_FX01_공통_룬_빛_source.png",
+    "previous_sha256": "2f3ed71922caace2f34eff0520d028e0cc38224aa55b12a06df8ac59fecb2bba",
+    "sha256": "2f3ed71922caace2f34eff0520d028e0cc38224aa55b12a06df8ac59fecb2bba"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/00_README.md",
+    "previous_sha256": "aeca4b19d1f3f915f1190dbee1323e2b781a463f31719f8f526f7b4c68696b2a",
+    "sha256": "00a9173162d253bba87f23d1a779af7363befa26a5e74d472cc3f0ad9c5ff0f6"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/01_ENV01_온실_바닥_기본.png",
+    "previous_sha256": "799739a42bf5070b4f95c147c0b6cda8f9e543eaa0be4c086238fad0753d9360",
+    "sha256": "799739a42bf5070b4f95c147c0b6cda8f9e543eaa0be4c086238fad0753d9360"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/02_ENV02_온실_바닥_변형_A.png",
+    "previous_sha256": "e73bc0493a62efc77476ff44f713d7cb5497a1ee984fe537060c1a8172383ba1",
+    "sha256": "e73bc0493a62efc77476ff44f713d7cb5497a1ee984fe537060c1a8172383ba1"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/03_ENV02_온실_바닥_변형_A_v2.png",
+    "previous_sha256": "bf5b4fa92592e46fe309e45c5821fc0277666f6493f146ca941ee1974abccab0",
+    "sha256": "bf5b4fa92592e46fe309e45c5821fc0277666f6493f146ca941ee1974abccab0"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/04_ENV03_온실_바닥_변형_B.png",
+    "previous_sha256": "3282d3b904a356f62aa78cdce677f62f72fdcce4cb9623b5ebbafabebe281a77",
+    "sha256": "3282d3b904a356f62aa78cdce677f62f72fdcce4cb9623b5ebbafabebe281a77"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/05_ENV03_온실_바닥_변형_B_v2.png",
+    "previous_sha256": "4a7b4f8aec3a8c6012b911e21c12ce24da19f74084fef33c2e7c589d13d07dec",
+    "sha256": "4a7b4f8aec3a8c6012b911e21c12ce24da19f74084fef33c2e7c589d13d07dec"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/06_ENV04_온실_경계.png",
+    "previous_sha256": "f6ac5159ef19eb2d0d881131b10ad949fe330907f57c35f46899309443be85a8",
+    "sha256": "f6ac5159ef19eb2d0d881131b10ad949fe330907f57c35f46899309443be85a8"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/07_ENV05_작은_식물_A.png",
+    "previous_sha256": "82eeae7daabf18a867264d6bcfa2e0def1337ac2f9373e9bc89823b091b2ab30",
+    "sha256": "82eeae7daabf18a867264d6bcfa2e0def1337ac2f9373e9bc89823b091b2ab30"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/08_ENV06_작은_식물_B.png",
+    "previous_sha256": "6d6455e044006578dc8c6c2c51a0ec129f9bfb38b0a5429cf9d4afce0e2b7e90",
+    "sha256": "6d6455e044006578dc8c6c2c51a0ec129f9bfb38b0a5429cf9d4afce0e2b7e90"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/09_ENV07_큰_식물_A.png",
+    "previous_sha256": "f546d9deba0082ff8df317a68c8ef9f2cb4fbef51c9d2a8709d83c344e571652",
+    "sha256": "f546d9deba0082ff8df317a68c8ef9f2cb4fbef51c9d2a8709d83c344e571652"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/10_ENV08_큰_식물_B.png",
+    "previous_sha256": "302d6db91bab7468a00ddd5758f56d9b44b8a92400ee0fb09df84a3f1238afeb",
+    "sha256": "302d6db91bab7468a00ddd5758f56d9b44b8a92400ee0fb09df84a3f1238afeb"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/11_ENV09_온실_화단.png",
+    "previous_sha256": "384aecbb53b7e1210776e5acbea41921dc1041eabaed7d3164ab1f0d6dd822c8",
+    "sha256": "384aecbb53b7e1210776e5acbea41921dc1041eabaed7d3164ab1f0d6dd822c8"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/12_ENV10_온실_덩굴.png",
+    "previous_sha256": "08efcc3f9bd00f6960f754bd02e13efcc353abd24a1440d3c4c352fb5336c839",
+    "sha256": "08efcc3f9bd00f6960f754bd02e13efcc353abd24a1440d3c4c352fb5336c839"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/13_ENV11_온실_구조물.png",
+    "previous_sha256": "eaf0587993c097d4246389749afb653de6d8891cb866610bf4b4ef295c79d3e4",
+    "sha256": "eaf0587993c097d4246389749afb653de6d8891cb866610bf4b4ef295c79d3e4"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/14_ENV12_전경_식물_A.png",
+    "previous_sha256": "fa373a805fa5d403b079f858afda3b6fd5f4b00f8160b537df69ff017be82b85",
+    "sha256": "fa373a805fa5d403b079f858afda3b6fd5f4b00f8160b537df69ff017be82b85"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/00_images/15_ENV13_전경_식물_B.png",
+    "previous_sha256": "7917f8c90fe7f826422a5a55b014b84dfb4994d8660ea757ccfe22b7170b5948",
+    "sha256": "7917f8c90fe7f826422a5a55b014b84dfb4994d8660ea757ccfe22b7170b5948"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/00_README.md",
+    "previous_sha256": "42fc559dd18558cfb50ababb30546e3197bc93d779996dc1fee0c0ca8052c415",
+    "sha256": "b40761bfb5fd7e716490f18d602442c4871a796ac90522b6af87aaf1eb71f906"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/01_ENV01_온실_바닥_기본_source.png",
+    "previous_sha256": "406494566e10a136778a996345c59b450dcafaed990a259a5b716a72692f87bb",
+    "sha256": "406494566e10a136778a996345c59b450dcafaed990a259a5b716a72692f87bb"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/02_ENV02_온실_바닥_변형_A_source.png",
+    "previous_sha256": "79673372c223c2a64ddc246ec976efbcc25016eed4233841ef3c6f36547c468d",
+    "sha256": "79673372c223c2a64ddc246ec976efbcc25016eed4233841ef3c6f36547c468d"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/03_ENV02_온실_바닥_변형_A_v2_source.png",
+    "previous_sha256": "492bdd91947a0bf3a12137967a33bf07f949eb186629194bbdaec9c4c6a6bc09",
+    "sha256": "492bdd91947a0bf3a12137967a33bf07f949eb186629194bbdaec9c4c6a6bc09"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/04_ENV03_온실_바닥_변형_B_source.png",
+    "previous_sha256": "ef9ef218db6281810abcd0d142c5ce0a5fa189a35dd6c4f0aed47fb36f29c4ad",
+    "sha256": "ef9ef218db6281810abcd0d142c5ce0a5fa189a35dd6c4f0aed47fb36f29c4ad"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/05_ENV03_온실_바닥_변형_B_v2_source.png",
+    "previous_sha256": "d6e1e9dcc585c0dbdf79a75050434255fd9fe6c8fb701ce26f23ba6ef967d625",
+    "sha256": "d6e1e9dcc585c0dbdf79a75050434255fd9fe6c8fb701ce26f23ba6ef967d625"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/06_ENV04_온실_경계_source.png",
+    "previous_sha256": "2807bf602d88ab269bc3dfcdf65902ce5bc2cee0141a1e53a172be360e2b25d7",
+    "sha256": "2807bf602d88ab269bc3dfcdf65902ce5bc2cee0141a1e53a172be360e2b25d7"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/07_ENV05_작은_식물_A_source.png",
+    "previous_sha256": "2d41b555d1224d0c4bbedbc404ad987d6589304f168048f444a4a5bc19ea477a",
+    "sha256": "2d41b555d1224d0c4bbedbc404ad987d6589304f168048f444a4a5bc19ea477a"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/08_ENV06_작은_식물_B_source.png",
+    "previous_sha256": "5bee560822feb9c97f59c609b47495610e774ef51c18292d31a583007db9bf4b",
+    "sha256": "5bee560822feb9c97f59c609b47495610e774ef51c18292d31a583007db9bf4b"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/09_ENV07_큰_식물_A_source.png",
+    "previous_sha256": "e23bb7d00abc271aaa0a4d0f0ff56a3a1bc2827125ecb33437a6e03972910412",
+    "sha256": "e23bb7d00abc271aaa0a4d0f0ff56a3a1bc2827125ecb33437a6e03972910412"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/10_ENV08_큰_식물_B_source.png",
+    "previous_sha256": "1cefa9e22449253c6601bbc00ac13c90293d0441554d66073abf2b9890b0d5f0",
+    "sha256": "1cefa9e22449253c6601bbc00ac13c90293d0441554d66073abf2b9890b0d5f0"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/11_ENV09_온실_화단_source.png",
+    "previous_sha256": "c363528df39918e5b6925351122e1647e46455796c4d6d80bc4810087d51bd8b",
+    "sha256": "c363528df39918e5b6925351122e1647e46455796c4d6d80bc4810087d51bd8b"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/12_ENV10_온실_덩굴_source.png",
+    "previous_sha256": "37b7d93ad4ee581fb5f1f58222cfee948f8f2a1dd7e5a7791e760c63ca0cab2e",
+    "sha256": "37b7d93ad4ee581fb5f1f58222cfee948f8f2a1dd7e5a7791e760c63ca0cab2e"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/13_ENV11_온실_구조물_source.png",
+    "previous_sha256": "4c6327a007f863b5615e835c3350c678a6579faea94b75f793d1f71defbe0dff",
+    "sha256": "4c6327a007f863b5615e835c3350c678a6579faea94b75f793d1f71defbe0dff"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/14_ENV12_전경_식물_A_source.png",
+    "previous_sha256": "f14c135b9c861da6d7e4c3afe3720945077ee3bce9cd60be2f4bafe59ec35bfb",
+    "sha256": "f14c135b9c861da6d7e4c3afe3720945077ee3bce9cd60be2f4bafe59ec35bfb"
+  },
+  {
+    "file": "document/03_characters/06_adventure_environment/01_sources/15_ENV13_전경_식물_B_source.png",
+    "previous_sha256": "a6797d5bab4891460ae84471c76fbec6b92972b0c81b5568296177de253e48f4",
+    "sha256": "a6797d5bab4891460ae84471c76fbec6b92972b0c81b5568296177de253e48f4"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/00_images/00_README.md",
+    "previous_sha256": "744a451dc9828ad513e1b8a5137768c5a4bccc751ffdc6559377acf66cbd4ecd",
+    "sha256": "dc297b589d7867e8ba0d3143438a7963eef02fcc8737b03f3af0803d37062774"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/00_images/01_OBJ01_조사_식물_시듦.png",
+    "previous_sha256": "a7f290a0ee5ba81de6dc0e98a80f038b513fecd0a194ac84289cb85981b0aae3",
+    "sha256": "a7f290a0ee5ba81de6dc0e98a80f038b513fecd0a194ac84289cb85981b0aae3"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/00_images/02_OBJ02_조사_식물_회복.png",
+    "previous_sha256": "118a24297aa587774b1b677cc8e2439dbebf4305ee92a7c7dd3332d566831634",
+    "sha256": "118a24297aa587774b1b677cc8e2439dbebf4305ee92a7c7dd3332d566831634"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/00_images/03_OBJ02_조사_식물_회복_v2.png",
+    "previous_sha256": "4261d54ff1d037f4d8f427ba1a8f8aea7089c5f3e707ec9e2ca176710698d903",
+    "sha256": "4261d54ff1d037f4d8f427ba1a8f8aea7089c5f3e707ec9e2ca176710698d903"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/00_images/04_OBJ03_달빛_약초.png",
+    "previous_sha256": "c34d157aa8501c878d65bf0adddb7de95975d95203a50ae36606e172619f109a",
+    "sha256": "c34d157aa8501c878d65bf0adddb7de95975d95203a50ae36606e172619f109a"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/00_images/05_OBJ04_사건_룬_비활성.png",
+    "previous_sha256": "966b46353301c9fe3eea7fc9723c6e5951190e53c5541848f5b5f9c9cbd34f10",
+    "sha256": "966b46353301c9fe3eea7fc9723c6e5951190e53c5541848f5b5f9c9cbd34f10"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/00_images/06_OBJ05_사건_룬_활성.png",
+    "previous_sha256": "c91e956b0db28eed4bac678d41c0a6dffc2390b939d5143ecd2473cef2b097c8",
+    "sha256": "c91e956b0db28eed4bac678d41c0a6dffc2390b939d5143ecd2473cef2b097c8"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/01_sources/00_README.md",
+    "previous_sha256": "750d20a84d570699c6a13d94b757a7f66a7c9f4b62baca737199634a88585009",
+    "sha256": "13849f96f857460651c03802a6c12bb9562e934742503ae3708fbf0ff67dc3ac"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/01_sources/01_OBJ01_조사_식물_시듦_source.png",
+    "previous_sha256": "49e1a110db79f35cc092e15e3966e2d887dc4511e3ed4b8a4ded18d9c95ad597",
+    "sha256": "49e1a110db79f35cc092e15e3966e2d887dc4511e3ed4b8a4ded18d9c95ad597"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/01_sources/02_OBJ02_조사_식물_회복_source.png",
+    "previous_sha256": "72a7838e982d592ff9b118aa34b39c96f2972a53fa27c101f54ff78b4dea3dcf",
+    "sha256": "72a7838e982d592ff9b118aa34b39c96f2972a53fa27c101f54ff78b4dea3dcf"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/01_sources/03_OBJ02_조사_식물_회복_v2_source.png",
+    "previous_sha256": "c32445bb95c842d75eb9d601b05bb4c73f7abcbef7a3669d4065f490ca452dad",
+    "sha256": "c32445bb95c842d75eb9d601b05bb4c73f7abcbef7a3669d4065f490ca452dad"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/01_sources/04_OBJ03_달빛_약초_source.png",
+    "previous_sha256": "9a0a3a148646e95ca0bb9fc2c1d2f1f7fd3f1d79fa8e67337fc9e6e4ae4e6fa5",
+    "sha256": "9a0a3a148646e95ca0bb9fc2c1d2f1f7fd3f1d79fa8e67337fc9e6e4ae4e6fa5"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/01_sources/05_OBJ04_사건_룬_비활성_source.png",
+    "previous_sha256": "83195ba9415210f100f2cc82a144c7c481bdbab9ffc4c6a03df76cc94a3682df",
+    "sha256": "83195ba9415210f100f2cc82a144c7c481bdbab9ffc4c6a03df76cc94a3682df"
+  },
+  {
+    "file": "document/03_characters/07_adventure_objects/01_sources/06_OBJ05_사건_룬_활성_source.png",
+    "previous_sha256": "d4c9581e4f1ee8ba02054b25e1b5b2ed08dba79379467ded8f709e4c29f0bf43",
+    "sha256": "d4c9581e4f1ee8ba02054b25e1b5b2ed08dba79379467ded8f709e4c29f0bf43"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_README.md",
+    "previous_sha256": "a0d685f1f3ab3ca94425c6e3837998945b82c7b7ffb795f52b50fa97a7e51f0c",
+    "sha256": "f69cda8b7a95937cc169c2edf358def462316a2d535ddb04c2cf003ddf3dae0e"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/01_SD01_카엘_기준.png",
+    "previous_sha256": "eea0ce8cc22e96d1bd375d99c3b16d70b74e911c638d577a972e4cecc95f0679",
+    "sha256": "eea0ce8cc22e96d1bd375d99c3b16d70b74e911c638d577a972e4cecc95f0679"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/02_SD02_카엘_걷기_마스터.png",
+    "previous_sha256": "a3ffbffe772d6803ac8070b5ccd40f2fecc1c37f1667e6d2833611ab41b07599",
+    "sha256": "a3ffbffe772d6803ac8070b5ccd40f2fecc1c37f1667e6d2833611ab41b07599"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/03_SD03_E_strip.png",
+    "previous_sha256": "252582be878cff8b82a58b554a99cfd9bd9d07aa41b8af80aeb86933de34fe2d",
+    "sha256": "252582be878cff8b82a58b554a99cfd9bd9d07aa41b8af80aeb86933de34fe2d"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/05_SD03_NE_strip.png",
+    "previous_sha256": "f42b2016bfe211c611c431702808551ae33bd2b13f6e82276cf2e79be6d6df81",
+    "sha256": "f42b2016bfe211c611c431702808551ae33bd2b13f6e82276cf2e79be6d6df81"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/06_SD03_NW_strip.png",
+    "previous_sha256": "7509884e901d4d452981cb8ca1d21c5d0c096e40c110d45d56bba9c48deafe9c",
+    "sha256": "7509884e901d4d452981cb8ca1d21c5d0c096e40c110d45d56bba9c48deafe9c"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/04_SD03_N_strip.png",
+    "previous_sha256": "5c68eaff922e1faa1892085483cc646a0ced02dd8f30b0b0b09189920939b23c",
+    "sha256": "5c68eaff922e1faa1892085483cc646a0ced02dd8f30b0b0b09189920939b23c"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/08_SD03_SE_strip.png",
+    "previous_sha256": "a40342b0d4521ce01a7ce785294867c85fea0a6d358ff30705b9c7c7b3af01aa",
+    "sha256": "a40342b0d4521ce01a7ce785294867c85fea0a6d358ff30705b9c7c7b3af01aa"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/09_SD03_SW_strip.png",
+    "previous_sha256": "4321cd100aae251d51c59d842f752f6c77d15d76984eb9f697e4aac59ef4049f",
+    "sha256": "4321cd100aae251d51c59d842f752f6c77d15d76984eb9f697e4aac59ef4049f"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/07_SD03_S_strip.png",
+    "previous_sha256": "56f1213ffa9f922cc3e19e633aeeb408f82d9d75f3fb4edd71eff345dfb55002",
+    "sha256": "56f1213ffa9f922cc3e19e633aeeb408f82d9d75f3fb4edd71eff345dfb55002"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/10_SD03_W_strip.png",
+    "previous_sha256": "412499654e0275dff14f732e9e54a673a137f0a032ed14e4f5abe524ee87bf84",
+    "sha256": "412499654e0275dff14f732e9e54a673a137f0a032ed14e4f5abe524ee87bf84"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/11_SD03_카엘_8방향_검수시트.png",
+    "previous_sha256": "13ca3593e7abe5e9081b74d0d22aa7f6f81b75fcbd47b504468ab199d3fc6c3b",
+    "sha256": "13ca3593e7abe5e9081b74d0d22aa7f6f81b75fcbd47b504468ab199d3fc6c3b"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/12_SD04_N_02_bookfix.png",
+    "previous_sha256": "5fcd4c1848404fbbb6efcfdab6d6227df03da79a25c732086f7dce9cf41468c7",
+    "sha256": "5fcd4c1848404fbbb6efcfdab6d6227df03da79a25c732086f7dce9cf41468c7"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/00_README.md",
+    "previous_sha256": "4a943b42dd75d8cf34bdd7adb9a5ac0cad9233e306499481c06a33eb177126af",
+    "sha256": "7989ae9f8fd11843389e8f345b894b3d087cd27769dca262fb305f27249f30f5"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/01_SD01_rejected_tall_v1.png",
+    "previous_sha256": "8ec779cf9ceb3198a323dd850069fa743967b895796cbb6fee28262ca623c520",
+    "sha256": "8ec779cf9ceb3198a323dd850069fa743967b895796cbb6fee28262ca623c520"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/02_SD01_카엘_기준_source.png",
+    "previous_sha256": "e3761056600e51b6572d73a17498c10ede0faa9892e035cd1d0757d05b540046",
+    "sha256": "e3761056600e51b6572d73a17498c10ede0faa9892e035cd1d0757d05b540046"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/03_SD02_direction_correction_v2_review.png",
+    "previous_sha256": "26f3bfe85f19b4ff6da0cee4c944a1a0b470581db9b4484808b81d7bb40160e1",
+    "sha256": "26f3bfe85f19b4ff6da0cee4c944a1a0b470581db9b4484808b81d7bb40160e1"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/04_SD02_카엘_걷기_마스터_source.png",
+    "previous_sha256": "a3ffbffe772d6803ac8070b5ccd40f2fecc1c37f1667e6d2833611ab41b07599",
+    "sha256": "a3ffbffe772d6803ac8070b5ccd40f2fecc1c37f1667e6d2833611ab41b07599"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/05_SD04_N_02_bookfix_source.png",
+    "previous_sha256": "38f25d46f3cf4489f3dfdde62ea3d845b5ac1d589aaf7dc8bd0002513cb31ba8",
+    "sha256": "38f25d46f3cf4489f3dfdde62ea3d845b5ac1d589aaf7dc8bd0002513cb31ba8"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/00_README.md",
+    "previous_sha256": "d7f9f653b9f859c63a642743c57f03470afbeba2c862e32ee26b577c9ce85f6b",
+    "sha256": "55d09e52c50c4091dd9e0eb1c1883b4a3e2178bb0fba6d99a48b2b67f5881672"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/01_SD03_E_00.png",
+    "previous_sha256": "bbf285265d5224efb514123add482990cfa8728f4d79012de8f49a81c48e857e",
+    "sha256": "bbf285265d5224efb514123add482990cfa8728f4d79012de8f49a81c48e857e"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/02_SD03_E_01.png",
+    "previous_sha256": "e555cd50f60aaae02a3a2378d28518fffeb5aea020bec6f408a491ce22d696fe",
+    "sha256": "e555cd50f60aaae02a3a2378d28518fffeb5aea020bec6f408a491ce22d696fe"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/03_SD03_E_02.png",
+    "previous_sha256": "ee0f6aa65ed4dfc21824873b2601471b166e2ad5810e26782efed569516da9fc",
+    "sha256": "ee0f6aa65ed4dfc21824873b2601471b166e2ad5810e26782efed569516da9fc"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/07_SD03_NE_00.png",
+    "previous_sha256": "78be22b5e37d8d72f98920abc15c245fef53014512ac260a2df0a6237c06e754",
+    "sha256": "78be22b5e37d8d72f98920abc15c245fef53014512ac260a2df0a6237c06e754"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/08_SD03_NE_01.png",
+    "previous_sha256": "4de3f4d1866fc2a2bb453d74a143cab8fc1fc867c90cd138c607ab962efd8507",
+    "sha256": "4de3f4d1866fc2a2bb453d74a143cab8fc1fc867c90cd138c607ab962efd8507"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/09_SD03_NE_02.png",
+    "previous_sha256": "1358d0a17999420dba836d8ac6581d03a0aa12ae6e64e73c5f90f2f1b207a4f6",
+    "sha256": "1358d0a17999420dba836d8ac6581d03a0aa12ae6e64e73c5f90f2f1b207a4f6"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/10_SD03_NW_00.png",
+    "previous_sha256": "9975556da228069f6cd2ba2f89f068d41748eb491096a643f21ba4b1cacd3435",
+    "sha256": "9975556da228069f6cd2ba2f89f068d41748eb491096a643f21ba4b1cacd3435"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/11_SD03_NW_01.png",
+    "previous_sha256": "ae8541631106ad7c6ca1b1dbc952118b61ee3b567f4d5ebddbb7359803f39577",
+    "sha256": "ae8541631106ad7c6ca1b1dbc952118b61ee3b567f4d5ebddbb7359803f39577"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/12_SD03_NW_02.png",
+    "previous_sha256": "d2219d7c76b6bf2f7c18c9798209b0fb6967d92b4fad1fc0aee4fc4f3786364f",
+    "sha256": "d2219d7c76b6bf2f7c18c9798209b0fb6967d92b4fad1fc0aee4fc4f3786364f"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/04_SD03_N_00.png",
+    "previous_sha256": "7b8570655657300b5789947e66c1e7613bbc3969c9b4f227b5afa91dc25dc9f8",
+    "sha256": "7b8570655657300b5789947e66c1e7613bbc3969c9b4f227b5afa91dc25dc9f8"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/05_SD03_N_01.png",
+    "previous_sha256": "d0b9317a7058a4213b39059a50d4c78e5f0cfcb42c46ecef509a2a91c7464f69",
+    "sha256": "d0b9317a7058a4213b39059a50d4c78e5f0cfcb42c46ecef509a2a91c7464f69"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/06_SD03_N_02.png",
+    "previous_sha256": "e60c00e23dfd8b430864fa082c1fd7cffc5b879fac5cfb71af63ccca9af61387",
+    "sha256": "e60c00e23dfd8b430864fa082c1fd7cffc5b879fac5cfb71af63ccca9af61387"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/16_SD03_SE_00.png",
+    "previous_sha256": "cf21209d8d047c8b01d1546e8ac79255124357fe016fb7a65da1894a6dd284f9",
+    "sha256": "cf21209d8d047c8b01d1546e8ac79255124357fe016fb7a65da1894a6dd284f9"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/17_SD03_SE_01.png",
+    "previous_sha256": "3df5559baa11727e05608bb0b0dea91cbfc803546da9add6ef1aa420913572b7",
+    "sha256": "3df5559baa11727e05608bb0b0dea91cbfc803546da9add6ef1aa420913572b7"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/18_SD03_SE_02.png",
+    "previous_sha256": "9ef9870f4ca28cab04766a2a121451629a2c5643da869819cc9d80a79b939ed1",
+    "sha256": "9ef9870f4ca28cab04766a2a121451629a2c5643da869819cc9d80a79b939ed1"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/19_SD03_SW_00.png",
+    "previous_sha256": "5d01fc535fd1e8ae6b5dbf3329bd1f7acce509d31fd9d200c24417d0903baa87",
+    "sha256": "5d01fc535fd1e8ae6b5dbf3329bd1f7acce509d31fd9d200c24417d0903baa87"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/20_SD03_SW_01.png",
+    "previous_sha256": "c61ed720754a78e37b9237693f2e603d8bb0760f7362757b7436aa5f01ae9640",
+    "sha256": "c61ed720754a78e37b9237693f2e603d8bb0760f7362757b7436aa5f01ae9640"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/21_SD03_SW_02.png",
+    "previous_sha256": "d81c25167ec61ac3fdea4bbcc4d2bdbd78b975c443e7dcd2244fdf65c72733fe",
+    "sha256": "d81c25167ec61ac3fdea4bbcc4d2bdbd78b975c443e7dcd2244fdf65c72733fe"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/13_SD03_S_00.png",
+    "previous_sha256": "8bdd1a686e770eb39d5ca2b2a1e775599d67871e16c5f62b7a48b301eeb4248b",
+    "sha256": "8bdd1a686e770eb39d5ca2b2a1e775599d67871e16c5f62b7a48b301eeb4248b"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png",
+    "previous_sha256": "51568141ee212680b65bd66829abf62e65b0de854bc40a669c9199f608bf7fac",
+    "sha256": "51568141ee212680b65bd66829abf62e65b0de854bc40a669c9199f608bf7fac"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/15_SD03_S_02.png",
+    "previous_sha256": "0811368fe7d35c1b6c9787bc6b0458ef7f366e20a77ba2ae8a4a4eeedcf1684c",
+    "sha256": "0811368fe7d35c1b6c9787bc6b0458ef7f366e20a77ba2ae8a4a4eeedcf1684c"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/22_SD03_W_00.png",
+    "previous_sha256": "99f4f8e88feb35ffd1120a7185e338a988856969af3dc0d259908639872ad39f",
+    "sha256": "99f4f8e88feb35ffd1120a7185e338a988856969af3dc0d259908639872ad39f"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/23_SD03_W_01.png",
+    "previous_sha256": "c5cac9c0c6e8a3f53845900e8901b8cfee219f27900d376de191f800be42871b",
+    "sha256": "c5cac9c0c6e8a3f53845900e8901b8cfee219f27900d376de191f800be42871b"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/24_SD03_W_02.png",
+    "previous_sha256": "98493ff60755a515603b088952ce6d815265877f5fefecb4ee7cabad766873c8",
+    "sha256": "98493ff60755a515603b088952ce6d815265877f5fefecb4ee7cabad766873c8"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/00_README.md",
+    "previous_sha256": "a01b21eb5f490aba6c834a131a2641dbe2e49034a7f5a6851d88a1ea8cb9fb2f",
+    "sha256": "b833b813e7ccfb6e7e2a00f9d3ab4a2937ecac41ade57ca2a4dc2a351b2ed8e7"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/01_SD03_E.png",
+    "previous_sha256": "48dfa64135dea251775304526b01983abf0dd074dc196943ae31930f56fb0eb4",
+    "sha256": "48dfa64135dea251775304526b01983abf0dd074dc196943ae31930f56fb0eb4"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/02_SD03_N.png",
+    "previous_sha256": "9a62154115280b4800a2bf449e543de801c4ba6f8acfd71722734e5588d9d7cf",
+    "sha256": "9a62154115280b4800a2bf449e543de801c4ba6f8acfd71722734e5588d9d7cf"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/03_SD03_NE.png",
+    "previous_sha256": "53f23a940dcdb06a5778e8aefe7b438e412bd63c1a0f48d267fe4f9336b235fb",
+    "sha256": "53f23a940dcdb06a5778e8aefe7b438e412bd63c1a0f48d267fe4f9336b235fb"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/04_SD03_NW.png",
+    "previous_sha256": "aa84239ea688e34b836084bdaf49f2a4fb4f4381b61e9d696c871b004a982842",
+    "sha256": "aa84239ea688e34b836084bdaf49f2a4fb4f4381b61e9d696c871b004a982842"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/05_SD03_S.png",
+    "previous_sha256": "aa732fe0e4120a0ca5e2500283db1ce5aa2df10fc6580def7ebdadcf0fcf9139",
+    "sha256": "aa732fe0e4120a0ca5e2500283db1ce5aa2df10fc6580def7ebdadcf0fcf9139"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/06_SD03_SE.png",
+    "previous_sha256": "88d027fd9120be79dde09262798e763b6296ff77bc380e75ade2d334627eec78",
+    "sha256": "88d027fd9120be79dde09262798e763b6296ff77bc380e75ade2d334627eec78"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/07_SD03_SW.png",
+    "previous_sha256": "dce2037bd495f62b4ab45cadae1b8438cbe795b30e2069cb0eb422c5fec7e5e9",
+    "sha256": "dce2037bd495f62b4ab45cadae1b8438cbe795b30e2069cb0eb422c5fec7e5e9"
+  },
+  {
+    "file": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/08_SD03_W.png",
+    "previous_sha256": "14657ef2b65f90e8afb9b73c51935ecf1d5820b81025c56a6305bd7ce520949d",
+    "sha256": "14657ef2b65f90e8afb9b73c51935ecf1d5820b81025c56a6305bd7ce520949d"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_images/00_README.md",
+    "previous_sha256": "57894c5124c84875fdb815532894c4eb766959663c5b81bbcb2f2f16cac35a4d",
+    "sha256": "99422740c6f9c1815e7a185e49eff4399b6c022585b4209fe4a36b88f13699c8"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_images/01_PZ01_퍼즐_타일_바탕.png",
+    "previous_sha256": "9224de8d86941a6a1b893ee215397c369cffd02fb10f4e55e26c3da1fba46aeb",
+    "sha256": "9224de8d86941a6a1b893ee215397c369cffd02fb10f4e55e26c3da1fba46aeb"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_images/02_PZ_elbow_active.svg",
+    "previous_sha256": "7b22e327d60d33dacd7cbdf59f614c13a59c105ccf9f64292239c33682ecde24",
+    "sha256": "7b22e327d60d33dacd7cbdf59f614c13a59c105ccf9f64292239c33682ecde24"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_images/03_PZ_elbow_inactive.svg",
+    "previous_sha256": "83f385302a1d5776bd858e4936632079c0838c873cba5d98c2f9b34d4d3d6c98",
+    "sha256": "83f385302a1d5776bd858e4936632079c0838c873cba5d98c2f9b34d4d3d6c98"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_images/04_PZ_goal_active.svg",
+    "previous_sha256": "d71470c2f65a47c175718934c5a7543e03739f8cfc3b9b3b6a5a10f24c847b0c",
+    "sha256": "d71470c2f65a47c175718934c5a7543e03739f8cfc3b9b3b6a5a10f24c847b0c"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_images/05_PZ_goal_inactive.svg",
+    "previous_sha256": "17be6a292d130fc98e8e39ac1cfcd056660dd98bcf453b0fe70959a61fc599b5",
+    "sha256": "17be6a292d130fc98e8e39ac1cfcd056660dd98bcf453b0fe70959a61fc599b5"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_images/06_PZ_start_active.svg",
+    "previous_sha256": "1fe26ed9f3647d95b6f7e20c1c3428f5eac15bf16098779deae549679dd3930d",
+    "sha256": "1fe26ed9f3647d95b6f7e20c1c3428f5eac15bf16098779deae549679dd3930d"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_images/07_PZ_start_inactive.svg",
+    "previous_sha256": "15d56d3350d234b4981850d3379479d7585190c0c638668030884fa527cc4d02",
+    "sha256": "15d56d3350d234b4981850d3379479d7585190c0c638668030884fa527cc4d02"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_images/08_PZ_straight_active.svg",
+    "previous_sha256": "396898564f4a7d01a946d098be4ebd7c5b6ccfd0bbd6d00e2001e93ecc92549d",
+    "sha256": "396898564f4a7d01a946d098be4ebd7c5b6ccfd0bbd6d00e2001e93ecc92549d"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/00_images/09_PZ_straight_inactive.svg",
+    "previous_sha256": "2e324f0f90be1269cb67c89730f2fd0eab6a925211910c61f822244466e05637",
+    "sha256": "2e324f0f90be1269cb67c89730f2fd0eab6a925211910c61f822244466e05637"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/01_sources/00_README.md",
+    "previous_sha256": "9fdfbf8c23f53c1702c7ebc99c10b0d8a57be1032f0ebff6dfdadc2cd9dbda8f",
+    "sha256": "594fa12720d4ed81ecb4fa8e8f28c4742c85885eb5c6082b0f82db70797fbd86"
+  },
+  {
+    "file": "document/03_characters/09_puzzle/01_sources/01_PZ01_퍼즐_타일_바탕_source.png",
+    "previous_sha256": "3efd187b7e3d5597727ab60be1c8a83949fed390d8de735a7d062a035ee1a14b",
+    "sha256": "3efd187b7e3d5597727ab60be1c8a83949fed390d8de735a7d062a035ee1a14b"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/00_images/00_README.md",
+    "previous_sha256": "b82d575d448224b1a7747ec7b2bb2c65d5fd68b73c7b91a584062d1abd71f9ab",
+    "sha256": "b3d0c1767a436123db80c8f4e057d72cea9018f604ad588224d90a567bbcc4d6"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/00_images/01_SC02_게임_시작.jpg",
+    "previous_sha256": "bc694124cc02663e13ae528428ddcdc7c1e88316c3fb56995e5ce964898a9575",
+    "sha256": "bc694124cc02663e13ae528428ddcdc7c1e88316c3fb56995e5ce964898a9575"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/00_images/02_SC03_캐릭터_선택.jpg",
+    "previous_sha256": "9accdc1486afbceb687d527bc5e4ca7eb225f7ba345ad224bf14907ae99c15b1",
+    "sha256": "9accdc1486afbceb687d527bc5e4ca7eb225f7ba345ad224bf14907ae99c15b1"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/00_images/03_SC04_온실_모험.jpg",
+    "previous_sha256": "e7aa3752c45c8e60ac3ccc2285ec8c43bd6a83e17d9405506d74984c3d5f7da6",
+    "sha256": "e7aa3752c45c8e60ac3ccc2285ec8c43bd6a83e17d9405506d74984c3d5f7da6"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/01_sources/00_README.md",
+    "previous_sha256": "d2ee30b01533b1455267af76327e899ea83b37809d79b4d768b5ad7dfa67eff5",
+    "sha256": "5293e156cf373df3dda4d2fb01f0acf2eeefb9e45102de090c406c2e87cc65ea"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/01_sources/01_ADV01_확장탐험맵_source.png",
+    "previous_sha256": "e079ece1277d2c0d3a012b9e1b3f1c1d675a773424d76fb50f50afb9e148cc15",
+    "sha256": "e079ece1277d2c0d3a012b9e1b3f1c1d675a773424d76fb50f50afb9e148cc15"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/01_sources/02_LIFE01_마이룸_좌우대화_source.png",
+    "previous_sha256": "ced049ca38189e25c6e1604d358e8f734f3134962ec58159498e5541c01094d3",
+    "sha256": "ced049ca38189e25c6e1604d358e8f734f3134962ec58159498e5541c01094d3"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/00_README.md",
+    "previous_sha256": "37edb2ef4091243f6a9bbda6c6e4776d5df0ac385537edf8a9ecc59ede599052",
+    "sha256": "8f48ca631d4c67fececa14550139499be55750a97157ff906fb80a4cbe4c58f2"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/01_FLOW01_타이틀.jpg",
+    "previous_sha256": "7f38be3eb09532ce97753a83030ffb22890301782dff96809d04906b938dd796",
+    "sha256": "7f38be3eb09532ce97753a83030ffb22890301782dff96809d04906b938dd796"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/02_FLOW02_캐릭터선택.jpg",
+    "previous_sha256": "5f752be06deba60601e6b06b4c76258df904e8369c437915cde19ccd71541257",
+    "sha256": "5f752be06deba60601e6b06b4c76258df904e8369c437915cde19ccd71541257"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/03_FLOW03_입학초대장.jpg",
+    "previous_sha256": "4d85f2a7d31fef61ca49fa31e1aa50cceef17ae85b48827d61e1eeed4317575b",
+    "sha256": "4d85f2a7d31fef61ca49fa31e1aa50cceef17ae85b48827d61e1eeed4317575b"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/04_FLOW04_광장대화.jpg",
+    "previous_sha256": "fcadfaba4c13575133e37b71b10bb18e380ed31dde56f3f4c52f19de8ba1ea7f",
+    "sha256": "fcadfaba4c13575133e37b71b10bb18e380ed31dde56f3f4c52f19de8ba1ea7f"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/05_FLOW05_온실Life.jpg",
+    "previous_sha256": "36f98b455eba816031645dfe80fa146701906deb71df697d838ad0f090bcd258",
+    "sha256": "36f98b455eba816031645dfe80fa146701906deb71df697d838ad0f090bcd258"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/06_FLOW06_탐험입구.jpg",
+    "previous_sha256": "4744e7e82af7da2007f9afd85c8c919191e335c8cb36834f2f21d31bca1ca984",
+    "sha256": "4744e7e82af7da2007f9afd85c8c919191e335c8cb36834f2f21d31bca1ca984"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/07_FLOW07_회랑이동.jpg",
+    "previous_sha256": "2fca1f17eb91d338eef8f2da8f9f4a8e3aee163ae03cad1e34b993ebb167831f",
+    "sha256": "2fca1f17eb91d338eef8f2da8f9f4a8e3aee163ae03cad1e34b993ebb167831f"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/08_FLOW08_식물발견.jpg",
+    "previous_sha256": "b9cb4e6b92109a4c75020711a61dcee9986793c745e04451a25ac28d32bcef9f",
+    "sha256": "b9cb4e6b92109a4c75020711a61dcee9986793c745e04451a25ac28d32bcef9f"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/09_FLOW09_발견기록.jpg",
+    "previous_sha256": "e7cc85265c3f974d2cc5c66994316f1c23b20da1eca5835f7b09f10e3ccfc3f9",
+    "sha256": "e7cc85265c3f974d2cc5c66994316f1c23b20da1eca5835f7b09f10e3ccfc3f9"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/10_FLOW10_약초발견.jpg",
+    "previous_sha256": "33c173b7bd11df66c318422b77c73d9892567df8718f8a8305da22dba43373ca",
+    "sha256": "33c173b7bd11df66c318422b77c73d9892567df8718f8a8305da22dba43373ca"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/11_FLOW11_약초획득.jpg",
+    "previous_sha256": "48715a5e16fdebb18e8fd90f6c9d2d656aee72cde622d59135656c8698448516",
+    "sha256": "48715a5e16fdebb18e8fd90f6c9d2d656aee72cde622d59135656c8698448516"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/12_FLOW12_백팩.jpg",
+    "previous_sha256": "f55c00981ce71f83be122a40a5e2a71546ee8073a40e8e08375f85d61d3ae17e",
+    "sha256": "f55c00981ce71f83be122a40a5e2a71546ee8073a40e8e08375f85d61d3ae17e"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/13_FLOW13_단서구역.jpg",
+    "previous_sha256": "c624514679c8d852ff2c0d268442446ac4f50d7a6098892296c7993daea1bd66",
+    "sha256": "c624514679c8d852ff2c0d268442446ac4f50d7a6098892296c7993daea1bd66"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/14_FLOW14_룬발견.jpg",
+    "previous_sha256": "be869e0cd79443fa7f4261cd515b9d12b61ede4a2563faa5e252740d8645692f",
+    "sha256": "be869e0cd79443fa7f4261cd515b9d12b61ede4a2563faa5e252740d8645692f"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/15_FLOW15_퍼즐.jpg",
+    "previous_sha256": "54c45367fa90a5f43b9e1d72a9a8f06c1e2a91333318e74562c2a8071a5828b1",
+    "sha256": "54c45367fa90a5f43b9e1d72a9a8f06c1e2a91333318e74562c2a8071a5828b1"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/16_FLOW16_힌트.jpg",
+    "previous_sha256": "ed445b58580d0786cdd3485d1384f3e8c9aa64a122203257968b4d7e1857d2c3",
+    "sha256": "ed445b58580d0786cdd3485d1384f3e8c9aa64a122203257968b4d7e1857d2c3"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/17_FLOW17_환경회복.jpg",
+    "previous_sha256": "ce8feb1f9b9f855d747fd3694101bbf7272a1166e4d7af64426f0108cbdf6461",
+    "sha256": "ce8feb1f9b9f855d747fd3694101bbf7272a1166e4d7af64426f0108cbdf6461"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/18_FLOW18_Life복귀.jpg",
+    "previous_sha256": "a7d2ce57a6cdc3379ab9310242b7e5dd3c07df1abf791a43c98657b247c4cb27",
+    "sha256": "a7d2ce57a6cdc3379ab9310242b7e5dd3c07df1abf791a43c98657b247c4cb27"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/19_FLOW19_이야기선택.jpg",
+    "previous_sha256": "13262e4ff56ef29af3a134391e9feeb27c698255fe0c7868b98a51470c4055ab",
+    "sha256": "13262e4ff56ef29af3a134391e9feeb27c698255fe0c7868b98a51470c4055ab"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/20_FLOW20_마이룸.jpg",
+    "previous_sha256": "6ca674e719af959d72bd96ac8aeb73cc743a9e46ef7e764ba2d6403b9a74f4b1",
+    "sha256": "6ca674e719af959d72bd96ac8aeb73cc743a9e46ef7e764ba2d6403b9a74f4b1"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/21_FLOW21_마음돌아보기.jpg",
+    "previous_sha256": "6d10677c386d5f33afba32a8172f82dd7886d62e439da6da25a247c1c900dc51",
+    "sha256": "6d10677c386d5f33afba32a8172f82dd7886d62e439da6da25a247c1c900dc51"
+  },
+  {
+    "file": "document/03_characters/10_screen_mockups/02_flow_images/22_FLOW22_마음기록.jpg",
+    "previous_sha256": "3a1564090a317517fbff180119369e77eb1a13913765dd42034c036aedaa76fe",
+    "sha256": "3a1564090a317517fbff180119369e77eb1a13913765dd42034c036aedaa76fe"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/00_images/00_README.md",
+    "previous_sha256": "51ed7e4b7c2b007879b6682a69f75f9fbcdb68a5bc545fe4897ae0f7df3d5381",
+    "sha256": "0abe74b6e591ff559e110da8784001a5950d1c6636a806288e6a2d16b8b79399"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/00_images/01_MAP01_전체_탐험맵.png",
+    "previous_sha256": "8e008302156087eacd05216c64e59b4d5fa909e6cb90595f607907b177d72b94",
+    "sha256": "8e008302156087eacd05216c64e59b4d5fa909e6cb90595f607907b177d72b94"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/00_images/02_MAP02_탐험_플레이.png",
+    "previous_sha256": "77a3fb17a6afe0921735350033f2045de04982912d8cecf271e6b29020146053",
+    "sha256": "77a3fb17a6afe0921735350033f2045de04982912d8cecf271e6b29020146053"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/00_images/03_MAP03_백팩.png",
+    "previous_sha256": "59fcac4c297d5c001f535a2288b90c92b8e9c78b3cf3ef400299006504b1b1f3",
+    "sha256": "59fcac4c297d5c001f535a2288b90c92b8e9c78b3cf3ef400299006504b1b1f3"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/00_images/04_MAP04_어드벤처_전체맵_무드시안.png",
+    "previous_sha256": "83469bbc45e5eac62e5ae2bdd16a0754de3521f9219deea056cb0479c95ab7db",
+    "sha256": "83469bbc45e5eac62e5ae2bdd16a0754de3521f9219deea056cb0479c95ab7db"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/00_images/05_MAP05_어드벤처_플레이_무드시안.png",
+    "previous_sha256": "ebcf5bbec70df92337199daf61aef1a290849472a7180b479e18e397b9e04681",
+    "sha256": "ebcf5bbec70df92337199daf61aef1a290849472a7180b479e18e397b9e04681"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/01_art_sources/00_README.md",
+    "previous_sha256": "3abb5f2ee1b85adb1fc5dcf180f5878cd063b3afb627dfc872ffb171738144b2",
+    "sha256": "515de796636cd366d8706c1a0956437d841cd7320d77bd303b4fd0bd1d2fd80f"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/01_art_sources/01_MAP04_어드벤처_전체맵_무드시안_source.png",
+    "previous_sha256": "df053d23a04d7fe1060a29953c7081ddd1c41f359f27ddff0ab99aff2b7cef5e",
+    "sha256": "df053d23a04d7fe1060a29953c7081ddd1c41f359f27ddff0ab99aff2b7cef5e"
+  },
+  {
+    "file": "document/03_characters/11_adventure_map/01_art_sources/02_MAP05_어드벤처_플레이_무드시안_source.png",
+    "previous_sha256": "c70b6033aa61ce96471454f7b1326205b1b7e07534a33c3e15dfb93712a072d0",
+    "sha256": "c70b6033aa61ce96471454f7b1326205b1b7e07534a33c3e15dfb93712a072d0"
+  }
+]

@@ -1,0 +1,618 @@
+{
+  "date": "2026-10-05",
+  "flow": [
+    {
+      "screen": 1,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/00_images/01_SC02_%EA%B2%8C%EC%9E%84_%EC%8B%9C%EC%9E%91.jpg"
+        }
+      ]
+    },
+    {
+      "screen": 2,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/00_images/02_SC03_%EC%BA%90%EB%A6%AD%ED%84%B0_%EC%84%A0%ED%83%9D.jpg"
+        }
+      ]
+    },
+    {
+      "screen": 3,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/03_backgrounds/01_exports/01_BG01_%EC%95%84%EB%A5%B4%EC%B9%B4%EB%94%94%EC%95%84_%EC%9E%85%EA%B5%AC%EC%99%80_%ED%98%B8%EC%88%98_1920x1080.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/05_UI07_%EC%9E%85%ED%95%99_%EC%B4%88%EB%8C%80%EC%9E%A5.png"
+        }
+      ]
+    },
+    {
+      "screen": 4,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/03_backgrounds/01_exports/02_BG02_%EC%8B%9C%EA%B3%84%ED%83%91_%EA%B4%91%EC%9E%A5_1920x1080.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/01_CH01_%EC%B9%B4%EC%97%98.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/20_CH20_%ED%95%98%EC%A0%A4.png"
+        }
+      ]
+    },
+    {
+      "screen": 5,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/03_backgrounds/01_exports/07_BG07_%EC%9C%A0%EB%A6%AC_%EC%98%A8%EC%8B%A4_1920x1080.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/01_CH01_%EC%B9%B4%EC%97%98.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/20_CH20_%ED%95%98%EC%A0%A4.png"
+        }
+      ]
+    },
+    {
+      "screen": 6,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        }
+      ]
+    },
+    {
+      "screen": 7,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        }
+      ]
+    },
+    {
+      "screen": 8,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/01_OBJ01_%EC%A1%B0%EC%82%AC_%EC%8B%9D%EB%AC%BC_%EC%8B%9C%EB%93%A6.png"
+        }
+      ]
+    },
+    {
+      "screen": 9,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/01_OBJ01_%EC%A1%B0%EC%82%AC_%EC%8B%9D%EB%AC%BC_%EC%8B%9C%EB%93%A6.png"
+        }
+      ]
+    },
+    {
+      "screen": 10,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/04_OBJ03_%EB%8B%AC%EB%B9%9B_%EC%95%BD%EC%B4%88.png"
+        }
+      ]
+    },
+    {
+      "screen": 11,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/04_OBJ03_%EB%8B%AC%EB%B9%9B_%EC%95%BD%EC%B4%88.png"
+        }
+      ]
+    },
+    {
+      "screen": 12,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/04_OBJ03_%EB%8B%AC%EB%B9%9B_%EC%95%BD%EC%B4%88.png"
+        }
+      ]
+    },
+    {
+      "screen": 13,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        }
+      ]
+    },
+    {
+      "screen": 14,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/05_OBJ04_%EC%82%AC%EA%B1%B4_%EB%A3%AC_%EB%B9%84%ED%99%9C%EC%84%B1.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/01_OBJ01_%EC%A1%B0%EC%82%AC_%EC%8B%9D%EB%AC%BC_%EC%8B%9C%EB%93%A6.png"
+        }
+      ]
+    },
+    {
+      "screen": 15,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/05_OBJ04_%EC%82%AC%EA%B1%B4_%EB%A3%AC_%EB%B9%84%ED%99%9C%EC%84%B1.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/01_OBJ01_%EC%A1%B0%EC%82%AC_%EC%8B%9D%EB%AC%BC_%EC%8B%9C%EB%93%A6.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/07_PZ_start_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/09_PZ_straight_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/03_PZ_elbow_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/03_PZ_elbow_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/09_PZ_straight_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/03_PZ_elbow_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/03_PZ_elbow_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/09_PZ_straight_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/05_PZ_goal_inactive.svg"
+        }
+      ]
+    },
+    {
+      "screen": 16,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/05_OBJ04_%EC%82%AC%EA%B1%B4_%EB%A3%AC_%EB%B9%84%ED%99%9C%EC%84%B1.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/01_OBJ01_%EC%A1%B0%EC%82%AC_%EC%8B%9D%EB%AC%BC_%EC%8B%9C%EB%93%A6.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/07_PZ_start_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/09_PZ_straight_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/03_PZ_elbow_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/03_PZ_elbow_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/09_PZ_straight_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/03_PZ_elbow_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/03_PZ_elbow_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/09_PZ_straight_inactive.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/09_puzzle/00_images/05_PZ_goal_inactive.svg"
+        }
+      ]
+    },
+    {
+      "screen": 17,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/01_ADV01_%ED%99%95%EC%9E%A5%ED%83%90%ED%97%98%EB%A7%B5_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/06_UI08_%EA%B0%80%EB%B0%A9.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/07_UI09_%EB%B0%9C%EA%B2%AC%EA%B8%B0%EB%A1%9D.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/04_ui/00_images/08_UI10_%ED%9E%8C%ED%8A%B8.svg"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/06_OBJ05_%EC%82%AC%EA%B1%B4_%EB%A3%AC_%ED%99%9C%EC%84%B1.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/03_OBJ02_%EC%A1%B0%EC%82%AC_%EC%8B%9D%EB%AC%BC_%ED%9A%8C%EB%B3%B5_v2.png"
+        }
+      ]
+    },
+    {
+      "screen": 18,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/03_backgrounds/01_exports/07_BG07_%EC%9C%A0%EB%A6%AC_%EC%98%A8%EC%8B%A4_1920x1080.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/01_CH01_%EC%B9%B4%EC%97%98.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/20_CH20_%ED%95%98%EC%A0%A4.png"
+        }
+      ]
+    },
+    {
+      "screen": 19,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/03_backgrounds/01_exports/07_BG07_%EC%9C%A0%EB%A6%AC_%EC%98%A8%EC%8B%A4_1920x1080.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/01_CH01_%EC%B9%B4%EC%97%98.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/20_CH20_%ED%95%98%EC%A0%A4.png"
+        }
+      ]
+    },
+    {
+      "screen": 20,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/02_LIFE01_%EB%A7%88%EC%9D%B4%EB%A3%B8_%EC%A2%8C%EC%9A%B0%EB%8C%80%ED%99%94_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/01_CH01_%EC%B9%B4%EC%97%98.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/35_NPC03_%EB%B2%A0%EB%A5%B8_v4.png"
+        }
+      ]
+    },
+    {
+      "screen": 21,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/02_LIFE01_%EB%A7%88%EC%9D%B4%EB%A3%B8_%EC%A2%8C%EC%9A%B0%EB%8C%80%ED%99%94_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/01_CH01_%EC%B9%B4%EC%97%98.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/35_NPC03_%EB%B2%A0%EB%A5%B8_v4.png"
+        }
+      ]
+    },
+    {
+      "screen": 22,
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/10_screen_mockups/01_sources/02_LIFE01_%EB%A7%88%EC%9D%B4%EB%A3%B8_%EC%A2%8C%EC%9A%B0%EB%8C%80%ED%99%94_source.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/01_CH01_%EC%B9%B4%EC%97%98.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/01_characters/01_images/35_NPC03_%EB%B2%A0%EB%A5%B8_v4.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/03_OBJ02_%EC%A1%B0%EC%82%AC_%EC%8B%9D%EB%AC%BC_%ED%9A%8C%EB%B3%B5_v2.png"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:8766/document/03_characters/07_adventure_objects/00_images/06_OBJ05_%EC%82%AC%EA%B1%B4_%EB%A3%AC_%ED%99%9C%EC%84%B1.png"
+        }
+      ]
+    }
+  ],
+  "extra": [
+    {
+      "page": "08_sd_character/16_motion_review.html",
+      "result": {
+        "broken": [],
+        "pending": 0
+      }
+    },
+    {
+      "page": "10_screen_mockups/02_preview.html",
+      "result": {
+        "broken": [],
+        "pending": 0
+      }
+    },
+    {
+      "page": "10_screen_mockups/13_flow_gallery.html",
+      "result": {
+        "broken": [],
+        "pending": 0
+      },
+      "note": "Dynamic filename lookup and image-open links verified after correction"
+    },
+    {
+      "page": "11_adventure_map/02_preview.html",
+      "result": {
+        "broken": [],
+        "pending": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,1346 @@
+[
+  {
+    "id": "CH01",
+    "name": "카엘",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/01_CH01_카엘.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/01_CH01_DELTA.txt",
+    "sha256": "308FD302FAEE5C970C4DCF26B5ABD05BCA8CB644FE45AFCC1C0A849115109924"
+  },
+  {
+    "id": "CH02",
+    "name": "세라",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/02_CH02_세라.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/02_CH02_DELTA.txt",
+    "sha256": "1C0158747E6B786A491624A5B59610547B7DC09AFE81B18CD74C8E15D748C5F4"
+  },
+  {
+    "id": "CH03",
+    "name": "시온",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/03_CH03_시온.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/03_CH03_DELTA.txt",
+    "sha256": "5DAB2777D8A6FFB50EF9DFE67AA8009836B14B1113BAB7E852207005BA01FE30"
+  },
+  {
+    "id": "CH04",
+    "name": "로엔",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/04_CH04_로엔.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/04_CH04_DELTA.txt",
+    "sha256": "FF00251FC60BBA87D46263D5082170140844FC7E41577A65C0703057A0DDE58C"
+  },
+  {
+    "id": "CH05",
+    "name": "레온",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/05_CH05_레온.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/05_CH05_DELTA.txt",
+    "sha256": "E9566CEFBF9E33540836137B97E95E1D77C8F48026C8E1AA4985AF4D90DAC0AA"
+  },
+  {
+    "id": "CH06",
+    "name": "벨라",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/06_CH06_벨라.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/06_CH06_DELTA.txt",
+    "sha256": "73EA1F7C6DC4C21FF36EE874A8F8F0615A15EB5DA6723613100A926E497DFE0A"
+  },
+  {
+    "id": "CH07",
+    "name": "유안",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/07_CH07_유안.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/07_CH07_DELTA.txt",
+    "sha256": "BEFE8959A3AF45E186B5C6F899E3FBAF5546E2F4CCCB74A176731E033AFB52C1"
+  },
+  {
+    "id": "CH08",
+    "name": "아이리스",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/08_CH08_아이리스.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/08_CH08_DELTA.txt",
+    "sha256": "6A3319EF11844690095642852933321BF3AA9DFBF1FF71055A9900231067650E"
+  },
+  {
+    "id": "CH09",
+    "name": "에녹",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/09_CH09_에녹.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/09_CH09_DELTA.txt",
+    "sha256": "91733F163576629967B4C5B39DF3216DAF9137D22035E40B6A36E5929E4056DE"
+  },
+  {
+    "id": "CH10",
+    "name": "엘리아",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/10_CH10_엘리아.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/10_CH10_DELTA.txt",
+    "sha256": "E601AFD9C4891DE62DBBD04EB41D7E826BB97935A7F34E2EB0372B2E1527AA05"
+  },
+  {
+    "id": "CH11",
+    "name": "루카",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/11_CH11_루카.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/11_CH11_DELTA.txt",
+    "sha256": "7EA1668C787D7751382833984F4BCCB064AE48D444F6F3AD37C286D420AC5647"
+  },
+  {
+    "id": "CH12",
+    "name": "리네",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/12_CH12_리네.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/12_CH12_DELTA.txt",
+    "sha256": "6C13C6574809E49FBFD911D540DD5DAD012FEF926E681D47B164E3A7518AB55D"
+  },
+  {
+    "id": "CH13",
+    "name": "아드리안",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/13_CH13_아드리안.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/13_CH13_DELTA.txt",
+    "sha256": "DAB5B76EFC3E25B0A58467BC53A30A3A2C5D9AB23CE3604148C8C35AB6B910BA"
+  },
+  {
+    "id": "CH14",
+    "name": "스텔라",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/14_CH14_스텔라.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/14_CH14_DELTA.txt",
+    "sha256": "3BBD73BEBEFE1A928C3A036ABFCAEC571544C15623B01BCF261EEAC41D4185A5"
+  },
+  {
+    "id": "CH15",
+    "name": "로빈",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/15_CH15_로빈.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/15_CH15_DELTA.txt",
+    "sha256": "F0C843BB08A4F9E620D8ED65F903B77F9BA2BB5455D6A30794A88B8BD39B2BE2"
+  },
+  {
+    "id": "CH16",
+    "name": "티아",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/16_CH16_티아.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/16_CH16_DELTA.txt",
+    "sha256": "8DD71F593B1A1C4CF357063E18F6C9DC17F0ED9A6054315B95A5E70D896D7B28"
+  },
+  {
+    "id": "CH17",
+    "name": "바론",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/17_CH17_바론.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/17_CH17_DELTA.txt",
+    "sha256": "BA9CFB342215E7510F07352B3BB51E0CC2D7080F4C08AF663A6CE8A0DDB73103"
+  },
+  {
+    "id": "CH18",
+    "name": "클레어",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/18_CH18_클레어.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/18_CH18_DELTA.txt",
+    "sha256": "3B6019421B7F62D7BA0340C4AEA7CA0E0E7432822622EF1FF80DB8076120B661"
+  },
+  {
+    "id": "CH19",
+    "name": "요한",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/19_CH19_요한.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/19_CH19_DELTA.txt",
+    "sha256": "30732AEC93D754C9E51704174B7BE9CFC7F20A161954F0DE303DBC7431570300"
+  },
+  {
+    "id": "CH20",
+    "name": "하젤",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/20_CH20_하젤.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/20_CH20_DELTA.txt",
+    "sha256": "42524E15B4B5E5B7B27BE074750FB8DD6740478B44197E0398369F19843431E2"
+  },
+  {
+    "id": "CH21",
+    "name": "빅터",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/21_CH21_빅터.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/21_CH21_DELTA.txt",
+    "sha256": "E3424B5C712463832D0144335208C53F258E960DE718660C4540723A8B1786AE"
+  },
+  {
+    "id": "CH22",
+    "name": "로렌",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/22_CH22_로렌.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/22_CH22_DELTA.txt",
+    "sha256": "4AD81D0FD804694CD86C942B9A2F348DE1ADAD06661DDC41FF42746580A31FD7"
+  },
+  {
+    "id": "CH23",
+    "name": "테오",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/23_CH23_테오.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/23_CH23_DELTA.txt",
+    "sha256": "F497C6125CF0562F139BD9AD9CEA5DC70E3AA66AA867D082BB5DC3503636B0D2"
+  },
+  {
+    "id": "CH24",
+    "name": "미리엄",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/24_CH24_미리엄.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/24_CH24_DELTA.txt",
+    "sha256": "EB6ED849587FFDD093D434C7FBF009D64EFF885A37EBEB31A0F337F3A9E96754"
+  },
+  {
+    "id": "CH25",
+    "name": "렌",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/25_CH25_렌.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/25_CH25_DELTA.txt",
+    "sha256": "BFB545F848A1276A92390C7FC003E89034C274EC5DE2761E37CC4390246DD019"
+  },
+  {
+    "id": "CH26",
+    "name": "다나",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/26_CH26_다나.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/26_CH26_DELTA.txt",
+    "sha256": "4349463222160ACBC8A1DB25BDBA16EAFCA26C84463B070D3DE62761E41A23FF"
+  },
+  {
+    "id": "CH27",
+    "name": "미엘",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/27_CH27_미엘.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/27_CH27_DELTA.txt",
+    "sha256": "29F93E0B31AE62EB13618F630223ED46D9E1C353C5CFF76CA0DD4D10D2C9FD2A"
+  },
+  {
+    "id": "CH28",
+    "name": "실비아",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/28_CH28_실비아.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/28_CH28_DELTA.txt",
+    "sha256": "F643982707B8BD54D679FE11EE292EAFBB7D2830C03FEB501AE3EF68F3328FED"
+  },
+  {
+    "id": "CH29",
+    "name": "카일",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/29_CH29_카일.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/29_CH29_DELTA.txt",
+    "sha256": "8C83885F08BE33638C8650C59FE99277FBDA41F3EE9C74E463AB5A04BE40E90D"
+  },
+  {
+    "id": "CH30",
+    "name": "제나",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/30_CH30_제나.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/30_CH30_DELTA.txt",
+    "sha256": "A3496F698613168F3EF1D5FF4DF25C322E6F3FDA8409B3BE7FD88F36999064FE"
+  },
+  {
+    "id": "CH31",
+    "name": "니코",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/31_CH31_니코.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/31_CH31_DELTA.txt",
+    "sha256": "DCBA932284A87238A8E2C0504C02B01956624B505C87DE2234B14006AED56215"
+  },
+  {
+    "id": "CH32",
+    "name": "리코",
+    "category": "character",
+    "file": "document/03_characters/01_characters/01_images/32_CH32_리코.png",
+    "prompt": "document/03_characters/01_characters/00_prompts/32_CH32_DELTA.txt",
+    "sha256": "914D245CEB8B56ECAF8C25E2D5AA5BD38B0EACC6594E591968214A0376073ADF"
+  },
+  {
+    "id": "IT01",
+    "name": "마음_일기",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/01_IT01_마음_일기.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "9B601C8143450DDA570B9D567CD4DA498216943D9B12D4B726B3A81634970522"
+  },
+  {
+    "id": "IT02",
+    "name": "룬_램프",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/02_IT02_룬_램프.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "08502D94632E1DF4BCAF497F3DFBCABF0276F342DABD37D155C861873812713B"
+  },
+  {
+    "id": "IT03",
+    "name": "차_세트",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/03_IT03_차_세트.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "B49F01FEA330216D53A08C460C2ED4C9BE77D18F9E074AB5A40D1D4106C282EA"
+  },
+  {
+    "id": "IT04",
+    "name": "약초_화분",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/04_IT04_약초_화분.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "E633B1C6697DB940C7A437C1A786F7E5877F823A154042215EE424924B89D896"
+  },
+  {
+    "id": "IT05",
+    "name": "룬_조각",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/05_IT05_룬_조각.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "EF9DA3D18C09076D7FF7C16CF715C3B07ED4121CAB0076047E6165489F9B5863"
+  },
+  {
+    "id": "IT06",
+    "name": "추억_액자",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/06_IT06_추억_액자.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "7B78528CC6EAE81BE4AFBD62288C63ABBD4A78BBD18B502CDC823511A2CFD214"
+  },
+  {
+    "id": "IT07",
+    "name": "마이룸_책상",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/07_IT07_마이룸_책상.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "EA8E94031FC86E2A3A38A2C03DA6901A28C1F88C3951DE562E04E0A7D841ABFD"
+  },
+  {
+    "id": "IT08",
+    "name": "마이룸_의자",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/08_IT08_마이룸_의자.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "450FF9C90592F10455CE2B5966DA280F967DCA98FB551B19B15CC79E00E513B9"
+  },
+  {
+    "id": "IT09",
+    "name": "마이룸_침대",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/09_IT09_마이룸_침대.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "18BE04E528E3C12BA4CBBB12FEAA6C2851CECF23DF2FA876D3058D0BAB9AE87A"
+  },
+  {
+    "id": "IT10",
+    "name": "마이룸_책장",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/10_IT10_마이룸_책장.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "5BBED6554D31958CF0320666723331DDFC0BB6A308AFACDFB9F3A1DBC4E6942D"
+  },
+  {
+    "id": "IT11",
+    "name": "마이룸_러그",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/11_IT11_마이룸_러그.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "D3C2A14986FE48D6F3B95077B64C59551CEC95DAD7AA4FABA9A13A53F86580D3"
+  },
+  {
+    "id": "IT12",
+    "name": "룬_오브제",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/12_IT12_룬_오브제.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "B1C7D4CB025B13B56476F037CB3FFDCBACC2C81A01B584CE1816297F7DDEF864"
+  },
+  {
+    "id": "IT13",
+    "name": "룬_고서",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/13_IT13_룬_고서.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "DDDA7686504CA2E4E92F43E70DF4B01869A67E8CFF787F8234BD763CA1732993"
+  },
+  {
+    "id": "IT14",
+    "name": "양피지_편지",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/14_IT14_양피지_편지.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "50376021158CA2BE2E16C9F00F27F6AF61A88E2260C65E46B2192AF121D87189"
+  },
+  {
+    "id": "IT15",
+    "name": "마석_공방_도구",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/15_IT15_마석_공방_도구.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "83D2714DDA11B4ACAB7C56405CD3C08D61C59DEFD013BC9F952FF1BD08D99252"
+  },
+  {
+    "id": "IT16",
+    "name": "훈련용_목검",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/16_IT16_훈련용_목검.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "170A8FBDB83E4B08690E72FAD8CEFA14611583738F443A7FECBF6E8F3A4DE13A"
+  },
+  {
+    "id": "IT17",
+    "name": "공방_마석",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/17_IT17_공방_마석.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "4B05C7E91A849EAEEC86DCE9973B6BF7A388E2E3114095541329B7E5177C5078"
+  },
+  {
+    "id": "IT18",
+    "name": "마음_룬",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/18_IT18_마음_룬.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "7AAD1BA6D83BB6C2AD635F9CFD8A6C64E96B0540F16AED6A1ABE04B4C9722271"
+  },
+  {
+    "id": "IT19",
+    "name": "그림자_룬",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/19_IT19_그림자_룬.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "040BCAE27171468A6987937EE01738D2C02FE39CE89BF5CAD4034F6554D772F6"
+  },
+  {
+    "id": "IT20",
+    "name": "정화된_룬",
+    "category": "item",
+    "file": "document/03_characters/02_items/00_images/20_IT20_정화된_룬.png",
+    "prompt": "document/03_characters/02_items/02_prompts.json",
+    "sha256": "A8E3757EB100602A17512B25C89E5FE50349201795BD56CE6A7E4A43FB3DA68B"
+  },
+  {
+    "id": "BG01",
+    "name": "아르카디아_입구와_호수",
+    "category": "background",
+    "file": "document/03_characters/03_backgrounds/00_images/01_BG01_아르카디아_입구와_호수.png",
+    "prompt": "document/03_characters/03_backgrounds/02_prompts.json",
+    "sha256": "E6E33244FC03D50989EEC741EBE041C7305B93AD8FE2F06537C42544316050EB"
+  },
+  {
+    "id": "BG02",
+    "name": "시계탑_광장",
+    "category": "background",
+    "file": "document/03_characters/03_backgrounds/00_images/02_BG02_시계탑_광장.png",
+    "prompt": "document/03_characters/03_backgrounds/02_prompts.json",
+    "sha256": "FE8598CA3861D847AE2F3F6E295B9A686B79B37A4D01A3D093A4C5DD4AFCDFCB"
+  },
+  {
+    "id": "BG03",
+    "name": "빈_마이룸",
+    "category": "background",
+    "file": "document/03_characters/03_backgrounds/00_images/03_BG03_빈_마이룸.png",
+    "prompt": "document/03_characters/03_backgrounds/02_prompts.json",
+    "sha256": "3264EF9FFC28B6A2381A46B7F41DB5E300C4D646069BAD8D20E2FE1920FF32F1"
+  },
+  {
+    "id": "BG04",
+    "name": "학원_기숙사",
+    "category": "background",
+    "file": "document/03_characters/03_backgrounds/00_images/04_BG04_학원_기숙사.png",
+    "prompt": "document/03_characters/03_backgrounds/02_prompts.json",
+    "sha256": "FDB5C4AC0EEBB6674CEF7F3A719B385FAFFFA94827BFAA45D65E3E26429AAB88"
+  },
+  {
+    "id": "BG05",
+    "name": "대서고",
+    "category": "background",
+    "file": "document/03_characters/03_backgrounds/00_images/05_BG05_대서고.png",
+    "prompt": "document/03_characters/03_backgrounds/02_prompts.json",
+    "sha256": "70AC5A6CD0F4ADDBFA0DAD8589FA4B82D5CDEC78DF63FDC7BE3F42427F89F6CD"
+  },
+  {
+    "id": "BG06",
+    "name": "별빛_천문대",
+    "category": "background",
+    "file": "document/03_characters/03_backgrounds/00_images/06_BG06_별빛_천문대.png",
+    "prompt": "document/03_characters/03_backgrounds/02_prompts.json",
+    "sha256": "EEB2C74593F620427F8A8F825B503249D962DABD0E0D9E847E6807F5655ECDE0"
+  },
+  {
+    "id": "BG07",
+    "name": "유리_온실",
+    "category": "background",
+    "file": "document/03_characters/03_backgrounds/00_images/07_BG07_유리_온실.png",
+    "prompt": "document/03_characters/03_backgrounds/02_prompts.json",
+    "sha256": "EFE37767D7033BDB4A1893F8A2B55C3A0CAEF09622F0B2F115B1BBED5B0B7435"
+  },
+  {
+    "id": "BG08",
+    "name": "치유의_약초원",
+    "category": "background",
+    "file": "document/03_characters/03_backgrounds/00_images/08_BG08_치유의_약초원.png",
+    "prompt": "document/03_characters/03_backgrounds/02_prompts.json",
+    "sha256": "8E2057E40587AE09B7F7B575AF9F904982DA6B45C345C65D629A691784D70444"
+  },
+  {
+    "id": "BG09",
+    "name": "마도_공방",
+    "category": "background",
+    "file": "document/03_characters/03_backgrounds/00_images/09_BG09_마도_공방.png",
+    "prompt": "document/03_characters/03_backgrounds/02_prompts.json",
+    "sha256": "F9EEDAA585E60A280851C2CBC3870C9AD6C7E2A547789D11116B81FE52415D17"
+  },
+  {
+    "id": "BG10",
+    "name": "룬_수련장",
+    "category": "background",
+    "file": "document/03_characters/03_backgrounds/00_images/10_BG10_룬_수련장.png",
+    "prompt": "document/03_characters/03_backgrounds/02_prompts.json",
+    "sha256": "A399E3B374AD23CC28F7E64F64A803FFFE45D64605E394EBCB2EAEB39519520B"
+  },
+  {
+    "id": "NPC03",
+    "name": "베른",
+    "category": "01_characters",
+    "file": "document/03_characters/01_characters/01_images/33_NPC03_베른.png",
+    "prompt": "document/03_characters/01_characters/03_prototype_prompts.json",
+    "sha256": "79B1C19FFE73A81E733B8B2DC89084A653563BF816955285C4E9A7F252A016F3",
+    "status": "generated_pending_game_qa",
+    "width": 1024,
+    "height": 1536,
+    "qa_status": "needs_halo_cleanup"
+  },
+  {
+    "id": "UI01",
+    "name": "양피지_타일",
+    "category": "04_ui",
+    "file": "document/03_characters/04_ui/00_images/01_UI01_양피지_타일.png",
+    "prompt": "document/03_characters/04_ui/02_prototype_prompts.json",
+    "sha256": "B9F4ADA9047B585BD71227AE83670D77B8CB3FC41DF7273E692B575A17AB3CD9",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "UI02",
+    "name": "프레임_모서리",
+    "category": "04_ui",
+    "file": "document/03_characters/04_ui/00_images/02_UI02_프레임_모서리.png",
+    "prompt": "document/03_characters/04_ui/02_prototype_prompts.json",
+    "sha256": "B0990071B4E828237786F989665E22EE0A619D1E7CA2D87AB81FAAD23DF694EC",
+    "status": "generated_pending_game_qa",
+    "width": 192,
+    "height": 192,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "UI03",
+    "name": "캐릭터_카드_배경",
+    "category": "04_ui",
+    "file": "document/03_characters/04_ui/00_images/03_UI03_캐릭터_카드_배경.png",
+    "prompt": "document/03_characters/04_ui/02_prototype_prompts.json",
+    "sha256": "E93A40ABDC7972EC720E30B216A27F319DBD62B5967DFFB8D7AF39A1FED53622",
+    "status": "generated_pending_game_qa",
+    "width": 480,
+    "height": 640,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "UI04",
+    "name": "전신_미리보기_배경",
+    "category": "04_ui",
+    "file": "document/03_characters/04_ui/00_images/04_UI04_전신_미리보기_배경.png",
+    "prompt": "document/03_characters/04_ui/02_prototype_prompts.json",
+    "sha256": "782B8F2F06212B86D395EBA52EC6EAFC18BC1C21E3B0B8EF447680515C637C4C",
+    "status": "generated_pending_game_qa",
+    "width": 800,
+    "height": 1200,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "UI07",
+    "name": "입학_초대장",
+    "category": "04_ui",
+    "file": "document/03_characters/04_ui/00_images/05_UI07_입학_초대장.png",
+    "prompt": "document/03_characters/04_ui/02_prototype_prompts.json",
+    "sha256": "8B90282ED8EEABB9671DB8DFB819C356E5AC3FEFDC438246E8A0B57FD6EE7624",
+    "status": "generated_pending_game_qa",
+    "width": 1200,
+    "height": 800,
+    "qa_status": "needs_halo_cleanup"
+  },
+  {
+    "id": "FX01",
+    "name": "공통_룬_빛",
+    "category": "05_effects",
+    "file": "document/03_characters/05_effects/00_images/01_FX01_공통_룬_빛.png",
+    "prompt": "document/03_characters/05_effects/02_prototype_prompts.json",
+    "sha256": "A9F52C051ADB49233DC31E3171DBD9D76B002FF01AC16A4AF5563E73D0C7B786",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "ENV01",
+    "name": "온실_바닥_기본",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/01_ENV01_온실_바닥_기본.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "799739A42BF5070B4F95C147C0B6CDA8F9E543EAA0BE4C086238FAD0753D9360",
+    "status": "generated_pending_game_qa",
+    "width": 128,
+    "height": 128,
+    "qa_status": "needs_tile_edge_and_pattern_matching"
+  },
+  {
+    "id": "ENV02",
+    "name": "온실_바닥_변형_A",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/02_ENV02_온실_바닥_변형_A.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "E73BC0493A62EFC77476FF44F713D7CB5497A1EE984FE537060C1A8172383BA1",
+    "status": "generated_pending_game_qa",
+    "width": 128,
+    "height": 128,
+    "qa_status": "needs_tile_edge_and_pattern_matching"
+  },
+  {
+    "id": "ENV03",
+    "name": "온실_바닥_변형_B",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/04_ENV03_온실_바닥_변형_B.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "3282D3B904A356F62AA78CDCE677F62F72FDCCE4CB9623B5EBBAFABEBE281A77",
+    "status": "generated_pending_game_qa",
+    "width": 128,
+    "height": 128,
+    "qa_status": "needs_tile_edge_and_pattern_matching"
+  },
+  {
+    "id": "ENV04",
+    "name": "온실_경계",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/06_ENV04_온실_경계.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "F6AC5159EF19EB2D0D881131B10AD949FE330907F57C35F46899309443BE85A8",
+    "status": "generated_pending_game_qa",
+    "width": 128,
+    "height": 128,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "ENV05",
+    "name": "작은_식물_A",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/07_ENV05_작은_식물_A.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "82EEAE7DAABF18A867264D6BCFA2E0DEF1337AC2F9373E9BC89823B091B2AB30",
+    "status": "generated_pending_game_qa",
+    "width": 256,
+    "height": 256,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "ENV06",
+    "name": "작은_식물_B",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/08_ENV06_작은_식물_B.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "6D6455E044006578DC8C6C2C51A0EC129F9BFB38B0A5429CF9D4AFCE0E2B7E90",
+    "status": "generated_pending_game_qa",
+    "width": 256,
+    "height": 256,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "ENV07",
+    "name": "큰_식물_A",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/09_ENV07_큰_식물_A.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "F546D9DEBA0082FF8DF317A68C8EF9F2CB4FBEF51C9D2A8709D83C344E571652",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "ENV08",
+    "name": "큰_식물_B",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/10_ENV08_큰_식물_B.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "302D6DB91BAB7468A00DDD5758F56D9B44B8A92400EE0FB09DF84A3F1238AFEB",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "ENV09",
+    "name": "온실_화단",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/11_ENV09_온실_화단.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "384AECBB53B7E1210776E5ACBEA41921DC1041EABAED7D3164AB1F0D6DD822C8",
+    "status": "generated_pending_game_qa",
+    "width": 1024,
+    "height": 512,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "ENV10",
+    "name": "온실_덩굴",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/12_ENV10_온실_덩굴.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "08EFCC3F9BD00F6960F754BD02E13EFCC353ABD24A1440D3C4C352FB5336C839",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "ENV11",
+    "name": "온실_구조물",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/13_ENV11_온실_구조물.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "EAF0587993C097D4246389749AFB653DE6D8891CB866610BF4B4EF295C79D3E4",
+    "status": "generated_pending_game_qa",
+    "width": 1024,
+    "height": 1024,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "ENV12",
+    "name": "전경_식물_A",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/14_ENV12_전경_식물_A.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "FA373A805FA5D403B079F858AFDA3B6FD5F4B00F8160B537DF69FF017BE82B85",
+    "status": "generated_pending_game_qa",
+    "width": 1024,
+    "height": 1024,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "ENV13",
+    "name": "전경_식물_B",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/15_ENV13_전경_식물_B.png",
+    "prompt": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "sha256": "7917F8C90FE7F826422A5A55B014B84DFB4994D8660EA757CCFE22B7170B5948",
+    "status": "generated_pending_game_qa",
+    "width": 1024,
+    "height": 1024,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "OBJ01",
+    "name": "조사_식물_시듦",
+    "category": "07_adventure_objects",
+    "file": "document/03_characters/07_adventure_objects/00_images/01_OBJ01_조사_식물_시듦.png",
+    "prompt": "document/03_characters/07_adventure_objects/02_prototype_prompts.json",
+    "sha256": "A7F290A0EE5BA81DE6DC0E98A80F038B513FECD0A194AC84289CB85981B0AAE3",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512,
+    "qa_status": "needs_state_anchor_alignment"
+  },
+  {
+    "id": "OBJ02",
+    "name": "조사_식물_회복",
+    "category": "07_adventure_objects",
+    "file": "document/03_characters/07_adventure_objects/00_images/02_OBJ02_조사_식물_회복.png",
+    "prompt": "document/03_characters/07_adventure_objects/02_prototype_prompts.json",
+    "sha256": "118A24297AA587774B1B677CC8E2439DBEBF4305EE92A7C7DD3332D566831634",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512,
+    "qa_status": "needs_state_anchor_alignment"
+  },
+  {
+    "id": "OBJ03",
+    "name": "달빛_약초",
+    "category": "07_adventure_objects",
+    "file": "document/03_characters/07_adventure_objects/00_images/04_OBJ03_달빛_약초.png",
+    "prompt": "document/03_characters/07_adventure_objects/02_prototype_prompts.json",
+    "sha256": "C34D157AA8501C878D65BF0ADDDB7DE95975D95203A50AE36606E172619F109A",
+    "status": "generated_pending_game_qa",
+    "width": 256,
+    "height": 256,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "OBJ04",
+    "name": "사건_룬_비활성",
+    "category": "07_adventure_objects",
+    "file": "document/03_characters/07_adventure_objects/00_images/05_OBJ04_사건_룬_비활성.png",
+    "prompt": "document/03_characters/07_adventure_objects/02_prototype_prompts.json",
+    "sha256": "966B46353301C9FE3EEA7FC9723C6E5951190E53C5541848F5B5F9C9CBD34F10",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "OBJ05",
+    "name": "사건_룬_활성",
+    "category": "07_adventure_objects",
+    "file": "document/03_characters/07_adventure_objects/00_images/06_OBJ05_사건_룬_활성.png",
+    "prompt": "document/03_characters/07_adventure_objects/02_prototype_prompts.json",
+    "sha256": "C91E956B0DB28EED4BAC678D41C0A6DFFC2390B939D5143ECD2473CEF2B097C8",
+    "status": "generated_pending_game_qa",
+    "width": 512,
+    "height": 512,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "SD01",
+    "name": "카엘_기준",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/01_SD01_카엘_기준.png",
+    "prompt": "document/03_characters/08_sd_character/02_prototype_prompts.json",
+    "sha256": "EEA0CE8CC22E96D1BD375D99C3B16D70B74E911C638D577A972E4CECC95F0679",
+    "status": "generated_pending_game_qa",
+    "width": 256,
+    "height": 256,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "SD02",
+    "name": "카엘_걷기_마스터",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/02_SD02_카엘_걷기_마스터.png",
+    "prompt": "document/03_characters/08_sd_character/02_prototype_prompts.json",
+    "sha256": "A3FFBFFE772D6803AC8070B5CCD40F2FECC1C37F1667E6D2833611AB41B07599",
+    "status": "generated_pending_game_qa",
+    "width": 768,
+    "height": 2048,
+    "qa_status": "failed_direction_and_halo"
+  },
+  {
+    "id": "PZ01",
+    "name": "퍼즐_타일_바탕",
+    "category": "09_puzzle",
+    "file": "document/03_characters/09_puzzle/00_images/01_PZ01_퍼즐_타일_바탕.png",
+    "prompt": "document/03_characters/09_puzzle/02_prototype_prompts.json",
+    "sha256": "9224DE8D86941A6A1B893EE215397C369CFFD02FB10F4E55E26C3DA1FBA46AEB",
+    "status": "generated_pending_game_qa",
+    "width": 256,
+    "height": 256,
+    "qa_status": "pending_in_game_visual_qa"
+  },
+  {
+    "id": "NPC03_베른_v3",
+    "name": "NPC03_베른_v3",
+    "category": "01_characters",
+    "file": "document/03_characters/01_characters/01_images/34_NPC03_베른_v3.png",
+    "width": 1024,
+    "height": 1536,
+    "sha256": "8A87EEDDFC8343270A0827A7C0191A34258F602DEDD14C3B4425DFDA3807F019",
+    "status": "rejected_halo_not_removed"
+  },
+  {
+    "id": "NPC03_베른_v4",
+    "name": "NPC03_베른_v4",
+    "category": "01_characters",
+    "file": "document/03_characters/01_characters/01_images/35_NPC03_베른_v4.png",
+    "width": 1024,
+    "height": 1536,
+    "sha256": "06CEA61392FAEBCF05756A6AC31FAC3A24A0EFC98C0866EEC4985804F3326EF9",
+    "status": "rejected_halo_not_removed"
+  },
+  {
+    "id": "CH10_엘리아_1024x1536",
+    "name": "CH10_엘리아_1024x1536",
+    "category": "01_characters",
+    "file": "document/03_characters/01_characters/03_exports/01_CH10_엘리아_1024x1536.png",
+    "width": 1024,
+    "height": 1536,
+    "sha256": "D399C122042CA971366F3DBD8A190E00524E44FDA8AD40C419DB8DBD66FAF3D7",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "BG01_아르카디아_입구와_호수_1920x1080",
+    "name": "BG01_아르카디아_입구와_호수_1920x1080",
+    "category": "03_backgrounds",
+    "file": "document/03_characters/03_backgrounds/01_exports/01_BG01_아르카디아_입구와_호수_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "569EC458024FC025DF3A51DE5DFE12326BD5B56651653C0C04C78DC37278E0A5",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "BG02_시계탑_광장_1920x1080",
+    "name": "BG02_시계탑_광장_1920x1080",
+    "category": "03_backgrounds",
+    "file": "document/03_characters/03_backgrounds/01_exports/02_BG02_시계탑_광장_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "A08485C8B7927BB084B6115FBB65F42A0EC336BD4892FAB7B076FB342827E3FA",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "BG03_빈_마이룸_1920x1080",
+    "name": "BG03_빈_마이룸_1920x1080",
+    "category": "03_backgrounds",
+    "file": "document/03_characters/03_backgrounds/01_exports/03_BG03_빈_마이룸_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "716E865DBEA31B380FC13BF2B61FBD174A97ACC9F5B2D9ADEFF85B7881955E5C",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "BG04_학원_기숙사_1920x1080",
+    "name": "BG04_학원_기숙사_1920x1080",
+    "category": "03_backgrounds",
+    "file": "document/03_characters/03_backgrounds/01_exports/04_BG04_학원_기숙사_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "58D52E5FEF1E663DE065544B3C2284C1C50A58E5EF4A3D2A62456201B5FB4791",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "BG05_대서고_1920x1080",
+    "name": "BG05_대서고_1920x1080",
+    "category": "03_backgrounds",
+    "file": "document/03_characters/03_backgrounds/01_exports/05_BG05_대서고_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "D8136E12DE5CF0E0F2DCEFAF4737C714AD800F83A40EE0C2AEB133B18031592B",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "BG06_별빛_천문대_1920x1080",
+    "name": "BG06_별빛_천문대_1920x1080",
+    "category": "03_backgrounds",
+    "file": "document/03_characters/03_backgrounds/01_exports/06_BG06_별빛_천문대_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "D4FA16B1BC70B79F90070B8C79C07C1559D20C9029829F8D4DDDC5657761B5E7",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "BG07_유리_온실_1920x1080",
+    "name": "BG07_유리_온실_1920x1080",
+    "category": "03_backgrounds",
+    "file": "document/03_characters/03_backgrounds/01_exports/07_BG07_유리_온실_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "2B8AEF53081F42BC0A1107FD7F4B00F9F927DE9AAE006BEDD115FF2A7B1CCBA0",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "BG08_치유의_약초원_1920x1080",
+    "name": "BG08_치유의_약초원_1920x1080",
+    "category": "03_backgrounds",
+    "file": "document/03_characters/03_backgrounds/01_exports/08_BG08_치유의_약초원_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "989ED3EF3D98ADF4AEA3286279A6922FA7600318ABE0D3716DBEAF2D3096BD3A",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "BG09_마도_공방_1920x1080",
+    "name": "BG09_마도_공방_1920x1080",
+    "category": "03_backgrounds",
+    "file": "document/03_characters/03_backgrounds/01_exports/09_BG09_마도_공방_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "878E4BED49678E15C1F5740140C43C1A663C591F3C7E4C0D2E446033440D1878",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "BG10_룬_수련장_1920x1080",
+    "name": "BG10_룬_수련장_1920x1080",
+    "category": "03_backgrounds",
+    "file": "document/03_characters/03_backgrounds/01_exports/10_BG10_룬_수련장_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "705B85F20B5EF593A5A951EA1687B8B8CCC0654ABB69463DFDFEE2F77E81D662",
+    "status": "normalized_export_original_preserved"
+  },
+  {
+    "id": "ENV02_온실_바닥_변형_A_v2",
+    "name": "ENV02_온실_바닥_변형_A_v2",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/03_ENV02_온실_바닥_변형_A_v2.png",
+    "width": 128,
+    "height": 128,
+    "sha256": "BF5B4FA92592E46FE309E45C5821FC0277666F6493F146CA941EE1974ABCCAB0",
+    "status": "repeat_layout_visually_checked_in_game_qa_pending"
+  },
+  {
+    "id": "ENV03_온실_바닥_변형_B_v2",
+    "name": "ENV03_온실_바닥_변형_B_v2",
+    "category": "06_adventure_environment",
+    "file": "document/03_characters/06_adventure_environment/00_images/05_ENV03_온실_바닥_변형_B_v2.png",
+    "width": 128,
+    "height": 128,
+    "sha256": "4A7B4F8AEC3A8C6012B911E21C12CE24DA19F74084FEF33C2E7C589D13D07DEC",
+    "status": "repeat_layout_visually_checked_in_game_qa_pending"
+  },
+  {
+    "id": "OBJ02_조사_식물_회복_v2",
+    "name": "OBJ02_조사_식물_회복_v2",
+    "category": "07_adventure_objects",
+    "file": "document/03_characters/07_adventure_objects/00_images/03_OBJ02_조사_식물_회복_v2.png",
+    "width": 512,
+    "height": 512,
+    "sha256": "4261D54FF1D037F4D8F427BA1A8F8AEA7089C5F3E707EC9E2CA176710698D903",
+    "status": "posture_improved_pot_alignment_pending"
+  },
+  {
+    "id": "SD03_카엘_8방향_검수시트",
+    "name": "SD03_카엘_8방향_검수시트",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/11_SD03_카엘_8방향_검수시트.png",
+    "width": 768,
+    "height": 2048,
+    "sha256": "13CA3593E7ABE5E9081B74D0D22AA7F6F81B75FCBD47B504468AB199D3FC6C3B",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_E_strip",
+    "name": "SD03_E_strip",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/03_SD03_E_strip.png",
+    "width": 768,
+    "height": 256,
+    "sha256": "252582BE878CFF8B82A58B554A99CFD9BD9D07AA41B8AF80AEB86933DE34FE2D",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_N_strip",
+    "name": "SD03_N_strip",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/04_SD03_N_strip.png",
+    "width": 768,
+    "height": 256,
+    "sha256": "5C68EAFF922E1FAA1892085483CC646A0CED02DD8F30B0B0B09189920939B23C",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_NE_strip",
+    "name": "SD03_NE_strip",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/05_SD03_NE_strip.png",
+    "width": 768,
+    "height": 256,
+    "sha256": "F42B2016BFE211C611C431702808551AE33BD2B13F6E82276CF2E79BE6D6DF81",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_NW_strip",
+    "name": "SD03_NW_strip",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/06_SD03_NW_strip.png",
+    "width": 768,
+    "height": 256,
+    "sha256": "7509884E901D4D452981CB8CA1D21C5D0C096E40C110D45D56BBA9C48DEAFE9C",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_S_strip",
+    "name": "SD03_S_strip",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/07_SD03_S_strip.png",
+    "width": 768,
+    "height": 256,
+    "sha256": "56F1213FFA9F922CC3E19E633AEEB408F82D9D75F3FB4EDD71EFF345DFB55002",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_SE_strip",
+    "name": "SD03_SE_strip",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/08_SD03_SE_strip.png",
+    "width": 768,
+    "height": 256,
+    "sha256": "A40342B0D4521CE01A7CE785294867C85FEA0A6D358FF30705B9C7C7B3AF01AA",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_SW_strip",
+    "name": "SD03_SW_strip",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/09_SD03_SW_strip.png",
+    "width": 768,
+    "height": 256,
+    "sha256": "4321CD100AAE251D51C59D842F752F6C77D15D76984EB9F697E4AAC59EF4049F",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_W_strip",
+    "name": "SD03_W_strip",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/10_SD03_W_strip.png",
+    "width": 768,
+    "height": 256,
+    "sha256": "412499654E0275DFF14F732E9E54A673A137F0A032ED14E4F5ABE524EE87BF84",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_E_00",
+    "name": "SD03_E_00",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/01_SD03_E_00.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "BBF285265D5224EFB514123ADD482990CFA8728F4D79012DE8F49A81C48E857E",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_E_01",
+    "name": "SD03_E_01",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/02_SD03_E_01.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "E555CD50F60AAAE02A3A2378D28518FFFEB5AEA020BEC6F408A491CE22D696FE",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_E_02",
+    "name": "SD03_E_02",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/03_SD03_E_02.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "EE0F6AA65ED4DFC21824873B2601471B166E2AD5810E26782EFED569516DA9FC",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_N_00",
+    "name": "SD03_N_00",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/04_SD03_N_00.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "7B8570655657300B5789947E66C1E7613BBC3969C9B4F227B5AFA91DC25DC9F8",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_N_01",
+    "name": "SD03_N_01",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/05_SD03_N_01.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "D0B9317A7058A4213B39059A50D4C78E5F0CFCB42C46ECEF509A2A91C7464F69",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_N_02",
+    "name": "SD03_N_02",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/06_SD03_N_02.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "E60C00E23DFD8B430864FA082C1FD7CFFC5B879FAC5CFB71AF63CCCA9AF61387",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_NE_00",
+    "name": "SD03_NE_00",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/07_SD03_NE_00.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "78BE22B5E37D8D72F98920ABC15C245FEF53014512AC260A2DF0A6237C06E754",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_NE_01",
+    "name": "SD03_NE_01",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/08_SD03_NE_01.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "4DE3F4D1866FC2A2BB453D74A143CAB8FC1FC867C90CD138C607AB962EFD8507",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_NE_02",
+    "name": "SD03_NE_02",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/09_SD03_NE_02.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "1358D0A17999420DBA836D8AC6581D03A0AA12AE6E64E73C5F90F2F1B207A4F6",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_NW_00",
+    "name": "SD03_NW_00",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/10_SD03_NW_00.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "9975556DA228069F6CD2BA2F89F068D41748EB491096A643F21BA4B1CACD3435",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_NW_01",
+    "name": "SD03_NW_01",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/11_SD03_NW_01.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "AE8541631106AD7C6CA1B1DBC952118B61EE3B567F4D5EBDDBB7359803F39577",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_NW_02",
+    "name": "SD03_NW_02",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/12_SD03_NW_02.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "D2219D7C76B6BF2F7C18C9798209B0FB6967D92B4FAD1FC0AEE4FC4F3786364F",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_S_00",
+    "name": "SD03_S_00",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/13_SD03_S_00.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "8BDD1A686E770EB39D5CA2B2A1E775599D67871E16C5F62B7A48B301EEB4248B",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_S_01",
+    "name": "SD03_S_01",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "51568141EE212680B65BD66829ABF62E65B0DE854BC40A669C9199F608BF7FAC",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_S_02",
+    "name": "SD03_S_02",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/15_SD03_S_02.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "0811368FE7D35C1B6C9787BC6B0458EF7F366E20A77BA2AE8A4A4EEEDCF1684C",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_SE_00",
+    "name": "SD03_SE_00",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/16_SD03_SE_00.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "CF21209D8D047C8B01D1546E8AC79255124357FE016FB7A65DA1894A6DD284F9",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_SE_01",
+    "name": "SD03_SE_01",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/17_SD03_SE_01.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "3DF5559BAA11727E05608BB0B0DEA91CBFC803546DA9ADD6EF1AA420913572B7",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_SE_02",
+    "name": "SD03_SE_02",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/18_SD03_SE_02.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "9EF9870F4CA28CAB04766A2A121451629A2C5643DA869819CC9D80A79B939ED1",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_SW_00",
+    "name": "SD03_SW_00",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/19_SD03_SW_00.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "5D01FC535FD1E8AE6B5DBF3329BD1F7ACCE509D31FD9D200C24417D0903BAA87",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_SW_01",
+    "name": "SD03_SW_01",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/20_SD03_SW_01.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "C61ED720754A78E37B9237693F2E603D8BB0760F7362757B7436AA5F01AE9640",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_SW_02",
+    "name": "SD03_SW_02",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/21_SD03_SW_02.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "D81C25167EC61AC3FDEA4BBCC4D2BDBD78B975C443E7DCD2244FDF65C72733FE",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_W_00",
+    "name": "SD03_W_00",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/22_SD03_W_00.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "99F4F8E88FEB35FFD1120A7185E338A988856969AF3DC0D259908639872AD39F",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_W_01",
+    "name": "SD03_W_01",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/23_SD03_W_01.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "C5CAC9C0C6E8A3F53845900E8901B8CFEE219F27900D376DE191F800BE42871B",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD03_W_02",
+    "name": "SD03_W_02",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/00_SD03_frames/24_SD03_W_02.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "98493FF60755A515603B088952CE6D815265877F5FEFECB4EE7CABAD766873C8",
+    "status": "direction_corrected_motion_accessory_qa_pending"
+  },
+  {
+    "id": "SD04_N_02_bookfix",
+    "name": "카엘 후면 소품 수정 실패 시안",
+    "category": "08_sd_character",
+    "file": "document/03_characters/08_sd_character/00_images/12_SD04_N_02_bookfix.png",
+    "width": 256,
+    "height": 256,
+    "sha256": "5FCD4C1848404FBBB6EFCFDAB6D6227DF03DA79A25C732086F7DCE9CF41468C7",
+    "status": "rejected_accessory_not_relocated",
+    "prompt": "document/03_characters/08_sd_character/04_SD04_edit_record.json"
+  },
+  {
+    "id": "SC01",
+    "name": "마이룸 완성 화면 목표 시안",
+    "category": "03_backgrounds/02_scene_reviews",
+    "file": "document/03_characters/03_backgrounds/02_scene_reviews/00_images/01_SC01_마이룸_완성시안.png",
+    "width": 1920,
+    "height": 1080,
+    "sha256": "303511E3B9D218AF2DCEC11A1C2C26EC3D88330FF97EC640EA066C2ACA2E929E",
+    "status": "visual_direction_mockup_reviewed_not_engine_composite",
+    "prompt": "document/03_characters/03_backgrounds/02_scene_reviews/02_myroom_prompt.json"
+  }
+]

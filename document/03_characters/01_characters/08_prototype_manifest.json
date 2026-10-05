@@ -1,0 +1,23 @@
+[
+  {
+    "category": "01_characters",
+    "id": "NPC03",
+    "name": "베른",
+    "width": 1024,
+    "height": 1536,
+    "transparent": true,
+    "delta": "Full-body small brass owl rune automaton butler, 2.3-head rounded oval body, amber round lens eyes, distinct little beak, small metal ear tufts, dark plum velvet waistcoat and cream bow tie. Tiny turquoise chest power core. One short wing holds a small cream teacup using a clearly mechanical pincer at the wing tip, other wing slightly open in welcome. Both little feet visible. Gentle curious head tilt. No human arms/fingers, no living feathers, no exposed scary machinery. Single figure upright portrait canvas, at least 8% margin.",
+    "edit": null,
+    "status": "generated_pending_game_qa",
+    "file": "01_characters/01_images/33_NPC03_베른.png",
+    "source_width": 1024,
+    "source_height": 1536,
+    "export_width": 1024,
+    "export_height": 1536,
+    "alpha_min_sampled": 0,
+    "alpha_max_sampled": 254,
+    "sha256": "79B1C19FFE73A81E733B8B2DC89084A653563BF816955285C4E9A7F252A016F3",
+    "source_file": "01_characters/02_sources/01_NPC03_베른_source.png",
+    "qa_status": "needs_halo_cleanup"
+  }
+]

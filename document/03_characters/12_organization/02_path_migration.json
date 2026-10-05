@@ -1,0 +1,2422 @@
+[
+  {
+    "old": "document/03_characters/00_manifest.json",
+    "new": "document/03_characters/01_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design",
+    "new": "document/03_characters/00_design",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/02_characters",
+    "new": "document/03_characters/01_characters",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/03_items",
+    "new": "document/03_characters/02_items",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds",
+    "new": "document/03_characters/03_backgrounds",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/05_ui",
+    "new": "document/03_characters/04_ui",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/06_effects",
+    "new": "document/03_characters/05_effects",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment",
+    "new": "document/03_characters/06_adventure_environment",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects",
+    "new": "document/03_characters/07_adventure_objects",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/09_sd_character",
+    "new": "document/03_characters/08_sd_character",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/10_puzzle",
+    "new": "document/03_characters/09_puzzle",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups",
+    "new": "document/03_characters/10_screen_mockups",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map",
+    "new": "document/03_characters/11_adventure_map",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/13_organization",
+    "new": "document/03_characters/12_organization",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/README.md",
+    "new": "document/03_characters/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/00_README.md",
+    "new": "document/03_characters/00_design/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/01_design_spec.md",
+    "new": "document/03_characters/00_design/01_design_spec.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/02_size_and_production_plan.md",
+    "new": "document/03_characters/00_design/02_size_and_production_plan.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/03_size_audit.json",
+    "new": "document/03_characters/00_design/03_size_audit.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/04_source_documents",
+    "new": "document/03_characters/00_design/00_source_documents",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/01_design/05_prototype_checklist.md",
+    "new": "document/03_characters/00_design/04_prototype_checklist.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/06_prototype_queue.json",
+    "new": "document/03_characters/00_design/05_prototype_queue.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/07_test_scale_additions.json",
+    "new": "document/03_characters/00_design/06_test_scale_additions.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/08_export_verification.json",
+    "new": "document/03_characters/00_design/07_export_verification.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/09_production_review.md",
+    "new": "document/03_characters/00_design/08_production_review.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/10_work_status.md",
+    "new": "document/03_characters/00_design/09_work_status.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/11_legacy_export_manifest.json",
+    "new": "document/03_characters/00_design/10_legacy_export_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/12_revision_audit.json",
+    "new": "document/03_characters/00_design/11_revision_audit.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/13_preflight_and_original_lock.json",
+    "new": "document/03_characters/00_design/12_preflight_and_original_lock.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/14_limited_correction_log.md",
+    "new": "document/03_characters/00_design/13_limited_correction_log.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/15_preflight_verification.json",
+    "new": "document/03_characters/00_design/14_preflight_verification.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/16_delivery_record.md",
+    "new": "document/03_characters/00_design/15_delivery_record.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/17_ui_reuse_preflight.md",
+    "new": "document/03_characters/00_design/16_ui_reuse_preflight.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/18_ui_reuse_verification.json",
+    "new": "document/03_characters/00_design/17_ui_reuse_verification.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/19_audit-revisions.ps1",
+    "new": "document/03_characters/00_design/18_audit-revisions.ps1",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/20_export-prototype.ps1",
+    "new": "document/03_characters/00_design/19_export-prototype.ps1",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/21_export-revision.ps1",
+    "new": "document/03_characters/00_design/20_export-revision.ps1",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/22_export-sd-direction.ps1",
+    "new": "document/03_characters/00_design/21_export-sd-direction.ps1",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/23_save-category.ps1",
+    "new": "document/03_characters/00_design/22_save-category.ps1",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/24_verify-prototype.ps1",
+    "new": "document/03_characters/00_design/23_verify-prototype.ps1",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/25_layout_paths.ps1",
+    "new": "document/03_characters/00_design/24_layout_paths.ps1",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/00_README.md",
+    "new": "document/03_characters/01_characters/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/01_overview.md",
+    "new": "document/03_characters/01_characters/01_overview.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/02_prototype_overview.md",
+    "new": "document/03_characters/01_characters/02_prototype_overview.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/03_prototype_prompts.json",
+    "new": "document/03_characters/01_characters/03_prototype_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/04_revision_prompts.json",
+    "new": "document/03_characters/01_characters/04_revision_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts",
+    "new": "document/03_characters/01_characters/00_prompts",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/02_characters/06_manifest.json",
+    "new": "document/03_characters/01_characters/05_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/07_NPC03_베른_v3.json",
+    "new": "document/03_characters/01_characters/06_NPC03_베른_v3.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/08_NPC03_베른_v4.json",
+    "new": "document/03_characters/01_characters/07_NPC03_베른_v4.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/09_prototype_manifest.json",
+    "new": "document/03_characters/01_characters/08_prototype_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images",
+    "new": "document/03_characters/01_characters/01_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/02_characters/11_sources",
+    "new": "document/03_characters/01_characters/02_sources",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/02_characters/12_exports",
+    "new": "document/03_characters/01_characters/03_exports",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/03_items/00_README.md",
+    "new": "document/03_characters/02_items/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/01_overview.md",
+    "new": "document/03_characters/02_items/01_overview.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/02_prompts.json",
+    "new": "document/03_characters/02_items/02_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/03_manifest.json",
+    "new": "document/03_characters/02_items/03_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images",
+    "new": "document/03_characters/02_items/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/00_README.md",
+    "new": "document/03_characters/03_backgrounds/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/01_overview.md",
+    "new": "document/03_characters/03_backgrounds/01_overview.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/02_prompts.json",
+    "new": "document/03_characters/03_backgrounds/02_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/03_manifest.json",
+    "new": "document/03_characters/03_backgrounds/03_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images",
+    "new": "document/03_characters/03_backgrounds/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports",
+    "new": "document/03_characters/03_backgrounds/01_exports",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/05_ui/00_README.md",
+    "new": "document/03_characters/04_ui/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/01_overview.md",
+    "new": "document/03_characters/04_ui/01_overview.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/02_prototype_prompts.json",
+    "new": "document/03_characters/04_ui/02_prototype_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/03_UI08_UI10_spec.json",
+    "new": "document/03_characters/04_ui/03_UI08_UI10_spec.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/04_prototype_manifest.json",
+    "new": "document/03_characters/04_ui/04_prototype_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/05_vector_manifest.json",
+    "new": "document/03_characters/04_ui/05_vector_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/06_images",
+    "new": "document/03_characters/04_ui/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/05_ui/07_sources",
+    "new": "document/03_characters/04_ui/01_sources",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/05_ui/08_icon_guide.md",
+    "new": "document/03_characters/04_ui/06_icon_guide.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/09_ui_review.html",
+    "new": "document/03_characters/04_ui/07_ui_review.html",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/10_ui_review_results.md",
+    "new": "document/03_characters/04_ui/08_ui_review_results.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/06_effects/00_README.md",
+    "new": "document/03_characters/05_effects/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/06_effects/01_overview.md",
+    "new": "document/03_characters/05_effects/01_overview.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/06_effects/02_prototype_prompts.json",
+    "new": "document/03_characters/05_effects/02_prototype_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/06_effects/03_prototype_manifest.json",
+    "new": "document/03_characters/05_effects/03_prototype_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/06_effects/04_images",
+    "new": "document/03_characters/05_effects/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/06_effects/05_sources",
+    "new": "document/03_characters/05_effects/01_sources",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/00_README.md",
+    "new": "document/03_characters/06_adventure_environment/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/01_overview.md",
+    "new": "document/03_characters/06_adventure_environment/01_overview.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/02_prototype_prompts.json",
+    "new": "document/03_characters/06_adventure_environment/02_prototype_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/03_revision_prompts.json",
+    "new": "document/03_characters/06_adventure_environment/03_revision_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/04_ENV02_온실_바닥_변형_A_v2.json",
+    "new": "document/03_characters/06_adventure_environment/04_ENV02_온실_바닥_변형_A_v2.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/05_ENV03_온실_바닥_변형_B_v2.json",
+    "new": "document/03_characters/06_adventure_environment/05_ENV03_온실_바닥_변형_B_v2.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/06_prototype_manifest.json",
+    "new": "document/03_characters/06_adventure_environment/06_prototype_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images",
+    "new": "document/03_characters/06_adventure_environment/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources",
+    "new": "document/03_characters/06_adventure_environment/01_sources",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/09_repeat_check.png",
+    "new": "document/03_characters/06_adventure_environment/07_repeat_check.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/00_README.md",
+    "new": "document/03_characters/07_adventure_objects/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/01_overview.md",
+    "new": "document/03_characters/07_adventure_objects/01_overview.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/02_prototype_prompts.json",
+    "new": "document/03_characters/07_adventure_objects/02_prototype_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/03_revision_prompts.json",
+    "new": "document/03_characters/07_adventure_objects/03_revision_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/04_OBJ02_조사_식물_회복_v2.json",
+    "new": "document/03_characters/07_adventure_objects/04_OBJ02_조사_식물_회복_v2.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/05_prototype_manifest.json",
+    "new": "document/03_characters/07_adventure_objects/05_prototype_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/06_images",
+    "new": "document/03_characters/07_adventure_objects/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/07_sources",
+    "new": "document/03_characters/07_adventure_objects/01_sources",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/00_README.md",
+    "new": "document/03_characters/08_sd_character/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/01_overview.md",
+    "new": "document/03_characters/08_sd_character/01_overview.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/02_prototype_prompts.json",
+    "new": "document/03_characters/08_sd_character/02_prototype_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/03_revision_prompts.json",
+    "new": "document/03_characters/08_sd_character/03_revision_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/04_SD04_edit_record.json",
+    "new": "document/03_characters/08_sd_character/04_SD04_edit_record.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/05_prototype_manifest.json",
+    "new": "document/03_characters/08_sd_character/05_prototype_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/06_SD03_E.json",
+    "new": "document/03_characters/08_sd_character/06_SD03_E.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/07_SD03_manifest.json",
+    "new": "document/03_characters/08_sd_character/07_SD03_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/08_SD03_N.json",
+    "new": "document/03_characters/08_sd_character/08_SD03_N.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/09_SD03_NE.json",
+    "new": "document/03_characters/08_sd_character/09_SD03_NE.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/10_SD03_NW.json",
+    "new": "document/03_characters/08_sd_character/10_SD03_NW.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/11_SD03_S.json",
+    "new": "document/03_characters/08_sd_character/11_SD03_S.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/12_SD03_SE.json",
+    "new": "document/03_characters/08_sd_character/12_SD03_SE.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/13_SD03_SW.json",
+    "new": "document/03_characters/08_sd_character/13_SD03_SW.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/14_SD03_W.json",
+    "new": "document/03_characters/08_sd_character/14_SD03_W.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/15_SD04_N_02_bookfix.json",
+    "new": "document/03_characters/08_sd_character/15_SD04_N_02_bookfix.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images",
+    "new": "document/03_characters/08_sd_character/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources",
+    "new": "document/03_characters/08_sd_character/01_sources",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/18_motion_review.html",
+    "new": "document/03_characters/08_sd_character/16_motion_review.html",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/00_README.md",
+    "new": "document/03_characters/09_puzzle/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/01_overview.md",
+    "new": "document/03_characters/09_puzzle/01_overview.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/02_prototype_prompts.json",
+    "new": "document/03_characters/09_puzzle/02_prototype_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/03_prototype_manifest.json",
+    "new": "document/03_characters/09_puzzle/03_prototype_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/04_vector_manifest.json",
+    "new": "document/03_characters/09_puzzle/04_vector_manifest.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images",
+    "new": "document/03_characters/09_puzzle/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/06_sources",
+    "new": "document/03_characters/09_puzzle/01_sources",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/07_usage.md",
+    "new": "document/03_characters/09_puzzle/05_usage.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/00_README.md",
+    "new": "document/03_characters/10_screen_mockups/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/01_spec_and_checklist.md",
+    "new": "document/03_characters/10_screen_mockups/01_spec_and_checklist.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/02_preview.html",
+    "new": "document/03_characters/10_screen_mockups/02_preview.html",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/03_screen.css",
+    "new": "document/03_characters/10_screen_mockups/03_screen.css",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/04_screen.js",
+    "new": "document/03_characters/10_screen_mockups/04_screen.js",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/05_images",
+    "new": "document/03_characters/10_screen_mockups/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/06_review_and_delivery.md",
+    "new": "document/03_characters/10_screen_mockups/05_review_and_delivery.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/07_verification.json",
+    "new": "document/03_characters/10_screen_mockups/06_verification.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/08_life_adventure_correction.md",
+    "new": "document/03_characters/10_screen_mockups/07_life_adventure_correction.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/09_sequential_review.md",
+    "new": "document/03_characters/10_screen_mockups/08_sequential_review.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/10_flow_composition_plan.md",
+    "new": "document/03_characters/10_screen_mockups/09_flow_composition_plan.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/11_flow_preview.html",
+    "new": "document/03_characters/10_screen_mockups/10_flow_preview.html",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/12_flow.css",
+    "new": "document/03_characters/10_screen_mockups/11_flow.css",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/13_flow.js",
+    "new": "document/03_characters/10_screen_mockups/12_flow.js",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/14_sources",
+    "new": "document/03_characters/10_screen_mockups/01_sources",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/16_flow_gallery.html",
+    "new": "document/03_characters/10_screen_mockups/13_flow_gallery.html",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/17_browser_checks.json",
+    "new": "document/03_characters/10_screen_mockups/14_browser_checks.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/18_generation_prompts.json",
+    "new": "document/03_characters/10_screen_mockups/15_generation_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/19_flow_delivery.md",
+    "new": "document/03_characters/10_screen_mockups/16_flow_delivery.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/20_flow_verification.json",
+    "new": "document/03_characters/10_screen_mockups/17_flow_verification.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/00_README.md",
+    "new": "document/03_characters/11_adventure_map/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/01_spec.md",
+    "new": "document/03_characters/11_adventure_map/01_spec.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/02_preview.html",
+    "new": "document/03_characters/11_adventure_map/02_preview.html",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/03_map.js",
+    "new": "document/03_characters/11_adventure_map/03_map.js",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/04_hud_research.md",
+    "new": "document/03_characters/11_adventure_map/04_hud_research.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/05_images",
+    "new": "document/03_characters/11_adventure_map/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/06_review.md",
+    "new": "document/03_characters/11_adventure_map/05_review.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/07_art_sources",
+    "new": "document/03_characters/11_adventure_map/01_art_sources",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/08_verification.json",
+    "new": "document/03_characters/11_adventure_map/06_verification.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/09_myroom_proposal_pending.md",
+    "new": "document/03_characters/11_adventure_map/07_myroom_proposal_pending.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/10_art_revision_checklist.md",
+    "new": "document/03_characters/11_adventure_map/08_art_revision_checklist.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/11_art_revision_prompts.json",
+    "new": "document/03_characters/11_adventure_map/09_art_revision_prompts.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/12_art_revision_review.md",
+    "new": "document/03_characters/11_adventure_map/10_art_revision_review.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/13_art_revision_verification.json",
+    "new": "document/03_characters/11_adventure_map/11_art_revision_verification.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/13_organization/00_README.md",
+    "new": "document/03_characters/12_organization/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/13_organization/01_numbering_rules.md",
+    "new": "document/03_characters/12_organization/01_numbering_rules.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/13_organization/02_path_migration.json",
+    "new": "document/03_characters/12_organization/02_path_migration.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/13_organization/03_validation.json",
+    "new": "document/03_characters/12_organization/03_validation.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/13_organization/04_file_inventory.json",
+    "new": "document/03_characters/12_organization/04_file_inventory.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/13_organization/05_validate.py",
+    "new": "document/03_characters/12_organization/05_validate.py",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/13_organization/06_browser_checks.json",
+    "new": "document/03_characters/12_organization/06_browser_checks.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/13_organization/07_asset_paths.js",
+    "new": "document/03_characters/12_organization/07_asset_paths.js",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/04_source_documents/00_README.md",
+    "new": "document/03_characters/00_design/00_source_documents/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/04_source_documents/LUMIA_DESIGNER_GUIDE.md",
+    "new": "document/03_characters/00_design/00_source_documents/01_LUMIA_DESIGNER_GUIDE.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/04_source_documents/LUMIA_DESIGNER_PRODUCTION_REQUEST.md",
+    "new": "document/03_characters/00_design/00_source_documents/02_LUMIA_DESIGNER_PRODUCTION_REQUEST.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/04_source_documents/LUMIA_GAME_DESIGN.md",
+    "new": "document/03_characters/00_design/00_source_documents/03_LUMIA_GAME_DESIGN.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/04_source_documents/LUMIA_PROTOTYPE_PLAN.md",
+    "new": "document/03_characters/00_design/00_source_documents/04_LUMIA_PROTOTYPE_PLAN.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/01_design/04_source_documents/skill-update.md",
+    "new": "document/03_characters/00_design/00_source_documents/05_skill-update.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/00_README.md",
+    "new": "document/03_characters/01_characters/00_prompts/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH01_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/01_CH01_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH02_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/02_CH02_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH03_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/03_CH03_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH04_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/04_CH04_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH05_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/05_CH05_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH06_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/06_CH06_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH07_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/07_CH07_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH08_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/08_CH08_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH09_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/09_CH09_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH10_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/10_CH10_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH11_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/11_CH11_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH12_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/12_CH12_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH13_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/13_CH13_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH14_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/14_CH14_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH15_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/15_CH15_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH16_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/16_CH16_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH17_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/17_CH17_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH18_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/18_CH18_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH19_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/19_CH19_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH20_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/20_CH20_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH21_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/21_CH21_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH22_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/22_CH22_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH23_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/23_CH23_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH24_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/24_CH24_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH25_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/25_CH25_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH26_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/26_CH26_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH27_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/27_CH27_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH28_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/28_CH28_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH29_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/29_CH29_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH30_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/30_CH30_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH31_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/31_CH31_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/CH32_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/32_CH32_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/COMMON_LOCKS.txt",
+    "new": "document/03_characters/01_characters/00_prompts/33_COMMON_LOCKS.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/NPC01_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/34_NPC01_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/NPC02_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/35_NPC02_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/05_prompts/NPC03_DELTA.txt",
+    "new": "document/03_characters/01_characters/00_prompts/36_NPC03_DELTA.txt",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/00_README.md",
+    "new": "document/03_characters/01_characters/01_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH01_카엘.png",
+    "new": "document/03_characters/01_characters/01_images/01_CH01_카엘.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH02_세라.png",
+    "new": "document/03_characters/01_characters/01_images/02_CH02_세라.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH03_시온.png",
+    "new": "document/03_characters/01_characters/01_images/03_CH03_시온.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH04_로엔.png",
+    "new": "document/03_characters/01_characters/01_images/04_CH04_로엔.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH05_레온.png",
+    "new": "document/03_characters/01_characters/01_images/05_CH05_레온.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH06_벨라.png",
+    "new": "document/03_characters/01_characters/01_images/06_CH06_벨라.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH07_유안.png",
+    "new": "document/03_characters/01_characters/01_images/07_CH07_유안.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH08_아이리스.png",
+    "new": "document/03_characters/01_characters/01_images/08_CH08_아이리스.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH09_에녹.png",
+    "new": "document/03_characters/01_characters/01_images/09_CH09_에녹.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH10_엘리아.png",
+    "new": "document/03_characters/01_characters/01_images/10_CH10_엘리아.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH11_루카.png",
+    "new": "document/03_characters/01_characters/01_images/11_CH11_루카.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH12_리네.png",
+    "new": "document/03_characters/01_characters/01_images/12_CH12_리네.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH13_아드리안.png",
+    "new": "document/03_characters/01_characters/01_images/13_CH13_아드리안.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH14_스텔라.png",
+    "new": "document/03_characters/01_characters/01_images/14_CH14_스텔라.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH15_로빈.png",
+    "new": "document/03_characters/01_characters/01_images/15_CH15_로빈.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH16_티아.png",
+    "new": "document/03_characters/01_characters/01_images/16_CH16_티아.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH17_바론.png",
+    "new": "document/03_characters/01_characters/01_images/17_CH17_바론.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH18_클레어.png",
+    "new": "document/03_characters/01_characters/01_images/18_CH18_클레어.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH19_요한.png",
+    "new": "document/03_characters/01_characters/01_images/19_CH19_요한.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH20_하젤.png",
+    "new": "document/03_characters/01_characters/01_images/20_CH20_하젤.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH21_빅터.png",
+    "new": "document/03_characters/01_characters/01_images/21_CH21_빅터.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH22_로렌.png",
+    "new": "document/03_characters/01_characters/01_images/22_CH22_로렌.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH23_테오.png",
+    "new": "document/03_characters/01_characters/01_images/23_CH23_테오.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH24_미리엄.png",
+    "new": "document/03_characters/01_characters/01_images/24_CH24_미리엄.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH25_렌.png",
+    "new": "document/03_characters/01_characters/01_images/25_CH25_렌.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH26_다나.png",
+    "new": "document/03_characters/01_characters/01_images/26_CH26_다나.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH27_미엘.png",
+    "new": "document/03_characters/01_characters/01_images/27_CH27_미엘.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH28_실비아.png",
+    "new": "document/03_characters/01_characters/01_images/28_CH28_실비아.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH29_카일.png",
+    "new": "document/03_characters/01_characters/01_images/29_CH29_카일.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH30_제나.png",
+    "new": "document/03_characters/01_characters/01_images/30_CH30_제나.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH31_니코.png",
+    "new": "document/03_characters/01_characters/01_images/31_CH31_니코.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/CH32_리코.png",
+    "new": "document/03_characters/01_characters/01_images/32_CH32_리코.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/NPC03_베른.png",
+    "new": "document/03_characters/01_characters/01_images/33_NPC03_베른.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/NPC03_베른_v3.png",
+    "new": "document/03_characters/01_characters/01_images/34_NPC03_베른_v3.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/10_images/NPC03_베른_v4.png",
+    "new": "document/03_characters/01_characters/01_images/35_NPC03_베른_v4.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/11_sources/00_README.md",
+    "new": "document/03_characters/01_characters/02_sources/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/11_sources/NPC03_베른_source.png",
+    "new": "document/03_characters/01_characters/02_sources/01_NPC03_베른_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/11_sources/NPC03_베른_v3_source.png",
+    "new": "document/03_characters/01_characters/02_sources/02_NPC03_베른_v3_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/11_sources/NPC03_베른_v4_source.png",
+    "new": "document/03_characters/01_characters/02_sources/03_NPC03_베른_v4_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/12_exports/00_README.md",
+    "new": "document/03_characters/01_characters/03_exports/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/02_characters/12_exports/CH10_엘리아_1024x1536.png",
+    "new": "document/03_characters/01_characters/03_exports/01_CH10_엘리아_1024x1536.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/00_README.md",
+    "new": "document/03_characters/02_items/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT01_마음_일기.png",
+    "new": "document/03_characters/02_items/00_images/01_IT01_마음_일기.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT02_룬_램프.png",
+    "new": "document/03_characters/02_items/00_images/02_IT02_룬_램프.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT03_차_세트.png",
+    "new": "document/03_characters/02_items/00_images/03_IT03_차_세트.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT04_약초_화분.png",
+    "new": "document/03_characters/02_items/00_images/04_IT04_약초_화분.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT05_룬_조각.png",
+    "new": "document/03_characters/02_items/00_images/05_IT05_룬_조각.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT06_추억_액자.png",
+    "new": "document/03_characters/02_items/00_images/06_IT06_추억_액자.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT07_마이룸_책상.png",
+    "new": "document/03_characters/02_items/00_images/07_IT07_마이룸_책상.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT08_마이룸_의자.png",
+    "new": "document/03_characters/02_items/00_images/08_IT08_마이룸_의자.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT09_마이룸_침대.png",
+    "new": "document/03_characters/02_items/00_images/09_IT09_마이룸_침대.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT10_마이룸_책장.png",
+    "new": "document/03_characters/02_items/00_images/10_IT10_마이룸_책장.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT11_마이룸_러그.png",
+    "new": "document/03_characters/02_items/00_images/11_IT11_마이룸_러그.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT12_룬_오브제.png",
+    "new": "document/03_characters/02_items/00_images/12_IT12_룬_오브제.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT13_룬_고서.png",
+    "new": "document/03_characters/02_items/00_images/13_IT13_룬_고서.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT14_양피지_편지.png",
+    "new": "document/03_characters/02_items/00_images/14_IT14_양피지_편지.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT15_마석_공방_도구.png",
+    "new": "document/03_characters/02_items/00_images/15_IT15_마석_공방_도구.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT16_훈련용_목검.png",
+    "new": "document/03_characters/02_items/00_images/16_IT16_훈련용_목검.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT17_공방_마석.png",
+    "new": "document/03_characters/02_items/00_images/17_IT17_공방_마석.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT18_마음_룬.png",
+    "new": "document/03_characters/02_items/00_images/18_IT18_마음_룬.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT19_그림자_룬.png",
+    "new": "document/03_characters/02_items/00_images/19_IT19_그림자_룬.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/03_items/04_images/IT20_정화된_룬.png",
+    "new": "document/03_characters/02_items/00_images/20_IT20_정화된_룬.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/00_README.md",
+    "new": "document/03_characters/03_backgrounds/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/BG01_아르카디아_입구와_호수.png",
+    "new": "document/03_characters/03_backgrounds/00_images/01_BG01_아르카디아_입구와_호수.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/BG02_시계탑_광장.png",
+    "new": "document/03_characters/03_backgrounds/00_images/02_BG02_시계탑_광장.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/BG03_빈_마이룸.png",
+    "new": "document/03_characters/03_backgrounds/00_images/03_BG03_빈_마이룸.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/BG04_학원_기숙사.png",
+    "new": "document/03_characters/03_backgrounds/00_images/04_BG04_학원_기숙사.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/BG05_대서고.png",
+    "new": "document/03_characters/03_backgrounds/00_images/05_BG05_대서고.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/BG06_별빛_천문대.png",
+    "new": "document/03_characters/03_backgrounds/00_images/06_BG06_별빛_천문대.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/BG07_유리_온실.png",
+    "new": "document/03_characters/03_backgrounds/00_images/07_BG07_유리_온실.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/BG08_치유의_약초원.png",
+    "new": "document/03_characters/03_backgrounds/00_images/08_BG08_치유의_약초원.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/BG09_마도_공방.png",
+    "new": "document/03_characters/03_backgrounds/00_images/09_BG09_마도_공방.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/04_images/BG10_룬_수련장.png",
+    "new": "document/03_characters/03_backgrounds/00_images/10_BG10_룬_수련장.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/00_README.md",
+    "new": "document/03_characters/03_backgrounds/01_exports/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/BG01_아르카디아_입구와_호수_1920x1080.png",
+    "new": "document/03_characters/03_backgrounds/01_exports/01_BG01_아르카디아_입구와_호수_1920x1080.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/BG02_시계탑_광장_1920x1080.png",
+    "new": "document/03_characters/03_backgrounds/01_exports/02_BG02_시계탑_광장_1920x1080.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/BG03_빈_마이룸_1920x1080.png",
+    "new": "document/03_characters/03_backgrounds/01_exports/03_BG03_빈_마이룸_1920x1080.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/BG04_학원_기숙사_1920x1080.png",
+    "new": "document/03_characters/03_backgrounds/01_exports/04_BG04_학원_기숙사_1920x1080.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/BG05_대서고_1920x1080.png",
+    "new": "document/03_characters/03_backgrounds/01_exports/05_BG05_대서고_1920x1080.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/BG06_별빛_천문대_1920x1080.png",
+    "new": "document/03_characters/03_backgrounds/01_exports/06_BG06_별빛_천문대_1920x1080.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/BG07_유리_온실_1920x1080.png",
+    "new": "document/03_characters/03_backgrounds/01_exports/07_BG07_유리_온실_1920x1080.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/BG08_치유의_약초원_1920x1080.png",
+    "new": "document/03_characters/03_backgrounds/01_exports/08_BG08_치유의_약초원_1920x1080.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/BG09_마도_공방_1920x1080.png",
+    "new": "document/03_characters/03_backgrounds/01_exports/09_BG09_마도_공방_1920x1080.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/05_exports/BG10_룬_수련장_1920x1080.png",
+    "new": "document/03_characters/03_backgrounds/01_exports/10_BG10_룬_수련장_1920x1080.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/00_README.md",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/01_myroom_spec.md",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/01_myroom_spec.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/02_myroom_prompt.json",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/02_myroom_prompt.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/03_SC01_마이룸_완성시안.json",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/03_SC01_마이룸_완성시안.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/04_images",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/00_images",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/05_sources",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/01_sources",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/06_review.md",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/04_review.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/07_layer_layout.json",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/05_layer_layout.json",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/08_actual_asset_comparison.html",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/06_actual_asset_comparison.html",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/09_comparison_record.md",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/07_comparison_record.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/04_images/00_README.md",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/04_images/SC01_마이룸_완성시안.png",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/00_images/01_SC01_마이룸_완성시안.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/05_sources/00_README.md",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/01_sources/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/04_backgrounds/06_scene_reviews/05_sources/SC01_마이룸_완성시안_source.png",
+    "new": "document/03_characters/03_backgrounds/02_scene_reviews/01_sources/01_SC01_마이룸_완성시안_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/06_images/00_README.md",
+    "new": "document/03_characters/04_ui/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/06_images/UI01_양피지_타일.png",
+    "new": "document/03_characters/04_ui/00_images/01_UI01_양피지_타일.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/06_images/UI02_프레임_모서리.png",
+    "new": "document/03_characters/04_ui/00_images/02_UI02_프레임_모서리.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/06_images/UI03_캐릭터_카드_배경.png",
+    "new": "document/03_characters/04_ui/00_images/03_UI03_캐릭터_카드_배경.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/06_images/UI04_전신_미리보기_배경.png",
+    "new": "document/03_characters/04_ui/00_images/04_UI04_전신_미리보기_배경.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/06_images/UI07_입학_초대장.png",
+    "new": "document/03_characters/04_ui/00_images/05_UI07_입학_초대장.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/06_images/UI08_가방.svg",
+    "new": "document/03_characters/04_ui/00_images/06_UI08_가방.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/06_images/UI09_발견기록.svg",
+    "new": "document/03_characters/04_ui/00_images/07_UI09_발견기록.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/06_images/UI10_힌트.svg",
+    "new": "document/03_characters/04_ui/00_images/08_UI10_힌트.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/07_sources/00_README.md",
+    "new": "document/03_characters/04_ui/01_sources/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/07_sources/UI01_양피지_타일_source.png",
+    "new": "document/03_characters/04_ui/01_sources/01_UI01_양피지_타일_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/07_sources/UI02_프레임_모서리_source.png",
+    "new": "document/03_characters/04_ui/01_sources/02_UI02_프레임_모서리_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/07_sources/UI03_캐릭터_카드_배경_source.png",
+    "new": "document/03_characters/04_ui/01_sources/03_UI03_캐릭터_카드_배경_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/07_sources/UI04_전신_미리보기_배경_source.png",
+    "new": "document/03_characters/04_ui/01_sources/04_UI04_전신_미리보기_배경_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/05_ui/07_sources/UI07_입학_초대장_source.png",
+    "new": "document/03_characters/04_ui/01_sources/05_UI07_입학_초대장_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/06_effects/04_images/00_README.md",
+    "new": "document/03_characters/05_effects/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/06_effects/04_images/FX01_공통_룬_빛.png",
+    "new": "document/03_characters/05_effects/00_images/01_FX01_공통_룬_빛.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/06_effects/05_sources/00_README.md",
+    "new": "document/03_characters/05_effects/01_sources/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/06_effects/05_sources/FX01_공통_룬_빛_source.png",
+    "new": "document/03_characters/05_effects/01_sources/01_FX01_공통_룬_빛_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/00_README.md",
+    "new": "document/03_characters/06_adventure_environment/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV01_온실_바닥_기본.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/01_ENV01_온실_바닥_기본.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV02_온실_바닥_변형_A.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/02_ENV02_온실_바닥_변형_A.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV02_온실_바닥_변형_A_v2.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/03_ENV02_온실_바닥_변형_A_v2.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV03_온실_바닥_변형_B.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/04_ENV03_온실_바닥_변형_B.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV03_온실_바닥_변형_B_v2.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/05_ENV03_온실_바닥_변형_B_v2.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV04_온실_경계.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/06_ENV04_온실_경계.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV05_작은_식물_A.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/07_ENV05_작은_식물_A.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV06_작은_식물_B.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/08_ENV06_작은_식물_B.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV07_큰_식물_A.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/09_ENV07_큰_식물_A.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV08_큰_식물_B.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/10_ENV08_큰_식물_B.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV09_온실_화단.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/11_ENV09_온실_화단.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV10_온실_덩굴.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/12_ENV10_온실_덩굴.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV11_온실_구조물.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/13_ENV11_온실_구조물.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV12_전경_식물_A.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/14_ENV12_전경_식물_A.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/07_images/ENV13_전경_식물_B.png",
+    "new": "document/03_characters/06_adventure_environment/00_images/15_ENV13_전경_식물_B.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/00_README.md",
+    "new": "document/03_characters/06_adventure_environment/01_sources/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV01_온실_바닥_기본_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/01_ENV01_온실_바닥_기본_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV02_온실_바닥_변형_A_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/02_ENV02_온실_바닥_변형_A_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV02_온실_바닥_변형_A_v2_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/03_ENV02_온실_바닥_변형_A_v2_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV03_온실_바닥_변형_B_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/04_ENV03_온실_바닥_변형_B_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV03_온실_바닥_변형_B_v2_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/05_ENV03_온실_바닥_변형_B_v2_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV04_온실_경계_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/06_ENV04_온실_경계_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV05_작은_식물_A_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/07_ENV05_작은_식물_A_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV06_작은_식물_B_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/08_ENV06_작은_식물_B_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV07_큰_식물_A_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/09_ENV07_큰_식물_A_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV08_큰_식물_B_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/10_ENV08_큰_식물_B_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV09_온실_화단_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/11_ENV09_온실_화단_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV10_온실_덩굴_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/12_ENV10_온실_덩굴_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV11_온실_구조물_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/13_ENV11_온실_구조물_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV12_전경_식물_A_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/14_ENV12_전경_식물_A_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/07_adventure_environment/08_sources/ENV13_전경_식물_B_source.png",
+    "new": "document/03_characters/06_adventure_environment/01_sources/15_ENV13_전경_식물_B_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/06_images/00_README.md",
+    "new": "document/03_characters/07_adventure_objects/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/06_images/OBJ01_조사_식물_시듦.png",
+    "new": "document/03_characters/07_adventure_objects/00_images/01_OBJ01_조사_식물_시듦.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/06_images/OBJ02_조사_식물_회복.png",
+    "new": "document/03_characters/07_adventure_objects/00_images/02_OBJ02_조사_식물_회복.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/06_images/OBJ02_조사_식물_회복_v2.png",
+    "new": "document/03_characters/07_adventure_objects/00_images/03_OBJ02_조사_식물_회복_v2.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/06_images/OBJ03_달빛_약초.png",
+    "new": "document/03_characters/07_adventure_objects/00_images/04_OBJ03_달빛_약초.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/06_images/OBJ04_사건_룬_비활성.png",
+    "new": "document/03_characters/07_adventure_objects/00_images/05_OBJ04_사건_룬_비활성.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/06_images/OBJ05_사건_룬_활성.png",
+    "new": "document/03_characters/07_adventure_objects/00_images/06_OBJ05_사건_룬_활성.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/07_sources/00_README.md",
+    "new": "document/03_characters/07_adventure_objects/01_sources/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/07_sources/OBJ01_조사_식물_시듦_source.png",
+    "new": "document/03_characters/07_adventure_objects/01_sources/01_OBJ01_조사_식물_시듦_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/07_sources/OBJ02_조사_식물_회복_source.png",
+    "new": "document/03_characters/07_adventure_objects/01_sources/02_OBJ02_조사_식물_회복_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/07_sources/OBJ02_조사_식물_회복_v2_source.png",
+    "new": "document/03_characters/07_adventure_objects/01_sources/03_OBJ02_조사_식물_회복_v2_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/07_sources/OBJ03_달빛_약초_source.png",
+    "new": "document/03_characters/07_adventure_objects/01_sources/04_OBJ03_달빛_약초_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/07_sources/OBJ04_사건_룬_비활성_source.png",
+    "new": "document/03_characters/07_adventure_objects/01_sources/05_OBJ04_사건_룬_비활성_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/08_adventure_objects/07_sources/OBJ05_사건_룬_활성_source.png",
+    "new": "document/03_characters/07_adventure_objects/01_sources/06_OBJ05_사건_룬_활성_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/00_README.md",
+    "new": "document/03_characters/08_sd_character/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD01_카엘_기준.png",
+    "new": "document/03_characters/08_sd_character/00_images/01_SD01_카엘_기준.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD02_카엘_걷기_마스터.png",
+    "new": "document/03_characters/08_sd_character/00_images/02_SD02_카엘_걷기_마스터.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD03_E_strip.png",
+    "new": "document/03_characters/08_sd_character/00_images/03_SD03_E_strip.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD03_NE_strip.png",
+    "new": "document/03_characters/08_sd_character/00_images/05_SD03_NE_strip.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD03_NW_strip.png",
+    "new": "document/03_characters/08_sd_character/00_images/06_SD03_NW_strip.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD03_N_strip.png",
+    "new": "document/03_characters/08_sd_character/00_images/04_SD03_N_strip.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD03_SE_strip.png",
+    "new": "document/03_characters/08_sd_character/00_images/08_SD03_SE_strip.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD03_SW_strip.png",
+    "new": "document/03_characters/08_sd_character/00_images/09_SD03_SW_strip.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD03_S_strip.png",
+    "new": "document/03_characters/08_sd_character/00_images/07_SD03_S_strip.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD03_W_strip.png",
+    "new": "document/03_characters/08_sd_character/00_images/10_SD03_W_strip.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD03_카엘_8방향_검수시트.png",
+    "new": "document/03_characters/08_sd_character/00_images/11_SD03_카엘_8방향_검수시트.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/SD04_N_02_bookfix.png",
+    "new": "document/03_characters/08_sd_character/00_images/12_SD04_N_02_bookfix.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/00_README.md",
+    "new": "document/03_characters/08_sd_character/01_sources/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/01_SD03_direction_strips",
+    "new": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips",
+    "kind": "folder"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/SD01_rejected_tall_v1.png",
+    "new": "document/03_characters/08_sd_character/01_sources/01_SD01_rejected_tall_v1.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/SD01_카엘_기준_source.png",
+    "new": "document/03_characters/08_sd_character/01_sources/02_SD01_카엘_기준_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/SD02_direction_correction_v2_review.png",
+    "new": "document/03_characters/08_sd_character/01_sources/03_SD02_direction_correction_v2_review.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/SD02_카엘_걷기_마스터_source.png",
+    "new": "document/03_characters/08_sd_character/01_sources/04_SD02_카엘_걷기_마스터_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/SD04_N_02_bookfix_source.png",
+    "new": "document/03_characters/08_sd_character/01_sources/05_SD04_N_02_bookfix_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/00_README.md",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_E_00.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/01_SD03_E_00.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_E_01.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/02_SD03_E_01.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_E_02.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/03_SD03_E_02.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_NE_00.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/07_SD03_NE_00.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_NE_01.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/08_SD03_NE_01.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_NE_02.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/09_SD03_NE_02.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_NW_00.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/10_SD03_NW_00.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_NW_01.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/11_SD03_NW_01.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_NW_02.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/12_SD03_NW_02.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_N_00.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/04_SD03_N_00.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_N_01.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/05_SD03_N_01.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_N_02.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/06_SD03_N_02.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_SE_00.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/16_SD03_SE_00.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_SE_01.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/17_SD03_SE_01.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_SE_02.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/18_SD03_SE_02.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_SW_00.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/19_SD03_SW_00.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_SW_01.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/20_SD03_SW_01.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_SW_02.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/21_SD03_SW_02.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_S_00.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/13_SD03_S_00.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_S_01.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/14_SD03_S_01.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_S_02.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/15_SD03_S_02.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_W_00.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/22_SD03_W_00.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_W_01.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/23_SD03_W_01.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/16_images/01_SD03_frames/SD03_W_02.png",
+    "new": "document/03_characters/08_sd_character/00_images/00_SD03_frames/24_SD03_W_02.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/01_SD03_direction_strips/00_README.md",
+    "new": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/01_SD03_direction_strips/SD03_E.png",
+    "new": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/01_SD03_E.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/01_SD03_direction_strips/SD03_N.png",
+    "new": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/02_SD03_N.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/01_SD03_direction_strips/SD03_NE.png",
+    "new": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/03_SD03_NE.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/01_SD03_direction_strips/SD03_NW.png",
+    "new": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/04_SD03_NW.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/01_SD03_direction_strips/SD03_S.png",
+    "new": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/05_SD03_S.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/01_SD03_direction_strips/SD03_SE.png",
+    "new": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/06_SD03_SE.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/01_SD03_direction_strips/SD03_SW.png",
+    "new": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/07_SD03_SW.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/09_sd_character/17_sources/01_SD03_direction_strips/SD03_W.png",
+    "new": "document/03_characters/08_sd_character/01_sources/00_SD03_direction_strips/08_SD03_W.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images/00_README.md",
+    "new": "document/03_characters/09_puzzle/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images/PZ01_퍼즐_타일_바탕.png",
+    "new": "document/03_characters/09_puzzle/00_images/01_PZ01_퍼즐_타일_바탕.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images/PZ_elbow_active.svg",
+    "new": "document/03_characters/09_puzzle/00_images/02_PZ_elbow_active.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images/PZ_elbow_inactive.svg",
+    "new": "document/03_characters/09_puzzle/00_images/03_PZ_elbow_inactive.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images/PZ_goal_active.svg",
+    "new": "document/03_characters/09_puzzle/00_images/04_PZ_goal_active.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images/PZ_goal_inactive.svg",
+    "new": "document/03_characters/09_puzzle/00_images/05_PZ_goal_inactive.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images/PZ_start_active.svg",
+    "new": "document/03_characters/09_puzzle/00_images/06_PZ_start_active.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images/PZ_start_inactive.svg",
+    "new": "document/03_characters/09_puzzle/00_images/07_PZ_start_inactive.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images/PZ_straight_active.svg",
+    "new": "document/03_characters/09_puzzle/00_images/08_PZ_straight_active.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/05_images/PZ_straight_inactive.svg",
+    "new": "document/03_characters/09_puzzle/00_images/09_PZ_straight_inactive.svg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/06_sources/00_README.md",
+    "new": "document/03_characters/09_puzzle/01_sources/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/10_puzzle/06_sources/PZ01_퍼즐_타일_바탕_source.png",
+    "new": "document/03_characters/09_puzzle/01_sources/01_PZ01_퍼즐_타일_바탕_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/05_images/00_README.md",
+    "new": "document/03_characters/10_screen_mockups/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/05_images/SC02_게임_시작.jpg",
+    "new": "document/03_characters/10_screen_mockups/00_images/01_SC02_게임_시작.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/05_images/SC03_캐릭터_선택.jpg",
+    "new": "document/03_characters/10_screen_mockups/00_images/02_SC03_캐릭터_선택.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/05_images/SC04_온실_모험.jpg",
+    "new": "document/03_characters/10_screen_mockups/00_images/03_SC04_온실_모험.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/14_sources/00_README.md",
+    "new": "document/03_characters/10_screen_mockups/01_sources/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/14_sources/ADV01_확장탐험맵_source.png",
+    "new": "document/03_characters/10_screen_mockups/01_sources/01_ADV01_확장탐험맵_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/14_sources/LIFE01_마이룸_좌우대화_source.png",
+    "new": "document/03_characters/10_screen_mockups/01_sources/02_LIFE01_마이룸_좌우대화_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/00_README.md",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW01_타이틀.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/01_FLOW01_타이틀.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW02_캐릭터선택.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/02_FLOW02_캐릭터선택.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW03_입학초대장.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/03_FLOW03_입학초대장.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW04_광장대화.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/04_FLOW04_광장대화.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW05_온실Life.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/05_FLOW05_온실Life.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW06_탐험입구.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/06_FLOW06_탐험입구.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW07_회랑이동.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/07_FLOW07_회랑이동.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW08_식물발견.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/08_FLOW08_식물발견.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW09_발견기록.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/09_FLOW09_발견기록.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW10_약초발견.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/10_FLOW10_약초발견.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW11_약초획득.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/11_FLOW11_약초획득.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW12_백팩.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/12_FLOW12_백팩.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW13_단서구역.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/13_FLOW13_단서구역.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW14_룬발견.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/14_FLOW14_룬발견.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW15_퍼즐.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/15_FLOW15_퍼즐.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW16_힌트.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/16_FLOW16_힌트.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW17_환경회복.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/17_FLOW17_환경회복.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW18_Life복귀.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/18_FLOW18_Life복귀.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW19_이야기선택.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/19_FLOW19_이야기선택.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW20_마이룸.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/20_FLOW20_마이룸.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW21_마음돌아보기.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/21_FLOW21_마음돌아보기.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/11_screen_mockups/15_flow_images/FLOW22_마음기록.jpg",
+    "new": "document/03_characters/10_screen_mockups/02_flow_images/22_FLOW22_마음기록.jpg",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/05_images/00_README.md",
+    "new": "document/03_characters/11_adventure_map/00_images/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/05_images/MAP01_전체_탐험맵.png",
+    "new": "document/03_characters/11_adventure_map/00_images/01_MAP01_전체_탐험맵.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/05_images/MAP02_탐험_플레이.png",
+    "new": "document/03_characters/11_adventure_map/00_images/02_MAP02_탐험_플레이.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/05_images/MAP03_백팩.png",
+    "new": "document/03_characters/11_adventure_map/00_images/03_MAP03_백팩.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/05_images/MAP04_어드벤처_전체맵_무드시안.png",
+    "new": "document/03_characters/11_adventure_map/00_images/04_MAP04_어드벤처_전체맵_무드시안.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/05_images/MAP05_어드벤처_플레이_무드시안.png",
+    "new": "document/03_characters/11_adventure_map/00_images/05_MAP05_어드벤처_플레이_무드시안.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/07_art_sources/00_README.md",
+    "new": "document/03_characters/11_adventure_map/01_art_sources/00_README.md",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/07_art_sources/MAP04_어드벤처_전체맵_무드시안_source.png",
+    "new": "document/03_characters/11_adventure_map/01_art_sources/01_MAP04_어드벤처_전체맵_무드시안_source.png",
+    "kind": "file"
+  },
+  {
+    "old": "document/03_characters/12_adventure_map/07_art_sources/MAP05_어드벤처_플레이_무드시안_source.png",
+    "new": "document/03_characters/11_adventure_map/01_art_sources/02_MAP05_어드벤처_플레이_무드시안_source.png",
+    "kind": "file"
+  }
+]

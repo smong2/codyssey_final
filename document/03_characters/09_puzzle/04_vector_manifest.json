@@ -1,0 +1,98 @@
+[
+  {
+    "file": "00_images/09_PZ_straight_inactive.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "straight",
+    "state": "inactive",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "00_images/08_PZ_straight_active.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "straight",
+    "state": "active",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "00_images/03_PZ_elbow_inactive.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "elbow",
+    "state": "inactive",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "00_images/02_PZ_elbow_active.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "elbow",
+    "state": "active",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "00_images/07_PZ_start_inactive.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "start",
+    "state": "inactive",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "00_images/06_PZ_start_active.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "start",
+    "state": "active",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "00_images/05_PZ_goal_inactive.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "goal",
+    "state": "inactive",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "00_images/04_PZ_goal_active.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "goal",
+    "state": "active",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  }
+]

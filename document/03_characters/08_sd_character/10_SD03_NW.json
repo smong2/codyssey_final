@@ -1,0 +1,37 @@
+{
+  "direction": "NW",
+  "source": "01_sources/00_SD03_direction_strips/04_SD03_NW.png",
+  "strip": "00_images/06_SD03_NW_strip.png",
+  "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face DIAGONALLY AWAY toward UPPER LEFT, BACK-LEFT three quarter; back of jacket dominates, tiny LEFT cheek only, identical orientation in every frame, never turn head or body. Left frame left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.\nShow BACK-LEFT surfaces, not front of shirt. All three face upper-left. Opposite leg strides in first/third.",
+  "frames": [
+    {
+      "file": "00_images/00_SD03_frames/10_SD03_NW_00.png",
+      "direction": "NW",
+      "frame": 0,
+      "width": 256,
+      "height": 256,
+      "baseline_y": 218,
+      "sha256": "9975556DA228069F6CD2BA2F89F068D41748EB491096A643F21BA4B1CACD3435"
+    },
+    {
+      "file": "00_images/00_SD03_frames/11_SD03_NW_01.png",
+      "direction": "NW",
+      "frame": 1,
+      "width": 256,
+      "height": 256,
+      "baseline_y": 218,
+      "sha256": "AE8541631106AD7C6CA1B1DBC952118B61EE3B567F4D5EBDDBB7359803F39577"
+    },
+    {
+      "file": "00_images/00_SD03_frames/12_SD03_NW_02.png",
+      "direction": "NW",
+      "frame": 2,
+      "width": 256,
+      "height": 256,
+      "baseline_y": 218,
+      "sha256": "D2219D7C76B6BF2F7C18C9798209B0FB6967D92B4FAD1FC0AEE4FC4F3786364F"
+    }
+  ],
+  "qa": "pending_visual_and_game_check",
+  "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+}

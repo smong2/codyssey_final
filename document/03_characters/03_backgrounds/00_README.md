@@ -1,0 +1,20 @@
+# 03_backgrounds · 00 시작 목차
+
+하위 폴더와 파일은 각각 00부터 연속 번호를 사용한다.
+
+## 하위 폴더
+
+| 번호 | 이름 |
+|---|---|
+| 00 | [00_images](00_images/00_README.md) |
+| 01 | [01_exports](01_exports/00_README.md) |
+| 02 | [02_scene_reviews](02_scene_reviews/00_README.md) |
+
+## 파일
+
+| 번호 | 이름 |
+|---|---|
+| 00 | 현재 안내 파일 |
+| 01 | [01_overview.md](01_overview.md) |
+| 02 | [02_prompts.json](02_prompts.json) |
+| 03 | [03_manifest.json](03_manifest.json) |
