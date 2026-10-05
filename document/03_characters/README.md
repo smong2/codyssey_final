@@ -13,9 +13,12 @@
 | 07 | [탐험 환경](07_adventure_environment/01_overview.md) | 온실 13종 |
 | 08 | [조사 오브젝트](08_adventure_objects/01_overview.md) | 상태 변화 포함 5종 |
 | 09 | [SD 캐릭터](09_sd_character/01_overview.md) | 카엘 기준·걷기 시안 2종, 걷기 QA 불합격 |
-| 10 | [퍼즐](10_puzzle/01_overview.md) | 바탕 1종·연결선 SVG 8종 |
+| 10 | [퍼즐](10_puzzle/01_overview.md) | 바탕·연결선·상태 시안 |
+| 11 | [화면 시안](11_screen_mockups/00_README.md) | 기존 시안과 22개 순차 화면 |
+| 12 | [어드벤처 맵](12_adventure_map/00_README.md) | 맵·백팩·HUD·무드 검토 |
+| 13 | [정리·검증](13_organization/01_numbering_rules.md) | 번호 규칙·이동표·검수 |
 
-분류 내부: 01 안내 문서 → 02 프롬프트 → 03 파일 목록 → 04 이미지. 이미지 파일은 고유 ID 순서로 정렬한다. 전체 파일 목록은 [00_manifest.json](00_manifest.json)에 기록한다.
+작업 브랜치는 **dev-jw**다. 각 폴더의 관리 문서와 하위 폴더를 중복 없는 연속 번호로 정렬하며 에셋은 고유 ID를 유지한다. [번호 부여 규칙](13_organization/01_numbering_rules.md)과 각 폴더의 00_README.md를 먼저 확인한다. 기존 에셋 등록표는 [00_manifest.json](00_manifest.json), 전체 제작 파일은 [현재 파일 목록](13_organization/04_file_inventory.json)을 참조한다.
 
 ## 전체 이미지 매칭표
 
@@ -23,38 +26,38 @@
 
 | ID | 이름 | 이미지 | 프롬프트 |
 |---|---|---|---|
-| CH01 | 카엘 | [PNG](02_characters/04_images/CH01_카엘.png) | [프롬프트](02_characters/02_prompts/CH01_DELTA.txt) |
-| CH02 | 세라 | [PNG](02_characters/04_images/CH02_세라.png) | [프롬프트](02_characters/02_prompts/CH02_DELTA.txt) |
-| CH03 | 시온 | [PNG](02_characters/04_images/CH03_시온.png) | [프롬프트](02_characters/02_prompts/CH03_DELTA.txt) |
-| CH04 | 로엔 | [PNG](02_characters/04_images/CH04_로엔.png) | [프롬프트](02_characters/02_prompts/CH04_DELTA.txt) |
-| CH05 | 레온 | [PNG](02_characters/04_images/CH05_레온.png) | [프롬프트](02_characters/02_prompts/CH05_DELTA.txt) |
-| CH06 | 벨라 | [PNG](02_characters/04_images/CH06_벨라.png) | [프롬프트](02_characters/02_prompts/CH06_DELTA.txt) |
-| CH07 | 유안 | [PNG](02_characters/04_images/CH07_유안.png) | [프롬프트](02_characters/02_prompts/CH07_DELTA.txt) |
-| CH08 | 아이리스 | [PNG](02_characters/04_images/CH08_아이리스.png) | [프롬프트](02_characters/02_prompts/CH08_DELTA.txt) |
-| CH09 | 에녹 | [PNG](02_characters/04_images/CH09_에녹.png) | [프롬프트](02_characters/02_prompts/CH09_DELTA.txt) |
-| CH10 | 엘리아 | [PNG](02_characters/04_images/CH10_엘리아.png) | [프롬프트](02_characters/02_prompts/CH10_DELTA.txt) |
-| CH11 | 루카 | [PNG](02_characters/04_images/CH11_루카.png) | [프롬프트](02_characters/02_prompts/CH11_DELTA.txt) |
-| CH12 | 리네 | [PNG](02_characters/04_images/CH12_리네.png) | [프롬프트](02_characters/02_prompts/CH12_DELTA.txt) |
-| CH13 | 아드리안 | [PNG](02_characters/04_images/CH13_아드리안.png) | [프롬프트](02_characters/02_prompts/CH13_DELTA.txt) |
-| CH14 | 스텔라 | [PNG](02_characters/04_images/CH14_스텔라.png) | [프롬프트](02_characters/02_prompts/CH14_DELTA.txt) |
-| CH15 | 로빈 | [PNG](02_characters/04_images/CH15_로빈.png) | [프롬프트](02_characters/02_prompts/CH15_DELTA.txt) |
-| CH16 | 티아 | [PNG](02_characters/04_images/CH16_티아.png) | [프롬프트](02_characters/02_prompts/CH16_DELTA.txt) |
-| CH17 | 바론 | [PNG](02_characters/04_images/CH17_바론.png) | [프롬프트](02_characters/02_prompts/CH17_DELTA.txt) |
-| CH18 | 클레어 | [PNG](02_characters/04_images/CH18_클레어.png) | [프롬프트](02_characters/02_prompts/CH18_DELTA.txt) |
-| CH19 | 요한 | [PNG](02_characters/04_images/CH19_요한.png) | [프롬프트](02_characters/02_prompts/CH19_DELTA.txt) |
-| CH20 | 하젤 | [PNG](02_characters/04_images/CH20_하젤.png) | [프롬프트](02_characters/02_prompts/CH20_DELTA.txt) |
-| CH21 | 빅터 | [PNG](02_characters/04_images/CH21_빅터.png) | [프롬프트](02_characters/02_prompts/CH21_DELTA.txt) |
-| CH22 | 로렌 | [PNG](02_characters/04_images/CH22_로렌.png) | [프롬프트](02_characters/02_prompts/CH22_DELTA.txt) |
-| CH23 | 테오 | [PNG](02_characters/04_images/CH23_테오.png) | [프롬프트](02_characters/02_prompts/CH23_DELTA.txt) |
-| CH24 | 미리엄 | [PNG](02_characters/04_images/CH24_미리엄.png) | [프롬프트](02_characters/02_prompts/CH24_DELTA.txt) |
-| CH25 | 렌 | [PNG](02_characters/04_images/CH25_렌.png) | [프롬프트](02_characters/02_prompts/CH25_DELTA.txt) |
-| CH26 | 다나 | [PNG](02_characters/04_images/CH26_다나.png) | [프롬프트](02_characters/02_prompts/CH26_DELTA.txt) |
-| CH27 | 미엘 | [PNG](02_characters/04_images/CH27_미엘.png) | [프롬프트](02_characters/02_prompts/CH27_DELTA.txt) |
-| CH28 | 실비아 | [PNG](02_characters/04_images/CH28_실비아.png) | [프롬프트](02_characters/02_prompts/CH28_DELTA.txt) |
-| CH29 | 카일 | [PNG](02_characters/04_images/CH29_카일.png) | [프롬프트](02_characters/02_prompts/CH29_DELTA.txt) |
-| CH30 | 제나 | [PNG](02_characters/04_images/CH30_제나.png) | [프롬프트](02_characters/02_prompts/CH30_DELTA.txt) |
-| CH31 | 니코 | [PNG](02_characters/04_images/CH31_니코.png) | [프롬프트](02_characters/02_prompts/CH31_DELTA.txt) |
-| CH32 | 리코 | [PNG](02_characters/04_images/CH32_리코.png) | [프롬프트](02_characters/02_prompts/CH32_DELTA.txt) |
+| CH01 | 카엘 | [PNG](02_characters/10_images/CH01_카엘.png) | [프롬프트](02_characters/05_prompts/CH01_DELTA.txt) |
+| CH02 | 세라 | [PNG](02_characters/10_images/CH02_세라.png) | [프롬프트](02_characters/05_prompts/CH02_DELTA.txt) |
+| CH03 | 시온 | [PNG](02_characters/10_images/CH03_시온.png) | [프롬프트](02_characters/05_prompts/CH03_DELTA.txt) |
+| CH04 | 로엔 | [PNG](02_characters/10_images/CH04_로엔.png) | [프롬프트](02_characters/05_prompts/CH04_DELTA.txt) |
+| CH05 | 레온 | [PNG](02_characters/10_images/CH05_레온.png) | [프롬프트](02_characters/05_prompts/CH05_DELTA.txt) |
+| CH06 | 벨라 | [PNG](02_characters/10_images/CH06_벨라.png) | [프롬프트](02_characters/05_prompts/CH06_DELTA.txt) |
+| CH07 | 유안 | [PNG](02_characters/10_images/CH07_유안.png) | [프롬프트](02_characters/05_prompts/CH07_DELTA.txt) |
+| CH08 | 아이리스 | [PNG](02_characters/10_images/CH08_아이리스.png) | [프롬프트](02_characters/05_prompts/CH08_DELTA.txt) |
+| CH09 | 에녹 | [PNG](02_characters/10_images/CH09_에녹.png) | [프롬프트](02_characters/05_prompts/CH09_DELTA.txt) |
+| CH10 | 엘리아 | [PNG](02_characters/10_images/CH10_엘리아.png) | [프롬프트](02_characters/05_prompts/CH10_DELTA.txt) |
+| CH11 | 루카 | [PNG](02_characters/10_images/CH11_루카.png) | [프롬프트](02_characters/05_prompts/CH11_DELTA.txt) |
+| CH12 | 리네 | [PNG](02_characters/10_images/CH12_리네.png) | [프롬프트](02_characters/05_prompts/CH12_DELTA.txt) |
+| CH13 | 아드리안 | [PNG](02_characters/10_images/CH13_아드리안.png) | [프롬프트](02_characters/05_prompts/CH13_DELTA.txt) |
+| CH14 | 스텔라 | [PNG](02_characters/10_images/CH14_스텔라.png) | [프롬프트](02_characters/05_prompts/CH14_DELTA.txt) |
+| CH15 | 로빈 | [PNG](02_characters/10_images/CH15_로빈.png) | [프롬프트](02_characters/05_prompts/CH15_DELTA.txt) |
+| CH16 | 티아 | [PNG](02_characters/10_images/CH16_티아.png) | [프롬프트](02_characters/05_prompts/CH16_DELTA.txt) |
+| CH17 | 바론 | [PNG](02_characters/10_images/CH17_바론.png) | [프롬프트](02_characters/05_prompts/CH17_DELTA.txt) |
+| CH18 | 클레어 | [PNG](02_characters/10_images/CH18_클레어.png) | [프롬프트](02_characters/05_prompts/CH18_DELTA.txt) |
+| CH19 | 요한 | [PNG](02_characters/10_images/CH19_요한.png) | [프롬프트](02_characters/05_prompts/CH19_DELTA.txt) |
+| CH20 | 하젤 | [PNG](02_characters/10_images/CH20_하젤.png) | [프롬프트](02_characters/05_prompts/CH20_DELTA.txt) |
+| CH21 | 빅터 | [PNG](02_characters/10_images/CH21_빅터.png) | [프롬프트](02_characters/05_prompts/CH21_DELTA.txt) |
+| CH22 | 로렌 | [PNG](02_characters/10_images/CH22_로렌.png) | [프롬프트](02_characters/05_prompts/CH22_DELTA.txt) |
+| CH23 | 테오 | [PNG](02_characters/10_images/CH23_테오.png) | [프롬프트](02_characters/05_prompts/CH23_DELTA.txt) |
+| CH24 | 미리엄 | [PNG](02_characters/10_images/CH24_미리엄.png) | [프롬프트](02_characters/05_prompts/CH24_DELTA.txt) |
+| CH25 | 렌 | [PNG](02_characters/10_images/CH25_렌.png) | [프롬프트](02_characters/05_prompts/CH25_DELTA.txt) |
+| CH26 | 다나 | [PNG](02_characters/10_images/CH26_다나.png) | [프롬프트](02_characters/05_prompts/CH26_DELTA.txt) |
+| CH27 | 미엘 | [PNG](02_characters/10_images/CH27_미엘.png) | [프롬프트](02_characters/05_prompts/CH27_DELTA.txt) |
+| CH28 | 실비아 | [PNG](02_characters/10_images/CH28_실비아.png) | [프롬프트](02_characters/05_prompts/CH28_DELTA.txt) |
+| CH29 | 카일 | [PNG](02_characters/10_images/CH29_카일.png) | [프롬프트](02_characters/05_prompts/CH29_DELTA.txt) |
+| CH30 | 제나 | [PNG](02_characters/10_images/CH30_제나.png) | [프롬프트](02_characters/05_prompts/CH30_DELTA.txt) |
+| CH31 | 니코 | [PNG](02_characters/10_images/CH31_니코.png) | [프롬프트](02_characters/05_prompts/CH31_DELTA.txt) |
+| CH32 | 리코 | [PNG](02_characters/10_images/CH32_리코.png) | [프롬프트](02_characters/05_prompts/CH32_DELTA.txt) |
 | IT01 | 마음 일기 | [PNG](03_items/04_images/IT01_마음_일기.png) | [프롬프트](03_items/02_prompts.json) |
 | IT02 | 룬 램프 | [PNG](03_items/04_images/IT02_룬_램프.png) | [프롬프트](03_items/02_prompts.json) |
 | IT03 | 차 세트 | [PNG](03_items/04_images/IT03_차_세트.png) | [프롬프트](03_items/02_prompts.json) |
@@ -106,7 +109,7 @@
 
 [05 중복 검사·카테고리별 체크리스트](01_design/05_prototype_checklist.md) · [06 생성 큐](01_design/06_prototype_queue.json) · [신규 기준 문서](01_design/04_source_documents/)
 
-- [Prototype 02_characters](02_characters/01_prototype_overview.md)
+- [Prototype 02_characters](02_characters/02_prototype_overview.md)
 - [Prototype 05_ui](05_ui/01_overview.md)
 - [Prototype 06_effects](06_effects/01_overview.md)
 - [Prototype 07_adventure_environment](07_adventure_environment/01_overview.md)
@@ -120,16 +123,16 @@
 ## 최신 작업 현황
 [완료·미완료·다음 작업](01_design/10_work_status.md). 등록 PNG는 원본·시안·수정·파생·내보내기 포함 139개, SVG 8개 별도. 고유 디자인 수 또는 게임 승인본 수가 아님.
 
-[최신 제한 수정·미제작 UI 납품 기록](01_design/16_delivery_record.md) · [UI08~UI10](05_ui/07_icon_guide.md)
+[최신 제한 수정·미제작 UI 납품 기록](01_design/16_delivery_record.md) · [UI08~UI10](05_ui/08_icon_guide.md)
 
-[공통 UI 재사용 검수 페이지](05_ui/08_ui_review.html) · [검수 결과](05_ui/09_ui_review_results.md)
+[공통 UI 재사용 검수 페이지](05_ui/09_ui_review.html) · [검수 결과](05_ui/10_ui_review_results.md)
 
-[SC01 마이룸 완성 화면 시안](04_backgrounds/07_scene_reviews/06_review.md) — 1920×1080, 기존 에셋 참조 목표 화면.
+[SC01 마이룸 완성 화면 시안](04_backgrounds/06_scene_reviews/06_review.md) — 1920×1080, 기존 에셋 참조 목표 화면.
 
 ## 11. 조립 화면 시안 (2026-10-02)
 [게임 시작·캐릭터 선택·온실 모험 3종 및 검수 기록](11_screen_mockups/06_review_and_delivery.md). 기존 에셋 재사용, 1920×1080 검토용 출력. 사용자 시안 확인 후 다음 제작 진행.
 
 
 ## 12. 큰 탐험 맵과 백팩 (2026-10-04)
-[맵 조립도·부분 카메라·백팩 및 HUD 조사](12_adventure_map/06_review.md). [마이룸 다음 작업안 — 사용자 승인 대기](12_adventure_map/08_myroom_proposal_pending.md).
+[맵 조립도·부분 카메라·백팩 및 HUD 조사](12_adventure_map/06_review.md). [마이룸 다음 작업안 — 사용자 승인 대기](12_adventure_map/09_myroom_proposal_pending.md).
 

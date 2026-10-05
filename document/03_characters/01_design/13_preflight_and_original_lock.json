@@ -28,9 +28,9 @@
   "edit_queue": [
     {
       "id": "SD03_N_02",
-      "source": "09_sd_character/04_images/SD03_frames/SD03_N_02.png",
-      "reference": "09_sd_character/04_images/SD03_frames/SD03_N_01.png",
-      "output": "09_sd_character/04_images/SD04_N_02_bookfix.png",
+      "source": "09_sd_character/16_images/01_SD03_frames/SD03_N_02.png",
+      "reference": "09_sd_character/16_images/01_SD03_frames/SD03_N_01.png",
+      "output": "09_sd_character/16_images/SD04_N_02_bookfix.png",
       "width": 256,
       "height": 256,
       "baseline_y": 218,

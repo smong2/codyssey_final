@@ -9,7 +9,7 @@
     "delta": "Adapt the reference Kael into a small exploration game character, simplified 3-head-tall teen proportions, preserve wavy black hair, dark navy academic jacket, cream shirt, gray trousers and dark sneakers. No book in hands while walking; book in small belt pouch. Full body front view, feet baseline85%, character occupies72% canvas height, 14% margin, clear simple face. Not infant, not giant-eyed baby. Transparent isolated sprite, no shadow/halo.",
     "edit": "KAEL",
     "status": "pending",
-    "file": "09_sd_character/04_images/SD01_카엘_기준.png"
+    "file": "09_sd_character/16_images/SD01_카엘_기준.png"
   },
   {
     "category": "09_sd_character",
@@ -21,7 +21,7 @@
     "delta": "Create a uniform sprite master sheet of reference Kael for 8-direction walking. EXACT GRID3 columns x8 rows on transparent canvas. Every cell identical256x256; no drawn grid lines, no text, no labels. Rows top to bottom: facing south/front, southwest, west/profile, northwest/back three-quarter, north/back, northeast, east/profile, southeast. Columns: left-step, neutral planted idle, right-step. SAME character scale in all24 cells, centered each cell, feet baseline85% of cell. Preserve reference appearance and 3-head teen proportions. Natural modest arm swing, no items in hands. All24 full bodies isolated, generous cell gaps, no overlap. This is animation production sheet, not illustration collage.",
     "edit": "SD01",
     "status": "pending",
-    "file": "09_sd_character/04_images/SD02_카엘_걷기_마스터.png"
+    "file": "09_sd_character/16_images/SD02_카엘_걷기_마스터.png"
   },
   {
     "category": "10_puzzle",
@@ -33,6 +33,6 @@
     "delta": "Single square rotate/connect puzzle tile substrate, straight-on orthographic top view. Rounded cream limestone square occupying92% square canvas, delicate thin antique brass rim, fully blank matte pale center for separate path overlays. No glyph, no line, no text, no cracks obstructing overlay, no perspective, no drop shadow, clean transparent outside tile. Restrained warm handmade fantasy.",
     "edit": null,
     "status": "pending",
-    "file": "10_puzzle/04_images/PZ01_퍼즐_타일_바탕.png"
+    "file": "10_puzzle/05_images/PZ01_퍼즐_타일_바탕.png"
   }
 ]

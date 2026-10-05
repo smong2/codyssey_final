@@ -1,0 +1,10 @@
+{
+  "id": "SD04_N_02_bookfix",
+  "input": "16_images/01_SD03_frames/SD03_N_02.png",
+  "reference": "16_images/01_SD03_frames/SD03_N_01.png",
+  "prompt": "Image1 is EDIT TARGET, single rear-view Kael walking sprite. Image2 is reference ONLY for book position. Correct ONLY belt book and hanging turquoise charm on image1: remove it from viewer LEFT hip and attach the identical book/charm at viewer RIGHT hip as in image2. Do NOT mirror entire character. Preserve image1 head, hair, face absence, jacket, both arms, legs, shoes, walking pose, proportions, exact256x256 canvas, transparent background, figure position, feet baseline y218. Do not enlarge or reframe. Small localized accessory relocation only. Return only edited image1, one sprite.",
+  "attempts": 1,
+  "status": "rejected_accessory_not_relocated",
+  "production_replacement": false,
+  "output": "16_images/SD04_N_02_bookfix.png"
+}

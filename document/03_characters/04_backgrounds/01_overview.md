@@ -74,4 +74,4 @@
 
 
 ## Prototype 내보내기
-원본 10장 보존, 06_exports에 1920×1080 파일 추가. 비율 유지 확대·중앙 크롭이며 새로운 고해상도 원화 아님. [목록](../01_design/11_legacy_export_manifest.json).
+원본 10장 보존, 05_exports에 1920×1080 파일 추가. 비율 유지 확대·중앙 크롭이며 새로운 고해상도 원화 아님. [목록](../01_design/11_legacy_export_manifest.json).

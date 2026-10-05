@@ -1,7 +1,7 @@
 [
   {
     "id": "NPC03",
-    "file": "02_characters/04_images/NPC03_베른.png",
+    "file": "02_characters/10_images/NPC03_베른.png",
     "width": 1024,
     "height": 1536,
     "expected_width": 1024,
@@ -11,7 +11,7 @@
   },
   {
     "id": "UI01",
-    "file": "05_ui/04_images/UI01_양피지_타일.png",
+    "file": "05_ui/06_images/UI01_양피지_타일.png",
     "width": 512,
     "height": 512,
     "expected_width": 512,
@@ -21,7 +21,7 @@
   },
   {
     "id": "UI02",
-    "file": "05_ui/04_images/UI02_프레임_모서리.png",
+    "file": "05_ui/06_images/UI02_프레임_모서리.png",
     "width": 192,
     "height": 192,
     "expected_width": 192,
@@ -31,7 +31,7 @@
   },
   {
     "id": "UI03",
-    "file": "05_ui/04_images/UI03_캐릭터_카드_배경.png",
+    "file": "05_ui/06_images/UI03_캐릭터_카드_배경.png",
     "width": 480,
     "height": 640,
     "expected_width": 480,
@@ -41,7 +41,7 @@
   },
   {
     "id": "UI04",
-    "file": "05_ui/04_images/UI04_전신_미리보기_배경.png",
+    "file": "05_ui/06_images/UI04_전신_미리보기_배경.png",
     "width": 800,
     "height": 1200,
     "expected_width": 800,
@@ -51,7 +51,7 @@
   },
   {
     "id": "UI07",
-    "file": "05_ui/04_images/UI07_입학_초대장.png",
+    "file": "05_ui/06_images/UI07_입학_초대장.png",
     "width": 1200,
     "height": 800,
     "expected_width": 1200,
@@ -71,7 +71,7 @@
   },
   {
     "id": "ENV01",
-    "file": "07_adventure_environment/04_images/ENV01_온실_바닥_기본.png",
+    "file": "07_adventure_environment/07_images/ENV01_온실_바닥_기본.png",
     "width": 128,
     "height": 128,
     "expected_width": 128,
@@ -81,7 +81,7 @@
   },
   {
     "id": "ENV02",
-    "file": "07_adventure_environment/04_images/ENV02_온실_바닥_변형_A.png",
+    "file": "07_adventure_environment/07_images/ENV02_온실_바닥_변형_A.png",
     "width": 128,
     "height": 128,
     "expected_width": 128,
@@ -91,7 +91,7 @@
   },
   {
     "id": "ENV03",
-    "file": "07_adventure_environment/04_images/ENV03_온실_바닥_변형_B.png",
+    "file": "07_adventure_environment/07_images/ENV03_온실_바닥_변형_B.png",
     "width": 128,
     "height": 128,
     "expected_width": 128,
@@ -101,7 +101,7 @@
   },
   {
     "id": "ENV04",
-    "file": "07_adventure_environment/04_images/ENV04_온실_경계.png",
+    "file": "07_adventure_environment/07_images/ENV04_온실_경계.png",
     "width": 128,
     "height": 128,
     "expected_width": 128,
@@ -111,7 +111,7 @@
   },
   {
     "id": "ENV05",
-    "file": "07_adventure_environment/04_images/ENV05_작은_식물_A.png",
+    "file": "07_adventure_environment/07_images/ENV05_작은_식물_A.png",
     "width": 256,
     "height": 256,
     "expected_width": 256,
@@ -121,7 +121,7 @@
   },
   {
     "id": "ENV06",
-    "file": "07_adventure_environment/04_images/ENV06_작은_식물_B.png",
+    "file": "07_adventure_environment/07_images/ENV06_작은_식물_B.png",
     "width": 256,
     "height": 256,
     "expected_width": 256,
@@ -131,7 +131,7 @@
   },
   {
     "id": "ENV07",
-    "file": "07_adventure_environment/04_images/ENV07_큰_식물_A.png",
+    "file": "07_adventure_environment/07_images/ENV07_큰_식물_A.png",
     "width": 512,
     "height": 512,
     "expected_width": 512,
@@ -141,7 +141,7 @@
   },
   {
     "id": "ENV08",
-    "file": "07_adventure_environment/04_images/ENV08_큰_식물_B.png",
+    "file": "07_adventure_environment/07_images/ENV08_큰_식물_B.png",
     "width": 512,
     "height": 512,
     "expected_width": 512,
@@ -151,7 +151,7 @@
   },
   {
     "id": "ENV09",
-    "file": "07_adventure_environment/04_images/ENV09_온실_화단.png",
+    "file": "07_adventure_environment/07_images/ENV09_온실_화단.png",
     "width": 1024,
     "height": 512,
     "expected_width": 1024,
@@ -161,7 +161,7 @@
   },
   {
     "id": "ENV10",
-    "file": "07_adventure_environment/04_images/ENV10_온실_덩굴.png",
+    "file": "07_adventure_environment/07_images/ENV10_온실_덩굴.png",
     "width": 512,
     "height": 512,
     "expected_width": 512,
@@ -171,7 +171,7 @@
   },
   {
     "id": "ENV11",
-    "file": "07_adventure_environment/04_images/ENV11_온실_구조물.png",
+    "file": "07_adventure_environment/07_images/ENV11_온실_구조물.png",
     "width": 1024,
     "height": 1024,
     "expected_width": 1024,
@@ -181,7 +181,7 @@
   },
   {
     "id": "ENV12",
-    "file": "07_adventure_environment/04_images/ENV12_전경_식물_A.png",
+    "file": "07_adventure_environment/07_images/ENV12_전경_식물_A.png",
     "width": 1024,
     "height": 1024,
     "expected_width": 1024,
@@ -191,7 +191,7 @@
   },
   {
     "id": "ENV13",
-    "file": "07_adventure_environment/04_images/ENV13_전경_식물_B.png",
+    "file": "07_adventure_environment/07_images/ENV13_전경_식물_B.png",
     "width": 1024,
     "height": 1024,
     "expected_width": 1024,
@@ -201,7 +201,7 @@
   },
   {
     "id": "OBJ01",
-    "file": "08_adventure_objects/04_images/OBJ01_조사_식물_시듦.png",
+    "file": "08_adventure_objects/06_images/OBJ01_조사_식물_시듦.png",
     "width": 512,
     "height": 512,
     "expected_width": 512,
@@ -211,7 +211,7 @@
   },
   {
     "id": "OBJ02",
-    "file": "08_adventure_objects/04_images/OBJ02_조사_식물_회복.png",
+    "file": "08_adventure_objects/06_images/OBJ02_조사_식물_회복.png",
     "width": 512,
     "height": 512,
     "expected_width": 512,
@@ -221,7 +221,7 @@
   },
   {
     "id": "OBJ03",
-    "file": "08_adventure_objects/04_images/OBJ03_달빛_약초.png",
+    "file": "08_adventure_objects/06_images/OBJ03_달빛_약초.png",
     "width": 256,
     "height": 256,
     "expected_width": 256,
@@ -231,7 +231,7 @@
   },
   {
     "id": "OBJ04",
-    "file": "08_adventure_objects/04_images/OBJ04_사건_룬_비활성.png",
+    "file": "08_adventure_objects/06_images/OBJ04_사건_룬_비활성.png",
     "width": 512,
     "height": 512,
     "expected_width": 512,
@@ -241,7 +241,7 @@
   },
   {
     "id": "OBJ05",
-    "file": "08_adventure_objects/04_images/OBJ05_사건_룬_활성.png",
+    "file": "08_adventure_objects/06_images/OBJ05_사건_룬_활성.png",
     "width": 512,
     "height": 512,
     "expected_width": 512,
@@ -251,7 +251,7 @@
   },
   {
     "id": "SD01",
-    "file": "09_sd_character/04_images/SD01_카엘_기준.png",
+    "file": "09_sd_character/16_images/SD01_카엘_기준.png",
     "width": 256,
     "height": 256,
     "expected_width": 256,
@@ -261,7 +261,7 @@
   },
   {
     "id": "SD02",
-    "file": "09_sd_character/04_images/SD02_카엘_걷기_마스터.png",
+    "file": "09_sd_character/16_images/SD02_카엘_걷기_마스터.png",
     "width": 768,
     "height": 2048,
     "expected_width": 768,
@@ -271,7 +271,7 @@
   },
   {
     "id": "PZ01",
-    "file": "10_puzzle/04_images/PZ01_퍼즐_타일_바탕.png",
+    "file": "10_puzzle/05_images/PZ01_퍼즐_타일_바탕.png",
     "width": 256,
     "height": 256,
     "expected_width": 256,

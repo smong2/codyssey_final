@@ -1,0 +1,35 @@
+[
+  {
+    "id": "UI08",
+    "file": "06_images/UI08_가방.svg",
+    "width": 128,
+    "height": 128,
+    "viewBox": "0 0 128 128",
+    "sha256": "3BD3CD2786EA8EA1A7183B179566DAEBD82C451724D0318A8D3AFF92E513366F",
+    "status": "render_reviewed_in_game_qa_pending",
+    "method": "native_svg",
+    "imagegen_calls": 0
+  },
+  {
+    "id": "UI09",
+    "file": "06_images/UI09_발견기록.svg",
+    "width": 128,
+    "height": 128,
+    "viewBox": "0 0 128 128",
+    "sha256": "704F4A1EB0057AD52AE55F4C3105CB5B6012F2DC87752097D14A6DDAB69A3943",
+    "status": "render_reviewed_in_game_qa_pending",
+    "method": "native_svg",
+    "imagegen_calls": 0
+  },
+  {
+    "id": "UI10",
+    "file": "06_images/UI10_힌트.svg",
+    "width": 128,
+    "height": 128,
+    "viewBox": "0 0 128 128",
+    "sha256": "DDDF55C94E1639B689964D92C2F3472147A532021BD9BA1366D26A26C7486365",
+    "status": "render_reviewed_in_game_qa_pending",
+    "method": "native_svg",
+    "imagegen_calls": 0
+  }
+]

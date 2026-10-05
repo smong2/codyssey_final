@@ -6,7 +6,7 @@
 - UI08 가방·UI09 발견 기록·UI10 힌트: 중복 검색 후 128×128 SVG 3개 제작. 추가 이미지 생성 호출 없음.
 - 원본 5개는 이번 시작 시점의 해시와 동일. 기존 SD 24프레임도 내용 보존 검증.
 - 번호별 사전 기록: [13 원본 잠금·규격](13_preflight_and_original_lock.json), [14 실행 기록](14_limited_correction_log.md), [15 검증](15_preflight_verification.json).
-- [UI 규격](../05_ui/02_UI08_UI10_spec.json), [UI 납품·검수 안내](../05_ui/07_icon_guide.md), [SD 실패 원인·정확한 편집 요청](../09_sd_character/02_SD04_edit_record.json).
+- [UI 규격](../05_ui/03_UI08_UI10_spec.json), [UI 납품·검수 안내](../05_ui/08_icon_guide.md), [SD 실패 원인·정확한 편집 요청](../09_sd_character/04_SD04_edit_record.json).
 
 ## 다음 순서
 

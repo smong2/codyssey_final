@@ -13,8 +13,8 @@
 ## 생성 전 체크리스트
 - [x] 기존 마이룸 SC01 / 전체맵 MAP04 / 카엘 / 베른 직접 확인.
 - [x] 중복 대신 재사용: 타이틀 SC02, 선택 SC03, UI07 초대장, Life 배경 BG02/BG07, CH01·NPC03, SD03, OBJ01~05, PZ SVG.
-- [x] 새 배경 `13_sources/LIFE01_마이룸_좌우대화_source.png`: 기존 SC01 편집, 16:9 요청. UI·인물 제외. 원본 별도 보존.
-- [x] 새 맵 `13_sources/ADV01_확장탐험맵_source.png`: MAP04 무드 참조, 여러 구역이 연결된 방대한 탐험 공간. 16:9 요청. 문자·UI·인물 제외.
+- [x] 새 배경 `14_sources/LIFE01_마이룸_좌우대화_source.png`: 기존 SC01 편집, 16:9 요청. UI·인물 제외. 원본 별도 보존.
+- [x] 새 맵 `14_sources/ADV01_확장탐험맵_source.png`: MAP04 무드 참조, 여러 구역이 연결된 방대한 탐험 공간. 16:9 요청. 문자·UI·인물 제외.
 - [x] `11_flow_preview.html`: 22순서 시안, 1920×1080 기준, 화면별 이전/다음·목록·검토 메모.
 - [x] Life 좌우 인물/Adventure SD 분리, 수집 전후 수량, Knowledge와 Item 구분 검수.
 - [x] 장면별 화면 캡처·검수 기록·GitHub 저장.

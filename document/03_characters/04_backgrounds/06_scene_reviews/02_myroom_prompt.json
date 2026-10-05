@@ -1,0 +1,20 @@
+{
+  "prompt": "Create ONE polished finished 2.5D fantasy game Life-mode MY ROOM scene mockup, widescreen16:9 landscape1920x1080. This is a cohesive playable-looking furnished room composition, NOT an asset sheet/collage. Image1 is the BASE ROOM to furnish: preserve its beautiful large left gothic window, lake vista, warm timber rafters, cream plaster and right fireplace and camera viewpoint. Images2-5 are existing ASSET DESIGN REFERENCES:2 Bern brass owl automaton wearing plum waistcoat holding tea;3 cream sage wooden desk;4 cream sage bed;5 floral oval rug. Additional already-designed small furnishings: one wooden chair with sage upholstered seat and turquoise diamond in carved arched back; one small brass desk lamp with cream scalloped stained-glass shade and turquoise core; one closed cream diary with sage spine, brass corner protectors, turquoise buckle and coral ribbon. Match these descriptions; no additional clutter. Preserve their recognizable design/palette/material; adjust furniture viewing angle and scale to MATCH room perspective instead of pasted cutouts. Desk beneath left window, chair naturally at desk and diary flat on desktop beside SMALL lamp. Bed against back wall center-right, fully clear of fireplace, long axis projecting into room. Floral rug on center floor with convincing foreshortening. Bern standing just right of rug in mid-foreground, friendly welcome, owl total height about chair-back height, not giant, full feet visible, softly grounded contact shadow. Clear generous pathway through middle. One of each asset, no duplicated beds/chairs. Unified warm daylight from LEFT window, soft corresponding cast shadows, secondary gentle fireplace amber, no isolated auras/black backgrounds/rectangular halos. Soft original hand-painted ink/watercolor academic classical fantasy, matte surfaces, subtle brass details, cream/sage/coral, atmospheric depth with foreground/midground/background planes. Make room comfortably inhabited using ONLY provided furnishings; no invented clutter or characters. Minimal finished game UI: small elegant cream location plaque upper-left with exact Korean '마이룸', compact restrained bottom-right cream/coral button exact Korean '하루 돌아보기'. No other text, HUD, health bars, logos or watermark. Furniture and Bern remain focus and are not hidden behind a dialogue panel. Single beautiful coherent finished screen, not photorealistic3D.",
+  "references": [
+    "04_backgrounds/04_images/BG03_빈_마이룸.png",
+    "02_characters/10_images/NPC03_베른.png",
+    "03_items/04_images/IT07_마이룸_책상.png",
+    "03_items/04_images/IT09_마이룸_침대.png",
+    "03_items/04_images/IT11_마이룸_러그.png"
+  ],
+  "additional_observed_assets": [
+    "IT08",
+    "IT02",
+    "IT01"
+  ],
+  "target": [
+    1920,
+    1080
+  ],
+  "kind": "reference_based_scene_mockup_not_engine_screenshot"
+}

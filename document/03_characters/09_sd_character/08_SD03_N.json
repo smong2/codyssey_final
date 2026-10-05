@@ -1,0 +1,37 @@
+{
+  "direction": "N",
+  "source": "17_sources/01_SD03_direction_strips/SD03_N.png",
+  "strip": "16_images/SD03_N_strip.png",
+  "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face STRAIGHT AWAY FROM VIEWER, exact REAR view, back of head and jacket NO face visible, identical orientation in every frame, never turn head or body. Left frame left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.",
+  "frames": [
+    {
+      "file": "16_images/01_SD03_frames/SD03_N_00.png",
+      "direction": "N",
+      "frame": 0,
+      "width": 256,
+      "height": 256,
+      "baseline_y": 218,
+      "sha256": "7B8570655657300B5789947E66C1E7613BBC3969C9B4F227B5AFA91DC25DC9F8"
+    },
+    {
+      "file": "16_images/01_SD03_frames/SD03_N_01.png",
+      "direction": "N",
+      "frame": 1,
+      "width": 256,
+      "height": 256,
+      "baseline_y": 218,
+      "sha256": "D0B9317A7058A4213B39059A50D4C78E5F0CFCB42C46ECEF509A2A91C7464F69"
+    },
+    {
+      "file": "16_images/01_SD03_frames/SD03_N_02.png",
+      "direction": "N",
+      "frame": 2,
+      "width": 256,
+      "height": 256,
+      "baseline_y": 218,
+      "sha256": "E60C00E23DFD8B430864FA082C1FD7CFFC5B879FAC5CFB71AF63CCCA9AF61387"
+    }
+  ],
+  "qa": "pending_visual_and_game_check",
+  "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+}

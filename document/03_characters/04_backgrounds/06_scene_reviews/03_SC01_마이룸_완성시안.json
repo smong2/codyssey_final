@@ -1,0 +1,12 @@
+{
+  "name": "SC01_마이룸_완성시안",
+  "category": "04_backgrounds/06_scene_reviews",
+  "file": "04_backgrounds/06_scene_reviews/04_images/SC01_마이룸_완성시안.png",
+  "source": "04_backgrounds/06_scene_reviews/05_sources/SC01_마이룸_완성시안_source.png",
+  "source_width": 1672,
+  "source_height": 941,
+  "width": 1920,
+  "height": 1080,
+  "sha256": "303511E3B9D218AF2DCEC11A1C2C26EC3D88330FF97EC640EA066C2ACA2E929E",
+  "qa": "visual_direction_mockup_reviewed_not_engine_composite"
+}

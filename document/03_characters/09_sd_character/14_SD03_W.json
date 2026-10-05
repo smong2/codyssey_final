@@ -1,0 +1,37 @@
+{
+  "direction": "W",
+  "source": "17_sources/01_SD03_direction_strips/SD03_W.png",
+  "strip": "16_images/SD03_W_strip.png",
+  "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face STRAIGHT LEFT in strict side profile; nose points LEFT, only one eye visible, identical orientation in every frame, never turn head or body. Left frame left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.\nIMPORTANT leftmost and rightmost must show OPPOSITE legs forward, not duplicated stride. Keep body left-facing in ALL three.",
+  "frames": [
+    {
+      "file": "16_images/01_SD03_frames/SD03_W_00.png",
+      "direction": "W",
+      "frame": 0,
+      "width": 256,
+      "height": 256,
+      "baseline_y": 218,
+      "sha256": "99F4F8E88FEB35FFD1120A7185E338A988856969AF3DC0D259908639872AD39F"
+    },
+    {
+      "file": "16_images/01_SD03_frames/SD03_W_01.png",
+      "direction": "W",
+      "frame": 1,
+      "width": 256,
+      "height": 256,
+      "baseline_y": 218,
+      "sha256": "C5CAC9C0C6E8A3F53845900E8901B8CFEE219F27900D376DE191F800BE42871B"
+    },
+    {
+      "file": "16_images/01_SD03_frames/SD03_W_02.png",
+      "direction": "W",
+      "frame": 2,
+      "width": 256,
+      "height": 256,
+      "baseline_y": 218,
+      "sha256": "98493FF60755A515603B088952CE6D815265877F5FEFECB4EE7CABAD766873C8"
+    }
+  ],
+  "qa": "pending_visual_and_game_check",
+  "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+}

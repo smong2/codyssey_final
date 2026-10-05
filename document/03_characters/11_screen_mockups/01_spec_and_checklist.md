@@ -1,4 +1,4 @@
-# 11. 화면 조립 시안 — 2026-10-02
+# 01. 화면 조립 시안 — 2026-10-02
 
 > 사용자 정정 반영: SC04는 별도 Adventure 맵을 표현하지 못해 수정 대상이다. [최신 Life/Adventure 기준](08_life_adventure_correction.md)을 우선한다.
 

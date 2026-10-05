@@ -35,6 +35,6 @@ Work에서 이 폴더와 `C:/Users/josep/Desktop/Final Project`의 자료에 접
 
 ## 저장 순서
 
-- [02 프롬프트](02_prompts/): COMMON_LOCKS + CH01~CH32, NPC01~NPC03 DELTA.
-- [03 파일 목록](03_manifest.json): 캐릭터별 이미지·프롬프트 연결.
-- [04 이미지](04_images/): CH01_카엘.png부터 CH32_리코.png까지. NPC 이미지는 미생성.
+- [02 프롬프트](05_prompts/): COMMON_LOCKS + CH01~CH32, NPC01~NPC03 DELTA.
+- [03 파일 목록](06_manifest.json): 캐릭터별 이미지·프롬프트 연결.
+- [04 이미지](10_images/): CH01_카엘.png부터 CH32_리코.png까지. NPC 이미지는 미생성.

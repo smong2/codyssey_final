@@ -9,7 +9,7 @@
     "delta": "Single square rotate/connect puzzle tile substrate, straight-on orthographic top view. Rounded cream limestone square occupying92% square canvas, delicate thin antique brass rim, fully blank matte pale center for separate path overlays. No glyph, no line, no text, no cracks obstructing overlay, no perspective, no drop shadow, clean transparent outside tile. Restrained warm handmade fantasy.",
     "edit": null,
     "status": "generated_pending_game_qa",
-    "file": "10_puzzle/04_images/PZ01_퍼즐_타일_바탕.png",
+    "file": "10_puzzle/05_images/PZ01_퍼즐_타일_바탕.png",
     "source_width": 1254,
     "source_height": 1254,
     "export_width": 256,
@@ -17,7 +17,7 @@
     "alpha_min_sampled": 0,
     "alpha_max_sampled": 255,
     "sha256": "9224DE8D86941A6A1B893EE215397C369CFFD02FB10F4E55E26C3DA1FBA46AEB",
-    "source_file": "10_puzzle/05_sources/PZ01_퍼즐_타일_바탕_source.png",
+    "source_file": "10_puzzle/06_sources/PZ01_퍼즐_타일_바탕_source.png",
     "qa_status": "pending_in_game_visual_qa"
   }
 ]
