@@ -1,10 +1,12 @@
 # LUMIA 통합 게임 기획서
 
-> 문서 상태: **Draft v1.1 · 2026-10-04**
+> 문서 상태: **Current Specification v1.3 · 2026-10-06**
 >
 > 용도: 팀 공유용 통합 기준 문서
 >
 > 기존 01~04 문서와 본 통합 기획서가 충돌하는 경우, 팀 논의를 통해 이후 확정된 본 통합 기획서의 설계를 현재 기준으로 사용합니다. 단, 변경하지 않은 기존 세계관·캐릭터 설정은 계속 유효합니다.
+
+> **변경 요약:** 첨부 원본의 상세 내용을 보존하고 Intro/Admission, MAP04 대형 맵, Dialogue/UI, Heart, Mobile, 보호자 경계 및 Prototype 한정 캐릭터 범위를 관련 본문에 통합했다.
 
 ## 이 문서 읽는 법
 
@@ -17,19 +19,20 @@
 
 ## Lumia 한눈에 보기
 
-### 이번 Prototype의 확정 기준 — 2026-10-04
+### 이번 Prototype의 확정 기준 — 2026-10-06
 
-- 같은 온실을 Life와 Adventure 두 모드로 표현한다. 모드마다 배경 자산·구도·조작 방식이 다르며 별도 세계나 신규 장소를 뜻하지 않는다.
-- PC에서 전체 흐름을 검증한다: 임시 Title → 카엘 선택/확인 → Admission → 광장 Life → 온실 Life → 온실 Adventure → 온실 Life 복귀/Choice → My Room/Bern → Reflection → Heart Record → 부모 리포트 미리보기.
-- 플레이어는 카엘 1명으로 고정한다. 학생 NPC는 기존 인물 중 제안 후 결정한다. 대화·질문·선택지는 교체 가능한 임시 대본을 사용한다.
-- 이미지 경로와 텍스트는 임시 JSON에서 읽는다. 콘텐츠 로더와 저장 처리를 분리하여 이후 API로 교체한다. 실제 API·로그인·인증·서버 저장·보호자 계정 연결은 후속 백엔드 협의 범위다.
-- 이어하기는 같은 PC·같은 브라우저의 로컬 저장으로 검증한다. 다른 기기 간 동기화를 제공하지 않는다.
-- 부모 리포트는 주요 Story Choice와 World Reaction으로 구성하는 로컬 미리보기다. Reflection/Heart Record 원문과 일반 NPC 질문 답변은 포함하지 않는다.
-- 달빛 약초는 Item과 Knowledge의 차이를 보여주는 수집 대상이다. 퍼즐 진입/해결 조건이나 소모 재료가 아니다.
-- 미완성 자산은 안정적인 콘텐츠 ID에 연결된 경로·표시 정보 교체로 반영한다. 제작 완료와 게임 적용 QA 완료를 구분한다.
-- 온실 Adventure와 Connect/Rotate만 구현한다. 전투, HP/EXP/Level, Stage Map, Mini Game, 전체 SD 제작은 제외한다. 엔진은 구현 준비 단계에서 제안한다.
+- 같은 온실을 Life와 Adventure 두 모드로 표현한다. 배경 자산·구도·조작 방식은 다르며 같은 세계다.
+- Desktop/Mobile 완주 범위: Intro Movie → Title → 32명 열람/카엘 확인 → UI07 Admission → 광장 Life → 온실 Life/Adventure → World Change/시온 Choice → My Room/Bern/Reflection → Heart Record/Diary → ♥100 → 저녁 자유 상태/Bern Short Talk → Day End → Day02 My Room.
+- 전체 게임의 32명 선택·플레이 설계는 유지한다. 이번 Prototype만 카엘(CH01) 실제 시작/플레이, 다른 31명 시작 버튼·제한 안내 없는 열람 전용이다. NPC는 발렌티누스/시온/베른이다.
+- Script v2 전체 카피와 상태·저장·예외는 `LUMIA_PROTOTYPE_PLAN.md`가 구현 기준이다. 초3~4학년 Writing Rule과 플레이어가 답을 직접 발견하는 원칙을 따른다.
+- 이미지/텍스트는 교체 가능한 JSON과 안정적인 콘텐츠 ID로 연결한다. 콘텐츠 로더/로컬 저장을 분리한다. 실제 로그인·API·서버 저장·기기간 동기화는 [Prototype 제외]/후속 백엔드 협의다.
+- 이어하기는 같은 기기·브라우저의 local save로 검증한다. Intro 재생이 save를 덮어쓰지 않는다.
+- 달빛 약초는 Optional Collection이며 Puzzle 조건/소모 재료가 아니다.
+- MAP04 Large Map Illustration의 WebP World Background + SD + follow camera + 코드 collision/interaction으로 Adventure를 만든다. 전투/HP/EXP/Level/Stage Map/Mini Game/전체 SD/새 Tile Map Engine·Tile 제작은 [Prototype 제외].
+- Parent Report는 아이 Flow에서 제외한다. 향후 Settings → 보호자 설정 → 이야기 편지/부모 리포트로 분리하고 Reflection/Diary 원문 비공개를 유지한다.
+- 제작 완료와 적용 QA를 구분한다. 표시 정보/경로 교체 후 실제 게임 크기·크롭·접지를 재검수한다.
 
-이 기준은 본문의 전체 게임 구상과 이전 기술안보다 이번 Prototype에 우선한다.
+
 
 **Character Select → Admission → Arcadia Life → 사건/대화/조사 → 직접 탐험이 필요하면 기존 Arcadia 장소를 Adventure Mode로 전환 → SD 탐험/Encounter/Puzzle → Choice → World Change → Arcadia Life 복귀 → My Room/Bern/Reflection → 다음 이야기**
 
@@ -45,7 +48,9 @@
 
 **확정:** 전체 게임 Skeleton, Episode 제작 구조, Parent Feedback 철학, Life/Adventure 표현 분리, 신규 장소 추가 없음, 기존 Arcadia 장소 기반 Adventure, Greenhouse 첫 Prototype, Prototype 검증 목표/질문.
 
-**TBD:** 정식 Episode 1, Greenhouse 이후 Adventure 장소, 학생 NPC 캐스팅, SD/Tile/Map/Atlas 최종 규격, Balance/DB 세부값, Engine, Arcadia 이동 UI. Prototype 플레이어와 선택 화면은 카엘 1명으로 확정한다.
+**확정된 Prototype 콘텐츠:** Episode 1 「빛을 잃은 온실」 Script v2, 카엘 플레이/32명 열람, 발렌티누스·시온·베른, 기존 3×3 Connect/Rotate.
+
+**TBD/개발 확인:** Greenhouse 이후 장소, SD/Map WebP/필요 Atlas export 규격, 후속 Heart/Theme 밸런스와 DB/서버 계약, renderer 선택, 전체 Arcadia 이동 UI. 선택 화면 열람은 32명이며 카엘 한정은 이번 Prototype 실제 플레이에만 적용한다.
 
 ------------------------------------------------------------------------
 
@@ -129,7 +134,7 @@ NPC 호감도
 
 대신 내부적으로 다음 State/Data는 존재할 수 있다. - choice_logs -
 dimensionTags - Knowledge flags - NPC Memory - Episode / Adventure /
-Encounter state - Inventory / Coin / Room Theme
+Encounter state - Inventory / Heart Balance / Room Theme
 
 `dimensionTags`는 콘텐츠 분류와 리포트 맥락 정리를 위한 내부 데이터이며
 플레이어의 성격 점수로 변환하지 않는다.
@@ -197,7 +202,7 @@ GAME START → CHARACTER SELECT → ADMISSION
   - 사건 발견 / 조사 / Knowledge
 → 직접 탐험이 필요한 경우
   - 같은 Arcadia 장소를 ADVENTURE MODE로 전환
-  - SD 8방향 이동 / 탐색 / 조사 / 채집
+  - SD 8방향 이동 / player-follow camera / 탐색 / 조사 / 채집
   - Encounter / Puzzle / 필요 시 Mini Game
   - Knowledge / Item / Meaningful Choice
   - World Change
@@ -218,19 +223,19 @@ GAME START → CHARACTER SELECT → ADMISSION
 
 ### 6.1 Entry
 
--   Intro
--   Loading
--   World Reveal
--   Title
--   Story Start
+사용자 제공 `intro/intro.mp4`로 어둠 → 작은 빛 → 원형 Rune Awakening → 밝아짐을 재생한다. 이후 실제 `BG01` Arcadia 이미지 → LUMIA Logo/Main Title UI로 이어진다. Skip은 Arcadia Reveal/Title로 연결한다. 게임 내 Title로 돌아가기를 선택하면 Intro부터 재생하며 저장 진행을 덮어쓰지 않는다. 저장이 있어도 Intro 뒤 Title에서 [이어하기]/[새 이야기 시작]을 제공한다. 영상 재생/코덱 실패 시 정적 Rune → Arcadia → Title fallback을 사용한다. BGM·환경음·SFX는 [Prototype 제외]다. Admission의 실시간 Rune/Fade와 별개다.
 
-문구는 최종 카피 단계에서 조정한다.
+화면 Copy와 실제 State 연결은 Prototype Plan §3/§3A를 따른다.
 
 ### 6.2 Character Select
 
+전체 게임은 기존 32명 중 플레이할 캐릭터를 선택한다. 확정한 이름/캐릭터 Life·SD를 이후 플레이에 연결한다. **이번 Prototype에만** 32명 Card/상세/큰 이미지 열람 + 카엘만 Confirm/시작/플레이를 적용한다. 다른 31명은 시작 버튼과 제한 안내 없는 열람 전용이며 Card 선택은 영속 Profile을 바꾸지 않는다. UI03 카드 배경/UI02 모서리 프레임을 우선 재사용한다.
+
 -   성별은 별도 Scene이 아니라 `[남성] [여성]` 탭으로 처리한다.
 -   캐릭터 Card 선택 시 우측 정보가 변경된다.
--   큰 이미지 보기를 위한 확대 버튼을 제공한다.
+-   큰 이미지 보기는 **각 Character Card 안쪽의 작은 `+` 버튼**으로 연다. Card 본문 탭은 선택/우측 정보 갱신이고, `+`는 확대 열람만 하므로 두 터치 목적을 섞지 않는다.
+-   `+`는 이미지 영역을 가리지 않는 카드 모서리에 두며, 충분한 터치 영역을 확보한다. 확대 화면을 닫으면 선택 화면과 현재 선택 상태로 돌아온다.
+-   Card 목록은 Mobile에서 자연스러운 터치 세로 스크롤로, PC에서는 마우스 휠로 부드럽게 이동한다. Card 선택과 `+` 탭은 스크롤이 아닌 짧은 탭/클릭에서만 실행한다.
 -   상세 영역에는 전신 이미지를 반복해서 넣지 않는다.
 
 표시 정보: - 이름 / 나이 - **칭호** - 짧은 성격 - 짧은 배경 - 강점 -
@@ -241,6 +246,8 @@ GAME START → CHARACTER SELECT → ADMISSION
 `캐릭터 선택 → 확인 Popup → 개인화된 입학 초대장 → Arcadia 도착`
 
 최종 선택만 저장한다. 탐색 중의 Card 선택은 Local UI State다.
+
+Admission은 `UI07_입학_초대장.png` 원본을 사용한다. 개인화 이름 + Script v2 초대 문구 + [입학하기]를 UI로 올리며 CSS 대체 디자인은 금지한다. 이후 실시간 Rune/Fade로 Plaza에 도착한다. 이 전환은 Intro Movie와 별개다.
 
 ------------------------------------------------------------------------
 
@@ -253,7 +260,7 @@ GAME START → CHARACTER SELECT → ADMISSION
 
 ### 7.2 Valentinus
 
--   세계관 / Rune 원리 / Adventure 방향 안내
+-   세계관 / Adventure 방향 안내. 플레이어가 발견해야 할 Rune 원인·퍼즐 답을 먼저 말하지 않는다.
 -   단순 Quest Giver가 아니다.
 -   질문과 힌트를 통해 플레이어가 스스로 판단하도록 돕는다.
 
@@ -285,11 +292,13 @@ Workshop - My Room - 시간대에 따른 환경/NPC 변화
 
 -   8방향 이동
 -   PC: Arrow Keys + WASD
--   Tablet: Virtual Analog Joystick
+-   Mobile/Tablet: Virtual Analog Joystick + 문맥 행동 버튼; PC E 상호작용과 같은 동작
 -   대각선 이동 속도 Normalize
 -   초기 Sprint 없음
 
 ### 9.2 Camera
+
+Large Map Illustration의 일부를 viewport로 표시한다. Mobile에서도 전체 맵을 축소하지 않고 같은 world 좌표의 player-follow camera를 유지한다.
 
 -   Follow Camera
 -   작은 Dead Zone
@@ -298,7 +307,7 @@ Workshop - My Room - 시간대에 따른 환경/NPC 변화
 
 ### 9.3 Collision / Depth
 
--   통과 가능 / 불가능 영역
+-   코드 좌표 collision polygon/rectangle로 통과 가능 / 불가능 영역을 정의
 -   큰 Object는 밑동/바닥 중심 Hitbox
 -   2.5D Depth Sorting
 -   필요 시 큰 전경 Object의 가시성 처리
@@ -308,19 +317,19 @@ Workshop - My Room - 시간대에 따른 환경/NPC 변화
 근처 상호작용 대상 감지 후 현재 Target을 정한다. 여러 대상이 가까우면
 가장 적절한 Target을 Highlight한다.
 
-Contextual Action 예: - 대화하기 - 살펴보기 - 열어보기 - 채집하기
+Contextual Action 예: - 대화하기 - 살펴보기 - 열어보기 - 채집하기. interaction points는 MAP04 world 좌표로 정의하고 UI overlay에서 동작한다.
 
 ------------------------------------------------------------------------
 
 ## 10. Exploration HUD
 
-항상 보이는 HUD는 최소화한다. - 현재 Objective - Bag - Menu -
-Tablet에서만 Joystick / Interaction Control
+Adventure HUD는 현재 목표, 알아낸 것, 가방/힌트/메뉴만 제공한다. Mobile에서만 조이스틱/행동 버튼을 추가한다. Bag/Diary/Menu은 icon + short label이다.
 
-초기 제외: - HP Bar - EXP - Level - Skill Bar - Minimap - 일반 Gold
-HUD - 마음 Stat
+HP/EXP/Level/마음 Stat/Minimap/발견 기록/Quest Log/상시 Heart Balance는 없다. Objective는 checklist가 아니라 한 문장이다.
 
-Objective는 Checklist가 아니라 한 문장의 자연어 Hint로 보여준다.
+알아낸 것은 발견 순서로 쌓이는 객관적 사실만 기록한다: 흙은 촉촉함, 온실 안에 햇빛이 들어옴, 룬의 빛이 중간에서 끊김. Moonlight Herb는 가방 Collection이며 알아낸 것에 추가하지 않는다.
+
+Heart는 Episode completion reward currency로 Episode 완료 때 별도 ♥+100 feedback을 보여 주고 My Room에서만 compact icon+balance를 제공한다. Life/Adventure/Dialogue/Puzzle에는 global persistent Heart HUD를 만들지 않는다.
 
 ------------------------------------------------------------------------
 
@@ -375,11 +384,13 @@ Failure 없음
 
 > **Adventure(무사수행)는 새로운 장소가 아니라, Episode 진행 중 기존 Arcadia 장소에서 직접 탐색과 조작이 필요할 때 전환되는 플레이 모드다.**
 
-같은 장소를 Life에서는 큰 배경+캐릭터+Dialogue로, Adventure에서는 SD 캐릭터+Tile/Object+직접 조작으로 표현한다.
+같은 장소를 Life에서는 큰 배경+캐릭터+Dialogue로, Adventure에서는 Large Map Illustration World Background+SD+camera viewport+직접 조작으로 표현한다.
 
 핵심 요소:
-- SD 8방향 이동
-- Tile 기반 바닥 / Modular Object
+- SD 8방향 이동 / player-follow camera
+- MAP04 기반 Large Map Illustration / 배포 raster WebP World Background
+- 코드 collision polygon/rectangle / interaction points / UI overlay
+- Restored Map 또는 부분 change overlay / 선택적 foreground
 - 조사 / 채집 / 상호작용
 - Encounter
 - Puzzle / 필요 시 Mini Game
@@ -387,6 +398,8 @@ Failure 없음
 - Meaningful Choice
 - World Change
 - 최소 HUD
+
+고해상도 원본은 보존하고 WebP는 배포 파생본이다. 신규 Tile/Modular Map Engine·Tile asset 제작은 [Prototype 제외]다.
 
 장소 적용:
 - **Greenhouse:** 첫 Adventure Prototype 확정
@@ -407,9 +420,9 @@ Failure 없음
 ## 15. Adventure 저장 / 복귀
 
 - Adventure는 Episode 내부의 짧은 직접 탐험 Segment다.
-- 필요하면 현재 Adventure 진행 상태를 저장할 수 있다.
+- 조사/채집/회전/중단 때 위치·Knowledge·수집·퍼즐·World Change·목표를 autosave한다. 중단은 실패/포기가 아니며 재진입 시 복원한다.
 - 별도 Checkpoint Object는 필요하지 않다.
-- 해결 후 같은 장소의 Life Mode로 돌아가 변화된 NPC/Dialogue/환경 반응을 확인한다.
+- Puzzle 후 같은 Adventure에서 World Change를 직접 재관찰한다. 회복 꽃 조사는 선택 사항이며 입구로 귀환하면 같은 장소의 Life에서 변화된 NPC/Dialogue/환경 반응을 확인한다.
 - 죽음/Respawn/부활 Loop는 사용하지 않는다.
 
 ------------------------------------------------------------------------
@@ -469,7 +482,7 @@ Puzzle 규칙 - Story
 Knowledge는 실제 플레이에 영향을 줘야 한다. - 새 Dialogue - 새
 Interaction - 새 행동 - 새 길 - Objective 변화
 
-초기 Journal: - `[현재 이야기]` - `[발견한 것]`
+이번 Prototype은 알아낸 것 HUD만 사용하고 별도 발견 기록/Journal 버튼은 만들지 않는다. 개인 Episode 기록은 My Room의 Diary/Heart Record로 구분한다. [Later] 전체 게임 Journal 확장은 필요성 확인 후 검토한다.
 
 복잡한 수동 Clue Board는 만들지 않는다.
 
@@ -479,6 +492,14 @@ Interaction - 새 행동 - 새 길 - Objective 변화
 
 ### 19.1 Dialogue
 
+- Player는 왼쪽, NPC는 오른쪽에 고정한다. 모든 인물은 opacity 100%, blur 없음, 기본 scale/position 고정이다. 화자 brightness 100%와 비화자의 약한 brightness 감소를 약 150~250ms로 전환한다.
+- 하단 단일 Dialogue Panel을 사용하며 일반 대화는 panel click/tap과 작은 Dialogue Advance Arrow로 진행한다. 일반 [계속]/[다음] 버튼은 사용하지 않는다. Choice 동안 arrow를 숨기고 실제 행동/상태전환 버튼의 텍스트는 유지한다.
+- Desktop Choice는 두 캐릭터 사이 중앙 Safe Area에 세로 배치한다. Mobile에서는 Dialogue Box 위로 이동하고 긴 문장은 자동 높이로 처리한다. 선택 후 Choice를 닫고 Player 실제 발화 → NPC 반응으로 이어진다.
+- Dialogue Context Image Slot은 유리꽃/달빛 약초/룬을 보여 줄 필요가 있는 장면만 사용한다. 고정 portrait slot이 아니다.
+- Bag/Diary/Menu은 icon + short label로 표시한다. [Playtest 확인] 1~2% scale 변화는 필요성 검토 옵션이며 기본 동작이 아니다.
+
+Writing Rule: 초3~4학년이 이해할 짧고 구체적인 한 문장에 한 핵심을 담는다. 관찰·추론·해결을 섞지 않으며 캐릭터는 플레이어가 발견해야 할 답을 먼저 말하지 않는다.
+
 모든 Dialogue에 선택지를 넣지 않는다. - 일반 Dialogue - Story Dialogue -
 현재 상황 Reaction - Random Question - Special Event - Meaningful Choice
 
@@ -487,7 +508,7 @@ Interaction - 새 행동 - 새 길 - Objective 변화
 백엔드에서 제공 예정인 Question Pool은 Full Random이 아니라 **Filtered
 Random**으로 사용한다.
 
-이번 Prototype에서는 임시 JSON의 소규모 질문을 사용한다. 실제 질문 API 연결과 서버 기반 질문 선정은 후속 백엔드 협의 범위다.
+이번 Prototype은 확정 Script v2와 BERN_SHORT_TALK_EP01을 JSON으로 연결한다. Bern의 선택형 일상 대화는 Small Choice로 답변 비저장·보상/평가 없음이며 완료 여부만 저장한다. 실제 질문 API 연결과 서버 기반 질문 선정은 후속 백엔드 협의 범위다.
 
 `Question Pool → 조건 Filter → 최근/반복 제외 → Eligible Pool → Random`
 
@@ -569,6 +590,8 @@ Mechanic Library: 1. Match / Group 2. Dig / Search 3. Connect / Rotate
 
 ## 24. World Change
 
+Prototype은 MAP04 Restored Map 또는 부분 overlay로 동일 world 좌표를 유지한다. Puzzle 성공 뒤 Adventure를 유지해 직접 재관찰하게 하고, 중단/재개 뒤에도 After 상태를 복원한다. 재관찰은 제공하되 회복 꽃 조사는 강제하지 않는다.
+
 Encounter / Episode 해결의 핵심 Feedback이다.
 
 예: - 환경 변화 - NPC 위치/행동/표정 변화 - Dialogue 변화 - Rune 변화 -
@@ -579,7 +602,7 @@ Encounter / Episode 해결의 핵심 Feedback이다.
 
 ------------------------------------------------------------------------
 
-## 25. Workshop / Crafting
+## 25. Workshop / Crafting — [Later]/[Prototype 제외]
 
 Loop:
 `Adventure → Material → Workshop → Tool → New Interaction → Adventure`
@@ -600,22 +623,21 @@ Story Item은 Craft/Consume하지 않는다.
 
 ------------------------------------------------------------------------
 
-## 26. Coin / Collection
+## 26. Heart / Collection
 
-Coin은 Broad Economy가 아니라 **My Room 성장 자원**이다.
+Heart(♥)는 Episode completion reward currency다. 도덕·공감·성격·능력 점수가 아니며 Episode 완료/Diary 저장 뒤 동일한 기본량을 지급한다. Choice/Hint/실패/중단/속도에 따라 증감하지 않는다.
 
-획득: - 탐험 / Optional Discovery - Collection Activity - Side Event
+이번 Prototype은 `EPISODE_COMPLETION_REWARD`로 ♥100을 1회 지급하고 즉시 local save한다. Diary 저장 알림과 reward feedback은 분리하며 중복 로드로 추가 지급하지 않는다. Theme 구매/복잡 경제는 [Prototype 제외]다.
 
-하지 않음: - Mario식 Coin Row - Story Choice Reward - Reflection
-Reward - Shop / Selling - NPC Gift Farming - 장비 강화
-
-특별 Collectible은 판매하지 않고 기억/전시 대상으로 남긴다.
+Optional Collection은 기억/발견의 흔적이다. Moonlight Herb는 판매품·Puzzle 소모품이 아니다. Coin은 현재 기본 보상으로 사용하지 않는다. [Later/TBD] 별도 Coin 경제는 현 설계에 포함하지 않은 후속 아이디어다.
 
 ------------------------------------------------------------------------
 
 ## 27. My Room / Room Growth
 
 ### 27.1 My Room
+
+Prototype은 같은 방의 morning/evening 조명·창밖 overlay, compact Heart icon+balance, 가방/Diary, Bern Reflection 및 BERN_SHORT_TALK_EP01, Day End/Day02 종료를 제공한다. Bern Dialogue/Reflection에는 balance를 숨긴다. Small Choice 답변은 저장하지 않고 보상/평가하지 않는다.
 
 개인의 안전한 공간. - Bern - Room Theme - Collectible - Heart
 Reflection - Heart Record - Day End
@@ -629,7 +651,7 @@ Reflection - Heart Record - Day End
 
 ### 27.3 Room Theme
 
-Unlock 조건: `Episode Progress + Coin`
+[Later] Unlock 조건: `Episode Progress + Heart`. Theme 가격/구매·차감·복잡 경제는 [Prototype 제외]/[TBD: 후속 밸런스]다.
 
 -   Player EXP 없음
 -   이전 Theme 재선택 가능
@@ -659,7 +681,9 @@ Heart Reflection과 Heart Record는 **아이의 Private 영역**으로 취급한
 
 ------------------------------------------------------------------------
 
-## 29. Parent Feedback System
+## 29. Parent Feedback System — [Later]/[Prototype 제외]
+
+아이 Prototype Flow에는 Parent Report/미리보기가 없다. 전체 게임의 향후 보호자 경험은 Settings → 보호자 설정 → 이야기 편지/부모 리포트로 분리하며 연결·동의·인증 후 제공한다.
 
 ### 29.1 목적
 
@@ -764,7 +788,7 @@ Record는 개인 영역 - 일반 NPC 대화는 Parent Report에 공개하지 않
 
 ### 13. World Change
 
-### 14. Coin / Collection
+### 14. Episode Completion Heart / Optional Collection
 
 ### 15. My Room / Bern Reflection
 
@@ -797,23 +821,23 @@ Record는 개인 영역 - 일반 NPC 대화는 Parent Report에 공개하지 않
 
 다른 Arcadia 장소는 삭제된 것이 아니라 첫 Prototype 구현 범위 밖이다.
 
-### 31.3 검증용 Scenario — 「빛을 잃은 온실」(가제)
+### 31.3 Episode 1 Scenario — 「빛을 잃은 온실」
 
-정식 Episode 1 확정안이 아니다.
+Episode 1 Prototype은 「빛을 잃은 온실」 Script v2로 확정한다. 실제 장면/Copy/State/Local Save/예외/Acceptance Criteria는 `LUMIA_PROTOTYPE_PLAN.md` §3/§3A를 따른다.
 
 1. 시계탑 광장에서 온실 식물이 갑자기 시들었다는 사건을 듣는다.
 2. 온실 Life에서 NPC와 대화하고 Adventure로 진입한다.
-3. 시든 식물 조사 → Knowledge.
+3. 시든 유리꽃 조사 → Knowledge: 흙은 촉촉함.
 4. 달빛 약초 채집 → Item. 퍼즐 해결에 사용하거나 소모하지 않는 수집 대상이다.
-5. 시든 식물/어두운 Rune/덩굴 등을 관찰해 사건 정보를 얻는다.
+5. 햇빛 조사 → 온실 안에 햇빛이 들어옴. 오래된 룬 조사 → 빛이 중간에서 끊김. 알아낸 것 HUD는 세 객관 사실만 저장하며 조사 순서는 자유다.
 6. Connect/Rotate Rune Puzzle로 끊긴 빛의 흐름을 연결한다.
 7. 필요하면 L1 관찰 → L2 원리 → L3 첫 행동 Hint를 사용한다. 벌점은 없다.
 8. Rune이 빛나고 식물이 회복되는 World Change를 Adventure에서 즉시 보여준다.
-9. 사건 관련 학생이 실수를 숨긴 이유가 드러난다. 기존 32명 중 Casting은 TBD.
+9. 회복 온실 Life에서 시온이 룬 조각을 돌린 사실과 자기 행동 때문일지 두려워 말하지 못한 마음을 고백한다.
 10. 정답 없는 Meaningful Choice 후 작은 NPC 반응 차이를 보여주고 공통 흐름으로 복귀한다.
 11. Greenhouse Life에서 변화된 Dialogue/상황을 확인한다.
-12. My Room에서 Bern과 Reflection하고 간단한 Heart Record를 만든다.
-13. 부모 리포트 미리보기에서 이야기·주요 선택·세계 반응·대화 제안을 확인한다. 개인 성찰 원문은 제외한다.
+12. 저녁 My Room에서 Bern과 Heart Reflection → Heart Record 생성 → Diary 저장 → Episode 완료 ♥100을 1회 지급한다.
+13. 저녁 자유 상태에서 가방/Diary/BERN_SHORT_TALK_EP01을 열람하고 [오늘을 마무리하기] → Day End → Day02 아침 My Room에서 종료한다. Episode2/Parent Report 미리보기는 노출하지 않는다.
 
 ### 31.4 Prototype 검증 질문
 
@@ -826,19 +850,17 @@ Record는 개인 영역 - 일반 NPC 대화는 Parent Report에 공개하지 않
 7. `Life → Adventure → Life → My Room`이 하나의 이야기처럼 이어지는가?
 8. 제작 작업량이 현재 팀이 Episode마다 반복할 수 있는 수준인가?
 
-추가 Test: SD/Tile 크기, 이동 속도, Camera, Map 크기, 길 폭, 8방향 Animation, Interaction 거리, Object Scale, Foreground/Occlusion, PC/Tablet 조작감.
+추가 Test: SD 표시 크기, MAP04 WebP 메모리/viewport, 이동 속도, follow camera, 길 폭, collision/interaction 좌표, 8방향 Animation, foreground/occlusion, Desktop/Mobile touch·safe area·Dialogue overflow. iPhone 6s는 최적화 참고이며 실기기 완료조건이 아니다.
 
 ### 31.5 첫 Prototype 제외 범위
 
-32명 전체 SD, 대서고/천문대 Adventure, 공방/수련장 Mini Game, 여러 Episode, 신규 Adventure 장소, 복잡한 NPC Question API 전체, 자유 가구 배치, 완전한 Coin Economy, 복잡한 Day/Time Variation, Parent Analytics 전체 Backend, Quest Log, Stage Map, Rune Portal, Checkpoint, Combat/HP/EXP/Level.
+32명 전체 SD, 대서고/천문대 Adventure, 공방/수련장 Mini Game, 여러 Episode, 신규 Adventure 장소, 복잡한 NPC Question API 전체, 자유 가구 배치, Theme 구매·복잡 경제, 복잡한 Day/Time Variation, Parent UI/Analytics 전체 Backend, BGM/환경음/SFX, 새 Tile/Modular engine·Tile 제작, Quest Log, Stage Map, Rune Portal, Checkpoint, Combat/HP/EXP/Level.
 
 ------------------------------------------------------------------------
 
 ## 32. 기술 구조 개념
 
-기존 방향: - HTML5 / CSS UI - Canvas 2.5D Game Layer - JavaScript /
-TypeScript - Pixi.js 또는 Phaser 3 검토 - Firebase 또는 Supabase 계열
-BaaS 검토
+현재 Prototype 구현 구조: HTML5/CSS UI + World Background rendering + JavaScript/TypeScript, local save. MAP04 raster WebP + follow camera + 코드 collision/interaction을 지원한다. [개발 확인] renderer 선택은 이 구조/모바일 메모리 검증으로 판단하며 새 Tile 엔진 도입을 뜻하지 않는다. Firebase/Supabase BaaS는 [Later]/[Prototype 제외]다.
 
 이번 Prototype State: episodeId, sceneId, mode, dialogueNodeId, Adventure 위치/진행, puzzleState, inventory, knowledgeFlags, worldState, majorChoice, reflection, heartRecord. Stage/Checkpoint 계층을 도입하지 않는다.
 
@@ -849,34 +871,18 @@ BaaS 검토
 
 ------------------------------------------------------------------------
 
-## 33. 원안 대비 주요 설계 변경
+## 33. 현재 설계 결정
 
-  -----------------------------------------------------------------------
-  원안/초기 방향                      현재 확정 방향
-  ----------------------------------- -----------------------------------
-  Visible 마음 Stat 가능              제거
-
-  공감/책임감 등의 Score형 Parent     Context + Choice + Conversation
-  Report                              중심
-
-  MBTI 행동 패턴/심리 분석            Parent Report의 아이 판정 용도로
-                                      사용하지 않음
-
-  전투/Monster 가능성                 Encounter 중심
-
-  Death/Game Over 가능성              없음
-
-  Energy 기반 반복 제한               없음
-
-  Quest 중심 구조                     Event + Objective 중심
-
-  교육형 Mini Game                    World Context에 통합된 Mechanic
-
-  Broad Reward/Economy 가능성         Coin을 My Room 성장에 제한
-
-  My Room 자유 배치                   비전 유지, 초기 자동 전시 → Later
-                                      자유 배치
-  -----------------------------------------------------------------------
+| 항목 | 현재 기준 |
+|---|---|
+| 플레이어 표현 | 보이는 성격/능력/마음 Stat/호감도/레벨 없음 |
+| Parent Feedback | [Later] Context + 중립 Choice 설명 + 대화 질문; Reflection/Diary private |
+| Encounter | 관찰/경청/퍼즐/선택 중심; 전투/Death/GAME OVER 없음 |
+| 시간과 중단 | 재촉/벌점 없음, Story State 시간, Adventure stop/resume |
+| Objective | 자연어 한 문장과 객관적 알아낸 것 HUD |
+| Adventure 제작 | MAP04 Large Map Illustration/WebP/follow camera/code collision·interaction |
+| 보상 | Episode 완료 Heart; Theme 경제는 [Later]/[Prototype 제외] |
+| My Room | 개인 기록/Bern/Day End, 자유 배치·Theme Shop은 [Later] |
 
 ------------------------------------------------------------------------
 
@@ -898,7 +904,7 @@ Correct / Wrong Choice
 
 다음은 설계 누락이 아니라 실제 구현/테스트 값이다. - 이동 속도 -
 Interaction 거리 - Camera 수치 - Adventure 맵 크기/동선 -
-Coin 지급량 - Room Theme 가격 - Hint Timing - NPC Random Question 빈도 -
+[Later/TBD] 전체 게임 Heart 지급량/Room Theme 가격 - Hint Timing - NPC Random Question 빈도 -
 Day/Time 진행 빈도 - Material Reset 세부 정책 - Optional Help/Skip
 접근성 세부 - Pixi.js vs Phaser 3 - DB Schema - Autosave Trigger 세부
 
@@ -917,10 +923,14 @@ Prototype 이후 Backend Lead와 검토: 인증, 이미지 URL/텍스트 API 계
 -   Game Body Skeleton: **CLOSED**
 -   Episode Production Structure: **CLOSED**
 -   Parent Feedback Structure: **CLOSED**
--   Episode 1 Story: **미확정** (기존 예시는 Paper Simulation용)
+-   Episode 1 Story: **Script v2 확정 / 실제 아동 User Test 예정**
 -   Balance Values: **Playtest 단계**
 -   Technical Detail / DB: **개발팀 협의 단계**
--   Prototype Scope: **프런트엔드 전체 흐름 확정 — 임시 JSON / 카엘 / 온실 Adventure / Connect-Rotate / 로컬 이어하기 / 부모 리포트 미리보기**
+-   Prototype Scope: **프런트엔드 Desktop/Mobile — JSON / 32명 열람·카엘 플레이 / MAP04 온실 / Connect-Rotate / local save / Diary·Heart / Day02 종료**
 -   실제 로그인·서버 저장·API 연결: **후속 백엔드 협의**
 
-다음 단계: 팀 문서 공유 → 학생 NPC/임시 대본 및 엔진 제안 → 구현 계획 → PC Prototype 제작·검증 → 백엔드 계약 협의.
+다음 단계: 역할별 문서 공유 → Prototype Plan 기준 구현·검증 → Desktop/Mobile/아동 Playtest → 후속 백엔드 계약 협의.
+
+## 38. Responsive / Mobile 공통 기준
+
+Desktop 화면을 단순 축소하지 않는다. touch target과 safe area, 긴 Choice의 자동 높이, Dialogue overflow를 고려해 UI를 재배치한다. Intro Movie는 핵심 Rune을 central safe area에 두어 모바일 crop에 대응한다. Adventure는 Mobile에서도 큰 World Map 일부를 viewport로 보여 주며 player-follow camera를 유지한다. PC는 방향키/WASD 이동 + E 상호작용, Mobile/Tablet은 가상 조이스틱 이동 + 문맥 행동 버튼을 설계·검증한다. 입력 감지·지도 메모리·터치 충돌은 [개발 확인], 조작감/가독성은 [Playtest 확인]이다. iPhone 6s는 저사양 최적화 참고 수준이며 실기기 성능 검증은 완료조건이 아니다.
