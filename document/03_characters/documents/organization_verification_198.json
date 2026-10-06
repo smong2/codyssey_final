@@ -1,0 +1,104 @@
+{
+  "numbering": {
+    "documents": {
+      "count": 198,
+      "continuousFromZero": true
+    },
+    "code": {
+      "count": 23,
+      "continuousFromZero": true
+    },
+    "assets/background_images": {
+      "count": 22,
+      "continuousFromZero": true
+    },
+    "assets/character_images": {
+      "count": 88,
+      "continuousFromZero": true
+    },
+    "assets/effect_images": {
+      "count": 2,
+      "continuousFromZero": true
+    },
+    "assets/environment_images": {
+      "count": 31,
+      "continuousFromZero": true
+    },
+    "assets/item_images": {
+      "count": 32,
+      "continuousFromZero": true
+    },
+    "assets/map_images": {
+      "count": 7,
+      "continuousFromZero": true
+    },
+    "assets/puzzle_images": {
+      "count": 10,
+      "continuousFromZero": true
+    },
+    "assets/screen_images": {
+      "count": 40,
+      "continuousFromZero": true
+    },
+    "assets/stat_images": {
+      "count": 0,
+      "continuousFromZero": true
+    },
+    "assets/ui_images": {
+      "count": 13,
+      "continuousFromZero": true
+    }
+  },
+  "browserChecks": [
+    {
+      "file": "adventure_map_preview_019.html",
+      "failed": [],
+      "status": "검토 시안 · 전체 맵 · 보관 아이템 0개 · 관찰 기록 0건",
+      "total": 0
+    },
+    {
+      "file": "backgrounds_scene_reviews_actual_asset_comparison_007.html",
+      "failed": [],
+      "total": 9
+    },
+    {
+      "file": "screen_mockups_closeup_reviews_preview_011.html",
+      "failed": [],
+      "total": 2
+    },
+    {
+      "file": "screen_mockups_flow_gallery_018.html",
+      "failed": [],
+      "total": 23
+    },
+    {
+      "file": "screen_mockups_flow_preview_015.html",
+      "failed": [],
+      "total": 1
+    },
+    {
+      "file": "screen_mockups_preview_010.html",
+      "failed": [],
+      "total": 5
+    },
+    {
+      "file": "screen_mockups_room_layout_reviews_layout_comparison_013.html",
+      "failed": [],
+      "total": 6
+    },
+    {
+      "file": "sd_character_motion_review_009.html",
+      "failed": [],
+      "loaded": 8,
+      "total": 8
+    },
+    {
+      "file": "ui_ui_review_008.html",
+      "failed": [],
+      "loaded": 13,
+      "total": 13
+    }
+  ],
+  "protectedOriginals": "No change to original 5 project documents",
+  "imageBytesUnchanged": true
+}
