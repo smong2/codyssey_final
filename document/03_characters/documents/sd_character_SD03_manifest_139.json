@@ -1,0 +1,327 @@
+{
+  "id": "SD03",
+  "status": "direction_strips_saved_motion_and_accessory_qa_pending",
+  "directions": [
+    "S",
+    "SW",
+    "W",
+    "NW",
+    "N",
+    "NE",
+    "E",
+    "SE"
+  ],
+  "cell": [
+    256,
+    256
+  ],
+  "atlas": [
+    768,
+    2048
+  ],
+  "walk_sequence": [
+    0,
+    1,
+    2,
+    1
+  ],
+  "frame_duration_ms": 160,
+  "rows": [
+    {
+      "direction": "S",
+      "source": "../assets/character_images/SD03_S_079.png",
+      "strip": "../assets/character_images/SD03_S_strip_069.png",
+      "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face STRAIGHT TOWARDS VIEWER, same front view, never turn head or body. Left frame left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.",
+      "frames": [
+        {
+          "file": "../assets/character_images/SD03_S_00_051.png",
+          "direction": "S",
+          "frame": 0,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "8BDD1A686E770EB39D5CA2B2A1E775599D67871E16C5F62B7A48B301EEB4248B"
+        },
+        {
+          "file": "../assets/character_images/SD03_S_01_052.png",
+          "direction": "S",
+          "frame": 1,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "51568141EE212680B65BD66829ABF62E65B0DE854BC40A669C9199F608BF7FAC"
+        },
+        {
+          "file": "../assets/character_images/SD03_S_02_053.png",
+          "direction": "S",
+          "frame": 2,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "0811368FE7D35C1B6C9787BC6B0458EF7F366E20A77BA2AE8A4A4EEEDCF1684C"
+        }
+      ],
+      "qa": "pending_visual_and_game_check",
+      "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+    },
+    {
+      "direction": "SW",
+      "source": "../assets/character_images/SD03_SW_081.png",
+      "strip": "../assets/character_images/SD03_SW_strip_071.png",
+      "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face DIAGONALLY TOWARD LOWER LEFT of screen, FRONT-LEFT three quarter; face/nose point left, both eyes partly visible, identical orientation in every frame, never turn head or body. Left frame walking along that diagonal with left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.",
+      "frames": [
+        {
+          "file": "../assets/character_images/SD03_SW_00_057.png",
+          "direction": "SW",
+          "frame": 0,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "5D01FC535FD1E8AE6B5DBF3329BD1F7ACCE509D31FD9D200C24417D0903BAA87"
+        },
+        {
+          "file": "../assets/character_images/SD03_SW_01_058.png",
+          "direction": "SW",
+          "frame": 1,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "C61ED720754A78E37B9237693F2E603D8BB0760F7362757B7436AA5F01AE9640"
+        },
+        {
+          "file": "../assets/character_images/SD03_SW_02_059.png",
+          "direction": "SW",
+          "frame": 2,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "D81C25167EC61AC3FDEA4BBCC4D2BDBD78B975C443E7DCD2244FDF65C72733FE"
+        }
+      ],
+      "qa": "pending_visual_and_game_check",
+      "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+    },
+    {
+      "direction": "W",
+      "source": "../assets/character_images/SD03_W_082.png",
+      "strip": "../assets/character_images/SD03_W_strip_072.png",
+      "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face STRAIGHT LEFT in strict side profile; nose points LEFT, only one eye visible, identical orientation in every frame, never turn head or body. Left frame left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.\nIMPORTANT leftmost and rightmost must show OPPOSITE legs forward, not duplicated stride. Keep body left-facing in ALL three.",
+      "frames": [
+        {
+          "file": "../assets/character_images/SD03_W_00_060.png",
+          "direction": "W",
+          "frame": 0,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "99F4F8E88FEB35FFD1120A7185E338A988856969AF3DC0D259908639872AD39F"
+        },
+        {
+          "file": "../assets/character_images/SD03_W_01_061.png",
+          "direction": "W",
+          "frame": 1,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "C5CAC9C0C6E8A3F53845900E8901B8CFEE219F27900D376DE191F800BE42871B"
+        },
+        {
+          "file": "../assets/character_images/SD03_W_02_062.png",
+          "direction": "W",
+          "frame": 2,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "98493FF60755A515603B088952CE6D815265877F5FEFECB4EE7CABAD766873C8"
+        }
+      ],
+      "qa": "pending_visual_and_game_check",
+      "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+    },
+    {
+      "direction": "NW",
+      "source": "../assets/character_images/SD03_NW_078.png",
+      "strip": "../assets/character_images/SD03_NW_strip_068.png",
+      "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face DIAGONALLY AWAY toward UPPER LEFT, BACK-LEFT three quarter; back of jacket dominates, tiny LEFT cheek only, identical orientation in every frame, never turn head or body. Left frame left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.\nShow BACK-LEFT surfaces, not front of shirt. All three face upper-left. Opposite leg strides in first/third.",
+      "frames": [
+        {
+          "file": "../assets/character_images/SD03_NW_00_048.png",
+          "direction": "NW",
+          "frame": 0,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "9975556DA228069F6CD2BA2F89F068D41748EB491096A643F21BA4B1CACD3435"
+        },
+        {
+          "file": "../assets/character_images/SD03_NW_01_049.png",
+          "direction": "NW",
+          "frame": 1,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "AE8541631106AD7C6CA1B1DBC952118B61EE3B567F4D5EBDDBB7359803F39577"
+        },
+        {
+          "file": "../assets/character_images/SD03_NW_02_050.png",
+          "direction": "NW",
+          "frame": 2,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "D2219D7C76B6BF2F7C18C9798209B0FB6967D92B4FAD1FC0AEE4FC4F3786364F"
+        }
+      ],
+      "qa": "pending_visual_and_game_check",
+      "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+    },
+    {
+      "direction": "N",
+      "source": "../assets/character_images/SD03_N_076.png",
+      "strip": "../assets/character_images/SD03_N_strip_066.png",
+      "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face STRAIGHT AWAY FROM VIEWER, exact REAR view, back of head and jacket NO face visible, identical orientation in every frame, never turn head or body. Left frame left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.",
+      "frames": [
+        {
+          "file": "../assets/character_images/SD03_N_00_042.png",
+          "direction": "N",
+          "frame": 0,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "7B8570655657300B5789947E66C1E7613BBC3969C9B4F227B5AFA91DC25DC9F8"
+        },
+        {
+          "file": "../assets/character_images/SD03_N_01_043.png",
+          "direction": "N",
+          "frame": 1,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "D0B9317A7058A4213B39059A50D4C78E5F0CFCB42C46ECEF509A2A91C7464F69"
+        },
+        {
+          "file": "../assets/character_images/SD03_N_02_044.png",
+          "direction": "N",
+          "frame": 2,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "E60C00E23DFD8B430864FA082C1FD7CFFC5B879FAC5CFB71AF63CCCA9AF61387"
+        }
+      ],
+      "qa": "pending_visual_and_game_check",
+      "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+    },
+    {
+      "direction": "NE",
+      "source": "../assets/character_images/SD03_NE_077.png",
+      "strip": "../assets/character_images/SD03_NE_strip_067.png",
+      "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face DIAGONALLY AWAY toward UPPER RIGHT, BACK-RIGHT three quarter; back of jacket dominates, tiny RIGHT cheek only, identical orientation in every frame, never turn head or body. Left frame left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.\nAll3 BACK-RIGHT. Book stays fixed on character right hip in all poses. No mirrored accessories.",
+      "frames": [
+        {
+          "file": "../assets/character_images/SD03_NE_00_045.png",
+          "direction": "NE",
+          "frame": 0,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "78BE22B5E37D8D72F98920ABC15C245FEF53014512AC260A2DF0A6237C06E754"
+        },
+        {
+          "file": "../assets/character_images/SD03_NE_01_046.png",
+          "direction": "NE",
+          "frame": 1,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "4DE3F4D1866FC2A2BB453D74A143CAB8FC1FC867C90CD138C607AB962EFD8507"
+        },
+        {
+          "file": "../assets/character_images/SD03_NE_02_047.png",
+          "direction": "NE",
+          "frame": 2,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "1358D0A17999420DBA836D8AC6581D03A0AA12AE6E64E73C5F90F2F1B207A4F6"
+        }
+      ],
+      "qa": "pending_visual_and_game_check",
+      "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+    },
+    {
+      "direction": "E",
+      "source": "../assets/character_images/SD03_E_075.png",
+      "strip": "../assets/character_images/SD03_E_strip_065.png",
+      "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face STRAIGHT RIGHT in strict side profile; nose points RIGHT, only one eye visible, identical orientation in every frame, never turn head or body. Left frame left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.\nAll3 nose points screen RIGHT. Opposite legs first/third. Book stays fixed on character right hip.",
+      "frames": [
+        {
+          "file": "../assets/character_images/SD03_E_00_039.png",
+          "direction": "E",
+          "frame": 0,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "BBF285265D5224EFB514123ADD482990CFA8728F4D79012DE8F49A81C48E857E"
+        },
+        {
+          "file": "../assets/character_images/SD03_E_01_040.png",
+          "direction": "E",
+          "frame": 1,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "E555CD50F60AAAE02A3A2378D28518FFFEB5AEA020BEC6F408A491CE22D696FE"
+        },
+        {
+          "file": "../assets/character_images/SD03_E_02_041.png",
+          "direction": "E",
+          "frame": 2,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "EE0F6AA65ED4DFC21824873B2601471B166E2AD5810E26782EFED569516DA9FC"
+        }
+      ],
+      "qa": "pending_visual_and_game_check",
+      "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+    },
+    {
+      "direction": "SE",
+      "source": "../assets/character_images/SD03_SE_080.png",
+      "strip": "../assets/character_images/SD03_SE_strip_070.png",
+      "prompt": "Use reference only for Kael identity. Create a WIDE 3:1 transparent sprite strip containing EXACTLY THREE full body Kael sprites side by side in equal SQUARE cells. ALL THREE face DIAGONALLY TOWARD LOWER RIGHT of screen, FRONT-RIGHT three quarter; face/nose point right, both eyes partly visible, identical orientation in every frame, never turn head or body. Left frame left foot forward/right arm forward; middle frame idle feet parallel arms relaxed; right frame right foot forward/left arm forward. Compact 3-head-high SD teen, wavy black hair, reserved gray eyes, navy academic blazer, black high-neck shirt, gray trousers, cream navy sneakers, book on belt. Simple matte watercolor ink game art. Consistent face/clothing/scale. Occupy only70%height each square; feet baseline85%, generous transparent margins. Background must be completely TRANSPARENT, no smoke, no brown wash, no lighting aura, no ground shadow. No text, no lines. Output 1536x512 or equivalent exact3:1 aspect.\nAll3 FRONT-RIGHT. Opposite legs first/third. Book stays fixed on character right hip.",
+      "frames": [
+        {
+          "file": "../assets/character_images/SD03_SE_00_054.png",
+          "direction": "SE",
+          "frame": 0,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "CF21209D8D047C8B01D1546E8AC79255124357FE016FB7A65DA1894A6DD284F9"
+        },
+        {
+          "file": "../assets/character_images/SD03_SE_01_055.png",
+          "direction": "SE",
+          "frame": 1,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "3DF5559BAA11727E05608BB0B0DEA91CBFC803546DA9ADD6EF1AA420913572B7"
+        },
+        {
+          "file": "../assets/character_images/SD03_SE_02_056.png",
+          "direction": "SE",
+          "frame": 2,
+          "width": 256,
+          "height": 256,
+          "baseline_y": 218,
+          "sha256": "9EF9870F4CA28CAB04766A2A121451629A2C5643DA869819CC9D80A79B939ED1"
+        }
+      ],
+      "qa": "pending_visual_and_game_check",
+      "normalization": "Cell crop and proportional fit to height184 baseline218; no painted pixel edits"
+    }
+  ]
+}

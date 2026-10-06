@@ -1,0 +1,31 @@
+{
+  "source": "LUMIA_DESIGNER_PRODUCTION_REQUEST.md §1.10",
+  "mode": "native_svg_no_image_generation",
+  "size": [
+    128,
+    128
+  ],
+  "viewBox": "0 0 128 128",
+  "transparent": true,
+  "stroke": 3.2,
+  "safe_margin": 16,
+  "states": "single base; selected/disabled handled by host UI",
+  "duplicate_check": "No matching bag/journal/hint assets found in repository",
+  "assets": [
+    {
+      "id": "UI08",
+      "name": "가방",
+      "file": "../assets/ui_images/UI08_가방_005.svg"
+    },
+    {
+      "id": "UI09",
+      "name": "발견기록",
+      "file": "../assets/ui_images/UI09_발견기록_006.svg"
+    },
+    {
+      "id": "UI10",
+      "name": "힌트",
+      "file": "../assets/ui_images/UI10_힌트_007.svg"
+    }
+  ]
+}

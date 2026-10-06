@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-05",
+  "imageGenerationCalls": 0,
+  "scenes": [
+    {
+      "broken": [],
+      "clip": "inset(0px 0px 1000px)",
+      "npcWidth": "1140px",
+      "playerWidth": "1140px",
+      "scene": "scene-choice"
+    },
+    {
+      "broken": [],
+      "clip": "inset(0px 0px 1000px)",
+      "npcWidth": "370px",
+      "playerWidth": "1140px",
+      "scene": "scene-room"
+    },
+    {
+      "broken": [],
+      "clip": "none",
+      "npcWidth": "470px",
+      "playerWidth": "650px",
+      "scene": "scene-reflection"
+    }
+  ],
+  "choiceClickVerified": true,
+  "captures": [
+    {
+      "file": "../assets/screen_images/FLOW19_이야기선택_상반신_027.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "7bab19ebb9b601f596983a3c391361235f631a4b7c7e8a675e286ca5a5c1709a"
+    },
+    {
+      "file": "../assets/screen_images/FLOW20_마이룸_상반신_028.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "80c50fbed15101b8d352fd5412455ad1e769671d83e6711e32804ba406581ce3"
+    }
+  ],
+  "capture_state": "Fresh initial scene: choices visible in 19; no selection submitted"
+}

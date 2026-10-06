@@ -1,0 +1,98 @@
+[
+  {
+    "file": "../assets/puzzle_images/PZ_straight_inactive_008.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "straight",
+    "state": "inactive",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "../assets/puzzle_images/PZ_straight_active_007.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "straight",
+    "state": "active",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "../assets/puzzle_images/PZ_elbow_inactive_002.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "elbow",
+    "state": "inactive",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "../assets/puzzle_images/PZ_elbow_active_001.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "elbow",
+    "state": "active",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "../assets/puzzle_images/PZ_start_inactive_006.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "start",
+    "state": "inactive",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "../assets/puzzle_images/PZ_start_active_005.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "start",
+    "state": "active",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "../assets/puzzle_images/PZ_goal_inactive_004.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "goal",
+    "state": "inactive",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  },
+  {
+    "file": "../assets/puzzle_images/PZ_goal_active_003.svg",
+    "width": 256,
+    "height": 256,
+    "kind": "goal",
+    "state": "active",
+    "rotation_center": [
+      128,
+      128
+    ],
+    "status": "geometry_checked_visual_qa_pending"
+  }
+]
