@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { freshState, collectHerb, inspectPlant, recoverWorld, makeReport, validateState } from '../state.mjs';
+import { freshState, collectHerb, inspectPlant, recoverWorld, validateState } from '../state.mjs';
 import { connected, rotate, initialPuzzle } from '../puzzle.mjs';
 import { loadSave, saveState } from '../storage.mjs';
 import {readFile,access} from 'node:fs/promises';
 
 test('조사는 Knowledge, 채집은 Item이며 획득은 중복되지 않는다',()=>{
  const s=freshState(); inspectPlant(s); collectHerb(s); collectHerb(s);
- assert.deepEqual(s.knowledge,['light-flow']); assert.equal(s.herbs,1); assert.equal(s.restored,false);
+ assert.deepEqual(s.knowledge,['glassFlowerSoil']); assert.equal(s.herbs,1); assert.equal(s.restored,false);
 });
 test('퍼즐은 시작/도착의 실제 연결로 판정한다',()=>{
  const p=initialPuzzle(); assert.equal(connected(p),false);
@@ -17,10 +17,6 @@ test('퍼즐은 시작/도착의 실제 연결로 판정한다',()=>{
 });
 test('수집하지 않아도 룬 회복이 가능하고 여러 번 해결해도 기록은 하나다',()=>{
  const s=freshState(); recoverWorld(s); recoverWorld(s); assert.equal(s.restored,true); assert.equal(s.herbs,0);
-});
-test('리포트에 개인 성찰/일반 질문 답변을 넣지 않는다',()=>{
- const s=freshState(); s.choice='together'; s.reflection='PRIVATE'; s.questionAnswer='SECRET';
- const r=JSON.stringify(makeReport(s)); assert.ok(!r.includes('PRIVATE')); assert.ok(!r.includes('SECRET')); assert.ok(r.includes('together'));
 });
 test('손상되거나 이전 버전인 저장 상태는 거부한다',()=>{
  assert.equal(validateState(null),false); assert.equal(validateState({version:0}),false);

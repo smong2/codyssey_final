@@ -1,49 +1,631 @@
 {
- "title":"빛을 잃은 온실","subtitle":"LUMIA · 마음을 품은 룬",
- "assets":{
-  "entrance":"assets/BG01_아르카디아_입구와_호수_1920x1080.png",
-  "plaza":"assets/BG02_시계탑_광장_1920x1080.png",
-  "greenhouse":"assets/BG07_유리_온실_1920x1080.png",
-  "room":"assets/BG03_빈_마이룸_1920x1080.png",
-  "kael":"assets/CH01_카엘.png","sion":"assets/CH03_시온.png","bern":"assets/NPC03_베른.png",
-  "paper":"assets/UI01_양피지_타일.png","corner":"assets/UI02_프레임_모서리.png","invite":"assets/UI07_입학_초대장.png",
-  "bag":"assets/UI08_가방.svg","journal":"assets/UI09_발견기록.svg","hint":"assets/UI10_힌트.svg",
-  "floor":"assets/ENV01_온실_바닥_기본.png","floorA":"assets/ENV02_온실_바닥_변형_A_v2.png","floorB":"assets/ENV03_온실_바닥_변형_B_v2.png",
-  "small":"assets/ENV05_작은_식물_A.png","large":"assets/ENV07_큰_식물_A.png","bed":"assets/ENV09_온실_화단.png","structure":"assets/ENV11_온실_구조물.png","foreground":"assets/ENV12_전경_식물_A.png",
-  "wilted":"assets/OBJ01_조사_식물_시듦.png","recovered":"assets/OBJ02_조사_식물_회복_v2.png","herb":"assets/OBJ03_달빛_약초.png","runeOff":"assets/OBJ04_사건_룬_비활성.png","runeOn":"assets/OBJ05_사건_룬_활성.png","glow":"assets/FX01_공통_룬_빛.png",
-  "tile":"assets/PZ01_퍼즐_타일_바탕.png","straight":"assets/PZ_straight_inactive.svg","elbow":"assets/PZ_elbow_inactive.svg","start":"assets/PZ_start_inactive.svg","goal":"assets/PZ_goal_inactive.svg",
-  "desk":"assets/IT07_마이룸_책상.png","lamp":"assets/IT02_룬_램프.png",
-  "straightActive":"assets/PZ_straight_active.svg","elbowActive":"assets/PZ_elbow_active.svg","startActive":"assets/PZ_start_active.svg","goalActive":"assets/PZ_goal_active.svg"
- },
- "sd":{"prefix":"assets/SD03_","suffix":"_strip.png","directions":["S","SW","W","NW","N","NE","E","SE"],"frameWidth":256,"frameHeight":256,"displayWidth":128,"footY":218,"fps":7},
- "character":{"name":"카엘","title":"그림자 도서관의 전략가","age":17,"description":"말보다 관찰을 믿는 조용한 연구생. 계획이 흔들리는 순간에도 친구를 위한 길을 찾는다.","quote":"변수부터 살펴보자. 놓친 단서가 있을 거야."},
- "dialogue":{
-  "plaza":[{"speaker":"시온","portrait":"sion","text":"카엘, 잠깐… 온실의 유리꽃들이 빛을 잃었어. 물을 줘도 잎이 고개를 들지 않아."},{"speaker":"카엘","portrait":"kael","text":"모든 식물이 동시에? 뿌리보다는 빛을 보내는 룬에 문제가 있을지도 몰라. 온실에 가 보자."}],
-  "greenhouse":[{"speaker":"시온","portrait":"sion","text":"온실 깊은 곳에 빛을 보내는 오래된 룬이 있어. 오늘은… 어쩐지 조용하네."},{"speaker":"카엘","portrait":"kael","text":"잎과 룬을 직접 살펴볼게. 내가 찾은 사실부터 차근차근 연결해 보자."}],
-  "reaction":[{"speaker":"시온","portrait":"sion","text":"빛이 돌아왔네… 사실 어제 내가 룬의 배열을 바꿨어. 더 밝아질 줄 알았는데, 흐름을 끊어 버린 거야."},{"speaker":"시온","portrait":"sion","text":"실패했다는 말을 듣기 무서워서 아무에게도 말하지 못했어. 기다리면 저절로 괜찮아질 줄 알았는데…"}],
-  "room":[{"speaker":"베른","portrait":"bern","text":"어서 오세요, 카엘. 온실에 빛이 돌아왔다고 들었어요. 오늘의 이야기는 어떤 장면으로 남았나요?"}]
- },
- "knowledge":{"id":"light-flow","title":"빛은 이어진 길을 따라 흐른다","text":"잎은 축 늘어져 있지만 흙은 촉촉하다. 온실의 식물은 룬이 보내는 빛을 함께 나누고 있다. 끊긴 빛의 길을 살펴보자."},
- "herb":{"name":"달빛 약초","text":"달빛처럼 은은한 향을 품은 약초. 가방에 한 줄기를 보관했다. 룬을 고치는 재료는 아니지만, 오늘의 발견으로 남는다."},
- "runeObservation":"돌 표면에 빛의 길이 새겨져 있다. 조각의 홈이 맞닿아야 빛이 다음 조각으로 흐르는 것 같다.",
- "question":{"text":"새로운 발견을 하면, 바로 시험해 보고 싶어? 아니면 조금 더 살펴보는 편이야?","answers":["직접 시험해 보고 싶어.","먼저 살펴보고 싶어."],"reaction":"그렇구나. 나는 궁금한 게 생기면 다른 걸 잊어버릴 때가 있어. 오늘은 네 시선으로 같이 살펴보자."},
- "objectives":{"explore":"잎과 룬을 살펴보며, 끊긴 빛의 길을 찾아보자.","observed":"온실 중심의 룬에서 빛의 길을 이어 보자.","restored":"빛이 돌아왔다. 온실 입구로 돌아가 시온을 만나자."},
- "hints":["빛은 왼쪽 위의 원에서 시작해 오른쪽 아래의 마름모로 흘러요.","맞닿은 조각의 홈이 서로 이어져야 해요. 원과 마름모는 고정되어 있어요.","윗줄 가운데 직선 조각을 한 번 돌려 가로로 놓아 보세요."],
- "choices":[
-  {"id":"together","label":"함께 선생님께 이야기하자.","reaction":"시온이 천천히 고개를 끄덕인다. ‘함께라면… 내 입으로 말할 수 있을 것 같아.’","description":"친구와 함께 상황을 설명하는 방법을 선택했습니다."},
-  {"id":"time","label":"말할 준비가 되도록 곁에서 기다릴게.","reaction":"시온이 깊게 숨을 내쉰다. ‘고마워. 오늘 안에는 이야기할게. 그때 같이 있어 줘.’","description":"친구가 말할 준비를 할 시간을 주는 방법을 선택했습니다."},
-  {"id":"ask","label":"먼저 필요한 도움을 물어보자.","reaction":"시온이 룬을 바라본다. ‘다음에는 혼자 바꾸지 않도록, 점검하는 법을 배워 보고 싶어.’","description":"친구에게 필요한 도움이 무엇인지 묻는 방법을 선택했습니다."}
- ],
- "reflections":[{"id":"listen","label":"시온의 이야기를 들었던 순간"},{"id":"observe","label":"단서를 연결했던 순간"},{"id":"help","label":"함께 할 방법을 정했던 순간"}],
- "report":{"context":"온실의 빛이 끊긴 이유를 조사하고 룬의 흐름을 다시 연결했습니다. 연구 중 실수한 친구가 그 사실을 숨긴 사정을 들었습니다.","result":"온실의 식물에 빛이 돌아왔고 시온은 자신의 실수를 이야기하기 시작했습니다.","prompt":"실수를 이야기하기 어려웠던 적이 있나요? 그때 어떤 도움이 있으면 좋았을까요?"},
- "map":{"width":1800,"height":1100,"speed":250,"interactionRadius":125,"tileSize":128,
-  "objects":[
-   {"id":"plant","asset":"wilted","x":460,"y":700,"width":150,"originY":0.9,"label":"시든 유리꽃","action":"살펴보기"},
-   {"id":"herb","asset":"herb","x":870,"y":650,"width":110,"originY":0.9,"label":"달빛 약초","action":"채집하기"},
-   {"id":"rune","asset":"runeOff","x":1400,"y":390,"width":190,"originY":0.9,"label":"빛을 잃은 룬","action":"살펴보기"},
-   {"id":"exit","asset":null,"x":180,"y":930,"width":100,"label":"온실 입구","action":"돌아가기"}
+  "title": "빛을 잃은 온실",
+  "subtitle": "LUMIA · 마음을 품은 룬",
+  "intro": {
+    "video": "assets/intro-low.mp4"
+  },
+  "assets": {
+    "world": "assets/MAP04_어드벤처_전체맵_무드시안.webp",
+    "cardBackground": "assets/UI03_캐릭터_카드_배경.png",
+    "cardFrame": "assets/UI02_프레임_모서리.png",
+    "invitation": "assets/UI07_입학_초대장.png",
+    "entrance": "assets/BG01_아르카디아_입구와_호수_1920x1080_screen.webp",
+    "plaza": "assets/BG02_시계탑_광장_1920x1080_screen.webp",
+    "greenhouse": "assets/BG07_유리_온실_1920x1080_screen.webp",
+    "room": "assets/BG03_빈_마이룸_1920x1080_screen.webp",
+    "kael": "assets/CH01_카엘_life.webp",
+    "sion": "assets/CH03_시온_life.webp",
+    "bern": "assets/NPC03_베른_life.webp",
+    "paper": "assets/UI01_양피지_타일.png",
+    "corner": "assets/UI02_프레임_모서리.png",
+    "invite": "assets/UI07_입학_초대장.png",
+    "bag": "assets/UI08_가방.svg",
+    "hint": "assets/UI10_힌트.svg",
+    "floor": "assets/ENV01_온실_바닥_기본.png",
+    "floorA": "assets/ENV02_온실_바닥_변형_A_v2.png",
+    "floorB": "assets/ENV03_온실_바닥_변형_B_v2.png",
+    "small": "assets/ENV05_작은_식물_A.png",
+    "large": "assets/ENV07_큰_식물_A.png",
+    "bed": "assets/ENV09_온실_화단.png",
+    "structure": "assets/ENV11_온실_구조물.png",
+    "foreground": "assets/ENV12_전경_식물_A.png",
+    "wilted": "assets/OBJ01_조사_식물_시듦.png",
+    "recovered": "assets/OBJ02_조사_식물_회복_v2.png",
+    "herb": "assets/OBJ03_달빛_약초.png",
+    "runeOff": "assets/OBJ04_사건_룬_비활성.png",
+    "runeOn": "assets/OBJ05_사건_룬_활성.png",
+    "glow": "assets/FX01_공통_룬_빛.png",
+    "tile": "assets/PZ01_퍼즐_타일_바탕.png",
+    "straight": "assets/PZ_straight_inactive.svg",
+    "elbow": "assets/PZ_elbow_inactive.svg",
+    "start": "assets/PZ_start_inactive.svg",
+    "goal": "assets/PZ_goal_inactive.svg",
+    "desk": "assets/IT07_마이룸_책상.png",
+    "lamp": "assets/IT02_룬_램프.png",
+    "straightActive": "assets/PZ_straight_active.svg",
+    "elbowActive": "assets/PZ_elbow_active.svg",
+    "startActive": "assets/PZ_start_active.svg",
+    "goalActive": "assets/PZ_goal_active.svg",
+    "valentinus": "assets/NPC02_발렌티누스_임시_life.webp"
+  },
+  "sd": {
+    "prefix": "assets/SD03_",
+    "suffix": "_strip.png",
+    "directions": [
+      "S",
+      "SW",
+      "W",
+      "NW",
+      "N",
+      "NE",
+      "E",
+      "SE"
+    ],
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "displayWidth": 128,
+    "footY": 218,
+    "fps": 7
+  },
+  "dialogue": {
+    "valentinus": [
+      {
+        "speaker": "발렌티누스",
+        "portrait": "valentinus",
+        "text": "처음 보는 얼굴이구나. 오늘 온 학생이지?"
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "네. 오늘 처음 왔어요. 저는 {characterName}이에요."
+      },
+      {
+        "speaker": "발렌티누스",
+        "portrait": "valentinus",
+        "text": "반갑구나, {characterName}. 나는 발렌티누스란다."
+      },
+      {
+        "speaker": "발렌티누스",
+        "portrait": "valentinus",
+        "text": "나는 이곳에서 룬을 가르치고 있단다."
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "룬이요?"
+      },
+      {
+        "speaker": "발렌티누스",
+        "portrait": "valentinus",
+        "text": "그래. 아르카디아 곳곳에서 볼 수 있는 신비한 힘이란다."
+      },
+      {
+        "speaker": "발렌티누스",
+        "portrait": "valentinus",
+        "text": "처음 보는 게 많을 거야."
+      },
+      {
+        "speaker": "발렌티누스",
+        "portrait": "valentinus",
+        "text": "궁금한 게 생기면 가까이 가서 살펴보렴."
+      },
+      {
+        "speaker": "발렌티누스",
+        "portrait": "valentinus",
+        "text": "모르는 게 있다면 친구들에게 물어봐도 좋고."
+      },
+      {
+        "speaker": "발렌티누스",
+        "portrait": "valentinus",
+        "text": "오늘은 천천히 둘러보렴."
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "네!"
+      }
+    ],
+    "sion": [
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "어? 처음 보는 얼굴인데?"
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "오늘이 첫날이야?"
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "응. 이제 막 도착했어."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "그렇구나. 나는 시온이야."
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "나는 {characterName}이야."
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "그런데 무슨 일 있어?"
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "아까부터 자꾸 어디를 보고 있네."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "사실 온실에 이상한 일이 생겼어."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "유리꽃들이 오늘 아침부터 빛을 잃었거든."
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "유리꽃?"
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "온실에서 자라는 특별한 꽃이야. 원래는 반짝반짝 빛나."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "나도 무슨 일인지 알아보러 가려던 참이야."
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "그럼 나도 같이 가도 돼?"
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "물론이야. 같이 가 줘."
+      }
+    ],
+    "greenhouse": [
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "여기야. 저게 유리꽃이야."
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "정말 빛이 거의 없네."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "응…… 원래는 훨씬 밝게 빛나."
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "가까이 가서 살펴볼게."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "응. 부탁해."
+      }
+    ],
+    "reaction": [
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "정말 빛이 돌아왔어!"
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "안쪽에 있던 룬의 빛이 중간에서 끊겨 있었어."
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "길을 다시 이어 주니까 유리꽃도 다시 빛나기 시작했어."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "……{characterName}."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "사실 나, 말하지 않은 게 있어."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "어제 내가 저 룬을 만졌어."
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "룬을?"
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "꽃을 더 밝게 만들고 싶었어."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "그래서 룬 조각 몇 개를 돌렸어."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "오늘 꽃이 시든 걸 보고……"
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "혹시 나 때문일까 봐 무서웠어."
+      },
+      {
+        "speaker": "시온",
+        "portrait": "sion",
+        "text": "혼날까 봐 겁이 났어."
+      }
+    ],
+    "bern": [
+      {
+        "speaker": "베른",
+        "portrait": "bern",
+        "text": "돌아왔군요, {characterName}. 오늘은 어떤 하루였나요?"
+      },
+      {
+        "speaker": "베른",
+        "portrait": "bern",
+        "text": "하루를 마치기 전에 기억에 남은 장면을 하나 떠올려 볼까요?"
+      }
+    ],
+    "reflectionReply": [
+      {
+        "speaker": "베른",
+        "portrait": "bern",
+        "text": "그 장면이 기억에 남았군요."
+      }
+    ],
+    "bernTalk": [
+      {
+        "speaker": "베른",
+        "portrait": "bern",
+        "text": "아직 잠들기엔 조금 이른 시간이군요."
+      },
+      {
+        "speaker": "베른",
+        "portrait": "bern",
+        "text": "조금 더 이야기할까요, {characterName}?"
+      },
+      {
+        "speaker": "{characterName}",
+        "portrait": "kael",
+        "text": "응. 잠깐만."
+      },
+      {
+        "speaker": "베른",
+        "portrait": "bern",
+        "text": "그럼 하나만 물어볼게요."
+      },
+      {
+        "speaker": "베른",
+        "portrait": "bern",
+        "text": "지금은 뭘 하고 싶나요?"
+      }
+    ],
+    "bernRepeat": [
+      {
+        "speaker": "베른",
+        "portrait": "bern",
+        "text": "아직 조금 더 쉬고 싶은가요, {characterName}?"
+      },
+      {
+        "speaker": "베른",
+        "portrait": "bern",
+        "text": "저는 여기 있으니 편하게 있다 가세요."
+      }
+    ],
+    "morningIntro": [
+      {
+        "speaker": "베른",
+        "portrait": "bern",
+        "text": "좋은 아침이에요, {characterName}. 오늘은 어떤 이야기를 만나게 될까요?"
+      }
+    ]
+  },
+  "knowledge": {
+    "glassFlowerSoil": {
+      "title": "유리꽃을 살펴봤어요.",
+      "text": "꽃은 시들어 있지만, 흙은 아직 촉촉해요.",
+      "fact": "🌱 유리꽃의 흙은 충분히 젖어 있다."
+    },
+    "greenhouseSunlight": {
+      "title": "온실 안을 살펴봤어요.",
+      "text": "유리창 사이로 햇빛이 들어오고 있어요.",
+      "fact": "☀ 온실 안에는 햇빛이 들어오고 있다."
+    },
+    "runeLightBroken": {
+      "title": "오래된 룬이 있어요.",
+      "text": "돌 위로 빛이 흐르고 있어요. 그런데 빛이 중간에서 끊겨 있어요.",
+      "fact": "✨ 룬의 빛이 중간에서 끊겨 있다."
+    }
+  },
+  "herb": {
+    "name": "달빛 약초",
+    "discovery": "은은하게 빛나는 작은 약초예요.",
+    "text": "은은한 빛을 품은 작은 약초. 유리 온실에서 발견했다."
+  },
+  "objectives": {
+    "explore": "유리꽃이 왜 시들었는지 살펴보자.",
+    "changed": "온실에 어떤 변화가 생겼는지 살펴보자.",
+    "return": "시온에게 돌아가 알려주자."
+  },
+  "hints": [
+    "빛은 왼쪽 위의 원에서 시작해요. 어디에서 길이 끊겼는지 살펴보세요.",
+    "맞닿은 두 조각의 길이 서로 이어져야 빛이 다음 조각으로 갈 수 있어요.",
+    "윗줄 가운데 조각을 한 번 돌려 보세요."
   ],
-  "decorations":[{"asset":"structure","x":1380,"y":310,"width":400,"originY":0.95},{"asset":"structure","x":180,"y":1010,"width":280,"originY":0.95},{"asset":"bed","x":430,"y":340,"width":390,"originY":0.9},{"asset":"bed","x":1050,"y":940,"width":390,"originY":0.9},{"asset":"large","x":1650,"y":780,"width":220,"originY":0.9},{"asset":"small","x":780,"y":350,"width":110,"originY":0.9},{"asset":"large","x":150,"y":330,"width":180,"originY":0.9},{"asset":"foreground","x":1500,"y":1040,"width":260,"originY":0.9}],
-  "collisions":[{"x":290,"y":300,"width":290,"height":65},{"x":900,"y":900,"width":290,"height":65},{"x":1590,"y":735,"width":100,"height":75}]
- }
+  "choices": [
+    {
+      "id": "together",
+      "label": "선생님께 같이 이야기하러 갈까?",
+      "reaction": [
+        "응. 같이 가 준다면 말할 수 있을 것 같아."
+      ]
+    },
+    {
+      "id": "time",
+      "label": "천천히 생각해 봐. 내가 옆에 있을게.",
+      "reaction": [
+        "고마워. 조금만 생각해 볼게."
+      ]
+    },
+    {
+      "id": "ask",
+      "label": "내가 어떻게 도와주면 좋을까?",
+      "reaction": [
+        "룬을 제대로 다루는 방법을 배우고 싶어.",
+        "다음에는 먼저 선생님께 물어볼래."
+      ]
+    }
+  ],
+  "reflections": [
+    {
+      "id": "flower",
+      "label": "유리꽃을 가까이에서 살펴본 순간"
+    },
+    {
+      "id": "rune",
+      "label": "끊어진 빛의 길을 이은 순간"
+    },
+    {
+      "id": "listen",
+      "label": "시온의 이야기를 들은 순간"
+    },
+    {
+      "id": "speak",
+      "label": "시온에게 말을 건넨 순간"
+    }
+  ],
+  "map": {
+    "width": 1800,
+    "height": 1100,
+    "spawn": {
+      "x": 900,
+      "y": 990
+    },
+    "speed": 210,
+    "interactionRadius": 115,
+    "objects": [
+      {
+        "id": "plant",
+        "asset": "wilted",
+        "x": 590,
+        "y": 610,
+        "width": 115,
+        "originY": 0.9,
+        "label": "시든 유리꽃",
+        "action": "살펴보기"
+      },
+      {
+        "id": "herb",
+        "asset": "herb",
+        "x": 1200,
+        "y": 770,
+        "width": 85,
+        "originY": 0.9,
+        "label": "달빛 약초",
+        "action": "살펴보기"
+      },
+      {
+        "id": "rune",
+        "asset": null,
+        "x": 900,
+        "y": 210,
+        "width": 140,
+        "label": "오래된 룬",
+        "action": "살펴보기"
+      },
+      {
+        "id": "exit",
+        "asset": null,
+        "x": 900,
+        "y": 990,
+        "width": 100,
+        "label": "온실 입구",
+        "action": "돌아가기"
+      },
+      {
+        "id": "sunlight",
+        "asset": null,
+        "x": 1530,
+        "y": 270,
+        "width": 100,
+        "label": "유리창 사이의 햇빛",
+        "action": "살펴보기"
+      }
+    ],
+    "decorations": [],
+    "collisions": [
+      {
+        "x": 50,
+        "y": 30,
+        "width": 570,
+        "height": 165
+      },
+      {
+        "x": 1120,
+        "y": 30,
+        "width": 390,
+        "height": 135
+      },
+      {
+        "x": 320,
+        "y": 365,
+        "width": 210,
+        "height": 95
+      },
+      {
+        "x": 755,
+        "y": 370,
+        "width": 290,
+        "height": 150
+      },
+      {
+        "x": 1370,
+        "y": 370,
+        "width": 300,
+        "height": 140
+      },
+      {
+        "x": 190,
+        "y": 710,
+        "width": 340,
+        "height": 170
+      },
+      {
+        "x": 1290,
+        "y": 600,
+        "width": 300,
+        "height": 100
+      },
+      {
+        "x": 1270,
+        "y": 910,
+        "width": 420,
+        "height": 140
+      },
+      {
+        "x": 50,
+        "y": 950,
+        "width": 600,
+        "height": 102
+      }
+    ]
+  },
+  "presentation": {
+    "kael": {
+      "flip": false
+    },
+    "sion": {
+      "flip": false
+    },
+    "bern": {
+      "flip": false
+    },
+    "valentinus": {
+      "flip": false
+    }
+  },
+  "copy": {
+    "entryStart": "시작하기",
+    "awakening": "마음이 룬을 깨웁니다.",
+    "start": "이야기를 시작합니다",
+    "continue": "이어하기",
+    "newStory": "새 이야기 시작",
+    "select": "함께 이야기를 시작할 친구를 골라보세요.",
+    "admission": [
+      "{characterName}에게",
+      "아르카디아에 온 것을 환영합니다.",
+      "이곳에서는 신비한 룬과 여러 친구들이 당신을 기다리고 있습니다.",
+      "이제, 당신의 이야기를 시작해 보세요."
+    ],
+    "admissionAction": "입학하기",
+    "roomArrival": "어느새 해가 저물고 있어요.",
+    "dayEnd": "아르카디아에서의 첫날이 저물었어요.",
+    "nextDay": "다음 날 아침",
+    "morning": "새로운 아침이 밝았어요.",
+    "diarySaved": "오늘의 이야기가 다이어리에 남았어요.",
+    "reward": "이야기를 하나 마쳤어요!",
+    "heartIntro": [
+      "♥ 하트",
+      "이야기를 경험하면 모을 수 있어요.",
+      "모은 하트로 나중에 My Room의 새로운 테마를 꾸밀 수 있어요."
+    ],
+    "adventureIntro": "방향키로 움직여 보세요. 가까이 가서 E를 누르면 살펴볼 수 있어요."
+  },
+  "inspection": {
+    "runePaths": "돌 위에 여러 개의 길이 그려져 있어요. 몇몇 길은 서로 이어지지 않아요.",
+    "flowerRecovered": "유리꽃이 다시 고개를 들었어요. 잎과 꽃잎에서 빛이 반짝여요.",
+    "runeRecovered": "룬의 길을 따라 빛이 계속 흐르고 있어요.",
+    "solved": "빛의 길이 이어졌어요!"
+  },
+  "record": {
+    "summary": [
+      "빛을 잃은 유리꽃을 살펴보고, 끊어진 룬의 빛을 다시 이어 주었어요.",
+      "그리고 말하지 못한 일이 있던 시온의 이야기를 들었어요."
+    ]
+  },
+  "bernTalk": {
+    "choices": [
+      {
+        "id": "rest",
+        "label": "조금 쉬고 싶어.",
+        "player": "오늘은 이것저것 많이 봐서\n조금 쉬고 싶어.",
+        "reaction": [
+          "그럼 아무것도 하지 않아도 괜찮아요.\n편하게 쉬고 있어요.",
+          "방은 제가 조용히 지켜 드릴게요."
+        ]
+      },
+      {
+        "id": "think",
+        "label": "오늘 있었던 일을 조금 더 생각해 보고 싶어.",
+        "player": "오늘 있었던 일을\n조금 더 생각해 보고 싶어.",
+        "reaction": [
+          "그래도 좋지요.",
+          "다이어리를 다시 보고 싶다면\n언제든 펼쳐 볼 수 있어요."
+        ]
+      },
+      {
+        "id": "chat",
+        "label": "그냥 베른이랑 이야기하고 싶어.",
+        "player": "그냥 베른이랑 이야기하고 싶어.",
+        "reaction": [
+          "저와요?",
+          "후후, 그건 기쁜 일이군요.",
+          "저는 언제든 여기 있으니까\n생각나면 또 말을 걸어 주세요."
+        ],
+        "reactionNote": "잠깐 놀라는 표정."
+      }
+    ]
+  }
 }
