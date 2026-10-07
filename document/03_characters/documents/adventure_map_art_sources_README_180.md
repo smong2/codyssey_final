@@ -12,5 +12,5 @@
 | 번호 | 이름 |
 |---|---|
 | 00 | 현재 안내 파일 |
-| 01 | [01_MAP04_어드벤처_전체맵_무드시안_source.png](../assets/map_images/MAP04_어드벤처_전체맵_무드시안_source_005.png) |
-| 02 | [02_MAP05_어드벤처_플레이_무드시안_source.png](../assets/map_images/MAP05_어드벤처_플레이_무드시안_source_006.png) |
+| 01 | [01_MAP04_어드벤처_전체맵_무드시안_source.png](../assets/map_images/MAP04_adventure_full_map_mood_concept_source_005.png) |
+| 02 | [02_MAP05_어드벤처_플레이_무드시안_source.png](../assets/map_images/MAP05_adventure_play_mood_concept_source_006.png) |

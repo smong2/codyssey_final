@@ -7,6 +7,6 @@
 - 원본: 1254×1254 / 테스트 파일: 512×512
 - 상태: generated_pending_game_qa, 샘플 알파: 0~254
 
-![공통_룬_빛](../assets/effect_images/FX01_공통_룬_빛_000.png)
+![공통_룬_빛](../assets/effect_images/FX01_shared_rune_light_000.png)
 
 

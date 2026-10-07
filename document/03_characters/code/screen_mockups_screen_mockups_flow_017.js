@@ -32,7 +32,7 @@ let index=Math.max(0,Math.min(21,(parseInt(location.hash.slice(1),10)||1)-1)),ch
 const labels=['UI08_가방','UI09_발견기록','UI10_힌트'];
 function fit(){const width=Math.min(innerWidth,document.body.classList.contains('capture')?1920:1440);document.querySelector('#frame').style.width=width+'px';document.querySelector('#frame').style.height=width*9/16+'px';stage.style.transform=`scale(${width/1920})`}
 function life(where,speaker,line,next,npc='npc'){
- let html=where==='room'&&scenes[index][1]==='room'?roomBackground():where==='room'?img('../assets/screen_images/LIFE01_마이룸_좌우대화_source_004.png','backdrop'):bg(where==='plaza'?'BG02_시계탑_광장':'BG07_유리_온실');
+ let html=where==='room'&&scenes[index][1]==='room'?roomBackground():where==='room'?img('../assets/screen_images/LIFE01_myroom_side_dialogue_source_004.png','backdrop'):bg(where==='plaza'?'BG02_시계탑_광장':'BG07_유리_온실');
  html+=`<div class="location">${where==='plaza'?'시계탑 광장':where==='room'?'마이룸':'유리 온실'}</div><div class="mode">Life · 대화</div>`+asset('player','person player')+asset(npc,'person npc '+(npc==='bern'?'bern':''));
  html+=`<div class="nameplate left-name">카엘</div><div class="nameplate right-name">${npc==='bern'?'베른':'하젤'}</div><section class="dialogue paper"><div class="speaker">${speaker}</div><p>${line}</p>${button(next===5?'약초원을 살펴본다':next===20?'오늘을 돌아보기':'다음',next,'primary advance')}</section>`;
  return html;
@@ -53,7 +53,7 @@ function roomBackground(){
 }
 // Camera crops are a storyboard surrogate, not runtime tile geometry. Shared crops retain place continuity.
 const cameras={entrance:[0,2100],walk:[350,1500],inspect:[150,450],knowledge:[150,450],herb:[3700,2000],pickup:[3700,2000],inventory:[3700,2000],clues:[3100,700],encounter:[1900,0],puzzle:[1900,0],hint:[1900,0],change:[1900,0]};
-function adventure(type){const [x,y]=cameras[type],hasItem=index>=10,hasRecord=index>=8;let html=img('../assets/screen_images/ADV01_확장탐험맵_source_003.png','world','온실 탐험 맵',`left:${-x}px;top:${-y}px`);
+function adventure(type){const [x,y]=cameras[type],hasItem=index>=10,hasRecord=index>=8;let html=img('../assets/screen_images/ADV01_expanded_exploration_map_source_003.png','world','온실 탐험 맵',`left:${-x}px;top:${-y}px`);
  const goal=index<8?'이상한 식물을 살펴보기':index<10?'달빛 약초를 찾아보기':index<13?'안쪽의 룬을 찾아보기':index<16?'룬의 빛을 연결하기':'온실로 돌아가기';
  const actorStyles=['inspect','knowledge'].includes(type)?'left:1310px;top:650px':['herb','pickup','inventory'].includes(type)?'left:840px;top:430px':['encounter','puzzle','hint','change'].includes(type)?'left:720px;top:340px':type==='clues'?'left:850px;top:630px':type==='walk'?'left:1250px;top:520px':'';
  html+=`<section class="objective paper"><small>온실 Adventure</small><h2>${goal}</h2><p>◇ ${hasRecord?'발견 기록 1':'주변을 천천히 둘러보세요'}</p></section><div class="mode">Adventure · 탐험</div>`+asset('sd','sd',actorStyles);

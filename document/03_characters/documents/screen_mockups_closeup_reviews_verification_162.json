@@ -27,7 +27,7 @@
   "choiceClickVerified": true,
   "captures": [
     {
-      "file": "../assets/screen_images/FLOW19_이야기선택_상반신_027.png",
+      "file": "../assets/screen_images/FLOW19_story_choice_bust_027.png",
       "size": [
         1920,
         1080
@@ -35,7 +35,7 @@
       "sha256": "7bab19ebb9b601f596983a3c391361235f631a4b7c7e8a675e286ca5a5c1709a"
     },
     {
-      "file": "../assets/screen_images/FLOW20_마이룸_상반신_028.png",
+      "file": "../assets/screen_images/FLOW20_myroom_bust_028.png",
       "size": [
         1920,
         1080

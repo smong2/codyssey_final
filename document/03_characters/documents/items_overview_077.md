@@ -42,83 +42,83 @@
 
 ### IT01 마음 일기
 
-![마음_일기](../assets/item_images/IT01_마음_일기_000.png)
+![마음_일기](../assets/item_images/IT01_heart_diary_000.png)
 
 ### IT02 룬 램프
 
-![룬_램프](../assets/item_images/IT02_룬_램프_001.png)
+![룬_램프](../assets/item_images/IT02_rune_lamp_001.png)
 
 ### IT03 차 세트
 
-![차_세트](../assets/item_images/IT03_차_세트_002.png)
+![차_세트](../assets/item_images/IT03_tea_set_002.png)
 
 ### IT04 약초 화분
 
-![약초_화분](../assets/item_images/IT04_약초_화분_003.png)
+![약초_화분](../assets/item_images/IT04_herb_pot_003.png)
 
 ### IT05 룬 조각
 
-![룬_조각](../assets/item_images/IT05_룬_조각_004.png)
+![룬_조각](../assets/item_images/IT05_rune_fragment_004.png)
 
 ### IT06 추억 액자
 
-![추억_액자](../assets/item_images/IT06_추억_액자_005.png)
+![추억_액자](../assets/item_images/IT06_memory_frame_005.png)
 
 ### IT07 마이룸 책상
 
-![마이룸_책상](../assets/item_images/IT07_마이룸_책상_006.png)
+![마이룸_책상](../assets/item_images/IT07_myroom_desk_006.png)
 
 ### IT08 마이룸 의자
 
-![마이룸_의자](../assets/item_images/IT08_마이룸_의자_007.png)
+![마이룸_의자](../assets/item_images/IT08_myroom_chair_007.png)
 
 ### IT09 마이룸 침대
 
-![마이룸_침대](../assets/item_images/IT09_마이룸_침대_008.png)
+![마이룸_침대](../assets/item_images/IT09_myroom_bed_008.png)
 
 ### IT10 마이룸 책장
 
-![마이룸_책장](../assets/item_images/IT10_마이룸_책장_009.png)
+![마이룸_책장](../assets/item_images/IT10_myroom_bookshelf_009.png)
 
 ### IT11 마이룸 러그
 
-![마이룸_러그](../assets/item_images/IT11_마이룸_러그_010.png)
+![마이룸_러그](../assets/item_images/IT11_myroom_rug_010.png)
 
 ### IT12 룬 오브제
 
-![룬_오브제](../assets/item_images/IT12_룬_오브제_011.png)
+![룬_오브제](../assets/item_images/IT12_rune_ornament_011.png)
 
 ### IT13 룬 고서
 
-![룬_고서](../assets/item_images/IT13_룬_고서_012.png)
+![룬_고서](../assets/item_images/IT13_rune_ancient_book_012.png)
 
 ### IT14 양피지 편지
 
-![양피지_편지](../assets/item_images/IT14_양피지_편지_013.png)
+![양피지_편지](../assets/item_images/IT14_parchment_letter_013.png)
 
 ### IT15 마석 공방 도구
 
-![마석_공방_도구](../assets/item_images/IT15_마석_공방_도구_014.png)
+![마석_공방_도구](../assets/item_images/IT15_magic_stone_workshop_tools_014.png)
 
 ### IT16 훈련용 목검
 
-![훈련용_목검](../assets/item_images/IT16_훈련용_목검_015.png)
+![훈련용_목검](../assets/item_images/IT16_practice_wooden_sword_015.png)
 
 ### IT17 공방 마석
 
-![공방_마석](../assets/item_images/IT17_공방_마석_016.png)
+![공방_마석](../assets/item_images/IT17_workshop_magic_stone_016.png)
 
 ### IT18 마음 룬
 
-![마음_룬](../assets/item_images/IT18_마음_룬_017.png)
+![마음_룬](../assets/item_images/IT18_heart_rune_017.png)
 
 ### IT19 그림자 룬
 
-![그림자_룬](../assets/item_images/IT19_그림자_룬_018.png)
+![그림자_룬](../assets/item_images/IT19_shadow_rune_018.png)
 
 ### IT20 정화된 룬
 
-![정화된_룬](../assets/item_images/IT20_정화된_룬_019.png)
+![정화된_룬](../assets/item_images/IT20_purified_rune_019.png)
 
 ## 적용 전 확인 사항
 

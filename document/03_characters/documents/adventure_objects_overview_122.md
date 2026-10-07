@@ -7,35 +7,35 @@
 - 원본: 1214×1295 / 테스트 파일: 512×512
 - 상태: generated_pending_game_qa, 샘플 알파: 0~255
 
-![조사_식물_시듦](../assets/item_images/OBJ01_조사_식물_시듦_020.png)
+![조사_식물_시듦](../assets/item_images/OBJ01_inspect_plant_wilted_020.png)
 
 ## OBJ02 조사_식물_회복
 
 - 원본: 1254×1254 / 테스트 파일: 512×512
 - 상태: generated_pending_game_qa, 샘플 알파: 0~255
 
-![조사_식물_회복](../assets/item_images/OBJ02_조사_식물_회복_021.png)
+![조사_식물_회복](../assets/item_images/OBJ02_inspect_plant_restored_021.png)
 
 ## OBJ03 달빛_약초
 
 - 원본: 1312×1199 / 테스트 파일: 256×256
 - 상태: generated_pending_game_qa, 샘플 알파: 0~255
 
-![달빛_약초](../assets/item_images/OBJ03_달빛_약초_023.png)
+![달빛_약초](../assets/item_images/OBJ03_moonlight_herb_023.png)
 
 ## OBJ04 사건_룬_비활성
 
 - 원본: 1254×1254 / 테스트 파일: 512×512
 - 상태: generated_pending_game_qa, 샘플 알파: 0~255
 
-![사건_룬_비활성](../assets/item_images/OBJ04_사건_룬_비활성_024.png)
+![사건_룬_비활성](../assets/item_images/OBJ04_event_rune_inactive_024.png)
 
 ## OBJ05 사건_룬_활성
 
 - 원본: 1254×1254 / 테스트 파일: 512×512
 - 상태: generated_pending_game_qa, 샘플 알파: 0~255
 
-![사건_룬_활성](../assets/item_images/OBJ05_사건_룬_활성_025.png)
+![사건_룬_활성](../assets/item_images/OBJ05_event_rune_active_025.png)
 
 
 

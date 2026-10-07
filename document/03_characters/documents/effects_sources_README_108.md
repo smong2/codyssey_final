@@ -12,4 +12,4 @@
 | 번호 | 이름 |
 |---|---|
 | 00 | 현재 안내 파일 |
-| 01 | [01_FX01_공통_룬_빛_source.png](../assets/effect_images/FX01_공통_룬_빛_source_001.png) |
+| 01 | [01_FX01_공통_룬_빛_source.png](../assets/effect_images/FX01_shared_rune_light_source_001.png) |

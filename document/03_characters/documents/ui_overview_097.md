@@ -7,35 +7,35 @@
 - 원본: 1254×1254 / 테스트 파일: 512×512
 - 상태: generated_pending_game_qa, 샘플 알파: 255~255
 
-![양피지_타일](../assets/ui_images/UI01_양피지_타일_000.png)
+![양피지_타일](../assets/ui_images/UI01_parchment_tile_000.png)
 
 ## UI02 프레임_모서리
 
 - 원본: 1254×1254 / 테스트 파일: 192×192
 - 상태: generated_pending_game_qa, 샘플 알파: 0~255
 
-![프레임_모서리](../assets/ui_images/UI02_프레임_모서리_001.png)
+![프레임_모서리](../assets/ui_images/UI02_frame_corner_001.png)
 
 ## UI03 캐릭터_카드_배경
 
 - 원본: 1086×1448 / 테스트 파일: 480×640
 - 상태: generated_pending_game_qa, 샘플 알파: 255~255
 
-![캐릭터_카드_배경](../assets/ui_images/UI03_캐릭터_카드_배경_002.png)
+![캐릭터_카드_배경](../assets/ui_images/UI03_character_card_background_002.png)
 
 ## UI04 전신_미리보기_배경
 
 - 원본: 1024×1536 / 테스트 파일: 800×1200
 - 상태: generated_pending_game_qa, 샘플 알파: 255~255
 
-![전신_미리보기_배경](../assets/ui_images/UI04_전신_미리보기_배경_003.png)
+![전신_미리보기_배경](../assets/ui_images/UI04_fullbody_preview_background_003.png)
 
 ## UI07 입학_초대장
 
 - 원본: 1536×1024 / 테스트 파일: 1200×800
 - 상태: generated_pending_game_qa, 샘플 알파: 0~255
 
-![입학_초대장](../assets/ui_images/UI07_입학_초대장_004.png)
+![입학_초대장](../assets/ui_images/UI07_admission_invitation_004.png)
 
 ## UI07 재검수 정정
 초대장에는 넓은 후광이 보이지 않고 외곽 2px 알파 최대값 0. 세부 가장자리 게임 합성 QA는 별도. 재생성하지 않음.

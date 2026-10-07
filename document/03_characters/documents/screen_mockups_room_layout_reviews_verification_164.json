@@ -78,42 +78,42 @@
   "faceAlignment": "manual visual calibration; not biometric measurement",
   "images": [
     {
-      "file": "../assets/screen_images/ROOM01_중앙기록테이블_029.png",
+      "file": "../assets/screen_images/ROOM01_central_journal_table_029.png",
       "width": 1920,
       "height": 1080,
       "format": "PNG",
       "sha256": "4443058934cfef9d50f207187bc6d0ab114f32e350bc91a54b63792cfd233c94"
     },
     {
-      "file": "../assets/screen_images/ROOM02_창가작업대_030.png",
+      "file": "../assets/screen_images/ROOM02_window_workbench_030.png",
       "width": 1920,
       "height": 1080,
       "format": "PNG",
       "sha256": "a505e74c3111d6595ce24d8cb097f2aadb652d18b1b3f81230b21fbddf748a6f"
     },
     {
-      "file": "../assets/screen_images/ROOM03_서가연결형_031.png",
+      "file": "../assets/screen_images/ROOM03_library_connected_031.png",
       "width": 1920,
       "height": 1080,
       "format": "PNG",
       "sha256": "17d729b1bbbcf244a097322e2abcba7f3d82fa151c16b7acf3bf19f0e84bfe1e"
     },
     {
-      "file": "../assets/screen_images/ROOM04_전경작업대_032.png",
+      "file": "../assets/screen_images/ROOM04_foreground_workbench_032.png",
       "width": 1920,
       "height": 1080,
       "format": "PNG",
       "sha256": "3052bebc338d26ad2a5ac58967ac42cd1db9d4815c1e04bee6fc096fe0821214"
     },
     {
-      "file": "../assets/screen_images/ROOM05_기록수집분리형_033.png",
+      "file": "../assets/screen_images/ROOM05_journal_collection_separate_033.png",
       "width": 1920,
       "height": 1080,
       "format": "PNG",
       "sha256": "f04148fc359de3ab0873d4379ce1f26c3faa8fb32a55b3bca987e0f19b252472"
     },
     {
-      "file": "../assets/screen_images/FLOW19_비율수정_034.png",
+      "file": "../assets/screen_images/FLOW19_proportion_revision_034.png",
       "width": 1920,
       "height": 1080,
       "format": "PNG",

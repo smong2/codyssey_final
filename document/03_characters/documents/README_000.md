@@ -26,68 +26,68 @@
 
 | ID | 이름 | 이미지 | 프롬프트 |
 |---|---|---|---|
-| CH01 | 카엘 | [PNG](../assets/character_images/CH01_카엘_000.png) | [프롬프트](characters_prompts_CH01_DELTA_027.txt) |
-| CH02 | 세라 | [PNG](../assets/character_images/CH02_세라_001.png) | [프롬프트](characters_prompts_CH02_DELTA_028.txt) |
-| CH03 | 시온 | [PNG](../assets/character_images/CH03_시온_002.png) | [프롬프트](characters_prompts_CH03_DELTA_029.txt) |
-| CH04 | 로엔 | [PNG](../assets/character_images/CH04_로엔_003.png) | [프롬프트](characters_prompts_CH04_DELTA_030.txt) |
-| CH05 | 레온 | [PNG](../assets/character_images/CH05_레온_004.png) | [프롬프트](characters_prompts_CH05_DELTA_031.txt) |
-| CH06 | 벨라 | [PNG](../assets/character_images/CH06_벨라_005.png) | [프롬프트](characters_prompts_CH06_DELTA_032.txt) |
-| CH07 | 유안 | [PNG](../assets/character_images/CH07_유안_006.png) | [프롬프트](characters_prompts_CH07_DELTA_033.txt) |
-| CH08 | 아이리스 | [PNG](../assets/character_images/CH08_아이리스_007.png) | [프롬프트](characters_prompts_CH08_DELTA_034.txt) |
-| CH09 | 에녹 | [PNG](../assets/character_images/CH09_에녹_008.png) | [프롬프트](characters_prompts_CH09_DELTA_035.txt) |
-| CH10 | 엘리아 | [PNG](../assets/character_images/CH10_엘리아_009.png) | [프롬프트](characters_prompts_CH10_DELTA_036.txt) |
-| CH11 | 루카 | [PNG](../assets/character_images/CH11_루카_010.png) | [프롬프트](characters_prompts_CH11_DELTA_037.txt) |
-| CH12 | 리네 | [PNG](../assets/character_images/CH12_리네_011.png) | [프롬프트](characters_prompts_CH12_DELTA_038.txt) |
-| CH13 | 아드리안 | [PNG](../assets/character_images/CH13_아드리안_012.png) | [프롬프트](characters_prompts_CH13_DELTA_039.txt) |
-| CH14 | 스텔라 | [PNG](../assets/character_images/CH14_스텔라_013.png) | [프롬프트](characters_prompts_CH14_DELTA_040.txt) |
-| CH15 | 로빈 | [PNG](../assets/character_images/CH15_로빈_014.png) | [프롬프트](characters_prompts_CH15_DELTA_041.txt) |
-| CH16 | 티아 | [PNG](../assets/character_images/CH16_티아_015.png) | [프롬프트](characters_prompts_CH16_DELTA_042.txt) |
-| CH17 | 바론 | [PNG](../assets/character_images/CH17_바론_016.png) | [프롬프트](characters_prompts_CH17_DELTA_043.txt) |
-| CH18 | 클레어 | [PNG](../assets/character_images/CH18_클레어_017.png) | [프롬프트](characters_prompts_CH18_DELTA_044.txt) |
-| CH19 | 요한 | [PNG](../assets/character_images/CH19_요한_018.png) | [프롬프트](characters_prompts_CH19_DELTA_045.txt) |
-| CH20 | 하젤 | [PNG](../assets/character_images/CH20_하젤_019.png) | [프롬프트](characters_prompts_CH20_DELTA_046.txt) |
-| CH21 | 빅터 | [PNG](../assets/character_images/CH21_빅터_020.png) | [프롬프트](characters_prompts_CH21_DELTA_047.txt) |
-| CH22 | 로렌 | [PNG](../assets/character_images/CH22_로렌_021.png) | [프롬프트](characters_prompts_CH22_DELTA_048.txt) |
-| CH23 | 테오 | [PNG](../assets/character_images/CH23_테오_022.png) | [프롬프트](characters_prompts_CH23_DELTA_049.txt) |
-| CH24 | 미리엄 | [PNG](../assets/character_images/CH24_미리엄_023.png) | [프롬프트](characters_prompts_CH24_DELTA_050.txt) |
-| CH25 | 렌 | [PNG](../assets/character_images/CH25_렌_024.png) | [프롬프트](characters_prompts_CH25_DELTA_051.txt) |
-| CH26 | 다나 | [PNG](../assets/character_images/CH26_다나_025.png) | [프롬프트](characters_prompts_CH26_DELTA_052.txt) |
-| CH27 | 미엘 | [PNG](../assets/character_images/CH27_미엘_026.png) | [프롬프트](characters_prompts_CH27_DELTA_053.txt) |
-| CH28 | 실비아 | [PNG](../assets/character_images/CH28_실비아_027.png) | [프롬프트](characters_prompts_CH28_DELTA_054.txt) |
-| CH29 | 카일 | [PNG](../assets/character_images/CH29_카일_028.png) | [프롬프트](characters_prompts_CH29_DELTA_055.txt) |
-| CH30 | 제나 | [PNG](../assets/character_images/CH30_제나_029.png) | [프롬프트](characters_prompts_CH30_DELTA_056.txt) |
-| CH31 | 니코 | [PNG](../assets/character_images/CH31_니코_030.png) | [프롬프트](characters_prompts_CH31_DELTA_057.txt) |
-| CH32 | 리코 | [PNG](../assets/character_images/CH32_리코_031.png) | [프롬프트](characters_prompts_CH32_DELTA_058.txt) |
-| IT01 | 마음 일기 | [PNG](../assets/item_images/IT01_마음_일기_000.png) | [프롬프트](items_prompts_078.json) |
-| IT02 | 룬 램프 | [PNG](../assets/item_images/IT02_룬_램프_001.png) | [프롬프트](items_prompts_078.json) |
-| IT03 | 차 세트 | [PNG](../assets/item_images/IT03_차_세트_002.png) | [프롬프트](items_prompts_078.json) |
-| IT04 | 약초 화분 | [PNG](../assets/item_images/IT04_약초_화분_003.png) | [프롬프트](items_prompts_078.json) |
-| IT05 | 룬 조각 | [PNG](../assets/item_images/IT05_룬_조각_004.png) | [프롬프트](items_prompts_078.json) |
-| IT06 | 추억 액자 | [PNG](../assets/item_images/IT06_추억_액자_005.png) | [프롬프트](items_prompts_078.json) |
-| IT07 | 마이룸 책상 | [PNG](../assets/item_images/IT07_마이룸_책상_006.png) | [프롬프트](items_prompts_078.json) |
-| IT08 | 마이룸 의자 | [PNG](../assets/item_images/IT08_마이룸_의자_007.png) | [프롬프트](items_prompts_078.json) |
-| IT09 | 마이룸 침대 | [PNG](../assets/item_images/IT09_마이룸_침대_008.png) | [프롬프트](items_prompts_078.json) |
-| IT10 | 마이룸 책장 | [PNG](../assets/item_images/IT10_마이룸_책장_009.png) | [프롬프트](items_prompts_078.json) |
-| IT11 | 마이룸 러그 | [PNG](../assets/item_images/IT11_마이룸_러그_010.png) | [프롬프트](items_prompts_078.json) |
-| IT12 | 룬 오브제 | [PNG](../assets/item_images/IT12_룬_오브제_011.png) | [프롬프트](items_prompts_078.json) |
-| IT13 | 룬 고서 | [PNG](../assets/item_images/IT13_룬_고서_012.png) | [프롬프트](items_prompts_078.json) |
-| IT14 | 양피지 편지 | [PNG](../assets/item_images/IT14_양피지_편지_013.png) | [프롬프트](items_prompts_078.json) |
-| IT15 | 마석 공방 도구 | [PNG](../assets/item_images/IT15_마석_공방_도구_014.png) | [프롬프트](items_prompts_078.json) |
-| IT16 | 훈련용 목검 | [PNG](../assets/item_images/IT16_훈련용_목검_015.png) | [프롬프트](items_prompts_078.json) |
-| IT17 | 공방 마석 | [PNG](../assets/item_images/IT17_공방_마석_016.png) | [프롬프트](items_prompts_078.json) |
-| IT18 | 마음 룬 | [PNG](../assets/item_images/IT18_마음_룬_017.png) | [프롬프트](items_prompts_078.json) |
-| IT19 | 그림자 룬 | [PNG](../assets/item_images/IT19_그림자_룬_018.png) | [프롬프트](items_prompts_078.json) |
-| IT20 | 정화된 룬 | [PNG](../assets/item_images/IT20_정화된_룬_019.png) | [프롬프트](items_prompts_078.json) |
-| BG01 | 아르카디아 입구와 호수 | [PNG](../assets/background_images/BG01_아르카디아_입구와_호수_000.png) | [프롬프트](backgrounds_prompts_084.json) |
-| BG02 | 시계탑 광장 | [PNG](../assets/background_images/BG02_시계탑_광장_001.png) | [프롬프트](backgrounds_prompts_084.json) |
-| BG03 | 빈 마이룸 | [PNG](../assets/background_images/BG03_빈_마이룸_002.png) | [프롬프트](backgrounds_prompts_084.json) |
-| BG04 | 학원 기숙사 | [PNG](../assets/background_images/BG04_학원_기숙사_003.png) | [프롬프트](backgrounds_prompts_084.json) |
-| BG05 | 대서고 | [PNG](../assets/background_images/BG05_대서고_004.png) | [프롬프트](backgrounds_prompts_084.json) |
-| BG06 | 별빛 천문대 | [PNG](../assets/background_images/BG06_별빛_천문대_005.png) | [프롬프트](backgrounds_prompts_084.json) |
-| BG07 | 유리 온실 | [PNG](../assets/background_images/BG07_유리_온실_006.png) | [프롬프트](backgrounds_prompts_084.json) |
-| BG08 | 치유의 약초원 | [PNG](../assets/background_images/BG08_치유의_약초원_007.png) | [프롬프트](backgrounds_prompts_084.json) |
-| BG09 | 마도 공방 | [PNG](../assets/background_images/BG09_마도_공방_008.png) | [프롬프트](backgrounds_prompts_084.json) |
-| BG10 | 룬 수련장 | [PNG](../assets/background_images/BG10_룬_수련장_009.png) | [프롬프트](backgrounds_prompts_084.json) |
+| CH01 | 카엘 | [PNG](../assets/character_images/CH01_kael_000.png) | [프롬프트](characters_prompts_CH01_DELTA_027.txt) |
+| CH02 | 세라 | [PNG](../assets/character_images/CH02_sera_001.png) | [프롬프트](characters_prompts_CH02_DELTA_028.txt) |
+| CH03 | 시온 | [PNG](../assets/character_images/CH03_sion_002.png) | [프롬프트](characters_prompts_CH03_DELTA_029.txt) |
+| CH04 | 로엔 | [PNG](../assets/character_images/CH04_roen_003.png) | [프롬프트](characters_prompts_CH04_DELTA_030.txt) |
+| CH05 | 레온 | [PNG](../assets/character_images/CH05_leon_004.png) | [프롬프트](characters_prompts_CH05_DELTA_031.txt) |
+| CH06 | 벨라 | [PNG](../assets/character_images/CH06_bella_005.png) | [프롬프트](characters_prompts_CH06_DELTA_032.txt) |
+| CH07 | 유안 | [PNG](../assets/character_images/CH07_yuan_006.png) | [프롬프트](characters_prompts_CH07_DELTA_033.txt) |
+| CH08 | 아이리스 | [PNG](../assets/character_images/CH08_iris_007.png) | [프롬프트](characters_prompts_CH08_DELTA_034.txt) |
+| CH09 | 에녹 | [PNG](../assets/character_images/CH09_enoch_008.png) | [프롬프트](characters_prompts_CH09_DELTA_035.txt) |
+| CH10 | 엘리아 | [PNG](../assets/character_images/CH10_elia_009.png) | [프롬프트](characters_prompts_CH10_DELTA_036.txt) |
+| CH11 | 루카 | [PNG](../assets/character_images/CH11_luca_010.png) | [프롬프트](characters_prompts_CH11_DELTA_037.txt) |
+| CH12 | 리네 | [PNG](../assets/character_images/CH12_rine_011.png) | [프롬프트](characters_prompts_CH12_DELTA_038.txt) |
+| CH13 | 아드리안 | [PNG](../assets/character_images/CH13_adrian_012.png) | [프롬프트](characters_prompts_CH13_DELTA_039.txt) |
+| CH14 | 스텔라 | [PNG](../assets/character_images/CH14_stella_013.png) | [프롬프트](characters_prompts_CH14_DELTA_040.txt) |
+| CH15 | 로빈 | [PNG](../assets/character_images/CH15_robin_014.png) | [프롬프트](characters_prompts_CH15_DELTA_041.txt) |
+| CH16 | 티아 | [PNG](../assets/character_images/CH16_tia_015.png) | [프롬프트](characters_prompts_CH16_DELTA_042.txt) |
+| CH17 | 바론 | [PNG](../assets/character_images/CH17_baron_016.png) | [프롬프트](characters_prompts_CH17_DELTA_043.txt) |
+| CH18 | 클레어 | [PNG](../assets/character_images/CH18_claire_017.png) | [프롬프트](characters_prompts_CH18_DELTA_044.txt) |
+| CH19 | 요한 | [PNG](../assets/character_images/CH19_johan_018.png) | [프롬프트](characters_prompts_CH19_DELTA_045.txt) |
+| CH20 | 하젤 | [PNG](../assets/character_images/CH20_hazel_019.png) | [프롬프트](characters_prompts_CH20_DELTA_046.txt) |
+| CH21 | 빅터 | [PNG](../assets/character_images/CH21_victor_020.png) | [프롬프트](characters_prompts_CH21_DELTA_047.txt) |
+| CH22 | 로렌 | [PNG](../assets/character_images/CH22_lauren_021.png) | [프롬프트](characters_prompts_CH22_DELTA_048.txt) |
+| CH23 | 테오 | [PNG](../assets/character_images/CH23_theo_022.png) | [프롬프트](characters_prompts_CH23_DELTA_049.txt) |
+| CH24 | 미리엄 | [PNG](../assets/character_images/CH24_miriam_023.png) | [프롬프트](characters_prompts_CH24_DELTA_050.txt) |
+| CH25 | 렌 | [PNG](../assets/character_images/CH25_ren_024.png) | [프롬프트](characters_prompts_CH25_DELTA_051.txt) |
+| CH26 | 다나 | [PNG](../assets/character_images/CH26_dana_025.png) | [프롬프트](characters_prompts_CH26_DELTA_052.txt) |
+| CH27 | 미엘 | [PNG](../assets/character_images/CH27_miel_026.png) | [프롬프트](characters_prompts_CH27_DELTA_053.txt) |
+| CH28 | 실비아 | [PNG](../assets/character_images/CH28_sylvia_027.png) | [프롬프트](characters_prompts_CH28_DELTA_054.txt) |
+| CH29 | 카일 | [PNG](../assets/character_images/CH29_kyle_028.png) | [프롬프트](characters_prompts_CH29_DELTA_055.txt) |
+| CH30 | 제나 | [PNG](../assets/character_images/CH30_jena_029.png) | [프롬프트](characters_prompts_CH30_DELTA_056.txt) |
+| CH31 | 니코 | [PNG](../assets/character_images/CH31_nico_030.png) | [프롬프트](characters_prompts_CH31_DELTA_057.txt) |
+| CH32 | 리코 | [PNG](../assets/character_images/CH32_rico_031.png) | [프롬프트](characters_prompts_CH32_DELTA_058.txt) |
+| IT01 | 마음 일기 | [PNG](../assets/item_images/IT01_heart_diary_000.png) | [프롬프트](items_prompts_078.json) |
+| IT02 | 룬 램프 | [PNG](../assets/item_images/IT02_rune_lamp_001.png) | [프롬프트](items_prompts_078.json) |
+| IT03 | 차 세트 | [PNG](../assets/item_images/IT03_tea_set_002.png) | [프롬프트](items_prompts_078.json) |
+| IT04 | 약초 화분 | [PNG](../assets/item_images/IT04_herb_pot_003.png) | [프롬프트](items_prompts_078.json) |
+| IT05 | 룬 조각 | [PNG](../assets/item_images/IT05_rune_fragment_004.png) | [프롬프트](items_prompts_078.json) |
+| IT06 | 추억 액자 | [PNG](../assets/item_images/IT06_memory_frame_005.png) | [프롬프트](items_prompts_078.json) |
+| IT07 | 마이룸 책상 | [PNG](../assets/item_images/IT07_myroom_desk_006.png) | [프롬프트](items_prompts_078.json) |
+| IT08 | 마이룸 의자 | [PNG](../assets/item_images/IT08_myroom_chair_007.png) | [프롬프트](items_prompts_078.json) |
+| IT09 | 마이룸 침대 | [PNG](../assets/item_images/IT09_myroom_bed_008.png) | [프롬프트](items_prompts_078.json) |
+| IT10 | 마이룸 책장 | [PNG](../assets/item_images/IT10_myroom_bookshelf_009.png) | [프롬프트](items_prompts_078.json) |
+| IT11 | 마이룸 러그 | [PNG](../assets/item_images/IT11_myroom_rug_010.png) | [프롬프트](items_prompts_078.json) |
+| IT12 | 룬 오브제 | [PNG](../assets/item_images/IT12_rune_ornament_011.png) | [프롬프트](items_prompts_078.json) |
+| IT13 | 룬 고서 | [PNG](../assets/item_images/IT13_rune_ancient_book_012.png) | [프롬프트](items_prompts_078.json) |
+| IT14 | 양피지 편지 | [PNG](../assets/item_images/IT14_parchment_letter_013.png) | [프롬프트](items_prompts_078.json) |
+| IT15 | 마석 공방 도구 | [PNG](../assets/item_images/IT15_magic_stone_workshop_tools_014.png) | [프롬프트](items_prompts_078.json) |
+| IT16 | 훈련용 목검 | [PNG](../assets/item_images/IT16_practice_wooden_sword_015.png) | [프롬프트](items_prompts_078.json) |
+| IT17 | 공방 마석 | [PNG](../assets/item_images/IT17_workshop_magic_stone_016.png) | [프롬프트](items_prompts_078.json) |
+| IT18 | 마음 룬 | [PNG](../assets/item_images/IT18_heart_rune_017.png) | [프롬프트](items_prompts_078.json) |
+| IT19 | 그림자 룬 | [PNG](../assets/item_images/IT19_shadow_rune_018.png) | [프롬프트](items_prompts_078.json) |
+| IT20 | 정화된 룬 | [PNG](../assets/item_images/IT20_purified_rune_019.png) | [프롬프트](items_prompts_078.json) |
+| BG01 | 아르카디아 입구와 호수 | [PNG](../assets/background_images/BG01_arcadia_entrance_and_lake_000.png) | [프롬프트](backgrounds_prompts_084.json) |
+| BG02 | 시계탑 광장 | [PNG](../assets/background_images/BG02_clocktower_plaza_001.png) | [프롬프트](backgrounds_prompts_084.json) |
+| BG03 | 빈 마이룸 | [PNG](../assets/background_images/BG03_empty_myroom_002.png) | [프롬프트](backgrounds_prompts_084.json) |
+| BG04 | 학원 기숙사 | [PNG](../assets/background_images/BG04_academy_dormitory_003.png) | [프롬프트](backgrounds_prompts_084.json) |
+| BG05 | 대서고 | [PNG](../assets/background_images/BG05_grand_library_004.png) | [프롬프트](backgrounds_prompts_084.json) |
+| BG06 | 별빛 천문대 | [PNG](../assets/background_images/BG06_starlight_observatory_005.png) | [프롬프트](backgrounds_prompts_084.json) |
+| BG07 | 유리 온실 | [PNG](../assets/background_images/BG07_glass_greenhouse_006.png) | [프롬프트](backgrounds_prompts_084.json) |
+| BG08 | 치유의 약초원 | [PNG](../assets/background_images/BG08_healing_herb_garden_007.png) | [프롬프트](backgrounds_prompts_084.json) |
+| BG09 | 마도 공방 | [PNG](../assets/background_images/BG09_magic_workshop_008.png) | [프롬프트](backgrounds_prompts_084.json) |
+| BG10 | 룬 수련장 | [PNG](../assets/background_images/BG10_rune_training_ground_009.png) | [프롬프트](backgrounds_prompts_084.json) |
 
 ## 문서
 

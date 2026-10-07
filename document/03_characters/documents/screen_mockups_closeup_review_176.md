@@ -8,4 +8,4 @@
 - 선택지, 하단 대화창, 이름을 유지하고 얼굴을 가리지 않는다. CSS는 scene-choice와 scene-room에 한정하므로 다른 장면은 기존 구도다.
 - 이미지 생성 0회. 기존 원화·배경 수정 없음. 신규 1920×1080 캡처 2장. 이전 전신 캡처는 보존했다.
 
-[두 시안 보기](../code/screen_mockups_closeup_reviews_preview_011.html) · [19번](../assets/screen_images/FLOW19_이야기선택_상반신_027.png) · [마이룸](../assets/screen_images/FLOW20_마이룸_상반신_028.png) · [검수 기록](screen_mockups_closeup_reviews_verification_162.json)
+[두 시안 보기](../code/screen_mockups_closeup_reviews_preview_011.html) · [19번](../assets/screen_images/FLOW19_story_choice_bust_027.png) · [마이룸](../assets/screen_images/FLOW20_myroom_bust_028.png) · [검수 기록](screen_mockups_closeup_reviews_verification_162.json)

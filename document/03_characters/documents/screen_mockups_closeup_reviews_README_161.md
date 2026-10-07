@@ -5,8 +5,8 @@
 | 번호 | 파일 |
 |---|---|
 | 00 | 현재 안내 |
-| 01 | [19번 이야기 선택](../assets/screen_images/FLOW19_이야기선택_상반신_027.png) |
-| 02 | [20번 마이룸](../assets/screen_images/FLOW20_마이룸_상반신_028.png) |
+| 01 | [19번 이야기 선택](../assets/screen_images/FLOW19_story_choice_bust_027.png) |
+| 02 | [20번 마이룸](../assets/screen_images/FLOW20_myroom_bust_028.png) |
 | 03 | [검수](screen_mockups_closeup_reviews_verification_162.json) |
 | 04 | [두 시안 보기](../code/screen_mockups_closeup_reviews_preview_011.html) |
 

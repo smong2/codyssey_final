@@ -4,14 +4,14 @@
     1080
   ],
   "units": "percent_of_canvas_width_for_width; percent_of_canvas_height_for_top",
-  "background": "../assets/background_images/BG03_빈_마이룸_1920x1080_012.png",
+  "background": "../assets/background_images/BG03_empty_myroom_1920x1080_012.png",
   "status": "initial_existing_asset_layout_unapproved",
   "preservation": "Image pixels unchanged; no filters, masks, recoloring, or perspective warping. All original alpha retained.",
   "layers": [
     {
       "id": "IT11",
       "name": "러그",
-      "src": "../assets/item_images/IT11_마이룸_러그_010.png",
+      "src": "../assets/item_images/IT11_myroom_rug_010.png",
       "left": 25,
       "top": 57,
       "width": 47,
@@ -20,7 +20,7 @@
     {
       "id": "IT09",
       "name": "침대",
-      "src": "../assets/item_images/IT09_마이룸_침대_008.png",
+      "src": "../assets/item_images/IT09_myroom_bed_008.png",
       "left": 48,
       "top": 24,
       "width": 29,
@@ -29,7 +29,7 @@
     {
       "id": "IT07",
       "name": "책상",
-      "src": "../assets/item_images/IT07_마이룸_책상_006.png",
+      "src": "../assets/item_images/IT07_myroom_desk_006.png",
       "left": 0,
       "top": 37,
       "width": 34,
@@ -38,7 +38,7 @@
     {
       "id": "IT02",
       "name": "룬 램프",
-      "src": "../assets/item_images/IT02_룬_램프_001.png",
+      "src": "../assets/item_images/IT02_rune_lamp_001.png",
       "left": 8,
       "top": 34,
       "width": 7,
@@ -47,7 +47,7 @@
     {
       "id": "IT01",
       "name": "마음 일기",
-      "src": "../assets/item_images/IT01_마음_일기_000.png",
+      "src": "../assets/item_images/IT01_heart_diary_000.png",
       "left": 18,
       "top": 46,
       "width": 7,
@@ -56,7 +56,7 @@
     {
       "id": "IT08",
       "name": "의자",
-      "src": "../assets/item_images/IT08_마이룸_의자_007.png",
+      "src": "../assets/item_images/IT08_myroom_chair_007.png",
       "left": 16,
       "top": 47,
       "width": 17,
@@ -65,7 +65,7 @@
     {
       "id": "NPC03",
       "name": "베른",
-      "src": "../assets/character_images/NPC03_베른_032.png",
+      "src": "../assets/character_images/NPC03_bern_032.png",
       "left": 65,
       "top": 37,
       "width": 21,

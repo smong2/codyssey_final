@@ -1,6 +1,6 @@
 # SC01 마이룸 완성 화면 시안
 
-![마이룸 완성 시안](../assets/background_images/SC01_마이룸_완성시안_020.png)
+![마이룸 완성 시안](../assets/background_images/SC01_myroom_complete_concept_020.png)
 
 - 납품 크기: 1920×1080 PNG, 불투명. 생성 원본: 1672×941, 01_sources에 보존. 내보내기는 크기 조정이며 새 고해상도 디테일 생성이 아니다.
 - 용도: 2.5D Life 마이룸 전체 아트디렉션 확인용 한 컷. 엔진 실행 캡처나 원본 픽셀 그대로의 합성 검증본은 아니다.

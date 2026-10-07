@@ -12,7 +12,7 @@
 | 번호 | 이름 |
 |---|---|
 | 00 | 현재 안내 파일 |
-| 01 | [01_PZ01_퍼즐_타일_바탕.png](../assets/puzzle_images/PZ01_퍼즐_타일_바탕_000.png) |
+| 01 | [01_PZ01_퍼즐_타일_바탕.png](../assets/puzzle_images/PZ01_puzzle_tile_base_000.png) |
 | 02 | [02_PZ_elbow_active.svg](../assets/puzzle_images/PZ_elbow_active_001.svg) |
 | 03 | [03_PZ_elbow_inactive.svg](../assets/puzzle_images/PZ_elbow_inactive_002.svg) |
 | 04 | [04_PZ_goal_active.svg](../assets/puzzle_images/PZ_goal_active_003.svg) |

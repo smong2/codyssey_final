@@ -1,9 +1,9 @@
 # 05. 시안 인계 / 2026-10-04
 
 ## 결과
-- [전체 탐험 맵](../assets/map_images/MAP01_전체_탐험맵_000.png): 6144×4096 월드를 축소한 조립도. 붉은 상자가 현재 카메라 영역.
-- [실제 화면 범위 시안](../assets/map_images/MAP02_탐험_플레이_001.png): 1920×1080 부분 시야와 고정 HUD.
-- [백팩](../assets/map_images/MAP03_백팩_002.png): 실제 시안 채집 후 약초 1개 보관 상태.
+- [전체 탐험 맵](../assets/map_images/MAP01_full_exploration_map_000.png): 6144×4096 월드를 축소한 조립도. 붉은 상자가 현재 카메라 영역.
+- [실제 화면 범위 시안](../assets/map_images/MAP02_exploration_play_001.png): 1920×1080 부분 시야와 고정 HUD.
+- [백팩](../assets/map_images/MAP03_backpack_002.png): 실제 시안 채집 후 약초 1개 보관 상태.
 - [직접 조작하는 검토본](../code/adventure_map_preview_019.html): WASD/방향키 이동, E 조사·채집, B 백팩. 로컬 서버에서 열기. 새로고침 시 수집 초기화.
 - [유사 게임 조사와 HUD 제안](adventure_map_hud_research_182.md).
 

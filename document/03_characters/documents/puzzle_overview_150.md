@@ -7,6 +7,6 @@
 - 원본: 1254×1254 / 테스트 파일: 256×256
 - 상태: generated_pending_game_qa, 샘플 알파: 0~255
 
-![퍼즐_타일_바탕](../assets/puzzle_images/PZ01_퍼즐_타일_바탕_000.png)
+![퍼즐_타일_바탕](../assets/puzzle_images/PZ01_puzzle_tile_base_000.png)
 
 

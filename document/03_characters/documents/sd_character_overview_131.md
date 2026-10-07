@@ -7,14 +7,14 @@
 - 원본: 1254×1254 / 테스트 파일: 256×256
 - 상태: generated_pending_game_qa, 샘플 알파: 0~255
 
-![카엘_기준](../assets/character_images/SD01_카엘_기준_063.png)
+![카엘_기준](../assets/character_images/SD01_kael_reference_063.png)
 
 ## SD02 카엘_걷기_마스터
 
 - 원본: 768×2048 / 테스트 파일: 768×2048
 - 상태: generated_pending_game_qa, 샘플 알파: 0~254
 
-![카엘_걷기_마스터](../assets/character_images/SD02_카엘_걷기_마스터_064.png)
+![카엘_걷기_마스터](../assets/character_images/SD02_kael_walk_master_064.png)
 
 
 

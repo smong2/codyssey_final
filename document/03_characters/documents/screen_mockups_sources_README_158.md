@@ -12,5 +12,5 @@
 | 번호 | 이름 |
 |---|---|
 | 00 | 현재 안내 파일 |
-| 01 | [01_ADV01_확장탐험맵_source.png](../assets/screen_images/ADV01_확장탐험맵_source_003.png) |
-| 02 | [02_LIFE01_마이룸_좌우대화_source.png](../assets/screen_images/LIFE01_마이룸_좌우대화_source_004.png) |
+| 01 | [01_ADV01_확장탐험맵_source.png](../assets/screen_images/ADV01_expanded_exploration_map_source_003.png) |
+| 02 | [02_LIFE01_마이룸_좌우대화_source.png](../assets/screen_images/LIFE01_myroom_side_dialogue_source_004.png) |

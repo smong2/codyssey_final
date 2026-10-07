@@ -7,7 +7,7 @@
 - 원본: 1024×1536 / 테스트 파일: 1024×1536
 - 상태: generated_pending_game_qa, 샘플 알파: 0~254
 
-![베른](../assets/character_images/NPC03_베른_032.png)
+![베른](../assets/character_images/NPC03_bern_032.png)
 
 
 

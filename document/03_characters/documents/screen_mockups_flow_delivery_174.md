@@ -5,8 +5,8 @@
 ## 확인할 결과
 - [22장 이미지 목록](../code/screen_mockups_flow_gallery_018.html)
 - [순서대로 클릭하는 시안](../code/screen_mockups_flow_preview_015.html#1)
-- [마이룸 좌우 대화](../assets/screen_images/FLOW20_마이룸_024.jpg)
-- [확장 전체맵 원본](../assets/screen_images/ADV01_확장탐험맵_source_003.png)
+- [마이룸 좌우 대화](../assets/screen_images/FLOW20_myroom_024.jpg)
+- [확장 전체맵 원본](../assets/screen_images/ADV01_expanded_exploration_map_source_003.png)
 - [브라우저 이미지 로딩/모드 검사](screen_mockups_browser_checks_172.json)
 - [생성 프롬프트](screen_mockups_generation_prompts_173.json)
 - [규격·해시·원본 보호](screen_mockups_flow_verification_175.json)

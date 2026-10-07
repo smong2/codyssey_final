@@ -1,7 +1,7 @@
 {
   "SD01": {
     "result": "accepted_as_scale_test_pending_game_qa",
-    "source": "../assets/character_images/SD01_카엘_기준_source_084.png",
+    "source": "../assets/character_images/SD01_kael_reference_source_084.png",
     "prompt": "EDIT TARGET: reference Kael. RADICALLY CHANGE PROPORTIONS into a 3-head-high SD exploration sprite, not a tall illustration. Square 1:1 canvas. Oversized head constitutes exactly one third total body height; short compact torso one third; short legs one third. Full body straight front idle standing, BOTH hands relaxed visibly beside hips, feet side by side. Black wavy hair, reserved teenage face, navy academic blazer with tiny brass insignia, black turtleneck, gray trousers, navy cream sneakers, small book attached belt. Simplified flat watercolor game sprite. Figure is only72% canvas height, centered with generous transparent margins, feet85%down. REMOVE ALL halo, shadow and glow behind figure; strictly transparent background. Transform proportions strongly; retain identity/colors only. No text."
   },
   "SD02": {

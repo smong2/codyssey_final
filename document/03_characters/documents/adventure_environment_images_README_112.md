@@ -12,18 +12,18 @@
 | 번호 | 이름 |
 |---|---|
 | 00 | 현재 안내 파일 |
-| 01 | [01_ENV01_온실_바닥_기본.png](../assets/environment_images/ENV01_온실_바닥_기본_000.png) |
-| 02 | [02_ENV02_온실_바닥_변형_A.png](../assets/environment_images/ENV02_온실_바닥_변형_A_001.png) |
-| 03 | [03_ENV02_온실_바닥_변형_A_v2.png](../assets/environment_images/ENV02_온실_바닥_변형_A_v2_002.png) |
-| 04 | [04_ENV03_온실_바닥_변형_B.png](../assets/environment_images/ENV03_온실_바닥_변형_B_003.png) |
-| 05 | [05_ENV03_온실_바닥_변형_B_v2.png](../assets/environment_images/ENV03_온실_바닥_변형_B_v2_004.png) |
-| 06 | [06_ENV04_온실_경계.png](../assets/environment_images/ENV04_온실_경계_005.png) |
-| 07 | [07_ENV05_작은_식물_A.png](../assets/environment_images/ENV05_작은_식물_A_006.png) |
-| 08 | [08_ENV06_작은_식물_B.png](../assets/environment_images/ENV06_작은_식물_B_007.png) |
-| 09 | [09_ENV07_큰_식물_A.png](../assets/environment_images/ENV07_큰_식물_A_008.png) |
-| 10 | [10_ENV08_큰_식물_B.png](../assets/environment_images/ENV08_큰_식물_B_009.png) |
-| 11 | [11_ENV09_온실_화단.png](../assets/environment_images/ENV09_온실_화단_010.png) |
-| 12 | [12_ENV10_온실_덩굴.png](../assets/environment_images/ENV10_온실_덩굴_011.png) |
-| 13 | [13_ENV11_온실_구조물.png](../assets/environment_images/ENV11_온실_구조물_012.png) |
-| 14 | [14_ENV12_전경_식물_A.png](../assets/environment_images/ENV12_전경_식물_A_013.png) |
-| 15 | [15_ENV13_전경_식물_B.png](../assets/environment_images/ENV13_전경_식물_B_014.png) |
+| 01 | [01_ENV01_온실_바닥_기본.png](../assets/environment_images/ENV01_greenhouse_floor_base_000.png) |
+| 02 | [02_ENV02_온실_바닥_변형_A.png](../assets/environment_images/ENV02_greenhouse_floor_variant_A_001.png) |
+| 03 | [03_ENV02_온실_바닥_변형_A_v2.png](../assets/environment_images/ENV02_greenhouse_floor_variant_A_v2_002.png) |
+| 04 | [04_ENV03_온실_바닥_변형_B.png](../assets/environment_images/ENV03_greenhouse_floor_variant_B_003.png) |
+| 05 | [05_ENV03_온실_바닥_변형_B_v2.png](../assets/environment_images/ENV03_greenhouse_floor_variant_B_v2_004.png) |
+| 06 | [06_ENV04_온실_경계.png](../assets/environment_images/ENV04_greenhouse_boundary_005.png) |
+| 07 | [07_ENV05_작은_식물_A.png](../assets/environment_images/ENV05_small_plant_A_006.png) |
+| 08 | [08_ENV06_작은_식물_B.png](../assets/environment_images/ENV06_small_plant_B_007.png) |
+| 09 | [09_ENV07_큰_식물_A.png](../assets/environment_images/ENV07_large_plant_A_008.png) |
+| 10 | [10_ENV08_큰_식물_B.png](../assets/environment_images/ENV08_large_plant_B_009.png) |
+| 11 | [11_ENV09_온실_화단.png](../assets/environment_images/ENV09_greenhouse_flowerbed_010.png) |
+| 12 | [12_ENV10_온실_덩굴.png](../assets/environment_images/ENV10_greenhouse_vines_011.png) |
+| 13 | [13_ENV11_온실_구조물.png](../assets/environment_images/ENV11_greenhouse_structure_012.png) |
+| 14 | [14_ENV12_전경_식물_A.png](../assets/environment_images/ENV12_foreground_plant_A_013.png) |
+| 15 | [15_ENV13_전경_식물_B.png](../assets/environment_images/ENV13_foreground_plant_B_014.png) |

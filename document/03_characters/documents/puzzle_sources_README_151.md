@@ -12,4 +12,4 @@
 | 번호 | 이름 |
 |---|---|
 | 00 | 현재 안내 파일 |
-| 01 | [01_PZ01_퍼즐_타일_바탕_source.png](../assets/puzzle_images/PZ01_퍼즐_타일_바탕_source_009.png) |
+| 01 | [01_PZ01_퍼즐_타일_바탕_source.png](../assets/puzzle_images/PZ01_puzzle_tile_base_source_009.png) |

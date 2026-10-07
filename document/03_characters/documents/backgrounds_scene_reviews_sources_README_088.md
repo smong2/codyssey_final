@@ -12,4 +12,4 @@
 | 번호 | 이름 |
 |---|---|
 | 00 | 현재 안내 파일 |
-| 01 | [01_SC01_마이룸_완성시안_source.png](../assets/background_images/SC01_마이룸_완성시안_source_021.png) |
+| 01 | [01_SC01_마이룸_완성시안_source.png](../assets/background_images/SC01_myroom_complete_concept_source_021.png) |

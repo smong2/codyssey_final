@@ -12,8 +12,8 @@
 | 번호 | 이름 |
 |---|---|
 | 00 | 현재 안내 파일 |
-| 01 | [01_MAP01_전체_탐험맵.png](../assets/map_images/MAP01_전체_탐험맵_000.png) |
-| 02 | [02_MAP02_탐험_플레이.png](../assets/map_images/MAP02_탐험_플레이_001.png) |
-| 03 | [03_MAP03_백팩.png](../assets/map_images/MAP03_백팩_002.png) |
-| 04 | [04_MAP04_어드벤처_전체맵_무드시안.png](../assets/map_images/MAP04_어드벤처_전체맵_무드시안_003.png) |
-| 05 | [05_MAP05_어드벤처_플레이_무드시안.png](../assets/map_images/MAP05_어드벤처_플레이_무드시안_004.png) |
+| 01 | [01_MAP01_전체_탐험맵.png](../assets/map_images/MAP01_full_exploration_map_000.png) |
+| 02 | [02_MAP02_탐험_플레이.png](../assets/map_images/MAP02_exploration_play_001.png) |
+| 03 | [03_MAP03_백팩.png](../assets/map_images/MAP03_backpack_002.png) |
+| 04 | [04_MAP04_어드벤처_전체맵_무드시안.png](../assets/map_images/MAP04_adventure_full_map_mood_concept_003.png) |
+| 05 | [05_MAP05_어드벤처_플레이_무드시안.png](../assets/map_images/MAP05_adventure_play_mood_concept_004.png) |

@@ -1,7 +1,7 @@
 [
   {
     "id": "UI08",
-    "file": "../assets/ui_images/UI08_가방_005.svg",
+    "file": "../assets/ui_images/UI08_bag_005.svg",
     "width": 128,
     "height": 128,
     "viewBox": "0 0 128 128",
@@ -12,7 +12,7 @@
   },
   {
     "id": "UI09",
-    "file": "../assets/ui_images/UI09_발견기록_006.svg",
+    "file": "../assets/ui_images/UI09_discovery_journal_006.svg",
     "width": 128,
     "height": 128,
     "viewBox": "0 0 128 128",
@@ -23,7 +23,7 @@
   },
   {
     "id": "UI10",
-    "file": "../assets/ui_images/UI10_힌트_007.svg",
+    "file": "../assets/ui_images/UI10_hint_007.svg",
     "width": 128,
     "height": 128,
     "viewBox": "0 0 128 128",

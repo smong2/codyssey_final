@@ -12,6 +12,6 @@
 | 번호 | 이름 |
 |---|---|
 | 00 | 현재 안내 파일 |
-| 01 | [01_NPC03_베른_source.png](../assets/character_images/NPC03_베른_source_035.png) |
-| 02 | [02_NPC03_베른_v3_source.png](../assets/character_images/NPC03_베른_v3_source_036.png) |
-| 03 | [03_NPC03_베른_v4_source.png](../assets/character_images/NPC03_베른_v4_source_037.png) |
+| 01 | [01_NPC03_베른_source.png](../assets/character_images/NPC03_bern_source_035.png) |
+| 02 | [02_NPC03_베른_v3_source.png](../assets/character_images/NPC03_bern_v3_source_036.png) |
+| 03 | [03_NPC03_베른_v4_source.png](../assets/character_images/NPC03_bern_v4_source_037.png) |

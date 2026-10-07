@@ -12,4 +12,4 @@
 | 번호 | 이름 |
 |---|---|
 | 00 | 현재 안내 파일 |
-| 01 | [01_CH10_엘리아_1024x1536.png](../assets/character_images/CH10_엘리아_1024x1536_038.png) |
+| 01 | [01_CH10_엘리아_1024x1536.png](../assets/character_images/CH10_elia_1024x1536_038.png) |

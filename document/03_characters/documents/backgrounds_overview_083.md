@@ -4,63 +4,63 @@
 
 ## BG01 아르카디아 입구와 호수
 
-1672 × 941 px · [PNG 원본](../assets/background_images/BG01_아르카디아_입구와_호수_000.png)
+1672 × 941 px · [PNG 원본](../assets/background_images/BG01_arcadia_entrance_and_lake_000.png)
 
-![아르카디아_입구와_호수](../assets/background_images/BG01_아르카디아_입구와_호수_000.png)
+![아르카디아_입구와_호수](../assets/background_images/BG01_arcadia_entrance_and_lake_000.png)
 
 ## BG02 시계탑 광장
 
-1672 × 941 px · [PNG 원본](../assets/background_images/BG02_시계탑_광장_001.png)
+1672 × 941 px · [PNG 원본](../assets/background_images/BG02_clocktower_plaza_001.png)
 
-![시계탑_광장](../assets/background_images/BG02_시계탑_광장_001.png)
+![시계탑_광장](../assets/background_images/BG02_clocktower_plaza_001.png)
 
 ## BG03 빈 마이룸
 
-1672 × 941 px · [PNG 원본](../assets/background_images/BG03_빈_마이룸_002.png)
+1672 × 941 px · [PNG 원본](../assets/background_images/BG03_empty_myroom_002.png)
 
-![빈_마이룸](../assets/background_images/BG03_빈_마이룸_002.png)
+![빈_마이룸](../assets/background_images/BG03_empty_myroom_002.png)
 
 ## BG04 학원 기숙사
 
-1672 × 941 px · [PNG 원본](../assets/background_images/BG04_학원_기숙사_003.png)
+1672 × 941 px · [PNG 원본](../assets/background_images/BG04_academy_dormitory_003.png)
 
-![학원_기숙사](../assets/background_images/BG04_학원_기숙사_003.png)
+![학원_기숙사](../assets/background_images/BG04_academy_dormitory_003.png)
 
 ## BG05 대서고
 
-1672 × 941 px · [PNG 원본](../assets/background_images/BG05_대서고_004.png)
+1672 × 941 px · [PNG 원본](../assets/background_images/BG05_grand_library_004.png)
 
-![대서고](../assets/background_images/BG05_대서고_004.png)
+![대서고](../assets/background_images/BG05_grand_library_004.png)
 
 ## BG06 별빛 천문대
 
-1672 × 941 px · [PNG 원본](../assets/background_images/BG06_별빛_천문대_005.png)
+1672 × 941 px · [PNG 원본](../assets/background_images/BG06_starlight_observatory_005.png)
 
-![별빛_천문대](../assets/background_images/BG06_별빛_천문대_005.png)
+![별빛_천문대](../assets/background_images/BG06_starlight_observatory_005.png)
 
 ## BG07 유리 온실
 
-1672 × 941 px · [PNG 원본](../assets/background_images/BG07_유리_온실_006.png)
+1672 × 941 px · [PNG 원본](../assets/background_images/BG07_glass_greenhouse_006.png)
 
-![유리_온실](../assets/background_images/BG07_유리_온실_006.png)
+![유리_온실](../assets/background_images/BG07_glass_greenhouse_006.png)
 
 ## BG08 치유의 약초원
 
-1672 × 941 px · [PNG 원본](../assets/background_images/BG08_치유의_약초원_007.png)
+1672 × 941 px · [PNG 원본](../assets/background_images/BG08_healing_herb_garden_007.png)
 
-![치유의_약초원](../assets/background_images/BG08_치유의_약초원_007.png)
+![치유의_약초원](../assets/background_images/BG08_healing_herb_garden_007.png)
 
 ## BG09 마도 공방
 
-1672 × 941 px · [PNG 원본](../assets/background_images/BG09_마도_공방_008.png)
+1672 × 941 px · [PNG 원본](../assets/background_images/BG09_magic_workshop_008.png)
 
-![마도_공방](../assets/background_images/BG09_마도_공방_008.png)
+![마도_공방](../assets/background_images/BG09_magic_workshop_008.png)
 
 ## BG10 룬 수련장
 
-1672 × 941 px · [PNG 원본](../assets/background_images/BG10_룬_수련장_009.png)
+1672 × 941 px · [PNG 원본](../assets/background_images/BG10_rune_training_ground_009.png)
 
-![룬_수련장](../assets/background_images/BG10_룬_수련장_009.png)
+![룬_수련장](../assets/background_images/BG10_rune_training_ground_009.png)
 
 ## 적용 메모
 

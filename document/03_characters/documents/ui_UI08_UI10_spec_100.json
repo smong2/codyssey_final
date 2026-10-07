@@ -15,17 +15,17 @@
     {
       "id": "UI08",
       "name": "가방",
-      "file": "../assets/ui_images/UI08_가방_005.svg"
+      "file": "../assets/ui_images/UI08_bag_005.svg"
     },
     {
       "id": "UI09",
       "name": "발견기록",
-      "file": "../assets/ui_images/UI09_발견기록_006.svg"
+      "file": "../assets/ui_images/UI09_discovery_journal_006.svg"
     },
     {
       "id": "UI10",
       "name": "힌트",
-      "file": "../assets/ui_images/UI10_힌트_007.svg"
+      "file": "../assets/ui_images/UI10_hint_007.svg"
     }
   ]
 }

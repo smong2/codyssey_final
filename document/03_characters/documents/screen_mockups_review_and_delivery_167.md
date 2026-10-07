@@ -5,9 +5,9 @@
 2026-10-02 / 기존 에셋 재사용 / 신규 AI 이미지 생성 0회.
 
 ## 확인할 이미지
-1. [SC02 게임 시작](../assets/screen_images/SC02_게임_시작_000.jpg)
-2. [SC03 캐릭터 선택](../assets/screen_images/SC03_캐릭터_선택_001.jpg)
-3. [SC04 온실 모험](../assets/screen_images/SC04_온실_모험_002.jpg)
+1. [SC02 게임 시작](../assets/screen_images/SC02_game_start_000.jpg)
+2. [SC03 캐릭터 선택](../assets/screen_images/SC03_character_selection_001.jpg)
+3. [SC04 온실 모험](../assets/screen_images/SC04_greenhouse_adventure_002.jpg)
 
 [클릭 가능한 HTML 시안](../code/screen_mockups_preview_010.html). 저장소를 내려받고 HTML을 열면 상대 경로 에셋을 읽는다. GitHub 파일 미리보기는 HTML 앱을 실행하지 않는다. 1920×1080 PC 검토 캔버스이며 작은 창에서는 스크롤이 필요하다.
 
