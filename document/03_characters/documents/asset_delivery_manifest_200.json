@@ -1,0 +1,112 @@
+[
+  {
+    "label": "온실 직선 전체맵 콘셉트",
+    "file": "assets/map_images/greenhouse_fullmap_straight_concept_007.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "fcffc7a7fb939b9fa17c5cc295242294c8782ae1e4a44e0f6ee9cccd852dd2fe",
+    "source": "review_pending\\04_map_bern\\images\\greenhouse_straight_map_000.png",
+    "status": "concept_archive"
+  },
+  {
+    "label": "베른 후보 01 부엉이",
+    "file": "assets/character_images/bern_candidate01_owl_088.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "426595b5854092993aa49f78ba65dd9ad618139865a886b7f697ad56dd295b7b",
+    "source": "review_pending\\04_map_bern\\images\\bern_owl_001.png",
+    "status": "candidate_archive_not_selected"
+  },
+  {
+    "label": "베른 후보 02 여우",
+    "file": "assets/character_images/bern_candidate02_fox_089.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "51026569f6f7d0b2d2d5b545ed2139e870b98dc5439471292da509a19a6340d4",
+    "source": "review_pending\\04_map_bern\\images\\bern_fox_002.png",
+    "status": "candidate_archive_not_selected"
+  },
+  {
+    "label": "베른 후보 03 토끼",
+    "file": "assets/character_images/bern_candidate03_rabbit_090.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "07e4c0b2dfc73009e4bc9e5fda770f833dd740189c42a868dd64e2f48ad5781d",
+    "source": "review_pending\\04_map_bern\\images\\bern_rabbit_003.png",
+    "status": "candidate_archive_not_selected"
+  },
+  {
+    "label": "베른 후보 04 수달",
+    "file": "assets/character_images/bern_candidate04_otter_091.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "82497f0547159fc423f3446b508da8b3c03ddf3fb69bad5b5241357f4c72de02",
+    "source": "review_pending\\04_map_bern\\images\\bern_otter_004.png",
+    "status": "candidate_archive_not_selected"
+  },
+  {
+    "label": "베른 후보 05 강아지",
+    "file": "assets/character_images/bern_candidate05_puppy_092.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "627a156a2f04b25d9388f18de8155f13a3ecf54ce4e7ad2e226e59c32cec45f4",
+    "source": "review_pending\\04_map_bern\\images\\bern_puppy_005.png",
+    "status": "candidate_archive_not_selected"
+  },
+  {
+    "label": "일반 대화창",
+    "file": "assets/ui_images/dialogue_frame_013.png",
+    "size": [
+      1280,
+      320
+    ],
+    "sha256": "f59c47306ec6129b2aa045bcd641ea6c51ea2ff6074258772009424fee9a6087",
+    "source": "review_pending\\05_depth_ui\\images\\dialogue_plate_000.png",
+    "status": "ui_delivery"
+  },
+  {
+    "label": "참조 이미지 카드 - 타이틀 칸 추가",
+    "file": "assets/ui_images/reference_card_title_014.png",
+    "size": [
+      384,
+      448
+    ],
+    "sha256": "3097c0e50c87c1cf4a655e68c5d47819f7a7647f18fcc3938cb7f22c860c0b0e",
+    "source": "review_pending\\07_bern_ui_revision\\images\\reference_card_title_000.png",
+    "status": "ui_delivery"
+  },
+  {
+    "label": "플레이어 상태창",
+    "file": "assets/ui_images/player_status_frame_015.png",
+    "size": [
+      512,
+      192
+    ],
+    "sha256": "34a62793658cd8d3ae911ef8b6520084f5a377bd927cc13accd95e0a956aafe2",
+    "source": "review_pending\\05_depth_ui\\images\\player_status_plate_002.png",
+    "status": "ui_delivery"
+  },
+  {
+    "label": "관계 상태창",
+    "file": "assets/ui_images/relationship_status_frame_016.png",
+    "size": [
+      384,
+      160
+    ],
+    "sha256": "e29ee75949adba2f93b9bda744cd40c4acde1c263c2a2f5561cf0f1e51969b47",
+    "source": "review_pending\\05_depth_ui\\images\\relationship_plate_003.png",
+    "status": "ui_delivery"
+  }
+]
