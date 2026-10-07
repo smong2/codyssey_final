@@ -1,0 +1,374 @@
+[
+  {
+    "category": "02_characters",
+    "file": "CH01_카엘.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH02_세라.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH03_시온.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH04_로엔.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH05_레온.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH06_벨라.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH07_유안.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH08_아이리스.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH09_에녹.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH10_엘리아.png",
+    "width": 1024,
+    "height": 1535
+  },
+  {
+    "category": "02_characters",
+    "file": "CH11_루카.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH12_리네.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH13_아드리안.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH14_스텔라.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH15_로빈.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH16_티아.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH17_바론.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH18_클레어.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH19_요한.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH20_하젤.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH21_빅터.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH22_로렌.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH23_테오.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH24_미리엄.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH25_렌.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH26_다나.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH27_미엘.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH28_실비아.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH29_카일.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH30_제나.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH31_니코.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "02_characters",
+    "file": "CH32_리코.png",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "category": "03_items",
+    "file": "IT01_마음_일기.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT02_룬_램프.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT03_차_세트.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT04_약초_화분.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT05_룬_조각.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT06_추억_액자.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT07_마이룸_책상.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT08_마이룸_의자.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT09_마이룸_침대.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT10_마이룸_책장.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT11_마이룸_러그.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT12_룬_오브제.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT13_룬_고서.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT14_양피지_편지.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT15_마석_공방_도구.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT16_훈련용_목검.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT17_공방_마석.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT18_마음_룬.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT19_그림자_룬.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "03_items",
+    "file": "IT20_정화된_룬.png",
+    "width": 1254,
+    "height": 1254
+  },
+  {
+    "category": "04_backgrounds",
+    "file": "BG01_아르카디아_입구와_호수.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "category": "04_backgrounds",
+    "file": "BG02_시계탑_광장.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "category": "04_backgrounds",
+    "file": "BG03_빈_마이룸.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "category": "04_backgrounds",
+    "file": "BG04_학원_기숙사.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "category": "04_backgrounds",
+    "file": "BG05_대서고.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "category": "04_backgrounds",
+    "file": "BG06_별빛_천문대.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "category": "04_backgrounds",
+    "file": "BG07_유리_온실.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "category": "04_backgrounds",
+    "file": "BG08_치유의_약초원.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "category": "04_backgrounds",
+    "file": "BG09_마도_공방.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "category": "04_backgrounds",
+    "file": "BG10_룬_수련장.png",
+    "width": 1672,
+    "height": 941
+  }
+]

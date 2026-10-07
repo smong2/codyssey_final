@@ -1,0 +1,18 @@
+[
+  {
+    "name": "MAP04_어드벤처_전체맵_무드시안",
+    "source_width": 1672,
+    "source_height": 941,
+    "output_width": 1920,
+    "output_height": 1080,
+    "sha256": "83469BBC45E5EAC62E5AE2BDD16A0754DE3521F9219DEEA056CB0479C95AB7DB"
+  },
+  {
+    "name": "MAP05_어드벤처_플레이_무드시안",
+    "source_width": 1672,
+    "source_height": 941,
+    "output_width": 1920,
+    "output_height": 1080,
+    "sha256": "EBCF5BBEC70DF92337199DAF61AEF1A290849472A7180B479E18E397B9E04681"
+  }
+]

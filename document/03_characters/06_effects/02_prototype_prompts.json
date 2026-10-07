@@ -1,0 +1,26 @@
+{
+  "common": "Use case: stylized-concept. Lumia Chronicles original warm academic classical fantasy game asset. Fine hand drawn ink outlines, soft watercolor and colored pencil matte texture, cream parchment, sage green, restrained coral and antique brass, quiet turquoise rune light. Cohesive readable game art, no logos, no words, no letters, no UI text, no watermark, no scenery unless specifically a tile/backdrop, no border unless requested. No photorealism, plastic 3D, neon, excessive ornate gold. One asset only. Full object visible, clean contour, appropriate breathing room. Transparent background when requested, fully opaque object interiors except intentional glass/glow.",
+  "assets": [
+    {
+      "category": "06_effects",
+      "id": "FX01",
+      "name": "공통_룬_빛",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "delta": "Single subtle turquoise magical ring glow with six sparse soft floating mote lights, thin curved flowing light trails, bright gentle center fading smoothly to fully transparent outer edges, reusable selection/interaction/puzzle/world-change effect. No solid stone, no emblem shape, no black or white rectangle. Symmetric centered square.",
+      "edit": null,
+      "status": "generated_pending_game_qa",
+      "file": "06_effects/04_images/FX01_공통_룬_빛.png",
+      "source_width": 1254,
+      "source_height": 1254,
+      "export_width": 512,
+      "export_height": 512,
+      "alpha_min_sampled": 0,
+      "alpha_max_sampled": 254,
+      "sha256": "A9F52C051ADB49233DC31E3171DBD9D76B002FF01AC16A4AF5563E73D0C7B786",
+      "source_file": "06_effects/05_sources/FX01_공통_룬_빛_source.png",
+      "qa_status": "pending_in_game_visual_qa"
+    }
+  ]
+}

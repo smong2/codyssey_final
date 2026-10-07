@@ -1,0 +1,12 @@
+{
+  "name": "ENV03_온실_바닥_변형_B_v2",
+  "category": "07_adventure_environment",
+  "file": "07_adventure_environment/04_images/ENV03_온실_바닥_변형_B_v2.png",
+  "source": "07_adventure_environment/05_sources/ENV03_온실_바닥_변형_B_v2_source.png",
+  "source_width": 1254,
+  "source_height": 1254,
+  "width": 128,
+  "height": 128,
+  "sha256": "4A7B4F8AEC3A8C6012B911E21C12CE24DA19F74084FEF33C2E7C589D13D07DEC",
+  "qa": "repeat_layout_visually_checked_in_game_qa_pending"
+}

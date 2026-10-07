@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-02",
+  "originals": [
+    {
+      "file": "README.md",
+      "sha256": "501A6DE1F7F156DFA22797BEBC5B5F4EEA3C26EE00DB480B0BF5C86CC993DE6B",
+      "unchanged": true
+    },
+    {
+      "file": "document/01_project_overview.md",
+      "sha256": "A7B6253DB9B957971E5676952B87BCE38F2D5E44B46BDA9F992E23C7950CB9C4",
+      "unchanged": true
+    },
+    {
+      "file": "document/02_worldview.md",
+      "sha256": "E181C117D42C460D8A52B121810CB65958960BE71CE9A5DED8F3B674F76B9E18",
+      "unchanged": true
+    },
+    {
+      "file": "document/03_characters.md",
+      "sha256": "9FCB0B856B5B3F264756F2740E06F9428F4A32572454C9C9EC8FAE709ED52D61",
+      "unchanged": true
+    },
+    {
+      "file": "document/04_tech_stack.md",
+      "sha256": "54EA80921EFCEF446F75791F5839EBC6CCD3C0CCFBE4B2EEED1C452E89FF1806",
+      "unchanged": true
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "SC02_게임_시작.jpg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "BC694124CC02663E13AE528428DDCDC7C1E88316C3FB56995E5CE964898A9575"
+    },
+    {
+      "file": "SC03_캐릭터_선택.jpg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "9ACCDC1486AFBCEB687D527BC5E4CA7EB225F7BA345AD224BF14907AE99C15B1"
+    },
+    {
+      "file": "SC04_온실_모험.jpg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "E7AA3752C45C8E60AC3CCC2285EC8C43BD6A83E17D9405506D74984C3D5F7DA6"
+    }
+  ],
+  "ai_generation_calls": 0,
+  "capture_note": "1280x720 valid browser image area geometrically normalized to 1920x1080; see 06_review_and_delivery.md"
+}

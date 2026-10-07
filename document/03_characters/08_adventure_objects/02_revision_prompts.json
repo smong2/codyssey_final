@@ -1,0 +1,6 @@
+{
+  "OBJ02_v2": {
+    "prompt": "Edit this wilted plant to restored healthy state. ABSOLUTELY LOCK lower flowerpot pixels: same exact pot width/height/position/rim/soil/decoration. Do not move or resize pot, do not reframe image. Keep same canvas512x512 composition. Change ONLY above soil: uncurl and raise existing three long leaves into healthy upright sage green posture and open the cream flower bud. No extra leaves or pots. No glow or particles. Maintain watercolor linework. Transparent outside plant. Bottom of pot remains at original same y coordinate. Full plant inside canvas.",
+    "qa": "restored_posture_improved_pot_identity_and_anchor_pending"
+  }
+}

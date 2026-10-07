@@ -1,0 +1,10 @@
+{
+  "NPC03_v3": {
+    "prompt": "Remove background ONLY. This is a game sprite cutout task. Preserve exact owl Bern pose, teacup, all metal plates, plum waistcoat, face, eye lenses and feet. Delete every brown/gold/gray halo pixel OUTSIDE the silhouette; fully transparent alpha0 everywhere outside owl and cup. Absolutely no aura, atmospheric glow, spotlight, smoke, vignette or ground shadow. Sharp clean silhouette with gentle1pixel antialiasing only. Keep turquoise light WITHIN chest gem but no external emitted light. Do not redraw the character design. Full owl remains visible, same canvas and placement.",
+    "qa": "failed_halo_removal"
+  },
+  "NPC03_v4": {
+    "prompt": "배경을 완전히 제거해서 부엉이와 찻잔만 남겨주세요. 갈색 빛과 그림자까지 모두 삭제하고 투명 PNG 누끼로 만들어주세요.",
+    "qa": "failed_halo_removal"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "NPC03_베른_v3",
+  "category": "02_characters",
+  "file": "02_characters/04_images/NPC03_베른_v3.png",
+  "source": "02_characters/05_sources/NPC03_베른_v3_source.png",
+  "source_width": 1024,
+  "source_height": 1536,
+  "width": 1024,
+  "height": 1536,
+  "sha256": "8A87EEDDFC8343270A0827A7C0191A34258F602DEDD14C3B4425DFDA3807F019",
+  "qa": "rejected_halo_not_removed"
+}
