@@ -1,0 +1,45 @@
+{
+  "purpose": "상세 문서의 내용 변경 감지. 해시 일치는 요약 내용의 정확성을 보증하지 않음.",
+  "sources": [
+    {
+      "path": "document_new/00_README.md",
+      "sha256": "798075d3e27119b786571eee35ebb756116744c1388c2911e160839d1f60501a",
+      "ai": ["document_for_ai/00_READ_FIRST.md"]
+    },
+    {
+      "path": "document_new/01_PROJECT_OVERVIEW.md",
+      "sha256": "ff465f2f95841abb46711484a09c4c5df65af03c5394e56cb54fabad86089fa7",
+      "ai": ["document_for_ai/01_PROJECT.md"]
+    },
+    {
+      "path": "document_new/02_WORLDVIEW.md",
+      "sha256": "ea55b1424ec76ac6ba3bde0579c9c14a039ebddf6535ee038fad1c4a4a827b97",
+      "ai": ["document_for_ai/02_WORLD_CHARACTERS.md"]
+    },
+    {
+      "path": "document_new/03_CHARACTERS.md",
+      "sha256": "40d72709d18c90654d5c57b5b212392706dfb051e408d4b3fae1884e2fba2662",
+      "ai": ["document_for_ai/02_WORLD_CHARACTERS.md"]
+    },
+    {
+      "path": "document_new/04_ASSETS.md",
+      "sha256": "ee2b95ca33f69d90ec3b8dbb0581684add6936c9846d49e1eb3b716c432ead52",
+      "ai": ["document_for_ai/04_ASSETS.md"]
+    },
+    {
+      "path": "document_new/05_TEAM_ROLES.md",
+      "sha256": "3fa30dbf068d48e5036334853d8eba109b829ebad108c5e9a4e48bc4356a53c7",
+      "ai": ["document_for_ai/05_TEAM_ROLES.md"]
+    },
+    {
+      "path": "document_new/06_GAME_CONTENT.md",
+      "sha256": "6d400c806e58b9fc9f08ef07c938abcc1aff2e2b97c14b786b22b32c4e0df39e",
+      "ai": ["document_for_ai/03_GAME_CONTENT.md"]
+    },
+    {
+      "path": "asset/README.md",
+      "sha256": "b6b9c84f7615c66212735ba2b4cd3942a1412bfbb3eb63c6a9dbb6e6069742c1",
+      "ai": ["document_for_ai/04_ASSETS.md"]
+    }
+  ]
+}

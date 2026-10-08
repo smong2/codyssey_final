@@ -1,0 +1,5 @@
+/* Approved wordmarks and separate moonlight sparkle layer. No video required. */
+.lumia-logo-stack{position:relative;aspect-ratio:2/1}
+.lumia-logo-stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.lumia-logo-wordmark{filter:drop-shadow(0 1px 1px rgba(0,0,0,.88)) drop-shadow(0 3px 5px rgba(0,0,0,.65)) drop-shadow(0 5px 14px rgba(0,0,0,.35))}
+.lumia-logo-sparkle{pointer-events:none}
