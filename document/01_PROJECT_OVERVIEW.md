@@ -27,4 +27,4 @@ LUMIA는 약 9~11세 어린이가 아카데믹 클래식 판타지 세계의 학
 
 [세계관](02_WORLDVIEW.md) · [캐릭터](03_CHARACTERS.md) · [게임 콘텐츠](06_GAME_CONTENT.md) · [팀 역할](05_TEAM_ROLES.md)
 
-출처: [현재 통합 기획](../lagacy/docs/LUMIA_GAME_DESIGN.md), [초기 개요](../lagacy/document/01_project_overview.md). 초기 [기술 제안](../lagacy/document/04_tech_stack.md)은 과거 제안으로만 보관합니다.
+작성 당시 통합 기획·초기 개요를 참고했습니다. 해당 원문과 초기 기술 제안은 현재 저장소에 없으므로, 기술 제안을 현재 결정으로 사용하지 마세요.
