@@ -7,8 +7,14 @@
 1. [01_CORE_LOOP.md](01_CORE_LOOP.md) — 52주 플레이와 주간 일정
 2. [02_STATS_EVENTS_ENDINGS.md](02_STATS_EVENTS_ENDINGS.md) — 스탯, NPC/공간 이벤트, 엔딩 조건
 3. [03_COLLECTION_UNLOCKS.md](03_COLLECTION_UNLOCKS.md) — 수집 배지, 캐릭터·펫·배경 해금
+   - [03_01_BADGE_COLLECTION_DESIGN.md](03_01_BADGE_COLLECTION_DESIGN.md) — 가방 수집 배지 200개의 분류·조립형 디자인 기준
+   - [03_02_CHARACTER_UNLOCK_TIMING.md](03_02_CHARACTER_UNLOCK_TIMING.md) — 추가 플레이 가능 캐릭터의 조건 달성·해금·사용 가능 시점
+   - [03_03_PET_UNLOCK_TIMING.md](03_03_PET_UNLOCK_TIMING.md) — 기본 1마리와 추가 9마리의 장기 해금 속도 기준
+   - [03_04_ROOM_BACKGROUND_PUZZLE.md](03_04_ROOM_BACKGROUND_PUZZLE.md) — 마이룸 배경 3종과 36개 퍼즐 조각 획득 규칙
 4. [04_SAVE_META_PROGRESSION.md](04_SAVE_META_PROGRESSION.md) — 저장과 회차 계승
 5. [05_OPEN_DECISIONS.md](05_OPEN_DECISIONS.md) — 아직 확정하지 않은 항목
+
+파일 번호는 상위 문서의 하위 개념일 경우 `03_01`, `03_02`처럼 **상위 번호를 이어받는 방식**으로 사용합니다.
 
 ## 현재 게임의 한 문장 정의
 
