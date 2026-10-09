@@ -93,6 +93,13 @@
       ]
     },
     {
+      "prefix": "document/content/",
+      "extension": ".md",
+      "ai": [
+        "document_for_ai/03_GAME_CONTENT.md"
+      ]
+    },
+    {
       "prefix": "asset/",
       "filename": "README.md",
       "ai": [
@@ -160,7 +167,7 @@
     },
     {
       "path": "document/00_README.md",
-      "sha256": "97de3e4999728b0f3cbad6eacccfe0aa81eb58dc6b7d8143ccb88f0cc59c0303"
+      "sha256": "3144cb936e15f79f6dbeaba284f07423b156f35ca21cb17709ad20639c80061b"
     },
     {
       "path": "document/01_PROJECT_OVERVIEW.md",
@@ -184,7 +191,31 @@
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "59f54c61643083640b1097e67c4c5a98d9894794ddb8d22e131e0313c877901e"
+      "sha256": "000b78edef0db00be3d7a767838e88c437d574ec831129e746371116e63593fe"
+    },
+    {
+      "path": "document/content/README.md",
+      "sha256": "129a7d92ae0c3cd12005016b1f9b90e30efbd7680ffed4680b89ef864b96ba8f"
+    },
+    {
+      "path": "document/content/01_CORE_LOOP.md",
+      "sha256": "c61afdaed3050163b95f5d87f99791d2fef2994fcdc40f802e857e5a889848ee"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS.md",
+      "sha256": "58a95680a3e6b5b35a19fb1b107808ed1edb9f1acf5db929cfdde6bd8765845e"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS.md",
+      "sha256": "22dcdbc4d7f231c7d09e98b0e65ea31597fdc0ca5b7a5c5654ed9ccf81632791"
+    },
+    {
+      "path": "document/content/04_SAVE_META_PROGRESSION.md",
+      "sha256": "d3b3c1c7e11aae46789913eeb6e56ed16a0ee242cd9f895c4821b61789f44778"
+    },
+    {
+      "path": "document/content/05_OPEN_DECISIONS.md",
+      "sha256": "1e0594c80e04a6b17bf4dcd5d1c328dcb164662e23f1d604d4803b6ed7ac3f7b"
     },
     {
       "path": "document/07_AI_WORK_GUIDE.md",
