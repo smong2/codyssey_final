@@ -19,3 +19,16 @@
 4. `engine/` 실행 방식이 바뀌면 [공식 실행방법](../document/실행방법.md)을 같은 작업에서 갱신합니다.
 5. 팀 기준인 `document/`가 바뀌면 연결된 AI 요약을 읽고 필요한 경우 함께 수정합니다. 변경 확인 도구의 감지와 의미적 동기화는 별개입니다.
 6. 담당자, 기술 스택, 게임 설정, 에셋 최종 선택처럼 확정 근거가 없는 사항은 `미정`으로 두고 사용자에게 확인합니다.
+
+## 변경 검사 규칙
+
+저장소 전체에 접근할 수 있는 작업에서는 `node document_for_ai/check_sources.mjs`로 문서·자원 동기화 상태를 확인합니다.
+
+- `CHANGED`: 이미 추적 중인 문서 또는 asset inventory가 기록된 기준에서 바뀌었습니다. 출력된 AI 문서를 다시 읽고 필요한 요약을 갱신합니다.
+- `UNTRACKED`: `source_manifest.json`의 `discovery` 범위에서 새 관리 문서를 발견했지만 `trackedFiles`에는 아직 없습니다. `routes`의 연결 규칙을 확인하고 검토 후 manifest에 등록합니다.
+- `ASSET README`: asset 카테고리의 실제 파일과 README 목록·로컬 미리보기 참조가 맞지 않습니다. README를 실제 파일 상태에 맞춘 뒤 다시 검사합니다.
+- `UNAVAILABLE`: 추적 대상 원문이나 asset 경로를 찾을 수 없습니다. 없는 자료를 추측하지 않고 접근 가능 여부부터 확인합니다.
+- `MANIFEST`: manifest 구조, 중복 추적 경로, SHA-256 형식, AI route 대상 등에 문제가 있습니다. 다른 변경 처리보다 manifest 오류를 먼저 해결합니다.
+- `UNROUTED`: `--add-untracked`로 새 문서를 등록하려 했지만 연결할 AI 문서를 결정할 route가 없습니다. `routes`를 먼저 정의한 뒤 다시 시도합니다.
+
+`--record`는 이미 `trackedFiles`에 등록된 파일과 `assetInventory`의 현재 해시를 승인하는 기능입니다. 새 문서를 자동 등록하거나 AI 요약의 의미적 정확성을 검증하지 않습니다. `--add-untracked`는 `discovery`에서 발견되고 `routes`로 AI 연결 대상을 결정할 수 있는 새 문서만 `trackedFiles`에 등록합니다. 두 옵션은 동시에 사용하지 않습니다. 새 관리 대상을 추가할 때는 `discovery`, `routes`, `trackedFiles`의 역할을 구분해 수정합니다.

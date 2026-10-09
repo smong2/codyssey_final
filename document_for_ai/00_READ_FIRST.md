@@ -25,11 +25,16 @@ Final Project의 범위·산출물·완료 조건을 계획하거나 구현할 �
 
 ## 변경 확인과 반영
 
-전체 저장소를 사용할 수 있다면 작업 시작 시 `node document_for_ai/check_sources.mjs`를 실행하세요. 이 도구는 팀 문서·영역 README·이미지 자원이 기록 시점에서 바뀌었는지 확인합니다. 변경이 나오면 관련 원문을 다시 읽고 현재 작업에 반영하세요. **해시가 같다는 결과는 요약의 의미적 정확성을 보증하지 않습니다.**
+전체 저장소를 사용할 수 있다면 작업 시작 시 `node document_for_ai/check_sources.mjs`를 실행하세요. 이 도구는 `source_manifest.json`의 `discovery` 규칙으로 관리 대상 문서를 찾고, `trackedFiles`의 기준 해시와 비교하며, `routes`를 이용해 어떤 AI 요약을 다시 읽어야 하는지 안내합니다. 또한 asset 실제 파일과 카테고리 README의 목록·로컬 미리보기 참조가 맞는지도 확인합니다. **해시가 같다는 결과는 요약의 의미적 정확성을 보증하지 않습니다.**
 
-- 문서 **작성·수정 작업**을 요청받았다면 바뀐 팀 문서에 맞춰 연결된 AI 요약을 검토·수정한 뒤 `node document_for_ai/check_sources.mjs --record`로 확인 기준을 갱신하고 다시 검사합니다.
+- `CHANGED`가 나오면 표시된 원문과 연결된 AI 요약을 다시 읽고 의미상 동기화가 필요한지 판단합니다.
+- `UNTRACKED`가 나오면 새 관리 대상 문서가 발견됐지만 아직 `trackedFiles`에 등록되지 않은 상태입니다. `routes`가 제안하는 AI 문서를 검토한 뒤 manifest에 경로와 현재 해시를 등록합니다. `--record`만으로 새 파일이 자동 등록되지는 않습니다.
+- route가 명확한 새 문서를 등록할 때는 `node document_for_ai/check_sources.mjs --add-untracked`를 사용할 수 있습니다. 이 옵션은 `routes`로 AI 연결 대상을 결정할 수 있는 파일만 `trackedFiles`에 추가하고, route가 없는 파일은 `UNROUTED`로 중단합니다. 등록 후에는 관련 AI 요약을 검토하고 일반 검사를 다시 실행합니다.
+- `ASSET README`가 나오면 실제 asset 파일과 카테고리 README가 불일치한 상태입니다. 누락된 파일 목록·설명·미리보기 또는 잘못된 로컬 참조를 먼저 고칩니다.
+- `MANIFEST`가 나오면 manifest 자체의 구조, 중복 경로, 해시 형식, AI route 대상 등을 먼저 수정합니다.
+- 문서 **작성·수정 작업**을 요청받았다면 바뀐 팀 문서에 맞춰 연결된 AI 요약을 검토·수정한 뒤 `node document_for_ai/check_sources.mjs --record`로 기존 추적 파일의 확인 기준을 갱신하고 다시 검사합니다.
 - **답변·검토만 요청받았다면** 변경을 읽고 답변에 반영하되 파일을 임의로 수정하지 않습니다.
 - 이 폴더만 전달받아 원문이나 자원에 접근할 수 없다면 자동 변경 확인은 불가능합니다. 이 경우 현재 묶음을 기준 스냅샷으로 사용하고, 최신 여부가 중요한 판단은 자료 제공을 요청합니다.
 - 문서 간 충돌이나 최종 선택이 필요한 미정 사항은 스스로 확정하지 않고 사용자에게 확인합니다.
 
-`source_manifest.json`과 `check_sources.mjs`는 변경 알림 장치입니다. 실제 의미 판단과 요약 수정은 문서를 읽은 AI 또는 팀원이 수행해야 합니다.
+`source_manifest.json`과 `check_sources.mjs`는 변경·누락·자원 문서 불일치뿐 아니라 manifest 자체의 기본 무결성도 검사하는 검증 장치입니다. manifest의 주요 구분은 `discovery`(자동 발견 범위), `routes`(AI 문서 연결), `trackedFiles`(기준 해시), `assetInventory`(asset 전체 상태)입니다. 실제 의미 판단과 요약 수정은 문서를 읽은 AI 또는 팀원이 수행해야 합니다.
