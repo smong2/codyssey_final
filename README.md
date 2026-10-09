@@ -13,6 +13,7 @@ LUMIA는 9~11세 어린이가 룬 학원 아르카디아의 학생이 되어 친
 | 팀원 | [이미지 자원](document/04_ASSETS.md) | 카테고리, 상태, 이미지 연결 |
 | 팀원 | [팀 역할](document/05_TEAM_ROLES.md) | 작업 영역과 담당 확인 항목 |
 | 팀원 | [게임 콘텐츠](document/06_GAME_CONTENT.md) | 콘텐츠 유형과 플레이 흐름 |
+| 팀원·AI | [Final Project 요구사항](document/08_REQUEST.md) | 필수 조건, 산출물, 참고 예시와 LUMIA 점검 항목 |
 | 팀원 | [AI 작업 시작 안내](document/07_AI_WORK_GUIDE.md) | AI로 작업을 시작하는 방법과 프롬프트 |
 | AI | [AI 시작 문서](document_for_ai/00_READ_FIRST.md) | 읽는 순서, 우선순위, 변경 확인 규칙 |
 

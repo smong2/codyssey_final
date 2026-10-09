@@ -3,7 +3,7 @@
   "sources": [
     {
       "path": "README.md",
-      "sha256": "916c2f24220e33bddc9ce9eff8bb509cf7da45ec2359857cbb4785ce69931658",
+      "sha256": "4c8207c4143e94c43b1d9846516f32aeea2935040f5eb86c64a9152975e24d7f",
       "ai": [
         "document_for_ai/00_READ_FIRST.md"
       ]
@@ -17,7 +17,7 @@
     },
     {
       "path": "document/00_README.md",
-      "sha256": "a55bee76b065d86d22a8205b9ef337d7a89cff12f547de462ea1ef3cf87f3954",
+      "sha256": "97de3e4999728b0f3cbad6eacccfe0aa81eb58dc6b7d8143ccb88f0cc59c0303",
       "ai": [
         "document_for_ai/00_READ_FIRST.md"
       ]
@@ -70,6 +70,14 @@
       "ai": [
         "document_for_ai/00_READ_FIRST.md",
         "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "path": "document/08_REQUEST.md",
+      "sha256": "b8ed082dfb7e04cfb2aac3a067a9b9c50fe553d040410290cbcda552cda85288",
+      "ai": [
+        "document_for_ai/00_READ_FIRST.md",
+        "document_for_ai/01_PROJECT.md"
       ]
     },
     {
