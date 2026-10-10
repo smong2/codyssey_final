@@ -1,32 +1,33 @@
-# 아이템·조사 오브젝트 이미지
+# 게임용 아이템
 
-현재 이 폴더의 PNG 26개입니다. `IT`는 소지품·가구·룬 물건, `OBJ`는 조사 장면의 상태별 오브젝트로 구분합니다. 용도와 이름은 [게임 콘텐츠](../../document/06_GAME_CONTENT.md) 및 [이미지 자원 설명](../../document/04_ASSETS.md)에 맞춰 간단히 적었습니다. 실제 사용 장면·변형 선정은 별도 확인이 필요합니다. 새 이미지의 추가·삭제·교체 시 이 표를 갱신하세요.
+게임용 PNG 25장만 유지합니다. 원본 26장과 이전 회복 식물 시안 1장은 로컬에 보관했습니다. 시든/회복 식물과 비활성/활성 이벤트 룬은 게임 상태가 달라 별도 이미지로 유지합니다. 회복 식물은 승인된 v2를 사용합니다.
 
-| 파일 | 설명 | 미리보기 |
+| 게임용 파일 | 규격 | 미리보기 |
 |---|---|---|
-| `IT01_heart_diary_000.png` | 마음 일기 이미지 | <img src="./IT01_heart_diary_000.png" width="140" alt="마음 일기"> |
-| `IT02_rune_lamp_001.png` | 룬 램프 이미지 | <img src="./IT02_rune_lamp_001.png" width="140" alt="룬 램프"> |
-| `IT03_tea_set_002.png` | 차 세트 이미지 | <img src="./IT03_tea_set_002.png" width="140" alt="차 세트"> |
-| `IT04_herb_pot_003.png` | 약초 화분 이미지 | <img src="./IT04_herb_pot_003.png" width="140" alt="약초 화분"> |
-| `IT05_rune_fragment_004.png` | 룬 조각 이미지 | <img src="./IT05_rune_fragment_004.png" width="140" alt="룬 조각"> |
-| `IT06_memory_frame_005.png` | 추억 액자 이미지 | <img src="./IT06_memory_frame_005.png" width="140" alt="추억 액자"> |
-| `IT07_myroom_desk_006.png` | 마이룸 책상 이미지 | <img src="./IT07_myroom_desk_006.png" width="140" alt="마이룸 책상"> |
-| `IT08_myroom_chair_007.png` | 마이룸 의자 이미지 | <img src="./IT08_myroom_chair_007.png" width="140" alt="마이룸 의자"> |
-| `IT09_myroom_bed_008.png` | 마이룸 침대 이미지 | <img src="./IT09_myroom_bed_008.png" width="140" alt="마이룸 침대"> |
-| `IT10_myroom_bookshelf_009.png` | 마이룸 책장 이미지 | <img src="./IT10_myroom_bookshelf_009.png" width="140" alt="마이룸 책장"> |
-| `IT11_myroom_rug_010.png` | 마이룸 러그 이미지 | <img src="./IT11_myroom_rug_010.png" width="140" alt="마이룸 러그"> |
-| `IT12_rune_ornament_011.png` | 룬 장식품 이미지 | <img src="./IT12_rune_ornament_011.png" width="140" alt="룬 장식품"> |
-| `IT13_rune_ancient_book_012.png` | 룬 고서 이미지 | <img src="./IT13_rune_ancient_book_012.png" width="140" alt="룬 고서"> |
-| `IT14_parchment_letter_013.png` | 양피지 편지 이미지 | <img src="./IT14_parchment_letter_013.png" width="140" alt="양피지 편지"> |
-| `IT15_magic_stone_workshop_tools_014.png` | 마석 공방 도구 이미지 | <img src="./IT15_magic_stone_workshop_tools_014.png" width="140" alt="마석 공방 도구"> |
-| `IT16_practice_wooden_sword_015.png` | 수련용 목검 이미지 | <img src="./IT16_practice_wooden_sword_015.png" width="140" alt="수련용 목검"> |
-| `IT17_workshop_magic_stone_016.png` | 공방 마석 이미지 | <img src="./IT17_workshop_magic_stone_016.png" width="140" alt="공방 마석"> |
-| `IT18_heart_rune_017.png` | 마음 룬 이미지 | <img src="./IT18_heart_rune_017.png" width="140" alt="마음 룬"> |
-| `IT19_shadow_rune_018.png` | 그림자 룬 이미지 | <img src="./IT19_shadow_rune_018.png" width="140" alt="그림자 룬"> |
-| `IT20_purified_rune_019.png` | 정화된 룬 이미지 | <img src="./IT20_purified_rune_019.png" width="140" alt="정화된 룬"> |
-| `OBJ01_inspect_plant_wilted_020.png` | 조사 식물의 시든 상태 | <img src="./OBJ01_inspect_plant_wilted_020.png" width="140" alt="시든 조사 식물"> |
-| `OBJ02_inspect_plant_restored_021.png` | 조사 식물의 회복 상태 | <img src="./OBJ02_inspect_plant_restored_021.png" width="140" alt="회복 조사 식물"> |
-| `OBJ02_inspect_plant_restored_v2_022.png` | 회복 식물의 v2 변형; 사용본 미정 | <img src="./OBJ02_inspect_plant_restored_v2_022.png" width="140" alt="회복 조사 식물 v2"> |
-| `OBJ03_moonlight_herb_023.png` | 달빛 약초 조사 오브젝트 | <img src="./OBJ03_moonlight_herb_023.png" width="140" alt="달빛 약초"> |
-| `OBJ04_event_rune_inactive_024.png` | 이벤트 룬 비활성 상태 | <img src="./OBJ04_event_rune_inactive_024.png" width="140" alt="비활성 이벤트 룬"> |
-| `OBJ05_event_rune_active_025.png` | 이벤트 룬 활성 상태 | <img src="./OBJ05_event_rune_active_025.png" width="140" alt="활성 이벤트 룬"> |
+| [diary1_heart.png](./diary1_heart.png) | 1024×1024 | <img src="./diary1_heart.png" width="140" alt="diary1_heart.png"> |
+| [lamp1_rune.png](./lamp1_rune.png) | 1024×1024 | <img src="./lamp1_rune.png" width="140" alt="lamp1_rune.png"> |
+| [tea1_set.png](./tea1_set.png) | 1024×1024 | <img src="./tea1_set.png" width="140" alt="tea1_set.png"> |
+| [pot1_herb.png](./pot1_herb.png) | 1024×1024 | <img src="./pot1_herb.png" width="140" alt="pot1_herb.png"> |
+| [rune1_fragment.png](./rune1_fragment.png) | 1024×1024 | <img src="./rune1_fragment.png" width="140" alt="rune1_fragment.png"> |
+| [frame1_memory.png](./frame1_memory.png) | 1024×1024 | <img src="./frame1_memory.png" width="140" alt="frame1_memory.png"> |
+| [desk1_myroom.png](./desk1_myroom.png) | 1024×1024 | <img src="./desk1_myroom.png" width="140" alt="desk1_myroom.png"> |
+| [chair1_myroom.png](./chair1_myroom.png) | 1024×1024 | <img src="./chair1_myroom.png" width="140" alt="chair1_myroom.png"> |
+| [bed1_myroom.png](./bed1_myroom.png) | 1024×1024 | <img src="./bed1_myroom.png" width="140" alt="bed1_myroom.png"> |
+| [bookshelf1_myroom.png](./bookshelf1_myroom.png) | 1024×1024 | <img src="./bookshelf1_myroom.png" width="140" alt="bookshelf1_myroom.png"> |
+| [rug1_myroom.png](./rug1_myroom.png) | 1024×1024 | <img src="./rug1_myroom.png" width="140" alt="rug1_myroom.png"> |
+| [ornament1_rune.png](./ornament1_rune.png) | 1024×1024 | <img src="./ornament1_rune.png" width="140" alt="ornament1_rune.png"> |
+| [book1_ancient.png](./book1_ancient.png) | 1024×1024 | <img src="./book1_ancient.png" width="140" alt="book1_ancient.png"> |
+| [letter1_parchment.png](./letter1_parchment.png) | 1024×1024 | <img src="./letter1_parchment.png" width="140" alt="letter1_parchment.png"> |
+| [tools1_workshop.png](./tools1_workshop.png) | 1024×1024 | <img src="./tools1_workshop.png" width="140" alt="tools1_workshop.png"> |
+| [sword1_wooden.png](./sword1_wooden.png) | 1024×1024 | <img src="./sword1_wooden.png" width="140" alt="sword1_wooden.png"> |
+| [stone1_magic.png](./stone1_magic.png) | 1024×1024 | <img src="./stone1_magic.png" width="140" alt="stone1_magic.png"> |
+| [rune2_heart.png](./rune2_heart.png) | 1024×1024 | <img src="./rune2_heart.png" width="140" alt="rune2_heart.png"> |
+| [rune3_shadow.png](./rune3_shadow.png) | 1024×1024 | <img src="./rune3_shadow.png" width="140" alt="rune3_shadow.png"> |
+| [rune4_purified.png](./rune4_purified.png) | 1024×1024 | <img src="./rune4_purified.png" width="140" alt="rune4_purified.png"> |
+| [plant1_wilted.png](./plant1_wilted.png) | 512×512 | <img src="./plant1_wilted.png" width="140" alt="plant1_wilted.png"> |
+| [plant2_restored.png](./plant2_restored.png) | 512×512 | <img src="./plant2_restored.png" width="140" alt="plant2_restored.png"> |
+| [herb1_moonlight.png](./herb1_moonlight.png) | 256×256 | <img src="./herb1_moonlight.png" width="140" alt="herb1_moonlight.png"> |
+| [event_rune1_inactive.png](./event_rune1_inactive.png) | 512×512 | <img src="./event_rune1_inactive.png" width="140" alt="event_rune1_inactive.png"> |
+| [event_rune2_active.png](./event_rune2_active.png) | 512×512 | <img src="./event_rune2_active.png" width="140" alt="event_rune2_active.png"> |
+
+원본: `C:/Users/josep/Desktop/Final Project/asset/item/originals`. 이전 회복 식물: `asset/item/review`. 기존 소지품·가구 20장은 1254×1254 원본에서 1024×1024로 축소했습니다. 조사 오브젝트는 기존 픽셀 데이터를 유지했습니다. 전부 투명 PNG이며 새 이미지 생성은 하지 않았습니다. 실제 게임 적용 검수는 별도입니다.

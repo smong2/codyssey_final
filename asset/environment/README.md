@@ -1,21 +1,27 @@
-# 환경 이미지
+# 게임용 환경 이미지
 
-현재 이 폴더의 PNG 15개입니다. 온실 바닥·식물·구조물의 여러 상태와 변형을 파일명대로 구분했습니다. 변형 중 어느 파일을 실제로 사용할지는 별도 선정이 필요합니다. 새 이미지의 추가·삭제·교체 시 이 표를 갱신하세요.
+게임 규격으로 가공된 환경 이미지 15장만 유지합니다. 서로 다른 바닥 무늬 및 식물은 별도 에셋이며, 같은 이미지의 원본은 함께 배포하지 않습니다. 실제 게임 화면 적용 검수 완료를 의미하지 않습니다.
 
-| 파일 | 설명 | 미리보기 |
-|---|---|---|
-| `ENV01_greenhouse_floor_base_000.png` | 온실 바닥 기본형 | <img src="./ENV01_greenhouse_floor_base_000.png" width="160" alt="온실 바닥 기본형"> |
-| `ENV02_greenhouse_floor_variant_A_001.png` | 온실 바닥 A 변형 | <img src="./ENV02_greenhouse_floor_variant_A_001.png" width="160" alt="온실 바닥 A"> |
-| `ENV02_greenhouse_floor_variant_A_v2_002.png` | 온실 바닥 A의 v2 변형 | <img src="./ENV02_greenhouse_floor_variant_A_v2_002.png" width="160" alt="온실 바닥 A v2"> |
-| `ENV03_greenhouse_floor_variant_B_003.png` | 온실 바닥 B 변형 | <img src="./ENV03_greenhouse_floor_variant_B_003.png" width="160" alt="온실 바닥 B"> |
-| `ENV03_greenhouse_floor_variant_B_v2_004.png` | 온실 바닥 B의 v2 변형 | <img src="./ENV03_greenhouse_floor_variant_B_v2_004.png" width="160" alt="온실 바닥 B v2"> |
-| `ENV04_greenhouse_boundary_005.png` | 온실 경계 요소 | <img src="./ENV04_greenhouse_boundary_005.png" width="160" alt="온실 경계"> |
-| `ENV05_small_plant_A_006.png` | 작은 식물 A | <img src="./ENV05_small_plant_A_006.png" width="160" alt="작은 식물 A"> |
-| `ENV06_small_plant_B_007.png` | 작은 식물 B | <img src="./ENV06_small_plant_B_007.png" width="160" alt="작은 식물 B"> |
-| `ENV07_large_plant_A_008.png` | 큰 식물 A | <img src="./ENV07_large_plant_A_008.png" width="160" alt="큰 식물 A"> |
-| `ENV08_large_plant_B_009.png` | 큰 식물 B | <img src="./ENV08_large_plant_B_009.png" width="160" alt="큰 식물 B"> |
-| `ENV09_greenhouse_flowerbed_010.png` | 온실 화단 요소 | <img src="./ENV09_greenhouse_flowerbed_010.png" width="160" alt="온실 화단"> |
-| `ENV10_greenhouse_vines_011.png` | 온실 덩굴 요소 | <img src="./ENV10_greenhouse_vines_011.png" width="160" alt="온실 덩굴"> |
-| `ENV11_greenhouse_structure_012.png` | 온실 구조물 요소 | <img src="./ENV11_greenhouse_structure_012.png" width="160" alt="온실 구조물"> |
-| `ENV12_foreground_plant_A_013.png` | 전경 식물 A | <img src="./ENV12_foreground_plant_A_013.png" width="160" alt="전경 식물 A"> |
-| `ENV13_foreground_plant_B_014.png` | 전경 식물 B | <img src="./ENV13_foreground_plant_B_014.png" width="160" alt="전경 식물 B"> |
+| 파일 | 규격 |
+|---|---|
+| [floor1_square.png](./floor1_square.png)<br><img src="./floor1_square.png" width="100" alt="floor1_square.png"> | 128×128 |
+| [floor2_small_square.png](./floor2_small_square.png)<br><img src="./floor2_small_square.png" width="100" alt="floor2_small_square.png"> | 128×128 |
+| [floor3_wide_tile.png](./floor3_wide_tile.png)<br><img src="./floor3_wide_tile.png" width="100" alt="floor3_wide_tile.png"> | 128×128 |
+| [floor4_brick.png](./floor4_brick.png)<br><img src="./floor4_brick.png" width="100" alt="floor4_brick.png"> | 128×128 |
+| [floor5_warm_square.png](./floor5_warm_square.png)<br><img src="./floor5_warm_square.png" width="100" alt="floor5_warm_square.png"> | 128×128 |
+| [border1_stone.png](./border1_stone.png)<br><img src="./border1_stone.png" width="100" alt="border1_stone.png"> | 128×128 |
+| [plant1_white_flower.png](./plant1_white_flower.png)<br><img src="./plant1_white_flower.png" width="100" alt="plant1_white_flower.png"> | 256×256 |
+| [plant2_lavender.png](./plant2_lavender.png)<br><img src="./plant2_lavender.png" width="100" alt="plant2_lavender.png"> | 256×256 |
+| [plant3_broadleaf.png](./plant3_broadleaf.png)<br><img src="./plant3_broadleaf.png" width="100" alt="plant3_broadleaf.png"> | 512×512 |
+| [plant4_fern.png](./plant4_fern.png)<br><img src="./plant4_fern.png" width="100" alt="plant4_fern.png"> | 512×512 |
+| [flowerbed1_stone.png](./flowerbed1_stone.png)<br><img src="./flowerbed1_stone.png" width="100" alt="flowerbed1_stone.png"> | 1024×512 |
+| [vine1_ivy.png](./vine1_ivy.png)<br><img src="./vine1_ivy.png" width="100" alt="vine1_ivy.png"> | 512×512 |
+| [arch1_greenhouse.png](./arch1_greenhouse.png)<br><img src="./arch1_greenhouse.png" width="100" alt="arch1_greenhouse.png"> | 1024×1024 |
+| [foreground1_flowering.png](./foreground1_flowering.png)<br><img src="./foreground1_flowering.png" width="100" alt="foreground1_flowering.png"> | 1024×1024 |
+| [foreground2_fern.png](./foreground2_fern.png)<br><img src="./foreground2_fern.png" width="100" alt="foreground2_fern.png"> | 1024×1024 |
+
+원본 15장: `C:/Users/josep/Desktop/Final Project/asset/environment/originals`
+
+반복 배치 검사용 1장: `C:/Users/josep/Desktop/Final Project/asset/environment/review`
+
+2026-10-10: 사용자 승인 파일명 적용. 로컬 보관 데이터 검증 후 원본·검사용 파일 16개를 GitHub에서 제거했습니다. 게임용 이미지 데이터와 크기는 변경하지 않았습니다.
