@@ -195,11 +195,11 @@
     },
     {
       "path": "document/content/README.md",
-      "sha256": "45054dca7ad6e34e3a1a24acf695ffaa63a3069821648e81f394f7294e03cf46"
+      "sha256": "b1a293cfb48d5ba28c14d1250167bb4e0e97a01b6584f2342ef5917f12be5118"
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "22cfd0480cadc4b2e311e91d72a8db3a7f6985480f27c830906b3f8c70e1da59"
+      "sha256": "891a45fb40d35ca9655351fdd61370af1adc2e81bf943b4063485db220459caf"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
@@ -207,7 +207,7 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "3d54db4792e5df98fab859bd9a2056c78b3c4325708f4d01cdf5da9cfe683ea3"
+      "sha256": "8d8d3a4da30a9897f1649fd31873976d5f7dd8ef9a042466a8f59a2e2ba88c01"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
@@ -215,11 +215,11 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "c28c029ebb84713aefc43c431a4c169cb069b974703605b29376f212c5c85975"
+      "sha256": "605e737a90da04b60fbd9bae6fb9bdd4df2acff3ab0610468b2def35c0cf78f1"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
-      "sha256": "e61946678a50474f1a02e5ea54514846c25fd4e48b4aaba4579f9512e85c879f"
+      "sha256": "9fceea5df51a01816d8d45074110adbcfa840ef00c95f2405b6e853efbebae96"
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
@@ -227,7 +227,15 @@
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
-      "sha256": "e7e3eb7dde3f942510afdf94fa7f88fbf243130b3c709fef12589e99ba649461"
+      "sha256": "0064b5cb0f5f0c6357226e3dba6d353e9401a64f070a9eca90ba4cd16c5081bb"
+    },
+    {
+      "path": "document/content/06_CLASSES_MINIGAMES.md",
+      "sha256": "0aea0b99807dbb688bb7976036f02eb55195baa10d34ce7e3853b8515d649d82"
+    },
+    {
+      "path": "document/content/07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md",
+      "sha256": "b72ac20eab5867a17f013b17f9b31c0b3cbd67fca69add8002e1737bc050c25d"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
@@ -239,7 +247,7 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
-      "sha256": "5c2e8f33b8ee6e68f76f494461c7da50a935f6898f0a47abf7e31eaac7df6311"
+      "sha256": "9bac2117a7e362e9d33e3051bba88362215e4747bd1b7e829b4e95d0a63994e6"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
