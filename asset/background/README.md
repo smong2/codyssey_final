@@ -1,6 +1,6 @@
 # 배경 이미지
 
-현재 이 폴더의 PNG 16개를 나열합니다. 장소 역할은 [세계관 문서](../../document/02_WORLDVIEW.md)를 참고했습니다. 파일은 화면 적용 검수 완료를 뜻하지 않습니다. 새 이미지의 추가·삭제·교체 시 이 표도 갱신하세요.
+현재 이 폴더의 PNG 15개를 나열합니다. 장소 역할은 [세계관 문서](../../document/02_WORLDVIEW.md)를 참고했습니다. 파일은 화면 적용 검수 완료를 뜻하지 않습니다. 새 이미지의 추가·삭제·교체 시 이 표도 갱신하세요.
 
 | 파일 | 설명 | 미리보기 |
 |---|---|---|
@@ -14,7 +14,6 @@
 | `BG08_healing_herb_garden_1920x1080_017.png` | 치유의 약초원 배경 | <img src="./BG08_healing_herb_garden_1920x1080_017.png" width="160" alt="치유의 약초원"> |
 | `BG09_magic_workshop_1920x1080_018.png` | 마도 공방 배경 | <img src="./BG09_magic_workshop_1920x1080_018.png" width="160" alt="마도 공방"> |
 | `BG10_rune_training_ground_1920x1080_019.png` | 룬 수련장 배경 | <img src="./BG10_rune_training_ground_1920x1080_019.png" width="160" alt="룬 수련장"> |
-| `SC01_myroom_complete_concept_020.png` | 마이룸 완성 구도 검토용 배경; 최종 적용은 별도 확인 | <img src="./SC01_myroom_complete_concept_020.png" width="160" alt="마이룸 구도"> |
 | `BG03_myroom1_sunset_1920x1080_021.png` | 승인된 마이룸 노을 배경 (1920×1080) | <img src="./BG03_myroom1_sunset_1920x1080_021.png" width="160" alt="마이룸 노을"> |
 | `BG03_myroom1_night_1920x1080_022.png` | 승인된 마이룸 밤 배경 (1920×1080) | <img src="./BG03_myroom1_night_1920x1080_022.png" width="160" alt="마이룸 밤"> |
 | `BG03_myroom2_day_1920x1080_023.png` | 마이룸 구도 02 · 낮 (1920×1080) | <img src="./BG03_myroom2_day_1920x1080_023.png" width="160" alt="마이룸 구도 02 낮"> |
@@ -37,3 +36,5 @@
 - `myroom2`: 왼쪽 책상과 바닥 가방, 중앙 오른쪽 침대. 낮 023 / 노을 024 / 밤 025.
 - 파일명 규칙: `BG03_myroom{1|2}_{day|sunset|night}_1920x1080_{기존번호}.png`. 기존 번호는 보존합니다.
 - 첫 번째 낮 파일은 이름 변경 커밋에서 이미지 데이터가 줄바꿈 2바이트로 대체되어, 직전 정상 PNG 데이터로 복구했습니다. 나머지 5장은 이미지 데이터를 변경하지 않았습니다.
+
+2026-10-10: 기존 마이룸 구도 검토 이미지 `SC01_myroom_complete_concept_020.png`를 제거했습니다. 마이룸 게임 배경은 `myroom1`과 `myroom2`의 낮·노을·밤 6장만 유지하며 생성 원본은 로컬에 보관합니다.
