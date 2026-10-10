@@ -5,10 +5,19 @@
 ## 문서 읽는 순서
 
 1. [01_CORE_LOOP.md](01_CORE_LOOP.md) — 52주 플레이와 주간 일정
-2. [02_STATS_EVENTS_ENDINGS.md](02_STATS_EVENTS_ENDINGS.md) — 스탯, NPC/공간 이벤트, 엔딩 조건
-3. [03_COLLECTION_UNLOCKS.md](03_COLLECTION_UNLOCKS.md) — 수집 배지, 캐릭터·펫·배경 해금
+2. [02_STATS_EVENTS_ENDINGS/README.md](02_STATS_EVENTS_ENDINGS/README.md) — 스탯, NPC/공간 이벤트, 엔딩 조건
+   - [01_STATS_SYSTEM.md](02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md) — 보이는 스탯, 보이지 않는 스탯, 기본값과 증감 원칙
+   - [02_EVENTS.md](02_STATS_EVENTS_ENDINGS/02_EVENTS.md) — NPC·공간 이벤트 발생 규칙
+   - [03_ENDINGS.md](02_STATS_EVENTS_ENDINGS/03_ENDINGS.md) — 미래 직업 엔딩 판정 구조
+3. [03_COLLECTION_UNLOCKS/README.md](03_COLLECTION_UNLOCKS/README.md) — 수집 배지, 캐릭터·펫·배경 해금
+   - [01_BADGE_COLLECTION_DESIGN.md](03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md) — 가방 수집 배지 200개의 분류·조립형 디자인 기준
+   - [02_CHARACTER_UNLOCK_TIMING.md](03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md) — 추가 플레이 가능 캐릭터의 조건 달성·해금·사용 가능 시점
+   - [03_PET_UNLOCK_TIMING.md](03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md) — 기본 1마리와 추가 9마리의 장기 해금 속도 기준
+   - [04_ROOM_BACKGROUND_PUZZLE.md](03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md) — 마이룸 배경 3종과 36개 퍼즐 조각 획득 규칙
 4. [04_SAVE_META_PROGRESSION.md](04_SAVE_META_PROGRESSION.md) — 저장과 회차 계승
 5. [05_OPEN_DECISIONS.md](05_OPEN_DECISIONS.md) — 아직 확정하지 않은 항목
+
+독립 상위 개념은 `01_`, `02_`처럼 파일로 유지하고, 상세 문서가 여러 개 생기는 도메인은 `03_COLLECTION_UNLOCKS/`처럼 폴더로 분리합니다. 폴더 안에서는 `README.md`를 상위 개요로 두고 상세 문서는 `01_`, `02_` 순번을 사용합니다.
 
 ## 현재 게임의 한 문장 정의
 

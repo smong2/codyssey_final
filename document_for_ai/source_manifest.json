@@ -195,19 +195,31 @@
     },
     {
       "path": "document/content/README.md",
-      "sha256": "129a7d92ae0c3cd12005016b1f9b90e30efbd7680ffed4680b89ef864b96ba8f"
+      "sha256": "45054dca7ad6e34e3a1a24acf695ffaa63a3069821648e81f394f7294e03cf46"
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "c61afdaed3050163b95f5d87f99791d2fef2994fcdc40f802e857e5a889848ee"
+      "sha256": "22cfd0480cadc4b2e311e91d72a8db3a7f6985480f27c830906b3f8c70e1da59"
     },
     {
-      "path": "document/content/02_STATS_EVENTS_ENDINGS.md",
-      "sha256": "58a95680a3e6b5b35a19fb1b107808ed1edb9f1acf5db929cfdde6bd8765845e"
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
+      "sha256": "8d8a4d296a8c1cb1068105b6b01b83b3f24cc6196e65c647bd5c7aed5a57fb0a"
     },
     {
-      "path": "document/content/03_COLLECTION_UNLOCKS.md",
-      "sha256": "22dcdbc4d7f231c7d09e98b0e65ea31597fdc0ca5b7a5c5654ed9ccf81632791"
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
+      "sha256": "3d54db4792e5df98fab859bd9a2056c78b3c4325708f4d01cdf5da9cfe683ea3"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
+      "sha256": "0749d6fcd3a070f90c4fc0910fe7986ce46ecc2532fb38a5366db2917774ce25"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
+      "sha256": "c28c029ebb84713aefc43c431a4c169cb069b974703605b29376f212c5c85975"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
+      "sha256": "016e835e4e052dd7c33f2c1b3c40d9548c508eb6ba64fa9ae7fe9e90081ec523"
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
@@ -215,7 +227,23 @@
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
-      "sha256": "1e0594c80e04a6b17bf4dcd5d1c328dcb164662e23f1d604d4803b6ed7ac3f7b"
+      "sha256": "e7e3eb7dde3f942510afdf94fa7f88fbf243130b3c709fef12589e99ba649461"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
+      "sha256": "5c0fdbb1db77a9f5829088c311ca91c5111c2df0e7eb42cfb46c3fe0fb2c91a5"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md",
+      "sha256": "1c5208b7a245d92c3941e3330281ede26b40e95f254f9a62b83471fa66db9267"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
+      "sha256": "b2d73ad071ff39ec58515c24ffe3dc3da2c5ab7af4ea2e109d6d8ba8fe2c9b4d"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
+      "sha256": "080bdc481d5b2e614392513160e6fd87a63ead0c7706e9c6fa08a565bcefb4f4"
     },
     {
       "path": "document/07_AI_WORK_GUIDE.md",
