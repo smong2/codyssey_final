@@ -179,7 +179,7 @@
     },
     {
       "path": "document/03_CHARACTERS.md",
-      "sha256": "1fc2add69efd77ccb62128c1cbf982112b1965ad43c9e4d5ef670d2e27c1594e"
+      "sha256": "bcdd34f69334b6c758282b832918044e7a68b40df04d7f15b23f0d5002968cd4"
     },
     {
       "path": "document/04_ASSETS.md",
@@ -219,7 +219,7 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
-      "sha256": "016e835e4e052dd7c33f2c1b3c40d9548c508eb6ba64fa9ae7fe9e90081ec523"
+      "sha256": "e61946678a50474f1a02e5ea54514846c25fd4e48b4aaba4579f9512e85c879f"
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
@@ -235,11 +235,11 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md",
-      "sha256": "1c5208b7a245d92c3941e3330281ede26b40e95f254f9a62b83471fa66db9267"
+      "sha256": "9d8eb79ffb8623ef61f1b1e84267515cee4c099273ee0198d56a6db65ece8502"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
-      "sha256": "b2d73ad071ff39ec58515c24ffe3dc3da2c5ab7af4ea2e109d6d8ba8fe2c9b4d"
+      "sha256": "5c2e8f33b8ee6e68f76f494461c7da50a935f6898f0a47abf7e31eaac7df6311"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
