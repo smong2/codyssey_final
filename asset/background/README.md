@@ -6,7 +6,7 @@
 |---|---|---|
 | `BG01_arcadia_entrance_and_lake_1920x1080_010.png` | 아르카디아 입구와 호수 배경 | <img src="./BG01_arcadia_entrance_and_lake_1920x1080_010.png" width="160" alt="학원 입구와 호수"> |
 | `BG02_clocktower_plaza_1920x1080_011.png` | 시계탑 광장 배경 | <img src="./BG02_clocktower_plaza_1920x1080_011.png" width="160" alt="시계탑 광장"> |
-| `BG03_empty_myroom_1920x1080_012.png` | 빈 마이룸 배경 | <img src="./BG03_empty_myroom_1920x1080_012.png" width="160" alt="빈 마이룸"> |
+| `BG03_empty_myroom_1920x1080_012.png` | 사용자 지정 마이룸 낮 배경: 침대·책상·다이어리·가방·벽난로 | <img src="./BG03_empty_myroom_1920x1080_012.png" width="160" alt="빈 마이룸"> |
 | `BG04_academy_dormitory_1920x1080_013.png` | 학원 기숙사 배경 | <img src="./BG04_academy_dormitory_1920x1080_013.png" width="160" alt="학원 기숙사"> |
 | `BG05_grand_library_1920x1080_014.png` | 대서고 배경 | <img src="./BG05_grand_library_1920x1080_014.png" width="160" alt="대서고"> |
 | `BG06_starlight_observatory_1920x1080_015.png` | 별빛 천문대 배경 | <img src="./BG06_starlight_observatory_1920x1080_015.png" width="160" alt="별빛 천문대"> |
@@ -19,3 +19,5 @@
 ## 생성 원본 보관
 
 게임 규격으로 가공하기 전 배경 10장과 마이룸 시안 생성 원본 1장은 `C:/Users/josep/Desktop/Final Project/asset/background`에 보관했습니다. 현재 폴더에는 가공본만 유지합니다. 이전 파일 이력은 Git 기록에 남아 있습니다. 기존 게임용 파일명과 번호는 연결 경로 보존을 위해 유지했습니다.
+
+2026-10-10: BG03은 사용자 첨부 이미지로 교체했습니다. 구도 변경 없이 1920×1080으로 내보냈으며 원본은 로컬 background 폴더에 보관합니다. 노을 버전은 별도 검토 중이며 아직 GitHub에 저장하지 않았습니다.
