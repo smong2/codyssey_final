@@ -1,0 +1,39 @@
+.screen{min-height:0;height:100vh;height:100dvh}
+.portrait-left,.portrait-right{opacity:1;transition:filter 200ms}
+.listening{opacity:1;filter:brightness(.92)}.speaking{filter:brightness(1)}.speaking .portrait-image{scale:1}
+.life-dialogue{cursor:pointer;padding-bottom:30px}.progress-arrow{position:absolute;right:24px;bottom:12px;font-size:23px}
+.safe-choices{position:absolute;z-index:4;left:50%;top:48%;transform:translate(-50%,-50%);width:min(470px,42vw);max-height:70%;overflow:auto;background:#14271ef2;border:1px solid #bba57a;border-radius:10px;padding:20px}
+.safe-choices h2{font-size:21px;margin-bottom:14px}.safe-choices .choice-list{display:flex;flex-direction:column;gap:12px}.safe-choices button{white-space:normal;height:auto;min-height:48px;line-height:1.5}
+#intro-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;background:#080c10}
+.intro-skip{position:absolute;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:5}
+.intro-fallback{position:absolute;inset:0;text-align:center;padding-top:25%;background:#101823}.intro-fallback[hidden]{display:none}.title-back{position:absolute;left:20px;bottom:max(20px,env(safe-area-inset-bottom))}
+.original-invitation{position:relative;width:min(920px,94vw);aspect-ratio:3/2;background:none;border:0;box-shadow:none;padding:0;display:grid;place-items:center}
+.invitation-art{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}.invitation-copy{position:relative;text-align:center;width:76%;padding:5% 0}.invitation-copy p{margin:14px 0;line-height:1.65}.invitation-copy h2{font-size:28px}
+.character-grid{grid-auto-rows:max-content;align-items:start;scroll-behavior:smooth;overscroll-behavior:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch}
+.character-card{position:relative;display:block;background:transparent;min-height:0;aspect-ratio:3/4;isolation:isolate}
+.character-card .card-background{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:-1}
+.card-select{border:0;background:transparent!important;width:100%;height:100%;padding:12px 8px 0;display:flex;flex-direction:column;align-items:center}.card-select img{height:calc(100% - 36px);max-height:none;object-fit:contain}.card-select span{font-size:14px;padding:8px;background:#eee8d8dd}
+.card-frame{position:absolute;left:2px;top:2px;width:44px!important;height:44px!important;object-fit:contain!important;pointer-events:none}.card-plus{position:absolute;right:3px;top:3px;min-width:44px;min-height:44px;padding:0;font-size:26px;z-index:2;background:#f0e7cfe8}.card-select:hover,.card-plus:hover{transform:none}
+.game-wrap{position:absolute!important;inset:0}.game-wrap canvas{display:block;touch-action:none;width:100%!important;height:100%!important;margin:0!important}
+.touch-joystick{display:none;position:absolute!important;left:max(22px,env(safe-area-inset-left));bottom:max(28px,env(safe-area-inset-bottom));width:112px;height:112px;border-radius:50%;border:2px solid #eee3bba0;background:#19372e99;z-index:7;touch-action:none}
+.joystick-knob{position:absolute;left:34px;top:34px;width:40px;height:40px;border-radius:50%;background:#e3d3a6b0;pointer-events:none}.heart-balance{font-size:20px!important}
+@media(pointer:coarse){.touch-joystick{display:block}.desktop-controls{display:none}.interact{left:auto;right:max(20px,env(safe-area-inset-right));bottom:max(44px,env(safe-area-inset-bottom));transform:none;max-width:48vw}}
+@media(max-width:700px){
+.touch-joystick{display:block}.desktop-controls{display:none}.interact{left:auto;right:20px;bottom:44px;transform:none;max-width:48vw}
+.topbar{height:60px;padding:env(safe-area-inset-top) 14px 0}.topbar .location{font-size:14px}button{padding:10px 16px;min-height:44px}
+.main-title{gap:25px}.title-actions{flex-direction:column}.main-title h1{font-size:60px}
+.catalogue{height:calc(100dvh - 60px);padding:8px 12px}.catalogue>h2{font-size:18px;margin-bottom:10px}
+.catalogue-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(200px,1fr) minmax(140px,.7fr);gap:12px;height:calc(100% - 36px)}
+.character-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.character-detail{padding:14px}.character-detail h1{font-size:26px}.character-detail dd{line-height:1.5}
+.portrait-left,.portrait-right{top:70px;bottom:130px;width:49%}.portrait-left{left:0}.portrait-right{right:0}
+.life-dialogue{left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));min-height:140px;padding:14px 18px 25px;max-height:45%;overflow:auto}.dialogue-text{font-size:16px;line-height:1.65}.speaker{font-size:17px}
+.safe-choices{width:calc(100% - 28px);max-height:55%;top:auto;bottom:max(158px,calc(env(safe-area-inset-bottom) + 150px));transform:translateX(-50%);padding:14px}.safe-choices h2{font-size:18px}.safe-choices button{font-size:15px;text-align:left}
+.room-tools{top:65px;right:14px}.room-tools button{padding:8px 12px}
+.original-invitation{aspect-ratio:auto;min-height:460px;width:96vw}.invitation-copy{width:74%}.invitation-copy h2{font-size:23px}.invitation-copy p{font-size:15px;margin:12px 0}
+.paper-panel{max-height:83dvh;overflow:auto;width:94vw;padding:20px}.center-panel{padding:10px}
+.free-room-tools{gap:8px;bottom:max(38px,env(safe-area-inset-bottom));flex-wrap:wrap;width:94%;justify-content:center}.free-room-tools button{font-size:14px}.room-status{left:18px;top:100px}.room-status h2{font-size:28px}.room-bern{width:70%;right:0}.prototype-end{bottom:10px;font-size:10px}
+.objective{top:68px;left:12px;max-width:65%;padding:8px 12px;font-size:14px}.knowledge-panel{left:12px;top:140px;width:210px;max-width:65%;padding:10px;font-size:12px}.knowledge-panel h3{font-size:15px}.knowledge-panel p,.knowledge-panel li{line-height:1.5}
+.tools{top:68px;right:10px}.tools button{padding:8px;font-size:12px}.modal{width:94vw;max-height:88dvh;overflow:auto;padding:20px}.modal h2{font-size:22px}.puzzle-grid{width:min(320px,78vw);margin:12px auto}.rune-tile{min-height:0}
+}
+@media(max-height:500px) and (orientation:landscape){.portrait-left,.portrait-right{top:55px;bottom:60px}.life-dialogue{min-height:105px;padding:10px 18px}.dialogue-text{font-size:15px}.safe-choices{top:60px;bottom:auto;max-height:65%;width:42vw}.original-invitation{min-height:0;height:80dvh;width:70vw}.invitation-copy p{font-size:12px;margin:5px 0}.invitation-copy h2{font-size:19px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.portrait-left,.portrait-right{transition:none}}

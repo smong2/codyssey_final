@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 2,
+  "purpose": "팀 문서·작업 영역 README·asset 자원의 변경 감지. 해시 일치는 AI 요약의 의미적 정확성을 보증하지 않음.",
+  "discovery": {
+    "fixedFiles": [
+      "README.md",
+      "AGENTS.md"
+    ],
+    "markdownTrees": [
+      "document"
+    ],
+    "readmeTrees": [
+      "asset",
+      "engine",
+      "story",
+      "backend",
+      "lumia"
+    ]
+  },
+  "routes": [
+    {
+      "path": "README.md",
+      "ai": [
+        "document_for_ai/00_READ_FIRST.md"
+      ]
+    },
+    {
+      "path": "AGENTS.md",
+      "ai": [
+        "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "path": "document/00_README.md",
+      "ai": [
+        "document_for_ai/00_READ_FIRST.md"
+      ]
+    },
+    {
+      "path": "document/01_PROJECT_OVERVIEW.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md"
+      ]
+    },
+    {
+      "path": "document/02_WORLDVIEW.md",
+      "ai": [
+        "document_for_ai/02_WORLD_CHARACTERS.md"
+      ]
+    },
+    {
+      "path": "document/03_CHARACTERS.md",
+      "ai": [
+        "document_for_ai/02_WORLD_CHARACTERS.md"
+      ]
+    },
+    {
+      "path": "document/04_ASSETS.md",
+      "ai": [
+        "document_for_ai/04_ASSETS.md"
+      ]
+    },
+    {
+      "path": "document/05_TEAM_ROLES.md",
+      "ai": [
+        "document_for_ai/05_TEAM_ROLES.md"
+      ]
+    },
+    {
+      "path": "document/06_GAME_CONTENT.md",
+      "ai": [
+        "document_for_ai/03_GAME_CONTENT.md"
+      ]
+    },
+    {
+      "path": "document/07_AI_WORK_GUIDE.md",
+      "ai": [
+        "document_for_ai/00_READ_FIRST.md",
+        "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "path": "document/08_REQUEST.md",
+      "ai": [
+        "document_for_ai/00_READ_FIRST.md",
+        "document_for_ai/01_PROJECT.md"
+      ]
+    },
+    {
+      "path": "document/실행방법.md",
+      "ai": [
+        "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "prefix": "document/content/",
+      "extension": ".md",
+      "ai": [
+        "document_for_ai/03_GAME_CONTENT.md"
+      ]
+    },
+    {
+      "prefix": "asset/",
+      "filename": "README.md",
+      "ai": [
+        "document_for_ai/04_ASSETS.md"
+      ]
+    },
+    {
+      "prefix": "engine/",
+      "filename": "README.md",
+      "ai": [
+        "document_for_ai/05_TEAM_ROLES.md",
+        "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "path": "story/README.md",
+      "ai": [
+        "document_for_ai/05_TEAM_ROLES.md",
+        "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "prefix": "story/",
+      "filename": "README.md",
+      "ai": [
+        "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "path": "backend/README.md",
+      "ai": [
+        "document_for_ai/05_TEAM_ROLES.md",
+        "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "prefix": "backend/",
+      "filename": "README.md",
+      "ai": [
+        "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "path": "lumia/README.md",
+      "ai": [
+        "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "prefix": "document/",
+      "extension": ".md",
+      "ai": [
+        "document_for_ai/00_READ_FIRST.md"
+      ]
+    }
+  ],
+  "trackedFiles": [
+    {
+      "path": "README.md",
+      "sha256": "4c8207c4143e94c43b1d9846516f32aeea2935040f5eb86c64a9152975e24d7f"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "9f2ee154d13e40b53534c95fd574167c9175a86ddf7ae0b6bc100a30c1b03a31"
+    },
+    {
+      "path": "document/00_README.md",
+      "sha256": "3144cb936e15f79f6dbeaba284f07423b156f35ca21cb17709ad20639c80061b"
+    },
+    {
+      "path": "document/01_PROJECT_OVERVIEW.md",
+      "sha256": "e56532f94bf1d1c318e514b79b35176ecb8ef2216a21080622063a8b0c4e36cb"
+    },
+    {
+      "path": "document/02_WORLDVIEW.md",
+      "sha256": "f3e64c663e32747ee4e1bb71d0f32d847763068b2a47013694ace19135f74ca2"
+    },
+    {
+      "path": "document/03_CHARACTERS.md",
+      "sha256": "bcdd34f69334b6c758282b832918044e7a68b40df04d7f15b23f0d5002968cd4"
+    },
+    {
+      "path": "document/04_ASSETS.md",
+      "sha256": "c4ce4256d7a39c126044ea7ddcbaf898daec62a572698865e3fc008f61f66c93"
+    },
+    {
+      "path": "document/05_TEAM_ROLES.md",
+      "sha256": "2c0cecbba11f8c7b826cebe8690c89752fc6192e00a2021023eac344f8f9d7cf"
+    },
+    {
+      "path": "document/06_GAME_CONTENT.md",
+      "sha256": "000b78edef0db00be3d7a767838e88c437d574ec831129e746371116e63593fe"
+    },
+    {
+      "path": "document/content/README.md",
+      "sha256": "45054dca7ad6e34e3a1a24acf695ffaa63a3069821648e81f394f7294e03cf46"
+    },
+    {
+      "path": "document/content/01_CORE_LOOP.md",
+      "sha256": "22cfd0480cadc4b2e311e91d72a8db3a7f6985480f27c830906b3f8c70e1da59"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
+      "sha256": "8d8a4d296a8c1cb1068105b6b01b83b3f24cc6196e65c647bd5c7aed5a57fb0a"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
+      "sha256": "3d54db4792e5df98fab859bd9a2056c78b3c4325708f4d01cdf5da9cfe683ea3"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
+      "sha256": "0749d6fcd3a070f90c4fc0910fe7986ce46ecc2532fb38a5366db2917774ce25"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
+      "sha256": "c28c029ebb84713aefc43c431a4c169cb069b974703605b29376f212c5c85975"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
+      "sha256": "e61946678a50474f1a02e5ea54514846c25fd4e48b4aaba4579f9512e85c879f"
+    },
+    {
+      "path": "document/content/04_SAVE_META_PROGRESSION.md",
+      "sha256": "d3b3c1c7e11aae46789913eeb6e56ed16a0ee242cd9f895c4821b61789f44778"
+    },
+    {
+      "path": "document/content/05_OPEN_DECISIONS.md",
+      "sha256": "e7e3eb7dde3f942510afdf94fa7f88fbf243130b3c709fef12589e99ba649461"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
+      "sha256": "5c0fdbb1db77a9f5829088c311ca91c5111c2df0e7eb42cfb46c3fe0fb2c91a5"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md",
+      "sha256": "9d8eb79ffb8623ef61f1b1e84267515cee4c099273ee0198d56a6db65ece8502"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
+      "sha256": "5c2e8f33b8ee6e68f76f494461c7da50a935f6898f0a47abf7e31eaac7df6311"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
+      "sha256": "080bdc481d5b2e614392513160e6fd87a63ead0c7706e9c6fa08a565bcefb4f4"
+    },
+    {
+      "path": "document/07_AI_WORK_GUIDE.md",
+      "sha256": "c372a28f4ca4de951e88865d16f2b9776fa45896e96759a44d209466c05d8bba"
+    },
+    {
+      "path": "document/08_REQUEST.md",
+      "sha256": "b8ed082dfb7e04cfb2aac3a067a9b9c50fe553d040410290cbcda552cda85288"
+    },
+    {
+      "path": "document/실행방법.md",
+      "sha256": "84274727a1d919814163de77a9e1276604c41af949f8f259003d13b10ae0a020"
+    },
+    {
+      "path": "asset/README.md",
+      "sha256": "0c96afac578545368d697f08203660dc21d33fe3917a877ebc6a41b02b708bee"
+    },
+    {
+      "path": "asset/background/README.md",
+      "sha256": "18de4030c3181d4a16f6989079a49b9130578095ce8b3733a184bb6a2201a80d"
+    },
+    {
+      "path": "asset/character/README.md",
+      "sha256": "70c34bc3fc880e380cc9933bc5c84a9eaee483044a77fe392b7ad14253e3c17f"
+    },
+    {
+      "path": "asset/effect/README.md",
+      "sha256": "871f06bd7580fa477c80602bfe867b2f7bcc42ed3f34a31c2931b72a6baafa5a"
+    },
+    {
+      "path": "asset/environment/README.md",
+      "sha256": "525fc662167b9435f3a16e4abcbecdafa56c795cf20fb73e8037ad8208ac28dd"
+    },
+    {
+      "path": "asset/item/README.md",
+      "sha256": "5b475fa9dd0af0a8222ac9c16416514c761831de54506f59134b049d10d35705"
+    },
+    {
+      "path": "asset/puzzle/README.md",
+      "sha256": "dd993ded6f854ed0a1e1208e0999f5532248a62c042782417e2e0e525eb52ba8"
+    },
+    {
+      "path": "asset/ui/README.md",
+      "sha256": "d015063b731cc744de90f5310ee51d15ddfe79e2f50eabeee885014a9d624ca7"
+    },
+    {
+      "path": "engine/README.md",
+      "sha256": "aa28f57e90cf17e3aea9a258768cceae8a786baa8a428352450ea53917335399"
+    },
+    {
+      "path": "story/README.md",
+      "sha256": "94bc141f4eb28e93ea1b381624e50ff65eaef5357296848d57be17e9277a31c9"
+    },
+    {
+      "path": "backend/README.md",
+      "sha256": "ae58b30c448fcc3c06ae2c63f2796ae27d23a87ea877fab201455dee55f29d72"
+    },
+    {
+      "path": "lumia/README.md",
+      "sha256": "98c2a92d24656947189bd23f9b20097305a20b815ba952fd614f9b883020beb0"
+    },
+    {
+      "path": "story/main/README.md",
+      "sha256": "3c31b414f695e9c5e9fb3bba2da629a7aac4916c1fb197eca6f0104747d18a79"
+    },
+    {
+      "path": "story/npc/README.md",
+      "sha256": "638ec8138d96be8b0555ea44e496f102cab8fc7aa46bc40a7a0c5fbeed5d6017"
+    },
+    {
+      "path": "story/location/README.md",
+      "sha256": "2254f7095cebfed169712f59fb3d4e0bca7ba1d8291c4fd92a7d426aa0bd4e50"
+    },
+    {
+      "path": "story/sub/README.md",
+      "sha256": "d40743ac48b3f2bf41e3b528a077334ca3f867e08bd92beff5ae17116237d55b"
+    },
+    {
+      "path": "story/ending/README.md",
+      "sha256": "2a17549581a4f48929e75889070a44a400cb3dc10f116cec8cc169e7d0e71f55"
+    },
+    {
+      "path": "backend/api/README.md",
+      "sha256": "7a374ea4a539c4a85fef86b8d1d1f30acfdcf310ac6c5ee0b02d2d66706932e3"
+    },
+    {
+      "path": "backend/database/README.md",
+      "sha256": "3218115088268fbba29e7752d3b71f3e3f4631031381faea79538dcc1f7ba049"
+    },
+    {
+      "path": "backend/admin/README.md",
+      "sha256": "dafc4962f4f9d30e5978920895911aae4abab09ae6390d74e4b1d5e0003503e1"
+    }
+  ],
+  "assetInventory": {
+    "path": "asset",
+    "sha256": "b24f2cf3c84a8009786ac88dee6fc621f5c91f24fd7a0e9b5691da34678fcb21",
+    "ai": [
+      "document_for_ai/04_ASSETS.md"
+    ]
+  }
+}
