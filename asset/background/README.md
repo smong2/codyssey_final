@@ -1,6 +1,6 @@
 # 배경 이미지
 
-현재 이 폴더의 PNG 10개를 나열합니다. 장소 역할은 [세계관 문서](../../document/02_WORLDVIEW.md)를 참고했습니다. 파일은 화면 적용 검수 완료를 뜻하지 않습니다. 새 이미지의 추가·삭제·교체 시 이 표도 갱신하세요.
+현재 이 폴더의 PNG 11개를 나열합니다. 장소 역할은 [세계관 문서](../../document/02_WORLDVIEW.md)를 참고했습니다. 파일은 화면 적용 검수 완료를 뜻하지 않습니다. 새 이미지의 추가·삭제·교체 시 이 표도 갱신하세요.
 
 | 파일 | 설명 | 미리보기 |
 |---|---|---|
@@ -14,3 +14,8 @@
 | `BG08_healing_herb_garden_1920x1080_017.png` | 치유의 약초원 배경 | <img src="./BG08_healing_herb_garden_1920x1080_017.png" width="160" alt="치유의 약초원"> |
 | `BG09_magic_workshop_1920x1080_018.png` | 마도 공방 배경 | <img src="./BG09_magic_workshop_1920x1080_018.png" width="160" alt="마도 공방"> |
 | `BG10_rune_training_ground_1920x1080_019.png` | 룬 수련장 배경 | <img src="./BG10_rune_training_ground_1920x1080_019.png" width="160" alt="룬 수련장"> |
+| `SC01_myroom_complete_concept_020.png` | 마이룸 완성 구도 검토용 배경; 최종 적용은 별도 확인 | <img src="./SC01_myroom_complete_concept_020.png" width="160" alt="마이룸 구도"> |
+
+## 생성 원본 보관
+
+게임 규격으로 가공하기 전 배경 10장과 마이룸 시안 생성 원본 1장은 `C:/Users/josep/Desktop/Final Project/asset/background`에 보관했습니다. 현재 폴더에는 가공본만 유지합니다. 이전 파일 이력은 Git 기록에 남아 있습니다. 기존 게임용 파일명과 번호는 연결 경로 보존을 위해 유지했습니다.
