@@ -4,8 +4,8 @@
 
 | 파일 | 규격 | 용도 |
 |---|---|---|
-| [FX01_shared_rune_light_000.png](./FX01_shared_rune_light_000.png) | 512×512 PNG | 공통 룬 발광 합성 효과 |
-| [lumia_moonlight_sparkle_002.svg](./lumia_moonlight_sparkle_002.svg) | 1600×800 SVG | 루미아 로고 위 달빛 광휘 오버레이 |
+| [FX01_shared_rune_light_000.png](./FX01_shared_rune_light_000.png)<br><img src="./FX01_shared_rune_light_000.png" width="100" alt="FX01_shared_rune_light_000.png"> | 512×512 PNG | 공통 룬 발광 합성 효과 |
+| [lumia_moonlight_sparkle_002.svg](./lumia_moonlight_sparkle_002.svg)<br><img src="./lumia_moonlight_sparkle_002.svg" width="100" alt="lumia_moonlight_sparkle_002.svg"> | 1600×800 SVG | 루미아 로고 위 달빛 광휘 오버레이 |
 
 ## 로컬 보관
 

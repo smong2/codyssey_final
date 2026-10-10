@@ -16,3 +16,30 @@
 | `lumia_logo_mystic_01_017.png` | LUMIA 신비 로고 1안 | <img src="./lumia_logo_mystic_01_017.png" width="160" alt="LUMIA 로고 1안"> |
 | `lumia_logo_mystic_05_018.png` | LUMIA 신비 로고 5안 | <img src="./lumia_logo_mystic_05_018.png" width="160" alt="LUMIA 로고 5안"> |
 | `reference_card_title_014.png` | 제목 영역이 있는 참조 카드 | <img src="./reference_card_title_014.png" width="160" alt="제목 영역이 있는 참조 카드"> |
+
+## 파일 미리보기
+
+| 파일명 | 미리보기 |
+|---|---|
+| [UI01_parchment_tile_source_008.png](./UI01_parchment_tile_source_008.png) | <img src="./UI01_parchment_tile_source_008.png" width="120" alt="UI01_parchment_tile_source_008.png"> |
+| [UI02_frame_corner_source_009.png](./UI02_frame_corner_source_009.png) | <img src="./UI02_frame_corner_source_009.png" width="120" alt="UI02_frame_corner_source_009.png"> |
+| [UI03_character_card_background_source_010.png](./UI03_character_card_background_source_010.png) | <img src="./UI03_character_card_background_source_010.png" width="120" alt="UI03_character_card_background_source_010.png"> |
+| [UI04_fullbody_preview_background_source_011.png](./UI04_fullbody_preview_background_source_011.png) | <img src="./UI04_fullbody_preview_background_source_011.png" width="120" alt="UI04_fullbody_preview_background_source_011.png"> |
+| [UI07_admission_invitation_source_012.png](./UI07_admission_invitation_source_012.png) | <img src="./UI07_admission_invitation_source_012.png" width="120" alt="UI07_admission_invitation_source_012.png"> |
+| [journal_button_icon_019.svg](./journal_button_icon_019.svg) | <img src="./journal_button_icon_019.svg" width="120" alt="journal_button_icon_019.svg"> |
+| [journal_button_icon_020.svg](./journal_button_icon_020.svg) | <img src="./journal_button_icon_020.svg" width="120" alt="journal_button_icon_020.svg"> |
+| [journal_button_icon_021.svg](./journal_button_icon_021.svg) | <img src="./journal_button_icon_021.svg" width="120" alt="journal_button_icon_021.svg"> |
+| [journal_button_icon_022.svg](./journal_button_icon_022.svg) | <img src="./journal_button_icon_022.svg" width="120" alt="journal_button_icon_022.svg"> |
+| [journal_button_icon_023.svg](./journal_button_icon_023.svg) | <img src="./journal_button_icon_023.svg" width="120" alt="journal_button_icon_023.svg"> |
+| [player_status_frame_015.png](./player_status_frame_015.png) | <img src="./player_status_frame_015.png" width="120" alt="player_status_frame_015.png"> |
+| [relationship_status_frame_016.png](./relationship_status_frame_016.png) | <img src="./relationship_status_frame_016.png" width="120" alt="relationship_status_frame_016.png"> |
+| [title_layout_dialogue_title_layout_024.svg](./title_layout_dialogue_title_layout_024.svg) | <img src="./title_layout_dialogue_title_layout_024.svg" width="120" alt="title_layout_dialogue_title_layout_024.svg"> |
+| [title_layout_dialogue_title_layout_025.svg](./title_layout_dialogue_title_layout_025.svg) | <img src="./title_layout_dialogue_title_layout_025.svg" width="120" alt="title_layout_dialogue_title_layout_025.svg"> |
+| [title_layout_dialogue_title_layout_026.svg](./title_layout_dialogue_title_layout_026.svg) | <img src="./title_layout_dialogue_title_layout_026.svg" width="120" alt="title_layout_dialogue_title_layout_026.svg"> |
+| [title_layout_dialogue_title_layout_027.svg](./title_layout_dialogue_title_layout_027.svg) | <img src="./title_layout_dialogue_title_layout_027.svg" width="120" alt="title_layout_dialogue_title_layout_027.svg"> |
+| [title_layout_dialogue_title_layout_028.svg](./title_layout_dialogue_title_layout_028.svg) | <img src="./title_layout_dialogue_title_layout_028.svg" width="120" alt="title_layout_dialogue_title_layout_028.svg"> |
+| [title_layout_reference_title_layout_029.svg](./title_layout_reference_title_layout_029.svg) | <img src="./title_layout_reference_title_layout_029.svg" width="120" alt="title_layout_reference_title_layout_029.svg"> |
+| [title_layout_reference_title_layout_030.svg](./title_layout_reference_title_layout_030.svg) | <img src="./title_layout_reference_title_layout_030.svg" width="120" alt="title_layout_reference_title_layout_030.svg"> |
+| [title_layout_reference_title_layout_031.svg](./title_layout_reference_title_layout_031.svg) | <img src="./title_layout_reference_title_layout_031.svg" width="120" alt="title_layout_reference_title_layout_031.svg"> |
+| [title_layout_reference_title_layout_032.svg](./title_layout_reference_title_layout_032.svg) | <img src="./title_layout_reference_title_layout_032.svg" width="120" alt="title_layout_reference_title_layout_032.svg"> |
+| [title_layout_reference_title_layout_033.svg](./title_layout_reference_title_layout_033.svg) | <img src="./title_layout_reference_title_layout_033.svg" width="120" alt="title_layout_reference_title_layout_033.svg"> |

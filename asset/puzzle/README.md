@@ -13,3 +13,9 @@
 | `PZ_start_inactive_006.svg` | 시작 지점 비활성 상태 | <img src="./PZ_start_inactive_006.svg" width="160" alt="시작 비활성"> |
 | `PZ_straight_active_007.svg` | 직선 연결선 활성 상태 | <img src="./PZ_straight_active_007.svg" width="160" alt="직선 연결선 활성"> |
 | `PZ_straight_inactive_008.svg` | 직선 연결선 비활성 상태 | <img src="./PZ_straight_inactive_008.svg" width="160" alt="직선 연결선 비활성"> |
+
+## 파일 미리보기
+
+| 파일명 | 미리보기 |
+|---|---|
+| [PZ01_puzzle_tile_base_source_009.png](./PZ01_puzzle_tile_base_source_009.png) | <img src="./PZ01_puzzle_tile_base_source_009.png" width="120" alt="PZ01_puzzle_tile_base_source_009.png"> |

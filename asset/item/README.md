@@ -30,3 +30,14 @@
 | `OBJ03_moonlight_herb_023.png` | 달빛 약초 조사 오브젝트 | <img src="./OBJ03_moonlight_herb_023.png" width="140" alt="달빛 약초"> |
 | `OBJ04_event_rune_inactive_024.png` | 이벤트 룬 비활성 상태 | <img src="./OBJ04_event_rune_inactive_024.png" width="140" alt="비활성 이벤트 룬"> |
 | `OBJ05_event_rune_active_025.png` | 이벤트 룬 활성 상태 | <img src="./OBJ05_event_rune_active_025.png" width="140" alt="활성 이벤트 룬"> |
+
+## 파일 미리보기
+
+| 파일명 | 미리보기 |
+|---|---|
+| [OBJ01_inspect_plant_wilted_source_026.png](./OBJ01_inspect_plant_wilted_source_026.png) | <img src="./OBJ01_inspect_plant_wilted_source_026.png" width="120" alt="OBJ01_inspect_plant_wilted_source_026.png"> |
+| [OBJ02_inspect_plant_restored_source_027.png](./OBJ02_inspect_plant_restored_source_027.png) | <img src="./OBJ02_inspect_plant_restored_source_027.png" width="120" alt="OBJ02_inspect_plant_restored_source_027.png"> |
+| [OBJ02_inspect_plant_restored_v2_source_028.png](./OBJ02_inspect_plant_restored_v2_source_028.png) | <img src="./OBJ02_inspect_plant_restored_v2_source_028.png" width="120" alt="OBJ02_inspect_plant_restored_v2_source_028.png"> |
+| [OBJ03_moonlight_herb_source_029.png](./OBJ03_moonlight_herb_source_029.png) | <img src="./OBJ03_moonlight_herb_source_029.png" width="120" alt="OBJ03_moonlight_herb_source_029.png"> |
+| [OBJ04_event_rune_inactive_source_030.png](./OBJ04_event_rune_inactive_source_030.png) | <img src="./OBJ04_event_rune_inactive_source_030.png" width="120" alt="OBJ04_event_rune_inactive_source_030.png"> |
+| [OBJ05_event_rune_active_source_031.png](./OBJ05_event_rune_active_source_031.png) | <img src="./OBJ05_event_rune_active_source_031.png" width="120" alt="OBJ05_event_rune_active_source_031.png"> |

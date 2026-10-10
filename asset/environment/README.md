@@ -4,21 +4,21 @@
 
 | 파일 | 규격 |
 |---|---|
-| [floor1_square.png](./floor1_square.png) | 128×128 |
-| [floor2_small_square.png](./floor2_small_square.png) | 128×128 |
-| [floor3_wide_tile.png](./floor3_wide_tile.png) | 128×128 |
-| [floor4_brick.png](./floor4_brick.png) | 128×128 |
-| [floor5_warm_square.png](./floor5_warm_square.png) | 128×128 |
-| [border1_stone.png](./border1_stone.png) | 128×128 |
-| [plant1_white_flower.png](./plant1_white_flower.png) | 256×256 |
-| [plant2_lavender.png](./plant2_lavender.png) | 256×256 |
-| [plant3_broadleaf.png](./plant3_broadleaf.png) | 512×512 |
-| [plant4_fern.png](./plant4_fern.png) | 512×512 |
-| [flowerbed1_stone.png](./flowerbed1_stone.png) | 1024×512 |
-| [vine1_ivy.png](./vine1_ivy.png) | 512×512 |
-| [arch1_greenhouse.png](./arch1_greenhouse.png) | 1024×1024 |
-| [foreground1_flowering.png](./foreground1_flowering.png) | 1024×1024 |
-| [foreground2_fern.png](./foreground2_fern.png) | 1024×1024 |
+| [floor1_square.png](./floor1_square.png)<br><img src="./floor1_square.png" width="100" alt="floor1_square.png"> | 128×128 |
+| [floor2_small_square.png](./floor2_small_square.png)<br><img src="./floor2_small_square.png" width="100" alt="floor2_small_square.png"> | 128×128 |
+| [floor3_wide_tile.png](./floor3_wide_tile.png)<br><img src="./floor3_wide_tile.png" width="100" alt="floor3_wide_tile.png"> | 128×128 |
+| [floor4_brick.png](./floor4_brick.png)<br><img src="./floor4_brick.png" width="100" alt="floor4_brick.png"> | 128×128 |
+| [floor5_warm_square.png](./floor5_warm_square.png)<br><img src="./floor5_warm_square.png" width="100" alt="floor5_warm_square.png"> | 128×128 |
+| [border1_stone.png](./border1_stone.png)<br><img src="./border1_stone.png" width="100" alt="border1_stone.png"> | 128×128 |
+| [plant1_white_flower.png](./plant1_white_flower.png)<br><img src="./plant1_white_flower.png" width="100" alt="plant1_white_flower.png"> | 256×256 |
+| [plant2_lavender.png](./plant2_lavender.png)<br><img src="./plant2_lavender.png" width="100" alt="plant2_lavender.png"> | 256×256 |
+| [plant3_broadleaf.png](./plant3_broadleaf.png)<br><img src="./plant3_broadleaf.png" width="100" alt="plant3_broadleaf.png"> | 512×512 |
+| [plant4_fern.png](./plant4_fern.png)<br><img src="./plant4_fern.png" width="100" alt="plant4_fern.png"> | 512×512 |
+| [flowerbed1_stone.png](./flowerbed1_stone.png)<br><img src="./flowerbed1_stone.png" width="100" alt="flowerbed1_stone.png"> | 1024×512 |
+| [vine1_ivy.png](./vine1_ivy.png)<br><img src="./vine1_ivy.png" width="100" alt="vine1_ivy.png"> | 512×512 |
+| [arch1_greenhouse.png](./arch1_greenhouse.png)<br><img src="./arch1_greenhouse.png" width="100" alt="arch1_greenhouse.png"> | 1024×1024 |
+| [foreground1_flowering.png](./foreground1_flowering.png)<br><img src="./foreground1_flowering.png" width="100" alt="foreground1_flowering.png"> | 1024×1024 |
+| [foreground2_fern.png](./foreground2_fern.png)<br><img src="./foreground2_fern.png" width="100" alt="foreground2_fern.png"> | 1024×1024 |
 
 원본 15장: `C:/Users/josep/Desktop/Final Project/asset/environment/originals`
 
