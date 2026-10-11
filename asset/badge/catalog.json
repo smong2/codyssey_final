@@ -969,6 +969,29 @@
         "height": 177,
         "transparent": 19149
       }
+    },
+    {
+      "index": 40,
+      "id": "state_acquired_heart",
+      "name": "마음에 담은 획득",
+      "meaning": "획득 알림과 상태 안내용 공통 대표 마크; 개별 배지 심볼을 대체하지 않음",
+      "kind": "state",
+      "category": "shared",
+      "motif": "에메랄드 하트와 푸른 물방울",
+      "file": "badge_state_acquired_heart_040.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "8312151691c45971e7e7bcb77ba5e16c203a8436e32646936864be3f44b20e09",
+      "bytes": 46285,
+      "bounds": {
+        "left": 37,
+        "top": 10,
+        "width": 136,
+        "height": 174,
+        "transparent": 26235
+      }
     }
   ]
 }
