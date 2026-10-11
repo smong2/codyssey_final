@@ -1,5 +1,39 @@
 # 게임용 아이템
 
+## 명칭·용도 안내
+
+파일 식별명을 풀어 쓴 안내이며 획득 조건·수치·소모 효과를 확정하는 데이터가 아닙니다. 규격과 개별 미리보기는 아래 표를 확인합니다.
+
+| 파일 식별명 | 명칭·용도 |
+|---|---|
+| diary1_heart | 마음 일기: 기록 소품 |
+| lamp1_rune | 룬 램프: 조명 소품 |
+| tea1_set | 차 세트: 생활 소품 |
+| pot1_herb | 약초 화분 |
+| rune1_fragment | 룬 조각 |
+| frame1_memory | 추억 액자 |
+| desk1_myroom | 마이룸 책상 |
+| chair1_myroom | 마이룸 의자 |
+| bed1_myroom | 마이룸 침대 |
+| bookshelf1_myroom | 마이룸 책장 |
+| rug1_myroom | 마이룸 러그 |
+| ornament1_rune | 룬 장식품 |
+| book1_ancient | 고서 |
+| letter1_parchment | 양피지 편지 |
+| tools1_workshop | 공방 도구 |
+| sword1_wooden | 목검: 훈련 소품 |
+| stone1_magic | 마석 |
+| rune2_heart | 마음의 룬 |
+| rune3_shadow | 그림자 룬 |
+| rune4_purified | 정화된 룬 |
+| plant1_wilted | 시든 식물: 회복 전 |
+| plant2_restored | 회복된 식물: 승인 v2 |
+| herb1_moonlight | 달빛 약초: 조사·획득 대상 |
+| event_rune1_inactive | 이벤트 룬: 비활성 |
+| event_rune2_active | 이벤트 룬: 활성 |
+
+## 파일·규격·미리보기
+
 게임용 PNG 25장만 유지합니다. 원본 26장과 이전 회복 식물 시안 1장은 로컬에 보관했습니다. 시든/회복 식물과 비활성/활성 이벤트 룬은 게임 상태가 달라 별도 이미지로 유지합니다. 회복 식물은 승인된 v2를 사용합니다.
 
 | 게임용 파일 | 규격 | 미리보기 |
