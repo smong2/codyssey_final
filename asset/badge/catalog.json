@@ -1,0 +1,997 @@
+{
+  "schemaVersion": 1,
+  "canvas": [
+    200,
+    200
+  ],
+  "status": "art-approved-integration-pending",
+  "categoryMapping": "proposal-not-final-game-taxonomy",
+  "categories": [
+    [
+      "forest",
+      "숲",
+      "B",
+      "탐험과 발견",
+      "물방울 형태의 연녹색 결정"
+    ],
+    [
+      "star",
+      "별",
+      "A",
+      "배움과 성장",
+      "남보라 초승달과 은빛 장식"
+    ],
+    [
+      "workshop",
+      "공방",
+      "C",
+      "활동과 성취",
+      "코발트 결정과 은빛 사각 테두리"
+    ],
+    [
+      "friendship",
+      "우정",
+      "B",
+      "관계와 공감",
+      "진주빛 타원과 로즈골드"
+    ],
+    [
+      "rune",
+      "룬",
+      "C",
+      "각성과 선택",
+      "흑요석 다각형과 금색·청록 연결부"
+    ]
+  ],
+  "layerOrder": [
+    "frame",
+    "symbol",
+    "ornament"
+  ],
+  "completionUsage": "standalone-subcategory-marker-not-overlay",
+  "entries": [
+    {
+      "index": 0,
+      "id": "frame_forest_dewdrop",
+      "name": "이슬 결정",
+      "meaning": "새로운 발견과 생명의 가능성",
+      "kind": "frame",
+      "category": "forest",
+      "motif": "물방울 형태의 연녹색 결정",
+      "file": "badge_frame_forest_dewdrop_000.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "e1adb9455141acd3a554c41fd1d019fb4cc5efd673e31dea8d97f6628e065032",
+      "bytes": 42718,
+      "bounds": {
+        "left": 20,
+        "top": 12,
+        "width": 154,
+        "height": 173,
+        "transparent": 24566
+      }
+    },
+    {
+      "index": 1,
+      "id": "frame_star_crescent",
+      "name": "별빛 초승달",
+      "meaning": "지식과 상상이 넓어지는 순간",
+      "kind": "frame",
+      "category": "star",
+      "motif": "남보라 초승달과 은빛 장식",
+      "file": "badge_frame_star_crescent_001.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "b60b474f050b4119de121fe5da0ad168b37bb0553c2085c692f80fd11aa603c7",
+      "bytes": 49849,
+      "bounds": {
+        "left": 24,
+        "top": 21,
+        "width": 152,
+        "height": 158,
+        "transparent": 21680
+      }
+    },
+    {
+      "index": 2,
+      "id": "frame_workshop_cobalt",
+      "name": "코발트 공방",
+      "meaning": "직접 시도하고 완성하는 즐거움",
+      "kind": "frame",
+      "category": "workshop",
+      "motif": "코발트 결정과 은빛 사각 테두리",
+      "file": "badge_frame_workshop_cobalt_002.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "65b3fdc5e157179f614dc2504b1c42040e4129a99a54c3755b9a344e1018ad7e",
+      "bytes": 54898,
+      "bounds": {
+        "left": 20,
+        "top": 21,
+        "width": 163,
+        "height": 162,
+        "transparent": 18310
+      }
+    },
+    {
+      "index": 3,
+      "id": "frame_friendship_pearl",
+      "name": "진주빛 연결",
+      "meaning": "서로 다른 마음을 잇는 관계",
+      "kind": "frame",
+      "category": "friendship",
+      "motif": "진주빛 타원과 로즈골드",
+      "file": "badge_frame_friendship_pearl_003.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "533ed69410d6d635cc3744a42f65aef89cadedbe198a77d15ee9230af8728288",
+      "bytes": 42925,
+      "bounds": {
+        "left": 34,
+        "top": 10,
+        "width": 147,
+        "height": 176,
+        "transparent": 23399
+      }
+    },
+    {
+      "index": 4,
+      "id": "frame_rune_obsidian",
+      "name": "흑요석 룬",
+      "meaning": "선택을 통해 드러나는 마음의 빛",
+      "kind": "frame",
+      "category": "rune",
+      "motif": "흑요석 다각형과 금색·청록 연결부",
+      "file": "badge_frame_rune_obsidian_004.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "d314da87e5655664369f1993c0cd7d7cc47c3363d74ea9ecde8ef83bb0b0b136",
+      "bytes": 55517,
+      "bounds": {
+        "left": 19,
+        "top": 10,
+        "width": 161,
+        "height": 176,
+        "transparent": 20561
+      }
+    },
+    {
+      "index": 5,
+      "id": "symbol_forest_compass",
+      "name": "오늘도 탐험!",
+      "meaning": "모험 참여와 탐험의 발걸음",
+      "kind": "symbol",
+      "category": "forest",
+      "motif": "나침반",
+      "file": "badge_symbol_forest_compass_005.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "d45ce67f14387549a3b196dcedfb2504f9ac91e55f0c178b81b5b22609fab522",
+      "bytes": 14312,
+      "bounds": {
+        "left": 64,
+        "top": 54,
+        "width": 72,
+        "height": 82,
+        "transparent": 36125
+      }
+    },
+    {
+      "index": 6,
+      "id": "symbol_forest_treasure",
+      "name": "보물 찾았다!",
+      "meaning": "숨겨진 획득물을 발견한 기쁨",
+      "kind": "symbol",
+      "category": "forest",
+      "motif": "보물상자",
+      "file": "badge_symbol_forest_treasure_006.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "6562af37905252a98df4ab3e7fc62c3f5c70d69c03a91d5d7af8e495f86efa40",
+      "bytes": 16276,
+      "bounds": {
+        "left": 63,
+        "top": 60,
+        "width": 79,
+        "height": 77,
+        "transparent": 35533
+      }
+    },
+    {
+      "index": 7,
+      "id": "symbol_forest_door",
+      "name": "여기 뭐가 있지?",
+      "meaning": "새로운 장소와 조사 지점 발견",
+      "kind": "symbol",
+      "category": "forest",
+      "motif": "돌 아치 문",
+      "file": "badge_symbol_forest_door_007.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "717b14ba0533a331771625e423b4a90e3ddc3d9774ec20c4bef32cdcaf7557dd",
+      "bytes": 17021,
+      "bounds": {
+        "left": 61,
+        "top": 58,
+        "width": 78,
+        "height": 80,
+        "transparent": 35392
+      }
+    },
+    {
+      "index": 8,
+      "id": "symbol_forest_curiosity",
+      "name": "궁금한 건 못 참아",
+      "meaning": "관찰과 질문으로 새 정보를 발견",
+      "kind": "symbol",
+      "category": "forest",
+      "motif": "잎과 돋보기",
+      "file": "badge_symbol_forest_curiosity_008.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "0f06c8569f789c17f6cfb146ce09fad2edbb7039c2f10f81965f32df4c76929c",
+      "bytes": 14088,
+      "bounds": {
+        "left": 65,
+        "top": 55,
+        "width": 75,
+        "height": 80,
+        "transparent": 36196
+      }
+    },
+    {
+      "index": 9,
+      "id": "symbol_forest_pet",
+      "name": "펫과 함께",
+      "meaning": "펫과의 동행과 만남",
+      "kind": "symbol",
+      "category": "forest",
+      "motif": "호박빛 발자국",
+      "file": "badge_symbol_forest_pet_009.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "27174cf193115c2a61323205b6e940ec506bd0835bbbe0a048a27c994596d65d",
+      "bytes": 14295,
+      "bounds": {
+        "left": 60,
+        "top": 61,
+        "width": 82,
+        "height": 72,
+        "transparent": 36047
+      }
+    },
+    {
+      "index": 10,
+      "id": "symbol_star_science",
+      "name": "과학은 재미있어!",
+      "meaning": "수업과 탐구를 통한 발견",
+      "kind": "symbol",
+      "category": "star",
+      "motif": "푸른 플라스크",
+      "file": "badge_symbol_star_science_010.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "691fd98e00c9162eac6e0a4693baa220d0fc3ee2c9f445d9b2b26cb93dbe3a91",
+      "bytes": 11343,
+      "bounds": {
+        "left": 84,
+        "top": 54,
+        "width": 61,
+        "height": 80,
+        "transparent": 36875
+      }
+    },
+    {
+      "index": 11,
+      "id": "symbol_star_speech",
+      "name": "말이 술술",
+      "meaning": "대화와 표현의 경험",
+      "kind": "symbol",
+      "category": "star",
+      "motif": "진주 말풍선",
+      "file": "badge_symbol_star_speech_011.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "b9f3e0627dbdfe337f672ed85d5ab5869f9e792cf09e2ef298d344973ee8a650",
+      "bytes": 8957,
+      "bounds": {
+        "left": 84,
+        "top": 68,
+        "width": 65,
+        "height": 54,
+        "transparent": 37500
+      }
+    },
+    {
+      "index": 12,
+      "id": "symbol_star_thinking",
+      "name": "차근차근 생각해",
+      "meaning": "신중한 관찰과 판단",
+      "kind": "symbol",
+      "category": "star",
+      "motif": "책과 돋보기",
+      "file": "badge_symbol_star_thinking_012.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "26ef64e14c16b04a8fe2a03d15af7b148a2efba9d8a38b14583bd4017d050f22",
+      "bytes": 11472,
+      "bounds": {
+        "left": 77,
+        "top": 66,
+        "width": 76,
+        "height": 58,
+        "transparent": 36818
+      }
+    },
+    {
+      "index": 13,
+      "id": "symbol_star_independence",
+      "name": "혼자서도 척척",
+      "meaning": "스스로 방법을 찾아 해결",
+      "kind": "symbol",
+      "category": "star",
+      "motif": "황금 열쇠",
+      "file": "badge_symbol_star_independence_013.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "2ed543b86d1120352a433df188a93335ab77b986ef3265cbf5869d112d838603",
+      "bytes": 5963,
+      "bounds": {
+        "left": 94,
+        "top": 56,
+        "width": 42,
+        "height": 76,
+        "transparent": 38459
+      }
+    },
+    {
+      "index": 14,
+      "id": "symbol_star_retry",
+      "name": "다시 도전!",
+      "meaning": "실패 뒤 다시 시도하며 성장; 추가 소분류 후보",
+      "kind": "symbol",
+      "category": "star",
+      "motif": "순환 화살표와 새싹",
+      "file": "badge_symbol_star_retry_014.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "7ec8e0347585d13e66e3824cb348e3e1e39935c456ba97377f38b0ba468d8bfd",
+      "bytes": 10854,
+      "bounds": {
+        "left": 85,
+        "top": 58,
+        "width": 65,
+        "height": 71,
+        "transparent": 37124
+      }
+    },
+    {
+      "index": 15,
+      "id": "symbol_workshop_activity",
+      "name": "몸이 먼저!",
+      "meaning": "몸으로 익히는 활동과 훈련",
+      "kind": "symbol",
+      "category": "workshop",
+      "motif": "날개 부츠",
+      "file": "badge_symbol_workshop_activity_015.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "84562e97ae6a44f3b274bb26923c3ee74868db947495499e85d53b0353577927",
+      "bytes": 10124,
+      "bounds": {
+        "left": 63,
+        "top": 62,
+        "width": 78,
+        "height": 70,
+        "transparent": 37303
+      }
+    },
+    {
+      "index": 16,
+      "id": "symbol_workshop_champion",
+      "name": "미니게임 챔피언",
+      "meaning": "미니게임 참여와 기록 달성",
+      "kind": "symbol",
+      "category": "workshop",
+      "motif": "트로피",
+      "file": "badge_symbol_workshop_champion_016.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "116d0a50db0aba3884f0d3022e6688e75f79741a12db40cb0900c86917e0bf07",
+      "bytes": 12797,
+      "bounds": {
+        "left": 59,
+        "top": 63,
+        "width": 80,
+        "height": 74,
+        "transparent": 36470
+      }
+    },
+    {
+      "index": 17,
+      "id": "symbol_workshop_puzzle",
+      "name": "퍼즐 조각 착착",
+      "meaning": "배경 퍼즐 조각을 모으는 즐거움",
+      "kind": "symbol",
+      "category": "workshop",
+      "motif": "보라 퍼즐 조각",
+      "file": "badge_symbol_workshop_puzzle_017.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "f442b17ebc1148f5334b327ad4e9c7e2887ed06e41612fb1b80ce25c9aaefe12",
+      "bytes": 12849,
+      "bounds": {
+        "left": 65,
+        "top": 60,
+        "width": 73,
+        "height": 77,
+        "transparent": 36525
+      }
+    },
+    {
+      "index": 18,
+      "id": "symbol_workshop_room",
+      "name": "마이룸이 좋아",
+      "meaning": "마이룸과 꾸미기 해금",
+      "kind": "symbol",
+      "category": "workshop",
+      "motif": "불빛이 켜진 집",
+      "file": "badge_symbol_workshop_room_018.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "e9a73e3b1cb9822df6d4bdbcb18e03ff6141d7f3fb3b42cd11311f0e8ce2b0b3",
+      "bytes": 15874,
+      "bounds": {
+        "left": 60,
+        "top": 59,
+        "width": 84,
+        "height": 78,
+        "transparent": 35649
+      }
+    },
+    {
+      "index": 19,
+      "id": "symbol_workshop_promise",
+      "name": "약속은 지켜야지",
+      "meaning": "맡은 일과 약속을 마무리",
+      "kind": "symbol",
+      "category": "workshop",
+      "motif": "리본 두루마리",
+      "file": "badge_symbol_workshop_promise_019.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "7f97fd3390371cb1166b79bc01d651aa82626d82ca410df53680fbce3b8da697",
+      "bytes": 10801,
+      "bounds": {
+        "left": 61,
+        "top": 63,
+        "width": 79,
+        "height": 69,
+        "transparent": 36992
+      }
+    },
+    {
+      "index": 20,
+      "id": "symbol_friendship_friends",
+      "name": "친구가 생겼어",
+      "meaning": "NPC와 만남 및 관계의 시작",
+      "kind": "symbol",
+      "category": "friendship",
+      "motif": "맞잡은 손",
+      "file": "badge_symbol_friendship_friends_020.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "5f3f52b688cab744053a1314bc19ad6ba6a26ae5f3d9469b8a85121fdb78c1b1",
+      "bytes": 12201,
+      "bounds": {
+        "left": 57,
+        "top": 73,
+        "width": 86,
+        "height": 56,
+        "transparent": 36596
+      }
+    },
+    {
+      "index": 21,
+      "id": "symbol_friendship_listening",
+      "name": "끝까지 들어볼게",
+      "meaning": "상대의 이야기를 끝까지 경청",
+      "kind": "symbol",
+      "category": "friendship",
+      "motif": "귀와 소리 파동",
+      "file": "badge_symbol_friendship_listening_021.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "0fe6da4f7411ae215ae04219f5831ff68d37761dfb2a05ad026e8565b711cb16",
+      "bytes": 12174,
+      "bounds": {
+        "left": 64,
+        "top": 64,
+        "width": 75,
+        "height": 70,
+        "transparent": 36654
+      }
+    },
+    {
+      "index": 22,
+      "id": "symbol_friendship_empathy",
+      "name": "마음을 알아줘",
+      "meaning": "상대의 마음을 이해하는 행동",
+      "kind": "symbol",
+      "category": "friendship",
+      "motif": "손에 담은 하트",
+      "file": "badge_symbol_friendship_empathy_022.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "cd6115ab000eff9d248ae58cd0a8d6e1dbc2354478c0a77e82f53380d20bd44c",
+      "bytes": 12294,
+      "bounds": {
+        "left": 63,
+        "top": 66,
+        "width": 76,
+        "height": 65,
+        "transparent": 36690
+      }
+    },
+    {
+      "index": 23,
+      "id": "symbol_friendship_cooperation",
+      "name": "같이 하면 쉬워",
+      "meaning": "서로 힘을 보태 함께 해결",
+      "kind": "symbol",
+      "category": "friendship",
+      "motif": "맞물린 두 조각",
+      "file": "badge_symbol_friendship_cooperation_023.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "68d82cd840bd99ecc48337072d186eb228a3a6aca6513d0f8b10e246b2fe74da",
+      "bytes": 12408,
+      "bounds": {
+        "left": 60,
+        "top": 69,
+        "width": 82,
+        "height": 62,
+        "transparent": 36465
+      }
+    },
+    {
+      "index": 24,
+      "id": "symbol_friendship_honesty",
+      "name": "솔직하게 말해봐",
+      "meaning": "진솔한 표현과 대화 선택",
+      "kind": "symbol",
+      "category": "friendship",
+      "motif": "깃펜과 맑은 물방울",
+      "file": "badge_symbol_friendship_honesty_024.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "bf69efd41a514e73881391ef97406524b66d882797e61017b2db6bdbb9bcbe3e",
+      "bytes": 12029,
+      "bounds": {
+        "left": 67,
+        "top": 56,
+        "width": 75,
+        "height": 81,
+        "transparent": 36797
+      }
+    },
+    {
+      "index": 25,
+      "id": "symbol_rune_awaken",
+      "name": "룬이 반짝!",
+      "meaning": "룬과 마법의 발견",
+      "kind": "symbol",
+      "category": "rune",
+      "motif": "빛나는 룬 결정",
+      "file": "badge_symbol_rune_awaken_025.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "1e062ec639e622149fb40d430de1b34a3ce9a2257bbc6f9a34806ba3902d542c",
+      "bytes": 11319,
+      "bounds": {
+        "left": 71,
+        "top": 54,
+        "width": 61,
+        "height": 86,
+        "transparent": 36879
+      }
+    },
+    {
+      "index": 26,
+      "id": "symbol_rune_choice",
+      "name": "선택의 순간",
+      "meaning": "중요한 선택과 분기 경험",
+      "kind": "symbol",
+      "category": "rune",
+      "motif": "갈라지는 길",
+      "file": "badge_symbol_rune_choice_026.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "a79dcf8ae3778bba1f5bdaf9ed2fa84bb991f29a6bf1709a47d67f116c352e90",
+      "bytes": 13443,
+      "bounds": {
+        "left": 62,
+        "top": 65,
+        "width": 78,
+        "height": 67,
+        "transparent": 36347
+      }
+    },
+    {
+      "index": 27,
+      "id": "symbol_rune_courage",
+      "name": "용기 한 스푼",
+      "meaning": "두려움 속에서도 시도하는 용기",
+      "kind": "symbol",
+      "category": "rune",
+      "motif": "불꽃 방패",
+      "file": "badge_symbol_rune_courage_027.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "97a8d0805fd6a462122f4820ce20d5565c3b8099e0b247bf016ba24b68a376ce",
+      "bytes": 13728,
+      "bounds": {
+        "left": 66,
+        "top": 54,
+        "width": 69,
+        "height": 84,
+        "transparent": 36150
+      }
+    },
+    {
+      "index": 28,
+      "id": "symbol_rune_character",
+      "name": "새로운 얼굴!",
+      "meaning": "새로운 플레이 캐릭터 해금",
+      "kind": "symbol",
+      "category": "rune",
+      "motif": "두 인물의 카메오",
+      "file": "badge_symbol_rune_character_028.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "3e2083c922bc5d3eaff197040b310be259e4ab94cb2fb04dd06654ed3f78a952",
+      "bytes": 13557,
+      "bounds": {
+        "left": 60,
+        "top": 71,
+        "width": 81,
+        "height": 58,
+        "transparent": 36262
+      }
+    },
+    {
+      "index": 29,
+      "id": "symbol_rune_future",
+      "name": "또 다른 미래",
+      "meaning": "새로운 직업 엔딩과 미래 발견",
+      "kind": "symbol",
+      "category": "rune",
+      "motif": "책과 떠오르는 해",
+      "file": "badge_symbol_rune_future_029.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "525c6eda5387b24853be774fbdccd0fc89ebbda3c616dde3e8465779d18e8841",
+      "bytes": 14277,
+      "bounds": {
+        "left": 56,
+        "top": 57,
+        "width": 88,
+        "height": 77,
+        "transparent": 35875
+      }
+    },
+    {
+      "index": 30,
+      "id": "ornament_star",
+      "name": "별",
+      "meaning": "발견의 반짝임",
+      "kind": "ornament",
+      "category": "shared",
+      "motif": "별",
+      "file": "badge_ornament_star_030.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "3a557cce9afe023b33c9b688df26b6580662a0a9b39154543c2efc39f1be8dbb",
+      "bytes": 1721,
+      "bounds": {
+        "left": 85,
+        "top": 149,
+        "width": 30,
+        "height": 29,
+        "transparent": 39654
+      }
+    },
+    {
+      "index": 31,
+      "id": "ornament_bow",
+      "name": "리본",
+      "meaning": "소중한 경험을 기념",
+      "kind": "ornament",
+      "category": "shared",
+      "motif": "리본",
+      "file": "badge_ornament_bow_031.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "8c42a577b2b8eec6400d6ae4aba488f26ff12a6a1705ca7f4e37de2f13996298",
+      "bytes": 2394,
+      "bounds": {
+        "left": 84,
+        "top": 152,
+        "width": 31,
+        "height": 26,
+        "transparent": 39497
+      }
+    },
+    {
+      "index": 32,
+      "id": "ornament_laurel",
+      "name": "월계수",
+      "meaning": "꾸준한 노력의 결실",
+      "kind": "ornament",
+      "category": "shared",
+      "motif": "월계수",
+      "file": "badge_ornament_laurel_032.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "d0807e610799a58b33a0d091a1158d86349b0835f53a545bfb189fa5838ad3ac",
+      "bytes": 1982,
+      "bounds": {
+        "left": 85,
+        "top": 151,
+        "width": 30,
+        "height": 24,
+        "transparent": 39599
+      }
+    },
+    {
+      "index": 33,
+      "id": "ornament_crown",
+      "name": "왕관",
+      "meaning": "스스로 느끼는 성취",
+      "kind": "ornament",
+      "category": "shared",
+      "motif": "왕관",
+      "file": "badge_ornament_crown_033.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "f2bb4689f6804fb3dba327d3b7537ffec4c18a69b9c6e8b4972915eb1967fbeb",
+      "bytes": 2215,
+      "bounds": {
+        "left": 84,
+        "top": 150,
+        "width": 31,
+        "height": 27,
+        "transparent": 39516
+      }
+    },
+    {
+      "index": 34,
+      "id": "ornament_gem",
+      "name": "보석",
+      "meaning": "발견한 가능성과 가치",
+      "kind": "ornament",
+      "category": "shared",
+      "motif": "보석",
+      "file": "badge_ornament_gem_034.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "2201b2e5b0302d749110162d4b15b0ba1f46fe5b48e6810b0381cf83db3155c5",
+      "bytes": 1890,
+      "bounds": {
+        "left": 86,
+        "top": 149,
+        "width": 28,
+        "height": 30,
+        "transparent": 39614
+      }
+    },
+    {
+      "index": 35,
+      "id": "ornament_shell",
+      "name": "조개",
+      "meaning": "차곡차곡 간직한 경험",
+      "kind": "ornament",
+      "category": "shared",
+      "motif": "조개",
+      "file": "badge_ornament_shell_035.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "56c1de767db5d8bfb87611967bc1c73f84ad8ab3e141969a858c28911cb629da",
+      "bytes": 2561,
+      "bounds": {
+        "left": 85,
+        "top": 149,
+        "width": 30,
+        "height": 29,
+        "transparent": 39426
+      }
+    },
+    {
+      "index": 36,
+      "id": "ornament_wings",
+      "name": "날개",
+      "meaning": "새로운 시도와 확장",
+      "kind": "ornament",
+      "category": "shared",
+      "motif": "날개",
+      "file": "badge_ornament_wings_036.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "78d23d0c110f38537df9c0bbf83542f02693518849aedcf4a8ce454f66f58571",
+      "bytes": 1831,
+      "bounds": {
+        "left": 85,
+        "top": 153,
+        "width": 29,
+        "height": 21,
+        "transparent": 39645
+      }
+    },
+    {
+      "index": 37,
+      "id": "ornament_flower",
+      "name": "꽃",
+      "meaning": "경험을 통해 피어나는 성장",
+      "kind": "ornament",
+      "category": "shared",
+      "motif": "꽃",
+      "file": "badge_ornament_flower_037.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "0b7d550b4daf3a2edf90d92a5950e3d3fc160480aee81efc37bf86c0ac398796",
+      "bytes": 2474,
+      "bounds": {
+        "left": 85,
+        "top": 149,
+        "width": 29,
+        "height": 29,
+        "transparent": 39464
+      }
+    },
+    {
+      "index": 38,
+      "id": "state_locked",
+      "name": "공용 잠금",
+      "meaning": "미획득 디자인을 노출하지 않는 공통 표시",
+      "kind": "state",
+      "category": "shared",
+      "motif": "은빛·진주 자물쇠",
+      "file": "badge_state_locked_038.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "68db59ab53e7d5b0174c51fbb9bde8f4769021f4550873967362a87285cfaa78",
+      "bytes": 49065,
+      "bounds": {
+        "left": 36,
+        "top": 19,
+        "width": 135,
+        "height": 161,
+        "transparent": 25293
+      }
+    },
+    {
+      "index": 39,
+      "id": "state_complete_gold",
+      "name": "황금빛 완성",
+      "meaning": "소분류 8개 수집 완료를 축하하는 공통 표식",
+      "kind": "state",
+      "category": "shared",
+      "motif": "골드 잎과 은빛·오팔 별빛",
+      "file": "badge_state_complete_gold_039.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "34304752a828ea25881a38ca9dff1609512f8a662b7581ca88221bad3f35280d",
+      "bytes": 69583,
+      "bounds": {
+        "left": 10,
+        "top": 10,
+        "width": 179,
+        "height": 177,
+        "transparent": 19149
+      }
+    },
+    {
+      "index": 40,
+      "id": "state_acquired_heart",
+      "name": "마음에 담은 획득",
+      "meaning": "획득 알림과 상태 안내용 공통 대표 마크; 개별 배지 심볼을 대체하지 않음",
+      "kind": "state",
+      "category": "shared",
+      "motif": "에메랄드 하트와 푸른 물방울",
+      "file": "badge_state_acquired_heart_040.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "8312151691c45971e7e7bcb77ba5e16c203a8436e32646936864be3f44b20e09",
+      "bytes": 46285,
+      "bounds": {
+        "left": 37,
+        "top": 10,
+        "width": 136,
+        "height": 174,
+        "transparent": 26235
+      }
+    }
+  ]
+}
