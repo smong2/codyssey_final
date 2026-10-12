@@ -5,6 +5,7 @@
 | 폴더 | 내용 | 현재 구분 |
 |---|---|---|
 | [character/](character/README.md) | 학생 전신 32장 + 상반신 표정 160장 + 엘리아 보정본 1장, 총 193장 | 베른은 별도 폴더; 게임 적용 검수 별도 |
+| [sd_character/](sd_character/README.md) | 기본 오픈 6명 × 8방향, PNG 48개 | 카엘 기존본 + 신규 5명; 256×256 프레임 3개/스트립, 최종 모션·게임 적용 검수 필요 |
 | [item/](item/README.md) | 아이템 20종, 조사 오브젝트와 상태 변형 | 개별 사용 장면·상태 확인 필요 |
 | [background/](background/README.md) | 장소 배경과 마이룸 시간대 변형, 총 15장 | 장소별 화면 적용 검수 필요 |
 | [environment/](environment/README.md) | 바닥·식물·구조물 등 환경 요소 | 배치·경계·가림 검수 필요 |
