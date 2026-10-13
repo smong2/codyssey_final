@@ -10,8 +10,8 @@
 | [background/](background/README.md) | 장소 배경과 마이룸 시간대 변형, 총 15장 | 장소별 화면 적용 검수 필요 |
 | [environment/](environment/README.md) | 바닥·식물·구조물 등 환경 요소 | 배치·경계·가림 검수 필요 |
 | [puzzle/](puzzle/README.md) | 타일 바탕과 연결/회전 상태 그림 | 규칙·시각 상태 연결 검수 필요 |
-| [ui/](ui/README.md) | 카드·초대장·가방·기록·힌트·대화창·로고 등 | 로고 변형 선택, 화면 합성 검수 필요 |
-| [effect/](effect/README.md) | 룬 빛, 달빛 광휘 | 합성·동작 검수 필요 |
+| [ui/](ui/README.md) | 카드·초대장·가방·기록·힌트·대화창·로고 등 | LUMIA 로고 최종본 확정, 화면 합성·게임 적용 검수 별도 |
+| [effect/](effect/README.md) | 룬 빛, 달빛 광휘, 확정 로고 전용 빛무리 | 합성·동작 검수 필요 |
 | [bern/](bern/README.md) | 동물 형태 10종 | 기존 펫 분류를 베른으로 변경; 별도 pets 폴더 불필요 |
 | [badge/](badge/README.md) | 200×200 투명 PNG 41장 | 프레임 5 + 심볼 25 + 장식 8 + 상태 3; 하트 획득 표식 포함, 조립형 200개용 |
 | [map/](map/README.md) | 온실 직선·곡선 전체맵 2장 | 1920×1080; 충돌·가림 레이어 데이터 미포함 |

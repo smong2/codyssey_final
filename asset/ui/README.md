@@ -1,6 +1,6 @@
 # UI 이미지
 
-현재 이 폴더의 PNG/SVG 34개입니다. 배경·프레임·아이콘·로고는 동적 텍스트나 실제 UI 동작과 구분합니다. 로고 변형 중 최종 사용본은 미정입니다. 새 이미지의 추가·삭제·교체 시 이 표를 갱신하세요.
+확정 로고 파일을 포함하면 이 폴더의 PNG/SVG는 35개입니다. 배경·프레임·아이콘·로고는 동적 텍스트나 실제 UI 동작과 구분합니다. 최종 사용 로고는 `lumia_logo_final_034.png`로 확정되었습니다. 기존 신비 로고 1안·5안은 이전 시안으로 보존하며, 실제 화면 합성·게임 적용 검수는 별도입니다. 새 이미지의 추가·삭제·교체 시 이 표를 갱신하세요.
 
 ## 추가 자원 설명
 
@@ -28,6 +28,7 @@
 | `dialogue_frame_013.png` | 일반 대화창 프레임 | <img src="./dialogue_frame_013.png" width="160" alt="대화창 프레임"> |
 | `lumia_logo_mystic_01_017.png` | LUMIA 신비 로고 1안 | <img src="./lumia_logo_mystic_01_017.png" width="160" alt="LUMIA 로고 1안"> |
 | `lumia_logo_mystic_05_018.png` | LUMIA 신비 로고 5안 | <img src="./lumia_logo_mystic_05_018.png" width="160" alt="LUMIA 로고 5안"> |
+| `lumia_logo_final_034.png` | **최종 확정 LUMIA 로고** (1774×887 투명 PNG). 빛 효과는 `../effect/lumia_logo_glow_003.png`로 별도 합성 | <img src="./lumia_logo_final_034.png" width="160" alt="확정 LUMIA 로고"> |
 | `reference_card_title_014.png` | 제목 영역이 있는 참조 카드 | <img src="./reference_card_title_014.png" width="160" alt="제목 영역이 있는 참조 카드"> |
 
 ## 파일 미리보기
@@ -56,3 +57,4 @@
 | [title_layout_reference_title_layout_031.svg](./title_layout_reference_title_layout_031.svg) | <img src="./title_layout_reference_title_layout_031.svg" width="120" alt="title_layout_reference_title_layout_031.svg"> |
 | [title_layout_reference_title_layout_032.svg](./title_layout_reference_title_layout_032.svg) | <img src="./title_layout_reference_title_layout_032.svg" width="120" alt="title_layout_reference_title_layout_032.svg"> |
 | [title_layout_reference_title_layout_033.svg](./title_layout_reference_title_layout_033.svg) | <img src="./title_layout_reference_title_layout_033.svg" width="120" alt="title_layout_reference_title_layout_033.svg"> |
+| [lumia_logo_final_034.png](./lumia_logo_final_034.png) | <img src="./lumia_logo_final_034.png" width="120" alt="lumia_logo_final_034.png"> |
