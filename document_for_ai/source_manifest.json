@@ -87,6 +87,19 @@
       ]
     },
     {
+      "path": "document/09_AI_ENDING_LETTER.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md",
+        "document_for_ai/03_GAME_CONTENT.md"
+      ]
+    },
+    {
+      "path": "document/10_TECH_STACK.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md"
+      ]
+    },
+    {
       "path": "document/실행방법.md",
       "ai": [
         "document_for_ai/06_WORKSPACE_RULES.md"
@@ -159,7 +172,7 @@
   "trackedFiles": [
     {
       "path": "README.md",
-      "sha256": "4c8207c4143e94c43b1d9846516f32aeea2935040f5eb86c64a9152975e24d7f"
+      "sha256": "dbef9f86016de2dff763d0fc5a4ed031b431984f16b191341a2877b241f36122"
     },
     {
       "path": "AGENTS.md",
@@ -167,11 +180,11 @@
     },
     {
       "path": "document/00_README.md",
-      "sha256": "3144cb936e15f79f6dbeaba284f07423b156f35ca21cb17709ad20639c80061b"
+      "sha256": "70ca7f0c90afa1f87960aaf99f768c553b106cda96c48597cc49ba1c87587b05"
     },
     {
       "path": "document/01_PROJECT_OVERVIEW.md",
-      "sha256": "e56532f94bf1d1c318e514b79b35176ecb8ef2216a21080622063a8b0c4e36cb"
+      "sha256": "a552ad40771829ece28d84871d2bf87e48ca9acf207b7ed9e7f22630cc671e55"
     },
     {
       "path": "document/02_WORLDVIEW.md",
@@ -179,19 +192,19 @@
     },
     {
       "path": "document/03_CHARACTERS.md",
-      "sha256": "2c113fd6a01a5cbad8f6519f4e8ca980ff84b7ca483102143e65c8e1c95f2073"
+      "sha256": "aadd6670dbccfa66e6f3e0dad9f1466754eac630f78f13f0abe4504bcb0bf024"
     },
     {
       "path": "document/04_ASSETS.md",
-      "sha256": "c4ce4256d7a39c126044ea7ddcbaf898daec62a572698865e3fc008f61f66c93"
+      "sha256": "f6e770249a1bdca66d4b6742f25b8a5dbee3c62dcd79cccc6c777c530ed2820c"
     },
     {
       "path": "document/05_TEAM_ROLES.md",
-      "sha256": "2c0cecbba11f8c7b826cebe8690c89752fc6192e00a2021023eac344f8f9d7cf"
+      "sha256": "68b3cd588476b44e7b37e0714bd5ab8cce14b3ab0bc6f963bf4cd5e09896f166"
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "000b78edef0db00be3d7a767838e88c437d574ec831129e746371116e63593fe"
+      "sha256": "23ac84e699a6b4e8843e442c60eb6e8925d459e2e0fff95127e6fd42c8a11365"
     },
     {
       "path": "document/content/README.md",
@@ -215,19 +228,19 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "605e737a90da04b60fbd9bae6fb9bdd4df2acff3ab0610468b2def35c0cf78f1"
+      "sha256": "653e817bd12562fdc8c2414743a5d4f63e234f5c7a1c48317d2a38bdf058e15e"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
-      "sha256": "9fceea5df51a01816d8d45074110adbcfa840ef00c95f2405b6e853efbebae96"
+      "sha256": "45d992df54c197e6fe5d8de5064b4851061f40d68bb138193685bcd57d3d9afc"
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "cd21a0f254fc0462e9c7203e1dd8ff8ab04b3116396b33979aed545fff580d54"
+      "sha256": "971187b685e197d1b97a71ba794eafcbbda10f536df4082d64f626aad50c370d"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
-      "sha256": "f0ccf916f0f2ca6ca78555bc04ed1740d57b61ed4d628d80e23bbbb0391f8707"
+      "sha256": "839c4fe32e394d01804ded3f9102fa540517cd4ffc711c561ae1b2295979694f"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
@@ -247,11 +260,15 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
-      "sha256": "9bac2117a7e362e9d33e3051bba88362215e4747bd1b7e829b4e95d0a63994e6"
+      "sha256": "f2332809fbeaacf8a79dcefb4a7c7968bba1315b0571faeb4ef5045bdaa9d9e9"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
       "sha256": "080bdc481d5b2e614392513160e6fd87a63ead0c7706e9c6fa08a565bcefb4f4"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md",
+      "sha256": "7665391efe78e603cae191969d27abcafa7c8182bdee893006b757d15546ee52"
     },
     {
       "path": "document/07_AI_WORK_GUIDE.md",
@@ -259,19 +276,31 @@
     },
     {
       "path": "document/08_REQUEST.md",
-      "sha256": "b8ed082dfb7e04cfb2aac3a067a9b9c50fe553d040410290cbcda552cda85288"
+      "sha256": "e6c06c2baa14b85babb3e98f6fc73bbeefcb2e9d7252e59821c50265ea499fdc"
+    },
+    {
+      "path": "document/09_AI_ENDING_LETTER.md",
+      "sha256": "e99ba6d5158fd8e8cf9410fcf9d0fc3b1d0030af927269d423343b94fde5f75b"
+    },
+    {
+      "path": "document/10_TECH_STACK.md",
+      "sha256": "dd6e58c2113e313dcd76a878abaafe2efcf7b7fe5f96fa0af820394249c645ec"
     },
     {
       "path": "document/실행방법.md",
-      "sha256": "adce8bdb3a0190606d3cf637089bb0d7e91321d7db764f36777c5cce3421005d"
+      "sha256": "c2471d9bd54666d7bd6bc7fb04339ff30528734cc3497a4ede9f1a0057e66104"
     },
     {
       "path": "asset/README.md",
-      "sha256": "0c96afac578545368d697f08203660dc21d33fe3917a877ebc6a41b02b708bee"
+      "sha256": "06f21f15c9a6b6c1cbf689850ae0de13bd9e4afbdc1a99ab6fdd4c5b2e42dd00"
     },
     {
       "path": "asset/background/README.md",
       "sha256": "18de4030c3181d4a16f6989079a49b9130578095ce8b3733a184bb6a2201a80d"
+    },
+    {
+      "path": "asset/bern/README.md",
+      "sha256": "9494bc54fb2c1ebf5bd7e798191e17b58c73d44410d5ba7f59cd24c16585cc62"
     },
     {
       "path": "asset/character/README.md",
@@ -311,7 +340,7 @@
     },
     {
       "path": "backend/README.md",
-      "sha256": "ae58b30c448fcc3c06ae2c63f2796ae27d23a87ea877fab201455dee55f29d72"
+      "sha256": "ee6b01b8fad97450d9142a7538f230f60a07a1f6dd1e23a867fe8762ce8fb4f0"
     },
     {
       "path": "lumia/README.md",
@@ -339,11 +368,11 @@
     },
     {
       "path": "backend/api/README.md",
-      "sha256": "7a374ea4a539c4a85fef86b8d1d1f30acfdcf310ac6c5ee0b02d2d66706932e3"
+      "sha256": "ddac9b33f12b30dcb62cae818d506c90a55d7c6936981bebfcda749bae1ea9e1"
     },
     {
       "path": "backend/database/README.md",
-      "sha256": "3218115088268fbba29e7752d3b71f3e3f4631031381faea79538dcc1f7ba049"
+      "sha256": "ed53325c315a23eaa4e2726cc6ffc24edbada7c362982d8c0f8ec01dea7f6382"
     },
     {
       "path": "backend/admin/README.md",
