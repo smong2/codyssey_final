@@ -14,9 +14,9 @@
 | [effect/](effect/README.md) | 룬 빛, 달빛 광휘, 확정 로고 전용 빛무리 | 합성·동작 검수 필요 |
 | [bern/](bern/README.md) | 본편 펫 10종 | 물리 폴더명은 `bern`이지만 의미상 `asset/pet`; `PET01~PET10` 실제 사용 자원 |
 | [badge/](badge/README.md) | 200×200 투명 PNG 41장 | 프레임 5 + 심볼 25 + 장식 8 + 상태 3; 하트 획득 표식 포함, 조립형 200개용 |
-| [map/](map/README.md) | 기존 온실 참고맵 2장 + 신규 온실 원본/런타임 자원 | 신규 원본 3840×2160, 런타임 WebP·충돌 마스크·투명 전경은 폴더 README 기준 |
-| [screen/](screen/README.md) | 화면 흐름·마이룸 구성 참고 시안 8장 | 구현 화면이나 최종 채택과 구별 |
-| [font_files/](font_files/README.md) | WOFF2 9개, 룬 SVG 10개, 서체 미리보기 PNG 9장 | 폰트 자원; 타이포그래피도 이 분류에 포함 |
+| [map/](map/README.md) | 온실 직선·곡선 전체맵 2장 | 1920×1080; 충돌·가림 레이어 데이터 미포함 |
+| [screen/](screen/README.md) | 화면 흐름·마이룸 구성 참고 시안 10장 | 구현 화면이나 최종 채택과 구별 |
+| [font_files/](font_files/README.md) | WOFF2 9개, 룬 SVG 10개, 서체 미리보기 PNG 9장 + 원본 TTF·외부 폰트 라이선스 보존 폴더 | 폰트 자원; 타이포그래피도 이 분류에 포함 |
 | [typography/](typography/README.md) | 서체 방향 참고 PNG 5장 | 폰트 관련 시안. 기존 물리 경로 유지 |
 | [stat/](stat/README.md) | 이미지 0장, 제작 예정 | 이제부터 제작할 스탯 이미지 영역 |
 

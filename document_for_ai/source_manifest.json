@@ -292,7 +292,7 @@
     },
     {
       "path": "asset/README.md",
-      "sha256": "06f21f15c9a6b6c1cbf689850ae0de13bd9e4afbdc1a99ab6fdd4c5b2e42dd00"
+      "sha256": "64eeae8ffeb7846a354427a8c85b70d786e7de43d6659f621a88375114a054b4"
     },
     {
       "path": "asset/background/README.md",
@@ -304,15 +304,27 @@
     },
     {
       "path": "asset/character/README.md",
-      "sha256": "c16e53d16b27684c62472a925aa91d10635ae7d3a42be4e269d0836867458ba4"
+      "sha256": "c77cd18cee1556baa475d6b6f1bd8e1d90e36fbb5e43f4f65d22fcbd399799c1"
     },
     {
       "path": "asset/effect/README.md",
-      "sha256": "871f06bd7580fa477c80602bfe867b2f7bcc42ed3f34a31c2931b72a6baafa5a"
+      "sha256": "f9326bc28b328340edc3c3e84f693ed171ac1c2788afb8035f7db6ea19569641"
     },
     {
       "path": "asset/environment/README.md",
       "sha256": "525fc662167b9435f3a16e4abcbecdafa56c795cf20fb73e8037ad8208ac28dd"
+    },
+    {
+      "path": "asset/font_files/README.md",
+      "sha256": "9ccb8259afce42fc5bcdd9e6d404b6d635226cceaedc20bd846ba64d37062fdd"
+    },
+    {
+      "path": "asset/font_files/licenses/README.md",
+      "sha256": "c145651ad95bc47b9e89eb46b342ae4fbae886b4680a534edcd6ff17c17a5a1c"
+    },
+    {
+      "path": "asset/font_files/originals/README.md",
+      "sha256": "546cf96754ef502ecc0c3bcb74eb9505764f63300d69e7849c31e6a350fe7a9a"
     },
     {
       "path": "asset/item/README.md",
@@ -324,7 +336,11 @@
     },
     {
       "path": "asset/ui/README.md",
-      "sha256": "d015063b731cc744de90f5310ee51d15ddfe79e2f50eabeee885014a9d624ca7"
+      "sha256": "62c9152f006d9c3e80c2feb8c836ab3e46de3b77c81079a437c7ec32fb9a243e"
+    },
+    {
+      "path": "asset/typography/README.md",
+      "sha256": "52818a03b8b3867bd6fe037dc750dacf6903de9958bcc0e976fce9c53b0493c4"
     },
     {
       "path": "engine/README.md",
