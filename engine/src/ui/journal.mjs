@@ -3,6 +3,7 @@ import {createPageTurnGate} from '../core/ui-flow.mjs';
 import {studentCards,petCards} from '../core/catalogue.mjs';
 import {ITEM_PREVIEWS,BADGE_PREVIEWS} from '../core/bag-assets.mjs';
 import {weeklyActivityRecords} from '../core/activity-history.mjs';
+import {activityResultText} from '../core/activity-rules.mjs';
 const ACTIVITY_PLACES={'rune-circuit':'BG09_magic_workshop_1920x1080_018.png',excavation:'BG01_arcadia_entrance_and_lake_1920x1080_010.png','rune-link':'BG05_grand_library_1920x1080_014.png','training-guardian':'BG10_rune_training_ground_1920x1080_019.png','rune-merge':'BG07_glass_greenhouse_1920x1080_016.png','mirror-magic':'BG06_starlight_observatory_1920x1080_015.png','seal-dismantle':'BG02_clocktower_plaza_1920x1080_011.png'};
 export const activityArt=a=>a==='adventure'?'./design-assets/map/map01_greenhouse_world_1920x1080.webp':a==='rest'?'./world-assets/BG03_myroom2_day_1920x1080_023.png':ACTIVITY_PLACES[classOf(a)?.id]?'./world-assets/'+ACTIVITY_PLACES[classOf(a).id]:null;
 export const activityLabel=a=>a==='adventure'?'유리 온실 모험':classOf(a)?.title??'휴식';
@@ -23,7 +24,7 @@ export function createJournalUI(ctx){
    card.append(el('strong',record.week+'주차'),el('small','실제 활동 '+record.activities.length+' / 5회'));grid.append(card);
   }left.append(grid);
   const record=records[selected];right.append(el('h2',record?record.week+'주차 활동 기록':'이야기의 자리'));
-  if(record){for(const activity of record.activities)right.append(el('p',['월','화','수','목','금'][activity.day]+'요일 · '+activityLabel(activity.action)));if(record.week===current().week)right.append(el('p','이번 주 기록은 주말 처리 후 저장됩니다.'));right.append(el('small','완료한 활동만 표시합니다. 개인 돌아보기 문구는 아직 등록되지 않았습니다.'));}
+  if(record){for(const activity of record.activities){const row=el('p',['월','화','수','목','금'][activity.day]+'요일 · '+activityLabel(activity.action)),result=activityResultText(activity);if(result)row.append(el('br'),el('small',result));right.append(row);}if(record.week===current().week)right.append(el('p','이번 주 기록은 주말 처리 후 저장됩니다.'));right.append(el('small','완료한 활동만 표시합니다. 개인 돌아보기 문구는 아직 등록되지 않았습니다.'));}
   else right.append(el('p','선택한 기록의 사진과 메모가 이 페이지에 표시됩니다.'),el('p','시나리오·개인 기록 데이터 미등록'),el('small','책·테이프·장식 전용 애셋은 제작 예정입니다.'));
   const spine=el('div',null,'book-spine');spine.setAttribute('aria-hidden','true');layout.append(tabs,left,spine,right);shell.append(layout);
   const footer=el('nav',null,'book-footer');const previous=btn('이전 페이지',()=>change(()=>{page--;selected=page*6;}),'quiet'),next=btn('다음 페이지',()=>change(()=>{page++;selected=page*6;}),'quiet');previous.disabled=page===0;next.disabled=page+1>=pages;

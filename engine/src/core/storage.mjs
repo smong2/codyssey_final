@@ -1,6 +1,7 @@
 import {createProfile,CHARACTERS} from './state.mjs';
 import {validAction} from './classes.mjs';
 import {unlockedPetIds} from './pets.mjs';
+import {validActivityEffect} from './activity-rules.mjs';
 export const STORAGE_KEY='lumia.engine.dev.v1';
 export function createBoundaryWriter(repository){
  let pending=null,source=null,savedSlotId=null;
@@ -28,15 +29,16 @@ export function validateProfile(p){
    if(r.actionHistory!==undefined){
     const seen=new Set();
     if(!Array.isArray(r.actionHistory)||r.actionHistory.length>260||r.actionHistory.some(h=>{
-     if(!h||!Number.isInteger(h.week)||h.week<1||h.week>r.week||!Number.isInteger(h.day)||h.day<0||h.day>4||!validAction(h.action)||h.week===r.week&&h.day>=r.day)return true;
+     if(!h||!Number.isInteger(h.week)||h.week<1||h.week>r.week||!Number.isInteger(h.day)||h.day<0||h.day>4||!validAction(h.action)||h.week===r.week&&h.day>=r.day||h.effect!==undefined&&!validActivityEffect(h.effect))return true;
      const key=h.week+':'+h.day;if(seen.has(key))return true;seen.add(key);return false;
     }))throw new Error('지난 일정 기록이 손상됐습니다. 원본을 보존했습니다.');
    }
    const validCharacter=CHARACTERS.some(c=>c.id===r.characterId)&&p.meta.unlockedCharacters.includes(r.characterId);
    const validStats=['knowledge','expression','dexterity','exploration','magic'].every(k=>Number.isFinite(r.stats[k])&&r.stats[k]>=0&&r.stats[k]<=500);
+   const validRest=r.forcedRestDays===undefined||Number.isInteger(r.forcedRestDays)&&r.forcedRestDays>=0&&r.forcedRestDays<=3&&r.exhausted===(r.forcedRestDays>0);
    const validPlan=r.phase==='PLANNING'?r.day===0&&r.schedule.length===0:
     r.schedule.length===5&&r.schedule.every(validAction)&&(r.phase==='ACTING'?r.day<5:r.day===5);
-   if(!validCharacter||!validStats||!validPlan||!Number.isInteger(r.runNumber)||r.runNumber!==s.completedRunCount+1||typeof r.exhausted!=='boolean'||r.phase==='AWAITING_ENDING'&&r.week!==52)throw new Error('캐릭터·스탯·일정 데이터가 손상됐습니다.');
+   if(!validCharacter||!validStats||!validRest||!validPlan||!Number.isInteger(r.runNumber)||r.runNumber!==s.completedRunCount+1||typeof r.exhausted!=='boolean'||r.phase==='AWAITING_ENDING'&&r.week!==52)throw new Error('캐릭터·스탯·일정 데이터가 손상됐습니다.');
   }
  });return p;
 }

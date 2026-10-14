@@ -233,6 +233,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
 .title-enter .gold-particles{animation:subtitleLightIn 1.5s 2.4s both}
 .title-enter .logo-group::before{animation:subtitleLightIn 1.5s 2.4s both}
 .title-enter .logo-group::after{animation:bgIn 1.5s 2.4s both}
+.title-enter.title-skip-enter .logo-group{animation-delay:-2.4s}
+.title-enter.title-skip-enter::before,.title-enter.title-skip-enter .logo-glow,.title-enter.title-skip-enter .logo-subtitle,.title-enter.title-skip-enter .logo-decoration,.title-enter.title-skip-enter .gold-particles,.title-enter.title-skip-enter .logo-group::before,.title-enter.title-skip-enter .logo-group::after{animation-delay:0s}
+.title-enter.title-skip-enter .title-actions,.title-enter.title-skip-enter>.title-replay{animation-delay:.3s}
 @keyframes logoLightIn{from{opacity:0}to{opacity:var(--logo-glow-opacity)}}
 @keyframes subtitleLightIn{from{opacity:0}to{opacity:1}}
 @keyframes subtitleReveal{from{opacity:0;transform:translateY(-48px)}to{opacity:1;transform:translateY(0)}}
@@ -338,15 +341,26 @@ button:active:not(:disabled){scale:.97}
 .schedule-layout .chosen-activity{margin:0;padding:5px;font-size:12px}
 .schedule-footer{margin:8px 0;gap:10px}.schedule-footer p{margin:0}
 @media(orientation:landscape) and (max-height:500px){
- #shell.schedule-page{padding:10px 12px!important}
+ #shell.schedule-page{padding:10px 12px!important;display:flex;flex-direction:column;justify-content:center;gap:4px}
  .schedule-page>h1{font-size:20px!important}.schedule-instruction{font-size:12px;margin:3px 0 6px}
- .schedule-layout{height:calc(100dvh - 112px);gap:10px}
- .schedule-layout>.calendar,.schedule-layout>.activity-panel{padding:8px}
+ .schedule-title-frame,.schedule-layout,.schedule-footer{width:min(92vw,1120px);align-self:center}
+ .schedule-layout{height:calc(100dvh - 142px);min-height:190px;max-width:1120px;grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);gap:8px}
+ .schedule-layout>.calendar,.schedule-layout>.activity-panel{padding:6px}
  .schedule-layout .calendar-heading .month-button{min-height:0;padding:2px 4px;font-size:10px}
  .schedule-layout .calendar-heading h2{font-size:12px}
- .schedule-layout .calendar>p{font-size:11px;margin:3px 0}
+ .schedule-layout .calendar>p{font-size:11px;margin:1px 0}
  .schedule-layout .calendar>.text-button{font-size:10px;padding:1px 8px!important}
- .schedule-layout .activity-cards{margin:5px 0}
+ .schedule-layout .activity-panel h2{font-size:15px}
+ .schedule-layout .activity-tabs{gap:5px}
+ .schedule-layout .activity-tabs button{font-size:11px;min-height:26px;padding:2px 5px}
+ .schedule-layout .activity-cards{gap:5px;margin:4px 0;padding:2px}
+ .schedule-layout .activity-card{grid-template-columns:54px minmax(0,1fr);gap:5px;min-height:66px;padding:6px;font-size:12px}
+ .schedule-layout .activity-card strong{font-size:12px}
+ .schedule-layout .activity-card small{font-size:10px}
+ .schedule-layout .activity-image-slot{width:52px;height:48px;font-size:22px}
+ .schedule-layout .chosen-activity{font-size:10px;padding:4px}
+ .schedule-footer{margin:2px 0;gap:6px}
+ .schedule-footer button,.schedule-footer p{font-size:11px;padding:3px 8px;min-height:0}
  .room-page.menu-open::before,.room-page.menu-open>.room-actors,.room-page.menu-open>.room-bottom{transform:translateX(-40px)!important}
 }
 @media(max-width:700px){.book-page p{font-size:14px}.book-page small{font-size:12px}.dialogue-preview-box{left:4%;right:4%;padding:14px}.dialogue-preview-student,.dialogue-preview-npc{height:40dvh;bottom:220px}.dialogue-preview-student{left:3%}.dialogue-preview-npc{right:3%}}
@@ -388,7 +402,12 @@ button:active:not(:disabled){scale:.97}
 .schedule-title-frame{max-width:1200px;margin:0 auto 8px;padding:4px 12px;color:var(--ink);box-sizing:border-box}
 .schedule-title-frame>h1{font-size:24px;margin:0}.schedule-title-frame .schedule-instruction{margin:3px 0}
 .schedule-page .schedule-layout{height:min(600px,calc(100dvh - 164px))}
-@media(orientation:landscape) and (max-height:500px){.schedule-title-frame{padding:3px 10px;margin-bottom:6px}.schedule-title-frame>h1{font-size:18px}.schedule-title-frame .schedule-instruction{font-size:11px;margin:1px 0}.schedule-page .schedule-layout{height:calc(100dvh - 126px)}}
+@media(orientation:landscape) and (max-height:500px){.schedule-title-frame{padding:3px 10px;margin-bottom:6px}.schedule-title-frame>h1{font-size:18px}.schedule-title-frame .schedule-instruction{font-size:11px;margin:1px 0}}
+@media (min-width:1000px) and (min-height:700px){
+ #shell.schedule-page{display:flex;flex-direction:column;justify-content:center;gap:8px}
+ .schedule-title-frame,.schedule-page .schedule-layout,.schedule-page .schedule-footer{width:min(100%,1160px);align-self:center}
+ .schedule-page .schedule-layout{height:min(600px,66dvh)}
+}
 .profile-stats>h1{margin:0 0 12px;font-size:24px}
 .profile-info .selection-profile{grid-template-columns:100px minmax(0,1fr)}
 .profile-info .selection-profile dd{margin:0;overflow-wrap:anywhere}
@@ -429,7 +448,7 @@ button:active:not(:disabled){scale:.97}
 .schedule-layout .outside-month .date-number{color:#827b6e;background:#e5ddcd}
 .schedule-layout .date-cell.outside-month{background:#e5ddcd;cursor:pointer}
 .schedule-layout .date-cell.current-week.outside-month{background:#e5ddcd}
-.schedule-layout .outside-month .calendar-activity-image{filter:grayscale(1);opacity:.35}
+.schedule-layout .outside-month:not(.current-week) .calendar-activity-image{filter:grayscale(1);opacity:.35}
 .schedule-layout .past-activity .calendar-activity-image{filter:grayscale(1);opacity:.6}
 #shell.profile-page{overflow:hidden;padding:24px!important}
 .profile-page>.preview-label{display:none}

@@ -1,3 +1,4 @@
+import {lowStamina} from './activity-rules.mjs';
 const definitions=[
  ['owl1.png','에든','대서고의 높은 창가를 좋아하는 작은 부엉이. 새로운 걸 알게 되면 가만히 듣고 있다가, 네가 그 이야기를 꺼낼 때 조용히 고개를 끄덕여 준다.','knowledge',5,'expression',3,'기본 제공'],
  ['fox2.png','루엔','희미한 룬빛을 따라다니는 여우. 낯선 마법을 만나면 서두르지 않고 주변을 한 바퀴 돌며 원리와 흔적부터 살펴본다.','knowledge',5,'magic',3,'첫 직업 엔딩 확인'],
@@ -19,7 +20,10 @@ export function activePet(profile){
  const id=profile.settings?.activePetId;
  return PETS.find(p=>p.id===id&&unlockedPetIds(profile.meta).includes(id))??PETS[0];
 }
-export function effectiveStats(stats,pet){
- return Object.fromEntries(Object.entries(stats).map(([key,value])=>[key,value+(pet.modifiers[key]??0)]));
+export function effectiveStats(stats,pet,stamina=100){
+ return Object.fromEntries(Object.entries(stats).map(([key,value])=>{
+  const corrected=Math.max(0,Math.min(500,value+(pet.modifiers[key]??0)));
+  return [key,lowStamina(stamina)?Math.floor(corrected*0.70):corrected];
+ }));
 }
 export function petCards(meta,activeId='PET01'){return PETS.map(p=>({...p,unlocked:unlockedPetIds(meta).includes(p.id),muted:!unlockedPetIds(meta).includes(p.id),selected:p.id===activeId}));}
