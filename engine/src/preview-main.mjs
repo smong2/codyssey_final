@@ -31,7 +31,12 @@ const notify=createNotifier(notice);
 function message(text){notify(text);}
 function btn(text,action,cls=''){const b=el('button',text,cls);b.type='button';b.onclick=()=>{try{action();}catch(e){message(e.message);}};return b;}
 let refreshAudioToggle=()=>{};
-const titleAudio=createTitleAudioController({onBlocked(blocked){if(blocked&&!titleAudio.isMuted())titleAudio.setMuted(true);refreshAudioToggle();}});
+const titleAudio=createTitleAudioController({onBlocked(){refreshAudioToggle();},onSoundError(kind,error){console.warn('효과음 재생 실패:',kind,error);}});
+document.addEventListener('click',event=>{const button=event.target instanceof Element?event.target.closest('button'):null;if(button&&!button.disabled){if(titleAudio.isBlocked()&&!button.classList.contains('audio-toggle'))titleAudio.resume();titleAudio.playClick(button.dataset.sfx);}},true);
+function blackDissolve(action,duration=900){
+ const cover=el('div',null,'black-dissolve');cover.setAttribute('aria-hidden','true');document.body.append(cover);
+ requestAnimationFrame(()=>{cover.classList.add('black-dissolve-active');setTimeout(()=>{action();requestAnimationFrame(()=>{cover.classList.remove('black-dissolve-active');setTimeout(()=>cover.remove(),duration);});},duration);});
+}
 function audioToggle(){
  const toggle=el('button',null,'audio-toggle');toggle.type='button';
  const paint=muted=>{
@@ -39,13 +44,13 @@ function audioToggle(){
   const path=(d)=>{const node=document.createElementNS('http://www.w3.org/2000/svg','path');node.setAttribute('d',d);svg.append(node);};
   path('M11 5 6 9H2v6h4l5 4V5z');
   if(muted){path('m17 9 5 6');path('m22 9-5 6');}else{path('M15.54 8.46a5 5 0 0 1 0 7.07');path('M19.07 4.93a10 10 0 0 1 0 14.14');}
-  toggle.replaceChildren(svg);toggle.setAttribute('aria-label',muted?'소리 켜기':'소리 끄기');toggle.setAttribute('aria-pressed',String(muted));toggle.title=muted?'소리 켜기':'소리 끄기';
+  toggle.replaceChildren(svg);toggle.setAttribute('aria-label',muted?'BGM 켜기':'BGM 끄기');toggle.setAttribute('aria-pressed',String(muted));toggle.title=muted?'BGM 켜기':'BGM 끄기';
  };
- refreshAudioToggle=()=>paint(titleAudio.isMuted());refreshAudioToggle();toggle.onclick=()=>{audioSync();paint(titleAudio.toggleMute());};return toggle;
+ refreshAudioToggle=()=>paint(titleAudio.isBgmMuted()||titleAudio.isBlocked());refreshAudioToggle();toggle.onclick=()=>{audioSync();if(titleAudio.isBlocked()){titleAudio.setBgmMuted(false);titleAudio.resume();}else titleAudio.toggleBgmMute();refreshAudioToggle();};return toggle;
 }
 function img(category,file,alt,cls){const i=el('img',null,cls);i.src=asset(category,file);i.alt=alt;return i;}
 function current(){return profile.slots[slotId-1].activeRun;}
-function heading(title,cls='page'){const wasAudioScreen=['title-page','intro-page'].includes(view),isAudioScreen=['title-page','intro-page'].includes(cls);if(wasAudioScreen&&!isAudioScreen)titleAudio.stop();cancelAnimationFrame(titleAudioSyncAnimation);titleAudioSyncAnimation=0;portraitObserver?.disconnect();portraitObserver=null;if(adventureView){adventureView.destroy();adventureView=null;}view=cls;document.querySelector('#game').hidden=true;shell.hidden=false;shell.className=cls;shell.replaceChildren(el('h1',title));shell.scrollTop=0;shell.append(el('p','실행형 화면 시안 · 계정/백엔드/시나리오 미연결','preview-label'));}
+function heading(title,cls='page'){cancelAnimationFrame(titleAudioSyncAnimation);titleAudioSyncAnimation=0;portraitObserver?.disconnect();portraitObserver=null;if(adventureView){adventureView.destroy();adventureView=null;}view=cls;document.querySelector('#game').hidden=true;shell.hidden=false;shell.className=cls;shell.replaceChildren(el('h1',title));shell.scrollTop=0;shell.append(el('p','실행형 화면 시안 · 계정/백엔드/시나리오 미연결','preview-label'));}
 function npcStage(image){
  const stage=el('div',null,'npc-portrait-stage');stage.append(image);let bounds;
  const fit=()=>{if(!bounds||!stage.isConnected)return;const p=fitPortraitBounds(stage.clientWidth,stage.clientHeight,image.naturalWidth,image.naturalHeight,bounds);for(const k of ['width','height','left','top'])image.style[k]=p[k]+'px';};
@@ -64,12 +69,18 @@ function modal(title,body,actions=[]){
  d.addEventListener('close',()=>d.remove());document.body.append(d);d.showModal();return d;
 }
 function emptyFrame(title,description,actions=[]){const body=el('div',null,'empty-frame');body.append(el('div','◇','empty-symbol'),el('p',description),el('small','백엔드 데이터 연결 예정 · 임의 데이터 없음'));modal(title,body,actions);}
+function soundSettings(){
+ const body=el('div',null,'sound-settings'),bgm=btn('',()=>{titleAudio.toggleBgmMute();refresh();}),sfx=btn('',()=>{titleAudio.toggleSfxMute();refresh();});
+ const refresh=()=>{bgm.textContent='BGM · '+(titleAudio.isBgmMuted()?'꺼짐':'켜짐');sfx.textContent='효과음 · '+(titleAudio.isSfxMuted()?'꺼짐':'켜짐');bgm.setAttribute('aria-pressed',String(!titleAudio.isBgmMuted()));sfx.setAttribute('aria-pressed',String(!titleAudio.isSfxMuted()));};
+ body.append(bgm,sfx);refresh();modal('소리 설정',body);
+}
 function canLeave(){return !saveFailed&&!['ACTING','WEEK_COMPLETE'].includes(current().phase);}
 function menu(){
  const existing=shell.querySelector('.menu-popover');if(existing&&!existing.classList.contains('menu-closing')){shell.classList.remove('menu-open');existing.classList.add('menu-closing');existing.inert=true;for(const child of shell.children)if(child!==existing)child.inert=false;shell.querySelector('[aria-label="메뉴"]')?.setAttribute('aria-expanded','false');shell.querySelector('[aria-label="메뉴"]')?.focus({preventScroll:true});setTimeout(()=>existing.remove(),220);return;}existing?.remove();
  const pop=el('div',null,'menu-popover paper');pop.setAttribute('aria-label','메뉴 항목');shell.querySelector('[aria-label="메뉴"]')?.setAttribute('aria-expanded','true');
  const close=()=>{shell.classList.remove('menu-open');pop.classList.add('menu-closing');pop.inert=true;for(const child of shell.children)if(child!==pop)child.inert=false;setTimeout(()=>pop.remove(),220);shell.querySelector('[aria-label="메뉴"]')?.setAttribute('aria-expanded','false');shell.querySelector('[aria-label="메뉴"]')?.focus({preventScroll:true});};
  const entry=(label,action)=>btn(label,()=>{close();if(label==='오늘 돌아보기')reflectRoom();if(label==='오늘을 마무리하기'&&current().phase==='WEEK_COMPLETE')roomLight.event('next-day');action();});
+ pop.append(entry('소리 설정',soundSettings));
  pop.append(entry('계속하기',()=>{}),entry('오늘 돌아보기',()=>emptyFrame('오늘 돌아보기','돌아보기 질문과 기록 데이터 연결 예정',[btn('다이어리에 남기기',()=>message('저장할 기록 데이터가 아직 없습니다.'))])),entry('오늘을 마무리하기',()=>{if(current().phase==='WEEK_COMPLETE'){finishWeek(profile,slotId);save();renderRoom();}else message('오늘의 수업 또는 휴식을 먼저 마쳐 주세요. 날짜는 중복 진행하지 않습니다.');}),entry('관계',()=>emptyFrame('관계','NPC 관계 데이터 연결 예정')),entry('방 변경·퍼즐',()=>journalUI.bag('마이룸')),entry('전체 흐름 보기',()=>emptyFrame('전체 흐름 · 진행 상태 변경 없음','미작성 화면의 연결 프레임입니다.',['메인 스토리','중간 이벤트','최종 이벤트 · 엔딩'].map(k=>btn(k,()=>{document.querySelector('dialog')?.close();storyFrame(k,renderRoom);})))));
  const back=entry('타이틀로 돌아가기',()=>renderTitle());back.disabled=!canLeave();pop.append(back);if(!canLeave())pop.append(el('small','이번 주 일정과 주말 저장 후 타이틀로 돌아갈 수 있습니다.'));shell.append(pop);shell.classList.add('menu-open');const x=btn('X',close,'close-x');x.setAttribute('aria-label','메뉴 닫기');pop.prepend(el('h2','메뉴'),x);for(const child of shell.children)if(child!==pop)child.inert=true;pop.querySelector('button').focus({preventScroll:true});pop.onkeydown=e=>{if(e.key!=='Tab')return;const buttons=[...pop.querySelectorAll('button:not([disabled])')],first=buttons[0],last=buttons.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus({preventScroll:true});}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus({preventScroll:true});}};
 }
@@ -103,7 +114,7 @@ function renderTitle(animated=false,overlayVideo=null,audioEntry='direct'){
   const sync=()=>{if(view!=='title-page'||!overlayVideo?.isConnected){titleAudioSyncAnimation=0;return;}audioSync();titleAudioSyncAnimation=requestAnimationFrame(sync);};
   titleAudioSyncAnimation=requestAnimationFrame(sync);
  }else if(audioEntry==='skip')titleAudio.skipToTitle();
- else titleAudio.startTitle();
+ else if(audioEntry!=='preserve')titleAudio.startTitle();
 }
 function renderIntro(){
  clearTimeout(introTimer);cancelAnimationFrame(introAnimation);cancelAnimationFrame(titleAudioSyncAnimation);titleAudioSyncAnimation=0;heading('','intro-page');const video=el('video');video.src='./intro.mp4';video.muted=true;video.playsInline=true;video.preload='metadata';video.controls=false;video.style.transition='none';introTimePosition=0;audioSync=()=>titleAudio.syncIntroPosition(video.isConnected?video.currentTime:introTimePosition);titleAudio.startIntro(0);
@@ -165,11 +176,11 @@ function renderCharacters(id,isNew,gender='male',selectedId=null){
  list.append(grid);const detail=el('aside',null,'character-detail-panel paper');
  const full=el('img',null,'selected-character-full');full.src='./character-assets/'+selected.image.replace('1_base.png','0_fullbody.png');full.alt=selected.name+' 전신';
  appendCharacterInfo(detail,selected,el);detail.append(el('small','기본 오픈 · 체력 100 · 성장 스탯 각 50'));
- const start=btn('시작하기',()=>{startRun(profile,id,selected.id);slotId=id;current().flags.admissionPending=true;monthOffset=0;save();saveFailed?renderRoom():renderAdmission();});start.disabled=saveFailed;
- detail.append(start);layout.append(list,detail);shell.append(layout,btn('뒤로가기',isNew?()=>renderTitle():renderSlots,'text-button character-select-back'));
+  const start=btn('시작하기',()=>{start.disabled=true;startRun(profile,id,selected.id);slotId=id;current().flags.admissionPending=true;monthOffset=0;save();if(saveFailed){renderRoom();return;}titleAudio.playMusic('admission',.9,{restart:true});blackDissolve(renderAdmission);});start.disabled=saveFailed;
+ detail.append(start);layout.append(list,detail);shell.append(layout,btn('뒤로가기',isNew?()=>renderTitle(false,null,'preserve'):renderSlots,'text-button character-select-back'));
 }
 function renderAdmission(){
- heading('입학 초대장','admission-page');const c=CHARACTERS.find(c=>c.id===current().characterId);
+ titleAudio.playMusic('admission');heading('입학 초대장','admission-page');const c=CHARACTERS.find(c=>c.id===current().characterId);
  const letter=el('section',null,'invitation-letter');const art=img('ui','UI07_admission_invitation_004.png','','invitation-art');art.onload=()=>{letter.style.aspectRatio=art.naturalWidth+'/'+art.naturalHeight;};letter.append(art);
  const copy=el('div',null,'invitation-copy');invitationLines(c.name).forEach((text,i)=>copy.append(el(i===0?'h2':'p',text)));copy.append(btn('입학하기',()=>renderAdmissionScene(0)));letter.append(copy);shell.append(letter);
 }
@@ -203,7 +214,7 @@ const roomUI=createMyroomUI({el,btn,img,shell,heading,current,characters:CHARACT
   game.scene.start(lesson.id,startData);}
  else{completeActivity(token);}}
 });
-function renderRoom(){roomUI.room();}
+function renderRoom(){titleAudio.playMusic('room');roomUI.room();}
 function renderAdventure(){
  const token=actionToken(current());heading('유리 온실','adventure-page');
  const host=el('div',null,'adventure-viewport');host.setAttribute('aria-label','SD 캐릭터 모험 맵');shell.append(host);

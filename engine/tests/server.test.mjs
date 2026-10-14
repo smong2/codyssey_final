@@ -12,11 +12,11 @@ test('server serves only engine and approved assets',async t=>{
  }
 });
 
-test('server serves only the approved title music files with streaming metadata',async t=>{
+test('server serves only the approved game music and button sound files with streaming metadata',async t=>{
  const {createEngineServer}=await import('../server.mjs');
  const server=createEngineServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>server.close(r)));
  const base='http://127.0.0.1:'+server.address().port;
- for(const path of ['/audio-assets/bgm_title_intro.MP3','/audio-assets/bgm_title_main.mp3']){
+ for(const path of ['/audio-assets/bgm_title_intro.MP3','/audio-assets/bgm_title_main.mp3','/audio-assets/bgm_admission_invitation.mp3','/audio-assets/bgm_myroom.mp3','/audio-assets/sfx_button_click.mp3','/audio-assets/sfx_diary_open.mp3']){
   const response=await fetch(base+path,{method:'HEAD'});
   assert.equal(response.status,200,path);
   assert.equal(response.headers.get('content-type'),'audio/mpeg',path);
@@ -27,4 +27,5 @@ test('server serves only the approved title music files with streaming metadata'
  assert.equal(range.headers.get('content-range').startsWith('bytes 0-15/'),true);
  assert.equal((await range.arrayBuffer()).byteLength,16);
  assert.equal((await fetch(base+'/audio-assets/README.md')).status,404);
+ assert.equal((await fetch(base+'/audio-assets/bgm_clocktower_plaza.mp3')).status,404);
 });

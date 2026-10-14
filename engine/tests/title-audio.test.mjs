@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 
 function fakeAudioHarness({denyPlayback=false}={}){
  let time=0,nextId=0,denied=denyPlayback;
- const frames=[],tracks=[];
+ const frames=[],tracks=[],soundErrors=[];
  let audio;
  audio=createTitleAudioController({
   createAudio(source){
@@ -19,9 +19,10 @@ function fakeAudioHarness({denyPlayback=false}={}){
   now:()=>time,
   requestFrame(callback){const frame={id:++nextId,callback,cancelled:false};frames.push(frame);return frame.id;},
   cancelFrame(id){const frame=frames.find(item=>item.id===id);if(frame)frame.cancelled=true;},
-  onBlocked(blocked){if(blocked&&!audio.isMuted())audio.setMuted(true);}
+  onBlocked(){ },
+  onSoundError(kind,error){soundErrors.push({kind,error});}
  });
- return {audio,tracks,frames,setTime(value){time=value;},allowPlayback(){denied=false;}};
+ return {audio,tracks,frames,soundErrors,setTime(value){time=value;},allowPlayback(){denied=false;}};
 }
 
 const {createTitleAudioController,TITLE_BGM_TIMING,crossfadeGains}=await import('../src/core/title-audio.mjs');
@@ -30,6 +31,65 @@ test('intro music is one-shot and title music loops',()=>{
  const {tracks}=fakeAudioHarness();
  assert.equal(tracks[0].loop,false);
  assert.equal(tracks[1].loop,true);
+ assert.equal(tracks[2].loop,false);
+ assert.equal(tracks[3].loop,true);
+});
+
+test('admission music stays active through the admission sequence and room entry changes to room music',()=>{
+ const {audio,tracks}=fakeAudioHarness();
+ audio.startTitle(0);
+ audio.playMusic('admission',0,{restart:true});
+ assert.equal(tracks[1].paused,true);
+ assert.equal(tracks[2].paused,false);
+ tracks[2].currentTime=37;
+ audio.playMusic('admission',0);
+ assert.equal(tracks[2].currentTime,37);
+ audio.playMusic('room',0);
+ assert.equal(tracks[2].paused,true);
+ assert.equal(tracks[3].paused,false);
+});
+
+test('button click sound plays unless the shared mute control is active',async()=>{
+ const {audio,tracks}=fakeAudioHarness();
+ const click=tracks.find(track=>track.source.endsWith('sfx_button_click.mp3'));
+ audio.playClick();
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(click.playCount,1);
+ audio.setMuted(true);
+ audio.playClick();
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(click.playCount,1);
+ audio.setMuted(false);
+ audio.playClick();
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(click.playCount,2);
+});
+
+test('BGM and sound effects have independent mute controls',async()=>{
+ const {audio,tracks}=fakeAudioHarness();
+ const click=tracks.find(track=>track.source.endsWith('sfx_button_click.mp3'));
+ audio.startTitle(0);
+ audio.setBgmMuted(true);
+ audio.playClick();
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(tracks[1].muted,true);
+ assert.equal(click.playCount,1);
+ audio.setSfxMuted(true);
+ audio.setBgmMuted(false);
+ audio.playClick();
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(tracks[1].muted,false);
+ assert.equal(click.playCount,1);
+});
+
+test('diary entry uses its dedicated click sound',async()=>{
+ const {audio,tracks}=fakeAudioHarness();
+ const click=tracks.find(track=>track.source.endsWith('sfx_button_click.mp3'));
+ const diary=tracks.find(track=>track.source.endsWith('sfx_diary_open.mp3'));
+ audio.playClick('diary');
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(diary.playCount,1);
+ assert.equal(click.playCount,0);
 });
 
 test('crossfade gains are equal-power',()=>{
@@ -42,7 +102,7 @@ test('crossfade gains are equal-power',()=>{
 
 test('main music starts fading in shortly before the intro track ends',()=>{
  const {audio,tracks,frames,setTime}=fakeAudioHarness();
- assert.equal(TITLE_BGM_TIMING.introEndFadeSeconds,3);
+ assert.equal(TITLE_BGM_TIMING.introEndFadeSeconds,6);
  audio.startIntro(0);
  tracks[0].duration=20;tracks[0].currentTime=20-TITLE_BGM_TIMING.introEndFadeSeconds-.01;tracks[0].fire('timeupdate');assert.equal(tracks[1].paused,true);
  tracks[0].currentTime=20-TITLE_BGM_TIMING.introEndFadeSeconds+.01;tracks[0].fire('timeupdate');
@@ -95,10 +155,24 @@ test('intro end event starts title music if metadata timing was unavailable',()=
  assert.equal(tracks[1].paused,false);
 });
 
-test('blocked autoplay is reflected as muted so one icon click enables playback',async()=>{
+test('blocked autoplay stays separate from mute and an explicit resume enables playback',async()=>{
  const harness=fakeAudioHarness({denyPlayback:true});
  harness.audio.startIntro(0);await new Promise(resolve=>setImmediate(resolve));
- assert.equal(harness.audio.isMuted(),true);assert.equal(harness.tracks[0].muted,true);
- harness.allowPlayback();harness.audio.toggleMute();await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(harness.audio.isMuted(),false);assert.equal(harness.tracks[0].muted,false);
+ harness.allowPlayback();harness.audio.resume();await new Promise(resolve=>setImmediate(resolve));
  assert.equal(harness.audio.isMuted(),false);assert.equal(harness.tracks[0].paused,false);
+});
+
+test('a direct admission action recovers blocked autoplay without muting the new scene music',async()=>{
+ const harness=fakeAudioHarness({denyPlayback:true});
+ harness.audio.startTitle(0);await new Promise(resolve=>setImmediate(resolve));
+ harness.allowPlayback();harness.audio.playMusic('admission',0,{restart:true});await new Promise(resolve=>setImmediate(resolve));
+ const admission=harness.tracks.find(track=>track.source.endsWith('bgm_admission_invitation.mp3'));
+ assert.equal(admission.paused,false);assert.equal(admission.muted,false);assert.equal(harness.audio.isBgmMuted(),false);
+});
+
+test('effect playback errors are reported instead of silently discarded',async()=>{
+ const harness=fakeAudioHarness({denyPlayback:true});
+ harness.audio.playClick();await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(harness.soundErrors.length,1);assert.equal(harness.soundErrors[0].kind,'button');
 });

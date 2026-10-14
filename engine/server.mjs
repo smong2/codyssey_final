@@ -19,7 +19,8 @@ export function createEngineServer(){
    else if(/^\/design-assets\/(ui|effect|bern|map|font_files|item|badge)\/[\w.-]+\.(png|webp|svg|woff2)$/.test(pathname))file=path.join(root,'../asset',pathname.slice('/design-assets/'.length));
    else if(/^\/sd-assets\/SD03_(S|SW|W|NW|N|NE|E|SE)_strip\.png$/.test(pathname))file=path.join(root,'../prototype/assets',path.basename(pathname));
    else if(pathname==='/intro.mp4')file=path.join(root,'../prototype/assets/intro.mp4');
-   else if(pathname==='/audio-assets/bgm_title_intro.MP3'||pathname==='/audio-assets/bgm_title_main.mp3')file=path.join(root,'../asset/audio/bgm',path.basename(pathname));
+   else if(['/audio-assets/bgm_title_intro.MP3','/audio-assets/bgm_title_main.mp3','/audio-assets/bgm_admission_invitation.mp3','/audio-assets/bgm_myroom.mp3'].includes(pathname))file=path.join(root,'../asset/audio/bgm',path.basename(pathname));
+   else if(['/audio-assets/sfx_button_click.mp3','/audio-assets/sfx_diary_open.mp3'].includes(pathname))file=path.join(root,'../asset/audio/sfx',path.basename(pathname));
    if(!file){res.writeHead(404).end();return;}
    const extension=path.extname(file).toLowerCase();
    if(extension==='.mp4'||extension==='.mp3'){
