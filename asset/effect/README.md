@@ -1,11 +1,12 @@
 # 게임용 효과 에셋
 
-용도별 게임용 에셋 2개만 유지합니다. 원본·광량 비교 시안은 로컬에 보관합니다.
+확정 로고 전용 광휘를 포함하여 게임용 효과 에셋 3개를 유지합니다. 원본·광량 비교 시안은 로컬에 보관합니다. 최종 로고 자체는 `../ui/lumia_logo_final_034.png`에 있습니다.
 
 | 파일 | 규격 | 용도 |
 |---|---|---|
 | [FX01_shared_rune_light_000.png](./FX01_shared_rune_light_000.png)<br><img src="./FX01_shared_rune_light_000.png" width="100" alt="FX01_shared_rune_light_000.png"> | 512×512 PNG | 공통 룬 발광 합성 효과 |
 | [lumia_moonlight_sparkle_002.svg](./lumia_moonlight_sparkle_002.svg)<br><img src="./lumia_moonlight_sparkle_002.svg" width="100" alt="lumia_moonlight_sparkle_002.svg"> | 1600×800 SVG | 루미아 로고 위 달빛 광휘 오버레이 |
+| [lumia_logo_glow_003.png](./lumia_logo_glow_003.png)<br><img src="./lumia_logo_glow_003.png" width="100" alt="lumia_logo_glow_003.png"> | 1774×887 투명 PNG | 확정 LUMIA 로고 뒤에 합성하는 빛무리 레이어. 로고와 같은 캔버스 크기 |
 
 ## 로컬 보관
 
