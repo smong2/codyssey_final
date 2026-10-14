@@ -26,6 +26,8 @@ Account
 
 기존처럼 슬롯마다 메타 데이터를 따로 소유하지 않습니다. **로그인한 계정 하나가 하나의 Global Meta Progress를 가지며 5개 슬롯이 이를 공유**합니다.
 
+현재 선택한 펫은 슬롯별 진행 데이터가 아니라 **계정 환경설정의 `activePetId`**로 관리합니다. 해금된 펫 목록은 Global Meta Progress에 저장하며 모든 슬롯이 공유합니다. 펫의 스탯 보정값 자체는 세이브에 복사하지 않고 [펫 시스템](03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md)의 마스터 데이터를 조회합니다.
+
 ```text
 Global Meta Progress
 ├─ 캐릭터 해금
