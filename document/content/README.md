@@ -18,6 +18,7 @@
 5. [05_OPEN_DECISIONS.md](05_OPEN_DECISIONS.md) — 아직 확정하지 않은 항목
 6. [06_CLASSES_MINIGAMES.md](06_CLASSES_MINIGAMES.md) — 수업과 보이는 스탯 대응, 기존 4종 게임 재활용, 미니게임 설계 원칙
 7. [07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md](07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md) — Phaser 3 미니게임 데모 구현 구조, 7종 게임 규칙, 엔진 통합용 공통 인터페이스
+8. [08_ACCOUNT_POLICY.md](08_ACCOUNT_POLICY.md) — Email/Password 가입·인증, 최소 개인정보, 계정 관리·탈퇴 정책
 
 독립 상위 개념은 `01_`, `02_`처럼 파일로 유지하고, 상세 문서가 여러 개 생기는 도메인은 `03_COLLECTION_UNLOCKS/`처럼 폴더로 분리합니다. 폴더 안에서는 `README.md`를 상위 개요로 두고 상세 문서는 `01_`, `02_` 순번을 사용합니다.
 

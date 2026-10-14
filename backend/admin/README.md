@@ -27,4 +27,6 @@ Final Project에서의 관리자 범위는 **읽기 전용 플레이 기록 조�
 
 페이지 자체가 비밀번호를 저장하지 않고 Firebase Authentication을 사용합니다. 조회 API는 FastAPI에서 Firebase ID Token을 검증하고 인증된 UID와 조회 대상 UID가 일치하는 경우에만 읽기 데이터를 반환합니다.
 
+계정 탈퇴 후에는 해당 UID의 세이브·Global Meta·엔딩 기록이 모두 삭제되므로 이 페이지에서도 더 이상 과거 기록을 조회할 수 없습니다.
+
 상세 기능·비기능 요구사항은 `document/12_REQUIREMENTS_ARCHITECTURE.md`를 기준으로 합니다.

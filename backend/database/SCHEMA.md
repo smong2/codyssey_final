@@ -66,14 +66,15 @@ Account
 | 필드 | 논리 타입 | 필수 | 설명 |
 |---|---|---:|---|
 | `uid` | String | Y | Firebase Authentication UID |
-| `email` | String | Y | 표시/관리용 이메일 mirror |
 | `createdAt` | DateTime | Y | 계정 생성 시각 |
 | `updatedAt` | DateTime | Y | 사용자 루트 정보 최종 갱신 시각 |
 | `lastLoginAt` | DateTime | N | 마지막 로그인 시각 |
 | `lastPlayedAt` | DateTime | N | 마지막 게임 플레이 시각 |
+| `privacyConsentAt` | DateTime | Y | 개인정보 수집·이용 동의 시각 |
+| `privacyConsentVersion` | String | Y | 사용자가 동의한 개인정보 안내 문구 버전 |
 | `schemaVersion` | Integer | Y | 사용자 루트 스키마 버전 |
 
-> `password`는 저장하지 않습니다.
+> `password`와 로그인 이메일은 Firestore에 중복 저장하지 않습니다. 이메일은 Firebase Authentication 사용자 정보에서 조회합니다.
 
 ---
 
@@ -484,11 +485,12 @@ users/{uid}
 
 ```json
 {
-  "email": "player@example.com",
   "createdAt": "Timestamp",
   "updatedAt": "Timestamp",
   "lastLoginAt": "Timestamp",
   "lastPlayedAt": "Timestamp",
+  "privacyConsentAt": "Timestamp",
+  "privacyConsentVersion": "2026-10-15",
   "schemaVersion": 1
 }
 ```

@@ -222,7 +222,7 @@
     },
     {
       "path": "document/content/README.md",
-      "sha256": "b1a293cfb48d5ba28c14d1250167bb4e0e97a01b6584f2342ef5917f12be5118"
+      "sha256": "ced2948d94b8d3eca035ddf25c20d25073f9e3df0005fd030f12a08b6fe89f2f"
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
@@ -250,7 +250,7 @@
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "9348f1c71e3bbb58eb394e801354f91628c3358f7cc18c506e2d21b02481da0d"
+      "sha256": "cda870a8c596a9784f4fd2a5ec589bf05f661bcff8dc7f87b61898d171f59b4b"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
@@ -263,6 +263,10 @@
     {
       "path": "document/content/07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md",
       "sha256": "0edbc9f325590f37f0e86feb902e5d36ffb116f805d07bb2959d12d6b1a46178"
+    },
+    {
+      "path": "document/content/08_ACCOUNT_POLICY.md",
+      "sha256": "814c058f2f3726bc417154362f3563eb06e67112aaab1b5a8af068fe39cd2ef2"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
@@ -298,7 +302,7 @@
     },
     {
       "path": "document/10_TECH_STACK.md",
-      "sha256": "dd6e58c2113e313dcd76a878abaafe2efcf7b7fe5f96fa0af820394249c645ec"
+      "sha256": "213f069defea98cd57175847426396c8e750f84607e8e2bdac3f44891741582c"
     },
     {
       "path": "document/11_PROJECT_PLAN.md",
@@ -306,7 +310,7 @@
     },
     {
       "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
-      "sha256": "01d28c05a67769a60ba3ce807b959b1588a3172f49bf82d6014014c4b3ccd5ef"
+      "sha256": "64a72be05e720cd82f4c55c3854e17a6784209d6a2ee0d8cb910fed079c013d5"
     },
     {
       "path": "document/실행방법.md",
@@ -378,7 +382,7 @@
     },
     {
       "path": "backend/README.md",
-      "sha256": "69d4e76328fa8830cc73efd4fdfc371655a5c8ef8e146a28fb2e3a6cb73cbde4"
+      "sha256": "9dfc94fceef4cbacf9e482e278f7ce59e185344e10a76c30aa9e06e3d4d5724c"
     },
     {
       "path": "lumia/README.md",
@@ -414,7 +418,7 @@
     },
     {
       "path": "backend/admin/README.md",
-      "sha256": "bca7308497e9091b0e1a55c18818e20808504ca9b61d28c5afa1b0992005dc58"
+      "sha256": "b992a0c13a7f9f769f4cfbb4bc95d34b72da9f6ad6dd1c6d9d02d34ba0b35228"
     }
   ],
   "assetInventory": {

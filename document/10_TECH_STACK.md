@@ -62,8 +62,10 @@ Python + FastAPI
 
 - 계정 방식은 기존 ID/Password 기획에서 **Email/Password** 방식으로 변경합니다.
 - 가입 후 인증 이메일을 보내고 이메일 인증을 완료한 계정만 정상 게임 이용이 가능하도록 합니다.
+- Final Project에서는 게스트/익명 플레이 후 계정 전환 기능을 제공하지 않습니다. 가입·인증을 먼저 완료한 뒤 게임을 시작하는 단일 흐름을 사용합니다.
 - 비밀번호 해싱·계정 인증 체계를 직접 구현하지 않고 Firebase Authentication을 사용합니다.
 - FastAPI는 Firebase ID Token을 검증하며, 보호 API에서는 이메일 인증 여부도 확인합니다.
+- 브라우저 인증 상태는 로그아웃 전까지 유지하고 별도 `로그인 유지` 옵션은 만들지 않습니다.
 
 ### Cloud Firestore
 
@@ -94,6 +96,7 @@ Python + FastAPI
 ```
 
 인증 메일 재발송과 이메일 인증 전 화면 안내는 클라이언트 구현 단계에서 제공합니다.
+비밀번호 분실은 Firebase 비밀번호 재설정 이메일을 사용합니다. 계정 관리·탈퇴의 상세 기준은 `document/content/08_ACCOUNT_POLICY.md`를 따릅니다.
 
 ## 5. 환경변수 기준
 
