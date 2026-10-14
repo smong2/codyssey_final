@@ -286,15 +286,44 @@ run.stats + active pet modifier = effectiveStats
 | `hiddenStats.caution` | Integer |
 | `hiddenStats.honesty` | Integer |
 
-### 2.7.4 관계/스토리/이벤트
+### 2.7.4 NPC 조우/스토리/이벤트
 
 | 필드 | 논리 타입 | 설명 |
 |---|---|---|
-| `npcRelations` | Map<NpcId, Integer/Object> | NPC 관계 상태 |
-| `storyProgress` | Map/String/Object | 메인/서브/NPC 스토리 진행 상태 |
+| `npcProgress` | Map<NpcId, NpcProgress> | NPC별 만남 횟수와 마지막 만남 주차. 친밀도 수치가 아님 |
+| `storyProgress` | Map<StoryId, StoryProgress> | 메인/서브/NPC/장소 스토리 진행 상태 |
 | `eventFlags` | Map<String, Boolean/Value> | 회차 한정 이벤트/선택 플래그 |
 | `representativeEventIds` | List<String> | 엔딩 편지 후보가 될 중요 사건 ID |
 | `representativeChoices` | List<Object> | 엔딩 편지 후보가 될 중요 선택 기록 |
+
+#### `NpcProgress`
+
+| 필드 | 논리 타입 | 설명 |
+|---|---|---|
+| `encounterCount` | Integer | 현재 회차에서 해당 NPC와 실제로 만난 횟수 |
+| `lastEncounterWeek` | Integer/Null | 마지막으로 만난 주차. 최근 미등장 출현 보정에 사용 |
+
+숫자형 친밀도·호감도 필드는 두지 않습니다. NPC 출현·엔딩·스토리 조건이 NPC 교류를 필요로 할 때는 `encounterCount`, `storyProgress`, `eventFlags`를 사용합니다.
+
+#### `StoryProgress`
+
+| 필드 | 논리 타입 | 설명 |
+|---|---|---|
+| `step` | Integer | 현재까지 완료한 단계 또는 다음 진행 기준 단계 |
+| `status` | Enum | `NOT_STARTED`, `IN_PROGRESS`, `COMPLETED` |
+| `lastAdvancedWeek` | Integer/Null | 마지막 단계가 진행된 주차. 동일 NPC 스토리 주당 1단계 제한에 사용 가능 |
+
+#### `representativeChoices` 최소 저장 예시
+
+```json
+{
+  "eventId": "NPC_SION_02",
+  "choiceId": "CHOICE_LISTEN",
+  "week": 18
+}
+```
+
+선택 문장 원문 전체를 사용자 세이브에 복사하지 않고 `eventId + choiceId`로 마스터 데이터를 참조하는 것을 기본으로 합니다. 이후 대사 조건에 필요한 선택은 `eventFlags`로 별도 저장합니다.
 
 ### 2.7.5 주간 일정/강제 휴식
 
@@ -616,7 +645,12 @@ users/{uid}
       "honesty": 0
     },
 
-    "npcRelations": {},
+    "npcProgress": {
+      "CH03": {
+        "encounterCount": 3,
+        "lastEncounterWeek": 16
+      }
+    },
     "storyProgress": {},
     "eventFlags": {},
 
@@ -885,14 +919,11 @@ ROOM_DEFAULT
 
 다음 항목은 스키마의 큰 구조를 변경하지 않고 구현 단계에서 세부 타입/계약을 확정합니다.
 
-1. `storyProgress`의 세부 데이터 형태
-2. `npcRelations`를 단순 숫자로 둘지 관계 이벤트 상태까지 포함할지
-3. `representativeChoices` 저장 형식
-4. 직업별 엔딩 판정 데이터 구조
-5. AI 편지 재생성 허용 여부와 호출 횟수 정책
-6. `Ending Record`에서 원시 hidden stats를 보관할지 요약만 보관할지
-7. 영구 최대 체력 보너스의 실제 사용 여부와 상한
-8. 관리자 통계를 위한 별도 집계 컬렉션 필요 여부
+1. 직업별 엔딩 판정 데이터 구조
+2. AI 편지 재생성 허용 여부와 호출 횟수 정책
+3. `Ending Record`에서 원시 hidden stats를 보관할지 요약만 보관할지
+4. 영구 최대 체력 보너스의 실제 사용 여부와 상한
+5. 관리자 통계를 위한 별도 집계 컬렉션 필요 여부
 
 ---
 

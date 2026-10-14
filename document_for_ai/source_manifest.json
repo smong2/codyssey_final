@@ -218,7 +218,7 @@
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "f510cafb8e9fcb53074a3bb14192afaeb2639821cdc5539b0f3832e0eb83c78c"
+      "sha256": "695263ac621426118417692c929da7d690a37c73ed94c68230aef932603be620"
     },
     {
       "path": "document/content/README.md",
@@ -230,19 +230,19 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
-      "sha256": "b1e7e2b8f437b7f63ba830d305d84156ce4d98dcd0943827ae1856d7074c8fb4"
+      "sha256": "848c223e43183d04fa15cba1e39d44f92fec86cbd55cb466078e20ef36a19457"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "3d86bdcd6460edf65e4d3a596d686af2ce25efaa75258f35ab1b4c5c36c64ccc"
+      "sha256": "fdd82528780c96b642aa78439c08ca67a15d338a84a1b0ff4763e323ed658f8f"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
-      "sha256": "947d6ae41020ee6512224d9462fd08e41ff93f68055bc68f7bcf789647bb14c2"
+      "sha256": "789f28b4712974d1a809811218d2bc6f51ca34d3e1efc2c80762221c05b41ad3"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "8d932b3dc5d8c8c1a99de4ef5986ef719554d5399e7adccc601a36dc28736848"
+      "sha256": "5e6601781c412b5bf31310bd5237b1167ec0bcd351a5752a7d9b1c7c700dbee9"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
@@ -250,11 +250,11 @@
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "7c7b08933296b4ac6006e2a1f55a19a657469532b8662e72511853b7ce32b039"
+      "sha256": "79c959e12f4d2f58f7fc4ea83887c931972c021b616262cc58d12949e86de7a6"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
-      "sha256": "f9b1172792a938c78b9abce1f89573830363858ea075efc81dabe0983915559a"
+      "sha256": "43e961a19fce4d6b7aaa5b7efc2820c6627812f5747f6f4090c25771be4ac9e3"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
@@ -274,7 +274,7 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
-      "sha256": "f2332809fbeaacf8a79dcefb4a7c7968bba1315b0571faeb4ef5045bdaa9d9e9"
+      "sha256": "b57207ed7f87cec039d4be4f6732fd3d707d67ee297588688b92fe509d73cb72"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
@@ -302,11 +302,11 @@
     },
     {
       "path": "document/11_PROJECT_PLAN.md",
-      "sha256": "10ae5b74a109be456e6dab4270e8191fb7ab75e2fd7f670506cefea520cb493a"
+      "sha256": "b87ad7216323d87ab7e7847634dea18b2fa54d1be660d42663c378982d92c137"
     },
     {
       "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
-      "sha256": "2fede26742a050386be20355a8273f4231c9636b0b09e0caf8bdd17d41382f34"
+      "sha256": "01d28c05a67769a60ba3ce807b959b1588a3172f49bf82d6014014c4b3ccd5ef"
     },
     {
       "path": "document/실행방법.md",
