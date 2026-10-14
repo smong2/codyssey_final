@@ -234,7 +234,7 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "fdd82528780c96b642aa78439c08ca67a15d338a84a1b0ff4763e323ed658f8f"
+      "sha256": "665c65695d5e62cb67ecbd53ffb7de81fb4a4e06024094ac175a06b2a55865a3"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
@@ -246,15 +246,15 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
-      "sha256": "45d992df54c197e6fe5d8de5064b4851061f40d68bb138193685bcd57d3d9afc"
+      "sha256": "536cebe231b7b53c592fc4ed854068717edb330a78c6b2a38796ec7b1e82b763"
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "79c959e12f4d2f58f7fc4ea83887c931972c021b616262cc58d12949e86de7a6"
+      "sha256": "9348f1c71e3bbb58eb394e801354f91628c3358f7cc18c506e2d21b02481da0d"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
-      "sha256": "43e961a19fce4d6b7aaa5b7efc2820c6627812f5747f6f4090c25771be4ac9e3"
+      "sha256": "8d0baabf2836c4557b5ca00880e3ef114ae7b8897df819f2476e65445a978068"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
@@ -266,11 +266,11 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
-      "sha256": "5c0fdbb1db77a9f5829088c311ca91c5111c2df0e7eb42cfb46c3fe0fb2c91a5"
+      "sha256": "bc6d50257d08ece2b493efceefe61d25c741e58dd4875b127ba81e924465d1dd"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md",
-      "sha256": "9d8eb79ffb8623ef61f1b1e84267515cee4c099273ee0198d56a6db65ece8502"
+      "sha256": "5a6336b2a371df1d7e45de84e529557bb4652013bab3b48c2c93b0c5cd3aa4d4"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",

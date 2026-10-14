@@ -111,7 +111,8 @@ Account
 | `permanentBonuses.skill` | Integer | 솜씨 시작 보너스 |
 | `permanentBonuses.exploration` | Integer | 탐험 시작 보너스 |
 | `permanentBonuses.magic` | Integer | 마법 시작 보너스 |
-| `permanentBonuses.maxStamina` | Integer | 최대 체력 영구 보너스. 실제 사용 여부는 밸런스 확정에 따름 |
+
+각 값은 배지 단계 보상으로 누적하며 `0~15` 범위입니다. 최대 체력 영구 보너스는 사용하지 않습니다.
 
 ### 2.3.2 캐릭터/펫/수집 해금
 
@@ -151,6 +152,12 @@ Account
 | `clearedMinigameIds` | Set<String> | 한 번 이상 클리어한 서로 다른 미니게임 ID |
 | `totalNpcEncounterCount` | Integer | 전체 NPC 조우 횟수 |
 | `completedNpcStoryCount` | Integer | 완료한 NPC 개별 스토리 수 |
+| `totalSpecialItemDiscoveryCount` | Integer | 특별 아이템·발견물 누적 획득 수 |
+| `totalLocationDiscoveryCount` | Integer | 장소·조사 포인트 발견 누적 수 |
+| `retryAfterFailureCount` | Integer | 미니게임 실패 직후 같은 게임 재도전 누적 수 |
+| `myRoomActiveWeekCount` | Integer | 마이룸을 1회 이상 연 주의 누적 수. 한 주 최대 +1 |
+| `importantChoiceCount` | Integer | 마스터에서 중요 선택으로 지정한 선택 누적 수 |
+| `behaviorTagCounts` | Map<HiddenStatType, Integer> | 공감·책임·호기심·용기·협력·독립성·신중함·솔직함 태그 행동·선택 누적 수 |
 | `classCounts.knowledge` | Integer | 지식 계열 수업 누적 횟수 |
 | `classCounts.expression` | Integer | 표현력 계열 수업 누적 횟수 |
 | `classCounts.skill` | Integer | 솜씨 계열 수업 누적 횟수 |
@@ -170,6 +177,8 @@ Account
 - 수업 누적 150회 + 모험 누적 150회 + NPC 만남 30회
 - 미니게임 누적 250회
 - NPC 만남 누적 500회
+- 배지용 행동 태그 누적 20회
+- 마이룸 이용 주차 누적 70주
 
 ---
 
@@ -514,8 +523,7 @@ users/{uid}
     "expression": 0,
     "skill": 0,
     "exploration": 0,
-    "magic": 0,
-    "maxStamina": 0
+    "magic": 0
   },
   "unlockedCharacterIds": [
     "CH01",
@@ -550,6 +558,21 @@ users/{uid}
   "clearedMinigameIds": [],
   "totalNpcEncounterCount": 0,
   "completedNpcStoryCount": 0,
+  "totalSpecialItemDiscoveryCount": 0,
+  "totalLocationDiscoveryCount": 0,
+  "retryAfterFailureCount": 0,
+  "myRoomActiveWeekCount": 0,
+  "importantChoiceCount": 0,
+  "behaviorTagCounts": {
+    "empathy": 0,
+    "responsibility": 0,
+    "curiosity": 0,
+    "courage": 0,
+    "cooperation": 0,
+    "independence": 0,
+    "caution": 0,
+    "honesty": 0
+  },
   "classCounts": {
     "knowledge": 0,
     "expression": 0,
