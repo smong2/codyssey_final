@@ -153,6 +153,8 @@ AI 호출 실패 때문에 52주 엔딩 자체가 막히면 안 됩니다.
 
 ## 11. 관련 문서
 
+현재 엔진 UI 시안에는 확정 직업/3개 편지 섹션의 표시 프레임과 결과 조회 adapter 연결 지점이 있습니다. 사용자가 승인한 짧은 예시 편지로 화면을 확인할 수 있지만 실제 AI 출력·정식 직업 판정이나 회차 완료가 아닙니다. 현재 회차 실제 활동 기록은 예시와 별도로 표시합니다. 백엔드 endpoint·생성·안전 검증·fallback·엔딩 저장은 후속이며 위 본편 기획을 변경하지 않습니다. 확인 경로와 엔진 내부 표시 모델 제안은 [엔진 프레임 안내](../engine/ENDING_FRAME.md)를 참고합니다.
+
 - [Final Project 요구사항](08_REQUEST.md)
 - [엔딩 시스템](content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md)
 - [저장과 회차 계승](content/04_SAVE_META_PROGRESSION.md)
