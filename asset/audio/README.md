@@ -18,7 +18,6 @@
 | `bgm_admission_invitation.mp3` | 입학 초대장부터 시계탑 광장 장면까지 | 해당 흐름에서 사용하는 1회성 트랙 |
 | `bgm_myroom.mp3` | 마이룸 | 반복 재생 |
 | `bgm_clocktower_plaza.mp3` | 시계탑 광장 | 파일은 준비되어 있으나 현재 엔진 흐름에는 별도 트랙으로 연결되지 않음 |
-| `geoffharvey-fables-from-another-time-565506.mp3` | 미리보기용 음악 파일 | 현재 엔진에서 재생하지 않음 |
 
 ## 효과음
 
