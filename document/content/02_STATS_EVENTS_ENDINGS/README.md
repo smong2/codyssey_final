@@ -6,7 +6,7 @@
 
 1. [01_STATS_SYSTEM.md](01_STATS_SYSTEM.md) — 보이는·보이지 않는 스탯의 범위, 난이도별 성장량, 체력·저체력·보정 계산 규칙
 2. [02_EVENTS.md](02_EVENTS.md) — NPC·공간 이벤트 발생 규칙
-3. [03_ENDINGS.md](03_ENDINGS.md) — 52주 종료 후 미래 직업 엔딩 판정 구조
+3. [03_ENDINGS.md](03_ENDINGS.md) — 52주 종료 후 `무엇을 지켰니?` 고정 문구, 미래 직업 엔딩 판정·개인화 편지 구조
 
 ## 핵심 연결
 

@@ -13,6 +13,8 @@
 8. [Final Project 요구사항](08_REQUEST.md) — 필수 조건, 산출물, 참고 예시와 LUMIA 적용 점검
 9. [AI 핵심 기능](09_AI_ENDING_LETTER.md) — 52주 플레이 기록을 이용한 개인화 엔딩 편지 생성 구조와 안전 기준
 10. [기술 스택](10_TECH_STACK.md) — Phaser·FastAPI·Firebase·Vercel·Render·Gemini의 확정 구조와 선정 이유
+11. [Final Project 기획서](11_PROJECT_PLAN.md) — 문제 정의, 대상 사용자, AI 활용, 일정, R&R 제출 요약
+12. [기능·비기능 요구 명세·아키텍처](12_REQUIREMENTS_ARCHITECTURE.md) — 게임·계정·AI·최소 기록 조회 페이지 요구사항과 시스템 구조
 
 ## 기준과 변경 방법
 

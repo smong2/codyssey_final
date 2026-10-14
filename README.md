@@ -47,6 +47,8 @@ LUMIA는 52주 플레이가 끝나면 게임 규칙으로 미래 직업 엔딩�
 | 팀원·AI | [Final Project 요구사항](document/08_REQUEST.md) | 필수 조건, 산출물, 참고 예시와 LUMIA 점검 항목 |
 | 팀원 | [AI 핵심 기능](document/09_AI_ENDING_LETTER.md) | 개인화 엔딩 편지의 역할, 데이터 흐름, 안전 기준 |
 | 팀원 | [기술 스택](document/10_TECH_STACK.md) | 확정 기술, 아키텍처, 선정 이유, 환경변수 기준 |
+| 팀원·제출 | [Final Project 기획서](document/11_PROJECT_PLAN.md) | 문제 정의, 대상 사용자, AI 활용 방식, 일정, R&R |
+| 팀원·제출 | [요구 명세·아키텍처](document/12_REQUIREMENTS_ARCHITECTURE.md) | 기능·비기능 요구사항, 최소 기록 조회, 시스템 구조 |
 | 팀원 | [AI 작업 시작 안내](document/07_AI_WORK_GUIDE.md) | AI로 작업을 시작하는 방법과 프롬프트 |
 | AI | [AI 시작 문서](document_for_ai/00_READ_FIRST.md) | 읽는 순서, 우선순위, 변경 확인 규칙 |
 

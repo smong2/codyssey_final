@@ -100,6 +100,20 @@
       ]
     },
     {
+      "path": "document/11_PROJECT_PLAN.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md",
+        "document_for_ai/05_TEAM_ROLES.md"
+      ]
+    },
+    {
+      "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md",
+        "document_for_ai/03_GAME_CONTENT.md"
+      ]
+    },
+    {
       "path": "document/실행방법.md",
       "ai": [
         "document_for_ai/06_WORKSPACE_RULES.md"
@@ -172,7 +186,7 @@
   "trackedFiles": [
     {
       "path": "README.md",
-      "sha256": "dbef9f86016de2dff763d0fc5a4ed031b431984f16b191341a2877b241f36122"
+      "sha256": "5250e9e17d6427246b8bbe6b00777de2ddc74ba5e7cca80cd10028ae29a2f207"
     },
     {
       "path": "AGENTS.md",
@@ -180,7 +194,7 @@
     },
     {
       "path": "document/00_README.md",
-      "sha256": "70ca7f0c90afa1f87960aaf99f768c553b106cda96c48597cc49ba1c87587b05"
+      "sha256": "d94bbad2d67e7c6c0ee6a136449d8a947ba65c1b54e71191db87c376df4cf467"
     },
     {
       "path": "document/01_PROJECT_OVERVIEW.md",
@@ -204,7 +218,7 @@
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "f48a0b6a4f29ae56bd9a5642c47ae983eacf318380e00c15ffa207fb03018a43"
+      "sha256": "f510cafb8e9fcb53074a3bb14192afaeb2639821cdc5539b0f3832e0eb83c78c"
     },
     {
       "path": "document/content/README.md",
@@ -212,23 +226,23 @@
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "09d49feee49f9190b6b9abc96500f25ea89edbfa016358ddc1cfe23c074325cb"
+      "sha256": "f6199f3a91d344fe1eb8f51726f5a78870d0a6ff2e22ada0ed16c29fabcd3109"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
-      "sha256": "73225db5dc40f7ffd5e2f58d6c2457a890c1a84af8b4817a18b5dbe73b49a9a6"
+      "sha256": "b1e7e2b8f437b7f63ba830d305d84156ce4d98dcd0943827ae1856d7074c8fb4"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "c4b20b5c8767fabaf06d9ba63781d25b60adf468ab707613af513c46ff3e8de0"
+      "sha256": "3d86bdcd6460edf65e4d3a596d686af2ce25efaa75258f35ab1b4c5c36c64ccc"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
-      "sha256": "0749d6fcd3a070f90c4fc0910fe7986ce46ecc2532fb38a5366db2917774ce25"
+      "sha256": "947d6ae41020ee6512224d9462fd08e41ff93f68055bc68f7bcf789647bb14c2"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "653e817bd12562fdc8c2414743a5d4f63e234f5c7a1c48317d2a38bdf058e15e"
+      "sha256": "8d932b3dc5d8c8c1a99de4ef5986ef719554d5399e7adccc601a36dc28736848"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
@@ -236,11 +250,11 @@
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "0512e643a58aa4e08a5578268336315310aca59dd4950f773c8d5f587de2d9fa"
+      "sha256": "7c7b08933296b4ac6006e2a1f55a19a657469532b8662e72511853b7ce32b039"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
-      "sha256": "c9eca6b26d548652a733eb5e9d05b28d2586518bb5a2f9c75155e14c5bc8ec28"
+      "sha256": "f9b1172792a938c78b9abce1f89573830363858ea075efc81dabe0983915559a"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
@@ -280,11 +294,19 @@
     },
     {
       "path": "document/09_AI_ENDING_LETTER.md",
-      "sha256": "e99ba6d5158fd8e8cf9410fcf9d0fc3b1d0030af927269d423343b94fde5f75b"
+      "sha256": "d6049d1aeec777b7c983b1dc207ddb3ff25ae1150cd12fcfb7b4f1116cd9c05f"
     },
     {
       "path": "document/10_TECH_STACK.md",
       "sha256": "dd6e58c2113e313dcd76a878abaafe2efcf7b7fe5f96fa0af820394249c645ec"
+    },
+    {
+      "path": "document/11_PROJECT_PLAN.md",
+      "sha256": "10ae5b74a109be456e6dab4270e8191fb7ab75e2fd7f670506cefea520cb493a"
+    },
+    {
+      "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
+      "sha256": "2fede26742a050386be20355a8273f4231c9636b0b09e0caf8bdd17d41382f34"
     },
     {
       "path": "document/실행방법.md",
@@ -356,7 +378,7 @@
     },
     {
       "path": "backend/README.md",
-      "sha256": "ee6b01b8fad97450d9142a7538f230f60a07a1f6dd1e23a867fe8762ce8fb4f0"
+      "sha256": "69d4e76328fa8830cc73efd4fdfc371655a5c8ef8e146a28fb2e3a6cb73cbde4"
     },
     {
       "path": "lumia/README.md",
@@ -392,7 +414,7 @@
     },
     {
       "path": "backend/admin/README.md",
-      "sha256": "dafc4962f4f9d30e5978920895911aae4abab09ae6390d74e4b1d5e0003503e1"
+      "sha256": "bca7308497e9091b0e1a55c18818e20808504ca9b61d28c5afa1b0992005dc58"
     }
   ],
   "assetInventory": {
