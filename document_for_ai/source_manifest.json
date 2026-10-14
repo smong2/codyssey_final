@@ -204,7 +204,7 @@
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "23ac84e699a6b4e8843e442c60eb6e8925d459e2e0fff95127e6fd42c8a11365"
+      "sha256": "f48a0b6a4f29ae56bd9a5642c47ae983eacf318380e00c15ffa207fb03018a43"
     },
     {
       "path": "document/content/README.md",
@@ -212,15 +212,15 @@
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "891a45fb40d35ca9655351fdd61370af1adc2e81bf943b4063485db220459caf"
+      "sha256": "09d49feee49f9190b6b9abc96500f25ea89edbfa016358ddc1cfe23c074325cb"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
-      "sha256": "8d8a4d296a8c1cb1068105b6b01b83b3f24cc6196e65c647bd5c7aed5a57fb0a"
+      "sha256": "73225db5dc40f7ffd5e2f58d6c2457a890c1a84af8b4817a18b5dbe73b49a9a6"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "8d8d3a4da30a9897f1649fd31873976d5f7dd8ef9a042466a8f59a2e2ba88c01"
+      "sha256": "c4b20b5c8767fabaf06d9ba63781d25b60adf468ab707613af513c46ff3e8de0"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
@@ -236,15 +236,15 @@
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "971187b685e197d1b97a71ba794eafcbbda10f536df4082d64f626aad50c370d"
+      "sha256": "0512e643a58aa4e08a5578268336315310aca59dd4950f773c8d5f587de2d9fa"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
-      "sha256": "839c4fe32e394d01804ded3f9102fa540517cd4ffc711c561ae1b2295979694f"
+      "sha256": "c9eca6b26d548652a733eb5e9d05b28d2586518bb5a2f9c75155e14c5bc8ec28"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
-      "sha256": "a25acb6bd11edbf0dc5725d36e67b718f727e229844a86dacb89c2844c609200"
+      "sha256": "3531c2a6a55a33150458890fc873fcdf5270cfc169be4e6622983457d4dd08e9"
     },
     {
       "path": "document/content/07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md",
