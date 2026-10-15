@@ -21,3 +21,7 @@
 | `myroom4_rune_day.png` | `ChatGPT 이미지 2026년 10월 15일 오후 04_32_25.png` |
 | `myroom4_rune_sunset.png` | `ChatGPT 이미지 2026년 10월 15일 오후 04_22_31.png` |
 | `myroom4_rune_night.png` | `ChatGPT 이미지 2026년 10월 15일 오후 04_32_28.png` |
+
+## 별도 테마 시안
+
+[2026-10-15 테마 시안 5종](concepts/2026-10-15/README.md)은 우주·공주방·식물방·탐험가방·음악가방의 새 구도 비교용입니다. 위의 기존 6장 수량과 게임 배경 목록에는 포함하지 않습니다.
