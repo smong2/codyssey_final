@@ -17,6 +17,8 @@ LUMIA는 약 9~11세 어린이가 룬 학원 **아르카디아**의 학생이 �
 - 생활 화면과 직접 탐험 화면은 **같은 아르카디아 장소**를 서로 다른 방식으로 표현한다. 별개의 세계나 단계형 맵으로 단정하지 않는다.
 - 콘텐츠에는 안정적인 ID와 교체 가능한 데이터·이미지 연결을 지향한다.
 - 기술 스택은 게임 클라이언트 **Phaser 3 + JavaScript/Node.js/Vite**, 프론트 배포 **Vercel**, API **Python + FastAPI / Render**, 인증 **Firebase Authentication Email/Password + 이메일 인증**, DB **Cloud Firestore**, 생성형 AI **Gemini API**로 확정했다. Gemini 기본 모델은 `gemini-3.8-flash`이며 환경변수로 교체한다. 실제 서비스 URL·Firebase 프로젝트 값과 세부 데이터/API 계약은 배포·구현 단계에서 확정한다.
+- 계정은 **게스트 플레이 없이 Email/Password 가입 → 이메일 인증 → 게임 이용**의 단일 흐름을 사용한다. 가입 시 이메일 외 이름·나이·성별·전화번호 같은 추가 개인정보는 받지 않으며 개인정보 수집·이용 동의 시각과 버전만 계정 메타에 기록한다. 비밀번호 분실은 Firebase 재설정 메일을 사용한다. Final Project 계정 관리 기능은 이메일 표시, 비밀번호 재설정, 로그아웃, 계정 탈퇴로 제한하며 이메일 변경·계정 간 데이터 이전은 제공하지 않는다. 탈퇴하면 해당 UID의 세이브·Global Meta·엔딩 편지 등 Firestore 사용자 데이터와 Firebase Auth 계정을 모두 삭제하고 복구하지 않는다.
+- Final Project의 관리자 범위는 최소화한다. 별도 운영자 CMS나 보호자 계정 연결 시스템을 만들지 않고, 게임과 동일한 Email/Password로 인증한 사용자가 **자기 계정의 플레이 기록·엔딩 목록·저장된 엔딩 편지**를 읽기 전용으로 확인하는 기록 조회 페이지를 제공한다. 다른 사용자 검색·수정 기능은 범위 밖이다.
 - 이 문서는 제품 방향의 요약이다. 구현 여부·현재 기술 환경을 묻는 작업에서는 실제 코드와 설정 파일을 직접 확인한다.
 
 현재 `engine/`의 실행형 UI 시안은 동봉 Phaser 3와 Node.js 정적 서버를 사용하며 `node engine/server.mjs` → `http://127.0.0.1:4173/`로 확인한다. 7종 미니게임·일정·달력·로컬 저장·모험 이동 및 충돌·입학 연결 프레임이 있으며 Vite/운영 API·Firebase·Gemini 연동 완료를 뜻하지 않는다. 최신 기술 스택과 AI 엔딩 기획은 위 기준을 유지하며 실제 연결 상태와 구분한다. 세부 범위는 [엔진 README](../engine/README.md)를 따른다.
@@ -25,6 +27,6 @@ LUMIA는 약 9~11세 어린이가 룬 학원 **아르카디아**의 학생이 �
 
 AI 엔딩은 현재 `engine/`에 직업 결과와 3개 편지 섹션을 보여 주는 프레임·예시 편지·조회 adapter 연결 지점이 있다. 예시는 실제 판정/AI 결과가 아니며 저장·해금에 반영되지 않는다. 백엔드 코드/endpoint 계약이 없어 실제 AI 호출·안전 검증·엔딩 저장은 미연결이다. [엔진 프레임 안내](../engine/ENDING_FRAME.md)를 확인한다.
 
-[최종 과제 요구사항](../document/08_REQUEST.md)의 필수 기능·제약 사항은 생성형 AI **또는** AI Agent를 서비스의 핵심 기능으로 요구하며, 지정된 기술 요소 다섯 가지 중 두 가지 이상, 외부 접근 가능한 배포, 실제 사용자 최소 5명의 테스트와 피드백 반영이 필요하다. 기획서·요구 명세서·아키텍처·발표 자료와 GitHub 기록도 산출물이다. LUMIA의 **AI 핵심 기능은 52주 종료 후 규칙 엔진이 확정한 미래 직업과 실제 플레이 기록을 바탕으로 Gemini가 개인화 엔딩 편지를 작성하는 기능**으로 확정했다. AI는 직업 자체를 판정하지 않는다. Long-term Memory와 자동화 워크플로우는 과제 기술 요소 후보이며 실제 구현·검증 후 최종 인정 범위를 확인한다. 상세 기준은 [AI 핵심 기능](../document/09_AI_ENDING_LETTER.md)과 [기술 스택](../document/10_TECH_STACK.md)을 확인한다.
+[최종 과제 요구사항](../document/08_REQUEST.md)의 필수 기능·제약 사항은 생성형 AI **또는** AI Agent를 서비스의 핵심 기능으로 요구하며, 지정된 기술 요소 다섯 가지 중 두 가지 이상, 외부 접근 가능한 배포, 실제 사용자 최소 5명의 테스트와 피드백 반영이 필요하다. 기획서·요구 명세서·아키텍처·발표 자료와 GitHub 기록도 산출물이다. LUMIA의 **AI 핵심 기능은 52주 종료 후 규칙 엔진이 확정한 미래 직업과 실제 플레이 기록을 바탕으로 Gemini가 개인화 엔딩 편지를 작성하는 기능**으로 확정했다. AI는 직업 자체를 판정하지 않는다. Final Project 기술 요소는 **Long-term Memory + 자동화 워크플로우** 두 가지를 선택하며, 실제 인정 근거는 구현 코드·화면·실패/fallback 테스트로 검증한다. 상세 기준은 [AI 핵심 기능](../document/09_AI_ENDING_LETTER.md), [기술 스택](../document/10_TECH_STACK.md), [요구 명세](../document/12_REQUIREMENTS_ARCHITECTURE.md)를 확인한다.
 
-상세 자료가 있을 때: [프로젝트 개요](../document/01_PROJECT_OVERVIEW.md), [AI 핵심 기능](../document/09_AI_ENDING_LETTER.md), [기술 스택](../document/10_TECH_STACK.md).
+상세 자료가 있을 때: [프로젝트 개요](../document/01_PROJECT_OVERVIEW.md), [Final Project 기획서](../document/11_PROJECT_PLAN.md), [요구 명세·아키텍처](../document/12_REQUIREMENTS_ARCHITECTURE.md), [AI 핵심 기능](../document/09_AI_ENDING_LETTER.md), [기술 스택](../document/10_TECH_STACK.md).

@@ -100,6 +100,20 @@
       ]
     },
     {
+      "path": "document/11_PROJECT_PLAN.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md",
+        "document_for_ai/05_TEAM_ROLES.md"
+      ]
+    },
+    {
+      "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md",
+        "document_for_ai/03_GAME_CONTENT.md"
+      ]
+    },
+    {
       "path": "document/실행방법.md",
       "ai": [
         "document_for_ai/06_WORKSPACE_RULES.md"
@@ -172,7 +186,7 @@
   "trackedFiles": [
     {
       "path": "README.md",
-      "sha256": "dbef9f86016de2dff763d0fc5a4ed031b431984f16b191341a2877b241f36122"
+      "sha256": "eef18c5a5f93ab668dc15723e7406f0f9bd5aa62898457d31c184b80cbae405c"
     },
     {
       "path": "AGENTS.md",
@@ -180,7 +194,7 @@
     },
     {
       "path": "document/00_README.md",
-      "sha256": "70ca7f0c90afa1f87960aaf99f768c553b106cda96c48597cc49ba1c87587b05"
+      "sha256": "d94bbad2d67e7c6c0ee6a136449d8a947ba65c1b54e71191db87c376df4cf467"
     },
     {
       "path": "document/01_PROJECT_OVERVIEW.md",
@@ -204,63 +218,75 @@
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "f48a0b6a4f29ae56bd9a5642c47ae983eacf318380e00c15ffa207fb03018a43"
+      "sha256": "6cb54cc5e330f7361d9144e59633ade0a60d9412c0dce03d8a4b6d52cbc5b29e"
     },
     {
       "path": "document/content/README.md",
-      "sha256": "b1a293cfb48d5ba28c14d1250167bb4e0e97a01b6584f2342ef5917f12be5118"
+      "sha256": "19f47133d09182ca87491d8ce307bf5973dda7a984dfa3a41daa31d06c86d34e"
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "09d49feee49f9190b6b9abc96500f25ea89edbfa016358ddc1cfe23c074325cb"
+      "sha256": "77af8c564b6ea707db5e5f0f5fa665dc5e45df0a35ad01a1e801f926e7b860c7"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
-      "sha256": "73225db5dc40f7ffd5e2f58d6c2457a890c1a84af8b4817a18b5dbe73b49a9a6"
+      "sha256": "848c223e43183d04fa15cba1e39d44f92fec86cbd55cb466078e20ef36a19457"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "c4b20b5c8767fabaf06d9ba63781d25b60adf468ab707613af513c46ff3e8de0"
+      "sha256": "e4659c82159be64ca75ce20c3a8d058e53fd06f7e6bfd741fd0215e8cd57161e"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
-      "sha256": "0749d6fcd3a070f90c4fc0910fe7986ce46ecc2532fb38a5366db2917774ce25"
+      "sha256": "230394dfcdfca866c9c296080e26b93c10c7222960e2cce1da1c8438ef7ecd48"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "653e817bd12562fdc8c2414743a5d4f63e234f5c7a1c48317d2a38bdf058e15e"
+      "sha256": "4bcfaf7c97baa132bb69143d913030b2768f27020a977411db1b10adab9dbd9f"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
-      "sha256": "45d992df54c197e6fe5d8de5064b4851061f40d68bb138193685bcd57d3d9afc"
+      "sha256": "536cebe231b7b53c592fc4ed854068717edb330a78c6b2a38796ec7b1e82b763"
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "0512e643a58aa4e08a5578268336315310aca59dd4950f773c8d5f587de2d9fa"
+      "sha256": "b025d79c0fe109b7178eea93ccbd096107cb53099616da88b81cef3d21d2d810"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
-      "sha256": "c9eca6b26d548652a733eb5e9d05b28d2586518bb5a2f9c75155e14c5bc8ec28"
+      "sha256": "d9260deeb1074eff8dd6967a86e25142c4da22b97e3ebc0d060a03a673c2b044"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
-      "sha256": "3531c2a6a55a33150458890fc873fcdf5270cfc169be4e6622983457d4dd08e9"
+      "sha256": "d3e1f068bdcab091a748894b8416d7489f2be9848d7b5b8c529f7b1e72c29709"
+    },
+    {
+      "path": "document/content/06_01_LOCATION_ACTIVITIES.md",
+      "sha256": "7233823c578423e794bdf12ecc39e0f3985235c0abd2aa1cfbe0afb73116bdb6"
     },
     {
       "path": "document/content/07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md",
-      "sha256": "0edbc9f325590f37f0e86feb902e5d36ffb116f805d07bb2959d12d6b1a46178"
+      "sha256": "1e17c79d6fb495b635a8db0c15909a074b68b17e7b687bc70399c310ff342e0b"
+    },
+    {
+      "path": "document/content/08_ACCOUNT_POLICY.md",
+      "sha256": "cc0719ae3369a6dd876f5e664cda409e892be0ad30e778af7633fcfa343f8ac2"
+    },
+    {
+      "path": "document/content/09_TITLE_ACCOUNT_UI.md",
+      "sha256": "03471fd431f50b7907484bad9eca1a5695751b22344339c6b71c4beeda551738"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
-      "sha256": "5c0fdbb1db77a9f5829088c311ca91c5111c2df0e7eb42cfb46c3fe0fb2c91a5"
+      "sha256": "4d161654f229fc51c15cb3e3d392e8a22d1a8a826b84f13c2566ce607ebc75dc"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md",
-      "sha256": "9d8eb79ffb8623ef61f1b1e84267515cee4c099273ee0198d56a6db65ece8502"
+      "sha256": "91610bb26cc8f7a12cef9e65985f42a0bf80bc36b1550deaff869a44c339b4b1"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
-      "sha256": "f2332809fbeaacf8a79dcefb4a7c7968bba1315b0571faeb4ef5045bdaa9d9e9"
+      "sha256": "63c1693238f93d80dbb0d9f7c14b7c4d4b8be3d2da3f6cf092679075c7b329d9"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
@@ -280,11 +306,19 @@
     },
     {
       "path": "document/09_AI_ENDING_LETTER.md",
-      "sha256": "e99ba6d5158fd8e8cf9410fcf9d0fc3b1d0030af927269d423343b94fde5f75b"
+      "sha256": "abe3297f982bd41b6a8d6d67ee60d6d8568793b196b2759db4c59ce69a29626d"
     },
     {
       "path": "document/10_TECH_STACK.md",
-      "sha256": "dd6e58c2113e313dcd76a878abaafe2efcf7b7fe5f96fa0af820394249c645ec"
+      "sha256": "743947b353ac1cf8246ceb407b9eba0cdfeb7a01dcfcacba16b0f46aaddd3234"
+    },
+    {
+      "path": "document/11_PROJECT_PLAN.md",
+      "sha256": "b87ad7216323d87ab7e7847634dea18b2fa54d1be660d42663c378982d92c137"
+    },
+    {
+      "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
+      "sha256": "67a5bc8b05bb3200ea025b927c3193838f335ba49f6447872c31c33b45561ac0"
     },
     {
       "path": "document/실행방법.md",
@@ -356,7 +390,7 @@
     },
     {
       "path": "backend/README.md",
-      "sha256": "ee6b01b8fad97450d9142a7538f230f60a07a1f6dd1e23a867fe8762ce8fb4f0"
+      "sha256": "9dfc94fceef4cbacf9e482e278f7ce59e185344e10a76c30aa9e06e3d4d5724c"
     },
     {
       "path": "lumia/README.md",
@@ -380,7 +414,7 @@
     },
     {
       "path": "story/ending/README.md",
-      "sha256": "2a17549581a4f48929e75889070a44a400cb3dc10f116cec8cc169e7d0e71f55"
+      "sha256": "a8210469e6de9d8eaef56841f0d4a4cc1c64793a28ba31d225be241e8e746728"
     },
     {
       "path": "backend/api/README.md",
@@ -392,7 +426,7 @@
     },
     {
       "path": "backend/admin/README.md",
-      "sha256": "dafc4962f4f9d30e5978920895911aae4abab09ae6390d74e4b1d5e0003503e1"
+      "sha256": "b992a0c13a7f9f769f4cfbb4bc95d34b72da9f6ad6dd1c6d9d02d34ba0b35228"
     }
   ],
   "assetInventory": {

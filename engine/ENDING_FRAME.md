@@ -1,6 +1,6 @@
 # AI 엔딩 화면 연결 프레임
 
-기준: `document/09_AI_ENDING_LETTER.md`와 엔딩 시스템. 직업 판정·대표 기록 선별·Gemini 호출·응답 안전 검증·회차 완료/저장은 백엔드/게임 규칙의 책임이며 이 화면은 결과를 표시합니다.
+기준: `document/09_AI_ENDING_LETTER.md`와 엔딩 시스템. 직업 판정·실제 플레이 기록 4~6개 및 중요 선택 최대 2개 선별·Gemini 호출·응답 안전 검증·회차 완료/저장은 백엔드/게임 규칙의 책임이며 이 화면은 결과를 표시합니다.
 
 ## 확인 방법
 
@@ -17,7 +17,8 @@
 ```js
 {
   slotId, runNumber,
-  career: {id, name}, // 규칙 엔진이 확정한 결과
+  career: {id, name, type, careerAnchor}, // 규칙 엔진이 확정한 CAREER/FALLBACK 결과
+  playRecords: [], // 백엔드가 확정한 4~6개 실제 횟수 기록
   letter: {
     status: 'pending' | 'ready' | 'failed',
     source: 'ai' | 'fallback',
@@ -32,7 +33,7 @@ ready 편지는 같은 슬롯·회차·확정 직업, 3개 필수 섹션, 검증
 
 ## 남은 연결
 
-- 정식 직업 목록·판정 규칙·대표 사건 및 기록 선별
+- 정식 직업 10종 + `별길 개척자` fallback 연결, 4~6개 실제 기록 및 중요 선택 선별
 - FastAPI endpoint/request/response와 Firebase 인증 adapter
 - Gemini 생성·검증·재시도·fallback·결과 저장
 - 엔딩 완료 및 메타 반영/다음 회차 처리
