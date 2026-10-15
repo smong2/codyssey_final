@@ -44,6 +44,7 @@
 | [myroom_03_night.png](assets/myroom_03_night.png) | 룬 연구실 · 밤 (신규) |
 | [date_01_original.png](assets/date_01_original.png), [date_02_soft.png](assets/date_02_soft.png), [date_03_pastel.png](assets/date_03_pastel.png) | 날짜 프레임 3색 |
 | [dialogue_01_original.png](assets/dialogue_01_original.png), [dialogue_02_lighter.png](assets/dialogue_02_lighter.png) | 대화창의 원래 녹색·약간 밝힌 녹색 이름표 |
+| [버튼 비율·색상 시안 2종](assets/button_variants/README.md) | 원본보다 짧고 높은 골드 버튼 · 현재 올리브색/진한 녹색, 투명 PNG |
 
 그 밖의 골드 대형 패널·스탯창 5종·컬렉션창·다이어리 5종·활동 결과 5종·배지 프레임과 심벌은 [`assets.html`](assets.html)에 파일명과 미리보기를 정리했다. 두 마이룸 원본은 내장 이미지 생성 도구로 기존 `room.png`를 스타일 참고로 제작했다. 이번 네 장은 각각 해당 방의 원본을 편집 대상으로 삼아 배치와 가구를 유지하고 시간대의 조명만 바꿨다. 두 방 모두 새 꽃·문자·UI 없이 빈 배경으로 저장한 뒤, 전체화면에는 기존 골드 UI를 별도 합성했다.
 
@@ -52,4 +53,4 @@
 - 보이는 스탯: 체력 0–100, 지식·표현력·솜씨·탐험·마법 각 0–500.
 - 캐릭터: 32명 한 프레임, 기본 6명만 선택 가능. 전체/남자/여자 필터.
 - 배지: 대분류 5개 × 소분류 5개 × 단계 8개. 배지 보상은 다음 회차 성장 능력에 적용하며 각 능력의 상한은 +15.
-- 모든 이미지는 이 폴더에만 저장했다. GitHub 업로드와 `main` 변경은 하지 않았다.
+- 이 폴더는 로컬 `dev-jw` 검토 자료다. 전체화면 시안 21장의 복사본은 GitHub `dev-jw`의 `asset/Full screen/`에도 보관하며, `main`은 변경하지 않았다.
