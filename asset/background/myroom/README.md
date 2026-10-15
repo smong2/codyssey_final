@@ -1,27 +1,20 @@
-# 새 마이룸 배경 원본
+# 마이룸 배경 시안
 
-2026-10-15 제작한 두 구도의 낮·노을·밤 PNG 6장입니다. 모두 1672×941 생성 원본이며, 캐릭터와 UI를 제외한 방 배경입니다. 기존 `../BG03_myroom1_*` 및 `../BG03_myroom2_*` 게임 배경은 보존했습니다. 이 원본의 1920×1080 게임 규격 변환과 화면 적용은 별도 검수 대상입니다.
+이 폴더의 PNG 15장은 방 5종의 시간대 시안입니다. `myroom3`·`myroom4`는 기존 6장, `myroom5`·`myroom6`·`myroom7`은 이번 컬렉션 9장입니다. 모두 캐릭터·펫·글자·UI 없는 1672×941 생성 원본입니다. 기존 `asset/background/BG03_myroom1_*`·`BG03_myroom2_*` 게임용 1920×1080 배경은 보존했습니다. 아래 시안의 게임 규격 변환과 실제 화면 적용은 별도 검수 대상입니다.
 
-| 구도 | 시간대 | 파일 | 미리보기 |
+## 기존 마이룸 2종
+
+| 구도 | 낮 | 노을 | 밤 |
 |---|---|---|---|
-| 창가 독서실 (`myroom3`) | 낮 | [myroom3_reading_day.png](myroom3_reading_day.png) | <img src="myroom3_reading_day.png" width="240" alt="창가 독서실 낮"> |
-| 창가 독서실 (`myroom3`) | 노을 | [myroom3_reading_sunset.png](myroom3_reading_sunset.png) | <img src="myroom3_reading_sunset.png" width="240" alt="창가 독서실 노을"> |
-| 창가 독서실 (`myroom3`) | 밤 | [myroom3_reading_night.png](myroom3_reading_night.png) | <img src="myroom3_reading_night.png" width="240" alt="창가 독서실 밤"> |
-| 룬 연구실 (`myroom4`) | 낮 | [myroom4_rune_day.png](myroom4_rune_day.png) | <img src="myroom4_rune_day.png" width="240" alt="룬 연구실 낮"> |
-| 룬 연구실 (`myroom4`) | 노을 | [myroom4_rune_sunset.png](myroom4_rune_sunset.png) | <img src="myroom4_rune_sunset.png" width="240" alt="룬 연구실 노을"> |
-| 룬 연구실 (`myroom4`) | 밤 | [myroom4_rune_night.png](myroom4_rune_night.png) | <img src="myroom4_rune_night.png" width="240" alt="룬 연구실 밤"> |
+| 창가 독서실 (`myroom3`) | [이미지](myroom3_reading_day.png)<br><img src="myroom3_reading_day.png" width="220" alt="독서실 낮"> | [이미지](myroom3_reading_sunset.png)<br><img src="myroom3_reading_sunset.png" width="220" alt="독서실 노을"> | [이미지](myroom3_reading_night.png)<br><img src="myroom3_reading_night.png" width="220" alt="독서실 밤"> |
+| 룬 연구실 (`myroom4`) | [이미지](myroom4_rune_day.png)<br><img src="myroom4_rune_day.png" width="220" alt="룬 연구실 낮"> | [이미지](myroom4_rune_sunset.png)<br><img src="myroom4_rune_sunset.png" width="220" alt="룬 연구실 노을"> | [이미지](myroom4_rune_night.png)<br><img src="myroom4_rune_night.png" width="220" alt="룬 연구실 밤"> |
 
-원본은 `C:/Users/josep/Desktop/Final Project/asset/background`에 있으며, 아래 대응표에 따라 바이트를 변경하지 않고 복사했습니다.
+## 신규 테마 컬렉션 3종
 
-| 저장 파일 | 로컬 원본 파일 |
-|---|---|
-| `myroom3_reading_day.png` | `ChatGPT 이미지 2026년 10월 15일 오후 04_24_45.png` |
-| `myroom3_reading_sunset.png` | `ChatGPT 이미지 2026년 10월 15일 오후 04_32_13.png` |
-| `myroom3_reading_night.png` | `ChatGPT 이미지 2026년 10월 15일 오후 04_32_20.png` |
-| `myroom4_rune_day.png` | `ChatGPT 이미지 2026년 10월 15일 오후 04_32_25.png` |
-| `myroom4_rune_sunset.png` | `ChatGPT 이미지 2026년 10월 15일 오후 04_22_31.png` |
-| `myroom4_rune_night.png` | `ChatGPT 이미지 2026년 10월 15일 오후 04_32_28.png` |
+| 구도 | 낮 | 노을 | 밤 |
+|---|---|---|---|
+| 우주방 (`myroom5`) | [이미지](myroom5_cosmos_day.png)<br><img src="myroom5_cosmos_day.png" width="220" alt="우주방 낮"> | [이미지](myroom5_cosmos_sunset.png)<br><img src="myroom5_cosmos_sunset.png" width="220" alt="우주방 노을"> | [이미지](myroom5_cosmos_night.png)<br><img src="myroom5_cosmos_night.png" width="220" alt="우주방 밤"> |
+| 럭셔리 공주방 (`myroom6`) | [이미지](myroom6_princess_day.png)<br><img src="myroom6_princess_day.png" width="220" alt="공주방 낮"> | [이미지](myroom6_princess_sunset.png)<br><img src="myroom6_princess_sunset.png" width="220" alt="공주방 노을"> | [이미지](myroom6_princess_night.png)<br><img src="myroom6_princess_night.png" width="220" alt="공주방 밤"> |
+| 식물 애호가의 방 (`myroom7`) | [이미지](myroom7_botanical_day.png)<br><img src="myroom7_botanical_day.png" width="220" alt="식물방 낮"> | [이미지](myroom7_botanical_sunset.png)<br><img src="myroom7_botanical_sunset.png" width="220" alt="식물방 노을"> | [이미지](myroom7_botanical_night.png)<br><img src="myroom7_botanical_night.png" width="220" alt="식물방 밤"> |
 
-## 별도 테마 시안
-
-[2026-10-15 테마 시안 5종](concepts/2026-10-15/README.md)은 우주·공주방·식물방·탐험가방·음악가방의 새 구도 비교용입니다. 위의 기존 6장 수량과 게임 배경 목록에는 포함하지 않습니다.
+공주방·식물방의 낮은 기존 [`concept_02_princess.png`](concepts/2026-10-15/concept_02_princess.png)와 [`concept_03_botanical.png`](concepts/2026-10-15/concept_03_botanical.png)를 바이트 그대로 재사용했습니다. 새로 생성한 이미지는 7장입니다. 기존 우주방 시안 [`concept_01_cosmos.png`](concepts/2026-10-15/concept_01_cosmos.png)은 창밖이 외계 우주였으므로 원본으로만 보존했고, 최종 세트는 창밖을 아르카디아의 호수·학원 건축물로 바꿨습니다. 5가지 테마의 초기 시안은 [concepts/2026-10-15](concepts/2026-10-15/README.md)에 별도로 보관합니다.
