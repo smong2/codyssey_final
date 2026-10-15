@@ -32,3 +32,11 @@
 - `map_archive_000.md`: 기존 파일 복사 검증 기록.
 
 2026-10-10: 초기 MAP01~MAP03 및 이전 맵 파일을 GitHub에서 제거하고 두 전체맵만 유지했습니다. 두 맵 모두 기존 구조를 유지하고 SD 캐릭터가 배경에 묻히지 않도록 식물 채도와 그림자 대비를 낮춰 색감을 수정했습니다. 입구 상부 아치 연결부를 제거하고 양쪽 기둥만 유지했습니다. SD 캐릭터·UI·경로 표시가 없는 전체맵입니다. 이 PNG는 합쳐진 전체맵 이미지로, 이동 충돌·앞뒤 가림용 레이어나 타일 데이터는 포함하지 않습니다.
+## 추가 장소 전체맵 (2026-10-15)
+
+기존 온실맵과 엔진 연결 파일은 그대로 둔 채 원본 바이트를 보존해 추가했습니다. 이 두 장은 1672×941 시안이며, 게임 규격 변환과 충돌·가림 데이터는 아직 검수되지 않았습니다.
+
+| 파일 | 장소 | 미리보기 |
+|---|---|---|
+| [starlight_observatory_fullmap.png](./starlight_observatory_fullmap.png) | 별빛 천문대 | <img src="./starlight_observatory_fullmap.png" width="300" alt="별빛 천문대 전체맵"> |
+| [grand_library_fullmap.png](./grand_library_fullmap.png) | 대서고 | <img src="./grand_library_fullmap.png" width="300" alt="대서고 전체맵"> |

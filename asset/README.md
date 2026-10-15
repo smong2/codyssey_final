@@ -10,13 +10,14 @@
 | [background/](background/README.md) | 장소 배경과 마이룸 시간대 변형, 총 15장 | 장소별 화면 적용 검수 필요 |
 | [environment/](environment/README.md) | 바닥·식물·구조물 등 환경 요소 | 배치·경계·가림 검수 필요 |
 | [puzzle/](puzzle/README.md) | 타일 바탕과 연결/회전 상태 그림 | 규칙·시각 상태 연결 검수 필요 |
-| [ui/](ui/README.md) | 카드·초대장·가방·기록·힌트·대화창·로고 등 | LUMIA 로고 최종본 확정, 화면 합성·게임 적용 검수 별도 |
+| [ui/](ui/README.md) | 카드·초대장·가방·기록·힌트·대화창·로고·시작 버튼 6종 등 | LUMIA 로고 최종본 확정, 화면 합성·게임 적용 검수 별도 |
 | [effect/](effect/README.md) | 룬 빛, 달빛 광휘, 확정 로고 전용 빛무리 | 합성·동작 검수 필요 |
 | [bern/](bern/README.md) | 본편 펫 10종 | 물리 폴더명은 `bern`이지만 의미상 `asset/pet`; `PET01~PET10` 실제 사용 자원 |
 | [badge/](badge/README.md) | 200×200 투명 PNG 41장 | 프레임 5 + 심볼 25 + 장식 8 + 상태 3; 하트 획득 표식 포함, 조립형 200개용 |
-| [map/](map/README.md) | 온실 직선·곡선 전체맵 2장 | 1920×1080; 충돌·가림 레이어 데이터 미포함 |
+| [map/](map/README.md) | 온실 직선·곡선 전체맵 2장 + 별빛 천문대·대서고 전체맵 2장 | 신규 2장은 1672×941 원본; 충돌·가림 레이어 데이터 미포함 |
 | [screen/](screen/README.md) | 화면 흐름·마이룸 구성 참고 시안 10장 | 구현 화면이나 최종 채택과 구별 |
 | [Full screen/](Full%20screen/README.md) | 루미아 프레임 전체화면 검토 시안 21장 | 1920×1080 합성 PNG; 조작 가능한 게임 화면이나 최종 채택본과 구별 |
+| [ui_review_v05/](ui_review_v05/README.md) | 조작 가능한 UI 검토 화면과 고유 프레임 시안 | 공통 에셋·전체화면 이미지는 기존 폴더를 참조; 최종 게임 구현과 구별 |
 | [font_files/](font_files/README.md) | WOFF2 9개, 룬 SVG 10개, 서체 미리보기 PNG 9장 + 원본 TTF·외부 폰트 라이선스 보존 폴더 | 폰트 자원; 타이포그래피도 이 분류에 포함 |
 | [typography/](typography/README.md) | 서체 방향 참고 PNG 5장 | 폰트 관련 시안. 기존 물리 경로 유지 |
 | [stat/](stat/README.md) | 이미지 0장, 제작 예정 | 이제부터 제작할 스탯 이미지 영역 |
