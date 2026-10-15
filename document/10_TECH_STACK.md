@@ -13,6 +13,7 @@
 | 데이터베이스 | **Cloud Firestore** | 계정별 세이브 슬롯, Global Meta, 해금·누적 기록 저장 |
 | 생성형 AI | **Gemini API** | 52주 종료 후 개인화 엔딩 편지 생성 |
 | AI 기본 모델 | **`gemini-3.8-flash`** | 엔딩 편지 생성 기본 모델. 환경변수로 교체 가능 |
+| 관리자 콘솔 | **별도 웹 프론트 + Firebase Auth + FastAPI** | 운영팀 전용 회원·플레이 조회, 통계, 밸런스 설정 |
 | 버전 관리 | **GitHub / Git** | 소스·문서·협업 기록 관리 |
 
 ## 2. 전체 구조
@@ -33,6 +34,16 @@ Python + FastAPI
     │   └─ Save Slots × 5
     └─ Gemini API
         └─ 개인화 엔딩 편지 생성
+
+운영자 브라우저
+    ↓ 별도 Admin URL
+관리자 웹 프론트
+    ↓ Firebase Authentication + admin 권한
+Render / FastAPI `/admin/*`
+    ├─ 회원·플레이 조회
+    ├─ 운영 통계
+    ├─ 전역 성장 보상 설정
+    └─ 감사로그
 ```
 
 게임 클라이언트는 Firestore의 게임 상태를 임의로 직접 변경하는 구조보다 FastAPI를 통해 서버 규칙을 적용하는 것을 기본으로 합니다. Firebase Authentication은 클라이언트에서 로그인하고, FastAPI는 전달받은 Firebase ID Token을 검증해 API 요청 사용자를 식별합니다.
@@ -65,6 +76,7 @@ Python + FastAPI
 - Final Project에서는 게스트/익명 플레이 후 계정 전환 기능을 제공하지 않습니다. 가입·인증을 먼저 완료한 뒤 게임을 시작하는 단일 흐름을 사용합니다.
 - 비밀번호 해싱·계정 인증 체계를 직접 구현하지 않고 Firebase Authentication을 사용합니다.
 - FastAPI는 Firebase ID Token을 검증하며, 보호 API에서는 이메일 인증 여부도 확인합니다.
+- 관리자 콘솔도 Firebase Authentication을 사용할 수 있지만, FastAPI는 토큰 검증 뒤 Firebase Custom Claim 또는 서버가 승인한 UID 기준으로 `admin` 권한을 추가 확인합니다. 일반 사용자가 관리자 권한을 직접 획득하는 UI는 제공하지 않습니다.
 - 브라우저 인증 상태는 로그아웃 전까지 유지하고 별도 `로그인 유지` 옵션은 만들지 않습니다.
 - 게임 내부 계정 화면에서는 현재 비밀번호 재인증 후 비밀번호를 직접 변경할 수 있게 하며, 현재 비밀번호를 잊은 복구 상황에서만 이메일 재설정 링크를 사용합니다.
 - `다른 기기에서 모두 로그아웃`은 기존 사용자 세션을 폐기하고 현재 기기를 즉시 재인증해 유지하는 보안 동작으로 설계합니다. 보호 API는 폐기된 인증 세션을 허용하지 않도록 구현 단계에서 revocation 검증을 포함합니다.
@@ -81,6 +93,7 @@ Python + FastAPI
 - 기본 모델은 `gemini-3.8-flash`로 사용합니다. 엔딩 편지는 회차 종료 시 한 번 생성하는 저빈도·품질 우선 작업이므로 Flash 계열의 상위 안정 모델을 기본값으로 둡니다.
 - 모델명은 코드에 고정하지 않고 `GEMINI_MODEL` 환경변수로 관리합니다. 비용·속도 테스트 결과에 따라 `gemini-3.5-flash-lite` 같은 경량 모델로 교체할 수 있습니다.
 - API 키는 프론트에 노출하지 않고 Render의 서버 환경변수에서만 관리합니다.
+- 관리자 콘솔에서도 Gemini API Key 원문을 조회·등록·교체하지 않습니다. 키 교체는 Render 비밀 환경변수에서만 수행합니다.
 
 ## 4. 인증 흐름
 
@@ -119,7 +132,7 @@ Firebase 프로젝트 설정에 따라 `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIR
 
 | 변수 | 용도 | 비밀값 여부 |
 |---|---|---|
-| `CORS_ORIGINS` | 허용할 Vercel 프론트 Origin | 아니오 |
+| `CORS_ORIGINS` | 허용할 게임·관리자 프론트 Origin 목록 | 아니오 |
 | `FIREBASE_PROJECT_ID` | Firebase 프로젝트 식별 | 아니오 |
 | `FIREBASE_SERVICE_ACCOUNT_JSON` | Firebase Admin SDK 서비스 계정 JSON | **예** |
 | `GEMINI_API_KEY` | Gemini API 인증 | **예** |
@@ -131,6 +144,7 @@ Firebase 프로젝트 설정에 따라 `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIR
 ## 6. 아직 배포 후 확정할 값
 
 - 실제 Vercel 서비스 URL
+- 실제 관리자 콘솔 URL
 - 실제 Render API URL
 - Firebase 프로젝트 ID와 Web App 설정값
 - Vercel 허용 Origin

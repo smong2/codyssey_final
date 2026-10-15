@@ -4,7 +4,8 @@
   "discovery": {
     "fixedFiles": [
       "README.md",
-      "AGENTS.md"
+      "AGENTS.md",
+      "story/main/main_final.md"
     ],
     "markdownTrees": [
       "document"
@@ -146,6 +147,12 @@
       "ai": [
         "document_for_ai/05_TEAM_ROLES.md",
         "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "path": "story/main/main_final.md",
+      "ai": [
+        "document_for_ai/03_GAME_CONTENT.md"
       ]
     },
     {
@@ -302,11 +309,11 @@
     },
     {
       "path": "document/05_TEAM_ROLES.md",
-      "sha256": "68b3cd588476b44e7b37e0714bd5ab8cce14b3ab0bc6f963bf4cd5e09896f166"
+      "sha256": "c4020aea605d214abb31e178e1c678273952b218bf969cfdf470cd53d7f4a068"
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "fe62fd2316bc4caca6f296946774e5a2366b17c7587c8c7e28425db9c56373e8"
+      "sha256": "0062c3f9fe3fcc8c1d2cb2d1e3325cce4c770b696e8238a4d4f432ea5487df15"
     },
     {
       "path": "document/07_AI_WORK_GUIDE.md",
@@ -318,7 +325,7 @@
     },
     {
       "path": "document/09_AI_ENDING_LETTER.md",
-      "sha256": "e267d6d0b7f735a22405fe28190435c982d287ee9bf0a300d3f678857fd2af7b"
+      "sha256": "54055a7b13d03e20403a683da1ec409484881a7137f908cdc550755ca37a6544"
     },
     {
       "path": "document/10_TECH_STACK.md",
@@ -326,27 +333,27 @@
     },
     {
       "path": "document/11_PROJECT_PLAN.md",
-      "sha256": "b87ad7216323d87ab7e7847634dea18b2fa54d1be660d42663c378982d92c137"
+      "sha256": "3f9efb43965e1bf5663142d8dbff0a59a078a9ab6f95eac840a37e3cce816248"
     },
     {
       "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
-      "sha256": "67a5bc8b05bb3200ea025b927c3193838f335ba49f6447872c31c33b45561ac0"
+      "sha256": "c7e1dc43e4a92ccbba084863bf8083bc73691fb1bc5867a0695cd69a72c3872f"
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "6e497b0d32812c4d01e4df731800443681ec219a6491b84ddc4539ac702e416e"
+      "sha256": "206deeb3345d27a68e31167681df4846a9e66289e3b3211a6786abdefdce654f"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "a1efd278e2c59da9d41351694295d703a5dfdd5e9283701e5f67adad70afec13"
+      "sha256": "e8c0897944dfe05460da077d54e28fe4ed9c75be8ad0f5ade870ed7c466c4277"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
-      "sha256": "0322911909f6bb48937633713ae2e9c17db4449d3dd8987b8a85bfcf8c4b62e3"
+      "sha256": "29b1c9f1f2530aefd269b6aea6811fb66a5cae4707939495c285b06e18fdc920"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "b32263f729c23c865803e9f29a7fd7e749d05858aac1068258979286d4c93e7b"
+      "sha256": "4af3b891a57bafad5a8773972077ccd2f4eac3058236539584e459b54868ca04"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
@@ -374,11 +381,11 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
-      "sha256": "24293d57b70b0980b71e4209239e4939ef30d6fd786312064aad83e8e3fc9b61"
+      "sha256": "83fe7df4999543bea06a4f92f64d013eaa65504715e8e2ee108ecb8624d7f793"
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "6a30f2b08af9b2d7b7d72d2ade256499a30aaeb9a3a4e0cf2c2f73cfa31248eb"
+      "sha256": "ac70ea8893c6388301dcf3862e6b7a7a9aca34a5b11d896216fb1d46f830399e"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
@@ -414,7 +421,7 @@
     },
     {
       "path": "document/content/12_USER_UCS.md",
-      "sha256": "d338ab1b83069c2402d9f0bff53fedb9dcca3eea6462f04c09abea7d1063c45f"
+      "sha256": "9737b100e66d3fcb12c2078d1a603a58d7c3fd6fd5bf97e93355ab18f4994db7"
     },
     {
       "path": "document/content/README.md",
@@ -450,19 +457,23 @@
     },
     {
       "path": "story/main/README.md",
-      "sha256": "3c31b414f695e9c5e9fb3bba2da629a7aac4916c1fb197eca6f0104747d18a79"
+      "sha256": "69a430a00093a39b687204cfbeeafabe3a64283199a529c5c2f6dd8615f240e5"
+    },
+    {
+      "path": "story/main/main_final.md",
+      "sha256": "809355dcf21728c190b09e516ef117463d9e9b5229554ee765c685a69cfee2f7"
     },
     {
       "path": "story/npc/README.md",
-      "sha256": "638ec8138d96be8b0555ea44e496f102cab8fc7aa46bc40a7a0c5fbeed5d6017"
+      "sha256": "1cca5b2b126651e76f66bb01836434396568ba19582ecc196dcf2bc64ef2bd1d"
     },
     {
       "path": "story/README.md",
-      "sha256": "94bc141f4eb28e93ea1b381624e50ff65eaef5357296848d57be17e9277a31c9"
+      "sha256": "5acc467ce3661d6b8ee1b930a4e2bc238f7041383724826a3a00fe825feb8756"
     },
     {
       "path": "story/sub/README.md",
-      "sha256": "d40743ac48b3f2bf41e3b528a077334ca3f867e08bd92beff5ae17116237d55b"
+      "sha256": "b153c1e4b831703ee3876ea1972d5bb65cfb31db28e9f6e29135a50b58bdbfb3"
     }
   ],
   "assetInventory": {

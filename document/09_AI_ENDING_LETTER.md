@@ -82,7 +82,7 @@ AI에는 원시 게임 데이터 전체를 그대로 전달하지 않고, 편지
       "eventId": "MS05",
       "choiceId": "SHARE_FACTS_FIRST",
       "week": 49,
-      "summary": "확인된 사실과 아직 모르는 점을 먼저 함께 알리기로 했다"
+      "summary": "별빛 축제의 문제에서 확인된 사실과 아직 모르는 점을 모두에게 먼저 알리기로 했다"
     }
   ],
   "generationRules": {

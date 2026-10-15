@@ -1,13 +1,13 @@
 # 스토리 작업 영역
 
-LUMIA의 메인·인물·장소·서브·엔딩 스토리를 분리해 작성합니다. 담당 영역 참고 브랜치는 `dev-hs`이며, AI가 임의로 브랜치를 전환하지 않습니다.
+LUMIA의 메인·NPC·장소·엔딩 스토리를 분리해 작성합니다. **서브스토리는 본편 범위에서 제외**되었습니다. 담당 영역 참고 브랜치는 `dev-hs`이며, AI가 임의로 브랜치를 전환하지 않습니다.
 
 | 폴더 | 내용 |
 |---|---|
 | [main/](main/README.md) | 메인 스토리 |
 | [npc/](npc/README.md) | NPC별 개별 스토리 |
 | [location/](location/README.md) | 장소 기반 스토리 |
-| [sub/](sub/README.md) | 기타 서브 스토리 |
+| [sub/](sub/README.md) | 스펙 아웃된 서브스토리 자료 보존 영역 — 본편 미사용 |
 | [ending/](ending/README.md) | 엔딩 스토리 |
 
 각 폴더의 `예시_*.md`는 형식만 보여 주며 **확정된 설정·시나리오가 아닙니다.** 새 이야기의 인물·장소·룬 규칙은 [세계관](../document/02_WORLDVIEW.md), [캐릭터](../document/03_CHARACTERS.md), [게임 콘텐츠](../document/06_GAME_CONTENT.md)를 확인합니다. 실제 스토리는 대상·에피소드별 개별 Markdown 파일로 나누어 충돌을 줄입니다.
