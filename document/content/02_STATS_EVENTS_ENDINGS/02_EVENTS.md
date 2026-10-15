@@ -102,7 +102,6 @@ NPC 질문
 | 스토리 진행 | 해당 `storyId`의 `step/status` 갱신 |
 | 이후 분기 필요 선택 | `eventFlags`에 최소한의 선택 플래그 저장 |
 | 엔딩 편지용 중요 선택 | `representativeChoices` 후보로 저장 |
-| 엔딩 편지용 중요 사건 | `representativeEventIds` 후보로 저장 |
 
 모든 선택의 원문과 모든 대화를 장기 저장하지 않습니다.
 

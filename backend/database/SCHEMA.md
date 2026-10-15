@@ -125,7 +125,7 @@ Account
 | `acquiredBadgeIds` | Set<String> | 획득한 배지 ID 목록 |
 | `acquiredPuzzlePieceIds` | Set<String> | 획득한 퍼즐 조각 ID 목록 |
 | `unlockedRoomBackgroundIds` | Set<String> | 해금한 마이룸 배경 ID 목록 |
-| `seenEndingIds` | Set<String> | 한 번 이상 확인한 직업 엔딩 ID 목록 |
+| `seenEndingIds` | Set<String> | 한 번 이상 확인한 **정규 직업 엔딩** ID 목록. fallback `ENDING_STARPATH_PIONEER`는 제외 |
 | `updatedAt` | DateTime | 메타 진행 최종 갱신 시각 |
 
 ### 논리적 주의사항
@@ -155,7 +155,7 @@ Account
 | `completedNpcStoryCount` | Integer | 완료한 NPC 개별 스토리 수 |
 | `totalSpecialItemDiscoveryCount` | Integer | 특별 아이템·발견물 누적 획득 수 |
 | `totalLocationDiscoveryCount` | Integer | 장소·조사 포인트 발견 누적 수 |
-| `retryAfterFailureCount` | Integer | 미니게임 실패 직후 같은 게임 재도전 누적 수 |
+| `retryAfterFailureCount` | Integer | 미니게임 `FAIL` 이후 다른 평일 일정에서 같은 게임에 다시 도전한 누적 수 |
 | `myRoomActiveWeekCount` | Integer | 마이룸을 1회 이상 연 주의 누적 수. 한 주 최대 +1 |
 | `importantChoiceCount` | Integer | 마스터에서 중요 선택으로 지정한 선택 누적 수 |
 | `behaviorTagCounts` | Map<HiddenStatType, Integer> | 공감·책임·호기심·용기·협력·독립성·신중함·솔직함 태그 행동·선택 누적 수 |
@@ -165,7 +165,7 @@ Account
 | `classCounts.exploration` | Integer | 탐험 계열 수업 누적 횟수 |
 | `classCounts.magic` | Integer | 마법 계열 수업 누적 횟수 |
 | `characterPlayCounts` | Map<CharacterId, Integer> | 캐릭터별 완료 회차 수 |
-| `endingViewCounts` | Map<EndingId, Integer> | 엔딩별 확인 횟수 |
+| `endingViewCounts` | Map<EndingId, Integer> | 엔딩별 확인 횟수. `ENDING_STARPATH_PIONEER`도 포함하므로 fallback 누적 횟수를 여기서 확인 |
 | `updatedAt` | DateTime | 누적 기록 최종 갱신 시각 |
 
 ### 사용 예시
@@ -303,7 +303,6 @@ run.stats + active pet modifier = effectiveStats
 | `npcProgress` | Map<NpcId, NpcProgress> | NPC별 만남 횟수와 마지막 만남 주차. 친밀도 수치가 아님 |
 | `storyProgress` | Map<StoryId, StoryProgress> | 메인/서브/NPC/장소 스토리 진행 상태 |
 | `eventFlags` | Map<String, Boolean/Value> | 회차 한정 이벤트/선택 플래그 |
-| `representativeEventIds` | List<String> | 엔딩 편지 후보가 될 중요 사건 ID |
 | `representativeChoices` | List<Object> | 엔딩 편지 후보가 될 중요 선택 기록 |
 
 #### `NpcProgress`
@@ -343,16 +342,42 @@ run.stats + active pet modifier = effectiveStats
 | `completedWeekdayCount` | Integer | 현재 주 완료 평일 수 |
 | `forcedRest.remainingWeekdays` | Integer | 남은 강제휴식 평일 수 |
 | `forcedRest.active` | Boolean | 강제휴식 활성 여부 |
+| `minigameFailStreaks` | Map<GameId, Integer> | 현재 회차 게임별 연속 `FAIL` 횟수. 2회/4회 실패 보조 난이도 계산에 사용 |
 
 ### ScheduleEntry 예시
 
 ```json
 {
-  "type": "CLASS | ADVENTURE | REST | FORCED_REST",
+  "type": "CLASS | ADVENTURE | REST | SPECIAL | FORCED_REST",
   "contentId": "CLASS_MAGIC_01",
-  "status": "PLANNED | IN_PROGRESS | COMPLETED"
+  "status": "PLANNED | IN_PROGRESS | COMPLETED",
+  "resolution": "GREAT | SUCCESS | FAIL | TRANSFERRED | SKIPPED | INTERRUPTED | null",
+  "startedAt": "Timestamp | null",
+  "completedAt": "Timestamp | null"
 }
 ```
+
+`SPECIAL`은 현재 기숙사 공용 공간의 `요정의 거래`에 사용합니다. 활동 시작 체크포인트에서 `IN_PROGRESS`와 체력 선차감 상태를 저장하고, 비정상 종료 복구에서는 `resolution=INTERRUPTED`로 완료 처리합니다. 미니게임 `포기하기`는 `INTERRUPTED`가 아니라 정상 결과 `FAIL`입니다.
+
+#### 미니게임 결과 계약
+
+```json
+{
+  "gameId": "rune-circuit",
+  "locationCode": "WRK",
+  "targetStat": "magic",
+  "rewardDifficulty": "HARD",
+  "playDifficulty": "NORMAL",
+  "assistLevel": 1,
+  "outcome": "SUCCESS",
+  "endReason": "COMPLETE",
+  "score": 78,
+  "durationMs": 82400,
+  "metrics": {}
+}
+```
+
+`rewardDifficulty`는 `run.stats`로 정한 보상용 난이도이고 `playDifficulty`만 게임별 연속 실패에 따라 최대 2단계 낮아질 수 있습니다.
 
 ### 2.7.6 회차 한정 플레이 통계
 
@@ -369,6 +394,7 @@ run.stats + active pet modifier = effectiveStats
 | `runStatistics.completedNpcStoryCount` | Integer | 현재 회차 NPC 스토리 완료 수 |
 | `runStatistics.locationDiscoveryCount` | Integer | 새로운 장소 발견 수 |
 | `runStatistics.specialItemDiscoveryCount` | Integer | 특별 아이템/발견물 획득 수 |
+| `runStatistics.importantChoiceCount` | Integer | 현재 회차 중요 선택 횟수 |
 | `runStatistics.classCounts` | Map<StatType, Integer> | 계열별 수업 횟수 |
 
 ---
@@ -387,11 +413,12 @@ run.stats + active pet modifier = effectiveStats
 | `runNumber` | Integer | 해당 슬롯의 회차 번호 |
 | `characterId` | String | 플레이 캐릭터 |
 | `endingId` | String | 확정된 직업 엔딩 ID |
+| `endingType` | Enum | `CAREER` 또는 `FALLBACK` |
 | `completedAt` | DateTime | 엔딩 완료 시각 |
 | `finalStats` | Object | 엔딩 당시 보이는 스탯 |
 | `hiddenStatsSummary` | Object | 편지/판정에 사용한 보이지 않는 스탯 요약 |
 | `playStatistics` | Object | 해당 회차 주요 실제 플레이 기록 |
-| `representativeEvents` | List<Object/String> | 편지 회고에 사용한 대표 사건 |
+| `selectedPlayRecords` | List<Object> | 엔딩 화면과 AI 입력에 사용한 4~6개 횟수형 기록 |
 | `representativeChoices` | List<Object> | 편지 회고에 사용한 대표 선택 |
 | `letter` | Object | 생성된 개인화 엔딩 편지 |
 | `gameDataVersion` | String | 엔딩 판정에 사용한 게임 데이터 버전 |
@@ -679,8 +706,12 @@ users/{uid}
     "storyProgress": {},
     "eventFlags": {},
 
-    "representativeEventIds": [],
     "representativeChoices": [],
+
+    "minigameFailStreaks": {
+      "rune-circuit": 0,
+      "mirror-magic": 2
+    },
 
     "weeklySchedule": {
       "MONDAY": {
@@ -696,7 +727,10 @@ users/{uid}
       "WEDNESDAY": {
         "type": "REST",
         "contentId": "REST_DEFAULT",
-        "status": "IN_PROGRESS"
+        "status": "IN_PROGRESS",
+        "resolution": null,
+        "startedAt": "Timestamp",
+        "completedAt": null
       }
     },
 
@@ -717,6 +751,7 @@ users/{uid}
       "completedNpcStoryCount": 2,
       "locationDiscoveryCount": 4,
       "specialItemDiscoveryCount": 3,
+      "importantChoiceCount": 6,
       "classCounts": {
         "knowledge": 8,
         "expression": 7,
@@ -742,7 +777,8 @@ Document ID는 UUID/ULID 등 충돌 가능성이 낮고 시간 정렬이 가능�
   "slotId": 1,
   "runNumber": 1,
   "characterId": "CH01",
-  "endingId": "ENDING_03",
+  "endingId": "ENDING_ARCADIA_EXPLORER",
+  "endingType": "CAREER",
   "completedAt": "Timestamp",
 
   "finalStats": {
@@ -769,8 +805,9 @@ Document ID는 UUID/ULID 등 충돌 가능성이 낮고 시간 정렬이 가능�
     "specialItemDiscoveryCount": 7
   },
 
-  "representativeEvents": [
-    "EVENT_GREENHOUSE_DISCOVERY"
+  "selectedPlayRecords": [
+    {"type": "adventureCount", "label": "모험을 떠난 횟수", "count": 41},
+    {"type": "locationDiscoveryCount", "label": "새로운 장소를 발견한 횟수", "count": 12}
   ],
 
   "representativeChoices": [],

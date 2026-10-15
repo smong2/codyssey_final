@@ -66,6 +66,8 @@ Python + FastAPI
 - 비밀번호 해싱·계정 인증 체계를 직접 구현하지 않고 Firebase Authentication을 사용합니다.
 - FastAPI는 Firebase ID Token을 검증하며, 보호 API에서는 이메일 인증 여부도 확인합니다.
 - 브라우저 인증 상태는 로그아웃 전까지 유지하고 별도 `로그인 유지` 옵션은 만들지 않습니다.
+- 게임 내부 계정 화면에서는 현재 비밀번호 재인증 후 비밀번호를 직접 변경할 수 있게 하며, 현재 비밀번호를 잊은 복구 상황에서만 이메일 재설정 링크를 사용합니다.
+- `다른 기기에서 모두 로그아웃`은 기존 사용자 세션을 폐기하고 현재 기기를 즉시 재인증해 유지하는 보안 동작으로 설계합니다. 보호 API는 폐기된 인증 세션을 허용하지 않도록 구현 단계에서 revocation 검증을 포함합니다.
 
 ### Cloud Firestore
 
@@ -88,15 +90,14 @@ Python + FastAPI
 → Firebase 인증 메일 발송
 → 사용자가 이메일 링크 확인
 → 이메일 인증 완료
-→ 로그인
+→ 기존 가입 세션 갱신 또는 기존 사용자의 로그인
 → Firebase ID Token 발급
 → FastAPI 요청 시 Bearer Token 전달
 → FastAPI에서 토큰·email_verified 확인
 → 게임 API 사용
 ```
 
-인증 메일 재발송과 이메일 인증 전 화면 안내는 클라이언트 구현 단계에서 제공합니다.
-비밀번호 분실은 Firebase 비밀번호 재설정 이메일을 사용합니다. 계정 관리·탈퇴의 상세 기준은 `document/content/08_ACCOUNT_POLICY.md`를 따릅니다.
+로그인 페이지 영역은 인증 메일 재발송과 이메일 인증 완료 확인까지 담당합니다. 로그인 상태에서 현재 비밀번호를 아는 사용자의 비밀번호 변경은 게임 내부 재인증 후 처리하고, 비밀번호 분실은 Firebase 비밀번호 재설정 이메일을 사용합니다. 계정 관리·탈퇴와 화면 흐름의 상세 기준은 `document/content/08_ACCOUNT_POLICY.md`, `document/content/09_TITLE_ACCOUNT_UI.md`를 따릅니다.
 
 ## 5. 환경변수 기준
 
