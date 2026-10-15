@@ -15,7 +15,7 @@
 ## 구분이 필요한 파일
 
 - [엘리아 원본](../asset/character/CH10_elia_009.png)과 [1024×1536 보정본](../asset/character/CH10_elia_1024x1536_038.png)은 둘 다 보존했습니다. 실제 사용본 선택은 미정입니다.
-- [베른 기존 이미지](../asset/character/NPC03_bern_032.png)는 참고용입니다. 최종 외형은 확인되지 않았습니다.
+- [`asset/bern/`](../asset/bern/)은 물리 폴더명만 과거 이름을 유지하는 **본편 펫 자원 폴더**입니다. 내부의 부엉이·여우·토끼·수달·강아지·고양이·레서판다·다람쥐·고슴도치·아기사슴 10종을 각각 `PET01~PET10`에 1:1로 사용합니다. 데모의 단일 캐릭터 `베른` 설정은 본편에서 사용하지 않습니다. 상세 매핑은 [펫 시스템](content/03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md)을 따릅니다.
 - 조사 오브젝트의 상태·버전은 파일명으로 구분했습니다. 예를 들어 [시든 식물](../asset/item/OBJ01_inspect_plant_wilted_020.png), [회복 식물](../asset/item/OBJ02_inspect_plant_restored_021.png), [회복 식물 변형](../asset/item/OBJ02_inspect_plant_restored_v2_022.png)입니다. 어느 회복 그림을 적용할지는 미정입니다.
 - [로고 1안](../asset/ui/lumia_logo_mystic_01_017.png)과 [로고 5안](../asset/ui/lumia_logo_mystic_05_018.png)은 모두 보존했습니다. [달빛 광휘](../asset/effect/lumia_moonlight_sparkle_002.svg)는 1안과의 조합을 기준으로 제작되었고 다른 조합은 검토가 필요합니다.
 - 지도 콘셉트·화면 시안·상태창·원본·후보 이미지는 현재 작업용 폴더에 없습니다. 존재·선정 상태를 이 문서만으로 단정하지 마세요.
