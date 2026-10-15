@@ -189,6 +189,10 @@
       "sha256": "9f2ee154d13e40b53534c95fd574167c9175a86ddf7ae0b6bc100a30c1b03a31"
     },
     {
+      "path": "asset/audio/README.md",
+      "sha256": "c8ab2a43a54c08bd96d6cba7de71336bcb1bc8f0743b5b915c7e4d00fa10fe3b"
+    },
+    {
       "path": "asset/background/README.md",
       "sha256": "25bdbe794f1e32c225dbf492078d7b895c34ccab9660e3ea8ddcbfd7f7e296e9"
     },
@@ -302,7 +306,7 @@
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "b5fdd1e837071873c52a0910ff787d0ba238b4f10ae3c13d8961879a5c77673d"
+      "sha256": "fe62fd2316bc4caca6f296946774e5a2366b17c7587c8c7e28425db9c56373e8"
     },
     {
       "path": "document/07_AI_WORK_GUIDE.md",
@@ -314,7 +318,7 @@
     },
     {
       "path": "document/09_AI_ENDING_LETTER.md",
-      "sha256": "abe3297f982bd41b6a8d6d67ee60d6d8568793b196b2759db4c59ce69a29626d"
+      "sha256": "e267d6d0b7f735a22405fe28190435c982d287ee9bf0a300d3f678857fd2af7b"
     },
     {
       "path": "document/10_TECH_STACK.md",
@@ -330,7 +334,7 @@
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "106b25bc18272edf31627dba9c700dbb40f23a2c6192c97566e36ffc0244e409"
+      "sha256": "6e497b0d32812c4d01e4df731800443681ec219a6491b84ddc4539ac702e416e"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
@@ -338,11 +342,11 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
-      "sha256": "230394dfcdfca866c9c296080e26b93c10c7222960e2cce1da1c8438ef7ecd48"
+      "sha256": "0322911909f6bb48937633713ae2e9c17db4449d3dd8987b8a85bfcf8c4b62e3"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "4bcfaf7c97baa132bb69143d913030b2768f27020a977411db1b10adab9dbd9f"
+      "sha256": "b32263f729c23c865803e9f29a7fd7e749d05858aac1068258979286d4c93e7b"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
@@ -350,19 +354,19 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
-      "sha256": "4d161654f229fc51c15cb3e3d392e8a22d1a8a826b84f13c2566ce607ebc75dc"
+      "sha256": "a61cdb0c896427e9cf63222d6ccb3ea8f481290a911a099a74d91b4372c8403e"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md",
-      "sha256": "91610bb26cc8f7a12cef9e65985f42a0bf80bc36b1550deaff869a44c339b4b1"
+      "sha256": "e94b2e387490cd6e9550d63711676bf2c42e0324b0265d75a8939e59edfcb929"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
-      "sha256": "63c1693238f93d80dbb0d9f7c14b7c4d4b8be3d2da3f6cf092679075c7b329d9"
+      "sha256": "42e1380453a9c41e379a2a59f0d5b4b5f2bbd7664370017c0d313a8ea69d97be"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
-      "sha256": "080bdc481d5b2e614392513160e6fd87a63ead0c7706e9c6fa08a565bcefb4f4"
+      "sha256": "c96d05031d4829376d2f93517d970df6a81cf5642af17afd7f7d86a95329d66a"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md",
@@ -370,11 +374,11 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
-      "sha256": "536cebe231b7b53c592fc4ed854068717edb330a78c6b2a38796ec7b1e82b763"
+      "sha256": "24293d57b70b0980b71e4209239e4939ef30d6fd786312064aad83e8e3fc9b61"
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "cbc0664549b6dd483cf21f903b82aaeb8166eb7d7d727aafe90cb3db428b9f01"
+      "sha256": "6a30f2b08af9b2d7b7d72d2ade256499a30aaeb9a3a4e0cf2c2f73cfa31248eb"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
@@ -382,7 +386,7 @@
     },
     {
       "path": "document/content/06_01_LOCATION_ACTIVITIES.md",
-      "sha256": "7233823c578423e794bdf12ecc39e0f3985235c0abd2aa1cfbe0afb73116bdb6"
+      "sha256": "068dde4af523997f1ba599d1b777db2689289a764f4afafacdd34482773a33f1"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
@@ -398,15 +402,23 @@
     },
     {
       "path": "document/content/09_TITLE_ACCOUNT_UI.md",
-      "sha256": "3b20ec52328972a41b2ec738f502dffaea2be89c08486fe4706ce3c399977771"
+      "sha256": "bd74ec6679da13b428ab8ed8c1d91d15d9331d746fc6995990499e9bf83c91f8"
     },
     {
       "path": "document/content/10_COMMON_ENGINE_FRAME.md",
-      "sha256": "8f76d562ddbcf1453a08ca08466d8757fd147e7d32026c016541a37d0a3a40d6"
+      "sha256": "a8b4c0c3d59fbbc17be423c992a593003f69c77f8a1c63a5c94114e67b9889ae"
+    },
+    {
+      "path": "document/content/11_FEATURE_FRAME.md",
+      "sha256": "053a4a911f238e4299c99d21b3db49244823daba7fe5330495c86a45fe73c0ad"
+    },
+    {
+      "path": "document/content/12_USER_UCS.md",
+      "sha256": "d338ab1b83069c2402d9f0bff53fedb9dcca3eea6462f04c09abea7d1063c45f"
     },
     {
       "path": "document/content/README.md",
-      "sha256": "122ee26d693044a828c18aba9b25d2fb5e046c3e9170ae128498f0d9cfdbb863"
+      "sha256": "a98cdc143f4475be1b5503eb027242c0b419b8834740950ea4495b3d8d38544f"
     },
     {
       "path": "document/실행방법.md",
@@ -418,7 +430,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "3ddd193ed5cd5b5a456512436707bbf4de05b23275829597448c8d3b181b80de"
+      "sha256": "2c5b279fecb45586d53be783b170fa95977d60f66621131a88e530eab865a0be"
     },
     {
       "path": "lumia/README.md",
@@ -455,7 +467,7 @@
   ],
   "assetInventory": {
     "path": "asset",
-    "sha256": "6cef583cc298422c891c732d24846a97418a1f0d4a2e226b9ca056f939be41da",
+    "sha256": "bcfa50e80c4e48de629e1228ea0dd324582cb97589cbcb711c2f8600bea71e08",
     "ai": [
       "document_for_ai/04_ASSETS.md"
     ]
