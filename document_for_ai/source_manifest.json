@@ -4,7 +4,8 @@
   "discovery": {
     "fixedFiles": [
       "README.md",
-      "AGENTS.md"
+      "AGENTS.md",
+      "story/main/main_final.md"
     ],
     "markdownTrees": [
       "document"
@@ -146,6 +147,12 @@
       "ai": [
         "document_for_ai/05_TEAM_ROLES.md",
         "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "path": "story/main/main_final.md",
+      "ai": [
+        "document_for_ai/03_GAME_CONTENT.md"
       ]
     },
     {
@@ -306,7 +313,7 @@
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "fe62fd2316bc4caca6f296946774e5a2366b17c7587c8c7e28425db9c56373e8"
+      "sha256": "aead94f0cb8f68d71f766c24438106b7bd1f5d5dccd35a820e0f99dfa7827758"
     },
     {
       "path": "document/07_AI_WORK_GUIDE.md",
@@ -318,7 +325,7 @@
     },
     {
       "path": "document/09_AI_ENDING_LETTER.md",
-      "sha256": "e267d6d0b7f735a22405fe28190435c982d287ee9bf0a300d3f678857fd2af7b"
+      "sha256": "54055a7b13d03e20403a683da1ec409484881a7137f908cdc550755ca37a6544"
     },
     {
       "path": "document/10_TECH_STACK.md",
@@ -334,7 +341,7 @@
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "6e497b0d32812c4d01e4df731800443681ec219a6491b84ddc4539ac702e416e"
+      "sha256": "ddf8168ed7fae0e75a8b2e471fbe80d7b042260fa6135daf48ba41cc815c808d"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
@@ -346,7 +353,7 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "b32263f729c23c865803e9f29a7fd7e749d05858aac1068258979286d4c93e7b"
+      "sha256": "4af3b891a57bafad5a8773972077ccd2f4eac3058236539584e459b54868ca04"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
@@ -450,7 +457,11 @@
     },
     {
       "path": "story/main/README.md",
-      "sha256": "3c31b414f695e9c5e9fb3bba2da629a7aac4916c1fb197eca6f0104747d18a79"
+      "sha256": "69a430a00093a39b687204cfbeeafabe3a64283199a529c5c2f6dd8615f240e5"
+    },
+    {
+      "path": "story/main/main_final.md",
+      "sha256": "809355dcf21728c190b09e516ef117463d9e9b5229554ee765c685a69cfee2f7"
     },
     {
       "path": "story/npc/README.md",
