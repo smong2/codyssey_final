@@ -112,7 +112,7 @@ playDifficulty
 - `FAIL` 뒤 결과 화면에서 즉시 `다시 하기`를 제공하지 않습니다.
 - 타임아웃은 각 게임의 완료 조건에 따라 `FAIL` 또는 이미 확보한 진행 기준으로 판정할 수 있지만, 아래 6개 규칙에서는 별도 명시가 없으면 `FAIL`입니다.
 
-성장량은 `rewardDifficulty` 기준으로 기존 공통 표를 적용합니다.
+성장량은 `rewardDifficulty` 기준으로 기존 공통 표를 적용한 뒤, `document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md`의 관리자 전역 `rewardMultiplier[targetStat]`와 저체력 성장 효율을 함께 적용합니다. 관리자 배율은 결과 판정이나 `playDifficulty`를 바꾸지 않고 최종 획득 성장량만 낮춥니다.
 
 ## 5. 별빛 천문대 — 거울 마법
 
