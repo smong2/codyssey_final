@@ -2,6 +2,7 @@ import {createProfile,CHARACTERS} from './state.mjs';
 import {validAction} from './classes.mjs';
 import {unlockedPetIds} from './pets.mjs';
 import {validActivityEffect} from './activity-rules.mjs';
+import {classOf} from './classes.mjs';
 export const STORAGE_KEY='lumia.engine.dev.v1';
 export function createBoundaryWriter(repository){
  let pending=null,source=null,savedSlotId=null;
@@ -29,16 +30,24 @@ export function validateProfile(p){
    if(r.actionHistory!==undefined){
     const seen=new Set();
     if(!Array.isArray(r.actionHistory)||r.actionHistory.length>260||r.actionHistory.some(h=>{
-     if(!h||!Number.isInteger(h.week)||h.week<1||h.week>r.week||!Number.isInteger(h.day)||h.day<0||h.day>4||!validAction(h.action)||h.week===r.week&&h.day>=r.day||h.effect!==undefined&&!validActivityEffect(h.effect))return true;
+     if(!h||!Number.isInteger(h.week)||h.week<1||h.week>r.week||!Number.isInteger(h.day)||h.day<0||h.day>4||!validAction(h.action)||h.week===r.week&&h.day>=r.day||h.status!==undefined&&!['COMPLETED','INTERRUPTED'].includes(h.status)||h.status==='INTERRUPTED'&&h.effect?.outcome!=='interrupted'||h.status==='COMPLETED'&&h.effect?.outcome==='interrupted'||h.effect!==undefined&&!validActivityEffect(h.effect))return true;
      const key=h.week+':'+h.day;if(seen.has(key))return true;seen.add(key);return false;
     }))throw new Error('지난 일정 기록이 손상됐습니다. 원본을 보존했습니다.');
    }
    const validCharacter=CHARACTERS.some(c=>c.id===r.characterId)&&p.meta.unlockedCharacters.includes(r.characterId);
    const validStats=['knowledge','expression','dexterity','exploration','magic'].every(k=>Number.isFinite(r.stats[k])&&r.stats[k]>=0&&r.stats[k]<=500);
    const validRest=r.forcedRestDays===undefined||Number.isInteger(r.forcedRestDays)&&r.forcedRestDays>=0&&r.forcedRestDays<=3&&r.exhausted===(r.forcedRestDays>0);
-   const validPlan=r.phase==='PLANNING'?r.day===0&&r.schedule.length===0:
+   const pending=r.inProgressActivity;
+   const expectedRestDays=pending?(r.forcedRestDays??(r.exhausted||pending.staminaBefore<10?3:0)):0;
+   const expectedForced=expectedRestDays>0;
+   const scheduledAction=expectedForced?'rest':r.schedule[r.day];
+   const expectedCost=expectedForced?0:classOf(scheduledAction)?10:scheduledAction==='adventure'?15:0;
+   const expectedStaminaAfter=pending?Math.max(0,pending.staminaBefore-expectedCost):null;
+   const expectedQueuedRest= pending&&!expectedForced&&expectedStaminaAfter<10?3:0;
+   const validPending=pending===undefined||!!pending&&r.phase==='ACTING'&&r.day<5&&pending.status==='IN_PROGRESS'&&pending.token===`${r.runNumber}:${r.week}:${r.day}`&&validAction(pending.action)&&pending.action===scheduledAction&&Number.isFinite(pending.staminaBefore)&&pending.staminaBefore>=0&&pending.staminaBefore<=100&&Number.isFinite(pending.staminaCost)&&pending.staminaCost===pending.staminaBefore-expectedStaminaAfter&&pending.staminaCost<=15&&pending.staminaBefore-pending.staminaCost===r.stamina&&pending.forcedRest===expectedForced&&pending.forcedRestDaysBefore===expectedRestDays&&pending.forcedRestDaysAfterStart===expectedQueuedRest;
+   const validPlan=r.phase==='PLANNING'?r.day===0&&r.schedule.length===0&&!pending:
     r.schedule.length===5&&r.schedule.every(validAction)&&(r.phase==='ACTING'?r.day<5:r.day===5);
-   if(!validCharacter||!validStats||!validRest||!validPlan||!Number.isInteger(r.runNumber)||r.runNumber!==s.completedRunCount+1||typeof r.exhausted!=='boolean'||r.phase==='AWAITING_ENDING'&&r.week!==52)throw new Error('캐릭터·스탯·일정 데이터가 손상됐습니다.');
+   if(!validCharacter||!validStats||!validRest||!validPlan||!validPending||!Number.isInteger(r.runNumber)||r.runNumber!==s.completedRunCount+1||typeof r.exhausted!=='boolean'||r.phase==='AWAITING_ENDING'&&r.week!==52)throw new Error('캐릭터·스탯·일정 데이터가 손상됐습니다.');
   }
  });return p;
 }

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createProfile, startRun, setSchedule, applyAction, finishWeek, deleteSlot } from '../src/core/state.mjs';
+import { createProfile, startRun, setSchedule, finishWeek, deleteSlot } from '../src/core/state.mjs';
+import {runAction as applyAction} from './activity-helpers.mjs';
 import {createMinigameResult} from '../src/core/minigame-contract.mjs';
 
 const gameResult=(gameId,outcome,difficulty=1)=>createMinigameResult({gameId,locationId:'workshop',difficulty,seed:'state-test'},outcome,900,10);
@@ -33,16 +34,15 @@ test('five weekday results advance once and weekend is processed once', () => {
   assert.equal(p.slots[0].activeRun.stamina, 100);
   assert.throws(() => finishWeek(p,1));
 });
-test('quit does not consume a day and failures never deduct growth stats', () => {
+test('forfeiting a class resolves as failure and consumes its day', () => {
   const p=createProfile(); startRun(p,1,'CH01');
   setSchedule(p,1,['class','rest','rest','rest','rest']);
-  assert.equal(applyAction(p,1,'1:1:0',gameResult('rune-circuit','quit')),false);
-  assert.equal(p.slots[0].activeRun.day,0);
-  applyAction(p,1,'1:1:0',gameResult('rune-circuit','failure'));
-  assert.equal(p.slots[0].activeRun.stats.magic,50);
+  assert.equal(applyAction(p,1,'1:1:0',gameResult('rune-circuit','quit')),true);
   assert.equal(p.slots[0].activeRun.day,1);
+  assert.equal(p.slots[0].activeRun.stats.magic,50);
+  assert.equal(p.slots[0].activeRun.actionHistory[0].effect.outcome,'failure');
 });
-test('success, failure, great success and timeout use difficulty growth while only quit preserves the day',()=>{
+test('success, failure, great success and timeout use difficulty growth while class quit resolves as failure',()=>{
   const p=createProfile();startRun(p,1,'CH01');const run=p.slots[0].activeRun;
   run.stats.knowledge=201;run.stats.exploration=351;
   setSchedule(p,1,['rune-link','seal-dismantle','rune-link','rune-link','rest']);

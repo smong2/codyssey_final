@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PETS,activePet,effectiveStats,petCards} from '../src/core/pets.mjs';
-import {createProfile,startRun,setSchedule,applyAction} from '../src/core/state.mjs';
+import {createProfile,startRun,setSchedule} from '../src/core/state.mjs';
+import {runAction as applyAction} from './activity-helpers.mjs';
 import {createLocalRepository} from '../src/core/storage.mjs';
 test('pet master preserves names, bonuses and legacy unlocks; invalid selection falls back without editing save',()=>{
  assert.equal(PETS.length,10);assert.equal(PETS[0].name,'에든');assert.equal(PETS[9].name,'세렌');
