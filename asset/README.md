@@ -1,20 +1,20 @@
 # 이미지 자원 안내
 
-2026-10-12 기준 현재 GitHub main의 에셋 구성입니다. 각 폴더 README에서 파일 목록과 img 태그 미리보기를 확인합니다. 이미지 저장, 디자인 선택, 게임 구현·화면 검수는 서로 다른 상태입니다.
+2026-10-15 기준 로컬 `dev-jw` 브랜치의 에셋 구성입니다. 각 폴더 README에서 파일 목록과 img 태그 미리보기를 확인합니다. 이미지 저장, 디자인 선택, 게임 구현·화면 검수는 서로 다른 상태입니다.
 
 | 폴더 | 내용 | 현재 구분 |
 |---|---|---|
 | [character/](character/README.md) | 학생 전신 32장 + 상반신 표정 160장 + 엘리아 보정본 1장, 총 193장 | 베른은 별도 폴더; 게임 적용 검수 별도 |
 | [sd_character/](sd_character/README.md) | 기본 오픈 6명 × 8방향, PNG 48개 | 카엘 기존본 + 신규 5명; 256×256 프레임 3개/스트립, 최종 모션·게임 적용 검수 필요 |
 | [item/](item/README.md) | 아이템 20종, 조사 오브젝트와 상태 변형 | 개별 사용 장면·상태 확인 필요 |
-| [background/](background/README.md) | 장소 배경과 마이룸 시간대 변형, 총 15장 | 장소별 화면 적용 검수 필요 |
+| [background/](background/README.md) | 장소 배경 15장 + [새 마이룸 2종 × 3시간대](background/myroom/README.md) 6장, 총 21장 | 장소별 화면 적용 검수 필요 |
 | [environment/](environment/README.md) | 바닥·식물·구조물 등 환경 요소 | 배치·경계·가림 검수 필요 |
 | [puzzle/](puzzle/README.md) | 타일 바탕과 연결/회전 상태 그림 | 규칙·시각 상태 연결 검수 필요 |
 | [ui/](ui/README.md) | 카드·초대장·가방·기록·힌트·대화창·로고 등 | 로고 변형 선택, 화면 합성 검수 필요 |
 | [effect/](effect/README.md) | 룬 빛, 달빛 광휘 | 합성·동작 검수 필요 |
 | [bern/](bern/README.md) | 동물 형태 10종 | 기존 펫 분류를 베른으로 변경; 별도 pets 폴더 불필요 |
 | [badge/](badge/README.md) | 200×200 투명 PNG 41장 | 프레임 5 + 심볼 25 + 장식 8 + 상태 3; 하트 획득 표식 포함, 조립형 200개용 |
-| [map/](map/README.md) | 온실 직선·곡선 전체맵 2장 | 1920×1080; 충돌·가림 레이어 데이터 미포함 |
+| [map/](map/README.md) | 온실 전체맵 2장 + 별빛 천문대·대서고 전체맵 2장, 총 4장 | 새 장소맵 1672×941 원본; 충돌·가림 레이어 데이터 미포함 |
 | [screen/](screen/README.md) | 화면 흐름·마이룸 구성 참고 시안 10장 | 구현 화면이나 최종 채택과 구별 |
 | [font_files/](font_files/README.md) | WOFF2 9개, 룬 SVG 10개, 서체 미리보기 PNG 9장 | 폰트 자원; 타이포그래피도 이 분류에 포함 |
 | [typography/](typography/README.md) | 서체 방향 참고 PNG 5장 | 폰트 관련 시안. 기존 물리 경로 유지 |
