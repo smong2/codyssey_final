@@ -1,20 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createProfile,startRun,setSchedule,applyAction} from '../src/core/state.mjs';
+import {createMinigameResult} from '../src/core/minigame-contract.mjs';
 import {validateProfile} from '../src/core/storage.mjs';
 test('new class registry accepts seven games and applies only their designated stat',()=>{
  const p=createProfile();startRun(p,1,'CH01');
  setSchedule(p,1,['rune-link','excavation','training-guardian','rune-merge','mirror-magic']);
- assert.equal(applyAction(p,1,'1:1:0',{gameId:'rune-link',outcome:'success'}),true);
- assert.equal(p.slots[0].activeRun.stats.knowledge,53);
+ assert.equal(applyAction(p,1,'1:1:0',createMinigameResult({gameId:'rune-link',locationId:'library',difficulty:1,seed:'test'},'success',0,0)),true);
+ assert.equal(p.slots[0].activeRun.stats.knowledge,55);
  assert.equal(p.slots[0].activeRun.stats.magic,50);
- assert.throws(()=>applyAction(p,1,'1:1:1',{gameId:'rune-link',outcome:'success'}));
+ assert.throws(()=>applyAction(p,1,'1:1:1',createMinigameResult({gameId:'rune-link',locationId:'library',difficulty:1,seed:'test'},'success',0,0)));
  assert.equal(p.slots[0].activeRun.day,1);validateProfile(p);
 });
 test('seal and explicit rune schedules preserve quit and legacy compatibility',()=>{
  const p=createProfile();startRun(p,1,'CH01');
  setSchedule(p,1,['seal-dismantle','rune-circuit','rest','rest','class']);
- assert.equal(applyAction(p,1,'1:1:0',{gameId:'seal-dismantle',outcome:'quit'}),false);
+ assert.equal(applyAction(p,1,'1:1:0',createMinigameResult({gameId:'seal-dismantle',locationId:'plaza',difficulty:1,seed:'test'},'quit',0,0)),false);
  assert.equal(p.slots[0].activeRun.day,0);validateProfile(p);
 });
 test('calendar uses Sunday first and day365 with the approved temporary Arcadia era',async()=>{

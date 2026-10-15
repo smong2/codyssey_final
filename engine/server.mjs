@@ -3,7 +3,7 @@ import {readFile,stat,open} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=path.dirname(fileURLToPath(import.meta.url));
-const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff2':'font/woff2','.mp4':'video/mp4'};
+const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff2':'font/woff2','.mp4':'video/mp4','.mp3':'audio/mpeg'};
 export function createEngineServer(){
  return http.createServer(async(req,res)=>{
   try{
@@ -19,9 +19,12 @@ export function createEngineServer(){
    else if(/^\/design-assets\/(ui|effect|bern|map|font_files|item|badge)\/[\w.-]+\.(png|webp|svg|woff2)$/.test(pathname))file=path.join(root,'../asset',pathname.slice('/design-assets/'.length));
    else if(/^\/sd-assets\/SD03_(S|SW|W|NW|N|NE|E|SE)_strip\.png$/.test(pathname))file=path.join(root,'../prototype/assets',path.basename(pathname));
    else if(pathname==='/intro.mp4')file=path.join(root,'../prototype/assets/intro.mp4');
+   else if(['/audio-assets/bgm_title_intro.MP3','/audio-assets/bgm_title_main.mp3','/audio-assets/bgm_admission_invitation.mp3','/audio-assets/bgm_myroom.mp3'].includes(pathname))file=path.join(root,'../asset/audio/bgm',path.basename(pathname));
+   else if(['/audio-assets/sfx_button_click.mp3','/audio-assets/sfx_diary_open.mp3'].includes(pathname))file=path.join(root,'../asset/audio/sfx',path.basename(pathname));
    if(!file){res.writeHead(404).end();return;}
-   if(path.extname(file)==='.mp4'){
-    const {size}=await stat(file),headers={'Content-Type':'video/mp4','Accept-Ranges':'bytes','Cache-Control':'no-store'};
+   const extension=path.extname(file).toLowerCase();
+   if(extension==='.mp4'||extension==='.mp3'){
+    const {size}=await stat(file),headers={'Content-Type':types[extension],'Accept-Ranges':'bytes','Cache-Control':'no-store'};
     let start=0,end=size-1,status=200;
     if(req.headers.range){const match=/^bytes=(\d*)-(\d*)$/.exec(req.headers.range);if(!match||!match[1]&&!match[2]){res.writeHead(416,{'Content-Range':`bytes */${size}`}).end();return;}
      start=match[1]?Number(match[1]):Math.max(0,size-Number(match[2]));end=match[1]&&match[2]?Math.min(size-1,Number(match[2])):size-1;

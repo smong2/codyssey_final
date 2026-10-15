@@ -97,6 +97,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
 .text-button:hover,.text-button:active,.text-button:focus-visible{background:transparent!important;box-shadow:none!important;color:#80632e;transform:none;text-decoration:underline;text-underline-offset:5px}
 .title-actions .text-button:hover,.title-actions .text-button:focus-visible{color:#ffe3a0}
 .intro-skip{top:20px;right:24px;bottom:auto}
+.audio-toggle{position:absolute;top:20px;left:24px;z-index:8;display:grid;place-items:center;width:42px;height:42px;min-height:42px;padding:9px;border:0;border-radius:50%;background:#15151599!important;color:#fff!important;box-shadow:none}
+.audio-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.audio-toggle:hover,.audio-toggle:active{background:#15151599!important;color:#fff!important;transform:none}
+.title-enter .title-actions,.title-enter>.title-replay{animation-duration:var(--title-buttons-duration,1.3s);animation-delay:var(--title-buttons-delay,2.7s)}
 #notice{top:auto!important;bottom:calc(94px + env(safe-area-inset-bottom));z-index:80;max-width:min(720px,calc(100vw - 36px));font-size:13px}
 #notice.toast-visible{animation:toastFade var(--notice-duration,3000ms) both}
 @keyframes toastFade{0%{opacity:0;translate:0 8px}10%,82%{opacity:1;translate:0 0}100%{opacity:0;translate:0 -3px}}
@@ -189,6 +193,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
 .empty-item{max-width:340px;grid-column:1/-1;margin:auto}
 @media(max-width:700px){
  .intro-skip{top:12px;right:12px}
+ .intro-page>.audio-toggle,.title-page>.audio-toggle{top:12px;left:12px}
  #notice{top:auto!important;bottom:calc(90px + env(safe-area-inset-bottom));font-size:12px}
  .character-catalogue{grid-template-columns:1fr;gap:12px}
  .character-grid{gap:8px}.character-card-select img{height:160px}
@@ -233,6 +238,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
 .title-enter .gold-particles{animation:subtitleLightIn 1.5s 2.4s both}
 .title-enter .logo-group::before{animation:subtitleLightIn 1.5s 2.4s both}
 .title-enter .logo-group::after{animation:bgIn 1.5s 2.4s both}
+.title-enter.title-skip-enter .logo-group{animation-delay:-2.4s}
+.title-enter.title-skip-enter::before,.title-enter.title-skip-enter .logo-glow,.title-enter.title-skip-enter .logo-subtitle,.title-enter.title-skip-enter .logo-decoration,.title-enter.title-skip-enter .gold-particles,.title-enter.title-skip-enter .logo-group::before,.title-enter.title-skip-enter .logo-group::after{animation-delay:0s}
+.title-enter.title-skip-enter .title-actions,.title-enter.title-skip-enter>.title-replay{animation-delay:.3s}
 @keyframes logoLightIn{from{opacity:0}to{opacity:var(--logo-glow-opacity)}}
 @keyframes subtitleLightIn{from{opacity:0}to{opacity:1}}
 @keyframes subtitleReveal{from{opacity:0;transform:translateY(-48px)}to{opacity:1;transform:translateY(0)}}
@@ -287,9 +295,9 @@ button:active:not(:disabled){scale:.97}
 .character-detail-panel>button{margin-top:auto}
 .character-select-back{position:absolute;top:20px;left:24px;z-index:6;background:#15151599!important}
 .text-button,.text-button:hover,.text-button:focus-visible,.intro-skip{border:0!important}
-.title-page>.title-replay{position:absolute;top:20px;left:24px;right:auto;z-index:6;width:auto;background:#15151599!important;color:white!important;font-size:14px;min-height:0;padding:3px 18px}
-.title-enter>.title-replay{animation:buttonsIn 1.3s 2.7s both}
-@media(max-width:700px){.title-page>.title-replay{top:12px;left:12px}}
+.title-page>.title-replay{position:absolute;top:20px;left:76px;right:auto;z-index:6;width:auto;background:#15151599!important;color:white!important;font-size:14px;min-height:0;padding:3px 18px}
+.title-enter>.title-replay{animation:buttonsIn var(--title-buttons-duration,1.3s) var(--title-buttons-delay,2.7s) both}
+@media(max-width:700px){.title-page>.title-replay{top:12px;left:60px}}
 .card-plus{display:grid;place-items:center;line-height:1;font-size:0!important}
 .card-plus::before,.card-plus::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:currentColor;pointer-events:none;border-radius:1px}
 .card-plus::before{width:11px;height:1.5px}.card-plus::after{width:1.5px;height:11px}
@@ -338,15 +346,26 @@ button:active:not(:disabled){scale:.97}
 .schedule-layout .chosen-activity{margin:0;padding:5px;font-size:12px}
 .schedule-footer{margin:8px 0;gap:10px}.schedule-footer p{margin:0}
 @media(orientation:landscape) and (max-height:500px){
- #shell.schedule-page{padding:10px 12px!important}
+ #shell.schedule-page{padding:10px 12px!important;display:flex;flex-direction:column;justify-content:center;gap:4px}
  .schedule-page>h1{font-size:20px!important}.schedule-instruction{font-size:12px;margin:3px 0 6px}
- .schedule-layout{height:calc(100dvh - 112px);gap:10px}
- .schedule-layout>.calendar,.schedule-layout>.activity-panel{padding:8px}
+ .schedule-title-frame,.schedule-layout,.schedule-footer{width:min(92vw,1120px);align-self:center}
+ .schedule-layout{height:calc(100dvh - 142px);min-height:190px;max-width:1120px;grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);gap:8px}
+ .schedule-layout>.calendar,.schedule-layout>.activity-panel{padding:6px}
  .schedule-layout .calendar-heading .month-button{min-height:0;padding:2px 4px;font-size:10px}
  .schedule-layout .calendar-heading h2{font-size:12px}
- .schedule-layout .calendar>p{font-size:11px;margin:3px 0}
+ .schedule-layout .calendar>p{font-size:11px;margin:1px 0}
  .schedule-layout .calendar>.text-button{font-size:10px;padding:1px 8px!important}
- .schedule-layout .activity-cards{margin:5px 0}
+ .schedule-layout .activity-panel h2{font-size:15px}
+ .schedule-layout .activity-tabs{gap:5px}
+ .schedule-layout .activity-tabs button{font-size:11px;min-height:26px;padding:2px 5px}
+ .schedule-layout .activity-cards{gap:5px;margin:4px 0;padding:2px}
+ .schedule-layout .activity-card{grid-template-columns:54px minmax(0,1fr);gap:5px;min-height:66px;padding:6px;font-size:12px}
+ .schedule-layout .activity-card strong{font-size:12px}
+ .schedule-layout .activity-card small{font-size:10px}
+ .schedule-layout .activity-image-slot{width:52px;height:48px;font-size:22px}
+ .schedule-layout .chosen-activity{font-size:10px;padding:4px}
+ .schedule-footer{margin:2px 0;gap:6px}
+ .schedule-footer button,.schedule-footer p{font-size:11px;padding:3px 8px;min-height:0}
  .room-page.menu-open::before,.room-page.menu-open>.room-actors,.room-page.menu-open>.room-bottom{transform:translateX(-40px)!important}
 }
 @media(max-width:700px){.book-page p{font-size:14px}.book-page small{font-size:12px}.dialogue-preview-box{left:4%;right:4%;padding:14px}.dialogue-preview-student,.dialogue-preview-npc{height:40dvh;bottom:220px}.dialogue-preview-student{left:3%}.dialogue-preview-npc{right:3%}}
@@ -388,7 +407,12 @@ button:active:not(:disabled){scale:.97}
 .schedule-title-frame{max-width:1200px;margin:0 auto 8px;padding:4px 12px;color:var(--ink);box-sizing:border-box}
 .schedule-title-frame>h1{font-size:24px;margin:0}.schedule-title-frame .schedule-instruction{margin:3px 0}
 .schedule-page .schedule-layout{height:min(600px,calc(100dvh - 164px))}
-@media(orientation:landscape) and (max-height:500px){.schedule-title-frame{padding:3px 10px;margin-bottom:6px}.schedule-title-frame>h1{font-size:18px}.schedule-title-frame .schedule-instruction{font-size:11px;margin:1px 0}.schedule-page .schedule-layout{height:calc(100dvh - 126px)}}
+@media(orientation:landscape) and (max-height:500px){.schedule-title-frame{padding:3px 10px;margin-bottom:6px}.schedule-title-frame>h1{font-size:18px}.schedule-title-frame .schedule-instruction{font-size:11px;margin:1px 0}}
+@media (min-width:1000px) and (min-height:700px){
+ #shell.schedule-page{display:flex;flex-direction:column;justify-content:center;gap:8px}
+ .schedule-title-frame,.schedule-page .schedule-layout,.schedule-page .schedule-footer{width:min(100%,1160px);align-self:center}
+ .schedule-page .schedule-layout{height:min(600px,66dvh)}
+}
 .profile-stats>h1{margin:0 0 12px;font-size:24px}
 .profile-info .selection-profile{grid-template-columns:100px minmax(0,1fr)}
 .profile-info .selection-profile dd{margin:0;overflow-wrap:anywhere}
@@ -429,11 +453,19 @@ button:active:not(:disabled){scale:.97}
 .schedule-layout .outside-month .date-number{color:#827b6e;background:#e5ddcd}
 .schedule-layout .date-cell.outside-month{background:#e5ddcd;cursor:pointer}
 .schedule-layout .date-cell.current-week.outside-month{background:#e5ddcd}
-.schedule-layout .outside-month .calendar-activity-image{filter:grayscale(1);opacity:.35}
+.schedule-layout .outside-month:not(.current-week) .calendar-activity-image{filter:grayscale(1);opacity:.35}
 .schedule-layout .past-activity .calendar-activity-image{filter:grayscale(1);opacity:.6}
 #shell.profile-page{overflow:hidden;padding:24px!important}
 .profile-page>.preview-label{display:none}
 .profile-page>.profile-layout{grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,1.2fr);gap:16px;align-items:stretch;height:calc(100dvh - 48px);min-height:0}
 .profile-layout>.profile-stats,.profile-layout>.profile-info{grid-column:auto;height:100%;min-height:0;box-sizing:border-box;overflow:auto}
 .profile-layout>.profile-character{grid-column:auto;height:100%;min-height:0;object-fit:contain}
+.sound-settings{display:grid;gap:10px;min-width:min(320px,70vw)}
 @media(orientation:landscape) and (max-height:500px){#shell.profile-page{padding:12px!important}.profile-page>.profile-layout{height:calc(100dvh - 24px);gap:8px;grid-template-columns:minmax(0,1fr) minmax(0,.7fr) minmax(0,1.3fr)}.profile-layout>.profile-stats,.profile-layout>.profile-info{padding:12px}.profile-stats>h1{font-size:20px;margin-bottom:6px}.profile-stats h2,.profile-info h2{font-size:17px;margin:6px 0}.profile-stat{margin:8px 0;gap:3px;font-size:12px}.profile-stat progress{height:8px}.profile-info .selection-profile{grid-template-columns:1fr}.profile-info .selection-profile dd{font-size:12px;line-height:1.4;margin-bottom:5px}}
+.black-dissolve{position:fixed;inset:0;z-index:99999;background:#000;opacity:0;pointer-events:none;transition:opacity .9s ease}
+.black-dissolve-active{opacity:1}
+@media(prefers-reduced-motion:reduce){.black-dissolve{transition:none}}
+.intro-page>.audio-toggle,.title-page>.audio-toggle{position:fixed;top:auto;right:24px;bottom:24px;left:auto;z-index:20}
+.title-page>.title-replay{top:20px;left:24px;right:auto}
+.sound-settings button{width:100%;text-align:left}
+@media(max-width:700px){.intro-page>.audio-toggle,.title-page>.audio-toggle{top:auto;right:12px;bottom:12px;left:auto}.title-page>.title-replay{top:12px;left:12px;right:auto}}
