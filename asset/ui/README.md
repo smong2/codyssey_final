@@ -1,18 +1,6 @@
 # UI 이미지
 
-확정 로고 파일을 포함하면 이 폴더의 PNG/SVG는 41개입니다. 배경·프레임·아이콘·로고는 동적 텍스트나 실제 UI 동작과 구분합니다. 최종 사용 로고는 `lumia_logo_final_034.png`로 확정되었습니다. 기존 신비 로고 1안·5안은 이전 시안으로 보존하며, 실제 화면 합성·게임 적용 검수는 별도입니다. 새 이미지의 추가·삭제·교체 시 이 표를 갱신하세요.
-
-## 시작 버튼 6종
-
-첨부된 버튼의 이중 금색 테두리와 양끝 별 장식을 기준으로 만든 고정 문구 시안입니다. 세 문구는 각각 진한 녹색·연한 녹색으로 준비했습니다. 모두 1600×500px 투명 PNG이며, 보이는 버튼 외곽은 동일하게 1360×386px입니다. 가장 긴 ‘새로 시작하기’에 프레임 가로폭을 맞춰 다른 문구에도 같은 크기를 사용합니다.
-
-‘학술형 세리프’는 완성된 설치형 폰트가 아닌 레터링 이미지 시안이므로, 버튼 글자는 해당 시안의 인상을 참고해 이미지에 포함한 것입니다. 문구 변경이나 다국어 적용이 필요한 실제 UI에서는 버튼 배경과 동적 텍스트를 분리해 구현해야 합니다.
-
-| 문구 | 진한 녹색 | 연한 녹색 |
-|---|---|---|
-| 시작하기 | [`button_start_dark_035.png`](button_start_dark_035.png)<br><img src="button_start_dark_035.png" width="260" alt="시작하기 진한 녹색 버튼"> | [`button_start_light_036.png`](button_start_light_036.png)<br><img src="button_start_light_036.png" width="260" alt="시작하기 연한 녹색 버튼"> |
-| 새로 시작하기 | [`button_new_start_dark_037.png`](button_new_start_dark_037.png)<br><img src="button_new_start_dark_037.png" width="260" alt="새로 시작하기 진한 녹색 버튼"> | [`button_new_start_light_038.png`](button_new_start_light_038.png)<br><img src="button_new_start_light_038.png" width="260" alt="새로 시작하기 연한 녹색 버튼"> |
-| 이어서 하기 | [`button_continue_dark_039.png`](button_continue_dark_039.png)<br><img src="button_continue_dark_039.png" width="260" alt="이어서 하기 진한 녹색 버튼"> | [`button_continue_light_040.png`](button_continue_light_040.png)<br><img src="button_continue_light_040.png" width="260" alt="이어서 하기 연한 녹색 버튼"> |
+확정 로고 파일을 포함하면 이 폴더의 PNG/SVG는 35개입니다. 배경·프레임·아이콘·로고는 동적 텍스트나 실제 UI 동작과 구분합니다. 최종 사용 로고는 `lumia_logo_final_034.png`로 확정되었습니다. 기존 신비 로고 1안·5안은 이전 시안으로 보존하며, 실제 화면 합성·게임 적용 검수는 별도입니다. 새 이미지의 추가·삭제·교체 시 이 표를 갱신하세요.
 
 ## 추가 자원 설명
 
