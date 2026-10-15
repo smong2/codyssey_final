@@ -21,6 +21,7 @@
 7. [07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md](07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md) — Phaser 3 미니게임 독립 데모의 과거 구현·플레이테스트 참고 사양
 8. [08_ACCOUNT_POLICY.md](08_ACCOUNT_POLICY.md) — Email/Password 가입·인증, 최소 개인정보, 계정 관리·탈퇴 정책
 9. [09_TITLE_ACCOUNT_UI.md](09_TITLE_ACCOUNT_UI.md) — WBS 4.4 로그인·이메일 인증·이어 하기 5슬롯·게임 내 계정 화면 계약
+10. [10_COMMON_ENGINE_FRAME.md](10_COMMON_ENGINE_FRAME.md) — WBS 4.1 공통 HUD·마이룸·주간 연속 진행·모험 지도·공통 오류/취소 계약
 
 독립 상위 개념은 `01_`, `02_`처럼 파일로 유지하고, 상세 문서가 여러 개 생기는 도메인은 `03_COLLECTION_UNLOCKS/`처럼 폴더로 분리합니다. 폴더 안에서는 `README.md`를 상위 개요로 두고 상세 문서는 `01_`, `02_` 순번을 사용합니다.
 

@@ -185,12 +185,96 @@
   ],
   "trackedFiles": [
     {
-      "path": "README.md",
-      "sha256": "eef18c5a5f93ab668dc15723e7406f0f9bd5aa62898457d31c184b80cbae405c"
-    },
-    {
       "path": "AGENTS.md",
       "sha256": "9f2ee154d13e40b53534c95fd574167c9175a86ddf7ae0b6bc100a30c1b03a31"
+    },
+    {
+      "path": "asset/background/README.md",
+      "sha256": "25bdbe794f1e32c225dbf492078d7b895c34ccab9660e3ea8ddcbfd7f7e296e9"
+    },
+    {
+      "path": "asset/badge/README.md",
+      "sha256": "4a1dfa12fd7a202f1156ea0dced78ea3c36ad3bf47ba63cee1a31a738e722c8c"
+    },
+    {
+      "path": "asset/bern/README.md",
+      "sha256": "9494bc54fb2c1ebf5bd7e798191e17b58c73d44410d5ba7f59cd24c16585cc62"
+    },
+    {
+      "path": "asset/character/README.md",
+      "sha256": "c77cd18cee1556baa475d6b6f1bd8e1d90e36fbb5e43f4f65d22fcbd399799c1"
+    },
+    {
+      "path": "asset/effect/README.md",
+      "sha256": "f9326bc28b328340edc3c3e84f693ed171ac1c2788afb8035f7db6ea19569641"
+    },
+    {
+      "path": "asset/environment/README.md",
+      "sha256": "2a6d563e04d6b8efc0a408615c973feacb5356d2ae8d69c79fcc95443478b78a"
+    },
+    {
+      "path": "asset/font_files/licenses/README.md",
+      "sha256": "c145651ad95bc47b9e89eb46b342ae4fbae886b4680a534edcd6ff17c17a5a1c"
+    },
+    {
+      "path": "asset/font_files/originals/README.md",
+      "sha256": "546cf96754ef502ecc0c3bcb74eb9505764f63300d69e7849c31e6a350fe7a9a"
+    },
+    {
+      "path": "asset/font_files/README.md",
+      "sha256": "9ccb8259afce42fc5bcdd9e6d404b6d635226cceaedc20bd846ba64d37062fdd"
+    },
+    {
+      "path": "asset/item/README.md",
+      "sha256": "c920000d13d1fc2a41da4046e6980de2cc7f2cb702dc549bdd40f82fe3ce4fa4"
+    },
+    {
+      "path": "asset/map/README.md",
+      "sha256": "5a9192faecb62301f623208cdcfcc9481e1fad468eda3001dd33218167d11942"
+    },
+    {
+      "path": "asset/puzzle/README.md",
+      "sha256": "ff80b7142a2de75dce4e3f12a60ed28af723dc9a24e85e7a0d939242b095e228"
+    },
+    {
+      "path": "asset/README.md",
+      "sha256": "64eeae8ffeb7846a354427a8c85b70d786e7de43d6659f621a88375114a054b4"
+    },
+    {
+      "path": "asset/screen/README.md",
+      "sha256": "97f21441a4139d934288c9658c4e9ec6e051f60d9334d118952097105b4fb2ac"
+    },
+    {
+      "path": "asset/sd_character/README.md",
+      "sha256": "412a088519f71b76857ed52119823822d035b7c568cee8ddd3e411e6e7ecc1a9"
+    },
+    {
+      "path": "asset/stat/README.md",
+      "sha256": "910744974cb7cc16e17afd48e7ab4a70bb1cc705adcf0a3b4274a40bde3d05d6"
+    },
+    {
+      "path": "asset/typography/README.md",
+      "sha256": "52818a03b8b3867bd6fe037dc750dacf6903de9958bcc0e976fce9c53b0493c4"
+    },
+    {
+      "path": "asset/ui/README.md",
+      "sha256": "62c9152f006d9c3e80c2feb8c836ab3e46de3b77c81079a437c7ec32fb9a243e"
+    },
+    {
+      "path": "backend/admin/README.md",
+      "sha256": "b992a0c13a7f9f769f4cfbb4bc95d34b72da9f6ad6dd1c6d9d02d34ba0b35228"
+    },
+    {
+      "path": "backend/api/README.md",
+      "sha256": "ddac9b33f12b30dcb62cae818d506c90a55d7c6936981bebfcda749bae1ea9e1"
+    },
+    {
+      "path": "backend/database/README.md",
+      "sha256": "bf7d190684fa1d06d73f3548fc3b954092dc1f2789f69e7045735f4aef0949f1"
+    },
+    {
+      "path": "backend/README.md",
+      "sha256": "9dfc94fceef4cbacf9e482e278f7ce59e185344e10a76c30aa9e06e3d4d5724c"
     },
     {
       "path": "document/00_README.md",
@@ -218,83 +302,7 @@
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "6cb54cc5e330f7361d9144e59633ade0a60d9412c0dce03d8a4b6d52cbc5b29e"
-    },
-    {
-      "path": "document/content/README.md",
-      "sha256": "19f47133d09182ca87491d8ce307bf5973dda7a984dfa3a41daa31d06c86d34e"
-    },
-    {
-      "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "77af8c564b6ea707db5e5f0f5fa665dc5e45df0a35ad01a1e801f926e7b860c7"
-    },
-    {
-      "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
-      "sha256": "848c223e43183d04fa15cba1e39d44f92fec86cbd55cb466078e20ef36a19457"
-    },
-    {
-      "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "e4659c82159be64ca75ce20c3a8d058e53fd06f7e6bfd741fd0215e8cd57161e"
-    },
-    {
-      "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
-      "sha256": "230394dfcdfca866c9c296080e26b93c10c7222960e2cce1da1c8438ef7ecd48"
-    },
-    {
-      "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "4bcfaf7c97baa132bb69143d913030b2768f27020a977411db1b10adab9dbd9f"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
-      "sha256": "536cebe231b7b53c592fc4ed854068717edb330a78c6b2a38796ec7b1e82b763"
-    },
-    {
-      "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "b025d79c0fe109b7178eea93ccbd096107cb53099616da88b81cef3d21d2d810"
-    },
-    {
-      "path": "document/content/05_OPEN_DECISIONS.md",
-      "sha256": "d9260deeb1074eff8dd6967a86e25142c4da22b97e3ebc0d060a03a673c2b044"
-    },
-    {
-      "path": "document/content/06_CLASSES_MINIGAMES.md",
-      "sha256": "d3e1f068bdcab091a748894b8416d7489f2be9848d7b5b8c529f7b1e72c29709"
-    },
-    {
-      "path": "document/content/06_01_LOCATION_ACTIVITIES.md",
-      "sha256": "7233823c578423e794bdf12ecc39e0f3985235c0abd2aa1cfbe0afb73116bdb6"
-    },
-    {
-      "path": "document/content/07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md",
-      "sha256": "1e17c79d6fb495b635a8db0c15909a074b68b17e7b687bc70399c310ff342e0b"
-    },
-    {
-      "path": "document/content/08_ACCOUNT_POLICY.md",
-      "sha256": "cc0719ae3369a6dd876f5e664cda409e892be0ad30e778af7633fcfa343f8ac2"
-    },
-    {
-      "path": "document/content/09_TITLE_ACCOUNT_UI.md",
-      "sha256": "03471fd431f50b7907484bad9eca1a5695751b22344339c6b71c4beeda551738"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
-      "sha256": "4d161654f229fc51c15cb3e3d392e8a22d1a8a826b84f13c2566ce607ebc75dc"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md",
-      "sha256": "91610bb26cc8f7a12cef9e65985f42a0bf80bc36b1550deaff869a44c339b4b1"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
-      "sha256": "63c1693238f93d80dbb0d9f7c14b7c4d4b8be3d2da3f6cf092679075c7b329d9"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
-      "sha256": "080bdc481d5b2e614392513160e6fd87a63ead0c7706e9c6fa08a565bcefb4f4"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md",
-      "sha256": "7665391efe78e603cae191969d27abcafa7c8182bdee893006b757d15546ee52"
+      "sha256": "b5fdd1e837071873c52a0910ff787d0ba238b4f10ae3c13d8961879a5c77673d"
     },
     {
       "path": "document/07_AI_WORK_GUIDE.md",
@@ -321,80 +329,112 @@
       "sha256": "67a5bc8b05bb3200ea025b927c3193838f335ba49f6447872c31c33b45561ac0"
     },
     {
+      "path": "document/content/01_CORE_LOOP.md",
+      "sha256": "106b25bc18272edf31627dba9c700dbb40f23a2c6192c97566e36ffc0244e409"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
+      "sha256": "a1efd278e2c59da9d41351694295d703a5dfdd5e9283701e5f67adad70afec13"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
+      "sha256": "230394dfcdfca866c9c296080e26b93c10c7222960e2cce1da1c8438ef7ecd48"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
+      "sha256": "4bcfaf7c97baa132bb69143d913030b2768f27020a977411db1b10adab9dbd9f"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
+      "sha256": "848c223e43183d04fa15cba1e39d44f92fec86cbd55cb466078e20ef36a19457"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
+      "sha256": "4d161654f229fc51c15cb3e3d392e8a22d1a8a826b84f13c2566ce607ebc75dc"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md",
+      "sha256": "91610bb26cc8f7a12cef9e65985f42a0bf80bc36b1550deaff869a44c339b4b1"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
+      "sha256": "63c1693238f93d80dbb0d9f7c14b7c4d4b8be3d2da3f6cf092679075c7b329d9"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
+      "sha256": "080bdc481d5b2e614392513160e6fd87a63ead0c7706e9c6fa08a565bcefb4f4"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md",
+      "sha256": "fad14d09d719e5df470b3faa16a849e1624dc34ea58fba8bae5046b893f22555"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
+      "sha256": "536cebe231b7b53c592fc4ed854068717edb330a78c6b2a38796ec7b1e82b763"
+    },
+    {
+      "path": "document/content/04_SAVE_META_PROGRESSION.md",
+      "sha256": "cbc0664549b6dd483cf21f903b82aaeb8166eb7d7d727aafe90cb3db428b9f01"
+    },
+    {
+      "path": "document/content/05_OPEN_DECISIONS.md",
+      "sha256": "d9260deeb1074eff8dd6967a86e25142c4da22b97e3ebc0d060a03a673c2b044"
+    },
+    {
+      "path": "document/content/06_01_LOCATION_ACTIVITIES.md",
+      "sha256": "7233823c578423e794bdf12ecc39e0f3985235c0abd2aa1cfbe0afb73116bdb6"
+    },
+    {
+      "path": "document/content/06_CLASSES_MINIGAMES.md",
+      "sha256": "d3e1f068bdcab091a748894b8416d7489f2be9848d7b5b8c529f7b1e72c29709"
+    },
+    {
+      "path": "document/content/07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md",
+      "sha256": "1e17c79d6fb495b635a8db0c15909a074b68b17e7b687bc70399c310ff342e0b"
+    },
+    {
+      "path": "document/content/08_ACCOUNT_POLICY.md",
+      "sha256": "cc0719ae3369a6dd876f5e664cda409e892be0ad30e778af7633fcfa343f8ac2"
+    },
+    {
+      "path": "document/content/09_TITLE_ACCOUNT_UI.md",
+      "sha256": "3b20ec52328972a41b2ec738f502dffaea2be89c08486fe4706ce3c399977771"
+    },
+    {
+      "path": "document/content/10_COMMON_ENGINE_FRAME.md",
+      "sha256": "8f76d562ddbcf1453a08ca08466d8757fd147e7d32026c016541a37d0a3a40d6"
+    },
+    {
+      "path": "document/content/README.md",
+      "sha256": "122ee26d693044a828c18aba9b25d2fb5e046c3e9170ae128498f0d9cfdbb863"
+    },
+    {
       "path": "document/실행방법.md",
-      "sha256": "c2471d9bd54666d7bd6bc7fb04339ff30528734cc3497a4ede9f1a0057e66104"
-    },
-    {
-      "path": "asset/README.md",
-      "sha256": "64eeae8ffeb7846a354427a8c85b70d786e7de43d6659f621a88375114a054b4"
-    },
-    {
-      "path": "asset/background/README.md",
-      "sha256": "18de4030c3181d4a16f6989079a49b9130578095ce8b3733a184bb6a2201a80d"
-    },
-    {
-      "path": "asset/bern/README.md",
-      "sha256": "9494bc54fb2c1ebf5bd7e798191e17b58c73d44410d5ba7f59cd24c16585cc62"
-    },
-    {
-      "path": "asset/character/README.md",
-      "sha256": "c77cd18cee1556baa475d6b6f1bd8e1d90e36fbb5e43f4f65d22fcbd399799c1"
-    },
-    {
-      "path": "asset/effect/README.md",
-      "sha256": "f9326bc28b328340edc3c3e84f693ed171ac1c2788afb8035f7db6ea19569641"
-    },
-    {
-      "path": "asset/environment/README.md",
-      "sha256": "525fc662167b9435f3a16e4abcbecdafa56c795cf20fb73e8037ad8208ac28dd"
-    },
-    {
-      "path": "asset/font_files/README.md",
-      "sha256": "9ccb8259afce42fc5bcdd9e6d404b6d635226cceaedc20bd846ba64d37062fdd"
-    },
-    {
-      "path": "asset/font_files/licenses/README.md",
-      "sha256": "c145651ad95bc47b9e89eb46b342ae4fbae886b4680a534edcd6ff17c17a5a1c"
-    },
-    {
-      "path": "asset/font_files/originals/README.md",
-      "sha256": "546cf96754ef502ecc0c3bcb74eb9505764f63300d69e7849c31e6a350fe7a9a"
-    },
-    {
-      "path": "asset/item/README.md",
-      "sha256": "5b475fa9dd0af0a8222ac9c16416514c761831de54506f59134b049d10d35705"
-    },
-    {
-      "path": "asset/puzzle/README.md",
-      "sha256": "dd993ded6f854ed0a1e1208e0999f5532248a62c042782417e2e0e525eb52ba8"
-    },
-    {
-      "path": "asset/ui/README.md",
-      "sha256": "62c9152f006d9c3e80c2feb8c836ab3e46de3b77c81079a437c7ec32fb9a243e"
-    },
-    {
-      "path": "asset/typography/README.md",
-      "sha256": "52818a03b8b3867bd6fe037dc750dacf6903de9958bcc0e976fce9c53b0493c4"
-    },
-    {
-      "path": "engine/README.md",
-      "sha256": "879e302f1e5bece9ef72a16acfff5c655f724695dae1c3a458d8324e561d2243"
+      "sha256": "a73fb5154f3cd51012ea0fa09505ad60540fafaa58efa63ef4c0d45e9a376bbf"
     },
     {
       "path": "engine/minigame-demo/README.md",
-      "sha256": "0457d1d3002c874492f3e7783d9582685007a775ef57618e36fa7fd3958d2c63"
+      "sha256": "808f759c12e41b07d39046afa91a49f34aae58a9661b25dda0057f86e83281b4"
     },
     {
-      "path": "story/README.md",
-      "sha256": "94bc141f4eb28e93ea1b381624e50ff65eaef5357296848d57be17e9277a31c9"
-    },
-    {
-      "path": "backend/README.md",
-      "sha256": "9dfc94fceef4cbacf9e482e278f7ce59e185344e10a76c30aa9e06e3d4d5724c"
+      "path": "engine/README.md",
+      "sha256": "3ddd193ed5cd5b5a456512436707bbf4de05b23275829597448c8d3b181b80de"
     },
     {
       "path": "lumia/README.md",
       "sha256": "98c2a92d24656947189bd23f9b20097305a20b815ba952fd614f9b883020beb0"
+    },
+    {
+      "path": "README.md",
+      "sha256": "eef18c5a5f93ab668dc15723e7406f0f9bd5aa62898457d31c184b80cbae405c"
+    },
+    {
+      "path": "story/ending/README.md",
+      "sha256": "a8210469e6de9d8eaef56841f0d4a4cc1c64793a28ba31d225be241e8e746728"
+    },
+    {
+      "path": "story/location/README.md",
+      "sha256": "2254f7095cebfed169712f59fb3d4e0bca7ba1d8291c4fd92a7d426aa0bd4e50"
     },
     {
       "path": "story/main/README.md",
@@ -405,33 +445,17 @@
       "sha256": "638ec8138d96be8b0555ea44e496f102cab8fc7aa46bc40a7a0c5fbeed5d6017"
     },
     {
-      "path": "story/location/README.md",
-      "sha256": "2254f7095cebfed169712f59fb3d4e0bca7ba1d8291c4fd92a7d426aa0bd4e50"
+      "path": "story/README.md",
+      "sha256": "94bc141f4eb28e93ea1b381624e50ff65eaef5357296848d57be17e9277a31c9"
     },
     {
       "path": "story/sub/README.md",
       "sha256": "d40743ac48b3f2bf41e3b528a077334ca3f867e08bd92beff5ae17116237d55b"
-    },
-    {
-      "path": "story/ending/README.md",
-      "sha256": "a8210469e6de9d8eaef56841f0d4a4cc1c64793a28ba31d225be241e8e746728"
-    },
-    {
-      "path": "backend/api/README.md",
-      "sha256": "ddac9b33f12b30dcb62cae818d506c90a55d7c6936981bebfcda749bae1ea9e1"
-    },
-    {
-      "path": "backend/database/README.md",
-      "sha256": "ed53325c315a23eaa4e2726cc6ffc24edbada7c362982d8c0f8ec01dea7f6382"
-    },
-    {
-      "path": "backend/admin/README.md",
-      "sha256": "b992a0c13a7f9f769f4cfbb4bc95d34b72da9f6ad6dd1c6d9d02d34ba0b35228"
     }
   ],
   "assetInventory": {
     "path": "asset",
-    "sha256": "b24f2cf3c84a8009786ac88dee6fc621f5c91f24fd7a0e9b5691da34678fcb21",
+    "sha256": "6cef583cc298422c891c732d24846a97418a1f0d4a2e226b9ca056f939be41da",
     "ai": [
       "document_for_ai/04_ASSETS.md"
     ]

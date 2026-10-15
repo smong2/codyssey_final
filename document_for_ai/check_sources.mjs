@@ -186,7 +186,17 @@ async function validateAssetReadmes(assetRoot) {
     const localPreviewPattern = /(?:src=|\]\()(["']?\.\/[^"')\s>]+)["']?/g;
     for (const match of readme.matchAll(localPreviewPattern)) {
       const referenced = match[1].replace(/^['"]|['"]$/g, '').replace(/^\.\//, '');
-      if (!files.includes(referenced)) {
+      // README 미리보기는 카테고리 하위의 originals/, licenses/, previews/
+      // 같은 중첩 디렉터리를 가리킬 수 있다. 즉시 자식 파일 목록(files)만
+      // 비교하면 실제 파일이 있어도 존재하지 않는 것으로 오인한다.
+      try {
+        const referencedPath = path.resolve(categoryPath, referenced);
+        const categoryRoot = `${path.resolve(categoryPath)}${path.sep}`;
+        if (!referencedPath.startsWith(categoryRoot) || !(await stat(referencedPath)).isFile()) {
+          assetReadmeIssues.push(`${entry.name}/README.md → 존재하지 않는 로컬 파일 참조: ${referenced}`);
+        }
+      } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
         assetReadmeIssues.push(`${entry.name}/README.md → 존재하지 않는 로컬 파일 참조: ${referenced}`);
       }
     }
