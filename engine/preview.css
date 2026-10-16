@@ -454,12 +454,25 @@ button:active:not(:disabled){scale:.97}
 .schedule-layout .calendar>.text-button{margin-top:12px;flex-shrink:0}
 .schedule-layout .date-cell{border:1px solid #c4b89d;background:#f4ecd9}
 .schedule-layout .date-cell.current-week{border:2px solid #e8907c;background:#f6dfd6}
+.schedule-layout .date-cell.selected-schedule-day{outline:3px solid #718b58;outline-offset:-4px}
 .schedule-layout .date-cell:disabled{opacity:1}
 .schedule-layout .outside-month .date-number{color:#827b6e;background:#e5ddcd}
 .schedule-layout .date-cell.outside-month{background:#e5ddcd;cursor:pointer}
 .schedule-layout .date-cell.current-week.outside-month{background:#e5ddcd}
 .schedule-layout .outside-month:not(.current-week) .calendar-activity-image{filter:grayscale(1);opacity:.35}
 .schedule-layout .past-activity .calendar-activity-image{filter:grayscale(1);opacity:.6}
+#shell.weekly-summary-page{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;overflow:auto;padding:20px!important;background:linear-gradient(#17261f70,#17261f70),url('./world-assets/BG03_myroom2_day_1920x1080_023.png') center/cover!important}
+.weekly-summary-page>h1{margin:0;color:#fff7e4;text-shadow:0 2px 5px #17261f}
+.weekly-summary-page>.weekly-summary{width:min(760px,100%);max-height:calc(100dvh - 100px);box-sizing:border-box;overflow:auto;padding:clamp(16px,3vw,28px);color:var(--ink)}
+.weekly-summary-kicker,.weekly-summary-count{text-align:center;margin:0 0 12px;color:#64745b}
+.weekly-summary-section{padding:10px 0;border-top:1px solid #b7955566}
+.weekly-summary-section h2{font-size:18px;margin:0 0 7px}
+.weekly-summary-section>p,.weekly-summary-section li{margin:5px 0;font-size:15px}
+.weekly-summary-section>p:has(span){display:flex;justify-content:space-between}
+.weekly-summary-section ul{list-style:none;margin:4px 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 18px}
+.weekly-summary-empty,.weekly-summary-error{text-align:center;line-height:1.7}
+.weekly-summary-continue{display:block;margin:14px auto 0;min-width:170px}
+@media(max-width:640px){#shell.weekly-summary-page{padding:12px!important}.weekly-summary-page>.weekly-summary{max-height:calc(100dvh - 74px);padding:14px}.weekly-summary-section{padding:7px 0}.weekly-summary-section h2{font-size:16px}.weekly-summary-section>p,.weekly-summary-section li{font-size:13px}}
 #shell.profile-page{overflow:hidden;padding:24px!important}
 .profile-page>.preview-label{display:none}
 .profile-page>.profile-layout{grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,1.2fr);gap:16px;align-items:stretch;height:calc(100dvh - 48px);min-height:0}
@@ -474,3 +487,32 @@ button:active:not(:disabled){scale:.97}
 .title-page>.title-replay{top:20px;left:24px;right:auto}
 .sound-settings button{width:100%;text-align:left}
 @media(max-width:700px){.intro-page>.audio-toggle,.title-page>.audio-toggle{top:auto;right:12px;bottom:12px;left:auto}.title-page>.title-replay{top:12px;left:12px;right:auto}}
+
+/* Direct adventure mission preview; all three places currently share the greenhouse art. */
+#shell.adventure-page{position:fixed;inset:0;width:100vw;height:100dvh;min-height:0!important;max-width:none;padding:0!important;overflow:hidden;background:#000!important;color:#fff7dd}
+.adventure-viewport{position:absolute;inset:0;overflow:hidden}
+.adventure-viewport canvas{display:block}
+.adventure-hud{position:absolute;z-index:5;top:12px;left:50%;transform:translateX(-50%);width:min(820px,calc(100% - 24px));box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background-color:#f8efdde8;color:var(--ink)}
+.adventure-hud strong{font-size:17px}.adventure-hud>span{font-size:15px;white-space:nowrap}.adventure-hud>span:nth-of-type(1){font-variant-numeric:tabular-nums;font-weight:700}.adventure-hud button{min-height:34px;padding:5px 12px;white-space:nowrap}
+.adventure-hint{position:absolute;z-index:5;top:76px;left:50%;transform:translateX(-50%);margin:0;padding:8px 14px;border-radius:8px;background:#14251de0;color:#fff4d8;text-align:center;pointer-events:none}
+.adventure-pad{position:absolute;z-index:5;left:18px;bottom:18px;display:grid;grid-template-columns:repeat(3,48px);grid-template-rows:repeat(2,48px);gap:5px}
+.adventure-pad button{width:48px;height:48px;min-height:0;padding:0;background:#f6efd9df;touch-action:none}.adventure-pad button:first-child{grid-column:2;grid-row:1}.adventure-pad button:nth-child(2){grid-column:1;grid-row:2}.adventure-pad button:nth-child(3){grid-column:2;grid-row:2}.adventure-pad button:nth-child(4){grid-column:3;grid-row:2}
+.adventure-investigate{position:absolute;z-index:5;right:22px;bottom:24px;min-width:116px;min-height:54px;font-size:17px;font-weight:700}
+.adventure-result-overlay{position:fixed;inset:0;z-index:30;display:grid;place-items:center;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;border:0;background:#14251d88;padding:16px;box-sizing:border-box}.adventure-result-overlay::backdrop{background:transparent}.adventure-result{box-sizing:border-box;width:min(540px,92vw);max-height:90dvh;overflow:auto;padding:clamp(18px,4vw,36px);text-align:center;color:var(--ink);box-shadow:0 12px 48px #071c1855}.adventure-result h2{font-size:clamp(25px,4vw,38px);margin:4px 0 12px}.adventure-result p{margin:10px 0;font-size:clamp(15px,2vw,20px)}.adventure-result-symbol{font-size:clamp(30px,6vh,56px);color:#ad8744;line-height:1}.adventure-result-effect{font-family:'Lumia Gothic','Malgun Gothic',sans-serif;font-size:clamp(12px,1.7vw,16px)!important}.adventure-result-next{min-width:150px;margin-top:16px}@media(orientation:landscape) and (max-height:420px){.adventure-result{padding:16px 24px}.adventure-result p{margin:7px 0}.adventure-result-next{margin-top:10px}}
+.adventure-conversation-dialog{width:min(760px,92vw);max-height:94dvh;box-sizing:border-box;padding:42px 24px 18px;overflow:auto}.adventure-conversation-dialog>h2{display:none}.adventure-conversation{display:grid;text-align:center;gap:8px}.adventure-conversation .npc-portrait-stage{height:clamp(100px,32dvh,300px);width:100%}.adventure-conversation h3,.adventure-conversation p{margin:0}.adventure-conversation .story-top-controls{position:static;display:flex;justify-content:space-between}.adventure-conversation .dialogue-text{font-size:clamp(14px,2vw,20px)}.location-story-art{display:grid;place-items:center;color:#f4e4ba;font-size:clamp(60px,12vh,140px);min-height:0}
+.adventure-briefing{position:absolute;z-index:8;left:50%;top:50%;transform:translate(-50%,-50%);width:min(680px,calc(100% - 28px));max-height:calc(100dvh - 40px);box-sizing:border-box;overflow:auto;padding:clamp(16px,3vw,28px);background-color:#f8efddef;color:var(--ink)}
+.adventure-briefing h2{margin:0 0 8px;font-size:clamp(21px,3vw,29px)}.adventure-briefing>p{margin:8px 0 16px}.adventure-briefing>small{display:block;margin:12px 0;opacity:.75}
+.adventure-clue-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:9px}.adventure-clue{display:grid;gap:4px;text-align:left;min-height:64px;padding:10px 13px;background:#fbf6e8;border-color:#c5ad7e}.adventure-clue.selected{border:2px solid #738c57;background:#eaf0dc}.adventure-clue span{font-size:14px}.adventure-clue small{font-size:12px;color:#597153}
+.adventure-briefing-actions{display:flex;justify-content:flex-end;margin-top:16px}.adventure-briefing-actions button{min-width:150px}
+@media(max-width:700px){.adventure-hud{top:8px;gap:7px;padding:7px 9px;flex-wrap:wrap;justify-content:center}.adventure-hud strong{width:100%;text-align:center;font-size:14px}.adventure-hud>span{font-size:12px}.adventure-hud button{min-height:30px;font-size:12px;padding:4px 8px}.adventure-hint{top:83px;max-width:calc(100% - 24px);font-size:12px}.adventure-pad{left:10px;bottom:10px;grid-template-columns:repeat(3,42px);grid-template-rows:repeat(2,42px);gap:3px}.adventure-pad button{width:42px;height:42px}.adventure-investigate{right:12px;bottom:16px;min-width:92px;min-height:46px;font-size:14px}.adventure-briefing{max-height:calc(100dvh - 20px);padding:16px}.adventure-clue{min-height:52px;padding:7px 9px}}
+/* Engine work: explicit date details, special trade form and unregistered story frames. */
+.schedule-date-detail{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 12px;margin:8px 0 2px;padding:9px 12px;border:1px solid var(--gold);border-radius:8px;background:#fff9e7cc;color:var(--ink)}
+.schedule-date-detail p{grid-column:1;margin:0;font-size:13px}
+.schedule-date-detail .actions{grid-column:2;grid-row:1 / span 2;display:flex;gap:6px}
+.schedule-date-detail button{min-height:30px;padding:4px 10px;font-size:12px}
+.fairy-trade-form{display:grid;grid-template-columns:1fr;gap:8px;min-width:min(360px,75vw)}
+.fairy-trade-form select{min-height:38px;padding:6px 10px;border:1px solid var(--gold);border-radius:6px;background:#fff9e8;color:var(--ink);font:inherit}
+.main-story-unregistered{margin:auto;max-width:760px;text-align:center}
+.ending-continue{display:block;margin:18px auto 0;min-width:150px}
+.ending-placeholder{max-width:60ch;margin-inline:auto;line-height:1.8}
+@media(max-width:650px){.schedule-date-detail{grid-template-columns:1fr}.schedule-date-detail p,.schedule-date-detail .actions{grid-column:1;grid-row:auto}.schedule-date-detail .actions{justify-content:flex-end}}
