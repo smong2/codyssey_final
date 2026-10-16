@@ -116,7 +116,7 @@ function renderTitle(animated=false,overlayVideo=null,audioEntry='direct'){
  for(const [i,region]of revealRegions.entries()){goldMask.append(svgNode('rect',{...region,fill:'black'}));(i===0?subtitleClip:decorationClip).append(svgNode('rect',region));}defs.append(goldMask,subtitleClip,decorationClip);
  logo.append(defs);
  logo.append(svgNode('image',{href:asset('ui','LG01_lumia_logo_final.png'),width:1774,height:887,mask:'url(#title-gold-mask)',class:'logo-wordmark'}),svgNode('image',{href:asset('ui','LG01_lumia_logo_final.png'),width:1774,height:887,'clip-path':'url(#title-decoration-clip)',class:'logo-decoration'}),svgNode('image',{href:asset('ui','LG01_lumia_logo_final.png'),width:1774,height:887,'clip-path':'url(#title-subtitle-clip)',class:'logo-subtitle'}));
- wrap.append(img('effect','lumia_logo_glow_003.png','','logo-glow'),logo);
+ wrap.append(img('effect','FX02_lumia_logo_glow.png','','logo-glow'),logo);
  const particles=el('div',null,'gold-particles');particles.setAttribute('aria-hidden','true');for(let i=0;i<24;i++){const p=el('i');p.style.cssText=`--x:${18+(i*29)%66}%;--y:${10+(i*17)%58}%;--delay:${-(i%8)}s;--size:${1+i%3}px`;particles.append(p);}wrap.append(particles);
  const actions=el('div',null,'title-actions');if(!profile){actions.append(el('p','저장 데이터를 읽지 못했습니다. 기존 데이터를 보존했습니다.'));}else{
  const m=titleModel(profile),start=btn(m.startLabel,renderEmptySlots);start.disabled=saveFailed;actions.append(start);if(m.continueVisible)actions.append(btn('이어서 하기',renderSlots,'quiet'));if(m.startDisabled)actions.append(el('p','5개 슬롯이 모두 사용 중입니다.'));

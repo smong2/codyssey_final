@@ -9,14 +9,14 @@
 | [배경](../asset/background/) | 학원 장소와 마이룸 | [유리 온실](../asset/background/BG07_glass_greenhouse_1920x1080_016.png) | 실제 화면 크롭·배치 검수 |
 | [퍼즐](../asset/puzzle/) | 타일 바탕, 연결/회전 상태 | [퍼즐 바탕](../asset/puzzle/PZ01_puzzle_tile_base_000.png) | 상태와 규칙 연결, 상호작용 가독성 |
 | [UI](../asset/ui/) | 카드, 초대장, 가방, 기록, 힌트, 대화창, 로고 및 바닥·식물·구조물·전경 이미지 | [입학 초대장](../asset/ui/UI07_admission_invitation_004.png), [온실 아치](../asset/ui/UI20_environment_arch1_greenhouse.png) | 텍스트는 동적 표시; 환경 이미지의 반복·경계·가림·접지 검수 필요 |
-| [효과](../asset/effect/) | 룬 발광, 달빛 광휘 | [룬 빛](../asset/effect/FX01_shared_rune_light_000.png) | 합성, 애니메이션, 밝기 검수 |
+| [효과](../asset/effect/) | 공통 룬 발광과 타이틀 로고 빛무리 | [룬 빛](../asset/effect/FX01_shared_rune_light.png), [로고 빛무리](../asset/effect/FX02_lumia_logo_glow.png) | 합성, 애니메이션, 밝기 검수 |
 
 ## 구분이 필요한 파일
 
 - [엘리아 원본](../asset/character/CH10_elia_009.png)과 [1024×1536 보정본](../asset/character/CH10_elia_1024x1536_038.png)은 둘 다 보존했습니다. 실제 사용본 선택은 미정입니다.
 - [`asset/bern/`](../asset/bern/)은 물리 폴더명만 과거 이름을 유지하는 **본편 펫 자원 폴더**입니다. 내부의 부엉이·여우·토끼·수달·강아지·고양이·레서판다·다람쥐·고슴도치·아기사슴 10종을 각각 `PET01~PET10`에 1:1로 사용합니다. 데모의 단일 캐릭터 `베른` 설정은 본편에서 사용하지 않습니다. 상세 매핑은 [펫 시스템](content/03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md)을 따릅니다.
 - 조사 오브젝트의 상태·버전은 파일명으로 구분했습니다. 예를 들어 [시든 식물](../asset/item/OBJ01_inspect_plant_wilted_020.png), [회복 식물](../asset/item/OBJ02_inspect_plant_restored_021.png), [회복 식물 변형](../asset/item/OBJ02_inspect_plant_restored_v2_022.png)입니다. 어느 회복 그림을 적용할지는 미정입니다.
-- [로고 1안](../asset/ui/LG02_lumia_logo_mystic_01.png)과 [로고 5안](../asset/ui/LG03_lumia_logo_mystic_05.png)은 모두 보존했습니다. [달빛 광휘](../asset/effect/lumia_moonlight_sparkle_002.svg)는 1안과의 조합을 기준으로 제작되었고 다른 조합은 검토가 필요합니다.
+- [로고 1안](../asset/ui/LG02_lumia_logo_mystic_01.png)과 [로고 5안](../asset/ui/LG03_lumia_logo_mystic_05.png)은 모두 보존했습니다. 현재 타이틀은 [확정 로고](../asset/ui/LG01_lumia_logo_final.png)와 [전용 빛무리](../asset/effect/FX02_lumia_logo_glow.png)를 사용합니다.
 - 지도 콘셉트·화면 시안·상태창·원본·후보 이미지는 현재 작업용 폴더에 없습니다. 존재·선정 상태를 이 문서만으로 단정하지 마세요.
 
 ## 자원 추가·교체 시

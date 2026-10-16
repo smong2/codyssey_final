@@ -217,7 +217,7 @@
     },
     {
       "path": "asset/effect/README.md",
-      "sha256": "f9326bc28b328340edc3c3e84f693ed171ac1c2788afb8035f7db6ea19569641"
+      "sha256": "37c84690f163fdfa8c0f744ac833512005c431247604c29f602d0c6b504369fe"
     },
     {
       "path": "asset/font_files/README.md",
@@ -237,7 +237,7 @@
     },
     {
       "path": "asset/README.md",
-      "sha256": "04d51f3499c4e592e869fc0af979a5fe332046f590cecf7e7090a05dfb81b5e1"
+      "sha256": "517c8f815c682bce01d84143fa8c8b2872e247fb41854205f725586a20cf80d8"
     },
     {
       "path": "asset/screen/README.md",
@@ -289,7 +289,7 @@
     },
     {
       "path": "document/04_ASSETS.md",
-      "sha256": "64c1af3b3ab6fceaf7b7e1b48e40b54af99644c26af4db6bfdaf70c63b9e3fd2"
+      "sha256": "fdc30ecabb6072fa7b85db91399a8682707f4f9cd863dc24d33cded6bd813ecd"
     },
     {
       "path": "document/05_TEAM_ROLES.md",
@@ -421,7 +421,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "2c5b279fecb45586d53be783b170fa95977d60f66621131a88e530eab865a0be"
+      "sha256": "3b7d12b2ac79d894e7e6a1c383cf37d25175ee25b8b7c8a215d887e847f5d8f9"
     },
     {
       "path": "lumia/README.md",
@@ -462,7 +462,7 @@
   ],
   "assetInventory": {
     "path": "asset",
-    "sha256": "fd45587c20a9b18559a8eed09a7efe84c3dd90667355441e15a2f0b179ac2546",
+    "sha256": "24d28570eda943764f72b1628760cb0be4d15c7dd7fa93faf7c8e3fb813d92d2",
     "ai": [
       "document_for_ai/04_ASSETS.md"
     ]
