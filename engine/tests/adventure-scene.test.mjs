@@ -49,3 +49,6 @@ test('investigation exposes its busy state and preserves an overlapping dialogue
  scene.update(0,1000);assert.equal(scene.remainingMs,120000);
  view.pause(false);assert.equal(states.at(-1).paused,false);
 });
+test('an unlocked student without delivered SD art fails safely before starting Phaser',()=>{
+ const states=[];const view=mountAdventure({}, {characterId:'CH03',onState:state=>states.push(state)});assert.match(states[0].error,/SD 이미지/);assert.equal(view.start(),false);view.destroy();
+});

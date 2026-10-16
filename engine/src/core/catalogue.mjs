@@ -582,5 +582,5 @@ export const STUDENT_UNLOCK_HINTS=Object.freeze({
  CH17:'배지 ‘약속은 지켜야지’ 5/8 달성',CH18:'배지 ‘차근차근 생각해’ 5/8 달성',CH19:'배지 ‘친구가 생겼어’ 5/8 달성',CH20:'배지 ‘끝까지 들어볼게’ 5/8 달성',CH21:'배지 ‘미니게임 챔피언’ 5/8 달성',CH22:'배지 ‘몸이 먼저!’ 5/8 달성',CH23:'배지 ‘마이룸이 좋아’ 5/8 달성',CH24:'배지 ‘같이 하면 쉬워’ 5/8 달성',CH25:'배지 ‘혼자서도 척척’ 5/8 달성',CH26:'배지 ‘퍼즐 조각 착착’ 5/8 달성',CH27:'배지 ‘솔직하게 말해봐’ 5/8 달성',CH28:'배지 ‘오늘도 탐험!’ 5/8 달성',CH29:'배지 ‘용기 한 스푼’ 5/8 달성',CH30:'배지 ‘여기 뭐가 있지?’ 5/8 달성',
  CH13:'첫 52주 회차 완료',CH14:'서로 다른 정규 직업 엔딩 3개 확인',CH32:'서로 다른 정규 직업 엔딩 10개 확인'
 });
-export function studentCards(meta,context='selection'){return STUDENTS.map(c=>{const unlocked=(meta.unlockedCharacters??[]).includes(c.id);return {...c,unlocked,selectable:unlocked&&c.basic,muted:!unlocked,unlockHint:STUDENT_UNLOCK_HINTS[c.id]??null};});}
+export function studentCards(meta,context='selection'){return STUDENTS.map(c=>{const unlocked=(meta.unlockedCharacters??[]).includes(c.id);return {...c,unlocked,selectable:unlocked,muted:!unlocked,unlockHint:STUDENT_UNLOCK_HINTS[c.id]??null};});}
 export {petCards} from './pets.mjs';

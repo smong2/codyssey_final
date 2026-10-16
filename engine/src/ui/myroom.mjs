@@ -76,7 +76,7 @@ export function createMyroomUI(ctx){
   layout.append(calendar,activities);shell.append(layout,footer);close();
  }
  function weeklySummary(){
-  const r=current(),week=r.pendingWeekSummaryWeek;if(!Number.isInteger(week)){schedule();return;}const summary=createWeeklySummary(r.actionHistory,week,r.mainStory?.history??[]),final=week===52;
+  const r=current(),week=r.pendingWeekSummaryWeek;if(!Number.isInteger(week)){schedule();return;}const summary=createWeeklySummary(r.actionHistory,week,[...(r.mainStory?.history??[]),...(r.narrativeState?.history??[])]),final=week===52;
   heading(final?'52주차 주간 요약':'지난주 주간 요약','weekly-summary-page');const frame=el('section',null,'paper weekly-summary');frame.append(el('p',week+'주차 · '+(final?'회차 마지막 주':'활동 기록 요약'),'weekly-summary-kicker'));
   if(!summary.activityCount)frame.append(el('p','이 주의 상세 활동 기록을 확인할 수 없습니다. 기록을 새로 만들지 않고 저장된 내용만 표시합니다.','weekly-summary-empty'));
   else{

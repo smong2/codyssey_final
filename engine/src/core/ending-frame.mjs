@@ -1,4 +1,9 @@
 import {classOf} from './classes.mjs';
+export const ENDING_RECORD_LABELS={classes:'수업',adventures:'모험',npcMeetings:'NPC 만남',minigamesCleared:'미니게임 클리어',npcStoriesCompleted:'NPC 개별 스토리 완료',locationsDiscovered:'장소 발견',specialItemDiscoveries:'특별 발견',importantChoices:'중요 선택'};
+export function displayedEndingRecords(record){
+ const rows=record.playRecords??record.records??[];
+ return Object.keys(ENDING_RECORD_LABELS).map(key=>rows.find(row=>row.key===key)).filter(row=>row&&Number.isSafeInteger(row.value)&&row.value>=0).slice(0,6);
+}
 
 export function endingSnapshot(run,character){
  const history=run.actionHistory;
@@ -14,6 +19,8 @@ export function validateEndingView(value,{slotId,runNumber}){
  const letter=value.letter;
  if(!letter||!['pending','ready','failed'].includes(letter.status))throw new Error('편지 상태를 확인할 수 없습니다.');
  if(letter.status==='ready'&&(letter.validated!==true||letter.careerId!==value.career.id||!['ai','fallback'].includes(letter.source)||['future','reflection','encouragement'].some(k=>typeof letter.sections?.[k]!=='string'||!letter.sections[k].trim())))throw new Error('검증된 직업·편지 정보가 필요합니다.');
+ if(value.playRecords!==undefined&&(!Array.isArray(value.playRecords)||value.playRecords.length<4||value.playRecords.length>6||new Set(value.playRecords.map(r=>r?.key)).size!==value.playRecords.length||value.playRecords.some(r=>!Object.hasOwn(ENDING_RECORD_LABELS,r?.key)||!Number.isSafeInteger(r.value)||r.value<0)))throw new Error('실제 엔딩 기록 4~6개가 필요합니다.');
+ if(value.newUnlocks!==undefined&&(!Array.isArray(value.newUnlocks)||new Set(value.newUnlocks.map(item=>item?.kind+':'+item?.id)).size!==value.newUnlocks.length||value.newUnlocks.some(item=>!['character','pet','badge','background'].includes(item?.kind)||typeof item.id!=='string'||!item.id.trim())))throw new Error('신규 해금 요약 정보가 올바르지 않습니다.');
  return structuredClone(value);
 }
 

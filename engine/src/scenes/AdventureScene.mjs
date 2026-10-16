@@ -9,6 +9,10 @@ export const ADVENTURE_VIEW={speed:360,displaySize:256,footY:218/256};
 export const FOREGROUND_MODE='always-foreground';
 
 export function mountAdventure(host,{startData,map,characterId='CH01',npcs=[],onEncounter=()=>{},onReady,onState,onFinish}){
+ try{sdCharacterStrip(characterId,'S');}catch{
+  onState({error:'선택한 학생의 모험용 SD 이미지가 아직 등록되지 않았습니다. 다른 학생 이미지로 대체하지 않습니다.'});
+  return {start:()=>false,pause(){},track(){},direction(){},investigate:()=>false,destroy(){}};
+ }
  class AdventureScene extends Phaser.Scene{
   constructor(){super('adventure');this.debug=false;this.pad={x:0,y:0};this.active=false;this.paused=false;this.overlayPaused=false;this.investigating=false;this.remainingMs=0;this.lastPublishedSecond=null;this.investigationCount=0;this.foundIds=[];this.trackedId=null;this.destroyed=false;}
   preload(){
