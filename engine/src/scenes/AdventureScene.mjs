@@ -1,5 +1,5 @@
 import {canWalk,moveFoot} from '../core/collision.mjs';
-import {createPreviewObjectives,investigateObjective,reachableSafeCandidates,ADVENTURE_GEOMETRY} from '../core/adventure-mission.mjs';
+import {createPreviewObjectives,investigateObjective,reachableSafeRoutes,ADVENTURE_GEOMETRY} from '../core/adventure-mission.mjs';
 import {SD_DIRECTIONS,sdCharacterStrip} from '../core/sd-characters.mjs';
 import {ADVENTURE_NPC_ENCOUNTER_RADIUS,takeAdventureEncounter} from './adventure-encounters.mjs';
 
@@ -8,23 +8,30 @@ export const ADVENTURE_VIEW={speed:360,displaySize:256,footY:218/256};
 // User-approved temporary mode; per-object sort-line/zone data remains pending.
 export const FOREGROUND_MODE='always-foreground';
 
-export function midRouteEncounterPoints(candidates,spawn,objectives,count){
+export function midRouteEncounterPoints(routes,spawn,count,{forbiddenZones=[],wallClearance=ADVENTURE_GEOMETRY.footRadius}={}){
  const selected=[],separation=ADVENTURE_NPC_ENCOUNTER_RADIUS*2+24;
- const targets=[...objectives].sort((a,b)=>Math.hypot(a.x-spawn.x,a.y-spawn.y)-Math.hypot(b.x-spawn.x,b.y-spawn.y));
- for(let index=0;index<Math.min(count,targets.length);index++){
-  const target=targets[index],dx=target.x-spawn.x,dy=target.y-spawn.y,lengthSquared=dx*dx+dy*dy;
-  if(!lengthSquared)continue;
+ const paths=routes.filter(route=>route.length>1).map(route=>{
+  let length=0;const samples=route.map((point,index)=>{if(index)length+=Math.hypot(point.x-route[index-1].x,point.y-route[index-1].y);return{point,distance:length};});
+  return{samples,length,target:route.at(-1)};
+ }).filter(path=>path.length>0).sort((a,b)=>a.length-b.length);
+ for(let index=0;index<count&&paths.length;index++){
   const desiredProgress=index===0?0.4:0.55;
-  const point=candidates.map(candidate=>{
-   const progress=((candidate.x-spawn.x)*dx+(candidate.y-spawn.y)*dy)/lengthSquared;
-   const crossTrack=Math.abs((candidate.x-spawn.x)*dy-(candidate.y-spawn.y)*dx)/Math.sqrt(lengthSquared);
-   return{candidate,progress,crossTrack};
-  }).filter(({candidate,progress})=>progress>=0.32&&progress<=0.65&&
-   Math.hypot(candidate.x-spawn.x)>ADVENTURE_NPC_ENCOUNTER_RADIUS*2&&
-   Math.hypot(candidate.x-target.x,candidate.y-target.y)>ADVENTURE_GEOMETRY.investigationRadius&&
-   selected.every(other=>Math.hypot(candidate.x-other.x,candidate.y-other.y)>=separation))
-   .sort((a,b)=>Math.abs(a.progress-desiredProgress)-Math.abs(b.progress-desiredProgress)||a.crossTrack-b.crossTrack)[0];
-  if(point)selected.push(point.candidate);
+  let chosen;
+  // Prefer the early-middle route. Short routes may need a later point outside spawn range.
+  for(const fallback of [false,true]){
+   for(let offset=0;offset<paths.length;offset++){
+    const path=paths[(index+offset)%paths.length];
+    chosen=path.samples.filter(({point,distance})=>distance/path.length>=0.32&&(fallback||distance/path.length<=0.65)&&
+     Math.hypot(point.x-spawn.x,point.y-spawn.y)>(fallback?ADVENTURE_NPC_ENCOUNTER_RADIUS+ADVENTURE_GEOMETRY.footRadius:ADVENTURE_NPC_ENCOUNTER_RADIUS*2)&&
+     (fallback||Math.hypot(point.x-path.target.x,point.y-path.target.y)>ADVENTURE_GEOMETRY.investigationRadius)&&
+     !forbiddenZones.some(zone=>point.x>=zone.x-wallClearance&&point.x<=zone.x+zone.width+wallClearance&&point.y>=zone.y-wallClearance&&point.y<=zone.y+zone.height+wallClearance)&&
+     selected.every(other=>Math.hypot(point.x-other.x,point.y-other.y)>=separation))
+     .sort((a,b)=>Math.abs(a.distance/path.length-desiredProgress)-Math.abs(b.distance/path.length-desiredProgress))[0]?.point;
+    if(chosen)break;
+   }
+   if(chosen)break;
+  }
+  if(chosen)selected.push({x:chosen.x,y:chosen.y});
  }
  return selected;
 }
@@ -58,8 +65,8 @@ export function mountAdventure(host,{startData,map,characterId='CH01',npcs=[],on
    this.footShadow=this.add.container(map.spawn.x,map.spawn.y+2).setDepth(9);
    for(const [width,height,alpha] of [[46,14,0.035],[38,11,0.05],[28,8,0.08]])this.footShadow.add(this.add.ellipse(0,0,width*2,height*2,0x40372e,alpha));
    this.player=this.add.sprite(map.spawn.x,map.spawn.y,'walk-S',1).setOrigin(0.5,ADVENTURE_VIEW.footY).setDisplaySize(ADVENTURE_VIEW.displaySize,ADVENTURE_VIEW.displaySize).setDepth(10);
-   const npcCandidates=npcs.length?reachableSafeCandidates(this.mask,map.spawn,map.placement):[];
-   const npcPoints=midRouteEncounterPoints(npcCandidates,map.spawn,this.objectives,npcs.length);
+   const npcRoutes=npcs.length?reachableSafeRoutes(this.mask,map.spawn,this.objectives,map.placement):[];
+   const npcPoints=midRouteEncounterPoints(npcRoutes,map.spawn,npcs.length,map.placement);
    this.npcEncounters=npcs.flatMap((npc,index)=>npcPoints[index]?[{npc,point:npcPoints[index],triggered:false}]:[]);
    for(const d of ['S','SW','W','NW','N','NE','E','SE'])this.anims.create({key:'walking-'+d,frames:[0,1,2,1].map(frame=>({key:'walk-'+d,frame})),frameRate:7,repeat:-1});
    this.keys=this.input.keyboard.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT');this.input.keyboard.addCapture(['W','A','S','D','UP','DOWN','LEFT','RIGHT']);
