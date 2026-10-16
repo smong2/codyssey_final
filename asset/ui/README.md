@@ -1,6 +1,6 @@
 # UI 이미지 목록 (`asset/ui/`)
 
-GitHub `dev-jw` 기준 이미지 **56개**(PNG 44개, SVG 10개, JPG 2개)와 이 README를 정리했습니다. 각 파일명은 원본에 연결되고, 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
+GitHub `dev-jw` 기준 이미지 **45개**(PNG 43개, JPG 2개)와 이 README를 정리했습니다. 각 파일명은 원본에 연결되고, 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
 
 파일이 존재한다는 사실만으로 게임 적용·최종 승인·동작 검수가 끝난 것은 아닙니다. 이름에 `final`이 있는 기존 파일의 상태도 별도 기획·검수 기준을 따릅니다.
 
@@ -27,17 +27,6 @@ GitHub `dev-jw` 기준 이미지 **56개**(PNG 44개, SVG 10개, JPG 2개)와 �
 
 | 파일 | 설명 | 원본 크기 | 미리보기 |
 |---|---|---:|---|
-| [player_status_frame_015.png](./player_status_frame_015.png) | 플레이어 상태창 프레임 | 512×192 | <img src="./player_status_frame_015.png" width="220" alt="플레이어 상태창 프레임"> |
-| [title_layout_dialogue_title_layout_024.svg](./title_layout_dialogue_title_layout_024.svg) | 대화 제목 배치 시안 D01 | 벡터 (0 0 1280 320) | <img src="./title_layout_dialogue_title_layout_024.svg" width="140" alt="대화 제목 배치 시안 D01"> |
-| [title_layout_dialogue_title_layout_025.svg](./title_layout_dialogue_title_layout_025.svg) | 대화 제목 배치 시안 D02 | 벡터 (0 0 1280 320) | <img src="./title_layout_dialogue_title_layout_025.svg" width="140" alt="대화 제목 배치 시안 D02"> |
-| [title_layout_dialogue_title_layout_026.svg](./title_layout_dialogue_title_layout_026.svg) | 대화 제목 배치 시안 D03 | 벡터 (0 0 1280 320) | <img src="./title_layout_dialogue_title_layout_026.svg" width="140" alt="대화 제목 배치 시안 D03"> |
-| [title_layout_dialogue_title_layout_027.svg](./title_layout_dialogue_title_layout_027.svg) | 대화 제목 배치 시안 D04 | 벡터 (0 0 1280 320) | <img src="./title_layout_dialogue_title_layout_027.svg" width="140" alt="대화 제목 배치 시안 D04"> |
-| [title_layout_dialogue_title_layout_028.svg](./title_layout_dialogue_title_layout_028.svg) | 대화 제목 배치 시안 D05 | 벡터 (0 0 1280 320) | <img src="./title_layout_dialogue_title_layout_028.svg" width="140" alt="대화 제목 배치 시안 D05"> |
-| [title_layout_reference_title_layout_029.svg](./title_layout_reference_title_layout_029.svg) | 참조 카드 제목 배치 시안 R01 | 벡터 (0 0 384 448) | <img src="./title_layout_reference_title_layout_029.svg" width="140" alt="참조 카드 제목 배치 시안 R01"> |
-| [title_layout_reference_title_layout_030.svg](./title_layout_reference_title_layout_030.svg) | 참조 카드 제목 배치 시안 R02 | 벡터 (0 0 384 448) | <img src="./title_layout_reference_title_layout_030.svg" width="140" alt="참조 카드 제목 배치 시안 R02"> |
-| [title_layout_reference_title_layout_031.svg](./title_layout_reference_title_layout_031.svg) | 참조 카드 제목 배치 시안 R03 | 벡터 (0 0 384 448) | <img src="./title_layout_reference_title_layout_031.svg" width="140" alt="참조 카드 제목 배치 시안 R03"> |
-| [title_layout_reference_title_layout_032.svg](./title_layout_reference_title_layout_032.svg) | 참조 카드 제목 배치 시안 R04 | 벡터 (0 0 384 448) | <img src="./title_layout_reference_title_layout_032.svg" width="140" alt="참조 카드 제목 배치 시안 R04"> |
-| [title_layout_reference_title_layout_033.svg](./title_layout_reference_title_layout_033.svg) | 참조 카드 제목 배치 시안 R05 | 벡터 (0 0 384 448) | <img src="./title_layout_reference_title_layout_033.svg" width="140" alt="참조 카드 제목 배치 시안 R05"> |
 | [UI01_parchment_tile_000.png](./UI01_parchment_tile_000.png) | 양피지 질감 타일 | 512×512 | <img src="./UI01_parchment_tile_000.png" width="150" alt="양피지 질감 타일"> |
 | [UI01_parchment_tile_source_008.png](./UI01_parchment_tile_source_008.png) | 양피지 질감 타일 생성 원본 | 1254×1254 | <img src="./UI01_parchment_tile_source_008.png" width="150" alt="양피지 질감 타일 생성 원본"> |
 | [UI02_frame_corner_001.png](./UI02_frame_corner_001.png) | UI 프레임 모서리 재료 | 192×192 | <img src="./UI02_frame_corner_001.png" width="150" alt="UI 프레임 모서리 재료"> |

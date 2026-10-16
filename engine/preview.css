@@ -150,9 +150,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
 .room-date-stack{max-width:min(270px,calc(100% - 36px));gap:10px}
 .room-profile-card{position:relative;width:250px;height:82px;padding:0;background:none!important;border:0;box-shadow:none;text-align:left}
 .mini-profile-frame{position:absolute;inset:0;width:100%;height:100%;z-index:2}
-.mini-profile-face{position:absolute;left:5%;top:22%;width:20%;height:61%;border-radius:50%;overflow:hidden;background:#233645;z-index:1}
+.mini-profile-face{position:absolute;left:5%;top:22%;width:20%;height:61%;border-radius:50%;overflow:hidden;background:#233645;z-index:3}
 .mini-profile-face img{position:absolute;width:100%;height:230%;object-fit:cover;object-position:center top;top:-8%;left:0}
-.mini-profile-copy{position:absolute;left:30%;right:5%;top:28%;color:#fff2cf;z-index:3;display:grid;gap:4px;font-size:14px}
+.mini-profile-copy{position:absolute;left:30%;right:5%;top:28%;color:#fff2cf;z-index:4;display:grid;gap:4px;font-size:14px}
 .mini-profile-copy small{font-size:11px}
 .room-main-character{height:calc(96dvh * var(--actor-scale,1));bottom:calc(-12vh - var(--actor-drop,0vh))}
 .room-page{transition:background-position .3s}
