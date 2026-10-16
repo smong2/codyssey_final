@@ -12,11 +12,12 @@ export function createEngineServer(){
    let file;
    if(pathname==='/'||pathname==='/index.html')file=path.join(root,'index.html');
    else if(pathname==='/style.css'||pathname==='/preview.css')file=path.join(root,path.basename(pathname));
+   else if(/^\/fonts\/(gowun_batang|pretendard)\.woff2$/.test(pathname))file=path.join(root,'fonts',path.basename(pathname));
    else if(/^\/src\/.+\.(mjs|js)$/.test(pathname))file=path.join(root,pathname);
    else if(/^\/minigame-demo\/(src\/.+\.js|vendor\/phaser.min.js)$/.test(pathname))file=path.join(root,pathname);
    else if(/^\/world-assets\/[\w.-]+\.png$/.test(pathname))file=path.join(root,'../asset/background',path.basename(pathname));
    else if(/^\/character-assets\/[\w.-]+\.png$/.test(pathname))file=path.join(root,'../asset/character',path.basename(pathname));
-   else if(/^\/design-assets\/(ui|effect|bern|map|font_files|item|badge|sd_character)\/[\p{L}\p{N}_.-]+\.(png|webp|svg|woff2)$/u.test(pathname))file=path.join(root,'../asset',pathname.slice('/design-assets/'.length));
+   else if(/^\/design-assets\/(ui|effect|bern|map|font_files|item|badge|sd_character)\/[\p{L}\p{N}_.-]+\.(png|webp|svg)$/u.test(pathname))file=path.join(root,'../asset',pathname.slice('/design-assets/'.length));
    else if(/^\/sd-assets\/SD03_(S|SW|W|NW|N|NE|E|SE)_strip\.png$/.test(pathname))file=path.join(root,'../prototype/assets',path.basename(pathname));
    else if(pathname==='/intro.mp4')file=path.join(root,'../prototype/assets/intro.mp4');
    else if(['/audio-assets/bgm_title_intro.MP3','/audio-assets/bgm_title_main.mp3','/audio-assets/bgm_admission_invitation.mp3','/audio-assets/bgm_myroom.mp3'].includes(pathname))file=path.join(root,'../asset/audio/bgm',path.basename(pathname));

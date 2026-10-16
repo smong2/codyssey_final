@@ -224,16 +224,8 @@
       "sha256": "2a6d563e04d6b8efc0a408615c973feacb5356d2ae8d69c79fcc95443478b78a"
     },
     {
-      "path": "asset/font_files/licenses/README.md",
-      "sha256": "c145651ad95bc47b9e89eb46b342ae4fbae886b4680a534edcd6ff17c17a5a1c"
-    },
-    {
-      "path": "asset/font_files/originals/README.md",
-      "sha256": "546cf96754ef502ecc0c3bcb74eb9505764f63300d69e7849c31e6a350fe7a9a"
-    },
-    {
       "path": "asset/font_files/README.md",
-      "sha256": "9ccb8259afce42fc5bcdd9e6d404b6d635226cceaedc20bd846ba64d37062fdd"
+      "sha256": "9c33a3371cf83f408d6065640f213ca722cabe11562b8dc31b35ae1fc37296a8"
     },
     {
       "path": "asset/item/README.md",
@@ -249,7 +241,7 @@
     },
     {
       "path": "asset/README.md",
-      "sha256": "64eeae8ffeb7846a354427a8c85b70d786e7de43d6659f621a88375114a054b4"
+      "sha256": "dc7961074237b5ddf0e84956590c9ac64bb01ccb4d3ec9c50489c8e17d7c385e"
     },
     {
       "path": "asset/screen/README.md",
@@ -262,10 +254,6 @@
     {
       "path": "asset/stat/README.md",
       "sha256": "910744974cb7cc16e17afd48e7ab4a70bb1cc705adcf0a3b4274a40bde3d05d6"
-    },
-    {
-      "path": "asset/typography/README.md",
-      "sha256": "52818a03b8b3867bd6fe037dc750dacf6903de9958bcc0e976fce9c53b0493c4"
     },
     {
       "path": "asset/ui/README.md",
@@ -478,7 +466,7 @@
   ],
   "assetInventory": {
     "path": "asset",
-    "sha256": "bcfa50e80c4e48de629e1228ea0dd324582cb97589cbcb711c2f8600bea71e08",
+    "sha256": "75fae4b36d21e48793ed894d668a9c7f2bcaed243f078d1ab4994fd2ed77efdb",
     "ai": [
       "document_for_ai/04_ASSETS.md"
     ]
