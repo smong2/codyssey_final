@@ -8,16 +8,16 @@ GitHub `dev-jw` 기준 이미지 **45개**(PNG 43개, JPG 2개)와 이 README를
 
 | 파일 | 설명 | 원본 크기 | 미리보기 |
 |---|---|---:|---|
-| [BT01_다이어리_그린.png](./BT01_%EB%8B%A4%EC%9D%B4%EC%96%B4%EB%A6%AC_%EA%B7%B8%EB%A6%B0.png) | 다이어리 버튼 · 녹색 시안 | 1254×1254 | <img src="./BT01_%EB%8B%A4%EC%9D%B4%EC%96%B4%EB%A6%AC_%EA%B7%B8%EB%A6%B0.png" width="150" alt="다이어리 버튼 · 녹색 시안"> |
-| [BT01_다이어리_아이보리.png](./BT01_%EB%8B%A4%EC%9D%B4%EC%96%B4%EB%A6%AC_%EC%95%84%EC%9D%B4%EB%B3%B4%EB%A6%AC.png) | 다이어리 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT01_%EB%8B%A4%EC%9D%B4%EC%96%B4%EB%A6%AC_%EC%95%84%EC%9D%B4%EB%B3%B4%EB%A6%AC.png" width="150" alt="다이어리 버튼 · 아이보리 시안"> |
-| [BT02_백팩_그린.png](./BT02_%EB%B0%B1%ED%8C%A9_%EA%B7%B8%EB%A6%B0.png) | 백팩 버튼 · 녹색 시안 | 1254×1254 | <img src="./BT02_%EB%B0%B1%ED%8C%A9_%EA%B7%B8%EB%A6%B0.png" width="150" alt="백팩 버튼 · 녹색 시안"> |
-| [BT02_백팩_아이보리.png](./BT02_%EB%B0%B1%ED%8C%A9_%EC%95%84%EC%9D%B4%EB%B3%B4%EB%A6%AC.png) | 백팩 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT02_%EB%B0%B1%ED%8C%A9_%EC%95%84%EC%9D%B4%EB%B3%B4%EB%A6%AC.png" width="150" alt="백팩 버튼 · 아이보리 시안"> |
-| [BT03_메뉴_그린.png](./BT03_%EB%A9%94%EB%89%B4_%EA%B7%B8%EB%A6%B0.png) | 메뉴 버튼 · 녹색 시안 | 1254×1254 | <img src="./BT03_%EB%A9%94%EB%89%B4_%EA%B7%B8%EB%A6%B0.png" width="150" alt="메뉴 버튼 · 녹색 시안"> |
-| [BT03_메뉴_아이보리.png](./BT03_%EB%A9%94%EB%89%B4_%EC%95%84%EC%9D%B4%EB%B3%B4%EB%A6%AC.png) | 메뉴 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT03_%EB%A9%94%EB%89%B4_%EC%95%84%EC%9D%B4%EB%B3%B4%EB%A6%AC.png" width="150" alt="메뉴 버튼 · 아이보리 시안"> |
-| [BT04_버튼_그린.png](./BT04_%EB%B2%84%ED%8A%BC_%EA%B7%B8%EB%A6%B0.png) | 텍스트 없는 가로 버튼 · 녹색 시안 | 2171×724 | <img src="./BT04_%EB%B2%84%ED%8A%BC_%EA%B7%B8%EB%A6%B0.png" width="220" alt="텍스트 없는 가로 버튼 · 녹색 시안"> |
-| [BT04_버튼_라이트그린.png](./BT04_%EB%B2%84%ED%8A%BC_%EB%9D%BC%EC%9D%B4%ED%8A%B8%EA%B7%B8%EB%A6%B0.png) | 텍스트 없는 가로 버튼 · 라이트그린 시안 | 2162×727 | <img src="./BT04_%EB%B2%84%ED%8A%BC_%EB%9D%BC%EC%9D%B4%ED%8A%B8%EA%B7%B8%EB%A6%B0.png" width="220" alt="텍스트 없는 가로 버튼 · 라이트그린 시안"> |
-| [BT04_버튼_아이보리.png](./BT04_%EB%B2%84%ED%8A%BC_%EC%95%84%EC%9D%B4%EB%B3%B4%EB%A6%AC.png) | 텍스트 없는 가로 버튼 · 아이보리 시안 | 2173×724 | <img src="./BT04_%EB%B2%84%ED%8A%BC_%EC%95%84%EC%9D%B4%EB%B3%B4%EB%A6%AC.png" width="220" alt="텍스트 없는 가로 버튼 · 아이보리 시안"> |
-| [BT04_버튼_연그린.png](./BT04_%EB%B2%84%ED%8A%BC_%EC%97%B0%EA%B7%B8%EB%A6%B0.png) | 텍스트 없는 가로 버튼 · 연그린 시안 | 2098×750 | <img src="./BT04_%EB%B2%84%ED%8A%BC_%EC%97%B0%EA%B7%B8%EB%A6%B0.png" width="220" alt="텍스트 없는 가로 버튼 · 연그린 시안"> |
+| [BT01_diary_green.png](./BT01_diary_green.png) | 다이어리 버튼 · 녹색 시안 | 1254×1254 | <img src="./BT01_diary_green.png" width="150" alt="다이어리 버튼 · 녹색 시안"> |
+| [BT01_diary_ivory.png](./BT01_diary_ivory.png) | 다이어리 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT01_diary_ivory.png" width="150" alt="다이어리 버튼 · 아이보리 시안"> |
+| [BT02_backpack_green.png](./BT02_backpack_green.png) | 백팩 버튼 · 녹색 시안 | 1254×1254 | <img src="./BT02_backpack_green.png" width="150" alt="백팩 버튼 · 녹색 시안"> |
+| [BT02_backpack_ivory.png](./BT02_backpack_ivory.png) | 백팩 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT02_backpack_ivory.png" width="150" alt="백팩 버튼 · 아이보리 시안"> |
+| [BT03_menu_green.png](./BT03_menu_green.png) | 메뉴 버튼 · 녹색 시안 | 1254×1254 | <img src="./BT03_menu_green.png" width="150" alt="메뉴 버튼 · 녹색 시안"> |
+| [BT03_menu_ivory.png](./BT03_menu_ivory.png) | 메뉴 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT03_menu_ivory.png" width="150" alt="메뉴 버튼 · 아이보리 시안"> |
+| [BT04_button_green.png](./BT04_button_green.png) | 텍스트 없는 가로 버튼 · 녹색 시안 | 2171×724 | <img src="./BT04_button_green.png" width="220" alt="텍스트 없는 가로 버튼 · 녹색 시안"> |
+| [BT04_button_light_green.png](./BT04_button_light_green.png) | 텍스트 없는 가로 버튼 · 라이트그린 시안 | 2162×727 | <img src="./BT04_button_light_green.png" width="220" alt="텍스트 없는 가로 버튼 · 라이트그린 시안"> |
+| [BT04_button_ivory.png](./BT04_button_ivory.png) | 텍스트 없는 가로 버튼 · 아이보리 시안 | 2173×724 | <img src="./BT04_button_ivory.png" width="220" alt="텍스트 없는 가로 버튼 · 아이보리 시안"> |
+| [BT04_button_pale_green.png](./BT04_button_pale_green.png) | 텍스트 없는 가로 버튼 · 연그린 시안 | 2098×750 | <img src="./BT04_button_pale_green.png" width="220" alt="텍스트 없는 가로 버튼 · 연그린 시안"> |
 | [BT05_start_1.png](./BT05_start_1.png) | 시작 버튼 시안 1 | 2098×750 | <img src="./BT05_start_1.png" width="220" alt="시작 버튼 시안 1"> |
 | [BT05_start_2.png](./BT05_start_2.png) | 시작 버튼 시안 2 | 2098×750 | <img src="./BT05_start_2.png" width="220" alt="시작 버튼 시안 2"> |
 | [BT05_start_3.png](./BT05_start_3.png) | 시작 버튼 시안 3 | 2098×750 | <img src="./BT05_start_3.png" width="220" alt="시작 버튼 시안 3"> |
