@@ -273,7 +273,7 @@
     },
     {
       "path": "backend/admin/README.md",
-      "sha256": "b992a0c13a7f9f769f4cfbb4bc95d34b72da9f6ad6dd1c6d9d02d34ba0b35228"
+      "sha256": "dea553baa546fef633aabd5dd724648a5bd596149bec7ca93faf25998184d2f3"
     },
     {
       "path": "backend/api/README.md",
@@ -325,7 +325,7 @@
     },
     {
       "path": "document/09_AI_ENDING_LETTER.md",
-      "sha256": "54055a7b13d03e20403a683da1ec409484881a7137f908cdc550755ca37a6544"
+      "sha256": "040c7a3947fcdf404fa69a2a20a1607314f9a72b36d0d717c595322e83cfa8a8"
     },
     {
       "path": "document/10_TECH_STACK.md",
@@ -333,11 +333,11 @@
     },
     {
       "path": "document/11_PROJECT_PLAN.md",
-      "sha256": "3f9efb43965e1bf5663142d8dbff0a59a078a9ab6f95eac840a37e3cce816248"
+      "sha256": "b228ca9bc58dac14b0c14547dbadb650d28b56fe0241985c66cbe6c54fbf2e60"
     },
     {
       "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
-      "sha256": "c7e1dc43e4a92ccbba084863bf8083bc73691fb1bc5867a0695cd69a72c3872f"
+      "sha256": "fd0591c5994f791d343db2960af9c51d319a810b2110df85ca899ee7cd99b92a"
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
@@ -385,7 +385,7 @@
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "ac70ea8893c6388301dcf3862e6b7a7a9aca34a5b11d896216fb1d46f830399e"
+      "sha256": "55fdb96310f8173246c1cd000601f9c809087d96cb4b45ce4c71f057dbbaa214"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
