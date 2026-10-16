@@ -85,7 +85,7 @@ function renderRoom(){
 }
 class HomeScene extends Phaser.Scene{
  constructor(){super('home');}
- preload(){this.load.image('myroom','./world-assets/BG03_myroom1_day_1920x1080_012.png');this.load.image('space-workshop','./world-assets/BG09_magic_workshop_1920x1080_018.png');}
+ preload(){this.load.image('myroom','./world-assets/BG10_myroom1_day_1920x1080_012.png');this.load.image('space-workshop','./world-assets/BG08_magic_workshop_1920x1080_018.png');}
  create(){this.add.image(640,360,'myroom').setDisplaySize(1280,720);}
 }
 const game=new Phaser.Game({type:Phaser.AUTO,parent:'game',width:1280,height:720,backgroundColor:'#142a37',scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:[HomeScene,EngineRuneCircuitScene]});

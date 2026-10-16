@@ -9,8 +9,8 @@ import {ADVENTURE_LOCATIONS,getAdventureMap} from '../core/adventure-mission.mjs
 import {storyContent} from '../core/story-events.mjs';
 import {NARRATIVE_SCENES} from '../core/narrative.mjs';
 const diaryStory=record=>NARRATIVE_SCENES.some(scene=>scene.id===record.id)?{title:NARRATIVE_SCENES.find(scene=>scene.id===record.id).title,choices:[{id:record.choiceId,label:record.choiceLabel}],closing:record.closing,formal:true}:storyContent(record);
-const ACTIVITY_PLACES={'rune-circuit':'BG09_magic_workshop_1920x1080_018.png',excavation:'BG01_arcadia_entrance_and_lake_1920x1080_010.png','rune-link':'BG05_grand_library_1920x1080_014.png','training-guardian':'BG10_rune_training_ground_1920x1080_019.png','rune-merge':'BG07_glass_greenhouse_1920x1080_016.png','mirror-magic':'BG06_starlight_observatory_1920x1080_015.png','seal-dismantle':'BG02_clocktower_plaza_1920x1080_011.png','observatory-mirror':'BG06_starlight_observatory_1920x1080_015.png','starlight-stage':'BG02_clocktower_plaza_1920x1080_011.png','spirit-pot-sort':'BG07_glass_greenhouse_1920x1080_016.png','sealed-shelves':'BG05_grand_library_1920x1080_014.png','rune-pin-training':'BG10_rune_training_ground_1920x1080_019.png'};
-export const activityArt=(a,locationId='greenhouse')=>a==='adventure'?getAdventureMap((ADVENTURE_LOCATIONS.find(place=>place.id===locationId)??ADVENTURE_LOCATIONS[0]).mapId).thumbnail:a==='rest'?'./world-assets/BG03_myroom2_day_1920x1080_023.png':ACTIVITY_PLACES[classOf(a)?.id]?'./world-assets/'+ACTIVITY_PLACES[classOf(a).id]:null;
+const ACTIVITY_PLACES={'rune-circuit':'BG08_magic_workshop_1920x1080_018.png',excavation:'BG01_arcadia_entrance_and_lake_1920x1080_010.png','rune-link':'BG04_grand_library_1920x1080_014.png','training-guardian':'BG09_rune_training_ground_1920x1080_019.png','rune-merge':'BG06_glass_greenhouse_1920x1080_016.png','mirror-magic':'BG05_starlight_observatory_1920x1080_015.png','seal-dismantle':'BG02_clocktower_plaza_1920x1080_011.png','observatory-mirror':'BG05_starlight_observatory_1920x1080_015.png','starlight-stage':'BG02_clocktower_plaza_1920x1080_011.png','spirit-pot-sort':'BG06_glass_greenhouse_1920x1080_016.png','sealed-shelves':'BG04_grand_library_1920x1080_014.png','rune-pin-training':'BG09_rune_training_ground_1920x1080_019.png'};
+export const activityArt=(a,locationId='greenhouse')=>a==='adventure'?getAdventureMap((ADVENTURE_LOCATIONS.find(place=>place.id===locationId)??ADVENTURE_LOCATIONS[0]).mapId).thumbnail:a==='rest'?'./world-assets/BG11_myroom2_day_1920x1080_023.png':ACTIVITY_PLACES[classOf(a)?.id]?'./world-assets/'+ACTIVITY_PLACES[classOf(a).id]:null;
 export const activityLabel=(a,locationId='greenhouse')=>a==='adventure'?(ADVENTURE_LOCATIONS.find(place=>place.id===locationId)?.title??'모험')+' 모험':a==='fairy-trade'?'요정의 거래':classOf(a)?.title??'휴식';
 export function createJournalUI(ctx){
  const {el,btn,shell,heading,current,meta,onReturn,turnPage,modal}=ctx;
@@ -66,7 +66,7 @@ export function createJournalUI(ctx){
      dialog=modal?.(kind+' 정보',body,actions);
     },'collection-item-card collection-card-trigger silhouette-collection-card'+(locked?' locked-card':'')+(c.selected?' active-collection-card':''));
     card.setAttribute('type','button');card.setAttribute('aria-label',locked?'미해금 '+kind+' 해금 방법 보기':'해금된 '+kind+' 정보 보기');
-    const image=el('img',null,'bag-portrait');image.src=tab==='캐릭터'?'./character-assets/'+c.fullbody:'./design-assets/bern/'+c.image;image.alt='';image.setAttribute('aria-hidden','true');card.append(image);
+    const image=el('img',null,'bag-portrait');image.src=tab==='캐릭터'?'./character-assets/'+c.fullbody:'./design-assets/pet/'+c.image;image.alt='';image.setAttribute('aria-hidden','true');card.append(image);
     if(locked){const lock=el('span','🔒','collection-lock');lock.setAttribute('aria-hidden','true');card.append(lock);}
     grid.append(card);
    }

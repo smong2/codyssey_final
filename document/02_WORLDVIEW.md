@@ -14,12 +14,12 @@
 |---|---|---|
 | 학원 입구와 호수 | 아르카디아 첫인상 | [보기](../asset/background/BG01_arcadia_entrance_and_lake_1920x1080_010.png) |
 | 시계탑 광장 | 사람, 일상, 사건의 출발점 | [보기](../asset/background/BG02_clocktower_plaza_1920x1080_011.png) |
-| 기숙사와 마이룸 | 학생들의 일상; 개인 안식처·기록 | [보기](../asset/background/BG03_empty_myroom_1920x1080_012.png) |
-| 대서고 | 역사와 지식, 단서 | [보기](../asset/background/BG05_grand_library_1920x1080_014.png) |
-| 별빛 천문대 | 세계의 변화와 이상 현상 관측 | [보기](../asset/background/BG06_starlight_observatory_1920x1080_015.png) |
-| 유리 온실·약초원 | 식물, 관계, 감정, 채집 | [보기](../asset/background/BG07_glass_greenhouse_1920x1080_016.png) |
-| 마도 공방 | 수리와 도구 제작을 통한 실천적 해결 | [보기](../asset/background/BG09_magic_workshop_1920x1080_018.png) |
-| 수련장 | 안전한 조작·기술 연습 | [보기](../asset/background/BG10_rune_training_ground_1920x1080_019.png) |
+| 기숙사와 마이룸 | 학생들의 일상; 개인 안식처·기록 | [보기](../asset/background/BG10_myroom1_day_1920x1080_012.png) |
+| 대서고 | 역사와 지식, 단서 | [보기](../asset/background/BG04_grand_library_1920x1080_014.png) |
+| 별빛 천문대 | 세계의 변화와 이상 현상 관측 | [보기](../asset/background/BG05_starlight_observatory_1920x1080_015.png) |
+| 유리 온실·약초원 | 식물, 관계, 감정, 채집 | [보기](../asset/background/BG06_glass_greenhouse_1920x1080_016.png) |
+| 마도 공방 | 수리와 도구 제작을 통한 실천적 해결 | [보기](../asset/background/BG08_magic_workshop_1920x1080_018.png) |
+| 수련장 | 안전한 조작·기술 연습 | [보기](../asset/background/BG09_rune_training_ground_1920x1080_019.png) |
 
 장소 이미지는 분위기와 공간 구성을 이해하기 위한 자료이며, 실제 화면 크롭·배치·합성 검수까지 완료했다는 뜻은 아닙니다. 기숙사·약초원의 별도 이미지는 [배경 폴더](../asset/background/)에서 확인할 수 있습니다.
 
