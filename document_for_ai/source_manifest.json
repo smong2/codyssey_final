@@ -4,7 +4,8 @@
   "discovery": {
     "fixedFiles": [
       "README.md",
-      "AGENTS.md"
+      "AGENTS.md",
+      "story/main/main_final.md"
     ],
     "markdownTrees": [
       "document"
@@ -87,6 +88,33 @@
       ]
     },
     {
+      "path": "document/09_AI_ENDING_LETTER.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md",
+        "document_for_ai/03_GAME_CONTENT.md"
+      ]
+    },
+    {
+      "path": "document/10_TECH_STACK.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md"
+      ]
+    },
+    {
+      "path": "document/11_PROJECT_PLAN.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md",
+        "document_for_ai/05_TEAM_ROLES.md"
+      ]
+    },
+    {
+      "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
+      "ai": [
+        "document_for_ai/01_PROJECT.md",
+        "document_for_ai/03_GAME_CONTENT.md"
+      ]
+    },
+    {
       "path": "document/실행방법.md",
       "ai": [
         "document_for_ai/06_WORKSPACE_RULES.md"
@@ -119,6 +147,12 @@
       "ai": [
         "document_for_ai/05_TEAM_ROLES.md",
         "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "path": "story/main/main_final.md",
+      "ai": [
+        "document_for_ai/03_GAME_CONTENT.md"
       ]
     },
     {
@@ -158,20 +192,108 @@
   ],
   "trackedFiles": [
     {
-      "path": "README.md",
-      "sha256": "4c8207c4143e94c43b1d9846516f32aeea2935040f5eb86c64a9152975e24d7f"
-    },
-    {
       "path": "AGENTS.md",
       "sha256": "9f2ee154d13e40b53534c95fd574167c9175a86ddf7ae0b6bc100a30c1b03a31"
     },
     {
+      "path": "asset/audio/README.md",
+      "sha256": "c8ab2a43a54c08bd96d6cba7de71336bcb1bc8f0743b5b915c7e4d00fa10fe3b"
+    },
+    {
+      "path": "asset/background/README.md",
+      "sha256": "25bdbe794f1e32c225dbf492078d7b895c34ccab9660e3ea8ddcbfd7f7e296e9"
+    },
+    {
+      "path": "asset/badge/README.md",
+      "sha256": "4a1dfa12fd7a202f1156ea0dced78ea3c36ad3bf47ba63cee1a31a738e722c8c"
+    },
+    {
+      "path": "asset/bern/README.md",
+      "sha256": "9494bc54fb2c1ebf5bd7e798191e17b58c73d44410d5ba7f59cd24c16585cc62"
+    },
+    {
+      "path": "asset/character/README.md",
+      "sha256": "c77cd18cee1556baa475d6b6f1bd8e1d90e36fbb5e43f4f65d22fcbd399799c1"
+    },
+    {
+      "path": "asset/effect/README.md",
+      "sha256": "f9326bc28b328340edc3c3e84f693ed171ac1c2788afb8035f7db6ea19569641"
+    },
+    {
+      "path": "asset/environment/README.md",
+      "sha256": "2a6d563e04d6b8efc0a408615c973feacb5356d2ae8d69c79fcc95443478b78a"
+    },
+    {
+      "path": "asset/font_files/licenses/README.md",
+      "sha256": "c145651ad95bc47b9e89eb46b342ae4fbae886b4680a534edcd6ff17c17a5a1c"
+    },
+    {
+      "path": "asset/font_files/originals/README.md",
+      "sha256": "546cf96754ef502ecc0c3bcb74eb9505764f63300d69e7849c31e6a350fe7a9a"
+    },
+    {
+      "path": "asset/font_files/README.md",
+      "sha256": "9ccb8259afce42fc5bcdd9e6d404b6d635226cceaedc20bd846ba64d37062fdd"
+    },
+    {
+      "path": "asset/item/README.md",
+      "sha256": "c920000d13d1fc2a41da4046e6980de2cc7f2cb702dc549bdd40f82fe3ce4fa4"
+    },
+    {
+      "path": "asset/map/README.md",
+      "sha256": "5a9192faecb62301f623208cdcfcc9481e1fad468eda3001dd33218167d11942"
+    },
+    {
+      "path": "asset/puzzle/README.md",
+      "sha256": "ff80b7142a2de75dce4e3f12a60ed28af723dc9a24e85e7a0d939242b095e228"
+    },
+    {
+      "path": "asset/README.md",
+      "sha256": "64eeae8ffeb7846a354427a8c85b70d786e7de43d6659f621a88375114a054b4"
+    },
+    {
+      "path": "asset/screen/README.md",
+      "sha256": "97f21441a4139d934288c9658c4e9ec6e051f60d9334d118952097105b4fb2ac"
+    },
+    {
+      "path": "asset/sd_character/README.md",
+      "sha256": "412a088519f71b76857ed52119823822d035b7c568cee8ddd3e411e6e7ecc1a9"
+    },
+    {
+      "path": "asset/stat/README.md",
+      "sha256": "910744974cb7cc16e17afd48e7ab4a70bb1cc705adcf0a3b4274a40bde3d05d6"
+    },
+    {
+      "path": "asset/typography/README.md",
+      "sha256": "52818a03b8b3867bd6fe037dc750dacf6903de9958bcc0e976fce9c53b0493c4"
+    },
+    {
+      "path": "asset/ui/README.md",
+      "sha256": "62c9152f006d9c3e80c2feb8c836ab3e46de3b77c81079a437c7ec32fb9a243e"
+    },
+    {
+      "path": "backend/admin/README.md",
+      "sha256": "dea553baa546fef633aabd5dd724648a5bd596149bec7ca93faf25998184d2f3"
+    },
+    {
+      "path": "backend/api/README.md",
+      "sha256": "ddac9b33f12b30dcb62cae818d506c90a55d7c6936981bebfcda749bae1ea9e1"
+    },
+    {
+      "path": "backend/database/README.md",
+      "sha256": "bf7d190684fa1d06d73f3548fc3b954092dc1f2789f69e7045735f4aef0949f1"
+    },
+    {
+      "path": "backend/README.md",
+      "sha256": "9dfc94fceef4cbacf9e482e278f7ce59e185344e10a76c30aa9e06e3d4d5724c"
+    },
+    {
       "path": "document/00_README.md",
-      "sha256": "3144cb936e15f79f6dbeaba284f07423b156f35ca21cb17709ad20639c80061b"
+      "sha256": "d94bbad2d67e7c6c0ee6a136449d8a947ba65c1b54e71191db87c376df4cf467"
     },
     {
       "path": "document/01_PROJECT_OVERVIEW.md",
-      "sha256": "e56532f94bf1d1c318e514b79b35176ecb8ef2216a21080622063a8b0c4e36cb"
+      "sha256": "a552ad40771829ece28d84871d2bf87e48ca9acf207b7ed9e7f22630cc671e55"
     },
     {
       "path": "document/02_WORLDVIEW.md",
@@ -179,71 +301,19 @@
     },
     {
       "path": "document/03_CHARACTERS.md",
-      "sha256": "1fc2add69efd77ccb62128c1cbf982112b1965ad43c9e4d5ef670d2e27c1594e"
+      "sha256": "aadd6670dbccfa66e6f3e0dad9f1466754eac630f78f13f0abe4504bcb0bf024"
     },
     {
       "path": "document/04_ASSETS.md",
-      "sha256": "c4ce4256d7a39c126044ea7ddcbaf898daec62a572698865e3fc008f61f66c93"
+      "sha256": "f6e770249a1bdca66d4b6742f25b8a5dbee3c62dcd79cccc6c777c530ed2820c"
     },
     {
       "path": "document/05_TEAM_ROLES.md",
-      "sha256": "2c0cecbba11f8c7b826cebe8690c89752fc6192e00a2021023eac344f8f9d7cf"
+      "sha256": "c4020aea605d214abb31e178e1c678273952b218bf969cfdf470cd53d7f4a068"
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "000b78edef0db00be3d7a767838e88c437d574ec831129e746371116e63593fe"
-    },
-    {
-      "path": "document/content/README.md",
-      "sha256": "45054dca7ad6e34e3a1a24acf695ffaa63a3069821648e81f394f7294e03cf46"
-    },
-    {
-      "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "22cfd0480cadc4b2e311e91d72a8db3a7f6985480f27c830906b3f8c70e1da59"
-    },
-    {
-      "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
-      "sha256": "8d8a4d296a8c1cb1068105b6b01b83b3f24cc6196e65c647bd5c7aed5a57fb0a"
-    },
-    {
-      "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "3d54db4792e5df98fab859bd9a2056c78b3c4325708f4d01cdf5da9cfe683ea3"
-    },
-    {
-      "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
-      "sha256": "0749d6fcd3a070f90c4fc0910fe7986ce46ecc2532fb38a5366db2917774ce25"
-    },
-    {
-      "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "c28c029ebb84713aefc43c431a4c169cb069b974703605b29376f212c5c85975"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
-      "sha256": "016e835e4e052dd7c33f2c1b3c40d9548c508eb6ba64fa9ae7fe9e90081ec523"
-    },
-    {
-      "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "d3b3c1c7e11aae46789913eeb6e56ed16a0ee242cd9f895c4821b61789f44778"
-    },
-    {
-      "path": "document/content/05_OPEN_DECISIONS.md",
-      "sha256": "e7e3eb7dde3f942510afdf94fa7f88fbf243130b3c709fef12589e99ba649461"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
-      "sha256": "5c0fdbb1db77a9f5829088c311ca91c5111c2df0e7eb42cfb46c3fe0fb2c91a5"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md",
-      "sha256": "1c5208b7a245d92c3941e3330281ede26b40e95f254f9a62b83471fa66db9267"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
-      "sha256": "b2d73ad071ff39ec58515c24ffe3dc3da2c5ab7af4ea2e109d6d8ba8fe2c9b4d"
-    },
-    {
-      "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
-      "sha256": "080bdc481d5b2e614392513160e6fd87a63ead0c7706e9c6fa08a565bcefb4f4"
+      "sha256": "0062c3f9fe3fcc8c1d2cb2d1e3325cce4c770b696e8238a4d4f432ea5487df15"
     },
     {
       "path": "document/07_AI_WORK_GUIDE.md",
@@ -251,96 +321,164 @@
     },
     {
       "path": "document/08_REQUEST.md",
-      "sha256": "b8ed082dfb7e04cfb2aac3a067a9b9c50fe553d040410290cbcda552cda85288"
+      "sha256": "e6c06c2baa14b85babb3e98f6fc73bbeefcb2e9d7252e59821c50265ea499fdc"
+    },
+    {
+      "path": "document/09_AI_ENDING_LETTER.md",
+      "sha256": "040c7a3947fcdf404fa69a2a20a1607314f9a72b36d0d717c595322e83cfa8a8"
+    },
+    {
+      "path": "document/10_TECH_STACK.md",
+      "sha256": "743947b353ac1cf8246ceb407b9eba0cdfeb7a01dcfcacba16b0f46aaddd3234"
+    },
+    {
+      "path": "document/11_PROJECT_PLAN.md",
+      "sha256": "b228ca9bc58dac14b0c14547dbadb650d28b56fe0241985c66cbe6c54fbf2e60"
+    },
+    {
+      "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
+      "sha256": "fd0591c5994f791d343db2960af9c51d319a810b2110df85ca899ee7cd99b92a"
+    },
+    {
+      "path": "document/content/01_CORE_LOOP.md",
+      "sha256": "206deeb3345d27a68e31167681df4846a9e66289e3b3211a6786abdefdce654f"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
+      "sha256": "e8c0897944dfe05460da077d54e28fe4ed9c75be8ad0f5ade870ed7c466c4277"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
+      "sha256": "29b1c9f1f2530aefd269b6aea6811fb66a5cae4707939495c285b06e18fdc920"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
+      "sha256": "4af3b891a57bafad5a8773972077ccd2f4eac3058236539584e459b54868ca04"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
+      "sha256": "848c223e43183d04fa15cba1e39d44f92fec86cbd55cb466078e20ef36a19457"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
+      "sha256": "a61cdb0c896427e9cf63222d6ccb3ea8f481290a911a099a74d91b4372c8403e"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md",
+      "sha256": "e94b2e387490cd6e9550d63711676bf2c42e0324b0265d75a8939e59edfcb929"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/03_PET_UNLOCK_TIMING.md",
+      "sha256": "42e1380453a9c41e379a2a59f0d5b4b5f2bbd7664370017c0d313a8ea69d97be"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
+      "sha256": "c96d05031d4829376d2f93517d970df6a81cf5642af17afd7f7d86a95329d66a"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md",
+      "sha256": "fad14d09d719e5df470b3faa16a849e1624dc34ea58fba8bae5046b893f22555"
+    },
+    {
+      "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
+      "sha256": "83fe7df4999543bea06a4f92f64d013eaa65504715e8e2ee108ecb8624d7f793"
+    },
+    {
+      "path": "document/content/04_SAVE_META_PROGRESSION.md",
+      "sha256": "55fdb96310f8173246c1cd000601f9c809087d96cb4b45ce4c71f057dbbaa214"
+    },
+    {
+      "path": "document/content/05_OPEN_DECISIONS.md",
+      "sha256": "d9260deeb1074eff8dd6967a86e25142c4da22b97e3ebc0d060a03a673c2b044"
+    },
+    {
+      "path": "document/content/06_01_LOCATION_ACTIVITIES.md",
+      "sha256": "068dde4af523997f1ba599d1b777db2689289a764f4afafacdd34482773a33f1"
+    },
+    {
+      "path": "document/content/06_CLASSES_MINIGAMES.md",
+      "sha256": "d3e1f068bdcab091a748894b8416d7489f2be9848d7b5b8c529f7b1e72c29709"
+    },
+    {
+      "path": "document/content/07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md",
+      "sha256": "1e17c79d6fb495b635a8db0c15909a074b68b17e7b687bc70399c310ff342e0b"
+    },
+    {
+      "path": "document/content/08_ACCOUNT_POLICY.md",
+      "sha256": "cc0719ae3369a6dd876f5e664cda409e892be0ad30e778af7633fcfa343f8ac2"
+    },
+    {
+      "path": "document/content/09_TITLE_ACCOUNT_UI.md",
+      "sha256": "bd74ec6679da13b428ab8ed8c1d91d15d9331d746fc6995990499e9bf83c91f8"
+    },
+    {
+      "path": "document/content/10_COMMON_ENGINE_FRAME.md",
+      "sha256": "a8b4c0c3d59fbbc17be423c992a593003f69c77f8a1c63a5c94114e67b9889ae"
+    },
+    {
+      "path": "document/content/11_FEATURE_FRAME.md",
+      "sha256": "053a4a911f238e4299c99d21b3db49244823daba7fe5330495c86a45fe73c0ad"
+    },
+    {
+      "path": "document/content/12_USER_UCS.md",
+      "sha256": "9737b100e66d3fcb12c2078d1a603a58d7c3fd6fd5bf97e93355ab18f4994db7"
+    },
+    {
+      "path": "document/content/README.md",
+      "sha256": "a98cdc143f4475be1b5503eb027242c0b419b8834740950ea4495b3d8d38544f"
     },
     {
       "path": "document/실행방법.md",
-      "sha256": "84274727a1d919814163de77a9e1276604c41af949f8f259003d13b10ae0a020"
+      "sha256": "a73fb5154f3cd51012ea0fa09505ad60540fafaa58efa63ef4c0d45e9a376bbf"
     },
     {
-      "path": "asset/README.md",
-      "sha256": "0c96afac578545368d697f08203660dc21d33fe3917a877ebc6a41b02b708bee"
-    },
-    {
-      "path": "asset/background/README.md",
-      "sha256": "18de4030c3181d4a16f6989079a49b9130578095ce8b3733a184bb6a2201a80d"
-    },
-    {
-      "path": "asset/character/README.md",
-      "sha256": "70c34bc3fc880e380cc9933bc5c84a9eaee483044a77fe392b7ad14253e3c17f"
-    },
-    {
-      "path": "asset/effect/README.md",
-      "sha256": "871f06bd7580fa477c80602bfe867b2f7bcc42ed3f34a31c2931b72a6baafa5a"
-    },
-    {
-      "path": "asset/environment/README.md",
-      "sha256": "525fc662167b9435f3a16e4abcbecdafa56c795cf20fb73e8037ad8208ac28dd"
-    },
-    {
-      "path": "asset/item/README.md",
-      "sha256": "5b475fa9dd0af0a8222ac9c16416514c761831de54506f59134b049d10d35705"
-    },
-    {
-      "path": "asset/puzzle/README.md",
-      "sha256": "dd993ded6f854ed0a1e1208e0999f5532248a62c042782417e2e0e525eb52ba8"
-    },
-    {
-      "path": "asset/ui/README.md",
-      "sha256": "d015063b731cc744de90f5310ee51d15ddfe79e2f50eabeee885014a9d624ca7"
+      "path": "engine/minigame-demo/README.md",
+      "sha256": "808f759c12e41b07d39046afa91a49f34aae58a9661b25dda0057f86e83281b4"
     },
     {
       "path": "engine/README.md",
-      "sha256": "aa28f57e90cf17e3aea9a258768cceae8a786baa8a428352450ea53917335399"
-    },
-    {
-      "path": "story/README.md",
-      "sha256": "94bc141f4eb28e93ea1b381624e50ff65eaef5357296848d57be17e9277a31c9"
-    },
-    {
-      "path": "backend/README.md",
-      "sha256": "ae58b30c448fcc3c06ae2c63f2796ae27d23a87ea877fab201455dee55f29d72"
+      "sha256": "2c5b279fecb45586d53be783b170fa95977d60f66621131a88e530eab865a0be"
     },
     {
       "path": "lumia/README.md",
       "sha256": "98c2a92d24656947189bd23f9b20097305a20b815ba952fd614f9b883020beb0"
     },
     {
-      "path": "story/main/README.md",
-      "sha256": "3c31b414f695e9c5e9fb3bba2da629a7aac4916c1fb197eca6f0104747d18a79"
+      "path": "README.md",
+      "sha256": "eef18c5a5f93ab668dc15723e7406f0f9bd5aa62898457d31c184b80cbae405c"
     },
     {
-      "path": "story/npc/README.md",
-      "sha256": "638ec8138d96be8b0555ea44e496f102cab8fc7aa46bc40a7a0c5fbeed5d6017"
+      "path": "story/ending/README.md",
+      "sha256": "a8210469e6de9d8eaef56841f0d4a4cc1c64793a28ba31d225be241e8e746728"
     },
     {
       "path": "story/location/README.md",
       "sha256": "2254f7095cebfed169712f59fb3d4e0bca7ba1d8291c4fd92a7d426aa0bd4e50"
     },
     {
+      "path": "story/main/README.md",
+      "sha256": "69a430a00093a39b687204cfbeeafabe3a64283199a529c5c2f6dd8615f240e5"
+    },
+    {
+      "path": "story/main/main_final.md",
+      "sha256": "809355dcf21728c190b09e516ef117463d9e9b5229554ee765c685a69cfee2f7"
+    },
+    {
+      "path": "story/npc/README.md",
+      "sha256": "1cca5b2b126651e76f66bb01836434396568ba19582ecc196dcf2bc64ef2bd1d"
+    },
+    {
+      "path": "story/README.md",
+      "sha256": "5acc467ce3661d6b8ee1b930a4e2bc238f7041383724826a3a00fe825feb8756"
+    },
+    {
       "path": "story/sub/README.md",
-      "sha256": "d40743ac48b3f2bf41e3b528a077334ca3f867e08bd92beff5ae17116237d55b"
-    },
-    {
-      "path": "story/ending/README.md",
-      "sha256": "2a17549581a4f48929e75889070a44a400cb3dc10f116cec8cc169e7d0e71f55"
-    },
-    {
-      "path": "backend/api/README.md",
-      "sha256": "7a374ea4a539c4a85fef86b8d1d1f30acfdcf310ac6c5ee0b02d2d66706932e3"
-    },
-    {
-      "path": "backend/database/README.md",
-      "sha256": "3218115088268fbba29e7752d3b71f3e3f4631031381faea79538dcc1f7ba049"
-    },
-    {
-      "path": "backend/admin/README.md",
-      "sha256": "dafc4962f4f9d30e5978920895911aae4abab09ae6390d74e4b1d5e0003503e1"
+      "sha256": "b153c1e4b831703ee3876ea1972d5bb65cfb31db28e9f6e29135a50b58bdbfb3"
     }
   ],
   "assetInventory": {
     "path": "asset",
-    "sha256": "b24f2cf3c84a8009786ac88dee6fc621f5c91f24fd7a0e9b5691da34678fcb21",
+    "sha256": "bcfa50e80c4e48de629e1228ea0dd324582cb97589cbcb711c2f8600bea71e08",
     "ai": [
       "document_for_ai/04_ASSETS.md"
     ]

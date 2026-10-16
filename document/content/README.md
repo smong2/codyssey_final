@@ -1,6 +1,6 @@
 # LUMIA 콘텐츠 기획 상세
 
-이 디렉터리는 LUMIA의 **52주 육성형 RPG 플레이 구조**를 구체화하는 상세 기획 문서 모음입니다. 상위 문서인 [게임 콘텐츠 요소](../06_GAME_CONTENT.md)의 원칙을 유지하면서, 실제 플레이 루프·스탯·이벤트·수집·해금·세이브·회차 계승 규칙을 정의합니다.
+이 디렉터리는 LUMIA의 **52주 육성형 RPG 플레이 구조**를 구체화하는 상세 기획 문서 모음입니다. 상위 문서인 [게임 콘텐츠 요소](../06_GAME_CONTENT.md)의 원칙을 유지하면서, 실제 플레이 루프·수업·미니게임·스탯·이벤트·수집·해금·세이브·회차 계승 규칙을 정의합니다.
 
 ## 문서 읽는 순서
 
@@ -16,6 +16,14 @@
    - [04_ROOM_BACKGROUND_PUZZLE.md](03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md) — 마이룸 배경 3종과 36개 퍼즐 조각 획득 규칙
 4. [04_SAVE_META_PROGRESSION.md](04_SAVE_META_PROGRESSION.md) — 저장과 회차 계승
 5. [05_OPEN_DECISIONS.md](05_OPEN_DECISIONS.md) — 아직 확정하지 않은 항목
+6. [06_CLASSES_MINIGAMES.md](06_CLASSES_MINIGAMES.md) — 수업과 보이는 스탯 대응, 기존 4종 게임 재활용, 미니게임 설계 원칙
+   - [06_01_LOCATION_ACTIVITIES.md](06_01_LOCATION_ACTIVITIES.md) — 본편 6개 미니게임 + 요정의 거래, 결과·난이도 보정·자동저장 복구 계약
+7. [07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md](07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md) — Phaser 3 미니게임 독립 데모의 과거 구현·플레이테스트 참고 사양
+8. [08_ACCOUNT_POLICY.md](08_ACCOUNT_POLICY.md) — Email/Password 가입·인증, 최소 개인정보, 계정 관리·탈퇴 정책
+9. [09_TITLE_ACCOUNT_UI.md](09_TITLE_ACCOUNT_UI.md) — WBS 4.4 로그인·이메일 인증·이어 하기 5슬롯·게임 내 계정 화면 계약
+10. [10_COMMON_ENGINE_FRAME.md](10_COMMON_ENGINE_FRAME.md) — WBS 4.1 공통 HUD·마이룸·주간 연속 진행·모험 지도·공통 오류/취소 계약
+11. [11_FEATURE_FRAME.md](11_FEATURE_FRAME.md) — WBS 4.3 가방·배지·마이룸 퍼즐·대화 인수·엔딩 화면 계약
+12. [12_USER_UCS.md](12_USER_UCS.md) — WBS 4.2 가입·이어 하기·주간 진행·장소 이야기·가방·엔딩·계정의 완결된 사용자 상호작용 순서
 
 독립 상위 개념은 `01_`, `02_`처럼 파일로 유지하고, 상세 문서가 여러 개 생기는 도메인은 `03_COLLECTION_UNLOCKS/`처럼 폴더로 분리합니다. 폴더 안에서는 `README.md`를 상위 개요로 두고 상세 문서는 `01_`, `02_` 순번을 사용합니다.
 

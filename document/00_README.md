@@ -11,6 +11,10 @@
 6. [실행방법](실행방법.md) — 통합 게임 실행 정보가 확정되면 갱신할 공식 문서
 7. [AI 작업 시작 안내](07_AI_WORK_GUIDE.md) — 각자 AI로 작업할 때 쓰는 첫 프롬프트와 이후 작업 방법
 8. [Final Project 요구사항](08_REQUEST.md) — 필수 조건, 산출물, 참고 예시와 LUMIA 적용 점검
+9. [AI 핵심 기능](09_AI_ENDING_LETTER.md) — 52주 플레이 기록을 이용한 개인화 엔딩 편지 생성 구조와 안전 기준
+10. [기술 스택](10_TECH_STACK.md) — Phaser·FastAPI·Firebase·Vercel·Render·Gemini의 확정 구조와 선정 이유
+11. [Final Project 기획서](11_PROJECT_PLAN.md) — 문제 정의, 대상 사용자, AI 활용, 일정, R&R 제출 요약
+12. [기능·비기능 요구 명세·아키텍처](12_REQUIREMENTS_ARCHITECTURE.md) — 게임·계정·AI·운영 관리자 콘솔 요구사항과 시스템 구조
 
 ## 기준과 변경 방법
 
