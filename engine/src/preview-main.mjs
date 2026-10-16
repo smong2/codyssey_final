@@ -100,7 +100,7 @@ function menu(){
 function renderDialogueFrame(){
  heading('베른과 이야기하기','dialogue-preview-page');
  const nav=el('nav',null,'story-top-controls');nav.append(btn('대화기록',()=>emptyFrame('대화기록','실제 베른 대화 기록은 아직 없습니다.'),'text-button'),btn('건너뛰기',renderRoom,'text-button'));shell.append(nav);
- shell.append(npcStage(img('bern','owl1.png','베른','npc-dialogue-image')));
+ shell.append(npcStage(img('pet','PT01_owl.png','베른','npc-dialogue-image')));
  const frame=el('section',null,'paper dialogue-preview-box');frame.append(el('h2','베른 · 대화 프레임'),el('p','대화 원고가 아직 등록되지 않았습니다.'),el('small','임의 대사·선택·관계 변경 없음'),btn('마이룸으로',renderRoom));shell.append(frame);
 }
 function storyFrame(kind,onReturn){if(kind==='최종 이벤트 · 엔딩'){endingUI.render({example:true});return;}heading(kind,'story-page');shell.append(el('p','시나리오 데이터가 아직 등록되지 않았습니다.','empty-frame'),el('p','이 화면은 연결 프레임입니다. 이야기를 완료하거나 보상을 지급하지 않습니다.'),btn(kind==='메인 스토리'?'내용 미등록 · 마이룸으로': '마이룸으로 돌아가기',onReturn));}
@@ -333,7 +333,7 @@ function renderAdventure(checkpoint=current().inProgressActivity){
 }
 class HomeScene extends Phaser.Scene{
  constructor(){super('home');}
- preload(){this.load.image('myroom','./world-assets/BG03_myroom1_day_1920x1080_012.png');for(const[id,s]of Object.entries(SPACES))this.load.image('space-'+id,'./world-assets/'+s.image);}
+ preload(){this.load.image('myroom','./world-assets/BG10_myroom1_day_1920x1080_012.png');for(const[id,s]of Object.entries(SPACES))this.load.image('space-'+id,'./world-assets/'+s.image);}
  create(){}
 }
 const game=new Phaser.Game({type:Phaser.AUTO,parent:'game',width:1280,height:720,backgroundColor:'#142a37',scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:[HomeScene,...previewScenes]});

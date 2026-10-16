@@ -16,7 +16,7 @@ export function createEngineServer(){
    else if(/^\/minigame-demo\/(src\/.+\.js|vendor\/phaser.min.js)$/.test(pathname))file=path.join(root,pathname);
    else if(/^\/world-assets\/[\w.-]+\.png$/.test(pathname))file=path.join(root,'../asset/background',path.basename(pathname));
    else if(/^\/character-assets\/[\w.-]+\.png$/.test(pathname))file=path.join(root,'../asset/character',path.basename(pathname));
-   else if(/^\/design-assets\/(ui|effect|bern|map|font_files|item|badge|sd_character)\/[\w.-]+\.(png|webp|svg|woff2)$/.test(pathname))file=path.join(root,'../asset',pathname.slice('/design-assets/'.length));
+   else if(/^\/design-assets\/(ui|effect|pet|map|font_files|item|badge|sd_character)\/[\w.-]+\.(png|webp|svg|woff2)$/.test(pathname))file=path.join(root,'../asset',pathname.slice('/design-assets/'.length));
    else if(/^\/sd-assets\/SD03_(S|SW|W|NW|N|NE|E|SE)_strip\.png$/.test(pathname))file=path.join(root,'../prototype/assets',path.basename(pathname));
    else if(pathname==='/intro.mp4')file=path.join(root,'../prototype/assets/intro.mp4');
    else if(['/audio-assets/bgm_title_intro.MP3','/audio-assets/bgm_title_main.mp3','/audio-assets/bgm_admission_invitation.mp3','/audio-assets/bgm_myroom.mp3'].includes(pathname))file=path.join(root,'../asset/audio/bgm',path.basename(pathname));

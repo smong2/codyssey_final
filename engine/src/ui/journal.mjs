@@ -6,8 +6,8 @@ import {weeklyActivityRecords} from '../core/activity-history.mjs';
 import {activityResultText} from '../core/activity-rules.mjs';
 import {ADVENTURE_LOCATIONS,getAdventureMap} from '../core/adventure-mission.mjs';
 import {storyContent} from '../core/story-events.mjs';
-const ACTIVITY_PLACES={'rune-circuit':'BG09_magic_workshop_1920x1080_018.png',excavation:'BG01_arcadia_entrance_and_lake_1920x1080_010.png','rune-link':'BG05_grand_library_1920x1080_014.png','training-guardian':'BG10_rune_training_ground_1920x1080_019.png','rune-merge':'BG07_glass_greenhouse_1920x1080_016.png','mirror-magic':'BG06_starlight_observatory_1920x1080_015.png','seal-dismantle':'BG02_clocktower_plaza_1920x1080_011.png'};
-export const activityArt=(a,locationId='greenhouse')=>a==='adventure'?getAdventureMap((ADVENTURE_LOCATIONS.find(place=>place.id===locationId)??ADVENTURE_LOCATIONS[0]).mapId).thumbnail:a==='rest'?'./world-assets/BG03_myroom2_day_1920x1080_023.png':ACTIVITY_PLACES[classOf(a)?.id]?'./world-assets/'+ACTIVITY_PLACES[classOf(a).id]:null;
+const ACTIVITY_PLACES={'rune-circuit':'BG08_magic_workshop_1920x1080_018.png',excavation:'BG01_arcadia_entrance_and_lake_1920x1080_010.png','rune-link':'BG04_grand_library_1920x1080_014.png','training-guardian':'BG09_rune_training_ground_1920x1080_019.png','rune-merge':'BG06_glass_greenhouse_1920x1080_016.png','mirror-magic':'BG05_starlight_observatory_1920x1080_015.png','seal-dismantle':'BG02_clocktower_plaza_1920x1080_011.png'};
+export const activityArt=(a,locationId='greenhouse')=>a==='adventure'?getAdventureMap((ADVENTURE_LOCATIONS.find(place=>place.id===locationId)??ADVENTURE_LOCATIONS[0]).mapId).thumbnail:a==='rest'?'./world-assets/BG11_myroom2_day_1920x1080_023.png':ACTIVITY_PLACES[classOf(a)?.id]?'./world-assets/'+ACTIVITY_PLACES[classOf(a).id]:null;
 export const activityLabel=(a,locationId='greenhouse')=>a==='adventure'?(ADVENTURE_LOCATIONS.find(place=>place.id===locationId)?.title??'모험')+' 모험':classOf(a)?.title??'휴식';
 export function createJournalUI(ctx){
  const {el,btn,shell,heading,current,meta,onReturn,turnPage}=ctx;
@@ -39,13 +39,13 @@ export function createJournalUI(ctx){
   const records=tab==='배지'?(meta().badges??[]):[];
   if(tab==='캐릭터'||tab==='펫'){
    const entries=tab==='캐릭터'?studentCards(meta(),'bag'):petCards(meta(),ctx.activePet().id);
-   for(const c of entries){const card=el('article',null,'collection-item-card'+(c.muted?' locked-card':'')+(tab==='캐릭터'?' character-collection-card':'')),image=el('img',null,'bag-portrait');image.src=tab==='캐릭터'?'./character-assets/'+c.fullbody:'./design-assets/bern/'+c.image;image.alt=c.name;card.append(image,el('h3',c.name),el('small',c.unlocked?'보유':'🔒 미해금'));if(tab==='펫'){
+   for(const c of entries){const card=el('article',null,'collection-item-card'+(c.muted?' locked-card':'')+(tab==='캐릭터'?' character-collection-card':'')),image=el('img',null,'bag-portrait');image.src=tab==='캐릭터'?'./character-assets/'+c.fullbody:'./design-assets/pet/'+c.image;image.alt=c.name;card.append(image,el('h3',c.name),el('small',c.unlocked?'보유':'🔒 미해금'));if(tab==='펫'){
     const names={knowledge:'지식',expression:'표현력',dexterity:'솜씨',exploration:'탐험',magic:'마법'};
     card.append(el('p',c.description,'pet-description'),el('p',Object.entries(c.modifiers).map(([k,v])=>names[k]+' +'+v).join(' · '),'pet-effects'),el('small','해금: '+c.condition));
     const choose=btn(c.selected?'함께하는 펫':c.unlocked?'함께하기':'미해금',()=>{if(ctx.onSelectPet(c.id))bag('펫');});choose.disabled=!c.unlocked||c.selected||ctx.isSaveFailed();choose.setAttribute('aria-label',c.name+' '+choose.textContent);card.append(choose);
    }grid.append(card);}
   }else if(tab==='마이룸'){
-   const card=el('article',null,'collection-item-card');const art=el('img',null,'bag-room-image');art.src='./world-assets/BG03_myroom2_day_1920x1080_023.png';art.alt='현재 기본 마이룸2';card.append(art,el('h3','기본 기숙사방 · 마이룸2'),el('p','현재 사용 중'));grid.append(card);const pending=el('article',null,'collection-item-card');pending.append(el('h3','마이룸 배경 퍼즐'),el('p','보유 조각 '+(meta().roomPieces??[]).length+'개'),el('small','배경별 조각 연결·완성 보상 미등록'));grid.append(pending);
+   const card=el('article',null,'collection-item-card');const art=el('img',null,'bag-room-image');art.src='./world-assets/BG11_myroom2_day_1920x1080_023.png';art.alt='현재 기본 마이룸2';card.append(art,el('h3','기본 기숙사방 · 마이룸2'),el('p','현재 사용 중'));grid.append(card);const pending=el('article',null,'collection-item-card');pending.append(el('h3','마이룸 배경 퍼즐'),el('p','보유 조각 '+(meta().roomPieces??[]).length+'개'),el('small','배경별 조각 연결·완성 보상 미등록'));grid.append(pending);
   }else{
   if(!records.length){const empty=el('article',null,'collection-item-card empty-item');empty.append(el('div','◇','item-image-slot'),el('h2',tab==='아이템'?'획득한 아이템 없음':'획득한 배지 없음'),el('p','수집품 이미지·이름·설명 연결 자리'));grid.append(empty);}
   for(const id of records){const card=el('article',null,'collection-item-card');card.append(el('div','◇','item-image-slot'),el('h2',String(id)),el('p','보유한 수집 배지 · 상세 자원 연결 예정'));grid.append(card);}

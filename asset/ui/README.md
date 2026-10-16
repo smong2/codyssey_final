@@ -1,6 +1,6 @@
 # UI 이미지
 
-확정 로고 파일을 포함하면 이 폴더의 PNG/SVG는 35개입니다. 배경·프레임·아이콘·로고는 동적 텍스트나 실제 UI 동작과 구분합니다. 최종 사용 로고는 `lumia_logo_final_034.png`로 확정되었습니다. 기존 신비 로고 1안·5안은 이전 시안으로 보존하며, 실제 화면 합성·게임 적용 검수는 별도입니다. 새 이미지의 추가·삭제·교체 시 이 표를 갱신하세요.
+기존 기본 목록 35개와 추가 검토 시안·도구가 함께 있습니다. 배경·프레임·아이콘·로고는 동적 텍스트나 실제 UI 동작과 구분합니다. 최종 사용 로고는 `lumia_logo_final_034.png`로 확정되었습니다. 기존 신비 로고 1안·5안은 이전 시안으로 보존하며, 실제 화면 합성·게임 적용 검수는 별도입니다. 새 이미지의 추가·삭제·교체 시 이 표를 갱신하세요.
 
 ## 추가 자원 설명
 
@@ -108,3 +108,76 @@
 | [title_layout_reference_title_layout_032.svg](./title_layout_reference_title_layout_032.svg) | <img src="./title_layout_reference_title_layout_032.svg" width="120" alt="title_layout_reference_title_layout_032.svg"> |
 | [title_layout_reference_title_layout_033.svg](./title_layout_reference_title_layout_033.svg) | <img src="./title_layout_reference_title_layout_033.svg" width="120" alt="title_layout_reference_title_layout_033.svg"> |
 | [lumia_logo_final_034.png](./lumia_logo_final_034.png) | <img src="./lumia_logo_final_034.png" width="120" alt="lumia_logo_final_034.png"> |
+
+## 추가 통합된 검토 자료
+
+아래는 현재 폴더에 있는 추가 파일의 현황입니다. 존재·검토 기록과 최종 게임 채택/구현은 별개입니다. `button_frame_01`은 PNG 데이터이지만 확장자가 없는 기존 파일명을 보존했습니다.
+
+| 파일 | 구분 | 미리보기/열기 |
+|---|---|---|
+| [01_다이어리_그린.png](./01_다이어리_그린.png) | 그린·아이보리 UI 시안 | <img src="./01_다이어리_그린.png" width="120" alt="01_다이어리_그린.png"> |
+| [02_백팩_그린.png](./02_백팩_그린.png) | 그린·아이보리 UI 시안 | <img src="./02_백팩_그린.png" width="120" alt="02_백팩_그린.png"> |
+| [03_메뉴_그린.png](./03_메뉴_그린.png) | 그린·아이보리 UI 시안 | <img src="./03_메뉴_그린.png" width="120" alt="03_메뉴_그린.png"> |
+| [04_다이어리_아이보리.png](./04_다이어리_아이보리.png) | 그린·아이보리 UI 시안 | <img src="./04_다이어리_아이보리.png" width="120" alt="04_다이어리_아이보리.png"> |
+| [05_백팩_아이보리.png](./05_백팩_아이보리.png) | 그린·아이보리 UI 시안 | <img src="./05_백팩_아이보리.png" width="120" alt="05_백팩_아이보리.png"> |
+| [06_메뉴_아이보리.png](./06_메뉴_아이보리.png) | 그린·아이보리 UI 시안 | <img src="./06_메뉴_아이보리.png" width="120" alt="06_메뉴_아이보리.png"> |
+| [BUTTONS_2026-10-16.md](./BUTTONS_2026-10-16.md) | 검토 기록 문서 | 파일 링크 |
+| [PLAN.md](./PLAN.md) | 검토 기록 문서 | 파일 링크 |
+| [README_1.md](./README_1.md) | 검토 기록 문서 | 파일 링크 |
+| [app.js](./app.js) | UI 검토 화면·도구 | 파일 링크 |
+| [assets.html](./assets.html) | UI 검토 화면·도구 | 파일 링크 |
+| [button_01_primary.png](./button_01_primary.png) | 버튼 검토 시안 | <img src="./button_01_primary.png" width="120" alt="button_01_primary.png"> |
+| [button_02_secondary.png](./button_02_secondary.png) | 버튼 검토 시안 | <img src="./button_02_secondary.png" width="120" alt="button_02_secondary.png"> |
+| [button_03_compact.png](./button_03_compact.png) | 버튼 검토 시안 | <img src="./button_03_compact.png" width="120" alt="button_03_compact.png"> |
+| [button_continue_dark_039.png](./button_continue_dark_039.png) | 버튼 검토 시안 | <img src="./button_continue_dark_039.png" width="120" alt="button_continue_dark_039.png"> |
+| [button_continue_light_040.png](./button_continue_light_040.png) | 버튼 검토 시안 | <img src="./button_continue_light_040.png" width="120" alt="button_continue_light_040.png"> |
+| [button_frame_01](./button_frame_01) | 버튼 검토 시안 | 파일 링크 |
+| [button_light_001.png](./button_light_001.png) | 버튼 검토 시안 | <img src="./button_light_001.png" width="120" alt="button_light_001.png"> |
+| [button_new_start_dark_037.png](./button_new_start_dark_037.png) | 버튼 검토 시안 | <img src="./button_new_start_dark_037.png" width="120" alt="button_new_start_dark_037.png"> |
+| [button_new_start_light_038.png](./button_new_start_light_038.png) | 버튼 검토 시안 | <img src="./button_new_start_light_038.png" width="120" alt="button_new_start_light_038.png"> |
+| [button_start_dark_035.png](./button_start_dark_035.png) | 버튼 검토 시안 | <img src="./button_start_dark_035.png" width="120" alt="button_start_dark_035.png"> |
+| [button_start_light_036.png](./button_start_light_036.png) | 버튼 검토 시안 | <img src="./button_start_light_036.png" width="120" alt="button_start_light_036.png"> |
+| [card_01.png](./card_01.png) | 카드 검토 시안 | <img src="./card_01.png" width="120" alt="card_01.png"> |
+| [card_02.png](./card_02.png) | 카드 검토 시안 | <img src="./card_02.png" width="120" alt="card_02.png"> |
+| [card_green_000.png](./card_green_000.png) | 카드 검토 시안 | <img src="./card_green_000.png" width="120" alt="card_green_000.png"> |
+| [check-model.cjs](./check-model.cjs) | UI 검토 화면·도구 | 파일 링크 |
+| [collection_01_integrated.png](./collection_01_integrated.png) | UI 검토 시안 | <img src="./collection_01_integrated.png" width="120" alt="collection_01_integrated.png"> |
+| [data.js](./data.js) | UI 검토 화면·도구 | 파일 링크 |
+| [date_01.png](./date_01.png) | 날짜·달력 검토 시안 | <img src="./date_01.png" width="120" alt="date_01.png"> |
+| [date_01_original.png](./date_01_original.png) | 날짜·달력 검토 시안 | <img src="./date_01_original.png" width="120" alt="date_01_original.png"> |
+| [date_02.png](./date_02.png) | 날짜·달력 검토 시안 | <img src="./date_02.png" width="120" alt="date_02.png"> |
+| [date_02_soft.png](./date_02_soft.png) | 날짜·달력 검토 시안 | <img src="./date_02_soft.png" width="120" alt="date_02_soft.png"> |
+| [date_03.png](./date_03.png) | 날짜·달력 검토 시안 | <img src="./date_03.png" width="120" alt="date_03.png"> |
+| [date_03_pastel.png](./date_03_pastel.png) | 날짜·달력 검토 시안 | <img src="./date_03_pastel.png" width="120" alt="date_03_pastel.png"> |
+| [dialogue_01_original.png](./dialogue_01_original.png) | 대화 프레임 검토 시안 | <img src="./dialogue_01_original.png" width="120" alt="dialogue_01_original.png"> |
+| [dialogue_02_lighter.png](./dialogue_02_lighter.png) | 대화 프레임 검토 시안 | <img src="./dialogue_02_lighter.png" width="120" alt="dialogue_02_lighter.png"> |
+| [diary_01_book.png](./diary_01_book.png) | 다이어리 검토 시안 | <img src="./diary_01_book.png" width="120" alt="diary_01_book.png"> |
+| [diary_02_chronology.png](./diary_02_chronology.png) | 다이어리 검토 시안 | <img src="./diary_02_chronology.png" width="120" alt="diary_02_chronology.png"> |
+| [diary_03_bookmarks.png](./diary_03_bookmarks.png) | 다이어리 검토 시안 | <img src="./diary_03_bookmarks.png" width="120" alt="diary_03_bookmarks.png"> |
+| [diary_04_letters.png](./diary_04_letters.png) | 다이어리 검토 시안 | <img src="./diary_04_letters.png" width="120" alt="diary_04_letters.png"> |
+| [diary_05_archive.png](./diary_05_archive.png) | 다이어리 검토 시안 | <img src="./diary_05_archive.png" width="120" alt="diary_05_archive.png"> |
+| [export.js](./export.js) | UI 검토 화면·도구 | 파일 링크 |
+| [helpers.js](./helpers.js) | UI 검토 화면·도구 | 파일 링크 |
+| [index.html](./index.html) | UI 검토 화면·도구 | 파일 링크 |
+| [manifest.js](./manifest.js) | UI 검토 화면·도구 | 파일 링크 |
+| [model.js](./model.js) | UI 검토 화면·도구 | 파일 링크 |
+| [myroom-times-proof.jpg](./myroom-times-proof.jpg) | 검토 화면 캡처 | <img src="./myroom-times-proof.jpg" width="120" alt="myroom-times-proof.jpg"> |
+| [myroom-times.html](./myroom-times.html) | UI 검토 화면·도구 | 파일 링크 |
+| [panel_01.png](./panel_01.png) | 패널 검토 시안 | <img src="./panel_01.png" width="120" alt="panel_01.png"> |
+| [panel_02.png](./panel_02.png) | 패널 검토 시안 | <img src="./panel_02.png" width="120" alt="panel_02.png"> |
+| [panel_03.png](./panel_03.png) | 패널 검토 시안 | <img src="./panel_03.png" width="120" alt="panel_03.png"> |
+| [result_01_medallion.png](./result_01_medallion.png) | 결과 화면 검토 시안 | <img src="./result_01_medallion.png" width="120" alt="result_01_medallion.png"> |
+| [result_02_summary.png](./result_02_summary.png) | 결과 화면 검토 시안 | <img src="./result_02_summary.png" width="120" alt="result_02_summary.png"> |
+| [result_03_ribbon.png](./result_03_ribbon.png) | 결과 화면 검토 시안 | <img src="./result_03_ribbon.png" width="120" alt="result_03_ribbon.png"> |
+| [result_04_growth.png](./result_04_growth.png) | 결과 화면 검토 시안 | <img src="./result_04_growth.png" width="120" alt="result_04_growth.png"> |
+| [result_05_three_cards.png](./result_05_three_cards.png) | 결과 화면 검토 시안 | <img src="./result_05_three_cards.png" width="120" alt="result_05_three_cards.png"> |
+| [screens-gallery-proof.jpg](./screens-gallery-proof.jpg) | 검토 화면 캡처 | <img src="./screens-gallery-proof.jpg" width="120" alt="screens-gallery-proof.jpg"> |
+| [screens.html](./screens.html) | UI 검토 화면·도구 | 파일 링크 |
+| [server.cjs](./server.cjs) | UI 검토 화면·도구 | 파일 링크 |
+| [stat_01_classic.png](./stat_01_classic.png) | 스탯 화면 검토 시안 | <img src="./stat_01_classic.png" width="120" alt="stat_01_classic.png"> |
+| [stat_02_minimal.png](./stat_02_minimal.png) | 스탯 화면 검토 시안 | <img src="./stat_02_minimal.png" width="120" alt="stat_02_minimal.png"> |
+| [stat_03_tabs.png](./stat_03_tabs.png) | 스탯 화면 검토 시안 | <img src="./stat_03_tabs.png" width="120" alt="stat_03_tabs.png"> |
+| [stat_04_dashboard.png](./stat_04_dashboard.png) | 스탯 화면 검토 시안 | <img src="./stat_04_dashboard.png" width="120" alt="stat_04_dashboard.png"> |
+| [stat_05_vertical.png](./stat_05_vertical.png) | 스탯 화면 검토 시안 | <img src="./stat_05_vertical.png" width="120" alt="stat_05_vertical.png"> |
+| [style.css](./style.css) | UI 검토 화면·도구 | 파일 링크 |
+| [weekly_01_planner.png](./weekly_01_planner.png) | UI 검토 시안 | <img src="./weekly_01_planner.png" width="120" alt="weekly_01_planner.png"> |

@@ -25,19 +25,19 @@
 | `asset/ui/UI07_admission_invitation_004.png` | 카테고리 문서에 픽셀 규격 미기재 | 입학 초대장 프레임 | 코드 참조 확인. 파일 규격·최종 디자인 검수 필요 |
 | `asset/ui/player_status_frame_015.png` | 카테고리 문서에 픽셀 규격 미기재 | 마이룸 프로필 얼굴 프레임 | 코드 참조 확인. 파일 규격·최종 디자인 검수 필요 |
 | `asset/character/` 학생별 전신·상반신 이미지 | 학생 32명 × 전신 1장 + 표정 5장. 엘리아 보정 전신 1장 추가, 총 193 PNG. 개별 픽셀 규격은 카테고리 문서에 미기재 | 캐릭터 선택·프로필·대화 임시 NPC·가방 캐릭터 카드 | 파일 구성과 코드 참조 확인. 캐릭터별 크롭·여백·최종 표시 검수 필요 |
-| `asset/bern/`의 `owl1.png`~`fawn10.png` | 10개 모두 투명 PNG, 1024×1536 | PET01~PET10. 마이룸 펫 및 가방 펫 카드 | 코드·ID 대응 확인. 물리 폴더명은 과거 경로를 유지하며 의미상 펫 자원 |
-| `asset/background/BG03_myroom2_{day,sunset,night}_1920x1080_023~025.png` | 각 1920×1080 PNG | 마이룸 낮·노을·밤 | 코드 참조 및 시간대 매핑 확인 |
+| `asset/pet/`의 `PT01_owl.png`~`PT10_fawn.png` | 10개 모두 투명 PNG, 1024×1536 | PET01~PET10. 마이룸 펫 및 가방 펫 카드 | 코드·ID 대응 확인. `PT` 파일 접두어와 `PET` 게임 ID를 번호로 연결 |
+| `asset/background/BG11_myroom2_{day,sunset,night}_1920x1080_023~025.png` | 각 1920×1080 PNG | 마이룸 낮·노을·밤 | 코드 참조 및 시간대 매핑 확인 |
 | `asset/background/` 장소 배경 7종 | 각 1920×1080 PNG | 수업 활동 카드 썸네일: 공방 BG09, 입구·호수 BG01, 대서고 BG05, 수련장 BG10, 온실 BG07, 천문대 BG06, 시계탑 BG02 | 활동별 임시 장소 이미지. 활동 전용 최종 일러스트로 확정된 것은 아님 |
-| `asset/map/map01_greenhouse_world_3840x2160.webp` | 런타임 배경 3840×2160, quality 85 시안 | 온실 모험 월드 | 코드 참조 확인. 원본 PNG 보존 |
-| `asset/map/map01_greenhouse_foreground_3840x2160.webp` | 투명 전경 3840×2160, 무손실 | 온실 모험 전경 | 임시로 캐릭터 항상 앞에 표시. 오브젝트별 정렬 데이터는 미정 |
-| `asset/map/map01_greenhouse_collision_mask_1920x1080.png` | 흑백 PNG, 1920×1080; 흰색만 이동 가능 | 온실 모험 충돌 판정 | 코드 참조 확인 |
-| `asset/map/map01_greenhouse_world_1920x1080.webp` | 1920×1080 | 모험 활동 카드 썸네일 | 코드 참조 확인 |
+| `asset/map/MP01_greenhouse_world_3840x2160.webp` | 런타임 배경 3840×2160, quality 85 시안 | 온실 모험 월드 | 코드 참조 확인. 원본 PNG 보존 |
+| `asset/map/MP01_greenhouse_foreground_3840x2160.webp` | 투명 전경 3840×2160, 무손실 | 온실 모험 전경 | 임시로 캐릭터 항상 앞에 표시. 오브젝트별 정렬 데이터는 미정 |
+| `asset/map/MP01_greenhouse_collision_mask_1920x1080.png` | 흑백 PNG, 1920×1080; 흰색만 이동 가능 | 온실 모험 충돌 판정 | 코드 참조 확인 |
+| `asset/map/MP01_greenhouse_world_1920x1080.webp` | 1920×1080 | 모험 활동 카드 썸네일 | 코드 참조 확인 |
 | `prototype/assets/SD03_{S,SW,W,NW,N,NE,E,SE}_strip.png` | 각 768×256 투명 PNG, 프레임 256×256 3장 | 온실 모험의 8방향 SD 이동 | 현재 코드는 SD03(카엘)만 참조. 애셋 README상 모션 최종 검수는 남아 있음. `prototype/`은 수정 대상 아님 |
 | `asset/item/`의 25개 아이템 이미지 | 대부분 1024×1024; 식물 2개 512×512, 달빛 약초 256×256, 이벤트 룬 2개 512×512. 투명 PNG | 가방의 디자인 시안 섹션 | 보유 목록이 아닌 이미지 샘플. 실제 획득 데이터·게임 적용은 미연결 |
 | `asset/badge/`의 프레임·심볼·장식·상태 이미지 | 41개 게임용 PNG, 200×200 RGBA 투명 캔버스 | 가방의 배지 시안 섹션 | 현재 5개 예시 조합과 공용 잠금 표시만 노출. 배지 획득·해금 데이터가 아님 |
 | `asset/puzzle/`의 룬 회로 타일·연결 이미지 | 카테고리 README에 9개, 256×256 기준 PNG/SVG로 기록 | 현재 엔진의 코드·정적 서버에서 실제 로드 경로를 확인하지 못함 | 마이룸 배경 퍼즐 수집 UI에도 연결되지 않음. 룬 회로 미니게임 자원으로 추정해 재사용하지 않음 |
 
-세부 파일 목록과 내보내기 기준은 각 카테고리 문서를 기준으로 합니다: [전체 자원 안내](../asset/README.md), [UI](../asset/ui/README.md), [효과](../asset/effect/README.md), [배경](../asset/background/README.md), [캐릭터](../asset/character/README.md), [펫](../asset/bern/README.md), [SD 캐릭터](../asset/sd_character/README.md), [아이템](../asset/item/README.md), [배지](../asset/badge/README.md), [퍼즐](../asset/puzzle/README.md), [온실 맵](../asset/map/README.md).
+세부 파일 목록과 내보내기 기준은 각 카테고리 문서를 기준으로 합니다: [전체 자원 안내](../asset/README.md), [UI](../asset/ui/README.md), [효과](../asset/effect/README.md), [배경](../asset/background/README.md), [캐릭터](../asset/character/README.md), [펫](../asset/pet/README.md), [SD 캐릭터](../asset/sd_character/README.md), [아이템](../asset/item/README.md), [배지](../asset/badge/README.md), [퍼즐](../asset/puzzle/README.md), [온실 맵](../asset/map/README.md).
 
 ## 디자인 담당자 확인 요청
 

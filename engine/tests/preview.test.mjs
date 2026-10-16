@@ -59,7 +59,7 @@ test('schedule session preserves navigation draft but resets for a replacement r
 test('approved preview assets are served with correct types without exposing repository',async t=>{
  const {createEngineServer}=await import('../server.mjs');const s=createEngineServer();await new Promise(r=>s.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>s.close(r)));
  const base='http://127.0.0.1:'+s.address().port;
- for(const [path,type] of [['/design-assets/bern/owl1.png','image/png'],['/design-assets/font_files/gowun_batang.woff2','font/woff2'],['/design-assets/map/map1_straight.png','image/png'],['/design-assets/ui/player_status_frame_015.png','image/png'],['/intro.mp4','video/mp4']]){
+ for(const [path,type] of [['/design-assets/pet/PT01_owl.png','image/png'],['/design-assets/font_files/gowun_batang.woff2','font/woff2'],['/design-assets/map/map1_straight.png','image/png'],['/design-assets/ui/player_status_frame_015.png','image/png'],['/intro.mp4','video/mp4']]){
  const r=await fetch(base+path,{method:'HEAD'});assert.equal(r.status,200,path);assert.equal(r.headers.get('content-type'),type);
  }
  assert.notEqual((await fetch(base+'/design-assets/font_files/README.md')).status,200);

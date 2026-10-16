@@ -21,7 +21,7 @@ function renderRoom(review){
   img:fakeNode,shell,heading(){shell.children=[];},current:()=>run,
   characters:[{id:'CH01',name:'카엘',image:'CH01_1_base.png'}],
   emptyFrame(){},message(){},menu(){},onAdventure(){},onAction(){},onCommit(){},onFinish(){},onEnding(){},onRetry(){},
-  isSaveFailed:()=>false,onDiary(){},onBag(){},onAdmission(){},onPet(){},activePet:()=>({name:'베른',image:'owl1.png',modifiers:{}}),meta:()=>({}),decorateRoom(){},
+  isSaveFailed:()=>false,onDiary(){},onBag(){},onAdmission(){},onPet(){},activePet:()=>({name:'베른',image:'PT01_owl.png',modifiers:{}}),meta:()=>({}),decorateRoom(){},
   reviewPrompt:()=>review,onReview(){},onDismissReview(){}
  });
  ui.room();return shell;
