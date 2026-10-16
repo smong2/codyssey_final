@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {weeklyActivityRecords} from '../src/core/activity-history.mjs';
-import {createProfile,startRun,setSchedule,applyAction,finishWeek} from '../src/core/state.mjs';
+import {createProfile,startRun,setSchedule,finishWeek} from '../src/core/state.mjs';
+import {runAction as applyAction} from './activity-helpers.mjs';
 import {createLocalRepository,createBoundaryWriter} from '../src/core/storage.mjs';
 import {calendarModel} from '../src/core/preview.mjs';
 test('weekly diary groups actual completed activities without filling missing days or changing saved history',()=>{

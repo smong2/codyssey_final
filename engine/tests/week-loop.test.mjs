@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createProfile,startRun,setSchedule,applyAction,finishWeek} from '../src/core/state.mjs';
+import {createProfile,startRun,setSchedule,finishWeek,acknowledgeWeekSummary} from '../src/core/state.mjs';
+import {runAction as applyAction} from './activity-helpers.mjs';
 import {createMinigameResult,difficultyForStat} from '../src/core/minigame-contract.mjs';
 import {PETS,effectiveStats} from '../src/core/pets.mjs';
 import {createLocalRepository,createBoundaryWriter,validateProfile} from '../src/core/storage.mjs';
@@ -22,10 +23,10 @@ test('rest applies one of three recovery results once and records the actual cap
  }
 });
 
-test('adventure quit preserves the entire run while completion charges 15 once without growth or rewards',()=>{
+test('adventure completion charges 15 once without growth or rewards',()=>{
  const p=createProfile(),r=startRun(p,1,'CH01');setSchedule(p,1,['adventure','rest','rest','rest','rest']);
  const before=structuredClone(p);
- assert.equal(applyAction(p,1,'1:1:0',{gameId:'adventure',outcome:'quit'}),false);assert.deepEqual(p,before);
+ assert.throws(()=>applyAction(p,1,'1:1:0',{gameId:'adventure',outcome:'quit'}));assert.equal(r.day,0);assert.equal(r.stamina,85);assert.equal(r.inProgressActivity.status,'IN_PROGRESS');
  applyAction(p,1,'1:1:0',{gameId:'adventure',outcome:'complete'});
  assert.equal(r.stamina,85);assert.equal(r.day,1);assert.equal(p.meta.counters.adventures,1);
  assert.deepEqual(r.stats,before.slots[0].activeRun.stats);assert.deepEqual(p.meta.roomPieces,[]);
@@ -54,7 +55,7 @@ test('forced rest spans weekend and resume without weekend recovery or lost rema
  const p=createProfile(),r=startRun(p,1,'CH01');r.stamina=50;setSchedule(p,1,Array(5).fill('rune-circuit'));
  for(let day=0;day<5;day++)applyAction(p,1,`1:1:${day}`,lessonResult(r));
  assert.equal(r.forcedRestDays,3);finishWeek(p,1);assert.equal(r.stamina,0);assert.equal(r.forcedRestDays,3);
- writer.save(p,1);const loaded=repo.load(),next=loaded.slots[0].activeRun;
+ writer.save(p,1);const loaded=repo.load(),next=loaded.slots[0].activeRun;assert.equal(next.pendingWeekSummaryWeek,1);acknowledgeWeekSummary(loaded,1);
  setSchedule(loaded,1,Array(5).fill('adventure'));
  for(let day=0;day<3;day++)applyAction(loaded,1,`1:2:${day}`);
  assert.equal(next.day,3);assert.equal(next.stamina,100);assert.equal(next.forcedRestDays,0);
@@ -100,7 +101,7 @@ test('52 mixed weeks preserve all actual activity records through weekly saves a
   applyAction(p,1,`1:${week}:2`,undefined,()=>0);
   applyAction(p,1,`1:${week}:3`,lessonResult(r,'rune-link','library','knowledge'));
   applyAction(p,1,`1:${week}:4`,undefined,()=>0);
-  finishWeek(p,1);writer.save(p,1);p=repo.load();
+  finishWeek(p,1);acknowledgeWeekSummary(p,1);writer.save(p,1);p=repo.load();
  }
  const r=p.slots[0].activeRun;
  assert.equal(r.week,52);assert.equal(r.phase,'AWAITING_ENDING');assert.equal(r.actionHistory.length,260);

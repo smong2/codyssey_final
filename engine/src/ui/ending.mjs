@@ -1,9 +1,26 @@
 import {endingSnapshot,validateEndingView,exampleEnding} from '../core/ending-frame.mjs';
 
-export function createEndingUI({el,btn,shell,heading,current,character,slotId,onReturn,loadEnding=null}){
+export function createEndingUI({el,btn,shell,heading,current,character,slotId,onReturn,onComplete=()=>{},loadEnding=null}){
  let generation=0;
  function render({example=false,response=null,error='',loading=false}={}){
   const id=++generation,run=current(),snapshot=endingSnapshot(run,character());
+  if(arguments[0]?.actual){
+   const record=run.endingRecord;let stage=0;
+   const paint=()=>{
+    const active=++generation;heading('아르카디아에서 그려 본 미래','ending-page');
+    const layout=el('div',null,'ending-layout'),summary=el('aside',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
+    summary.append(shell.querySelector('h1'),el('h2',snapshot.character.name),el('p',snapshot.runNumber+'회차 · 52주차'),el('h3','이번 회차 기록'));
+    const metricNames={classes:'전체 수업',adventures:'모험',importantChoices:'중요 선택',npcStoriesCompleted:'NPC 개별 스토리 완료',locationsDiscovered:'장소 발견',npcMeetings:'NPC 만남',specialItemDiscoveries:'특별 아이템·발견물'};
+    const rows=record?.records??[];for(const metric of rows.filter(item=>Object.hasOwn(metricNames,item.key)))summary.append(el('p',metricNames[metric.key]+' · '+(metric.value===null?'기록 없음':metric.value)));
+    if(stage===0){letter.append(el('p','최종 질문','ending-label'),el('h2','무엇을 지켰니?'),el('p','이 질문은 정답을 요구하지 않습니다.','ending-placeholder'));}
+    else if(stage===1){letter.append(el('p','이번 회차의 진로','ending-label'),el('h2',record?.careerName??'진로 결과 준비 대기'),el('p',record?.type==='FALLBACK'?'여러 분야를 경험하며 앞으로 선택할 수 있는 길을 넓혔습니다.':'기록된 성장 스탯과 회차 활동으로 진로를 정리했습니다.','ending-placeholder'));
+     for(const check of record?.checks??[])letter.append(el('p',(check.condition?.label??check.condition?.key)+' · '+(check.value===null?'기록 없음':check.value)+' / 기준 '+check.condition?.value));
+    }else{letter.append(el('p','엔딩 편지','ending-label'),el('h2',record?.letter?.status==='pending'?'편지 연결 대기':'편지'),el('p','개인화 편지 원고/API가 아직 연결되지 않았습니다. 내용을 임의로 만들지 않았습니다.','ending-placeholder'));}
+    layout.append(summary,letter);shell.append(layout);
+    if(stage<2)shell.append(btn('다음',()=>{stage++;paint();},'ending-continue'));
+    else shell.append(btn('타이틀로',()=>{if(active===generation)onComplete();},'ending-continue'));
+   };paint();return;
+  }
   heading('아르카디아에서 그려 본 미래','ending-page');
   const layout=el('div',null,'ending-layout'),summary=el('aside',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
   summary.append(shell.querySelector('h1'),el('h2',snapshot.character.name),el('p',snapshot.runNumber+'회차 · '+snapshot.week+'주차'),el('h3','현재 회차 실제 기록'));

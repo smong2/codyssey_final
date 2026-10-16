@@ -9,4 +9,4 @@ export const CLASSES=[
  {id:'seal-dismantle',title:'시계탑 봉인 해체',stat:'exploration',locationId:'plaza'}
 ];
 export const classOf=action=>CLASSES.find(c=>c.id===(action==='class'?'rune-circuit':action));
-export const validAction=action=>action==='rest'||action==='adventure'||Boolean(classOf(action));
+export const validAction=action=>action==='rest'||action==='adventure'||action==='fairy-trade'||Boolean(classOf(action));

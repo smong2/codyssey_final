@@ -397,6 +397,40 @@ run.stats + active pet modifier = effectiveStats
 | `runStatistics.importantChoiceCount` | Integer | 현재 회차 중요 선택 횟수 |
 | `runStatistics.classCounts` | Map<StatType, Integer> | 계열별 수업 횟수 |
 
+### 2.7.7 AI Long-term Play Memory
+
+Final Project의 `Long-term Memory`는 일반 세이브 전체를 의미하지 않습니다. **여러 주차·여러 로그인 세션에 걸쳐 현재 회차에 누적된 플레이 기억을 52주 종료 시 다시 조회해 실제 Gemini 입력에 사용하는 기능**으로 정의합니다.
+
+별도 중복 컬렉션을 반드시 만들 필요는 없으며, 다음 현재 회차 데이터를 기억의 원본으로 사용합니다.
+
+- `runStatistics`
+- `representativeChoices`
+- `stats`
+- `hiddenStats` 중 엔딩 입력에 사용할 요약 대상
+- 현재 캐릭터와 회차 식별 정보
+
+기억의 축적·사용·보관 흐름은 다음과 같습니다.
+
+```text
+활동 결과 / 중요 선택 확정
+→ activeRun의 runStatistics / representativeChoices 갱신
+→ 안정 저장 경계에서 Firestore 저장
+→ 로그아웃·재접속 후에도 같은 activeRun에서 계속 누적
+
+52주 종료
+→ activeRun의 현재 회차 기억 로드
+→ 대표 플레이 기록 4~6개 선별
+→ 중요 선택 최대 2개 선별
+→ 최종 스탯·보이지 않는 스탯 요약 결합
+→ AI Memory Context 생성
+→ Gemini 요청에 포함
+
+편지 확정
+→ selectedPlayRecords / representativeChoices / 최종 편지를 Ending Record에 보존
+```
+
+`statistics/global`은 모든 슬롯·회차를 합친 해금·운영용 전역 통계이므로 **현재 회차 엔딩 편지의 기본 AI Memory Context 원본으로 사용하지 않습니다.** 제출 버전에서는 과거 회차의 기억을 다음 회차 엔딩 편지에 자동 혼합하지 않습니다.
+
 ---
 
 ## 2.8 Ending Record
