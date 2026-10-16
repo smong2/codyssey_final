@@ -7,9 +7,8 @@
 | [캐릭터](../asset/character/) | 학생 전신과 인물 이미지 | [카엘](../asset/character/CH01_kael_000.png) | 32명 설정과 파일 ID 일치, 가장자리·투명도 검수 |
 | [아이템](../asset/item/) | 소지품, 마이룸 가구, 조사 상태 | [마음 일기](../asset/item/IT01_heart_diary_000.png) | 아이템·조사 오브젝트 구분, 상태별 표시 |
 | [배경](../asset/background/) | 학원 장소와 마이룸 | [유리 온실](../asset/background/BG07_glass_greenhouse_1920x1080_016.png) | 실제 화면 크롭·배치 검수 |
-| [환경](../asset/environment/) | 바닥, 식물, 구조물, 전경 | [온실 식물](../asset/environment/ENV05_small_plant_A_006.png) | 반복·경계·가림·접지 검수 |
 | [퍼즐](../asset/puzzle/) | 타일 바탕, 연결/회전 상태 | [퍼즐 바탕](../asset/puzzle/PZ01_puzzle_tile_base_000.png) | 상태와 규칙 연결, 상호작용 가독성 |
-| [UI](../asset/ui/) | 카드, 초대장, 가방, 기록, 힌트, 대화창, 로고 | [입학 초대장](../asset/ui/UI07_admission_invitation_004.png) | 텍스트는 동적 표시, 로고 변형 최종 선택 미정 |
+| [UI](../asset/ui/) | 카드, 초대장, 가방, 기록, 힌트, 대화창, 로고 및 바닥·식물·구조물·전경 이미지 | [입학 초대장](../asset/ui/UI07_admission_invitation_004.png), [온실 아치](../asset/ui/UI20_environment_arch1_greenhouse.png) | 텍스트는 동적 표시; 환경 이미지의 반복·경계·가림·접지 검수 필요 |
 | [효과](../asset/effect/) | 룬 발광, 달빛 광휘 | [룬 빛](../asset/effect/FX01_shared_rune_light_000.png) | 합성, 애니메이션, 밝기 검수 |
 
 ## 구분이 필요한 파일

@@ -1,6 +1,6 @@
 # UI 이미지 목록 (`asset/ui/`)
 
-GitHub `dev-jw` 기준 이미지 **42개**(PNG 40개, JPG 2개)와 이 README를 정리했습니다. 모든 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·검토 시안)·`LG`(로고)로 시작합니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
+GitHub `dev-jw` 기준 이미지 **57개**(PNG 55개, JPG 2개)와 이 README를 정리했습니다. 모든 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·환경 재료·검토 시안)·`LG`(로고)로 시작합니다. `UI20_environment_`는 기존 `asset/environment/`의 게임 규격 이미지 15장을 내용 변경 없이 통합한 묶음입니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
 
 파일이 존재한다는 사실만으로 게임 적용·최종 승인·동작 검수가 끝난 것은 아닙니다. 이름에 `final`이 있는 기존 파일의 상태도 별도 기획·검수 기준을 따릅니다.
 
@@ -72,6 +72,28 @@ GitHub `dev-jw` 기준 이미지 **42개**(PNG 40개, JPG 2개)와 이 README를
 |---|---|---:|---|
 | [UI18_myroom_time_review.jpg](./UI18_myroom_time_review.jpg) | 마이룸 시간대 검토 화면 캡처 | 1264×906 | <img src="./UI18_myroom_time_review.jpg" width="150" alt="마이룸 시간대 검토 화면 캡처"> |
 | [UI19_screen_gallery_review.jpg](./UI19_screen_gallery_review.jpg) | 전체 화면 갤러리 검토 캡처 | 558×849 | <img src="./UI19_screen_gallery_review.jpg" width="110" alt="전체 화면 갤러리 검토 캡처"> |
+
+## 게임용 환경 이미지
+
+기존 `asset/environment/`에서 옮긴 바닥·식물·구조물·전경 15장입니다. 개별 파일의 크기와 픽셀 내용은 유지했습니다. 실제 배치·반복 경계·캐릭터 가림·접지 검수는 별도입니다.
+
+| 파일 | 설명 | 원본 크기 | 미리보기 |
+|---|---|---:|---|
+| [UI20_environment_floor1_square.png](./UI20_environment_floor1_square.png) | 정사각 바닥 타일 | 128×128 | <img src="./UI20_environment_floor1_square.png" width="100" alt="정사각 바닥 타일"> |
+| [UI20_environment_floor2_small_square.png](./UI20_environment_floor2_small_square.png) | 작은 정사각 바닥 타일 | 128×128 | <img src="./UI20_environment_floor2_small_square.png" width="100" alt="작은 정사각 바닥 타일"> |
+| [UI20_environment_floor3_wide_tile.png](./UI20_environment_floor3_wide_tile.png) | 가로형 바닥 타일 | 128×128 | <img src="./UI20_environment_floor3_wide_tile.png" width="100" alt="가로형 바닥 타일"> |
+| [UI20_environment_floor4_brick.png](./UI20_environment_floor4_brick.png) | 벽돌 바닥 타일 | 128×128 | <img src="./UI20_environment_floor4_brick.png" width="100" alt="벽돌 바닥 타일"> |
+| [UI20_environment_floor5_warm_square.png](./UI20_environment_floor5_warm_square.png) | 따뜻한 색감의 바닥 타일 | 128×128 | <img src="./UI20_environment_floor5_warm_square.png" width="100" alt="따뜻한 색감의 바닥 타일"> |
+| [UI20_environment_border1_stone.png](./UI20_environment_border1_stone.png) | 돌 경계 타일 | 128×128 | <img src="./UI20_environment_border1_stone.png" width="100" alt="돌 경계 타일"> |
+| [UI20_environment_plant1_white_flower.png](./UI20_environment_plant1_white_flower.png) | 흰꽃 식물 | 256×256 | <img src="./UI20_environment_plant1_white_flower.png" width="100" alt="흰꽃 식물"> |
+| [UI20_environment_plant2_lavender.png](./UI20_environment_plant2_lavender.png) | 라벤더 식물 | 256×256 | <img src="./UI20_environment_plant2_lavender.png" width="100" alt="라벤더 식물"> |
+| [UI20_environment_plant3_broadleaf.png](./UI20_environment_plant3_broadleaf.png) | 넓은잎 식물 | 512×512 | <img src="./UI20_environment_plant3_broadleaf.png" width="100" alt="넓은잎 식물"> |
+| [UI20_environment_plant4_fern.png](./UI20_environment_plant4_fern.png) | 고사리 식물 | 512×512 | <img src="./UI20_environment_plant4_fern.png" width="100" alt="고사리 식물"> |
+| [UI20_environment_flowerbed1_stone.png](./UI20_environment_flowerbed1_stone.png) | 돌 화단 | 1024×512 | <img src="./UI20_environment_flowerbed1_stone.png" width="140" alt="돌 화단"> |
+| [UI20_environment_vine1_ivy.png](./UI20_environment_vine1_ivy.png) | 담쟁이 덩굴 | 512×512 | <img src="./UI20_environment_vine1_ivy.png" width="100" alt="담쟁이 덩굴"> |
+| [UI20_environment_arch1_greenhouse.png](./UI20_environment_arch1_greenhouse.png) | 온실 아치 구조물 | 1024×1024 | <img src="./UI20_environment_arch1_greenhouse.png" width="140" alt="온실 아치 구조물"> |
+| [UI20_environment_foreground1_flowering.png](./UI20_environment_foreground1_flowering.png) | 꽃이 핀 전경 | 1024×1024 | <img src="./UI20_environment_foreground1_flowering.png" width="140" alt="꽃이 핀 전경"> |
+| [UI20_environment_foreground2_fern.png](./UI20_environment_foreground2_fern.png) | 고사리 전경 | 1024×1024 | <img src="./UI20_environment_foreground2_fern.png" width="140" alt="고사리 전경"> |
 
 ## 정리 기록
 
