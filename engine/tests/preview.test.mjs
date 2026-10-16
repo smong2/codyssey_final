@@ -59,7 +59,7 @@ test('schedule session preserves navigation draft but resets for a replacement r
 test('approved preview assets are served with correct types without exposing repository',async t=>{
  const {createEngineServer}=await import('../server.mjs');const s=createEngineServer();await new Promise(r=>s.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>s.close(r)));
  const base='http://127.0.0.1:'+s.address().port;
- for(const [path,type] of [['/design-assets/bern/owl1.png','image/png'],['/design-assets/font_files/gowun_batang.woff2','font/woff2'],['/design-assets/map/map1_straight.png','image/png'],['/design-assets/ui/BT04_button_green.png','image/png'],['/intro.mp4','video/mp4']]){
+ for(const [path,type] of [['/design-assets/bern/owl1.png','image/png'],['/design-assets/font_files/gowun_batang.woff2','font/woff2'],['/design-assets/map/map1_straight.png','image/png'],['/design-assets/ui/BT04_blank_green.png','image/png'],['/intro.mp4','video/mp4']]){
  const r=await fetch(base+path,{method:'HEAD'});assert.equal(r.status,200,path);assert.equal(r.headers.get('content-type'),type);
  }
  assert.notEqual((await fetch(base+'/design-assets/font_files/README.md')).status,200);
@@ -69,13 +69,24 @@ test('approved preview assets are served with correct types without exposing rep
 test('ASCII UI asset filenames are served while retired names stay unavailable',async t=>{
  const {createEngineServer}=await import('../server.mjs');const s=createEngineServer();await new Promise(r=>s.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>s.close(r)));
  const base='http://127.0.0.1:'+s.address().port;
-  for(const name of ['BT01_diary_green.png','BT01_diary_ivory.png','BT02_backpack_green.png','BT02_backpack_ivory.png','BT03_menu_green.png','BT03_menu_ivory.png','BT04_button_green.png','BT04_button_light_green.png','BT04_button_ivory.png','BT04_button_pale_green.png']){
-   const frame=await fetch(base+'/design-assets/ui/'+name,{method:'HEAD'});
-   assert.equal(frame.status,200,name);assert.equal(frame.headers.get('content-type'),'image/png');
-  }
-  assert.equal((await fetch(base+'/design-assets/ui/BT04_%EB%B2%84%ED%8A%BC_%EA%B7%B8%EB%A6%B0.png',{method:'HEAD'})).status,404);
+ for(const name of ['BT01_diary_green.png','BT01_diary_ivory.png','BT02_backpack_green.png','BT02_backpack_ivory.png','BT03_menu_green.png','BT03_menu_ivory.png','BT04_blank_green.png','BT04_blank_light_green.png','BT04_blank_ivory.png','BT04_blank_pale_green.png']){
+  const frame=await fetch(base+'/design-assets/ui/'+name,{method:'HEAD'});
+  assert.equal(frame.status,200,name);assert.equal(frame.headers.get('content-type'),'image/png');
+ }
+ assert.equal((await fetch(base+'/design-assets/ui/BT04_%EB%B2%84%ED%8A%BC_%EA%B7%B8%EB%A6%B0.png',{method:'HEAD'})).status,404);
+ assert.equal((await fetch(base+'/design-assets/ui/BT04_button_green.png',{method:'HEAD'})).status,404);
  const removed=await fetch(base+'/design-assets/ui/player_status_frame_015.png',{method:'HEAD'});
  assert.equal(removed.status,404);
  assert.equal((await fetch(base+'/design-assets/ui/README.md',{method:'HEAD'})).status,404);
  assert.equal((await fetch(base+'/design-assets/ui/%2e%2e%2fREADME.md',{method:'HEAD'})).status,403);
+});
+
+test('renamed button, UI frame and title logo assets resolve without legacy paths',async t=>{
+ const {createEngineServer}=await import('../server.mjs');const s=createEngineServer();await new Promise(r=>s.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>s.close(r)));
+ const base='http://127.0.0.1:'+s.address().port;
+ for(const name of ['BT04_blank_green.png','BT05_start_game.png','BT06_new_game.png','BT07_continue_game.png','UI08_diary_open_book.png','UI11_dialogue_panel_nameplate.png','LG01_lumia_logo_final.png']){
+  const response=await fetch(base+'/design-assets/ui/'+name,{method:'HEAD'});
+  assert.equal(response.status,200,name);assert.equal(response.headers.get('content-type'),'image/png');
+ }
+ assert.equal((await fetch(base+'/design-assets/ui/lumia_logo_final_034.png',{method:'HEAD'})).status,404);
 });

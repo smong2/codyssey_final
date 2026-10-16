@@ -1,6 +1,6 @@
 # UI 이미지 목록 (`asset/ui/`)
 
-GitHub `dev-jw` 기준 이미지 **45개**(PNG 43개, JPG 2개)와 이 README를 정리했습니다. 각 파일명은 원본에 연결되고, 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
+GitHub `dev-jw` 기준 이미지 **42개**(PNG 40개, JPG 2개)와 이 README를 정리했습니다. 모든 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·검토 시안)·`LG`(로고)로 시작합니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
 
 파일이 존재한다는 사실만으로 게임 적용·최종 승인·동작 검수가 끝난 것은 아닙니다. 이름에 `final`이 있는 기존 파일의 상태도 별도 기획·검수 기준을 따릅니다.
 
@@ -14,14 +14,14 @@ GitHub `dev-jw` 기준 이미지 **45개**(PNG 43개, JPG 2개)와 이 README를
 | [BT02_backpack_ivory.png](./BT02_backpack_ivory.png) | 백팩 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT02_backpack_ivory.png" width="150" alt="백팩 버튼 · 아이보리 시안"> |
 | [BT03_menu_green.png](./BT03_menu_green.png) | 메뉴 버튼 · 녹색 시안 | 1254×1254 | <img src="./BT03_menu_green.png" width="150" alt="메뉴 버튼 · 녹색 시안"> |
 | [BT03_menu_ivory.png](./BT03_menu_ivory.png) | 메뉴 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT03_menu_ivory.png" width="150" alt="메뉴 버튼 · 아이보리 시안"> |
-| [BT04_button_green.png](./BT04_button_green.png) | 텍스트 없는 가로 버튼 · 녹색 시안 | 2171×724 | <img src="./BT04_button_green.png" width="220" alt="텍스트 없는 가로 버튼 · 녹색 시안"> |
-| [BT04_button_light_green.png](./BT04_button_light_green.png) | 텍스트 없는 가로 버튼 · 라이트그린 시안 | 2162×727 | <img src="./BT04_button_light_green.png" width="220" alt="텍스트 없는 가로 버튼 · 라이트그린 시안"> |
-| [BT04_button_ivory.png](./BT04_button_ivory.png) | 텍스트 없는 가로 버튼 · 아이보리 시안 | 2173×724 | <img src="./BT04_button_ivory.png" width="220" alt="텍스트 없는 가로 버튼 · 아이보리 시안"> |
-| [BT04_button_pale_green.png](./BT04_button_pale_green.png) | 텍스트 없는 가로 버튼 · 연그린 시안 | 2098×750 | <img src="./BT04_button_pale_green.png" width="220" alt="텍스트 없는 가로 버튼 · 연그린 시안"> |
-| [BT05_start_1.png](./BT05_start_1.png) | 시작 버튼 시안 1 | 2098×750 | <img src="./BT05_start_1.png" width="220" alt="시작 버튼 시안 1"> |
-| [BT05_start_2.png](./BT05_start_2.png) | 시작 버튼 시안 2 | 2098×750 | <img src="./BT05_start_2.png" width="220" alt="시작 버튼 시안 2"> |
-| [BT05_start_3.png](./BT05_start_3.png) | 시작 버튼 시안 3 | 2098×750 | <img src="./BT05_start_3.png" width="220" alt="시작 버튼 시안 3"> |
-| [font_button_comparison_final.png](./font_button_comparison_final.png) | 버튼 글꼴 비교용 이미지 | 1300×915 | <img src="./font_button_comparison_final.png" width="150" alt="버튼 글꼴 비교용 이미지"> |
+| [BT04_blank_green.png](./BT04_blank_green.png) | 텍스트 없는 가로 버튼 · 녹색 시안 | 2171×724 | <img src="./BT04_blank_green.png" width="220" alt="텍스트 없는 가로 버튼 · 녹색 시안"> |
+| [BT04_blank_light_green.png](./BT04_blank_light_green.png) | 텍스트 없는 가로 버튼 · 라이트그린 시안 | 2162×727 | <img src="./BT04_blank_light_green.png" width="220" alt="텍스트 없는 가로 버튼 · 라이트그린 시안"> |
+| [BT04_blank_ivory.png](./BT04_blank_ivory.png) | 텍스트 없는 가로 버튼 · 아이보리 시안 | 2173×724 | <img src="./BT04_blank_ivory.png" width="220" alt="텍스트 없는 가로 버튼 · 아이보리 시안"> |
+| [BT04_blank_pale_green.png](./BT04_blank_pale_green.png) | 텍스트 없는 가로 버튼 · 연그린 시안 | 2098×750 | <img src="./BT04_blank_pale_green.png" width="220" alt="텍스트 없는 가로 버튼 · 연그린 시안"> |
+| [BT05_start_game.png](./BT05_start_game.png) | ‘시작하기’ 버튼 | 2098×750 | <img src="./BT05_start_game.png" width="220" alt="시작하기 버튼"> |
+| [BT06_new_game.png](./BT06_new_game.png) | ‘새로 시작하기’ 버튼 | 2098×750 | <img src="./BT06_new_game.png" width="220" alt="새로 시작하기 버튼"> |
+| [BT07_continue_game.png](./BT07_continue_game.png) | ‘이어서 하기’ 버튼 | 2098×750 | <img src="./BT07_continue_game.png" width="220" alt="이어서 하기 버튼"> |
+| [UI17_button_font_comparison.png](./UI17_button_font_comparison.png) | 버튼 글꼴 비교용 이미지 | 1300×915 | <img src="./UI17_button_font_comparison.png" width="150" alt="버튼 글꼴 비교용 이미지"> |
 
 ## 기본 재료·프레임
 
@@ -40,44 +40,41 @@ GitHub `dev-jw` 기준 이미지 **45개**(PNG 43개, JPG 2개)와 이 README를
 
 ## 로고
 
-새 이름의 로고와 기존 이름의 로고는 각 쌍이 동일한 이미지·해상도입니다. 게임 타이틀과 기존 문서가 이전 이름을 참조하므로 두 이름을 함께 유지합니다.
+기존 게임 타이틀에서 사용한 확정 로고를 `LG01`로 이름 변경했습니다. `LG02`·`LG03`은 각각 신비 로고 1안·5안이며, 동일 이미지 중복 파일은 제거했습니다. 빛 효과는 별도 파일입니다.
 
 | 파일 | 설명 | 원본 크기 | 미리보기 |
 |---|---|---:|---|
-| [LG01_lumia_logo_final.png](./LG01_lumia_logo_final.png) | LUMIA 로고 파일 · 기존 확정 로고와 동일 이미지 | 1774×887 | <img src="./LG01_lumia_logo_final.png" width="150" alt="LUMIA 로고 파일 · 기존 확정 로고와 동일 이미지"> |
-| [LG02_lumia_logo_mystic.png](./LG02_lumia_logo_mystic.png) | LUMIA 신비 로고 시안 1 · 기존 파일과 동일 이미지 | 1600×800 | <img src="./LG02_lumia_logo_mystic.png" width="150" alt="LUMIA 신비 로고 시안 1 · 기존 파일과 동일 이미지"> |
-| [LG03_lumia_logo_mystic.png](./LG03_lumia_logo_mystic.png) | LUMIA 신비 로고 시안 5 · 기존 파일과 동일 이미지 | 1600×800 | <img src="./LG03_lumia_logo_mystic.png" width="150" alt="LUMIA 신비 로고 시안 5 · 기존 파일과 동일 이미지"> |
-| [lumia_logo_final_034.png](./lumia_logo_final_034.png) | 확정 LUMIA 로고; 빛 효과는 별도 파일 | 1774×887 | <img src="./lumia_logo_final_034.png" width="150" alt="확정 LUMIA 로고; 빛 효과는 별도 파일"> |
-| [lumia_logo_mystic_01_017.png](./lumia_logo_mystic_01_017.png) | 이전 LUMIA 로고 시안 1 | 1600×800 | <img src="./lumia_logo_mystic_01_017.png" width="150" alt="이전 LUMIA 로고 시안 1"> |
-| [lumia_logo_mystic_05_018.png](./lumia_logo_mystic_05_018.png) | 이전 LUMIA 로고 시안 5 | 1600×800 | <img src="./lumia_logo_mystic_05_018.png" width="150" alt="이전 LUMIA 로고 시안 5"> |
+| [LG01_lumia_logo_final.png](./LG01_lumia_logo_final.png) | 확정 LUMIA 로고; 빛 효과는 별도 파일 | 1774×887 | <img src="./LG01_lumia_logo_final.png" width="150" alt="확정 LUMIA 로고; 빛 효과는 별도 파일"> |
+| [LG02_lumia_logo_mystic_01.png](./LG02_lumia_logo_mystic_01.png) | LUMIA 신비 로고 시안 1 | 1600×800 | <img src="./LG02_lumia_logo_mystic_01.png" width="150" alt="LUMIA 신비 로고 시안 1"> |
+| [LG03_lumia_logo_mystic_05.png](./LG03_lumia_logo_mystic_05.png) | LUMIA 신비 로고 시안 5 | 1600×800 | <img src="./LG03_lumia_logo_mystic_05.png" width="150" alt="LUMIA 신비 로고 시안 5"> |
 
 ## 화면 구성·다이어리 시안
 
 | 파일 | 설명 | 원본 크기 | 미리보기 |
 |---|---|---:|---|
-| [BT06_diary1.png](./BT06_diary1.png) | 다이어리 화면 요소 시안 1 | 1672×941 | <img src="./BT06_diary1.png" width="150" alt="다이어리 화면 요소 시안 1"> |
-| [BT06_diary2.png](./BT06_diary2.png) | 다이어리 화면 요소 시안 2 | 1028×432 | <img src="./BT06_diary2.png" width="220" alt="다이어리 화면 요소 시안 2"> |
-| [BT07_dialogue_chat.png](./BT07_dialogue_chat.png) | 대화창 요소 시안 | 1988×791 | <img src="./BT07_dialogue_chat.png" width="220" alt="대화창 요소 시안"> |
-| [BT07_dialogue_frame.png](./BT07_dialogue_frame.png) | 대화 프레임 시안 | 1280×320 | <img src="./BT07_dialogue_frame.png" width="220" alt="대화 프레임 시안"> |
-| [BT07_frame.png](./BT07_frame.png) | 프레임 시안 | 1086×1448 | <img src="./BT07_frame.png" width="150" alt="프레임 시안"> |
-| [collection_01_integrated.png](./collection_01_integrated.png) | 컬렉션 화면 통합 시안 | 1672×941 | <img src="./collection_01_integrated.png" width="150" alt="컬렉션 화면 통합 시안"> |
-| [date_01_original.png](./date_01_original.png) | 날짜 프레임 원래 색상 | 1902×827 | <img src="./date_01_original.png" width="220" alt="날짜 프레임 원래 색상"> |
-| [date_01.png](./date_01.png) | 날짜 표시 시안 1 | 1860×846 | <img src="./date_01.png" width="220" alt="날짜 표시 시안 1"> |
-| [diary_01_book.png](./diary_01_book.png) | 다이어리 · 펼친 책 구성 | 1672×941 | <img src="./diary_01_book.png" width="150" alt="다이어리 · 펼친 책 구성"> |
-| [diary_02_chronology.png](./diary_02_chronology.png) | 다이어리 · 시간순 기록 구성 | 1672×941 | <img src="./diary_02_chronology.png" width="150" alt="다이어리 · 시간순 기록 구성"> |
-| [diary_04_letters.png](./diary_04_letters.png) | 다이어리 · 편지함 구성 | 1671×941 | <img src="./diary_04_letters.png" width="150" alt="다이어리 · 편지함 구성"> |
-| [diary_05_archive.png](./diary_05_archive.png) | 다이어리 · 서고 기록함 구성 | 1671×941 | <img src="./diary_05_archive.png" width="150" alt="다이어리 · 서고 기록함 구성"> |
-| [weekly_01_planner.png](./weekly_01_planner.png) | 주간 일정 플래너 시안 | 1672×941 | <img src="./weekly_01_planner.png" width="150" alt="주간 일정 플래너 시안"> |
+| [UI08_diary_open_book.png](./UI08_diary_open_book.png) | 빈 다이어리 펼친 책 프레임 | 1672×941 | <img src="./UI08_diary_open_book.png" width="150" alt="빈 다이어리 펼친 책 프레임"> |
+| [UI09_diary_bookmark_fabric.png](./UI09_diary_bookmark_fabric.png) | 다이어리용 빈티지 천 책갈피 | 1028×432 | <img src="./UI09_diary_bookmark_fabric.png" width="220" alt="다이어리용 빈티지 천 책갈피"> |
+| [UI10_dialogue_panel_plain.png](./UI10_dialogue_panel_plain.png) | 이름표 없는 대화 패널 | 1988×791 | <img src="./UI10_dialogue_panel_plain.png" width="220" alt="이름표 없는 대화 패널"> |
+| [UI11_dialogue_panel_nameplate.png](./UI11_dialogue_panel_nameplate.png) | 이름표가 있는 대화 패널 | 1280×320 | <img src="./UI11_dialogue_panel_nameplate.png" width="220" alt="이름표가 있는 대화 패널"> |
+| [UI12_portrait_card_frame.png](./UI12_portrait_card_frame.png) | 세로형 카드 프레임 | 1086×1448 | <img src="./UI12_portrait_card_frame.png" width="150" alt="세로형 카드 프레임"> |
+| [UI13_collection_screen_layout.png](./UI13_collection_screen_layout.png) | 컬렉션 화면 통합 시안 | 1672×941 | <img src="./UI13_collection_screen_layout.png" width="150" alt="컬렉션 화면 통합 시안"> |
+| [UI14_date_frame_original.png](./UI14_date_frame_original.png) | 날짜 프레임 원래 색상 | 1902×827 | <img src="./UI14_date_frame_original.png" width="220" alt="날짜 프레임 원래 색상"> |
+| [UI14_date_frame_variant_01.png](./UI14_date_frame_variant_01.png) | 날짜 표시 시안 1 | 1860×846 | <img src="./UI14_date_frame_variant_01.png" width="220" alt="날짜 표시 시안 1"> |
+| [UI15_diary_layout_01_book.png](./UI15_diary_layout_01_book.png) | 다이어리 · 펼친 책 구성 | 1672×941 | <img src="./UI15_diary_layout_01_book.png" width="150" alt="다이어리 · 펼친 책 구성"> |
+| [UI15_diary_layout_02_chronology.png](./UI15_diary_layout_02_chronology.png) | 다이어리 · 시간순 기록 구성 | 1672×941 | <img src="./UI15_diary_layout_02_chronology.png" width="150" alt="다이어리 · 시간순 기록 구성"> |
+| [UI15_diary_layout_04_letters.png](./UI15_diary_layout_04_letters.png) | 다이어리 · 편지함 구성 | 1671×941 | <img src="./UI15_diary_layout_04_letters.png" width="150" alt="다이어리 · 편지함 구성"> |
+| [UI15_diary_layout_05_archive.png](./UI15_diary_layout_05_archive.png) | 다이어리 · 서고 기록함 구성 | 1671×941 | <img src="./UI15_diary_layout_05_archive.png" width="150" alt="다이어리 · 서고 기록함 구성"> |
+| [UI16_weekly_planner_layout.png](./UI16_weekly_planner_layout.png) | 주간 일정 플래너 시안 | 1672×941 | <img src="./UI16_weekly_planner_layout.png" width="150" alt="주간 일정 플래너 시안"> |
 
 ## 검토 캡처
 
 | 파일 | 설명 | 원본 크기 | 미리보기 |
 |---|---|---:|---|
-| [myroom-times-proof.jpg](./myroom-times-proof.jpg) | 마이룸 시간대 검토 화면 캡처 | 1264×906 | <img src="./myroom-times-proof.jpg" width="150" alt="마이룸 시간대 검토 화면 캡처"> |
-| [screens-gallery-proof.jpg](./screens-gallery-proof.jpg) | 전체 화면 갤러리 검토 캡처 | 558×849 | <img src="./screens-gallery-proof.jpg" width="110" alt="전체 화면 갤러리 검토 캡처"> |
+| [UI18_myroom_time_review.jpg](./UI18_myroom_time_review.jpg) | 마이룸 시간대 검토 화면 캡처 | 1264×906 | <img src="./UI18_myroom_time_review.jpg" width="150" alt="마이룸 시간대 검토 화면 캡처"> |
+| [UI19_screen_gallery_review.jpg](./UI19_screen_gallery_review.jpg) | 전체 화면 갤러리 검토 캡처 | 558×849 | <img src="./UI19_screen_gallery_review.jpg" width="110" alt="전체 화면 갤러리 검토 캡처"> |
 
 ## 정리 기록
 
 - 첨부 화면에 지정된 가방·기록·힌트 SVG 3개와 기록 버튼 아이콘 SVG 5개는 제외했습니다.
-- 같은 픽셀의 이미지가 다른 파일명으로 존재하는 경우에도 기존 파일명을 유지했습니다.
+- 기존 로고 3종과 내용이 같은 LG 중복 파일을 정리하고, 게임에서 사용하던 원본에 LG 이름을 적용했습니다.
 - 검토용 실행 코드와 작업 문서는 이 GitHub 폴더에 포함하지 않았습니다.
