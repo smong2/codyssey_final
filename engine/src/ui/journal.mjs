@@ -4,15 +4,17 @@ import {studentCards,petCards} from '../core/catalogue.mjs';
 import {ITEM_PREVIEWS,BADGE_PREVIEWS} from '../core/bag-assets.mjs';
 import {weeklyActivityRecords} from '../core/activity-history.mjs';
 import {activityResultText} from '../core/activity-rules.mjs';
+import {ADVENTURE_LOCATIONS,getAdventureMap} from '../core/adventure-mission.mjs';
+import {storyContent} from '../core/story-events.mjs';
 const ACTIVITY_PLACES={'rune-circuit':'BG09_magic_workshop_1920x1080_018.png',excavation:'BG01_arcadia_entrance_and_lake_1920x1080_010.png','rune-link':'BG05_grand_library_1920x1080_014.png','training-guardian':'BG10_rune_training_ground_1920x1080_019.png','rune-merge':'BG07_glass_greenhouse_1920x1080_016.png','mirror-magic':'BG06_starlight_observatory_1920x1080_015.png','seal-dismantle':'BG02_clocktower_plaza_1920x1080_011.png'};
-export const activityArt=a=>a==='adventure'?'./design-assets/map/map01_greenhouse_world_1920x1080.webp':a==='rest'?'./world-assets/BG03_myroom2_day_1920x1080_023.png':ACTIVITY_PLACES[classOf(a)?.id]?'./world-assets/'+ACTIVITY_PLACES[classOf(a).id]:null;
-export const activityLabel=a=>a==='adventure'?'유리 온실 모험':classOf(a)?.title??'휴식';
+export const activityArt=(a,locationId='greenhouse')=>a==='adventure'?getAdventureMap((ADVENTURE_LOCATIONS.find(place=>place.id===locationId)??ADVENTURE_LOCATIONS[0]).mapId).thumbnail:a==='rest'?'./world-assets/BG03_myroom2_day_1920x1080_023.png':ACTIVITY_PLACES[classOf(a)?.id]?'./world-assets/'+ACTIVITY_PLACES[classOf(a).id]:null;
+export const activityLabel=(a,locationId='greenhouse')=>a==='adventure'?(ADVENTURE_LOCATIONS.find(place=>place.id===locationId)?.title??'모험')+' 모험':classOf(a)?.title??'휴식';
 export function createJournalUI(ctx){
  const {el,btn,shell,heading,current,meta,onReturn,turnPage}=ctx;
  let diaryTab='활동 기록',page=0,selected=0;const turns=createPageTurnGate();
  const close=()=>{const x=btn('X',onReturn,'close-x');x.setAttribute('aria-label','마이룸으로 닫기');shell.append(x);};
  function diary(){
-  turns.reset();heading('다이어리','diary-page');const records=diaryTab==='활동 기록'?weeklyActivityRecords(current().actionHistory??[]):[],pages=Math.max(1,Math.ceil(records.length/6));page=Math.min(page,pages-1);
+  turns.reset();heading('다이어리','diary-page');const records=diaryTab==='활동 기록'?weeklyActivityRecords(current().actionHistory??[]):[...(current().storyState?.history??[])].reverse(),pages=Math.max(1,Math.ceil(records.length/6));page=Math.min(page,pages-1);
   const layout=el('div',null,'book-layout'),tabs=el('nav',null,'book-tabs');
   const change=fn=>{const done=turns.begin(()=>{if(!layout.isConnected)return;fn();diary();});if(done)turnPage(layout,done);};
   for(const tab of ['이야기','활동 기록'])tabs.append(btn(tab,()=>change(()=>{diaryTab=tab;page=0;selected=0;}),diaryTab===tab?'selected':'quiet'));
@@ -20,11 +22,12 @@ export function createJournalUI(ctx){
   const grid=el('div',null,'scrap-cards');if(!records.length)grid.append(el('p',diaryTab==='이야기'?'아직 등록된 이야기 기록이 없습니다.':'아직 완료한 활동이 없습니다.','book-empty'));
   for(const [index,record] of records.slice(page*6,page*6+6).entries()){
    const absolute=page*6+index,card=btn('',()=>change(()=>{selected=absolute;}),'scrap-card'+(selected===absolute?' selected':''));
-   const images=el('div',null,'weekly-record-images');for(const art of [...new Set(record.activities.map(a=>activityArt(a.action)).filter(Boolean))].slice(0,3)){const image=el('img');image.src=art;image.alt='';images.append(image);}if(images.children.length)card.append(images);
-   card.append(el('strong',record.week+'주차'),el('small','실제 활동 '+record.activities.length+' / 5회'));grid.append(card);
+   const images=el('div',null,'weekly-record-images'),arts=record.activities?record.activities.map(a=>activityArt(a.action,a.locationId)):[activityArt('adventure',record.locationId)];for(const art of [...new Set(arts.filter(Boolean))].slice(0,3)){const image=el('img');image.src=art;image.alt='';images.append(image);}if(images.children.length)card.append(images);
+   card.append(el('strong',record.activities?record.week+'주차':storyContent(record).title),el('small',record.activities?'실제 활동 '+record.activities.length+' / 5회':record.week+'주차 · 임시 이야기'));grid.append(card);
   }left.append(grid);
-  const record=records[selected];right.append(el('h2',record?record.week+'주차 활동 기록':'이야기의 자리'));
-  if(record){for(const activity of record.activities){const row=el('p',['월','화','수','목','금'][activity.day]+'요일 · '+activityLabel(activity.action)),result=activityResultText(activity);if(result)row.append(el('br'),el('small',result));right.append(row);}if(record.week===current().week)right.append(el('p','이번 주 기록은 주말 처리 후 저장됩니다.'));right.append(el('small','완료한 활동만 표시합니다. 개인 돌아보기 문구는 아직 등록되지 않았습니다.'));}
+  const record=records[selected];right.append(el('h2',record?(record.activities?record.week+'주차 활동 기록':storyContent(record).title):'이야기의 자리'));
+  if(record?.activities){for(const activity of record.activities){const row=el('p',['월','화','수','목','금'][activity.day]+'요일 · '+activityLabel(activity.action,activity.locationId)),result=activityResultText(activity);if(result)row.append(el('br'),el('small',result));right.append(row);}right.append(el('small','완료한 활동만 표시합니다. 활동 결과 저장 후 유지됩니다. 개인 돌아보기 문구는 아직 등록되지 않았습니다.'));}
+  else if(record){const content=storyContent(record),choice=content.choices.find(c=>c.id===record.choiceId);right.append(el('p',record.week+'주차 · '+['월','화','수','목','금'][record.day]+'요일'),el('p',choice?.label??''),el('p',content.closing),el('small','연결 확인용 임시 이야기 기록 · 정식 스토리·해금 아님'));}
   else right.append(el('p','선택한 기록의 사진과 메모가 이 페이지에 표시됩니다.'),el('p','시나리오·개인 기록 데이터 미등록'),el('small','책·테이프·장식 전용 애셋은 제작 예정입니다.'));
   const spine=el('div',null,'book-spine');spine.setAttribute('aria-hidden','true');layout.append(tabs,left,spine,right);shell.append(layout);
   const footer=el('nav',null,'book-footer');const previous=btn('이전 페이지',()=>change(()=>{page--;selected=page*6;}),'quiet'),next=btn('다음 페이지',()=>change(()=>{page++;selected=page*6;}),'quiet');previous.disabled=page===0;next.disabled=page+1>=pages;
