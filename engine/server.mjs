@@ -2,6 +2,7 @@ import http from 'node:http';
 import {readFile,stat,open} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {assetReference} from './src/core/asset-paths.mjs';
 const root=path.dirname(fileURLToPath(import.meta.url));
 const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff2':'font/woff2','.mp4':'video/mp4','.mp3':'audio/mpeg'};
 export function createEngineServer(){
@@ -14,9 +15,9 @@ export function createEngineServer(){
    else if(pathname==='/style.css'||pathname==='/preview.css')file=path.join(root,path.basename(pathname));
    else if(/^\/src\/.+\.(mjs|js)$/.test(pathname))file=path.join(root,pathname);
    else if(/^\/minigame-demo\/(src\/.+\.js|vendor\/phaser.min.js)$/.test(pathname))file=path.join(root,pathname);
-   else if(/^\/world-assets\/[\w.-]+\.png$/.test(pathname))file=path.join(root,'../asset/background',path.basename(pathname));
+   else if(/^\/world-assets\/[\w.-]+\.png$/.test(pathname))file=path.join(root,'../asset/background',assetReference('background',path.basename(pathname)).file);
    else if(/^\/character-assets\/[\w.-]+\.png$/.test(pathname))file=path.join(root,'../asset/character',path.basename(pathname));
-   else if(/^\/design-assets\/(ui|effect|bern|map|font_files|item|badge|sd_character)\/[\w.-]+\.(png|webp|svg|woff2)$/.test(pathname))file=path.join(root,'../asset',pathname.slice('/design-assets/'.length));
+   else if(/^\/design-assets\/(ui|effect|bern|pet|map|font_files|item|badge|sd_character)\/[\w.-]+\.(png|webp|svg|woff2)$/.test(pathname)){const [,category,name]=pathname.slice('/design-assets/'.length).match(/^([^/]+)\/(.+)$/),resolved=assetReference(category,name);file=path.join(root,'../asset',resolved.category,resolved.file);}
    else if(/^\/sd-assets\/SD03_(S|SW|W|NW|N|NE|E|SE)_strip\.png$/.test(pathname))file=path.join(root,'../prototype/assets',path.basename(pathname));
    else if(pathname==='/intro.mp4')file=path.join(root,'../prototype/assets/intro.mp4');
    else if(['/audio-assets/bgm_title_intro.MP3','/audio-assets/bgm_title_main.mp3','/audio-assets/bgm_admission_invitation.mp3','/audio-assets/bgm_myroom.mp3'].includes(pathname))file=path.join(root,'../asset/audio/bgm',path.basename(pathname));

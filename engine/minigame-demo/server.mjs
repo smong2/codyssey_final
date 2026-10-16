@@ -2,6 +2,7 @@ import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { dirname, extname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {assetReference} from '../src/core/asset-paths.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const worldBackgrounds = resolve(root, '../../asset/background');
@@ -12,7 +13,7 @@ createServer(async (request, response) => {
     const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
     const worldAsset = pathname.startsWith('/world-assets/');
     const path = worldAsset
-      ? resolve(worldBackgrounds, pathname.slice('/world-assets/'.length))
+      ? resolve(worldBackgrounds, assetReference('background',pathname.slice('/world-assets/'.length)).file)
       : resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
     const allowedRoot = worldAsset ? worldBackgrounds : root;
     if (path !== allowedRoot && !path.startsWith(allowedRoot + sep)) throw new Error('outside root');
