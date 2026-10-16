@@ -217,7 +217,7 @@ function renderMainStory(id,index=0){
  else actions.append(btn('이야기 마치기',()=>{completeMainStory(current(),id);save(false,slotId,renderRoom);if(saveFailed)renderRoom();}));
  frame.append(actions);shell.append(frame);
 }
-const journalUI=createJournalUI({el,btn,shell,heading,current,meta:()=>profile.meta,activePet:()=>activePet(profile),onSelectPet:selectPet,isSaveFailed:()=>saveFailed,onReturn:renderRoom,turnPage:(_layout,done)=>done()});
+const journalUI=createJournalUI({el,btn,shell,heading,current,meta:()=>profile.meta,activePet:()=>activePet(profile),onSelectPet:selectPet,isSaveFailed:()=>saveFailed,onReturn:renderRoom,turnPage:(_layout,done)=>done(),modal});
 function dispatchActivity(checkpoint){
  const run=current(),action=checkpoint.action,lesson=classOf(action);
  if(action!=='rest')reviewPrompt=null;

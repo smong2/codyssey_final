@@ -18,11 +18,23 @@ test('adventure loads all three layers from the selected map configuration',t=>{
  const {loads}=sceneHarness(t);
  assert.deepEqual(loads,[['world','./design-assets/map/test-world.webp'],['mask','./design-assets/map/test-mask.png'],['foreground','./design-assets/map/test-front.webp']]);
 });
-test('adventure loads the selected player and NPC SD identities instead of a shared character',t=>{
+test('adventure loads only the selected player artwork; NPCs are invisible encounter points',t=>{
  const {strips}=sceneHarness(t,{characterId:'CH02',npcs:[{id:'CH16',name:'티아'}]});
  assert.equal(strips.find(([key])=>key==='walk-S')[1],'./design-assets/sd_character/sera_s_strip_008.png');
- assert.equal(strips.find(([key])=>key==='npc-CH16')[1],'./design-assets/sd_character/tia_s_strip_032.png');
- assert.equal(strips.length,9);
+ assert.equal(strips.some(([key])=>key.startsWith('npc-')),false);
+ assert.equal(strips.length,8);
+});
+test('walking into an NPC location automatically pauses for dialogue only once',t=>{
+ const previousDocument=globalThis.document;globalThis.document={hidden:false};t.after(()=>{globalThis.document=previousDocument;});
+ let opened=0;const {scene}=sceneHarness(t,{npcs:[{id:'CH16',name:'티아'}],onEncounter:()=>opened++});
+ scene.player={x:1000,y:800,setPosition(x,y){this.x=x;this.y=y;},setFrame(){},anims:{stop(){}}};
+ scene.npcEncounters=[{npc:{id:'CH16',name:'티아'},point:{x:1000,y:800},triggered:false}];
+ scene.keys=Object.fromEntries(['W','A','S','D','UP','DOWN','LEFT','RIGHT'].map(key=>[key,{isDown:false}]));
+ scene.active=true;scene.remainingMs=120000;
+ scene.update(0,16);
+ assert.equal(opened,1);assert.equal(scene.paused,true);
+ scene.pause(false);scene.update(0,16);
+ assert.equal(opened,1);
 });
 test('investigation exposes its busy state and preserves an overlapping dialogue pause',t=>{
  t.mock.timers.enable({apis:['setTimeout']});

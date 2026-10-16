@@ -12,6 +12,9 @@ const definitions=[
  ['fawn10.png','세렌','숲과 별빛 사이에 남은 희미한 룬의 흔적을 알아보는 아기사슴. 낯선 길에서도 조용히 앞을 살피며 새로운 곳으로 발을 내딛는다.','magic',5,'exploration',5,'캐릭터 총 25명 해금']
 ];
 export const PETS=definitions.map(([image,name,description,a,av,b,bv,condition],i)=>({id:'PET'+String(i+1).padStart(2,'0'),image,name,description,modifiers:{[a]:av,[b]:bv},condition}));
+export const PET_UNLOCK_HINTS=Object.freeze({
+ PET01:'게임 시작 시 기본 제공',PET02:'첫 엔딩 열람 완료 (별길 개척자 포함, 엔딩의 ‘타이틀로’ 저장 성공)',PET03:'플레이 가능 캐릭터 총 10명 해금',PET04:'모험 누적 100회',PET05:'NPC 개별 스토리 5개 완료',PET06:'서로 다른 정규 직업 엔딩 3개 확인',PET07:'플레이 가능 캐릭터 총 18명 해금',PET08:'배지 소분류 1개를 8/8로 완성',PET09:'수업 누적 150회 + 모험 누적 150회 + NPC 누적 만남 30회',PET10:'플레이 가능 캐릭터 총 25명 해금'
+});
 export function unlockedPetIds(meta){
  const ids=[...(Array.isArray(meta.unlockedPetIds)?meta.unlockedPetIds:[]),...(Array.isArray(meta.pets)?meta.pets:[]).map(id=>/^pet\d+$/.test(id)?'PET'+id.slice(3).padStart(2,'0'):id),'PET01'];
  return PETS.filter(p=>ids.includes(p.id)).map(p=>p.id);
@@ -26,4 +29,4 @@ export function effectiveStats(stats,pet,stamina=100){
   return [key,lowStamina(stamina)?Math.floor(corrected*0.70):corrected];
  }));
 }
-export function petCards(meta,activeId='PET01'){return PETS.map(p=>({...p,unlocked:unlockedPetIds(meta).includes(p.id),muted:!unlockedPetIds(meta).includes(p.id),selected:p.id===activeId}));}
+export function petCards(meta,activeId='PET01'){return PETS.map(p=>({...p,unlockHint:PET_UNLOCK_HINTS[p.id]??null,unlocked:unlockedPetIds(meta).includes(p.id),muted:!unlockedPetIds(meta).includes(p.id),selected:p.id===activeId}));}
