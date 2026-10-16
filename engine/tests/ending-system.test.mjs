@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {selectCareerEnding,ENDING_CAREERS} from '../src/core/ending-system.mjs';
-import {createProfile,startRun,prepareEnding,completeRun} from '../src/core/state.mjs';
+import {createProfile,startRun,prepareEnding,acceptEndingResult,completeRun} from '../src/core/state.mjs';
 import {validateProfile} from '../src/core/storage.mjs';
 
 const defaults=()=>({stats:{knowledge:50,expression:50,dexterity:50,exploration:50,magic:50},hiddenStats:{},actionHistory:[],storyState:{history:[]}});
@@ -52,6 +52,11 @@ test('ending summary uses only recorded counters and marks missing metrics as un
 test('prepared ending survives save and the run completes only after final confirmation',()=>{
  const profile=createProfile(),run=startRun(profile,1,'CH01');run.week=52;run.day=5;run.phase='AWAITING_ENDING';run.schedule=['rest','rest','rest','rest','rest'];run.scheduleLocations=Array(5).fill(null);run.pendingWeekSummaryWeek=undefined;run.mainStory.pendingId=null;run.mainStory.completedIds=['MS01','MS02','MS03','MS04','MS05','MS06'];
  const prepared=prepareEnding(profile,1,()=>0);assert.equal(prepared.type,'FALLBACK');assert.equal(profile.slots[0].status,'PLAYING');
- validateProfile(profile);const final=completeRun(profile,1);assert.equal(final.careerId,'ENDING_STARPATH_PIONEER');assert.equal(profile.slots[0].status,'RUN_COMPLETE');assert.equal(profile.slots[0].completedRunCount,1);
+ validateProfile(profile);assert.throws(()=>completeRun(profile,1));
+ const response={slotId:1,runNumber:1,career:{id:prepared.careerId,name:prepared.careerName},letter:{status:'ready',validated:true,careerId:prepared.careerId,source:'fallback',sections:{future:'검증용 미래',reflection:'검증용 기록',encouragement:'검증용 응원'}}};
+ const before=structuredClone(profile);assert.throws(()=>acceptEndingResult(profile,1,{...response,career:{id:'wrong',name:'다른 직업'}}));assert.deepEqual(profile,before);
+ acceptEndingResult(profile,1,response);validateProfile(profile);assert.equal(profile.meta.endingRecords.length,0);
+ const final=completeRun(profile,1);assert.equal(final.careerId,'ENDING_STARPATH_PIONEER');assert.equal(profile.slots[0].status,'RUN_COMPLETE');assert.equal(profile.slots[0].completedRunCount,1);
+ assert.equal(final.letter.sections.reflection,'검증용 기록');assert.throws(()=>completeRun(profile,1));
  assert.equal(profile.meta.seenEndings.length,0);assert.equal(profile.meta.endingViewCounts.ENDING_STARPATH_PIONEER,1);validateProfile(profile);
 });

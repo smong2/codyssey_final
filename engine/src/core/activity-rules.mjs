@@ -35,7 +35,7 @@ export function activityResultText(entry){
  const title=entry.action==='adventure'?'모험':entry.action==='fairy-trade'?'요정의 거래':classOf(entry.action)?.title??'휴식';
  const outcome=effect.forcedRest?(effect.forcedRestDays?'강제 휴식 · '+effect.forcedRestDays+'일 남음':'강제 휴식 완료'):
   entry.action==='rest'&&effect.outcome!=='interrupted'?REST_OUTCOMES.find(r=>r.recovery===effect.restRecovery)?.text:
-  {success:'성공',failure:'실패',greatSuccess:'대성공',timeout:'시간 종료',complete:'완료',interrupted:'중단 복구',transferred:'교환 완료',skipped:'건너뜀'}[effect.outcome];
+  {success:'성공',failure:'실패',greatSuccess:'대성공',timeout:'시간 종료',complete:'완료',interrupted:'중단',transferred:'교환 완료',skipped:'건너뜀'}[effect.outcome];
  const stamina='체력 '+(effect.staminaChange>0?'+':'')+effect.staminaChange+' ('+effect.staminaAfter+'/100)';
  const growth=Object.entries(effect.growth).filter(([,value])=>value>0).map(([stat,value])=>STAT_NAMES[stat]+' +'+value);
  const transfers=Object.entries(effect.transferChanges??{}).filter(([,value])=>value<0).map(([from,value])=>{const to=Object.entries(effect.transferChanges).find(([,delta])=>delta===-value)?.[0];return STAT_NAMES[from]+' → '+STAT_NAMES[to]+' '+Math.abs(value);});
