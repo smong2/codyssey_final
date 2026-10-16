@@ -1,4 +1,4 @@
-import {CHARACTERS,startRun,setSchedule,actionToken,beginAction,applyAction,recoverInterruptedAction,finishWeek,acknowledgeWeekSummary,deleteSlot,completeMainStory,prepareEnding,acceptEndingResult,completeRun} from './core/state.mjs';
+import {CHARACTERS,startRun,setSchedule,actionToken,beginAction,applyAction,recoverInterruptedAction,stopAdventure,finishWeek,acknowledgeWeekSummary,deleteSlot,completeMainStory,prepareEnding,acceptEndingResult,completeRun} from './core/state.mjs';
 import {classOf} from './core/classes.mjs';
 import {createMinigameStartData} from './core/minigame-contract.mjs';
 import {activityResultText} from './core/activity-rules.mjs';
@@ -324,21 +324,37 @@ function renderAdventure(checkpoint=current().inProgressActivity){
   storedExploration:run.stats.exploration,petExplorationBonus:activePet(profile).modifiers.exploration,objectiveCount:3});
  const token=checkpoint?.token??actionToken(run);heading(place.title,'adventure-page');
  const host=el('div',null,'adventure-viewport');host.setAttribute('aria-label',place.title+' SD 캐릭터 모험 맵');shell.append(host);
- const hud=el('section',null,'adventure-hud paper'),placeName=el('strong',place.title),timer=el('span','--:--'),progress=el('span','목표물 준비 중'),searchCount=el('span','조사 0회'),clueButton=btn('단서 다시 보기',()=>showClues(false),'quiet');hud.append(placeName,timer,progress,searchCount,clueButton);shell.append(hud);
+ const hud=el('section',null,'adventure-hud paper'),placeName=el('strong',place.title),timer=el('span','--:--'),progress=el('span','목표물 준비 중'),searchCount=el('span','조사 0회'),clueButton=btn('단서 다시 보기',()=>showClues(false),'quiet'),stopButton=btn('중단하기',requestAdventureStop,'quiet');stopButton.hidden=true;stopButton.disabled=true;hud.append(placeName,timer,progress,searchCount,clueButton,stopButton);shell.append(hud);
  const hintLine=el('p',null,'adventure-hint');hintLine.hidden=true;shell.append(hintLine);
  const pad=el('nav',null,'adventure-pad');pad.setAttribute('aria-label','모험 방향 조작');
  for(const [label,x,y] of [['↑',0,-1],['←',-1,0],['↓',0,1],['→',1,0]]){const b=btn(label,()=>{});b.setAttribute('aria-label','이동 '+label);b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture(e.pointerId);adventureView?.direction(x,y);};const stop=()=>adventureView?.direction(0,0);b.onpointerup=stop;b.onpointercancel=stop;b.onlostpointercapture=stop;pad.append(b);}shell.append(pad);
  const investigate=btn('조사하기',()=>{investigate.disabled=true;adventureView?.investigate();},'adventure-investigate');investigate.setAttribute('aria-live','polite');investigate.disabled=true;shell.append(investigate);
  let missionReady=false,started=false,finished=false,lastState=null,briefing=null;
  let errorPanel=null;
- const paintState=state=>{if(!state)return;if(state.error){missionReady=false;investigate.disabled=true;clueButton.disabled=true;briefing?.remove();briefing=null;errorPanel?.remove();errorPanel=el('section',null,'adventure-briefing paper');errorPanel.append(el('h2','모험 지도를 준비하지 못했습니다'),el('p',state.error),el('small','체력은 시작 체크포인트에 보존되며, 같은 모험을 다시 불러옵니다.'),btn('다시 불러오기',()=>{errorPanel.remove();errorPanel=null;mount();}));shell.append(errorPanel);message(state.error);return;}lastState=state;timer.textContent=`${String(Math.floor(state.remainingMs/60000)).padStart(2,'0')}:${String(Math.floor(state.remainingMs/1000)%60).padStart(2,'0')}`;progress.textContent=`발견 ${state.foundIds.length} / ${state.objectives.length||startData.objectiveCount}`;searchCount.textContent=`조사 ${state.investigationCount}회`;investigate.textContent=state.investigating?'찾는 중...':'조사하기';investigate.disabled=!started||state.paused||finished;clueButton.disabled=!missionReady||finished||state.investigating;if(state.hint){hintLine.textContent=state.hint;hintLine.hidden=false;message('조사 결과 · '+state.hint);}}
+ const paintState=state=>{if(!state)return;if(state.error){missionReady=false;investigate.disabled=true;clueButton.disabled=true;stopButton.disabled=true;briefing?.remove();briefing=null;errorPanel?.remove();errorPanel=el('section',null,'adventure-briefing paper');errorPanel.append(el('h2','모험 지도를 준비하지 못했습니다'),el('p',state.error),el('small','체력은 시작 체크포인트에 보존되며, 같은 모험을 다시 불러옵니다.'),btn('다시 불러오기',()=>{errorPanel.remove();errorPanel=null;mount();}));shell.append(errorPanel);message(state.error);return;}lastState=state;timer.textContent=`${String(Math.floor(state.remainingMs/60000)).padStart(2,'0')}:${String(Math.floor(state.remainingMs/1000)%60).padStart(2,'0')}`;progress.textContent=`발견 ${state.foundIds.length} / ${state.objectives.length||startData.objectiveCount}`;searchCount.textContent=`조사 ${state.investigationCount}회`;investigate.textContent=state.investigating?'찾는 중...':'조사하기';investigate.disabled=!started||state.paused||finished;clueButton.disabled=!missionReady||finished||state.investigating;stopButton.disabled=!started||finished;if(state.hint){hintLine.textContent=state.hint;hintLine.hidden=false;message('조사 결과 · '+state.hint);}}
  const showClues=initial=>{
   if(!missionReady||finished)return;
   if(started)adventureView?.pause(true);
   briefing?.remove();briefing=el('section',null,'adventure-briefing paper');briefing.setAttribute('aria-label','모험 단서');briefing.append(el('h2',initial?'이번 모험에서 찾아야 할 것':'모험 단서'),el('p',initial?`숨은 목표 ${startData.objectiveCount}개 · 제한시간 ${Math.floor(startData.durationSeconds/60)}분 ${startData.durationSeconds%60}초`:'단서를 읽는 동안 이동과 시간이 멈춥니다.'));
   const list=el('div',null,'adventure-clue-list');for(const item of lastState.objectives){const found=lastState.foundIds.includes(item.id),selected=lastState.trackedId===item.id,b=btn('',()=>{adventureView?.track(item.id);lastState={...lastState,trackedId:item.id};showClues(initial);},'adventure-clue'+(selected?' selected':''));b.disabled=found;b.append(el('strong',item.name),el('span',item.clue),el('small',found?'발견 완료':selected?'현재 추적 중':'누르면 추적'));list.append(b);}briefing.append(list);
-  const actions=el('div',null,'adventure-briefing-actions');if(initial){const begin=btn('모험 시작',()=>{if(!adventureView?.start())return;started=true;briefing.remove();briefing=null;paintState(lastState);});begin.disabled=!missionReady;actions.append(begin);}else actions.append(btn('닫기',()=>{briefing.remove();briefing=null;adventureView?.pause(false);paintState(lastState);},'quiet'));briefing.append(actions);shell.append(briefing);
+  const actions=el('div',null,'adventure-briefing-actions');if(initial){const begin=btn('모험 시작',()=>{if(!adventureView?.start())return;started=true;stopButton.hidden=false;briefing.remove();briefing=null;paintState(lastState);});begin.disabled=!missionReady;actions.append(begin);}else actions.append(btn('닫기',()=>{briefing.remove();briefing=null;adventureView?.pause(false);paintState(lastState);},'quiet'));briefing.append(actions);shell.append(briefing);
  };
+ function requestAdventureStop(){
+  if(!started||finished||saveFailed)return;
+  adventureView?.pause(true);
+  const body=el('p','이미 사용한 체력은 돌려받지 않고 오늘 일정은 진행 처리됩니다. 성장·보상은 없습니다.');
+  const dialog=modal('모험을 중단할까요?',body,[
+   btn('계속 탐험',()=>dialog.close(),'quiet'),
+   btn('중단하고 다음으로',()=>{
+    if(finished)return;
+    if(!stopAdventure(profile,slotId,token)){dialog.close();renderRoom();message('이미 처리된 일정입니다.');return;}
+    finished=true;dialog.close();briefing?.remove();briefing=null;
+    save(false,slotId,()=>{message('모험을 중단했습니다. 오늘 일정은 진행 처리됩니다.');continueSchedule();});
+    if(saveFailed)renderRoom();
+   })
+  ]);
+  dialog.addEventListener('close',()=>{if(!finished)adventureView?.pause(Boolean(briefing));},{once:true});
+ }
  const finishMission=(outcome,foundCount)=>{if(finished)return;finished=true;briefing?.remove();const result=createAdventureResult(startData,outcome,{foundCount,successGrowth:8,stamina:checkpoint.staminaBefore});completeActivity(token,result,{metNpcIds:[...metNpcIds]});};
  const npcs=selectAdventureNpcs(run,place.id,startData.seed);
  const mount=()=>{adventureView?.destroy();missionReady=false;started=false;finished=false;lastState=null;adventureView=mountAdventure(host,{startData,map,characterId:run.characterId,npcs,onEncounter:npc=>showAdventureGreeting(npc,()=>metNpcIds.add(npc.id),()=>adventureView?.pause(false)),onReady:state=>{missionReady=true;errorPanel?.remove();errorPanel=null;paintState(state);showClues(true);},onState:paintState,onFinish:finishMission});};

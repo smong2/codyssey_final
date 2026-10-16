@@ -8,6 +8,27 @@ export const ADVENTURE_VIEW={speed:360,displaySize:256,footY:218/256};
 // User-approved temporary mode; per-object sort-line/zone data remains pending.
 export const FOREGROUND_MODE='always-foreground';
 
+export function midRouteEncounterPoints(candidates,spawn,objectives,count){
+ const selected=[],separation=ADVENTURE_NPC_ENCOUNTER_RADIUS*2+24;
+ const targets=[...objectives].sort((a,b)=>Math.hypot(a.x-spawn.x,a.y-spawn.y)-Math.hypot(b.x-spawn.x,b.y-spawn.y));
+ for(let index=0;index<Math.min(count,targets.length);index++){
+  const target=targets[index],dx=target.x-spawn.x,dy=target.y-spawn.y,lengthSquared=dx*dx+dy*dy;
+  if(!lengthSquared)continue;
+  const desiredProgress=index===0?0.4:0.55;
+  const point=candidates.map(candidate=>{
+   const progress=((candidate.x-spawn.x)*dx+(candidate.y-spawn.y)*dy)/lengthSquared;
+   const crossTrack=Math.abs((candidate.x-spawn.x)*dy-(candidate.y-spawn.y)*dx)/Math.sqrt(lengthSquared);
+   return{candidate,progress,crossTrack};
+  }).filter(({candidate,progress})=>progress>=0.32&&progress<=0.65&&
+   Math.hypot(candidate.x-spawn.x)>ADVENTURE_NPC_ENCOUNTER_RADIUS*2&&
+   Math.hypot(candidate.x-target.x,candidate.y-target.y)>ADVENTURE_GEOMETRY.investigationRadius&&
+   selected.every(other=>Math.hypot(candidate.x-other.x,candidate.y-other.y)>=separation))
+   .sort((a,b)=>Math.abs(a.progress-desiredProgress)-Math.abs(b.progress-desiredProgress)||a.crossTrack-b.crossTrack)[0];
+  if(point)selected.push(point.candidate);
+ }
+ return selected;
+}
+
 export function mountAdventure(host,{startData,map,characterId='CH01',npcs=[],onEncounter=()=>{},onReady,onState,onFinish}){
  try{sdCharacterStrip(characterId,'S');}catch{
   onState({error:'선택한 학생의 모험용 SD 이미지가 아직 등록되지 않았습니다. 다른 학생 이미지로 대체하지 않습니다.'});
@@ -37,7 +58,8 @@ export function mountAdventure(host,{startData,map,characterId='CH01',npcs=[],on
    this.footShadow=this.add.container(map.spawn.x,map.spawn.y+2).setDepth(9);
    for(const [width,height,alpha] of [[46,14,0.035],[38,11,0.05],[28,8,0.08]])this.footShadow.add(this.add.ellipse(0,0,width*2,height*2,0x40372e,alpha));
    this.player=this.add.sprite(map.spawn.x,map.spawn.y,'walk-S',1).setOrigin(0.5,ADVENTURE_VIEW.footY).setDisplaySize(ADVENTURE_VIEW.displaySize,ADVENTURE_VIEW.displaySize).setDepth(10);
-   const npcPoints=(npcs.length?reachableSafeCandidates(this.mask,map.spawn,map.placement):[]).sort((a,b)=>Math.hypot(a.x-map.spawn.x,a.y-map.spawn.y)-Math.hypot(b.x-map.spawn.x,b.y-map.spawn.y));
+   const npcCandidates=npcs.length?reachableSafeCandidates(this.mask,map.spawn,map.placement):[];
+   const npcPoints=midRouteEncounterPoints(npcCandidates,map.spawn,this.objectives,npcs.length);
    this.npcEncounters=npcs.flatMap((npc,index)=>npcPoints[index]?[{npc,point:npcPoints[index],triggered:false}]:[]);
    for(const d of ['S','SW','W','NW','N','NE','E','SE'])this.anims.create({key:'walking-'+d,frames:[0,1,2,1].map(frame=>({key:'walk-'+d,frame})),frameRate:7,repeat:-1});
    this.keys=this.input.keyboard.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT');this.input.keyboard.addCapture(['W','A','S','D','UP','DOWN','LEFT','RIGHT']);

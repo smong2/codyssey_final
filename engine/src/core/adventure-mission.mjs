@@ -2,8 +2,8 @@ import {canWalk} from './collision.mjs';
 
 export const ADVENTURE_LOCATIONS=Object.freeze([
  Object.freeze({id:'greenhouse',title:'유리 온실·약초원',mapId:'greenhouse',previewOnly:true}),
- Object.freeze({id:'library',title:'대서고',mapId:'greenhouse',previewOnly:true}),
- Object.freeze({id:'observatory',title:'별빛 천문대',mapId:'greenhouse',previewOnly:true})
+ Object.freeze({id:'library',title:'대서고',mapId:'library',previewOnly:true}),
+ Object.freeze({id:'observatory',title:'별빛 천문대',mapId:'observatory',previewOnly:true})
 ]);
 export const isAdventureLocation=id=>ADVENTURE_LOCATIONS.some(place=>place.id===id);
 
@@ -16,6 +16,22 @@ export const ADVENTURE_MAPS=Object.freeze({
   mask:'./design-assets/map/map01_greenhouse_collision_mask_1920x1080.png',
   foreground:'./design-assets/map/map01_greenhouse_foreground_3840x2160.webp',
   spawn:Object.freeze({x:1920,y:2000}),zoom:0.7,
+  placement:Object.freeze({wallClearance:ADVENTURE_GEOMETRY.footRadius,forbiddenZones:Object.freeze([])})
+ }),
+ library:Object.freeze({
+  world:'./design-assets/map/MP02_grand_library_world_3840x2160.webp',
+  thumbnail:'./design-assets/map/MP02_grand_library_world_1920x1080.webp',
+  mask:'./design-assets/map/MP02_grand_library_collision_mask_1920x1080.png',
+  foreground:'./design-assets/map/MP02_grand_library_foreground_3840x2160.webp',
+  spawn:Object.freeze({x:1920,y:2100}),zoom:0.7,
+  placement:Object.freeze({wallClearance:ADVENTURE_GEOMETRY.footRadius,forbiddenZones:Object.freeze([])})
+ }),
+ observatory:Object.freeze({
+  world:'./design-assets/map/MP03_starlight_observatory_world_3840x2160.webp',
+  thumbnail:'./design-assets/map/MP03_starlight_observatory_world_1920x1080.webp',
+  mask:'./design-assets/map/MP03_starlight_observatory_collision_mask_1920x1080.png',
+  foreground:'./design-assets/map/MP03_starlight_observatory_foreground_3840x2160.webp',
+  spawn:Object.freeze({x:1920,y:2100}),zoom:0.7,
   placement:Object.freeze({wallClearance:ADVENTURE_GEOMETRY.footRadius,forbiddenZones:Object.freeze([])})
  })
 });

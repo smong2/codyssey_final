@@ -1,8 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mountAdventure} from '../src/scenes/AdventureScene.mjs';
+import {midRouteEncounterPoints,mountAdventure} from '../src/scenes/AdventureScene.mjs';
 
 const alternateMap={world:'./design-assets/map/test-world.webp',mask:'./design-assets/map/test-mask.png',foreground:'./design-assets/map/test-front.webp',spawn:{x:500,y:600},zoom:1,placement:{wallClearance:24,forbiddenZones:[]}};
+test('hidden NPC encounters are selected in the early-mid portion of the route to an objective',()=>{
+ const spawn={x:0,y:0},objective={x:1000,y:0};
+ const points=midRouteEncounterPoints([{x:100,y:0},{x:400,y:8},{x:550,y:40},{x:700,y:0}],spawn,[objective],1);
+ assert.equal(points.length,1);
+ const progress=(points[0].x*objective.x+points[0].y*objective.y)/(objective.x*objective.x+objective.y*objective.y);
+ assert.ok(progress>=0.32&&progress<=0.65);
+ assert.ok(Math.hypot(points[0].x-spawn.x,points[0].y-spawn.y)>360);
+});
 function sceneHarness(t,options={}){
  const previous=globalThis.Phaser,loads=[],strips=[];let scene;
  globalThis.Phaser={AUTO:0,Scale:{RESIZE:0},Scene:class{},Game:class{

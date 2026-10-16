@@ -119,6 +119,12 @@ export function recoverInterruptedAction(p,id){
  (r.actionHistory??=[]).push({week:r.week,day:r.day,action:checkpoint.action,...(checkpoint.action==='adventure'?{locationId:checkpoint.locationId??'greenhouse'}:{}),status:'INTERRUPTED',effect});
  r.lastAction=checkpoint.token;delete r.inProgressActivity;r.day++;if(r.day===5)r.phase='WEEK_COMPLETE';return true;
 }
+export function stopAdventure(p,id,token){
+ const r=runOf(p,id);if(token===r.lastAction)return false;
+ const checkpoint=r.inProgressActivity;
+ if(!checkpoint||checkpoint.action!=='adventure'||checkpoint.token!==token)throw new Error('현재 모험 일정과 중단 요청이 일치하지 않습니다.');
+ return recoverInterruptedAction(p,id);
+}
 export function finishWeek(p,id){
  const r=runOf(p,id);if(r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
  if(r.pendingWeekSummaryWeek!==undefined)throw new Error('지난주 요약을 먼저 확인해 주세요.');

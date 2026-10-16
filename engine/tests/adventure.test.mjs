@@ -22,9 +22,10 @@ test('movement checks intermediate pixels so a large frame cannot cross a black 
  const mask={width:10,height:1,pixels,worldWidth:10,worldHeight:1};
  assert.deepEqual(collision.moveFoot(mask,{x:2,y:0.5},7,0),{x:4.5,y:0.5});
 });
-test('three planned adventure locations use replaceable greenhouse preview map data',()=>{
+test('three planned adventure locations select their distinct replaceable preview maps',()=>{
  assert.deepEqual(ADVENTURE_LOCATIONS.map(x=>x.id),['greenhouse','library','observatory']);
- assert.ok(ADVENTURE_LOCATIONS.every(x=>x.mapId==='greenhouse'&&x.previewOnly));
+ assert.deepEqual(ADVENTURE_LOCATIONS.map(x=>x.mapId),['greenhouse','library','observatory']);
+ assert.ok(ADVENTURE_LOCATIONS.every(x=>x.previewOnly));
 });
 test('every selected place resolves its registered layers and unknown map ids fail explicitly',()=>{
  assert.equal(typeof missions.getAdventureMap,'function');
@@ -84,7 +85,7 @@ test('investigation discovers only when close and otherwise gives qualitative di
  assert.equal(miss.foundId,null);assert.match(miss.hint,/쪽|거리/);
  assert.deepEqual(investigateObjective({x:120,y:100},[objective],['one'],30),{foundId:null,hint:null});
 });
-test('adventure has no manual abort and completed walk advances once without rewards',()=>{
+test('adventure rejects uncontracted quit results and completed walk advances once without rewards',()=>{
  const p=createProfile(),r=startRun(p,1,'CH01');
  assert.doesNotThrow(()=>setSchedule(p,1,['adventure','rest','rest','rest','rest']));
  assert.throws(()=>applyAction(p,1,'1:1:0',{gameId:'adventure',outcome:'quit'}));
