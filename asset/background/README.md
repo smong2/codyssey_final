@@ -8,14 +8,14 @@
 
 | 사용처 | 배경 파일 · 작은 미리보기 | 판단 |
 |---|---|---|
-| `MS01-S2`, `MS03`, `NPC_GUIDE_01~04` | [기본 시계탑 광장](./BG02_clocktower_plaza_1920x1080_011.png)<br><img src="./BG02_clocktower_plaza_1920x1080_011.png" width="110" alt="기본 시계탑 광장"> | 장소 배경; MS01의 정확한 노출 단계는 추가 확인 |
-| `MS05-S1~S2`, `S4` 해결 후~`S5` | [별빛 켜진 광장](./BG02_clocktower_plaza_starlight_festival_lit_3840x2161.png)<br><img src="./BG02_clocktower_plaza_starlight_festival_lit_3840x2161.png" width="110" alt="별빛 켜진 광장"> | 제작 문서에 파일명 지정 |
-| `MS05-S3~S4` 해결 전 | [별빛 꺼진 광장](./BG02_clocktower_plaza_starlight_festival_unlit_3840x2161.png)<br><img src="./BG02_clocktower_plaza_starlight_festival_unlit_3840x2161.png" width="110" alt="별빛 꺼진 광장"> | 제작 문서에 파일명 지정 |
-| `MS02`, `LOC_GH_01`, `NPC_LULU_01~04` 온실 방문 | [유리 온실](./BG06_glass_greenhouse_1920x1080_016.png)<br><img src="./BG06_glass_greenhouse_1920x1080_016.png" width="110" alt="유리 온실"> | 루루는 방문 장소에 따라 달라짐 |
-| `NPC_LULU_01~04` 약초원 방문 | [치유의 약초원](./BG07_healing_herb_garden_1920x1080_017.png)<br><img src="./BG07_healing_herb_garden_1920x1080_017.png" width="110" alt="치유의 약초원"> | 조건부 장소 |
+| `MS01-S2`, `MS03`, `NPC_GUIDE_01–04` | [기본 시계탑 광장](./BG02_clocktower_plaza_1920x1080_011.png)<br><img src="./BG02_clocktower_plaza_1920x1080_011.png" width="110" alt="기본 시계탑 광장"> | 장소 배경; MS01의 정확한 노출 단계는 추가 확인 |
+| `MS05-S1–S2`, `S4` 해결 후–`S5` | [별빛 켜진 광장](./BG02_clocktower_plaza_starlight_festival_lit_3840x2161.png)<br><img src="./BG02_clocktower_plaza_starlight_festival_lit_3840x2161.png" width="110" alt="별빛 켜진 광장"> | 제작 문서에 파일명 지정 |
+| `MS05-S3–S4` 해결 전 | [별빛 꺼진 광장](./BG02_clocktower_plaza_starlight_festival_unlit_3840x2161.png)<br><img src="./BG02_clocktower_plaza_starlight_festival_unlit_3840x2161.png" width="110" alt="별빛 꺼진 광장"> | 제작 문서에 파일명 지정 |
+| `MS02`, `LOC_GH_01`, `NPC_LULU_01–04` 온실 방문 | [유리 온실](./BG06_glass_greenhouse_1920x1080_016.png)<br><img src="./BG06_glass_greenhouse_1920x1080_016.png" width="110" alt="유리 온실"> | 루루는 방문 장소에 따라 달라짐 |
+| `NPC_LULU_01–04` 약초원 방문 | [치유의 약초원](./BG07_healing_herb_garden_1920x1080_017.png)<br><img src="./BG07_healing_herb_garden_1920x1080_017.png" width="110" alt="치유의 약초원"> | 조건부 장소 |
 | `MS04` | [룬 수련장](./BG09_rune_training_ground_1920x1080_019.png)<br><img src="./BG09_rune_training_ground_1920x1080_019.png" width="110" alt="룬 수련장"> | 기본 장소 배경 |
-| `NPC_WORK_01~04` | [마도 공방](./BG08_magic_workshop_1920x1080_018.png)<br><img src="./BG08_magic_workshop_1920x1080_018.png" width="110" alt="마도 공방"> | 기존 장소 배경 |
-| `LOC_OBS_01~04` | [별빛 천문대](./BG05_starlight_observatory_1920x1080_015.png)<br><img src="./BG05_starlight_observatory_1920x1080_015.png" width="110" alt="별빛 천문대"> | 기존 장소 배경 |
+| `NPC_WORK_01–04` | [마도 공방](./BG08_magic_workshop_1920x1080_018.png)<br><img src="./BG08_magic_workshop_1920x1080_018.png" width="110" alt="마도 공방"> | 기존 장소 배경 |
+| `LOC_OBS_01–04` | [별빛 천문대](./BG05_starlight_observatory_1920x1080_015.png)<br><img src="./BG05_starlight_observatory_1920x1080_015.png" width="110" alt="별빛 천문대"> | 기존 장소 배경 |
 | `LOC_LIB_01` | [대서고](./BG04_grand_library_1920x1080_014.png)<br><img src="./BG04_grand_library_1920x1080_014.png" width="110" alt="대서고"> | 기존 장소 배경 |
 | `MYROOM` 기본 구도 1·낮 | [마이룸 낮](./BG10_myroom1_day_1920x1080_012.png)<br><img src="./BG10_myroom1_day_1920x1080_012.png" width="110" alt="마이룸 낮"> | 게임용 1920×1080; 노을·밤과 구도 2는 아래 목록 |
 | `MS06` 평온한 광장 | [기본 광장 후보](./BG02_clocktower_plaza_1920x1080_011.png)<br><img src="./BG02_clocktower_plaza_1920x1080_011.png" width="110" alt="기본 광장 후보"> | 어떤 광장 버전을 쓸지 미확정 |
@@ -42,7 +42,7 @@
 
 ## 게임용 마이룸 배경 · 6장
 
-구도 1은 왼쪽 침대, 중앙 책상·다이어리, 오른쪽 수납장 위 가방이 보입니다. 구도 2는 왼쪽 책상과 바닥 가방, 중앙 오른쪽 침대를 사용합니다. 두 구도 모두 낮·노을·밤이 있으며 1920×1080입니다. 기존 이미지 뒤쪽 번호 `_012`, `_021`~`_025`는 유지했습니다.
+구도 1은 왼쪽 침대, 중앙 책상·다이어리, 오른쪽 수납장 위 가방이 보입니다. 구도 2는 왼쪽 책상과 바닥 가방, 중앙 오른쪽 침대를 사용합니다. 두 구도 모두 낮·노을·밤이 있으며 1920×1080입니다. 기존 이미지 뒤쪽 번호 `_012`, `_021`–`_025`는 유지했습니다.
 
 | 구도·시간 | 파일 | 미리보기 |
 |---|---|---|
@@ -71,6 +71,6 @@
 - 별빛축제 광장 2장과 `BG08_magic_workshop_neglected_3840x2161.png`는 생성 시안을 3840×2161 PNG로 확대해 저장했습니다. 광장 밝음/어둠은 한 쌍의 상태 이미지이고, 공방은 방치된 상태의 추가 이미지입니다.
 
 - 게임용 마이룸 구도 1의 낮·노을·밤은 같은 가구 배치를 유지합니다. 구도 2도 시간대 3장을 별도 세트로 유지합니다.
-- 현재 파일명 기준 테마 번호는 `myroom3_rune`, `myroom4_cosmos`, `myroom5_princess`, `myroom6_botanical`입니다. 이전 문서의 `myroom4~7` 표기는 현재 경로와 다릅니다.
+- 현재 파일명 기준 테마 번호는 `myroom3_rune`, `myroom4_cosmos`, `myroom5_princess`, `myroom6_botanical`입니다. 이전 문서의 `myroom4–7` 표기는 현재 경로와 다릅니다.
 - 공주방·식물방의 낮은 기존 시안을 재사용했고, 우주방은 창밖을 아르카디아 호수·학원 풍경으로 조정했다는 제작 이력이 있습니다. 과거 콘셉트 파일은 현재 폴더에 없어 링크를 달지 않았습니다.
 - 이전 생성 원본과 구도 검토 자료는 이 폴더 밖의 작업 이력 또는 Git 기록을 확인해야 합니다. 현재 폴더의 34개 PNG를 미리보기와 경로 검증 기준으로 삼습니다.

@@ -11,7 +11,7 @@
 | 사용처 | 파일 · 작은 미리보기 | 판단 |
 |---|---|---|
 | `MS01-S1` 입학 초대 | [입학 초대장 재료](./UI07_admission_invitation_004.png)<br><img src="./UI07_admission_invitation_004.png" width="110" alt="입학 초대장 재료"> | **후보**: 초대장을 보여 주는 장면과 내용 일치, 채택·표시 방식 확인 필요 |
-| `MS01~MS06`, `LOC_*`, `NPC_*` 대화 | [이름표 없는 대화 패널](./UI10_dialogue_panel_plain.png)<br><img src="./UI10_dialogue_panel_plain.png" width="110" alt="이름표 없는 대화 패널"> | 공통 대화 UI **재료**. 실제 사용 변형 확인 필요 |
+| `MS01–MS06`, `LOC_*`, `NPC_*` 대화 | [이름표 없는 대화 패널](./UI10_dialogue_panel_plain.png)<br><img src="./UI10_dialogue_panel_plain.png" width="110" alt="이름표 없는 대화 패널"> | 공통 대화 UI **재료**. 실제 사용 변형 확인 필요 |
 | 같은 대화 화면의 이름표 변형 | [이름표 있는 대화 패널](./UI11_dialogue_panel_nameplate.png)<br><img src="./UI11_dialogue_panel_nameplate.png" width="110" alt="이름표 있는 대화 패널"> | UI10과 대안/구성 관계 확인 필요 |
 
 화면의 `BACKGROUND`·`FOCUS` 이미지는 이 대화 패널과 별개의 자원입니다. 버튼·로고·환경 재료를 해당 이야기의 FOCUS 그림으로 추정하지 않습니다.

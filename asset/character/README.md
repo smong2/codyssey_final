@@ -16,15 +16,15 @@
 
 ## 이야기 화자 이미지 빠른 찾기
 
-이 표는 **확정 인물일 때의 기본 상반신 이미지**입니다. 대사 감정에 맞는 `2~5`번 표정은 아래 인물별 목록에서 골라야 하며, 이야기 ID만으로 표정을 고정하지 않습니다. [전체 장면 연결표](../README.md)를 참고하세요.
+이 표는 **확정 인물일 때의 기본 상반신 이미지**입니다. 대사 감정에 맞는 `2–5`번 표정은 아래 인물별 목록에서 골라야 하며, 이야기 ID만으로 표정을 고정하지 않습니다. [전체 장면 연결표](../README.md)를 참고하세요.
 
 | 이야기 역할 | 기본 화자 · 작은 미리보기 | 대체 조건 |
 |---|---|---|
-| `NPC_GUIDE_01~04` | [티아 기본](./tia1_base.png)<br><img src="./tia1_base.png" width="80" alt="티아 기본"> | 주인공이 티아라면 [로빈 기본](./robin1_base.png)<br><img src="./robin1_base.png" width="80" alt="로빈 기본"> |
-| `NPC_WORK_01~04` | [렌 기본](./ren1_base.png)<br><img src="./ren1_base.png" width="80" alt="렌 기본"> | 주인공이 렌이라면 [다나 기본](./dana1_base.png)<br><img src="./dana1_base.png" width="80" alt="다나 기본"> |
+| `NPC_GUIDE_01–04` | [티아 기본](./tia1_base.png)<br><img src="./tia1_base.png" width="80" alt="티아 기본"> | 주인공이 티아라면 [로빈 기본](./robin1_base.png)<br><img src="./robin1_base.png" width="80" alt="로빈 기본"> |
+| `NPC_WORK_01–04` | [렌 기본](./ren1_base.png)<br><img src="./ren1_base.png" width="80" alt="렌 기본"> | 주인공이 렌이라면 [다나 기본](./dana1_base.png)<br><img src="./dana1_base.png" width="80" alt="다나 기본"> |
 | `MAIN_*`, `LOC_GREENHOUSE_STUDENT` | [메인 배역 후보 순서](../../story/main/MAIN_STORY_PRODUCTION.md)와 [장소 온실 배역 규칙](../../story/location/LOCATION_STORY_PRODUCTION.md)에 따라 회차 시작 시 배정 | 주인공·다른 배역과 중복 방지. 고정 이미지 파일 하나로 지정하지 않음 |
 | `LOC_LIB_01` 세린 | 전용 캐릭터 이미지 필수 아님 | 화자명·대사로 진행 가능 |
-| `NPC_LULU_01~04` | [루루 의상 이미지](../pet/README.md) | 의상 선택 미정; 이야기 회차 번호와 의상 번호는 별개 |
+| `NPC_LULU_01–04` | [루루 의상 이미지](../pet/README.md) | 의상 선택 미정; 이야기 회차 번호와 의상 번호는 별개 |
 
 ## 인물별 이미지
 

@@ -10,12 +10,12 @@
 
 | 이야기·필요 그림 | 현재 보유 이미지 · 작은 미리보기 | 판단 |
 |---|---|---|
-| `LOC_OBS_01~04` · `ART-L01` 펼친 관측 일기 | [먼지 쌓인 닫힌 마음 일기](./diary1_heart_dusty_frame_thin_3840x2161.png)<br><img src="./diary1_heart_dusty_frame_thin_3840x2161.png" width="110" alt="먼지 쌓인 닫힌 마음 일기"> | **불일치 후보**: 보유 그림은 닫힌 책. 네 회차 공용 일기를 이 그림으로 자동 대체하지 않음 |
+| `LOC_OBS_01–04` · `ART-L01` 펼친 관측 일기 | [먼지 쌓인 닫힌 마음 일기](./diary1_heart_dusty_frame_thin_3840x2161.png)<br><img src="./diary1_heart_dusty_frame_thin_3840x2161.png" width="110" alt="먼지 쌓인 닫힌 마음 일기"> | **불일치 후보**: 보유 그림은 닫힌 책. 네 회차 공용 일기를 이 그림으로 자동 대체하지 않음 |
 | `LOC_GH_01-R1` · `ART-L02` 시든 허브 화분 | [시든 화분 카드](./plant1_wilted_frame_thin_3840x2161.png)<br><img src="./plant1_wilted_frame_thin_3840x2161.png" width="110" alt="시든 화분 카드"> | **채택 후보**: 프레임을 포함한 3840×2161 카드. 온실 배경 위 FOCUS 표시 방식 검수 필요 |
 | `LOC_GH_01-R2` · `ART-L03` 같은 화분의 회복 상태 | [회복 화분 카드](./plant2_restored_frame_thin_3840x2161.png)<br><img src="./plant2_restored_frame_thin_3840x2161.png" width="110" alt="회복 화분 카드"> | **채택 후보**: L02와 한 쌍. 상태 전환·규격 검수 필요 |
 | `LOC_LIB_01-R1` · `ART-L04` 책장 위 평범한 책 | [장식 있는 고서 카드](./book1_ancient_frame_thin_3840x2161.png)<br><img src="./book1_ancient_frame_thin_3840x2161.png" width="110" alt="장식 있는 고서 카드"> | **불일치 후보**: 보유 그림은 장식 있는 고서 카드. 평범한 책이 책장 위에 가로로 놓인 구도가 아님 |
 
-`MS02`의 마법 덩굴은 `ART-M01/M02`로 별도 제작 지시가 있습니다. 여기의 일상 시든·회복 화분이나 `LOC_GH_01` 카드를 MS02에 자동 연결하지 않습니다. `ART-N01~N06`, `ART-M01~M06`, `ART-E01`도 이름이 비슷한 일반 아이템을 대신 연결하지 않습니다.
+`MS02`의 마법 덩굴은 `ART-M01/M02`로 별도 제작 지시가 있습니다. 여기의 일상 시든·회복 화분이나 `LOC_GH_01` 카드를 MS02에 자동 연결하지 않습니다. `ART-N01–N06`, `ART-M01–M06`, `ART-E01`도 이름이 비슷한 일반 아이템을 대신 연결하지 않습니다.
 
 | 파일 | 명칭·용도 | 규격 | 미리보기 |
 |---|---|---:|:---:|
