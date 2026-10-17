@@ -1,1 +1,6 @@
 .DS_Store
+
+# Generated local SQLite content DB
+/backend/database/sqlite/lumia-content.sqlite3
+/backend/database/sqlite/lumia-content.sqlite3-wal
+/backend/database/sqlite/lumia-content.sqlite3-shm

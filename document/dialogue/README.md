@@ -198,6 +198,24 @@ S4 진입 전 SKIP
 
 각 스토리는 아래 순서로 제작한다.
 
+현재 프로젝트의 실제 제작 작업 단위는 다음 순서를 고정해서 사용한다.
+
+```text
+1. Production 기준 공통 대화·나레이션·이미지·선택 시퀀스 작성
+2. 사람 검수
+3. CH01~CH32 Character Set 작성
+   - 플레이어 Voice 변형
+   - 선택 문구 변형
+   - 선택 직후 상대방 반응 변형
+   - 주인공/배역 충돌 시 대체 화자 반영
+4. canonical choiceId / nodeId / assetRef 검산
+5. SQLite v4 마스터 데이터 적재
+6. 실제 DB 실행 검증
+7. FastAPI payload / Engine 재생 검증
+```
+
+Main/NPC/Location Story 모두 이 순서를 사용한다. 공통 원고 승인 전에 32인 데이터를 먼저 만들거나 DB에 먼저 넣지 않는다.
+
 1. `story/` Production 문서에서 사건, 화자 역할, 이미지 지시, 선택 의미를 확정한다.
 2. [대화 집필 가이드](02_DIALOGUE_WRITING_GUIDE.md)에 따라 플레이 캐릭터별 Voice Guide, 실제 대사, 설명, 속마음, 선택 문구를 작성한다.
 3. 안정적인 `choiceNodeId`, `choiceId`를 정한다.
@@ -208,6 +226,10 @@ S4 진입 전 SKIP
 8. 서버 저장 성공 후 다음 게임 흐름으로 진행한다.
 
 Main Story, NPC Story, Location Story 모두 같은 방식으로 작성한다.
+
+현재 Main Story의 사람 검수용 실제 대화 마스터는 [`main/README.md`](main/README.md)에서 관리한다. `MS01~MS06`의 사건·선택·이미지 전환을 실제 시퀀스로 풀어 썼으며, 승인 후 32인 플레이어 말투와 대체 `storyCast` 말투를 확장한 뒤 DB에 적재한다.
+
+현재 Location Story의 공통 대화 마스터는 [`location/README.md`](location/README.md)에서 관리한다. `LOC_OBS_01~04 / LOC_GH_01 / LOC_LIB_01`의 6장면을 실제 `LINE / IMAGE / CHOICE / END` 순서로 작성했으며, 현재는 **공통 원고 검수 단계**다. Location 32인 Character Set과 DB 적재는 다음 단계에서 수행한다.
 
 ## 8. 전체 예시
 
@@ -410,6 +432,7 @@ BACKGROUND 이미지 교체
 - [이벤트 대화 시퀀스 계약](../content/13_DIALOGUE_SEQUENCE.md)
 - [엔진·API 구현 계약](01_ENGINE_API_CONTRACT.md)
 - [대화 집필 가이드](02_DIALOGUE_WRITING_GUIDE.md)
+- [Main Story 대화 마스터](main/README.md)
 - `story/main/MAIN_STORY_PRODUCTION.md`
 - `story/npc/NPC_STORY_PRODUCTION.md`
 - `story/location/LOCATION_STORY_PRODUCTION.md`

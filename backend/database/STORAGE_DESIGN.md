@@ -1,6 +1,6 @@
 # 플레이어 로컬 SQLite + 중앙 Firestore 저장 설계 초안
 
-이 문서는 저장 위치와 필요한 테이블·문서 목록을 정리한다. 플레이어 로컬 SQLite의 기본 18개 테이블은 [001_initial.sql](sqlite/001_initial.sql), 캐릭터별 대화 시퀀스 3개 테이블은 [002_dialogue_sequences.sql](sqlite/002_dialogue_sequences.sql)에 정의했다. 전체 21개 테이블의 컬럼·키·제약은 [SQLite 상세 스키마](sqlite/SCHEMA.md)에 설명했다. Firestore 인덱스와 동기화 API는 후속 상세 설계에서 확정한다. 사용자별 Firestore 필드의 기존 정의는 [SCHEMA.md](SCHEMA.md)를 따른다.
+이 문서는 저장 위치와 필요한 테이블·문서 목록을 정리한다. 플레이어 로컬 SQLite의 기본 18개 테이블은 [001_initial.sql](sqlite/001_initial.sql), 캐릭터별 대화 그래프 3개 테이블은 [002_dialogue_sequences.sql](sqlite/002_dialogue_sequences.sql), 최종 Dialogue 계약용 화자·역할·표현 필드·효과는 [003_dialogue_runtime_content.sql](sqlite/003_dialogue_runtime_content.sql), 공통 Story 발생 정책·조건·역할 중복 금지는 [004_story_event_rules.sql](sqlite/004_story_event_rules.sql)에 정의했다. v4의 전체 **29개 테이블** 컬럼·키·제약은 [SQLite 상세 스키마](sqlite/SCHEMA.md)에 설명한다. Main Story 마스터 행은 [seed_dialogue_content.py](sqlite/seed_dialogue_content.py), Location Story 마스터·발생 규칙·선택 효과는 [seed_location_story_master.py](sqlite/seed_location_story_master.py)가 생성한다. Location 전용 상세 매핑은 [LOCATION_STORY_DB_SPEC.md](LOCATION_STORY_DB_SPEC.md)를 따른다. Firestore 인덱스와 동기화 API는 후속 상세 설계에서 확정한다.
 
 ## 1. 저장 위치와 권한
 
@@ -30,9 +30,17 @@
 | `story_events` | `version + event_id` | 스토리에 속한 장면과 콘텐츠 참조 |
 | `story_steps` | `version + story_id + step_no` | 장면·단계 연결 |
 | `story_choices` | `version + event_id + choice_id` | 이벤트 단위 선택 의미·후속 장면 연결 |
+| `dialogue_speakers` | `version + speaker_id` | 32인 외 고정 NPC·생물·텍스트 전용 화자 표시 정보 |
+| `story_roles` | `version + role_id` | `ROLE:*`의 동적 storyCast/고정 화자 해석 규칙 |
+| `story_role_candidates` | `version + role_id + priority` | 동적 역할의 캐릭터 후보 우선순위 |
+| `story_role_exclusions` | `version + role_id + excluded_role_id` | 특정 동적 역할끼리 같은 캐릭터를 쓰지 못하게 하는 hard exclusion |
 | `dialogue_sequences` | `version + story_id + step_no + character_id` | 스토리 단계·이벤트·플레이 캐릭터별 사전 작성 대화 |
 | `dialogue_nodes` | 시퀀스 키 + `node_id` | 대사·이미지·선택·종료 노드 |
 | `dialogue_options` | 시퀀스 키 + `choice_node_id + choice_id` | 캐릭터별 선택 문구와 상대 반응 진입점 |
+| `story_choice_effects` | `version + event_id + choice_id + effect_order` | 선택별 보이는/보이지 않는 스탯·플래그 등 서버 검증용 효과 |
+| `story_event_effects` | `version + event_id + effect_order` | COMPLETE/SKIP 완료 시 적용할 스토리 진행·공통 플래그 |
+| `story_event_rules` | `version + event_id` | 고정/미확인 우선/가중 선택, 반복 정책, Location 일치, 제한 그룹 등 발생 정책 |
+| `story_event_conditions` | `version + event_id + condition_order` | 선행 이벤트, 조우, 플래그, 활동 유형 등 추가 후보 조건 |
 | `endings` | `version + ending_id` | 직업명·작가 고정 표시 정보 |
 | `collectibles` | `version + collectible_type + collectible_id` | 배지·퍼즐 조각·마이룸 배경 표시 정보 |
 | `unlock_conditions` | `version + condition_id` | UI 안내용 해금 조건 사본; 판정은 서버 전용 |
@@ -42,7 +50,7 @@
 | `pending_requests` | `uid + request_id` | 네트워크 오류 시 같은 요청 ID로 재시도할 최소 요청 정보 |
 | `local_activity_log` | `uid + local_event_id` | 플레이어 화면의 최근 활동 표시용 로컬 기록; 관리자 통계 원본 아님 |
 
-빈 SQLite DB에 001과 002 마이그레이션을 순서대로 한 번씩 적용한다. 적용 후 `PRAGMA user_version = 2`이며, SQLite 연결마다 외래 키를 활성화한다. 마스터 데이터는 버전별로 적재하고 `game_data_versions.is_active`를 통해 활성 버전을 구분한다. 로컬 테이블에는 비밀번호, Firebase ID Token, Gemini API Key, 관리자 권한·감사로그를 넣지 않는다. 계정 전환 시 다른 UID의 로컬 캐시를 표시하지 않으며, 계정 탈퇴 시 해당 UID의 로컬 데이터도 제거한다. 브라우저 저장소가 지워지면 캐시는 다시 내려받는다. `pending_requests`는 서버가 처리 성공을 확인하면 제거하고, 재시도해도 서버에서 결과가 중복 반영되지 않도록 요청 ID를 검증한다.
+빈 SQLite DB에 001·002·003·004 마이그레이션을 순서대로 한 번씩 적용한다. 적용 후 `PRAGMA user_version = 4`이며, SQLite 연결마다 외래 키를 활성화한다. 마스터 데이터는 버전별로 적재하고 `game_data_versions.is_active`를 통해 활성 버전을 구분한다. Main seed로 캐릭터/Main 대화를 먼저 넣고, 같은 `gameDataVersion`에 Location master seed를 이어서 넣는다. Location 32인 Character Set 검수가 끝나기 전에는 Location `dialogue_sequences/nodes/options`를 공통 대사로 임시 복제하지 않는다. 로컬 테이블에는 비밀번호, Firebase ID Token, Gemini API Key, 관리자 권한·감사로그를 넣지 않는다. 계정 전환 시 다른 UID의 로컬 캐시를 표시하지 않으며, 계정 탈퇴 시 해당 UID의 로컬 데이터도 제거한다. 브라우저 저장소가 지워지면 캐시는 다시 내려받는다. `pending_requests`는 서버가 처리 성공을 확인하면 제거하고, 재시도해도 서버에서 결과가 중복 반영되지 않도록 요청 ID를 검증한다.
 
 ## 3. 중앙 Firestore 문서 목록
 
@@ -58,7 +66,7 @@
 | `users/{uid}/saveSlots/{1..5}` | 확정된 슬롯 상태와 현재 `activeRun`; 장기 플레이 기억의 원본 |
 | `users/{uid}/endingRecords/{recordId}` | 완료 회차의 직업·편지·편지에 사용한 기록 |
 
-`activeRun`은 슬롯 문서 내부 필드다. 일반 UI 조회는 로컬 캐시를 사용할 수 있지만, 로그인·계정 전환·저장 충돌 후에는 서버 상태를 확인한다. 활동 중 매 프레임의 이동·조작·임시 미니게임 상태를 Firestore에 전송하지 않는다. 기존 기획의 **활동 결과·주간 종료·엔딩 등 안정 저장 경계**에서는 서버 저장 성공을 확인해야 다음 확정 단계로 진행한다.
+`activeRun`은 슬롯 문서 내부 필드다. `storyProgress`, `pendingStoryEvent`, `storyEventWindow`도 여기에 포함한다. 일반 UI 조회는 로컬 캐시를 사용할 수 있지만, 로그인·계정 전환·저장 충돌 후에는 서버 상태를 확인한다. 활동 중 매 프레임의 이동·조작·임시 미니게임 상태를 Firestore에 전송하지 않는다. 활동 결과 저장 뒤 Story를 선정하면 `pendingStoryEvent`를 안정 저장하고, Story의 END/SKIP 완료 트랜잭션에서 효과·진행·주간 제한 카운터를 함께 반영한 뒤 pending을 지운다.
 
 ### 3.2 관리자와 기간 통계
 
@@ -84,7 +92,7 @@
 ## 5. 후속 상세 설계
 
 - 브라우저별 SQLite WASM/OPFS 동작 검증과 대체 경로
-- SQLite WASM/OPFS 초기화·마이그레이션 실행 코드, 마스터 사본 생성·버전 교체 절차
+- SQLite WASM/OPFS 초기화·브라우저 마이그레이션 실행 코드, NPC/Location 32인 대화까지 포함한 전체 마스터 버전 생성·교체 절차 (Main seed와 Location master seed는 구현됨)
 - Firestore `activityDays`의 지표·문서 크기·집계 전략 및 실제 읽기/쓰기 측정
 - 요청 ID, 세이브 버전, 충돌·재접속·계정 전환·삭제 계약
 - Firestore 보안 규칙과 관리자 API 권한·감사로그 보존 정책

@@ -1,6 +1,6 @@
 # LUMIA Firestore 사용자 데이터 스키마
 
-이 문서는 LUMIA 백엔드의 **Firestore 사용자 데이터** 저장 구조를 정의합니다. 인증은 Firebase Authentication이 담당하고, 사용자별 확정 게임 상태는 Cloud Firestore에 저장합니다. 플레이어 브라우저의 로컬 SQLite는 [SQLite 상세 스키마](sqlite/SCHEMA.md)와 [기본 테이블 SQL](sqlite/001_initial.sql)·[대화 테이블 SQL](sqlite/002_dialogue_sequences.sql), 저장 권한 경계와 관리자 중앙 문서는 [STORAGE_DESIGN.md](STORAGE_DESIGN.md)를 따릅니다.
+이 문서는 LUMIA 백엔드의 **Firestore 사용자 데이터** 저장 구조를 정의합니다. 인증은 Firebase Authentication이 담당하고, 사용자별 확정 게임 상태는 Cloud Firestore에 저장합니다. 플레이어/콘텐츠 SQLite는 [SQLite 상세 스키마](sqlite/SCHEMA.md)와 [기본 테이블 SQL](sqlite/001_initial.sql)·[대화 그래프 SQL](sqlite/002_dialogue_sequences.sql)·[Dialogue 런타임/효과 v3 SQL](sqlite/003_dialogue_runtime_content.sql)·[Story 발생 정책 v4 SQL](sqlite/004_story_event_rules.sql)을 따릅니다. Main Story는 [Main 대화 적재기](sqlite/seed_dialogue_content.py), Location Story master/rule/effect는 [Location 적재기](sqlite/seed_location_story_master.py)와 [Location DB 명세](LOCATION_STORY_DB_SPEC.md)를 기준으로 하며, 전체 저장 권한 경계는 [STORAGE_DESIGN.md](STORAGE_DESIGN.md)를 따릅니다.
 
 문서는 **논리 스키마(Logical Schema)** 와 **물리 스키마(Physical Schema)** 를 분리해 설명합니다.
 
@@ -263,6 +263,8 @@ RUN_COMPLETE
 | `day` | Enum/String | 현재 진행 위치 |
 | `phase` | String | 일정 등록/활동 진행/주말 처리/엔딩 진입 등 세부 진행 단계 |
 | `storyCast` | Map<RoleId, CharacterId> | 주인공 선택 직후 확정한 메인·Location Story 학생 배역. 같은 회차 동안 고정 |
+| `pendingStoryEvent` | PendingStoryEvent/Null | 활동 결과 저장 뒤 선정됐지만 아직 END/SKIP 완료 저장 전인 Main/NPC/Location Story |
+| `storyEventWindow` | StoryEventWindow | NPC·Location Story의 주간/일일 발생 제한 상태 |
 | `startedAt` | DateTime | 회차 시작 시각 |
 | `updatedAt` | DateTime | 현재 회차 최종 갱신 시각 |
 
@@ -331,6 +333,8 @@ run.stats + active pet modifier = effectiveStats
 | `eventFlags` | Map<String, Boolean/Value> | 회차 한정 이벤트/선택 플래그 |
 | `representativeChoices` | List<Object> | 엔딩 편지 후보가 될 중요 선택 기록 |
 
+Location Story의 `storyProgress`는 현재 회차에 속한다. 새 52주 회차를 시작할 때 `LOC_*` 진행 상태는 초기화하며 계정 영구 해금으로 승격하지 않는다. 천문대 `LOC_OBS_01~04`도 각각 독립적인 canonical `StoryId`를 사용하고 선행 완료 조건으로 순서를 연결한다.
+
 #### `NpcProgress`
 
 | 필드 | 논리 타입 | 설명 |
@@ -359,6 +363,44 @@ run.stats + active pet modifier = effectiveStats
 ```
 
 선택 문장 원문 전체를 사용자 세이브에 복사하지 않고 `eventId + choiceId`로 마스터 데이터를 참조하는 것을 기본으로 합니다. 이후 대사 조건에 필요한 선택은 `eventFlags`로 별도 저장합니다.
+
+#### `PendingStoryEvent`
+
+활동 결과가 안정 저장된 뒤 별도 Story가 선정되면, 실제 대화 완료 전까지 이 값을 먼저 저장합니다. 대화 중간 line/node 위치는 저장하지 않습니다.
+
+| 필드 | 논리 타입 | 설명 |
+|---|---|---|
+| `storyId` | String | canonical Story ID. Location은 예: `LOC_GH_01` |
+| `eventId` | String | 실제 실행 이벤트 ID. 현재 Location은 `storyId`와 동일 |
+| `storyType` | Enum | `MAIN` / `NPC` / `LOCATION` |
+| `sourceLocationId` | String/Null | Location/NPC 후보 선정의 출발 장소. 예: `GH` |
+| `selectedWeek` | Integer | 후보가 확정된 게임 주차 |
+| `selectedDay` | String/Null | 후보가 확정된 게임 내 요일/날짜 식별자 |
+
+```json
+{
+  "storyId": "LOC_GH_01",
+  "eventId": "LOC_GH_01",
+  "storyType": "LOCATION",
+  "sourceLocationId": "GH",
+  "selectedWeek": 9,
+  "selectedDay": "WED"
+}
+```
+
+`pendingStoryEvent != null`인 동안 같은 활동 결과에서 새 NPC/Location Story를 다시 선정하지 않습니다. 앱이 대화 중 종료되면 마지막 안정 체크포인트에서 이 pending Story를 처음부터 다시 재생합니다. END/SKIP 완료 결과가 Firestore에 성공적으로 저장된 뒤에만 `pendingStoryEvent = null`로 지우고 다음 일정으로 진행합니다.
+
+#### `StoryEventWindow`
+
+NPC·Location Story가 공통으로 사용하는 발생 제한 상태입니다. 친밀도나 성장 점수가 아니라 후보 선정 중복 방지용 런타임 상태입니다.
+
+| 필드 | 논리 타입 | 설명 |
+|---|---|---|
+| `week` | Integer | 카운터가 속한 현재 게임 주차 |
+| `sideStoryCount` | Integer | 해당 주에 완료/스킵된 NPC + Location Story 수 |
+| `lastResultStoryDay` | String/Null | 결과를 가진 Story가 마지막으로 완료된 게임 내 요일/날짜 |
+
+현재 공통 제한은 **NPC + Location Story 합계 주당 최대 2회**, 결과를 가지는 Story는 **하루 최대 1회**입니다. Main Story는 이 `SIDE_STORY` 제한에 포함하지 않습니다. 새 주가 시작되면 `week`를 새 값으로 바꾸고 `sideStoryCount=0`, `lastResultStoryDay=null`로 초기화합니다.
 
 ### 2.7.5 주간 일정/강제 휴식
 

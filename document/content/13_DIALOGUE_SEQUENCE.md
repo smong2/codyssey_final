@@ -108,8 +108,14 @@ LINE
 | `dialogue_nodes` | LINE / IMAGE / CHOICE / END의 DB 노드. LINE은 `DIALOGUE / NARRATION / THOUGHT / CONTEXT` 표현 모드 지원 |
 | `dialogue_options` | 선택 노드별 선택 문구와 선택 직후 반응 진입점 |
 | `story_choices` | 이벤트 수준의 안정 `choiceId`와 의미 |
+| `dialogue_speakers` | 플레이 32인 외 고정 NPC·생물·텍스트 전용 화자 |
+| `story_roles / story_role_candidates` | `ROLE:*` 해석 방식, 회차 배정 순서(`assignment_order`), 동적 storyCast 후보 우선순위 |
+| `story_role_exclusions` | 동적 역할 간 같은 캐릭터를 절대 허용하지 않는 hard exclusion |
+| `story_choice_effects` | 선택별 보이는/보이지 않는 스탯·플래그 등 서버 권위 효과 |
+| `story_event_effects` | 선택과 무관한 완료·진행 효과와 COMPLETE/SKIP 적용 범위 |
+| `story_event_rules / story_event_conditions` | Story 발생 정책과 선행 이벤트·조우·플래그 등 추가 eligibility 조건 |
 
-대화 결과 규칙은 대화 문구와 분리한다. 구현 시 다음 의미의 서버 마스터가 필요하다.
+대화 결과 규칙은 대화 문구와 분리한다. SQLite v3 `003_dialogue_runtime_content.sql`에는 대화/효과 테이블, v4 `004_story_event_rules.sql`에는 공통 Story 발생 정책·추가 조건·역할 중복 금지가 구현되어 있다.
 
 ```text
 story_choice_effects
@@ -124,7 +130,7 @@ story_event_effects
 - 공통 완료 결과
 ```
 
-정확한 물리 테이블 형태는 백엔드 DB 구현 시 확정할 수 있지만 다음 원칙은 고정한다.
+물리 테이블이 구현된 뒤에도 다음 원칙은 고정한다.
 
 - 대화 문구와 보상 규칙을 같은 JSON 문자열 안에 섞지 않는다.
 - 엔진에 보상 수치를 전달하지 않는다.
@@ -254,4 +260,14 @@ provider/adapter가 HTTP, 인증 토큰, 오류 변환, 재시도를 담당한�
 
 이 문서는 **확정된 설계 계약**이다.
 
-현재 엔진의 테스트용 Main/NPC/Location 대화 데이터와 `lines / choices / closing` 전용 DTO는 이 계약의 최종 구현이 아니다. 실제 DialoguePlayer 및 API provider 구현, Choice/Event Effect 물리 스키마, `LINE.lineMode`를 저장하기 위한 실제 DB 컬럼/마이그레이션, 실제 32인 대화 적재는 별도 구현 작업이다.
+현재 구현 상태는 다음처럼 구분한다.
+
+- **DB 물리 스키마 구현:** `003_dialogue_runtime_content.sql`에서 `LINE.lineMode / visualMode`, IMAGE target/action/type, 비플레이어 화자, ROLE/후보 우선순위, Choice/Event Effect를 구현했다.
+- **Story 발생 정책 스키마 구현:** `004_story_event_rules.sql`에서 `story_event_rules`, `story_event_conditions`, `story_role_exclusions`, `story_roles.prior_assignment_policy`를 구현했다. 엔진은 이 정책을 계산하지 않는다.
+- **Main Story 적재 코드 구현·v3 실행 검증:** `backend/database/sqlite/seed_dialogue_content.py`가 `MS01~MS06` 공통 마스터 + CH01~CH32 Character Set + Main Production 선택 효과/역할 후보를 생성한다. 사용자가 로컬 SQLite에서 기존 v3 Main 결과 `192 sequences / 40 canonical choices / 80 choice effects`를 확인했다. 스크립트는 현재 v4 migration도 지원한다.
+- **Location master 적재 코드 구현:** `seed_location_story_master.py`가 활성 Location Story 6개, eligibility rule, canonical choice 13개, effect 29개, 세린, `LOC_GREENHOUSE_STUDENT` 역할/후보/exclusion을 같은 DB 버전에 생성한다. 상세는 `backend/database/LOCATION_STORY_DB_SPEC.md`를 따른다.
+- **Location 32인 대화:** 공통 시퀀스는 작성됐지만 Character Set이 아직 없으므로 Location `dialogue_sequences/nodes/options`는 의도적으로 미적재 상태다. 32인 검수 뒤 6×32 시퀀스를 추가한다.
+- **v4 실행 검증:** 저장소 작업 도구에는 임의 셸 실행 기능이 없어 `004 + seed_location_story_master.py`의 실제 로컬 SQLite 실행 결과는 아직 사용자 검증 전이다.
+- **런타임 미구현:** FastAPI Dialogue compiler/complete transaction과 Engine 공통 DialoguePlayer/API provider 연결은 별도 구현 작업이다.
+
+현재 엔진의 테스트용 Main/NPC/Location 대화 데이터와 `lines / choices / closing` 전용 DTO는 이 계약의 최종 구현이 아니다.
