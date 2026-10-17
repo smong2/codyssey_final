@@ -10,6 +10,8 @@ import {MAIN_STORIES} from './main-story.mjs';
 import {roomProgress} from './collection-view.mjs';
 import {validateNarrativeState} from './narrative.mjs';
 import {validateEndingView} from './ending-frame.mjs';
+import {validatePendingActivityStory} from './post-activity-story.mjs';
+import {validateCollectionNoticeState} from './collection-notices.mjs';
 export const STORAGE_KEY='lumia.engine.dev.v1';
 export function createBoundaryWriter(repository){
  let pending=null,source=null,savedSlotId=null;
@@ -27,6 +29,7 @@ export function createBoundaryWriter(repository){
 }
 export function validateProfile(p){
  if(p?.version!==1||!p.meta||!Array.isArray(p.meta.unlockedCharacters)||!Array.isArray(p.meta.badges)||!p.meta.counters||!Array.isArray(p.slots)||p.slots.length!==5)throw new Error('지원하지 않거나 손상된 저장 데이터입니다. 원본을 보존했습니다.');
+ validateCollectionNoticeState(p.meta.collectionNoticeState);
  for(const key of ['minigames','classes','adventures'])if(!Number.isSafeInteger(p.meta.counters[key])||p.meta.counters[key]<0)throw new Error('누적 기록이 손상됐습니다.');
  if(p.meta.endingViewCounts!==undefined&&(!p.meta.endingViewCounts||typeof p.meta.endingViewCounts!=='object'||Array.isArray(p.meta.endingViewCounts)||Object.values(p.meta.endingViewCounts).some(value=>!Number.isSafeInteger(value)||value<0)))throw new Error('엔딩 열람 기록이 손상됐습니다.');
  if(p.config!==undefined&&(!p.config||typeof p.config!=='object'||Array.isArray(p.config)))throw new Error('전역 엔진 설정이 손상됐습니다.');
@@ -38,6 +41,7 @@ export function validateProfile(p){
   if(s.status==='PLAYING'&&(!r||!Number.isInteger(r.week)||r.week<1||r.week>52||!Number.isInteger(r.day)||r.day<0||r.day>5||!['PLANNING','ACTING','WEEK_COMPLETE','AWAITING_ENDING'].includes(r.phase)||!Array.isArray(r.schedule)||!r.stats||!Number.isFinite(r.stamina)||r.stamina<0||r.stamina>100))throw new Error('회차 데이터가 손상됐습니다.');
   if(s.status!=='PLAYING'&&r!==null)throw new Error('슬롯 상태가 회차와 일치하지 않습니다.');
   if(s.status==='PLAYING'){
+   validatePendingActivityStory(r);
    if(r.narrativeState!==undefined)validateNarrativeState(r.narrativeState,r);
    if(r.endingRecord&&(!Number.isInteger(r.endingRecord.runNumber)||r.endingRecord.runNumber!==r.runNumber||!['CAREER','FALLBACK'].includes(r.endingRecord.type)||typeof r.endingRecord.careerId!=='string'||typeof r.endingRecord.careerName!=='string'||!Array.isArray(r.endingRecord.records)||!['pending','ready','failed'].includes(r.endingRecord.letter?.status)||r.phase!=='AWAITING_ENDING'))throw new Error('엔딩 준비 기록이 손상됐습니다.');
    if(r.endingRecord)validateEndingView({slotId:s.slotId,runNumber:r.runNumber,career:{id:r.endingRecord.careerId,name:r.endingRecord.careerName},letter:r.endingRecord.letter,...(r.endingRecord.playRecords?{playRecords:r.endingRecord.playRecords}:{}),...(r.endingRecord.newUnlocks?{newUnlocks:r.endingRecord.newUnlocks}:{})},{slotId:s.slotId,runNumber:r.runNumber});

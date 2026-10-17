@@ -1,4 +1,5 @@
 import {BADGE_GROUPS,badgeProgress,ROOM_BACKGROUNDS,roomProgress} from '../core/collection-view.mjs';
+import {unreadRoomIds} from '../core/collection-notices.mjs';
 const ORNAMENTS=['star_030','bow_031','laurel_032','crown_033','gem_034','shell_035','wings_036','flower_037'];
 export function renderBadgePanel(panel,{el,btn,meta}){
  const body=el('section',null,'collection-browser');panel.append(body);
@@ -15,13 +16,13 @@ export function renderBadgePanel(panel,{el,btn,meta}){
  }
  paint();
 }
-export function renderRoomPanel(panel,{el,btn,meta,settings=()=>({}),onSelectRoom,isSaveFailed=()=>false}){
+export function renderRoomPanel(panel,{el,btn,meta,settings=()=>({}),onSelectRoom,isSaveFailed=()=>false,onReadRoomNotices}){
  const body=el('section',null,'collection-browser');panel.append(body);
- function paint(id=null){body.replaceChildren();if(id){body.append(btn('마이룸 목록',()=>paint()));const room=roomProgress(meta(),id);body.append(el('h2',room.title));const puzzle=el('div',null,'room-piece-grid');
+ function paint(id=null){body.replaceChildren();if(id){onReadRoomNotices?.(id);body.append(btn('마이룸 목록',()=>paint()));const room=roomProgress(meta(),id);body.append(el('h2',room.title));const puzzle=el('div',null,'room-piece-grid');
    for(let index=0;index<12;index++){const owned=room.pieces.includes(index),piece=el('div',owned?'':'?','room-piece');piece.setAttribute('aria-label',(index+1)+'번 조각 · '+(owned?'획득':'미획득'));if(owned&&room.images){piece.style.backgroundImage=`url('./world-assets/${room.images.day}')`;piece.style.backgroundPosition=`${index%4*100/3}% ${Math.floor(index/4)*50}%`;}else if(owned)piece.textContent='획득 · 이미지 대기';puzzle.append(piece);}body.append(puzzle,el('p',room.pieces.length+' / 12'));if(!room.images)body.append(el('small','배경별 이미지 연결 대기'));return;}
-  const grid=el('div',null,'bag-card-grid');body.append(grid);for(const master of ROOM_BACKGROUNDS){const room=roomProgress(meta(),master.id),selected=(settings().activeRoomBackgroundId??'default')===room.id,card=el('article',null,'collection-item-card');
+  const unread=new Set(unreadRoomIds(meta()));const grid=el('div',null,'bag-card-grid');body.append(grid);for(const master of ROOM_BACKGROUNDS){const room=roomProgress(meta(),master.id),selected=(settings().activeRoomBackgroundId??'default')===room.id,card=el('article',null,'collection-item-card');
    if(room.images&&(room.id==='default'||room.unlocked)){const art=el('img',null,'bag-room-image');art.src='./world-assets/'+room.images.day;art.alt=room.title;card.append(art);}else card.append(el('div','🔒','room-art-placeholder'));
-   card.append(el('h3',room.title),el('p',room.id==='default'?'기본 제공':room.pieces.length+' / 12'));if(room.id!=='default')card.append(btn('퍼즐 보기',()=>paint(room.id)));
+   card.append(el('h3',room.title),el('p',room.id==='default'?'기본 제공':room.pieces.length+' / 12'));if(unread.has(room.id))card.append(el('small','NEW','collection-new-indicator'));if(room.id!=='default')card.append(btn('퍼즐 보기',()=>paint(room.id)));
    if(room.unlocked){const use=btn(selected?'사용 중':'사용하기',()=>{if(onSelectRoom?.(room.id))paint();});use.disabled=selected||!room.images||isSaveFailed();card.append(use);}grid.append(card);
   }
  }
