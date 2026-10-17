@@ -457,10 +457,10 @@ PK: `(uid, local_event_id)`. 최근 활동 화면을 위한 로컬 표시 기록
 - 저장소 루트에서 Main Story 데이터 적재 예: `python3 backend/database/sqlite/seed_dialogue_content.py --migrate --version dev-dialogue-v1`. 성공하면 **`backend/database/sqlite/lumia-content.sqlite3`**가 생성된다. 다른 DB를 사용할 때만 `--db <경로>`를 지정한다. 전체 마스터 버전이 준비되기 전에는 `--activate`를 생략하고, NPC/Location 등 같은 버전 데이터까지 검증된 뒤 활성화한다.
 - Main v3의 이전 선택 보상 규칙에서는 `192 sequences / 40 choices / 80 effects` 결과를 사용자가 실제 로컬 DB에서 확인했다. **현재 Primary/Secondary Hidden 규칙으로 다시 seed하면 Main 기대값은 102 effects**다. 새 보상 규칙에 대한 실제 SQLite 재검증은 아직 전이다.
 - NPC 적재 예: `python3 backend/database/sqlite/seed_npc_story.py --migrate --version dev-dialogue-v1`. 현재 구현 기대값은 `NPC stories=3 / events=12 / event conditions=16 / canonical choices=24 / choice effects=64 / dialogue sequences=384 / dialogue options=768`이다. 상세는 [NPC Story DB 명세](../NPC_STORY_DB_SPEC.md)와 `validate_npc_story.sql`을 따른다.
-- Location 전체 적재 예: `python3 backend/database/sqlite/seed_location_story_master.py --migrate --version dev-dialogue-v1`. 구현 기준 예상은 `user_version=4 / Location stories=6 / events=6 / canonical choices=13 / choice effects=39 / dialogue_sequences=192 / dialogue_options=416 / dialogue_nodes=3616`이다. 실제 바이너리 SQLite 재실행 검증은 아직 pending이다.
+- Location 전체 적재 예: `python3 backend/database/sqlite/seed_location_story_master.py --migrate --version dev-dialogue-v1`. 검증 기준은 `user_version=4 / Location stories=6 / events=6 / canonical choices=13 / choice effects=39 / dialogue_sequences=192 / dialogue_options=416 / dialogue_nodes=3616`이며, **2026-10-18 사용자가 실제 로컬 SQLite 실행 결과를 정상 확인했다.**
 - 세 Story 유형의 선택 보상만 통합 검증하려면 `validate_story_choice_rewards.sql`을 실행하며 기대값은 **77 choices / 205 effects**다.
 - Location DB 상세 설계·Firestore 경계·검증 SQL은 [Location Story DB 명세](../LOCATION_STORY_DB_SPEC.md)를 따른다.
-- 저장소 작업 도구에는 임의 셸 실행 권한이 없으므로 **v4 migration/NPC seed/Location seed 실행 결과는 아직 확인하지 않았다.** DDL/seed 구현 완료와 실제 실행 검증 완료를 구분한다.
+- 저장소 작업 도구 자체에는 임의 셸 실행 권한이 없다. 따라서 도구에서 직접 실행하지 못한 영역은 별도로 구분하되, **Location seed는 사용자 로컬 실행으로 실제 DB 검증 완료** 상태다. NPC 전체 seed의 실행 검증 상태는 해당 NPC 문서 기준을 따른다.
 - Firestore 동기화 API와 정식 FastAPI Dialogue compiler/complete transaction은 별도 구현 작업이다. SQL과 seed 파일 존재만으로 서버 런타임 완료로 보지 않는다.
 - 로컬 계정 탈퇴 시 위 4개 UID별 테이블에서 해당 `uid` 행을 제거한다. 마스터 사본은 UID와 무관하므로 유지할 수 있다. 로그아웃·계정 전환 시 다른 UID의 캐시를 노출하지 않는다.
 - 마스터 사본의 `ON DELETE CASCADE`는 구버전 정리 시 종속 행을 함께 지우기 위한 것이다. 로컬 UID별 테이블에는 마스터 버전 외래 키가 없으므로 마스터 갱신과 별개로 수명주기를 관리한다.

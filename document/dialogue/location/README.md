@@ -79,4 +79,4 @@ Production 신규 이미지 요청:
 → 실제 DB 실행 검증
 ```
 
-현재 상태는 **공통 대화 + CH01~CH32 Location Character Set 작성·수량 검산 완료 / Location DB master·효과·32인 대화 seed 코드 구현 완료 / 실제 SQLite 재실행 검증 pending**이다. Character Set은 `32명 × 6 choiceNode = 192 선택 화면`, `32명 × 13 canonical choiceId = 416 실제 선택 문구`를 갖고, seed 결과 목표는 `192 dialogue_sequences / 416 dialogue_options / 3616 dialogue_nodes`다. 온실 배역은 CH12·CH19에서 하젤, 나머지 30명에서 요한으로 검산했다. 상세 DB 계약은 `backend/database/LOCATION_STORY_DB_SPEC.md`를 따른다.
+현재 상태는 **공통 대화 + CH01~CH32 Location Character Set 작성·수량 검산 완료 / Location DB master·효과·32인 대화 seed 구현 완료 / 실제 SQLite 적재·검증 완료**다. Character Set은 `32명 × 6 choiceNode = 192 선택 화면`, `32명 × 13 canonical choiceId = 416 실제 선택 문구`를 갖고, 실제 seed 기준은 `192 dialogue_sequences / 416 dialogue_options / 3616 dialogue_nodes`다. 온실 배역은 CH12·CH19에서 하젤, 나머지 30명에서 요한으로 검산했다. **2026-10-18 사용자 로컬 실행에서 정상 결과를 확인했다.** 상세 DB 계약은 `backend/database/LOCATION_STORY_DB_SPEC.md`를 따른다.

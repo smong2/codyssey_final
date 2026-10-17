@@ -355,9 +355,9 @@ Main 강제 스토리 방문에서는 Location 후보 판정을 하지 않는다
 
 ## 11. 32인 대화 데이터 최종 구조
 
-Location 공통 원고와 CH01~CH32 Character Set은 작성 및 수량 검산이 완료됐고, `seed_location_story_master.py`가 이 둘을 병합해 실제 `dialogue_sequences/nodes/options`로 적재하도록 구현됐다. 현재 남은 단계는 개발용 SQLite 파일에 seed를 실제 재실행하고 결과를 확인하는 것이다.
+Location 공통 원고와 CH01~CH32 Character Set은 작성 및 수량 검산이 완료됐고, `seed_location_story_master.py`가 이 둘을 병합해 실제 `dialogue_sequences/nodes/options`로 적재한다. **2026-10-18 사용자가 개발용 SQLite 파일에 seed를 실제 실행해 정상 결과를 확인했다.**
 
-현재 Character Set 검산값과 최종 DB 목표 수:
+현재 Character Set 검산값과 실제 DB 적재 기준 수:
 
 ```text
 6 events × 32 characters = 192 dialogue_sequences
@@ -365,7 +365,7 @@ Location 공통 원고와 CH01~CH32 Character Set은 작성 및 수량 검산이
 13 choice options × 32 characters = 416 dialogue_options
 ```
 
-실제 `dialogue_nodes` 총 행 수는 최종 Character Set을 공통 마스터와 병합한 뒤 계산한다.
+실제 `dialogue_nodes` 총 행 수는 **3616개**다.
 
 원칙:
 
@@ -382,7 +382,7 @@ Location 공통 원고와 CH01~CH32 Character Set은 작성 및 수량 검산이
 
 ## 12. 현재 seed 단계
 
-### 현재 구현 완료
+### 구현·실행 검증 완료
 
 `seed_location_story_master.py`는 다음을 한 트랜잭션에서 적재한다.
 
@@ -428,9 +428,9 @@ backend/database/sqlite/lumia-content.sqlite3
 
 ---
 
-## 14. 검증 예상값
+## 14. 검증값
 
-seed 성공 후 출력 예상:
+2026-10-18 사용자가 실제 seed 실행에서 다음 핵심 값을 정상 확인했다.
 
 ```text
 schema user_version: 4
@@ -443,7 +443,7 @@ Location dialogue options: 416
 validation: OK
 ```
 
-추가 검증 SQL에서는 Location `dialogue_nodes=3616`, `CHOICE nodes=192`, `foreign_key_errors=0`도 확인한다.
+seed 내부 검증은 Location `dialogue_nodes=3616`, `CHOICE nodes=192`, canonical 참조, ROLE/NPC 참조, FK, graph reachability를 검사하며 오류가 있으면 `validation: OK`까지 도달하지 않는다. 별도 SQL 파일로 같은 값을 다시 점검할 수도 있다.
 
 직접 SQL 확인:
 
@@ -491,6 +491,6 @@ sqlite3 backend/database/sqlite/lumia-content.sqlite3 \
 - **Location 마스터/선택/효과 seed 코드:** 구현 완료
 - **32인 대화 원고:** 작성·수량 검산 완료 / 사람 검수 단계
 - **Location dialogue_sequences/nodes/options seed 코드:** 구현 완료 (`192 / 3616 / 416` 검증 포함)
-- **실제 로컬 SQLite 재실행 검증:** pending — 현재 저장소 MCP에는 Python/SQLite 실행 기능이 없어 코드 작성과 바이너리 DB 실행을 구분함
+- **실제 로컬 SQLite 적재·검증:** **완료 — 2026-10-18 사용자 실행 결과 정상 확인**
 - **FastAPI 후보 선정/Dialogue API 구현:** 미완료
 - **Firestore 트랜잭션 구현:** 미완료

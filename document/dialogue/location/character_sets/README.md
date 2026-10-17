@@ -93,4 +93,4 @@ LOC_LIB_01_SHELF
 8. 공통 master의 nodeId / assetRef / sequence 순서를 변경하지 않는다.
 9. 선택 스탯 수치는 Dialogue payload에 중복 저장하지 않는다.
 
-현재 상태는 **CH01~CH32 Location Character Set 작성 및 수량 검산 완료 / `seed_location_story_master.py` DB 변환 구현 완료 / 실제 SQLite 재실행 검증 pending**이다. 검산 결과는 `32명 / 192 choiceNode / 416 canonical choice 문구`, 온실 branch reaction은 `하젤 4줄(CH12·CH19) / 요한 60줄(나머지 30명)`이며 DB 목표는 `192 sequences / 416 options / 3616 nodes`다.
+현재 상태는 **CH01~CH32 Location Character Set 작성 및 수량 검산 완료 / `seed_location_story_master.py` DB 변환 구현 완료 / 실제 SQLite 적재·검증 완료**다. 검산 결과는 `32명 / 192 choiceNode / 416 canonical choice 문구`, 온실 branch reaction은 `하젤 4줄(CH12·CH19) / 요한 60줄(나머지 30명)`이며 실제 DB 기준은 `192 sequences / 416 options / 3616 nodes`다. **2026-10-18 사용자 로컬 실행에서 정상 결과를 확인했다.**

@@ -13,7 +13,7 @@
 
 ## 확정된 설계
 
-현재 DB 쪽 구현 상태: `003_dialogue_runtime_content.sql`에 최종 LINE/IMAGE 표현 필드·화자·ROLE·Choice/Event Effect가 있고, `004_story_event_rules.sql`에 Story 발생 정책·추가 조건·동적 역할 hard exclusion이 있다. Main `seed_dialogue_content.py`는 CH01~CH32 `MS01~MS06` 시퀀스와 **40 choices / 102 effects**, NPC `seed_npc_story.py`는 GUIDE/WORK/LULU 3체인·12이벤트의 **24 choices / 64 effects / 384 sequences / 768 options**를 생성한다. Location은 **13 choices / 39 effects**와 CH01~CH32 실제 대사를 사용하며 `seed_location_story_master.py`가 **192 sequences / 416 options / 3616 nodes**로 컴파일하도록 구현됐다. 온실 role은 CH12·CH19에서 하젤, 나머지 30명에서 요한 reaction으로 검증한다. 사용자가 `seed_story_choice_rewards.py --bootstrap-missing`을 성공 실행해 Story 선택 보상 **77 choices / 205 effects**는 실제 SQLite에서 검증됐다. Location 32인 dialogue seed는 코드 구현 완료지만 현재 개발용 바이너리 SQLite에 대한 재실행 검증은 pending이다. FastAPI compiler/complete transaction과 Engine 연결도 아직 미구현이다.
+현재 DB 쪽 구현 상태: `003_dialogue_runtime_content.sql`에 최종 LINE/IMAGE 표현 필드·화자·ROLE·Choice/Event Effect가 있고, `004_story_event_rules.sql`에 Story 발생 정책·추가 조건·동적 역할 hard exclusion이 있다. Main `seed_dialogue_content.py`는 CH01~CH32 `MS01~MS06` 시퀀스와 **40 choices / 102 effects**, NPC `seed_npc_story.py`는 GUIDE/WORK/LULU 3체인·12이벤트의 **24 choices / 64 effects / 384 sequences / 768 options**를 생성한다. Location은 **13 choices / 39 effects**와 CH01~CH32 실제 대사를 사용하며 `seed_location_story_master.py`가 **192 sequences / 416 options / 3616 nodes**로 컴파일한다. 온실 role은 CH12·CH19에서 하젤, 나머지 30명에서 요한 reaction으로 검증한다. 사용자가 `seed_story_choice_rewards.py --bootstrap-missing`을 성공 실행해 Story 선택 보상 **77 choices / 205 effects**를 실제 SQLite에서 검증했고, **2026-10-18 Location 32인 dialogue seed도 실제 로컬 DB 실행 결과 정상 확인됐다.** FastAPI compiler/complete transaction과 Engine 연결은 아직 미구현이다.
 
 ```text
 정규화된 대화 콘텐츠 DB

@@ -50,7 +50,7 @@
 | `pending_requests` | `uid + request_id` | 네트워크 오류 시 같은 요청 ID로 재시도할 최소 요청 정보 |
 | `local_activity_log` | `uid + local_event_id` | 플레이어 화면의 최근 활동 표시용 로컬 기록; 관리자 통계 원본 아님 |
 
-빈 SQLite DB에 001·002·003·004 마이그레이션을 순서대로 한 번씩 적용한다. 적용 후 `PRAGMA user_version = 4`이며, SQLite 연결마다 외래 키를 활성화한다. 마스터 데이터는 버전별로 적재하고 `game_data_versions.is_active`를 통해 활성 버전을 구분한다. Main seed로 캐릭터/Main 대화를 먼저 넣고, 같은 `gameDataVersion`에 NPC 3체인·32인 대화를 넣은 뒤 Location 6개 master·32인 대화를 이어서 넣는다. 현재 Story 선택 효과는 Main **40 choice / 102 effect**, NPC **24 / 64**, Location **13 / 39**로 총 **77 canonical choice / 205 story_choice_effects**이며 사용자가 선택 보상 DB 결과를 확인했다. NPC seed는 384 dialogue sequence / 768 dialogue option, Location seed는 **192 dialogue sequence / 416 dialogue option / 3616 dialogue node**를 생성하도록 구현돼 있다. Location 실제 바이너리 DB 재실행 검증은 pending이다.
+빈 SQLite DB에 001·002·003·004 마이그레이션을 순서대로 한 번씩 적용한다. 적용 후 `PRAGMA user_version = 4`이며, SQLite 연결마다 외래 키를 활성화한다. 마스터 데이터는 버전별로 적재하고 `game_data_versions.is_active`를 통해 활성 버전을 구분한다. Main seed로 캐릭터/Main 대화를 먼저 넣고, 같은 `gameDataVersion`에 NPC 3체인·32인 대화를 넣은 뒤 Location 6개 master·32인 대화를 이어서 넣는다. 현재 Story 선택 효과는 Main **40 choice / 102 effect**, NPC **24 / 64**, Location **13 / 39**로 총 **77 canonical choice / 205 story_choice_effects**이며 사용자가 선택 보상 DB 결과를 확인했다. NPC seed는 384 dialogue sequence / 768 dialogue option, Location seed는 **192 dialogue sequence / 416 dialogue option / 3616 dialogue node**를 생성한다. **Location은 2026-10-18 사용자가 실제 로컬 SQLite seed 실행 결과를 정상 확인했다.**
 
 ## 3. 중앙 Firestore 문서 목록
 
@@ -92,7 +92,7 @@
 ## 5. 후속 상세 설계
 
 - 브라우저별 SQLite WASM/OPFS 동작 검증과 대체 경로
-- SQLite WASM/OPFS 초기화·브라우저 마이그레이션 실행 코드와 Main/NPC/Location 전체 마스터 버전 생성·교체 절차. Location 32인 `dialogue_sequences/nodes/options` 변환·검증 코드는 구현됐고 실제 SQLite 재실행 검증이 남아 있다.
+- SQLite WASM/OPFS 초기화·브라우저 마이그레이션 실행 코드와 Main/NPC/Location 전체 마스터 버전 생성·교체 절차. Location 32인 `dialogue_sequences/nodes/options` 변환·실제 SQLite 검증은 완료됐다.
 - Firestore `activityDays`의 지표·문서 크기·집계 전략 및 실제 읽기/쓰기 측정
 - 요청 ID, 세이브 버전, 충돌·재접속·계정 전환·삭제 계약
 - Firestore 보안 규칙과 관리자 API 권한·감사로그 보존 정책
