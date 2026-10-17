@@ -48,14 +48,14 @@ function renderEmptySlots(){
 }
 function renderCharacters(id){
  heading('함께할 학생을 선택하세요');const cards=node('div',null,'cards characters');
- for(const c of CHARACTERS){const card=node('article',null,'card'),img=node('img');img.src='./character-assets/'+c.image;img.alt=c.name;
+ for(const c of CHARACTERS){const card=node('article',null,'card'),img=node('img');img.src='./character-assets/'+c.fullbody;img.alt=c.name;
  card.append(img,node('h2',c.name),button('선택',()=>{startRun(profile,id,c.id);slotId=id;save();renderRoom();}));cards.append(card);}
  shell.append(cards,button('슬롯으로',renderSlots,'quiet'));
 }
 const days=['월','화','수','목','금'],statNames={knowledge:'지식',expression:'표현력',dexterity:'솜씨',exploration:'탐험',magic:'마법'};
 function renderRoom(){
  const r=profile.slots[slotId-1].activeRun,c=CHARACTERS.find(c=>c.id===r.characterId);
- heading('마이룸 · '+r.week+' / 52주');const img=node('img',null,'portrait');img.src='./character-assets/'+c.image;img.alt=c.name;shell.append(img,node('p',c.name+' · '+r.runNumber+'회차'));
+ heading('마이룸 · '+r.week+' / 52주');const img=node('img',null,'portrait');img.src='./character-assets/'+c.fullbody;img.alt=c.name;shell.append(img,node('p',c.name+' · '+r.runNumber+'회차'));
  const stats=node('div',null,'stats');stats.append(node('span','체력 '+r.stamina+' / 100'));for(const[k,v]of Object.entries(r.stats))stats.append(node('span',statNames[k]+' '+v));shell.append(stats);
  shell.append(node('p','이번 골격은 룬 회로 수업과 휴식을 연결합니다. 모험·메인 스토리·엔딩은 후속 구현입니다.','muted'));
  if(saveFailed){

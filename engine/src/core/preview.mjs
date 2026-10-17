@@ -4,7 +4,7 @@ import {isForcedRestDay} from './activity-rules.mjs';
 const DAY=86400000,BASE_YEAR=1900,BASE=Date.UTC(BASE_YEAR,0,1),ARCADIA_START_YEAR=327;
 export function titleModel(profile){
  const saved=profile.slots.some(s=>s.status!=='EMPTY');
- return {startLabel:saved?'새로 시작하기':'시작하기',continueVisible:saved,startDisabled:profile.slots.every(s=>s.status!=='EMPTY')};
+ return {startLabel:saved?'새로 시작하기':'시작하기',continueVisible:saved};
 }
 export function calendarModel(run,monthOffset=0){
  const offset=run.phase==='AWAITING_ENDING'?364:(run.week-1)*7+Math.min(run.day,5);

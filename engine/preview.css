@@ -108,6 +108,9 @@ button.room-date{cursor:pointer;text-align:left}
 .title-enter .title-actions,.title-enter>.title-replay{animation-duration:var(--title-buttons-duration,1.3s);animation-delay:var(--title-buttons-delay,2.7s)}
 #notice{top:auto!important;bottom:calc(94px + env(safe-area-inset-bottom));z-index:80;max-width:min(720px,calc(100vw - 36px));font-size:13px}
 #notice.toast-visible{animation:toastFade var(--notice-duration,3000ms) both}
+.title-actions .title-slot-notice{position:absolute;top:calc(100% + clamp(8px,1.5dvh,16px));width:min(440px,calc(100vw - 32px));margin:0;padding:8px 14px;border:1px solid var(--gold);border-radius:8px;background:#182d28ed;color:#fff5dc;font-family:'Lumia Gothic','Malgun Gothic',sans-serif;font-size:clamp(12px,1.8dvh,15px);line-height:1.55;white-space:pre-line;text-shadow:none;pointer-events:none}
+.title-slot-notice:empty{display:none}
+.title-slot-notice.toast-visible{animation:toastFade var(--notice-duration,3000ms) both}
 @keyframes toastFade{0%{opacity:0;translate:0 8px}10%,82%{opacity:1;translate:0 0}100%{opacity:0;translate:0 -3px}}
 .slot-dialog{width:min(620px,92vw);max-width:92vw;max-height:84dvh;padding:20px;border:2px solid #aa8750;border-radius:18px}
 .slot-dialog::backdrop{background:#0b151955}
@@ -150,9 +153,7 @@ button.room-date{cursor:pointer;text-align:left}
 .room-date-stack{max-width:min(270px,calc(100% - 36px));gap:10px}
 .room-profile-card{position:relative;width:250px;height:82px;padding:0;background:none!important;border:0;box-shadow:none;text-align:left}
 .mini-profile-frame{position:absolute;inset:0;width:100%;height:100%;z-index:2}
-.mini-profile-face{position:absolute;left:5%;top:22%;width:20%;height:61%;border-radius:50%;overflow:hidden;background:#233645;z-index:1}
-.mini-profile-face img{position:absolute;width:100%;height:230%;object-fit:cover;object-position:center top;top:-8%;left:0}
-.mini-profile-copy{position:absolute;left:30%;right:5%;top:28%;color:#fff2cf;z-index:3;display:grid;gap:4px;font-size:14px}
+.mini-profile-copy{position:absolute;left:12%;right:5%;top:28%;color:#fff2cf;z-index:3;display:grid;gap:4px;font-size:14px}
 .mini-profile-copy small{font-size:11px}
 .room-main-character{height:calc(96dvh * var(--actor-scale,1));bottom:calc(-12vh - var(--actor-drop,0vh))}
 .room-page{transition:background-position .3s}
@@ -255,6 +256,7 @@ button:hover,button:focus-visible{transform:none}
 .text-button,.text-button:hover,.text-button:focus-visible{background:#23382be6!important;border:1px solid #c3ac74!important;color:#fff5dc!important;text-decoration:none!important;transform:none!important;box-shadow:none!important;padding:3px 18px!important;min-height:0!important}
 button:hover{filter:none;box-shadow:none}
 button:active:not(:disabled){scale:.97}
+.button-art{display:block;width:100%;height:auto;object-fit:contain;pointer-events:none}.title-actions .title-image-button{width:min(300px,31vh,80vw);height:auto;min-height:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}.room-icon.room-image-button{padding:2px 4px;border:0;background:transparent;box-shadow:none}.room-image-button .button-art{width:min(40px,100%);height:auto;object-fit:contain}
 .character-card-select:active:not(:disabled),.card-plus:active:not(:disabled){scale:1}
 .close-x,.close-x:hover,.close-x:active,.menu-popover .close-x{position:absolute;right:12px;top:10px;width:44px;height:44px;min-height:44px;background:transparent!important;border:0!important;color:white!important;text-shadow:0 1px 4px #000c;font:24px 'Lumia Gothic',sans-serif;padding:0!important;box-shadow:none!important;z-index:30;scale:1}
 .character-select-page>h1{display:none}
@@ -376,13 +378,25 @@ button:active:not(:disabled){scale:.97}
 @media(max-width:700px){.book-page p{font-size:14px}.book-page small{font-size:12px}.dialogue-preview-box{left:4%;right:4%;padding:14px}.dialogue-preview-student,.dialogue-preview-npc{height:40dvh;bottom:220px}.dialogue-preview-student{left:3%}.dialogue-preview-npc{right:3%}}
 
 #shell.dialogue-preview-page,#shell.admission-story-page{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;align-items:stretch;justify-items:stretch;padding:54px 6% 24px;overflow:hidden;gap:0}
-.admission-story-page>h1,.admission-story-page>.preview-label{display:none}
+.dialogue-preview-page>h1,.dialogue-preview-page>.preview-label,.admission-story-page>h1,.admission-story-page>.preview-label{display:none}
+.dialogue-stage{position:relative;grid-row:1;min-height:0;overflow:hidden;display:grid;place-items:center}
+.dialogue-stage .dialogue-background{position:absolute;inset:0;width:100%;height:100%;max-width:none;max-height:none;object-fit:cover;z-index:0}
+.dialogue-stage .dialogue-focus{position:absolute;left:auto;right:1%;top:80px;bottom:70px;margin:0;width:42%;height:calc(100% - 150px);max-width:42%;max-height:none;object-fit:contain;object-position:center bottom;z-index:1;filter:drop-shadow(0 3px 5px #0003);animation:npcSlideIn .4s ease-out both}
+.dialogue-stage .dialogue-focus.dialogue-focus-centered{left:50%;right:auto;top:0;bottom:0;width:min(48%,600px);height:100%;max-width:none;transform:translateX(-50%);object-position:center bottom;animation:npcCenterSlideIn .4s ease-out both}
+.dialogue-stage .dialogue-focus.dialogue-focus-centered{height:calc(100% + clamp(80px,16dvh,170px));bottom:0}
+.life-dialogue .dialogue-choices{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.life-dialogue .dialogue-choice{min-height:0;padding:6px 18px}
+.life-dialogue .dialogue-choice-prompt{margin:4px 0 10px}
+.life-dialogue .dialogue-preview-notice{display:block;color:#79613e;font-family:'Lumia Gothic','Malgun Gothic',sans-serif;font-size:12px;margin-bottom:6px}
+.life-dialogue .actions button{font-family:'Lumia Gothic','Malgun Gothic',sans-serif}
 .npc-portrait-stage{position:relative;min-height:0;width:min(700px,70vw);align-self:stretch;justify-self:center;overflow:hidden;animation:npcSlideIn .4s ease-out both}
 .npc-dialogue-image{position:absolute;max-width:none;object-fit:contain;filter:drop-shadow(0 3px 5px #0003)}
 .npc-unregistered{display:grid;place-items:center;color:#fff8df;text-shadow:0 1px 3px #000}
-.dialogue-preview-page>.dialogue-preview-box,.admission-story-page>.life-dialogue{position:relative;left:auto;right:auto;bottom:auto;min-height:0;max-height:48dvh;overflow:auto;margin:0;z-index:4;width:100%;box-sizing:border-box}
+.dialogue-preview-page>.dialogue-preview-box,.dialogue-preview-page>.life-dialogue,.admission-story-page>.life-dialogue{position:relative;left:auto;right:auto;bottom:auto;min-height:0;max-height:48dvh;overflow:auto;margin:0;z-index:4;width:100%;box-sizing:border-box}
 @keyframes npcSlideIn{from{transform:translateX(-40px);opacity:0}to{transform:translateX(0);opacity:1}}
-@media(orientation:landscape) and (max-height:500px){#shell.dialogue-preview-page,#shell.admission-story-page{padding:42px 4% 12px}.life-dialogue{padding:10px 16px}.life-dialogue h2{font-size:17px;margin:3px 0}.dialogue-text{font-size:15px;line-height:1.4;margin:4px 0}.life-dialogue small{font-size:10px}.npc-portrait-stage{width:60vw}}
+@keyframes npcCenterSlideIn{from{transform:translateX(calc(-50% - 36px));opacity:0}to{transform:translateX(-50%);opacity:1}}
+@media(prefers-reduced-motion:reduce){.dialogue-stage .dialogue-focus.dialogue-focus-centered{transform:translateX(-50%);animation:none}}
+@media(orientation:landscape) and (max-height:500px){#shell.dialogue-preview-page,#shell.admission-story-page{padding:42px 4% 12px}.life-dialogue{padding:10px 16px}.life-dialogue h2{font-size:17px;margin:3px 0}.dialogue-text{font-size:15px;line-height:1.4;margin:4px 0}.life-dialogue small{font-size:10px}.life-dialogue .dialogue-choice{font-size:12px;padding:4px 12px}.dialogue-stage .dialogue-focus{right:1%;top:55px;bottom:60px;height:calc(100% - 115px);max-width:42%;width:42%}.dialogue-stage .dialogue-focus.dialogue-focus-centered{height:calc(100% + 80px)}.npc-portrait-stage{width:60vw}}
 
 .intro-skip,.title-replay,.story-top-controls button,.character-select-back{font-family:'Lumia Gothic','Malgun Gothic',sans-serif}
 .room-page::before{background:linear-gradient(#f9efda11,#d2d2b911),var(--room-bg,url('./world-assets/BG11_myroom2_day_1920x1080_023.png')) center/cover}
@@ -392,6 +406,20 @@ button:active:not(:disabled){scale:.97}
 .dialogue-preview-page,.schedule-page,.collection-page,.diary-page,.bag-page,.profile-page{background:linear-gradient(#f9efda11,#d2d2b911),var(--room-bg,url('./world-assets/BG11_myroom2_day_1920x1080_023.png')) center/cover!important;background-size:auto,max(calc(100% + 260px),177.7778dvh) auto!important;background-repeat:no-repeat!important}
 
 #shell.bag-page{padding:20px 6%!important;overflow:hidden}
+#shell.dialogue-preview-page>.life-dialogue,#shell.admission-story-page>.life-dialogue{position:absolute;left:clamp(12px,2vw,32px);right:clamp(12px,2vw,32px);bottom:clamp(10px,2dvh,22px);width:auto;height:clamp(190px,28dvh,290px);min-height:0;max-height:44dvh;box-sizing:border-box;margin:0;padding:clamp(56px,7dvh,72px) clamp(18px,3vw,40px) 56px;overflow:auto;z-index:4}
+.dialogue-speaker-nameplate{position:absolute;left:calc(clamp(12px,2vw,32px) + clamp(18px,3vw,40px));top:calc(100% - clamp(10px,2dvh,22px) - clamp(190px,28dvh,290px));transform:translateY(-50%);z-index:5;display:grid;place-items:center;width:clamp(180px,19vw,270px);height:auto;aspect-ratio:2098/750;box-sizing:border-box;background-position:center;background-size:100% 100%;background-repeat:no-repeat;color:#fff8df;font-size:clamp(18px,1.5vw,24px);font-weight:700;text-align:center;pointer-events:none}
+.dialogue-speaker-nameplate-text{display:block;line-height:1;transform:translateY(-.08em)}
+.dialogue-speaker-nameplate[hidden]{display:none}
+.life-dialogue .dialogue-actions{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;align-items:center}
+.life-dialogue .dialogue-actions .dialogue-next-action{min-height:0;padding:5px 24px}
+.dialogue-advance-indicator{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);font-family:'Lumia Gothic','Malgun Gothic',sans-serif;font-size:28px;line-height:1;color:var(--ink);opacity:.78;pointer-events:none;animation:dialogueArrowPulse 1.2s ease-in-out infinite}
+.dialogue-choice-layer{position:absolute;inset:0;z-index:3;pointer-events:none}
+.dialogue-choice-panel-right{position:absolute;left:54%;right:5%;top:18%;bottom:clamp(170px,29dvh,310px);display:flex;flex-direction:column;justify-content:center;gap:clamp(8px,1.5dvh,16px);pointer-events:auto}
+.dialogue-choice-panel-right .dialogue-choice-nameplate{appearance:none;border:0;border-radius:0;background-color:transparent;background-position:center;background-size:contain;background-repeat:no-repeat;color:var(--ink);font-family:'Lumia Gothic','Malgun Gothic',sans-serif;font-size:clamp(15px,1.35vw,21px);font-weight:600;text-align:left;min-height:clamp(40px,6dvh,62px);padding:7px clamp(20px,3vw,42px);cursor:pointer;box-shadow:none;transition:filter .15s ease}
+.dialogue-choice-panel-right .dialogue-choice-nameplate:hover,.dialogue-choice-panel-right .dialogue-choice-nameplate:focus-visible{filter:brightness(1.06)}
+.dialogue-stage .dialogue-focus.dialogue-focus-choice{left:30%;right:auto;top:0;bottom:0;width:min(43%,560px);height:100%;max-width:none;transform:translateX(-50%);object-fit:contain;object-position:center bottom;animation:npcCenterSlideIn .4s ease-out both}
+@keyframes dialogueArrowPulse{0%,100%{opacity:.48;transform:translate(-50%,0)}50%{opacity:1;transform:translate(-50%,3px)}}
+@media(orientation:landscape) and (max-height:500px){#shell.dialogue-preview-page>.life-dialogue,#shell.admission-story-page>.life-dialogue{left:16px;right:16px;bottom:10px;height:clamp(145px,38dvh,190px);max-height:48dvh;padding:clamp(52px,14dvh,64px) 18px 42px;overflow:auto}.dialogue-speaker-nameplate{left:38px;top:calc(100% - 10px - clamp(145px,38dvh,190px));width:clamp(164px,28vw,224px);height:auto;aspect-ratio:2098/750;font-size:clamp(16px,2.5vw,20px)}.life-dialogue .dialogue-actions{bottom:6px}.life-dialogue .dialogue-actions .dialogue-next-action{font-size:12px;padding:3px 16px}.dialogue-advance-indicator{bottom:7px;font-size:22px}.dialogue-choice-panel-right{left:52%;right:4%;top:14%;bottom:154px;gap:5px}.dialogue-choice-panel-right .dialogue-choice-nameplate{min-height:38px;padding:4px 20px;font-size:14px}.dialogue-stage .dialogue-focus.dialogue-focus-choice{left:28%;height:100%;object-fit:contain;object-position:center bottom}}
 .bag-frame{height:100%;box-sizing:border-box;overflow:auto;padding:16px;color:var(--ink)}
 .bag-frame>h1,.book-left>h1{font-size:24px;text-align:center;margin:0 0 12px}
 .bag-frame>.actions{margin:0 0 14px;flex-wrap:wrap;gap:6px}
@@ -545,3 +573,18 @@ button:active:not(:disabled){scale:.97}
 .slot-card-error{padding:14px;border:1px solid #b78470;border-radius:10px;background:#efe4d3}.slot-card-error h2{font-size:18px;margin:0 0 8px}.slot-card-actions{display:flex;gap:8px}.slot-recovery-error{white-space:pre-line;color:#763c32;font:13px/1.6 'Lumia Gothic',sans-serif}.slot-recovery-confirmation{max-width:42ch;line-height:1.6}.collection-new-indicator{display:inline-block;margin-left:7px;padding:2px 5px;border-radius:4px;background:#d9816b;color:#fffaf3;font:11px/1.2 'Lumia Gothic',sans-serif;vertical-align:middle}
 @media(orientation:landscape) and (max-height:500px){#shell.account-page{padding:8px!important}.account-panel{max-height:calc(100dvh - 16px);gap:6px;padding:12px 20px}.account-field input{padding:5px 8px}.account-panel button{font-size:12px}.account-policy{padding:6px}}
 @media(max-width:700px){.silhouette-card-grid{grid-template-columns:repeat(auto-fill,minmax(min(42vw,150px),1fr));gap:10px;margin:12px auto}.silhouette-collection-card{border-radius:14px}.collection-lock{right:6px;top:6px;width:24px;height:24px;font-size:14px}}
+
+/* Title actions use the shared BT04 frame; room tools use larger square artwork. */
+.title-actions{--title-button-width:min(360px,37.2vh,96vw);width:var(--title-button-width);gap:0}
+.title-actions .title-image-button{position:relative;box-sizing:border-box;width:100%;aspect-ratio:1940/311}
+.title-actions .title-image-button+.title-image-button{margin-top:clamp(6px,3vh,29px)}
+.title-actions .title-image-button .button-art{width:100%;height:100%;object-fit:contain}
+.title-actions .button-art-caption{position:absolute;inset:0;display:grid;place-items:center;color:#fff5d8;font-size:clamp(16px,2.5vh,24px);line-height:1;pointer-events:none}
+.room-iconbar{gap:clamp(2px,.5vw,6px)}
+.room-icon.room-image-button{box-sizing:border-box;width:clamp(39.6px,7.92vw,100.8px);height:clamp(39.6px,7.92vw,100.8px);flex:none;padding:0}
+.room-image-button .button-art{width:100%;height:100%;object-fit:contain}
+
+/* Keep dialogue nameplates at BT04's exported ratio and echo its gold frame. */
+.dialogue-speaker-nameplate{width:clamp(220px,28vw,360px);height:auto;aspect-ratio:1940/311;background-size:contain}
+#shell.dialogue-preview-page>.life-dialogue,#shell.admission-story-page>.life-dialogue{border:1px solid #b79555}
+@media(orientation:landscape) and (max-height:500px){.dialogue-speaker-nameplate{width:clamp(164px,28vw,224px);height:auto;aspect-ratio:1940/311}}

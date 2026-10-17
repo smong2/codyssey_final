@@ -2,13 +2,14 @@ import {classOf} from './classes.mjs';
 import {STUDENTS} from './catalogue.mjs';
 import {HIDDEN_STATS} from './character-start.mjs';
 import {ADVENTURE_NPCS,recordAdventureEncounters} from './story-events.mjs';
+import {toFullbodyCharacterSrc} from './dialogue-playback.mjs';
 const chains=[['GUIDE',[4,15,29,41],'plaza',['안내지 줍기','안내지 놓기','색 리본 고르기','남은 준비 돕기']],['WORK',[8,20,32,44],'workshop',['부품 모으기','필요한 부품 찾기','도구 정돈하기','작업대 살펴보기']],['LULU',[12,25,35,48],'greenhouse',['단추 발견','단추 보관하기','발견물 나누기','새 발견 함께 보기']]];
 const locations=[['OBS','observatory',[[1,15,'틀린 별자리'],[5,28,'늦은 관측'],[8,13,'자리 맡아 주기'],[11,12,'빈 관측 칸']]],['CLK','plaza',[[1,29,'축제 리본 묶기'],[7,2,'종이 조각 줍기']]],['GH','greenhouse',[[2,12,'작은 허브에 물 주기'],[7,23,'이름표 돌려놓기']]],['DRM','dormitory',[[3,12,'창가 쿠션 놓기'],[6,11,'공용 컵 정리']]],['LIB','library',[[3,26,'책 한 권 제자리 찾기'],[9,10,'떨어진 책갈피']]],['WRK','workshop',[[4,16,'부품을 모양별로 놓기'],[10,1,'도구 닦아 두기']]],['TRN','training',[[5,7,'연습 깃발 정리'],[10,22,'표적 위치 바로잡기']]]];
 const weekFor=(month,day)=>Math.floor((Date.UTC(1900,month-1,day)-Date.UTC(1900,0,1))/604800000)+1;
 export const NARRATIVE_SCENES=[...chains.flatMap(([chain,weeks,locationId,titles])=>weeks.map((startWeek,index)=>({id:`NPC_${chain}_0${index+1}`,kind:'npc',chain,step:index+1,startWeek,locationId,title:titles[index]}))),...locations.flatMap(([code,locationId,stages])=>stages.map(([m,d,title],index)=>({id:`LOC_${code}_0${index+1}`,kind:'location',chain:'LOC_'+code,step:index+1,startWeek:weekFor(m,d),locationId,title})))];
 export function narrativeActor(scene,characterId){
  const player=STUDENTS.find(c=>c.id===characterId),name=scene.chain==='GUIDE'?(player?.name==='티아'?'로빈':'티아'):scene.chain==='WORK'?(player?.name==='렌'?'다나':'렌'):'루루';
- const student=STUDENTS.find(c=>c.name===name);return {id:student?.id??'NPC_LULU',name,image:student?.image??null};
+ const student=STUDENTS.find(c=>c.name===name);return {id:student?.id??'NPC_LULU',name,image:student?.fullbody??null};
 }
 export function activityPlace(activity){return activity.action==='adventure'?activity.locationId??'greenhouse':activity.action==='fairy-trade'?'dormitory':classOf(activity.action)?.locationId??null;}
 export function narrativeCandidates(run,activity){
@@ -71,7 +72,7 @@ export function validateNarrativeState(state,run){
  const valid=event=>{const master=NARRATIVE_SCENES.find(s=>s.id===event?.id);return !!master&&master.kind===event.kind&&master.locationId===event.locationId&&master.chain===event.chain&&master.step===event.step&&Number.isInteger(event.week)&&event.week>=master.startWeek&&event.week<=run.week&&Number.isInteger(event.day)&&event.day>=0&&event.day<5&&(run.actionHistory??[]).some(a=>a.status==='COMPLETED'&&a.week===event.week&&a.day===event.day&&activityPlace(a)===master.locationId);};
  const pending=state?.pending,greeting=pending?.kind==='greeting';
  const actor=greeting?greetingActor(run,pending.actor?.id):null;
- const validGreeting=greeting&&actor&&pending.id==='GREETING_'+actor.id&&pending.actor.name===actor.name&&pending.actor.image===actor.image&&Number.isInteger(pending.week)&&pending.week>=1&&pending.week===run.week&&
+ const validGreeting=greeting&&actor&&pending.id==='GREETING_'+actor.id&&pending.actor.name===actor.name&&toFullbodyCharacterSrc(pending.actor.image)===actor.image&&Number.isInteger(pending.week)&&pending.week>=1&&pending.week===run.week&&
   (run.actionHistory??[]).some(a=>a.status==='COMPLETED'&&a.effect?.outcome!=='interrupted'&&a.week===pending.week&&a.day===pending.day&&activityPlace(a)===pending.locationId)&&!(pending.content?.choices?.length);
  if(!state||!Array.isArray(state.history)||state.history.length>28||!safeFlags(state.flags)||pending!==null&&!(greeting?validGreeting:valid(pending))||state.history.some(h=>!valid(h)||!validGrowth(h.effect?.growth??{})||h.choiceLabel!==null&&typeof h.choiceLabel!=='string'||typeof h.closing!=='string'))throw new Error('정식 이야기 기록이 손상됐습니다.');
  const ids=new Set(),days=new Set(),counts=new Map(),steps=new Map(),weeks=new Map();
