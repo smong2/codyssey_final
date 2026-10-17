@@ -1,10 +1,11 @@
 import {finishNarrative,dismissNarrative} from '../core/narrative.mjs';
+import {toFullbodyCharacterSrc} from '../core/dialogue-playback.mjs';
 export function createNarrativeUI({el,btn,shell,heading,current,modal,npcStage,onSave}){
  return {render(){
   const pending=current().narrativeState?.pending;if(!pending)return;const content=pending.content,log=[];let index=0,stage='lines',choice=null,finished=false;
   const complete=skip=>{if(finished)return;if(skip)dismissNarrative(current());else finishNarrative(current(),choice?.id??null);finished=true;onSave();};
   heading(pending.title,'admission-story-page');const controls=el('nav',null,'story-top-controls');controls.append(btn('대화기록',()=>{const body=el('div');for(const line of log)body.append(el('p',line));modal('대화기록',body);},'text-button'),btn('건너뛰기',()=>complete(true),'text-button'));shell.append(controls);
-  if(pending.actor?.image){const image=el('img',null,'npc-dialogue-image');image.src='./character-assets/'+pending.actor.image;image.alt=pending.actor.name;shell.append(npcStage(image));}
+  if(pending.actor?.image){const image=el('img',null,'npc-dialogue-image');image.src='./character-assets/'+toFullbodyCharacterSrc(pending.actor.image);image.alt=pending.actor.name;shell.append(npcStage(image));}
   const frame=el('section',null,'paper life-dialogue');shell.append(frame);
   const paint=()=>{
    frame.replaceChildren(el('h2',pending.title));const actions=el('nav',null,'actions');

@@ -28,6 +28,15 @@ test('narrative storage rejects replayed days, forged locations and out-of-date 
  r.storyState.history=[{week:8,day:0}];assert.throws(()=>validateNarrativeState(r.narrativeState,r));
 });
 
+test('legacy greeting portraits remain valid after switching to full-body artwork without rewriting the save',()=>{
+ const r=run(),activity=r.actionHistory[0];
+ const pending=queueNarrative(r,activity,{kind:'greeting',npcId:'CH16',activityToken:'1:8:0'});
+ pending.actor.image='tia1_base.png';const before=structuredClone(r);
+ assert.doesNotThrow(()=>validateNarrativeState(r.narrativeState,r));
+ assert.deepEqual(r,before);
+ pending.actor.image='kael1_base.png';assert.throws(()=>validateNarrativeState(r.narrativeState,r));
+});
+
 test('dialogue advances text without replaying the portrait entrance and saves only after neutral closing',()=>{
  const r=run(),activity=r.actionHistory[0];queueNarrative(r,activity,{eventId:'NPC_WORK_01',activityToken:'1:8:0',content:{lines:[{text:'첫 줄'},{text:'둘째 줄'}],choices:[{id:'a',label:'선택지',reaction:'반응',growth:{magic:2}}],closing:'중립 마무리'}});
  const node=(tag,text='',className='')=>({tag,text,className,children:[],append(...nodes){this.children.push(...nodes);},replaceChildren(...nodes){this.children=nodes;},get textContent(){return [this.text,...this.children.map(n=>n.textContent)].join(' ');}}),shell=node('main');let headings=0,portraits=0,saves=0;

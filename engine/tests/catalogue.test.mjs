@@ -11,7 +11,7 @@ test('catalogue lists locked students as silhouettes in both selection and bag w
  assert.equal(selection.find(c=>c.id==='CH03').muted,true);
  assert.equal(model.studentCards(meta,'bag').find(c=>c.id==='CH03').muted,true);
  assert.equal(model.studentCards(meta,'bag').find(c=>c.id==='CH01').muted,false);
- for(const c of selection)await access(new URL('../../asset/character/'+c.fullbody,import.meta.url));
+ for(const c of selection){assert.equal(c.image,c.fullbody);await access(new URL('../../asset/character/'+c.fullbody,import.meta.url));}
  const pets=model.petCards(meta);assert.equal(pets.length,10);assert.equal(pets[0].muted,false);assert.equal(pets[1].muted,true);
  assert.deepEqual(meta,{unlockedCharacters:['CH01'],pets:[]});
 });

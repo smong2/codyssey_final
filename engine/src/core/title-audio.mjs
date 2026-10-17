@@ -7,7 +7,7 @@ export const TITLE_BGM_TIMING=Object.freeze({
 
 const MUSIC_KEYS=['intro','title','admission','room'];
 const TRACK_URLS={
- intro:'./audio-assets/bgm_title_intro.MP3',
+ intro:'./audio-assets/bgm_title_intro.mp3',
  title:'./audio-assets/bgm_title_main.mp3',
  admission:'./audio-assets/bgm_admission_invitation.mp3',
  room:'./audio-assets/bgm_myroom.mp3',
