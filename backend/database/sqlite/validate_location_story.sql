@@ -3,8 +3,8 @@
 --   sqlite3 backend/database/sqlite/lumia-content.sqlite3 \
 --     < backend/database/sqlite/validate_location_story.sql
 --
--- Current stage expects Location dialogue_sequences = 0 because CH01~CH32
--- Location Character Sets have not been seeded yet.
+-- Current stage expects reviewed CH01~CH32 Location dialogue to be compiled.
+-- Expected: 192 dialogue_sequences / 192 CHOICE nodes / 416 dialogue_options.
 
 .headers on
 .mode column
@@ -48,7 +48,7 @@ WHERE version = 'dev-dialogue-v1'
     'LOC_OBS_01','LOC_OBS_02','LOC_OBS_03','LOC_OBS_04','LOC_GH_01','LOC_LIB_01'
   );
 
-SELECT 'location_choice_effects' AS metric, COUNT(*) AS value
+SELECT 'location_choice_effects' AS metric, COUNT(*) AS value, 39 AS expected
 FROM story_choice_effects
 WHERE version = 'dev-dialogue-v1'
   AND event_id IN (
@@ -78,8 +78,30 @@ FROM dialogue_speakers
 WHERE version = 'dev-dialogue-v1'
   AND speaker_id = 'SERIN';
 
-SELECT 'location_dialogue_sequences' AS metric, COUNT(*) AS value
+SELECT 'location_dialogue_sequences' AS metric, COUNT(*) AS value, 192 AS expected
 FROM dialogue_sequences
+WHERE version = 'dev-dialogue-v1'
+  AND story_id IN (
+    'LOC_OBS_01','LOC_OBS_02','LOC_OBS_03','LOC_OBS_04','LOC_GH_01','LOC_LIB_01'
+  );
+
+SELECT 'location_choice_nodes' AS metric, COUNT(*) AS value, 192 AS expected
+FROM dialogue_nodes
+WHERE version = 'dev-dialogue-v1'
+  AND node_kind = 'CHOICE'
+  AND story_id IN (
+    'LOC_OBS_01','LOC_OBS_02','LOC_OBS_03','LOC_OBS_04','LOC_GH_01','LOC_LIB_01'
+  );
+
+SELECT 'location_dialogue_options' AS metric, COUNT(*) AS value, 416 AS expected
+FROM dialogue_options
+WHERE version = 'dev-dialogue-v1'
+  AND story_id IN (
+    'LOC_OBS_01','LOC_OBS_02','LOC_OBS_03','LOC_OBS_04','LOC_GH_01','LOC_LIB_01'
+  );
+
+SELECT 'location_dialogue_nodes' AS metric, COUNT(*) AS value, 3616 AS expected
+FROM dialogue_nodes
 WHERE version = 'dev-dialogue-v1'
   AND story_id IN (
     'LOC_OBS_01','LOC_OBS_02','LOC_OBS_03','LOC_OBS_04','LOC_GH_01','LOC_LIB_01'

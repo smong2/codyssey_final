@@ -1,6 +1,6 @@
 # 플레이어 로컬 SQLite + 중앙 Firestore 저장 설계 초안
 
-이 문서는 저장 위치와 필요한 테이블·문서 목록을 정리한다. 플레이어 로컬 SQLite의 기본 18개 테이블은 [001_initial.sql](sqlite/001_initial.sql), 캐릭터별 대화 그래프 3개 테이블은 [002_dialogue_sequences.sql](sqlite/002_dialogue_sequences.sql), 최종 Dialogue 계약용 화자·역할·표현 필드·효과는 [003_dialogue_runtime_content.sql](sqlite/003_dialogue_runtime_content.sql), 공통 Story 발생 정책·조건·역할 중복 금지는 [004_story_event_rules.sql](sqlite/004_story_event_rules.sql)에 정의했다. v4의 전체 **29개 테이블** 컬럼·키·제약은 [SQLite 상세 스키마](sqlite/SCHEMA.md)에 설명한다. Main Story 마스터 행은 [seed_dialogue_content.py](sqlite/seed_dialogue_content.py), Location Story 마스터·발생 규칙·선택 효과는 [seed_location_story_master.py](sqlite/seed_location_story_master.py)가 생성한다. Location 전용 상세 매핑은 [LOCATION_STORY_DB_SPEC.md](LOCATION_STORY_DB_SPEC.md)를 따른다. Firestore 인덱스와 동기화 API는 후속 상세 설계에서 확정한다.
+이 문서는 저장 위치와 필요한 테이블·문서 목록을 정리한다. 플레이어 로컬 SQLite의 기본 18개 테이블은 [001_initial.sql](sqlite/001_initial.sql), 캐릭터별 대화 그래프 3개 테이블은 [002_dialogue_sequences.sql](sqlite/002_dialogue_sequences.sql), 최종 Dialogue 계약용 화자·역할·표현 필드·효과는 [003_dialogue_runtime_content.sql](sqlite/003_dialogue_runtime_content.sql), 공통 Story 발생 정책·조건·역할 중복 금지는 [004_story_event_rules.sql](sqlite/004_story_event_rules.sql)에 정의했다. v4의 전체 **29개 테이블** 컬럼·키·제약은 [SQLite 상세 스키마](sqlite/SCHEMA.md)에 설명한다. Main Story 마스터 행은 [seed_dialogue_content.py](sqlite/seed_dialogue_content.py), NPC Story 마스터·발생 규칙·32인 대화는 [seed_npc_story.py](sqlite/seed_npc_story.py), Location Story 마스터·발생 규칙·선택 효과는 [seed_location_story_master.py](sqlite/seed_location_story_master.py)가 생성한다. NPC/Location 상세 매핑은 [NPC_STORY_DB_SPEC.md](NPC_STORY_DB_SPEC.md), [LOCATION_STORY_DB_SPEC.md](LOCATION_STORY_DB_SPEC.md)를 따른다. Firestore 인덱스와 동기화 API는 후속 상세 설계에서 확정한다.
 
 ## 1. 저장 위치와 권한
 
@@ -50,7 +50,7 @@
 | `pending_requests` | `uid + request_id` | 네트워크 오류 시 같은 요청 ID로 재시도할 최소 요청 정보 |
 | `local_activity_log` | `uid + local_event_id` | 플레이어 화면의 최근 활동 표시용 로컬 기록; 관리자 통계 원본 아님 |
 
-빈 SQLite DB에 001·002·003·004 마이그레이션을 순서대로 한 번씩 적용한다. 적용 후 `PRAGMA user_version = 4`이며, SQLite 연결마다 외래 키를 활성화한다. 마스터 데이터는 버전별로 적재하고 `game_data_versions.is_active`를 통해 활성 버전을 구분한다. Main seed로 캐릭터/Main 대화를 먼저 넣고, 같은 `gameDataVersion`에 Location master seed를 이어서 넣는다. Location 32인 Character Set 검수가 끝나기 전에는 Location `dialogue_sequences/nodes/options`를 공통 대사로 임시 복제하지 않는다. 로컬 테이블에는 비밀번호, Firebase ID Token, Gemini API Key, 관리자 권한·감사로그를 넣지 않는다. 계정 전환 시 다른 UID의 로컬 캐시를 표시하지 않으며, 계정 탈퇴 시 해당 UID의 로컬 데이터도 제거한다. 브라우저 저장소가 지워지면 캐시는 다시 내려받는다. `pending_requests`는 서버가 처리 성공을 확인하면 제거하고, 재시도해도 서버에서 결과가 중복 반영되지 않도록 요청 ID를 검증한다.
+빈 SQLite DB에 001·002·003·004 마이그레이션을 순서대로 한 번씩 적용한다. 적용 후 `PRAGMA user_version = 4`이며, SQLite 연결마다 외래 키를 활성화한다. 마스터 데이터는 버전별로 적재하고 `game_data_versions.is_active`를 통해 활성 버전을 구분한다. Main seed로 캐릭터/Main 대화를 먼저 넣고, 같은 `gameDataVersion`에 NPC 3체인·32인 대화를 넣은 뒤 Location 6개 master·32인 대화를 이어서 넣는다. 현재 Story 선택 효과는 Main **40 choice / 102 effect**, NPC **24 / 64**, Location **13 / 39**로 총 **77 canonical choice / 205 story_choice_effects**이며 사용자가 선택 보상 DB 결과를 확인했다. NPC seed는 384 dialogue sequence / 768 dialogue option, Location seed는 **192 dialogue sequence / 416 dialogue option / 3616 dialogue node**를 생성하도록 구현돼 있다. Location 실제 바이너리 DB 재실행 검증은 pending이다.
 
 ## 3. 중앙 Firestore 문서 목록
 
@@ -92,7 +92,7 @@
 ## 5. 후속 상세 설계
 
 - 브라우저별 SQLite WASM/OPFS 동작 검증과 대체 경로
-- SQLite WASM/OPFS 초기화·브라우저 마이그레이션 실행 코드, NPC/Location 32인 대화까지 포함한 전체 마스터 버전 생성·교체 절차 (Main seed와 Location master seed는 구현됨)
+- SQLite WASM/OPFS 초기화·브라우저 마이그레이션 실행 코드와 Main/NPC/Location 전체 마스터 버전 생성·교체 절차. Location 32인 `dialogue_sequences/nodes/options` 변환·검증 코드는 구현됐고 실제 SQLite 재실행 검증이 남아 있다.
 - Firestore `activityDays`의 지표·문서 크기·집계 전략 및 실제 읽기/쓰기 측정
 - 요청 ID, 세이브 버전, 충돌·재접속·계정 전환·삭제 계약
 - Firestore 보안 규칙과 관리자 API 권한·감사로그 보존 정책

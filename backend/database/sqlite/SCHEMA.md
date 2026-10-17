@@ -9,7 +9,7 @@
 - v4는 총 **29개 테이블**이다. 25개는 배포 버전별 읽기용 게임/대화/이벤트 마스터, 4개는 UID별 로컬 캐시·임시 상태·전송 대기 데이터다.
 - `003`은 Main/NPC/Location 공통 대화 표현 필드, 비플레이어 화자, 동적 역할 후보, 선택 효과, 이벤트 공통 효과를 추가한다.
 - `004`는 Main/NPC/Location 공통 발생 정책·추가 조건·동적 배역 hard exclusion을 추가한다. 이벤트별 가변 카운터를 마스터 DB에 저장하지 않고 서버가 `limit_group`과 Firestore 회차 상태를 함께 사용한다.
-- Main Story 마스터 행은 [seed_dialogue_content.py](seed_dialogue_content.py), Location Story 마스터·규칙·효과 행은 [seed_location_story_master.py](seed_location_story_master.py)가 검수된 Markdown에서 생성한다. Location 32인 대화 시퀀스는 Character Set 검수 후 같은 테이블에 후속 적재한다.
+- Main Story 마스터 행은 [seed_dialogue_content.py](seed_dialogue_content.py), NPC Story 마스터·규칙·32인 대화 행은 [seed_npc_story.py](seed_npc_story.py), Location Story 마스터·규칙·32인 대화 행은 [seed_location_story_master.py](seed_location_story_master.py)가 검수된 Markdown에서 생성한다. Location seed는 공통 6개 master와 CH01~CH32 Character Set을 병합해 같은 `dialogue_*` 테이블에 **192 sequence / 416 option / 3616 node**를 생성하도록 구현돼 있다.
 - 마스터의 `version`은 `game_data_versions.version`을 참조한다. `game_data_versions.is_active = 1`은 전체 DB에서 최대 한 행이다. 새 버전 적재·활성화와 구버전 삭제는 후속 동기화 구현에서 다룬다.
 - `uid`는 Firebase Authentication UID다. 로컬 테이블의 `uid`는 계정별 데이터를 구분할 뿐 권한을 증명하지 않는다. 로그인·계정 전환 때 현재 인증 UID와 일치하는 행만 읽는다.
 - `*_at_utc` 필드는 UTC 시각 문자열을 저장한다. 현재 DDL은 문자열 형식 자체를 검사하지 않으므로 애플리케이션에서 일관된 ISO 8601 형식으로 기록한다.
@@ -266,13 +266,13 @@ PK: `(version, condition_id, reward_type, reward_id)`. `(version, condition_id)`
 | `prior_assignment_policy` | `ALLOW` / `PREFER_DISTINCT` / `REQUIRE_DISTINCT`. 앞서 배정된 학생과의 중복 처리 정책 |
 | `description` | 제작용 설명 |
 
-`assignment_order > 0`은 버전 안에서 UNIQUE다. 서버는 이 순서대로 `STORY_CAST` 역할을 확정해야 앞선 역할과의 캐릭터 중복 회피가 결정론적으로 동작한다. Main 7개 동적 역할은 1~7이며 `REQUIRE_DISTINCT`, `LOC_GREENHOUSE_STUDENT`는 8번이며 `PREFER_DISTINCT`를 사용한다.
+`assignment_order > 0`은 버전 안에서 UNIQUE다. 서버는 이 순서대로 `STORY_CAST` 역할을 확정해야 앞선 역할과의 캐릭터 중복 회피가 결정론적으로 동작한다. Main 7개 동적 역할은 1~7이며 `REQUIRE_DISTINCT`, `LOC_GREENHOUSE_STUDENT`는 8번이며 `PREFER_DISTINCT`를 사용한다. NPC Story의 `NPC_GUIDE_ACTOR`와 `NPC_WORK_ACTOR`는 각각 9·10번이며 `ALLOW`를 사용한다. 두 NPC 역할은 다른 Story 역할과의 중복 자체를 금지하지 않고 **현재 주인공과의 중복만 제외**한다.
 
 ### `story_role_candidates`
 
-PK는 `(version, role_id, priority)`이며 같은 역할 안에서 캐릭터 중복 후보를 금지한다. Main Story 7개 동적 학생 역할의 현재 우선 후보 8명씩, 총 56행을 적재한다. 서버는 앞선 역할에서 이미 배정한 학생과 현재 주인공을 제외한 뒤 `priority`가 가장 작은 사용 가능 후보를 선택한다.
+PK는 `(version, role_id, priority)`이며 같은 역할 안에서 캐릭터 중복 후보를 금지한다. Main Story 7개 동적 학생 역할은 현재 우선 후보 8명씩 총 56행, Location `LOC_GREENHOUSE_STUDENT`는 8행, NPC `NPC_GUIDE_ACTOR`와 `NPC_WORK_ACTOR`는 각각 2행을 사용한다. 서버는 각 역할의 `prior_assignment_policy`와 hard exclusion을 적용한 뒤 `priority`가 가장 작은 사용 가능 후보를 선택한다.
 
-`MAIN_TEACHER`는 후보 행을 갖지 않고 `FIXED_SPEAKER → NPC:VALENTINUS`로 저장한다. 향후 `LOC_GREENHOUSE_STUDENT`, NPC Story의 대체 배우 역할도 같은 구조를 사용할 수 있다.
+`MAIN_TEACHER`는 후보 행을 갖지 않고 `FIXED_SPEAKER → NPC:VALENTINUS`로 저장한다. NPC Story는 `NPC_GUIDE_ACTOR = CH16→CH15`, `NPC_WORK_ACTOR = CH25→CH26` 순서로 후보를 저장해 주인공이 기본 actor일 때만 대체 캐릭터를 사용한다.
 
 ### `story_role_exclusions` (v4)
 
@@ -287,7 +287,7 @@ PK는 `(version, role_id, priority)`이며 같은 역할 안에서 캐릭터 중
 
 ## 캐릭터별 대화 마스터 테이블 (3개, v3~v4 공통)
 
-이 세 테이블은 [대화 시퀀스 콘텐츠 계약](../../../document/content/13_DIALOGUE_SEQUENCE.md)에 따라 **스토리 진행 단계마다 참여 가능한 플레이 캐릭터별로** 사전 작성한 읽기용 데이터다. `event_id`는 `story_steps`에 묶인 이벤트여야 한다. 메인·지역 단계는 캐릭터 32명분, NPC 단계는 대상 NPC와 같은 플레이 캐릭터를 제외한 참여 가능 캐릭터분을 적재한다. 현재 SQL은 행의 키와 참조를 검증하지만 **필수 선택이 모든 경로에 존재하는지, 캐릭터 수가 충분한지**는 마스터 버전 활성화 전 콘텐츠 검증기가 검사한다.
+이 세 테이블은 [대화 시퀀스 콘텐츠 계약](../../../document/content/13_DIALOGUE_SEQUENCE.md)에 따라 **스토리 진행 단계마다 참여 가능한 플레이 캐릭터별로** 사전 작성한 읽기용 데이터다. `event_id`는 `story_steps`에 묶인 이벤트여야 한다. Main/NPC/Location 모두 캐릭터 32명분을 seed할 수 있다. NPC는 GUIDE `티아→로빈`, WORK `렌→다나`, Location 온실은 CH12·CH19 protagonist에서 하젤·그 외 요한 reaction으로 충돌을 해결한다. SQL의 행 제약 외에 각 seed가 필수 선택, 캐릭터 수, canonical choice 참조, graph reachability까지 검사한다.
 
 ### `dialogue_sequences`
 
@@ -350,7 +350,7 @@ PK: `(version, story_id, step_no, character_id, choice_node_id, choice_id)`. `ch
 
 선택 문구와 실제 결과를 분리한다. PK는 `(version, event_id, choice_id, effect_order)`다. `effect_type`은 현재 `VISIBLE_STAT / HIDDEN_STAT / EVENT_FLAG / COUNTER`, `target`은 `knowledge`, `empathy` 같은 서버 도메인 키, `value_json`은 JSON 정수·불리언·문자열 등을 저장한다.
 
-Main Story 데이터는 canonical choice 40개에 보이는 스탯 + 보이지 않는 스탯 두 효과씩, **80행**을 생성한다. 엔진 payload에는 이 값을 넣지 않고 `completeDialogue` 시 서버가 `choiceId`로 조회한다. `completionMode=SKIP`이면 이 테이블의 선택 효과를 적용하지 않는다.
+현재 Story 선택 효과는 각 choice의 `VISIBLE_STAT 1개 + Primary HIDDEN_STAT 1개 + 선택적으로 Secondary HIDDEN_STAT 1개`를 저장한다. Main은 canonical choice 40개에 **102행**, NPC는 24개에 **64행**, Location은 13개에 **39행**(`LOC_OBS_04` 표식 EVENT_FLAG 3행 포함)으로 총 **205행**이다. 정확한 보상 계층과 결과 공개 규칙은 `document/content/02_STATS_EVENTS_ENDINGS/04_STORY_CHOICE_REWARDS.md`를 따른다. 엔진 대화 로드 payload에는 이 값을 넣지 않고 `completeDialogue` 시 서버가 `choiceId`로 조회한다. `completionMode=SKIP`이면 이 테이블의 선택 효과를 적용하지 않는다.
 
 ### `story_event_effects`
 
@@ -370,11 +370,11 @@ Main/NPC/Location 이벤트별 후보 선정 정책을 공통으로 저장한다
 | `selection_policy` | `FIXED` / `UNSEEN_FIRST` / `WEIGHTED` |
 | `repeat_policy` | `ONCE_PER_RUN` / `REPEATABLE` |
 | `requires_location_match` | 현재 활동 장소와 `stories.location_id` 일치 필요 여부 |
-| `limit_group` | 공통 발생 제한 그룹. Location은 `SIDE_STORY` |
-| `cooldown_weeks` | 콘텐츠별 추가 쿨다운. 현재 Location은 0 |
+| `limit_group` | 공통 발생 제한 그룹. NPC/Location은 `SIDE_STORY` |
+| `cooldown_weeks` | 콘텐츠별 추가 쿨다운. 현재 NPC/Location은 0 |
 | `is_active` | 런타임 후보 사용 여부 |
 
-현재 Location 6개는 모두 `AFTER_ACTIVITY / UNSEEN_FIRST / ONCE_PER_RUN / requires_location_match=1 / SIDE_STORY`다. `SIDE_STORY`의 **주당 2회·하루 1회** 같은 가변 카운터는 이 테이블에 저장하지 않고 Firestore `activeRun.storyEventWindow`와 서버 정책으로 적용한다.
+현재 NPC 12개는 `AFTER_ACTIVITY / WEIGHTED / ONCE_PER_RUN / requires_location_match=1 / SIDE_STORY`, Location 6개는 `AFTER_ACTIVITY / UNSEEN_FIRST / ONCE_PER_RUN / requires_location_match=1 / SIDE_STORY`다. `SIDE_STORY`의 **주당 2회·하루 1회** 같은 가변 카운터는 이 테이블에 저장하지 않고 Firestore `activeRun.storyEventWindow`와 서버 정책으로 적용한다.
 
 ### `story_event_conditions`
 
@@ -391,7 +391,7 @@ Main/NPC/Location 이벤트별 후보 선정 정책을 공통으로 저장한다
 - `MAIN_PROGRESS`
 - `CUSTOM`
 
-조건값은 `value_json`에 유효 JSON으로 저장하고 `operator`는 `EQ / NE / GTE / LTE / IN / NOT_IN`을 사용한다. 현재 천문대는 `LOC_OBS_02→OBS_01`, `OBS_03→OBS_02`, `OBS_04→OBS_03`의 완료 조건 3행을 갖는다.
+조건값은 `value_json`에 유효 JSON으로 저장하고 `operator`는 `EQ / NE / GTE / LTE / IN / NOT_IN`을 사용한다. 현재 NPC는 각 체인 1단계의 `NPC_ENCOUNTER_GTE`, 2~4단계의 `PREVIOUS_EVENT_COMPLETE`, WORK 4단계의 `ACTIVITY_TYPE=CLASS`를 합쳐 **16행**을 사용한다. 천문대는 `LOC_OBS_02→OBS_01`, `OBS_03→OBS_02`, `OBS_04→OBS_03`의 완료 조건 3행을 갖는다.
 
 ## UID별 로컬 테이블 (4개)
 
@@ -453,12 +453,14 @@ PK: `(uid, local_event_id)`. 최근 활동 화면을 위한 로컬 표시 기록
 
 ## 적용·운영 경계
 
-- 새 DB는 `001_initial.sql → 002_dialogue_sequences.sql → 003_dialogue_runtime_content.sql → 004_story_event_rules.sql` 순서로 적용한다. `seed_dialogue_content.py --migrate`와 `seed_location_story_master.py --migrate`는 v4까지 자동 적용한다.
+- 새 DB는 `001_initial.sql → 002_dialogue_sequences.sql → 003_dialogue_runtime_content.sql → 004_story_event_rules.sql` 순서로 적용한다. `seed_dialogue_content.py --migrate`, `seed_npc_story.py --migrate`, `seed_location_story_master.py --migrate`는 v4까지 자동 적용한다.
 - 저장소 루트에서 Main Story 데이터 적재 예: `python3 backend/database/sqlite/seed_dialogue_content.py --migrate --version dev-dialogue-v1`. 성공하면 **`backend/database/sqlite/lumia-content.sqlite3`**가 생성된다. 다른 DB를 사용할 때만 `--db <경로>`를 지정한다. 전체 마스터 버전이 준비되기 전에는 `--activate`를 생략하고, NPC/Location 등 같은 버전 데이터까지 검증된 뒤 활성화한다.
-- Main v3 마이그레이션과 기존 Main seed의 `192 sequences / 40 choices / 80 effects` 결과는 사용자가 실제 로컬 DB에서 확인했다. 이번 v4 마이그레이션은 아직 사용자 실행 검증 전이다.
-- Location 마스터 적재 예: `python3 backend/database/sqlite/seed_location_story_master.py --migrate --version dev-dialogue-v1`. 현재 단계 예상은 `user_version=4 / Location stories=6 / events=6 / canonical choices=13 / choice effects=29 / Location dialogue_sequences=0`이다. 마지막 `0`은 32인 Character Set 적재 전이므로 정상이다.
+- Main v3의 이전 선택 보상 규칙에서는 `192 sequences / 40 choices / 80 effects` 결과를 사용자가 실제 로컬 DB에서 확인했다. **현재 Primary/Secondary Hidden 규칙으로 다시 seed하면 Main 기대값은 102 effects**다. 새 보상 규칙에 대한 실제 SQLite 재검증은 아직 전이다.
+- NPC 적재 예: `python3 backend/database/sqlite/seed_npc_story.py --migrate --version dev-dialogue-v1`. 현재 구현 기대값은 `NPC stories=3 / events=12 / event conditions=16 / canonical choices=24 / choice effects=64 / dialogue sequences=384 / dialogue options=768`이다. 상세는 [NPC Story DB 명세](../NPC_STORY_DB_SPEC.md)와 `validate_npc_story.sql`을 따른다.
+- Location 전체 적재 예: `python3 backend/database/sqlite/seed_location_story_master.py --migrate --version dev-dialogue-v1`. 구현 기준 예상은 `user_version=4 / Location stories=6 / events=6 / canonical choices=13 / choice effects=39 / dialogue_sequences=192 / dialogue_options=416 / dialogue_nodes=3616`이다. 실제 바이너리 SQLite 재실행 검증은 아직 pending이다.
+- 세 Story 유형의 선택 보상만 통합 검증하려면 `validate_story_choice_rewards.sql`을 실행하며 기대값은 **77 choices / 205 effects**다.
 - Location DB 상세 설계·Firestore 경계·검증 SQL은 [Location Story DB 명세](../LOCATION_STORY_DB_SPEC.md)를 따른다.
-- 저장소 작업 도구에는 임의 셸 실행 권한이 없으므로 **v4 migration/Location seed 실행 결과는 아직 확인하지 않았다.** DDL/seed 구현 완료와 실제 실행 검증 완료를 구분한다.
+- 저장소 작업 도구에는 임의 셸 실행 권한이 없으므로 **v4 migration/NPC seed/Location seed 실행 결과는 아직 확인하지 않았다.** DDL/seed 구현 완료와 실제 실행 검증 완료를 구분한다.
 - Firestore 동기화 API와 정식 FastAPI Dialogue compiler/complete transaction은 별도 구현 작업이다. SQL과 seed 파일 존재만으로 서버 런타임 완료로 보지 않는다.
 - 로컬 계정 탈퇴 시 위 4개 UID별 테이블에서 해당 `uid` 행을 제거한다. 마스터 사본은 UID와 무관하므로 유지할 수 있다. 로그아웃·계정 전환 시 다른 UID의 캐시를 노출하지 않는다.
 - 마스터 사본의 `ON DELETE CASCADE`는 구버전 정리 시 종속 행을 함께 지우기 위한 것이다. 로컬 UID별 테이블에는 마스터 버전 외래 키가 없으므로 마스터 갱신과 별개로 수명주기를 관리한다.

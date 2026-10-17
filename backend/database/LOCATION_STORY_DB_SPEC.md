@@ -232,14 +232,15 @@ FastAPI가 현재 `activeRun.storyCast.LOC_GREENHOUSE_STUDENT`를 실제 `CHARAC
 
 canonical choice는 총 **13개**다.
 
-모든 Location 일반 선택:
+모든 Location 일반 선택의 기본값:
 
 ```text
 VISIBLE_STAT +1
-HIDDEN_STAT +3
+Primary HIDDEN_STAT +5
+필요한 choiceNode만 Secondary HIDDEN_STAT +2
 ```
 
-따라서 기본 선택 효과는 `13 × 2 = 26행`이다.
+따라서 기본 선택 효과는 `13 × 2 = 26행`이며, 현재 제작안에는 Secondary Hidden **10행**이 추가된다. 같은 choiceNode 안에서는 Hidden 총량을 동일하게 유지한다.
 
 `LOC_OBS_04`의 세 표식은 완료 기록을 남겨야 하므로 선택별 `EVENT_FLAG` 1행을 추가한다.
 
@@ -249,7 +250,7 @@ LOC_OBS_04_MOON    → location.obs.mark = "MOON"
 LOC_OBS_04_SPARKLE → location.obs.mark = "SPARKLE"
 ```
 
-최종 `story_choice_effects` 예상 행 수는 **29행**이다.
+`LOC_OBS_04` 표식 `EVENT_FLAG` 3행까지 포함한 최종 `story_choice_effects` 예상 행 수는 **39행**이다.
 
 `completionMode=SKIP`에서는 choice effect 전체를 적용하지 않으므로 표식도 기록하지 않는다. Story 완료 자체는 `story_event_effects`로 처리한다.
 
@@ -354,9 +355,9 @@ Main 강제 스토리 방문에서는 Location 후보 판정을 하지 않는다
 
 ## 11. 32인 대화 데이터 최종 구조
 
-현재 Location 공통 원고는 완성됐지만 32인 Character Set은 아직 작성 전이다.
+Location 공통 원고와 CH01~CH32 Character Set은 작성 및 수량 검산이 완료됐고, `seed_location_story_master.py`가 이 둘을 병합해 실제 `dialogue_sequences/nodes/options`로 적재하도록 구현됐다. 현재 남은 단계는 개발용 SQLite 파일에 seed를 실제 재실행하고 결과를 확인하는 것이다.
 
-Character Set 승인 후 최종 적재 수:
+현재 Character Set 검산값과 최종 DB 목표 수:
 
 ```text
 6 events × 32 characters = 192 dialogue_sequences
@@ -373,6 +374,7 @@ Character Set 승인 후 최종 적재 수:
 - 온실 branch reaction은 실제 `LOC_GREENHOUSE_STUDENT` 성격/대체 캐스팅 반영
 - 세린 대사는 세린 고정 Voice 유지
 - canonical `choiceId`는 32명 모두 동일
+- 현재 온실 reaction 검산: `CH12/CH19 → 하젤` 4 option reaction, 나머지 30명 → 요한 60 option reaction
 
 공통 대사만 32번 임시 복제해 출시 데이터로 사용하지 않는다.
 
@@ -380,9 +382,9 @@ Character Set 승인 후 최종 적재 수:
 
 ## 12. 현재 seed 단계
 
-### 현재 실행 가능
+### 현재 구현 완료
 
-`seed_location_story_master.py`는 다음을 실제 DB에 넣는다.
+`seed_location_story_master.py`는 다음을 한 트랜잭션에서 적재한다.
 
 - 장소 3개
 - Location Story 6개
@@ -390,20 +392,17 @@ Character Set 승인 후 최종 적재 수:
 - event rule 6개
 - 천문대 선행 조건 3개
 - canonical choice 13개
-- choice effect 29개
+- choice effect 39개
 - event completion effect 6개
 - 세린 speaker 1개
 - `LOC_GREENHOUSE_STUDENT` 역할 1개
 - 역할 후보 8개
 - Main 온실 학생과 hard exclusion 1개
+- Location `dialogue_sequences` 192개
+- Location `dialogue_options` 416개
+- Location `dialogue_nodes` 3616개
 
-### 아직 넣지 않음
-
-- Location `dialogue_sequences`
-- 32인 `dialogue_nodes`
-- 32인 `dialogue_options`
-
-이 셋은 다음 단계인 Location 32인 Character Set 검수 완료 후 적재한다.
+대화 적재 시 공통 master 100개 노드를 32명분으로 컴파일한 3200개 노드에 선택별 reaction 416개를 추가한다. 각 캐릭터는 6개 sequence / 6개 CHOICE / 13개 option을 가져야 하며, signature override와 branch reaction이 Character Set 원문과 일치하는지 seed 내부에서 검증한다.
 
 ---
 
@@ -438,12 +437,13 @@ schema user_version: 4
 Location stories: 6
 Location events: 6
 Location canonical choices: 13
-Location choice effects: 29
-Location dialogue sequences: 0
+Location choice effects: 39
+Location dialogue sequences: 192
+Location dialogue options: 416
 validation: OK
 ```
 
-`dialogue sequences = 0`은 현재 단계에서는 정상이다. 32인 세트를 넣은 뒤 최종값은 `192`가 되어야 한다.
+추가 검증 SQL에서는 Location `dialogue_nodes=3616`, `CHOICE nodes=192`, `foreign_key_errors=0`도 확인한다.
 
 직접 SQL 확인:
 
@@ -455,6 +455,7 @@ SELECT COUNT(*) FROM story_event_rules WHERE event_id LIKE 'LOC_%' AND is_active
 SELECT COUNT(*) FROM story_choices WHERE event_id LIKE 'LOC_%';
 SELECT COUNT(*) FROM story_choice_effects WHERE event_id LIKE 'LOC_%';
 SELECT COUNT(*) FROM dialogue_sequences WHERE story_id LIKE 'LOC_%';
+SELECT COUNT(*) FROM dialogue_options WHERE story_id LIKE 'LOC_%';
 "
 ```
 
@@ -465,8 +466,9 @@ SELECT COUNT(*) FROM dialogue_sequences WHERE story_id LIKE 'LOC_%';
 6
 6
 13
-29
-0
+39
+192
+416
 ```
 
 같은 검증을 파일로 실행하려면 다음을 사용한다.
@@ -486,9 +488,9 @@ sqlite3 backend/database/sqlite/lumia-content.sqlite3 \
 
 - **Location DB 논리 스키마:** 완료
 - **Location DB 물리 스키마 v4:** 완료
-- **Location 마스터/선택/효과 seed:** 완료
-- **32인 대화 원고:** 미완료
-- **Location dialogue_sequences/nodes/options 적재:** 미완료
-- **실제 로컬 SQLite 실행 검증:** 사용자가 seed 명령 실행 후 확인 필요
+- **Location 마스터/선택/효과 seed 코드:** 구현 완료
+- **32인 대화 원고:** 작성·수량 검산 완료 / 사람 검수 단계
+- **Location dialogue_sequences/nodes/options seed 코드:** 구현 완료 (`192 / 3616 / 416` 검증 포함)
+- **실제 로컬 SQLite 재실행 검증:** pending — 현재 저장소 MCP에는 Python/SQLite 실행 기능이 없어 코드 작성과 바이너리 DB 실행을 구분함
 - **FastAPI 후보 선정/Dialogue API 구현:** 미완료
 - **Firestore 트랜잭션 구현:** 미완료

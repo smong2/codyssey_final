@@ -290,7 +290,7 @@ Save Slot 1
    └─ flags
 ```
 
-`storyCast`는 현재 회차에서 사용할 메인·Location Story의 학생 배역 맵입니다. 주인공 선택이 확정된 직후 역할별 후보에서 주인공 자신과 이미 배정된 핵심 역할을 제외해 한 번 계산하고, **같은 회차가 끝날 때까지 고정**합니다. 재접속해도 다시 뽑지 않습니다. 역할별 후보·충돌 규칙은 `story/main/MAIN_STORY_PRODUCTION.md`와 `story/location/LOCATION_STORY_PRODUCTION.md`를 따릅니다.
+`storyCast`는 현재 회차에서 사용할 Main·NPC·Location Story의 학생 배역 맵입니다. 주인공 선택이 확정된 직후 역할별 후보와 `prior_assignment_policy`를 적용해 한 번 계산하고, **같은 회차가 끝날 때까지 고정**합니다. 재접속해도 다시 뽑지 않습니다. Main 핵심 역할은 서로 다른 학생을 우선하며, Location 온실 역할은 지정된 hard exclusion을 지킵니다. NPC의 `NPC_GUIDE_ACTOR`와 `NPC_WORK_ACTOR`는 다른 Story 역할과 중복될 수 있지만 현재 주인공 자신은 제외해 각각 `티아→로빈`, `렌→다나` 후보 순서로 정합니다. 역할별 후보·충돌 규칙은 `story/main/MAIN_STORY_PRODUCTION.md`, `story/npc/NPC_STORY_PRODUCTION.md`, `story/location/LOCATION_STORY_PRODUCTION.md`를 따릅니다.
 
 엔딩 표시를 마지막 `타이틀로`까지 완료하기 전에는 `activeRun.phase = ENDING_PRESENTATION`처럼 **현재 회차를 유지**합니다. 최종 열람 완료 저장이 성공한 뒤 `activeRun = null`, `status = RUN_COMPLETE`로 전환하고 `completedRunCount + 1`을 다음 회차 번호로 사용할 수 있습니다.
 
