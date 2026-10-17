@@ -21,17 +21,17 @@
 | `MS06-S1–S5` 후일담 | 평온한 광장 장면. [기본 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="기본 광장">은 장소 대응 후보 | `ART-M06` 겨울 놀이회 한 장을 S1–S5 재사용 | 배경 버전 확인 필요 / FOCUS 미연결 |
 | `END` 직업·편지 | 배경 파일 지정 없음 | `ART-E01` 공용 직업 카드 1장; 직업명·부제는 텍스트 치환 | FOCUS 미연결. 직업별 10장으로 추정하지 않음 |
 
-메인 등장 학생 역할(`MAIN_GUIDE_STUDENT`, `MAIN_GREENHOUSE_STUDENT` 등)은 [메인 제작 문서의 캐스팅 순서](../story/main/MAIN_STORY_PRODUCTION.md)에 따라 주인공과 겹치지 않게 결정합니다. 한 인물의 파일명을 모든 플레이에 고정하지 않습니다. 실제 캐릭터 이미지는 [character/](character/README.md)에서 확인합니다.
+메인 등장 학생 역할(`MAIN_GUIDE_STUDENT`, `MAIN_GREENHOUSE_STUDENT` 등)은 [메인 제작 문서의 캐스팅 순서](../story/main/MAIN_STORY_PRODUCTION.md)에 따라 주인공과 겹치지 않게 결정합니다. 한 인물의 파일명을 모든 플레이에 고정하지 않습니다. 실제 학생 전신과 발렌티누스 교수 시안은 [character/](character/README.md)에서 확인합니다. 상반신 표정 파일은 로컬 보관본으로 옮겼으며, 엔진의 기존 참조는 전신 기준으로 연결 확인이 필요합니다.
 
 ## NPC 대화 12회
 
 | 이야기 ID | BACKGROUND | FOCUS/화자 이미지 | 연결 판정 |
 |---|---|---|---|
-| `NPC_GUIDE_01` 안내지 줍기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | `ART-N01` 흩어진 작은 모임 안내지; 티아 [티아 기본](character/tia1_base.png)<br><img src="character/tia1_base.png" width="72" alt="티아 기본"> / 티아가 주인공이면 [로빈 기본](character/robin1_base.png)<br><img src="character/robin1_base.png" width="72" alt="로빈 기본"> | 배경·화자 경로 확인 / FOCUS 미연결 |
+| `NPC_GUIDE_01` 안내지 줍기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | `ART-N01` 흩어진 작은 모임 안내지; 티아 [티아 전신](character/tia0_fullbody.png)<br><img src="character/tia0_fullbody.png" width="72" alt="티아 전신"> / 티아가 주인공이면 [로빈 전신](character/robin0_fullbody.png)<br><img src="character/robin0_fullbody.png" width="72" alt="로빈 전신"> | 배경·화자 경로 확인 / FOCUS 미연결 |
 | `NPC_GUIDE_02` 안내지 놓기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | `ART-N01` 재사용 가능; 티아/로빈 조건 동일 | FOCUS 신규 0장; N01 미연결 |
 | `NPC_GUIDE_03` 리본 고르기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | `ART-N02` 색이 다른 리본 두 개; 티아/로빈 조건 동일 | FOCUS 미연결. 선택 색별 그림 없음 |
 | `NPC_GUIDE_04` 준비 확인 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | `ART-N01/N02` 재사용; 티아/로빈 조건 동일 | FOCUS 신규 0장; 재사용 파일 미연결 |
-| `NPC_WORK_01` 부품 모으기 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N03` 홈·모양이 다른 부품; 렌 [렌 기본](character/ren1_base.png)<br><img src="character/ren1_base.png" width="72" alt="렌 기본"> / 렌이 주인공이면 [다나 기본](character/dana1_base.png)<br><img src="character/dana1_base.png" width="72" alt="다나 기본"> | 배경·화자 경로 확인 / FOCUS 미연결 |
+| `NPC_WORK_01` 부품 모으기 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N03` 홈·모양이 다른 부품; 렌 [렌 전신](character/ren0_fullbody.png)<br><img src="character/ren0_fullbody.png" width="72" alt="렌 전신"> / 렌이 주인공이면 [다나 전신](character/dana0_fullbody.png)<br><img src="character/dana0_fullbody.png" width="72" alt="다나 전신"> | 배경·화자 경로 확인 / FOCUS 미연결 |
 | `NPC_WORK_02` 부품 찾기 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N03` 재사용; 렌/다나 조건 동일 | FOCUS 신규 0장; N03 미연결 |
 | `NPC_WORK_03` 도구 정돈 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N04` 천·도구·정돈된 작업대; 렌/다나 조건 동일 | FOCUS 미연결 |
 | `NPC_WORK_04` 작업대 확인 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N04` 재사용; 렌/다나 조건 동일 | FOCUS 신규 0장; N04 미연결 |
@@ -67,7 +67,7 @@
 |---|---|
 | [background/](background/README.md) | 장면 배경·마이룸 시간대·게임용/시안 구분 |
 | [item/](item/README.md) | 조사 FOCUS 후보, 일상 아이템과 스토리 이미지의 차이 |
-| [character/](character/README.md) | 화자 기본/표정 이미지와 동적 배역 |
+| [character/](character/README.md) | 학생 전신 32장·발렌티누스 교수 시안 2장(이미지 총 34장); 동적 배역은 스토리 문서 기준 |
 | [pet/](pet/README.md) | 루루 의상별 앞·뒤·표정; 회차 번호와 분리 |
 | [ui/](ui/README.md) | 대화창·초대장 등 공통 UI 재료와 채택 상태 |
 | [map/](map/README.md) | 이동·충돌용 맵. 위 `BACKGROUND`와 다른 용도 |
