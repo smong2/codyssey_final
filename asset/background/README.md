@@ -2,6 +2,26 @@
 
 이 폴더에는 게임용 배경 19장(기존 15장 1920×1080, 방치된 온실 1장 3840×2162, 축제 광장 2장과 방치된 공방 1장 3840×2161)과 마이룸 테마 시안 15장(1672×941)이 있습니다. 두 종류의 크기와 적용 상태를 구분합니다. 실제 게임 화면 적용과 가장자리 검수는 별도입니다. 장소 설정은 [세계관 문서](../../document/02_WORLDVIEW.md)를 참고합니다.
 
+## 스토리 사용처 빠른 찾기
+
+이 표는 아래 전체 이미지 목록의 **사용 장면**을 역방향으로 찾기 위한 것입니다. 작은 미리보기는 현재 폴더의 실제 파일을 가리킵니다. 장소가 같아도 새 장면 그림(`ART-*`)을 이 배경으로 대체하지 않습니다. [전체 장면 연결표](../README.md)를 먼저 확인하세요.
+
+| 사용처 | 배경 파일 · 작은 미리보기 | 판단 |
+|---|---|---|
+| `MS01-S2`, `MS03`, `NPC_GUIDE_01~04` | [기본 시계탑 광장](./BG02_clocktower_plaza_1920x1080_011.png)<br><img src="./BG02_clocktower_plaza_1920x1080_011.png" width="110" alt="기본 시계탑 광장"> | 장소 배경; MS01의 정확한 노출 단계는 추가 확인 |
+| `MS05-S1~S2`, `S4` 해결 후~`S5` | [별빛 켜진 광장](./BG02_clocktower_plaza_starlight_festival_lit_3840x2161.png)<br><img src="./BG02_clocktower_plaza_starlight_festival_lit_3840x2161.png" width="110" alt="별빛 켜진 광장"> | 제작 문서에 파일명 지정 |
+| `MS05-S3~S4` 해결 전 | [별빛 꺼진 광장](./BG02_clocktower_plaza_starlight_festival_unlit_3840x2161.png)<br><img src="./BG02_clocktower_plaza_starlight_festival_unlit_3840x2161.png" width="110" alt="별빛 꺼진 광장"> | 제작 문서에 파일명 지정 |
+| `MS02`, `LOC_GH_01`, `NPC_LULU_01~04` 온실 방문 | [유리 온실](./BG06_glass_greenhouse_1920x1080_016.png)<br><img src="./BG06_glass_greenhouse_1920x1080_016.png" width="110" alt="유리 온실"> | 루루는 방문 장소에 따라 달라짐 |
+| `NPC_LULU_01~04` 약초원 방문 | [치유의 약초원](./BG07_healing_herb_garden_1920x1080_017.png)<br><img src="./BG07_healing_herb_garden_1920x1080_017.png" width="110" alt="치유의 약초원"> | 조건부 장소 |
+| `MS04` | [룬 수련장](./BG09_rune_training_ground_1920x1080_019.png)<br><img src="./BG09_rune_training_ground_1920x1080_019.png" width="110" alt="룬 수련장"> | 기본 장소 배경 |
+| `NPC_WORK_01~04` | [마도 공방](./BG08_magic_workshop_1920x1080_018.png)<br><img src="./BG08_magic_workshop_1920x1080_018.png" width="110" alt="마도 공방"> | 기존 장소 배경 |
+| `LOC_OBS_01~04` | [별빛 천문대](./BG05_starlight_observatory_1920x1080_015.png)<br><img src="./BG05_starlight_observatory_1920x1080_015.png" width="110" alt="별빛 천문대"> | 기존 장소 배경 |
+| `LOC_LIB_01` | [대서고](./BG04_grand_library_1920x1080_014.png)<br><img src="./BG04_grand_library_1920x1080_014.png" width="110" alt="대서고"> | 기존 장소 배경 |
+| `MYROOM` 기본 구도 1·낮 | [마이룸 낮](./BG10_myroom1_day_1920x1080_012.png)<br><img src="./BG10_myroom1_day_1920x1080_012.png" width="110" alt="마이룸 낮"> | 게임용 1920×1080; 노을·밤과 구도 2는 아래 목록 |
+| `MS06` 평온한 광장 | [기본 광장 후보](./BG02_clocktower_plaza_1920x1080_011.png)<br><img src="./BG02_clocktower_plaza_1920x1080_011.png" width="110" alt="기본 광장 후보"> | 어떤 광장 버전을 쓸지 미확정 |
+
+아래의 마이룸 테마 15장은 1672×941 **시안**입니다. `MYROOM` 게임용 여섯 장과 구분하세요. 방치된 온실·공방은 보유 이미지이나, 현재 제작 문서에서 `ART-M01/M02`나 `ART-N04`의 확정 대체로 지정되지 않았습니다.
+
 ## 게임용 장소 배경 · 13장
 
 | 장소 | 파일 | 미리보기 |
