@@ -13,6 +13,8 @@
 
 이 여섯 문서는 폴더만 따로 전달받아도 프로젝트의 핵심 방향을 이해할 수 있도록 작성했습니다. 저장소 작업에서는 요청받은 영역의 README도 읽으세요. 상세 설정·이미지·현재 코드가 필요한 작업이라면 해당 파일의 제공 여부를 먼저 확인하세요. 없는 파일을 본 것처럼 답하지 마세요.
 
+대화 DB/API/엔진 연결 작업에서는 추가로 [대화 시스템 엔진 AI 인계](07_DIALOGUE_ENGINE_HANDOFF.md)를 읽고, 원문 계약인 `document/dialogue/README.md`와 `document/dialogue/01_ENGINE_API_CONTRACT.md`를 함께 확인하세요. Main/NPC/Location 실제 대사 작성·검수 작업에서는 `document/dialogue/02_DIALOGUE_WRITING_GUIDE.md`의 어린이 대상 표현, 선택지, 캐릭터 Voice Guide, `DIALOGUE / NARRATION / THOUGHT / CONTEXT` 규칙을 먼저 적용하세요.
+
 Final Project의 범위·산출물·완료 조건을 계획하거나 구현할 때는 [Final Project 요구사항](../document/08_REQUEST.md)을 원문으로 확인하세요. 이 파일을 전달받지 못한 환경에서는 요구사항을 확인했다고 주장하지 말고 제공을 요청하세요.
 
 ## 정보의 우선순위

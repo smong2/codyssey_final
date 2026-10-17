@@ -126,6 +126,13 @@
       ]
     },
     {
+      "path": "document/content/13_DIALOGUE_SEQUENCE.md",
+      "ai": [
+        "document_for_ai/03_GAME_CONTENT.md",
+        "document_for_ai/07_DIALOGUE_ENGINE_HANDOFF.md"
+      ]
+    },
+    {
       "prefix": "document/content/",
       "extension": ".md",
       "ai": [
@@ -206,6 +213,13 @@
       ]
     },
     {
+      "path": "backend/api/README.md",
+      "ai": [
+        "document_for_ai/03_GAME_CONTENT.md",
+        "document_for_ai/07_DIALOGUE_ENGINE_HANDOFF.md"
+      ]
+    },
+    {
       "prefix": "backend/",
       "filename": "README.md",
       "ai": [
@@ -216,6 +230,14 @@
       "path": "lumia/README.md",
       "ai": [
         "document_for_ai/06_WORKSPACE_RULES.md"
+      ]
+    },
+    {
+      "prefix": "document/dialogue/",
+      "extension": ".md",
+      "ai": [
+        "document_for_ai/03_GAME_CONTENT.md",
+        "document_for_ai/07_DIALOGUE_ENGINE_HANDOFF.md"
       ]
     },
     {
@@ -317,7 +339,7 @@
     },
     {
       "path": "backend/api/README.md",
-      "sha256": "c0db7daae3da0c22d0df9c8584a67323615befec6d145cd1a98d166d453f9623"
+      "sha256": "1bf817f6ecbaefceed8b9656dbc223adc473d289f7931b26c662d58be3c9bd34"
     },
     {
       "path": "backend/database/README.md",
@@ -329,7 +351,7 @@
     },
     {
       "path": "document/00_README.md",
-      "sha256": "c672c2b3d2634094db9ac3a9246bfd486a4daeef13ad9b40eccefe1a6a56d373"
+      "sha256": "7c5e36a76932f884ccf5cb3dcdd93b49c471707b546e3431f5e2510637cf19e6"
     },
     {
       "path": "document/01_PROJECT_OVERVIEW.md",
@@ -378,6 +400,18 @@
     {
       "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
       "sha256": "3735625061e0fcfa92675188320485a089a056a04814210361b6d2c046bd1f6e"
+    },
+    {
+      "path": "document/dialogue/01_ENGINE_API_CONTRACT.md",
+      "sha256": "2b2a9e19d598bf024cc5b1c1691c3fdae95b6be20566f00ef7e49d72b484faeb"
+    },
+    {
+      "path": "document/dialogue/02_DIALOGUE_WRITING_GUIDE.md",
+      "sha256": "1a48e7627f8876e4cece7856a3ad8292240ce0a303370dea5a12fb337755a878"
+    },
+    {
+      "path": "document/dialogue/README.md",
+      "sha256": "4f8b44460d0227128cc45aec071575eba806b6628fbd46090a3ef04aaa913026"
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
@@ -465,11 +499,11 @@
     },
     {
       "path": "document/content/13_DIALOGUE_SEQUENCE.md",
-      "sha256": "4802595d037222800cf4bf294f10fbff5d115ac861b87f4dc228bdcb6e62d89c"
+      "sha256": "409db41760670b6178b3a962725d7a3d5538bbc513efb45df795aec40b701965"
     },
     {
       "path": "document/content/README.md",
-      "sha256": "4b1852049b80f2a70e27b0a1f00e3b4bcb515cf70e9f573c93e16e436196ad7c"
+      "sha256": "93f88f2962573c91e20c9794d955474af8747424b748443a216be5057c6ecbd4"
     },
     {
       "path": "document/실행방법.md",

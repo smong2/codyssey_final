@@ -14,7 +14,7 @@
 | 배지 | 5 → 25 → 8 계층, 조건·진행도·2/5/8 보상 표시 | 안정적인 배지 ID 매핑, 실제 획득/수령 결과와 누적 태그 |
 | 마이룸 | 기본+3개 배경, 각 12조각, 명시적 선택·설정 저장 | 배경별 이미지·조각 인덱스 매핑, 보유 조각·해금 사실 |
 | 캐릭터 | 실제 해금 목록으로 다음 회차 선택, 초기 보정+영구 보너스 | 계정 해금 결과, 추가 캐릭터 모험용 SD |
-| 이야기 | NPC 12·장소 16개 조건/순서, 선택→반응→합류·완료 저장 | 방문별 발생 결정, 정식 원고·선택 효과·루루 외형 |
+| 이야기 | pending story 차단·완료 저장·다음 일정 복귀·`lumiaEngineServices` 연결 경계 | 정식 Dialogue API payload, 이벤트 발생 결정, 실제 원고·선택 효과 |
 | 엔딩 | 질문→직업/부제→편지/기록→선택적 해금 요약, 재진입·저장 보호 | 같은 회차·직업의 검증된 편지/실제 기록과 계정 메타 결과 |
 
 기존 가방 순서 **마이룸 / 배지 / 펫 / 캐릭터**, 카드 실루엣·정보 동작, 날짜 UI의 일정 진입, 버튼 확인형 모험 결과는 유지합니다. 최신 main 기준으로 모험 중 NPC 조우는 제거했으며, 인사도 결과 저장 후 별도 장면에서만 실행합니다.
@@ -65,28 +65,66 @@
 
 ## 2. 이야기 입력
 
-실행판은 부팅 전에 제공된 `globalThis.lumiaEngineServices.storyEvents` 또는 `profile.meta.narrativeEvents`에서 해당 활동의 결정을 읽습니다. 결과 저장 성공 후에만 읽고, 모험 결과는 `다음으로` 확인 후 읽습니다. 다음 필드는 엔진 수신 모델이며 운영 API 계약을 새로 정한 것이 아닙니다. `slotId`는 숫자 1~5이며 인증 서비스 사용 시 현재 `uid`와 명시적 `slotId`가 모두 일치해야 합니다. 기본 로컬 실행의 uid 없는 이전 입력은 슬롯 미지정이어도 같은 토큰의 결정이 하나일 때만 호환합니다. 여러 후보 중 임의 선택하지 않습니다.
+정식 대화 연결은 [대화 시스템 안내](../document/dialogue/README.md)와 [Dialogue API · Engine 계약](../document/dialogue/01_ENGINE_API_CONTRACT.md)을 따른다. 엔진 개발 AI는 [대화 시스템 엔진 AI 인계](../document_for_ai/07_DIALOGUE_ENGINE_HANDOFF.md)도 함께 읽는다.
 
-| 필드 | 의미 |
+Main Story, NPC Story, Location Story는 모두 **공통 DialoguePlayer 하나**를 사용한다. 현재 엔진에 남아 있는 `content.lines / content.choices / content.closing`, 오래된 Location 장면 목록, 임시 Main Story 프레임과 테스트 대사는 정식 API 연결 후 제거·교체 가능한 테스트 데이터다.
+
+엔진은 부팅 전에 주입된 `globalThis.lumiaEngineServices` provider를 통해 대화를 읽고 완료한다.
+
+```text
+loadDialogue({slotId,eventId})
+completeDialogue({dialogueToken,completionMode,selectedChoices,requestId,expectedServerRevision})
+```
+
+엔진 내부에서 실제 HTTP URL, Firebase ID Token, 서버 재시도 규칙을 하드코딩하지 않는다. provider/adapter가 이를 처리한다.
+
+### DialoguePayload
+
+엔진이 받는 대화는 DB node graph가 아니라 순차 `sequence[]`다.
+
+| 타입 | 엔진 처리 |
 |---|---|
-| `activityToken` | `회차:주차:요일인덱스`, 예: `1:8:0` |
-| `eventId` | `NARRATIVE_SCENES`의 NPC/장소 장면 ID |
-| `kind: 'greeting'`, `npcId` | 일반 인사일 때 사용. `eventId` 대신 실제 NPC ID 지정 |
-| `content.lines` | `{speaker?, text}` 원고 목록 |
-| `content.choices` | 선택 시 `{id, label, reaction, growth?, hiddenDelta?, flags?, importantChoice?}` |
-| `content.closing` | 선택 반응 뒤 합류하는 중립 마무리 |
+| `LINE` | 텍스트 표시. `lineMode`는 `DIALOGUE / NARRATION / THOUGHT / CONTEXT`, `visualMode`는 `SPEAKER / KEEP / NONE` |
+| `IMAGE` | `BACKGROUND` 또는 단일 `FOCUS` 이미지 `SHOW / REPLACE / HIDE` |
+| `CHOICE` | 옵션 표시, `choiceNodeId + choiceId` 기억, 짧은 reaction 뒤 다음 sequence로 합류 |
+| `END` | 정상 완료 요청 |
 
-`growth`는 명시적 성장 변화, `hiddenDelta`는 초기값이 이미 있는 8개 숨은 스탯에만 적용하며 감소를 거부하고 최대 300으로 제한합니다. 새 회차는 문서대로 8종 모두 0에서 시작합니다. 기존 저장의 누락값·선택 효과를 엔진이 추정해 채우지 않습니다. HTML로 해석하지 않고 텍스트로 표시합니다. 발생 확률·우선순위를 새로 정하지 않습니다. 결정이 없으면 이야기를 만들지 않고, 결정은 있으나 원고가 없으면 미등록 프레임을 유지하며 완료로 세지 않습니다.
+화면의 중심 이미지는 기본 한 장만 사용한다. 캐릭터/NPC가 `DIALOGUE`로 말하면 해당 화자 이미지를 표시하고, 플레이어 초상은 표시하지 않는다. `NARRATION/CONTEXT`는 화자 없이, `THOUGHT`는 플레이어 속마음으로 표시한다. 이미지가 없는 화자는 텍스트만 표시한다. 아이템·사건 그림은 `IMAGE target=FOCUS`로 표시하며 설명 중 유지해야 하면 다음 `LINE.visualMode=KEEP`를 사용한다.
 
-검사: 장소/수업·노출 시작 주차·선행 일반 조우·체인 순서·직전 주 제외·주 2회/하루 1회. 활동 결과 이후 별도 장면으로 열고 날짜를 추가 소비하지 않습니다. 선택·반응 중에는 저장하지 않고 정상 마무리에서 한 번 저장합니다. 건너뛰기는 선택이나 효과를 임의 확정하지 않습니다. 기존 임시 `storyState`와 새 `narrativeState`는 구분해 보존합니다.
+API는 동적 `ROLE:<roleId>`를 서버에서 현재 `activeRun.storyCast`의 실제 캐릭터로 해석한 뒤 `characterId / name / portraitSrc`를 전달한다. 엔진은 role 후보 선정 로직을 중복 구현하지 않는다.
 
-### 일반 인사와 복구
+### 선택 결과와 저장
 
-- 일반 인사는 `content.lines`와 선택적인 `content.closing`만 사용합니다. 선택지·스탯 효과를 넣으면 일반 인사로 완료 처리하지 않고 미등록 프레임으로 표시합니다.
-- 정상 종료 시 `encounterCount / lastEncounterWeek`만 갱신하고 주간 이야기 2회 제한이나 별도 행동 칸을 소비하지 않습니다. 플레이 캐릭터 자신, 입학 전, 완료된 NPC 체인의 후속 인사는 제외합니다.
-- `pendingActivityStory.activityToken`은 결과 저장 후 선정할 활동의 시작점입니다. 선정한 `narrativeState.pending`를 별도로 저장한 뒤 화면을 엽니다. 실패 재시도는 같은 스냅샷을 사용하고 재접속은 저장된 안정 경계부터 복구합니다. 원고 중간 위치는 저장하지 않습니다.
-- `INTERRUPTED` 활동에는 새 선정 토큰을 만들지 않습니다. 이전 조우·정식/임시 이야기 이력·기존 성장치를 소급 재작성하지 않습니다.
-- 본편 기본 실행에는 발생 결정·가중 선정 서비스와 정식 원고가 아직 없습니다. 엔진은 전달 결정의 자격 조건을 검사할 뿐 새 확률·가중 선정 결과·임시 대사를 생성하지 않습니다.
+엔진은 선택 효과를 직접 적용하지 않는다.
+
+```text
+선택
+→ choiceNodeId + choiceId만 메모리에서 수집
+→ 대화 중간 저장 없음
+→ END에서 completeDialogue(COMPLETE) 1회
+→ 서버가 선택 효과·스토리 진행을 검증/저장
+→ 최신 activeRun 수신
+→ 엔진 상태 갱신
+```
+
+따라서 정식 payload에는 `growth`, `hiddenDelta`, 결과 `flags`, 해금 보상을 넣지 않는다. 기존 `finishNarrative()`의 클라이언트 스탯 직접 적용은 정식 서버 연결 시 제거할 책임이다.
+
+### 스킵
+
+엔진은 payload의 `canSkip`만 보고 건너뛰기 버튼을 표시한다.
+
+서버 관리자 정책은 `AFTER_FIRST_ENDING / ALWAYS / NEVER`이며 운영 기본은 첫 엔딩 이후 허용, QA 중에는 `ALWAYS`를 사용할 수 있다.
+
+`SKIP` 완료는 Story/Event 완료로 인정하지만 해당 장면의 선택 보상은 전부 적용하지 않는다. 스킵 전에 고른 선택은 기록할 수 있으나 효과는 0이며, 도달하지 않은 선택 노드는 서버가 `SKIPPED`로 계산한다.
+
+### 복구와 진행 차단
+
+- pending story가 있으면 다음 일정을 시작하지 않는다.
+- 대화 중간 위치를 장기 저장하지 않는다.
+- 완료 API 저장 성공 후에만 다음 일정으로 이동한다.
+- 금요일 Story가 끝나기 전에는 주차를 넘기지 않는다.
+- API/저장 실패 시 같은 pending story에서 재시도한다.
+- `requestId` 재전송은 서버에서 멱등 처리한다.
 
 ## 3. 엔딩 입력
 
