@@ -18,7 +18,7 @@ LUMIA는 약 9~11세 어린이가 아카데믹 클래식 판타지 세계의 학
 - 게임 콘텐츠는 안정적인 ID와 교체 가능한 데이터·이미지 연결을 지향합니다.
 - 게임 클라이언트는 **Phaser 3 + JavaScript/Node.js/Vite**, 웹 배포는 **Vercel**을 사용합니다.
 - 백엔드는 **Python + FastAPI** API 서버로 구현하고 **Render**에 배포합니다.
-- 계정은 **Firebase Authentication의 Email/Password + 이메일 인증**, 사용자 데이터는 **Cloud Firestore**를 사용합니다.
+- 계정은 **Firebase Authentication의 Email/Password + 이메일 인증**, 중앙 사용자·관리자 데이터는 **Cloud Firestore**를 사용합니다. 플레이어 브라우저에는 마스터·화면 캐시와 임시 상태를 위한 **로컬 SQLite**를 둡니다.
 - 생성형 AI는 **Gemini API**를 사용하며, 기본 모델은 `gemini-3.8-flash`로 두고 환경변수로 모델을 교체할 수 있게 합니다.
 - 실제 서비스 URL과 Firebase 프로젝트 설정값은 배포 단계에서 확정합니다. 상세 선정 이유는 [기술 스택](10_TECH_STACK.md)을 확인합니다.
 - 디자인과 구현은 `아르카디아 생활 화면`과 직접 이동·조사가 필요한 `탐험 화면`의 역할을 구분합니다. 두 화면은 별개의 세계가 아니라 같은 장소를 다른 방식으로 표현합니다.

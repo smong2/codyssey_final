@@ -1,6 +1,6 @@
 # LUMIA Firestore 사용자 데이터 스키마
 
-이 문서는 LUMIA 백엔드의 사용자 데이터 저장 구조를 정의합니다. 인증은 Firebase Authentication이 담당하고, 사용자별 게임 상태는 Cloud Firestore에 저장합니다.
+이 문서는 LUMIA 백엔드의 **Firestore 사용자 데이터** 저장 구조를 정의합니다. 인증은 Firebase Authentication이 담당하고, 사용자별 확정 게임 상태는 Cloud Firestore에 저장합니다. 플레이어 브라우저의 로컬 SQLite는 [SQLite 상세 스키마](sqlite/SCHEMA.md)와 [기본 테이블 SQL](sqlite/001_initial.sql)·[대화 테이블 SQL](sqlite/002_dialogue_sequences.sql), 저장 권한 경계와 관리자 중앙 문서는 [STORAGE_DESIGN.md](STORAGE_DESIGN.md)를 따릅니다.
 
 문서는 **논리 스키마(Logical Schema)** 와 **물리 스키마(Physical Schema)** 를 분리해 설명합니다.
 
@@ -262,8 +262,34 @@ RUN_COMPLETE
 | `week` | Integer | 1~52 |
 | `day` | Enum/String | 현재 진행 위치 |
 | `phase` | String | 일정 등록/활동 진행/주말 처리/엔딩 진입 등 세부 진행 단계 |
+| `storyCast` | Map<RoleId, CharacterId> | 주인공 선택 직후 확정한 메인·Location Story 학생 배역. 같은 회차 동안 고정 |
 | `startedAt` | DateTime | 회차 시작 시각 |
 | `updatedAt` | DateTime | 현재 회차 최종 갱신 시각 |
+
+#### `storyCast` 규칙
+
+- 역할별 후보·우선순위는 `story/main/MAIN_STORY_PRODUCTION.md`, `story/location/LOCATION_STORY_PRODUCTION.md`를 콘텐츠 원본으로 사용합니다.
+- 회차 생성 시 `characterId`가 확정된 직후 한 번 계산하고 같은 회차에서는 다시 뽑지 않습니다.
+- 현재 플레이 캐릭터 자신을 학생 상대역으로 배정하지 않습니다.
+- 핵심 메인 학생 역할은 가능한 한 서로 다른 캐릭터를 사용합니다.
+- `LOC_GREENHOUSE_STUDENT`는 `MAIN_GREENHOUSE_STUDENT`와 다른 학생을 사용합니다.
+- 잠긴 캐릭터도 NPC 역할로는 등장할 수 있으며, 주인공 해금 여부와 조력 NPC 출연 여부를 분리합니다.
+- 고정 조력자인 발렌티누스와 텍스트 단역 세린은 이 학생 `storyCast` 맵에 넣지 않아도 됩니다.
+
+예:
+
+```json
+{
+  "MAIN_GUIDE_STUDENT": "CH16",
+  "MAIN_GREENHOUSE_STUDENT": "CH12",
+  "MAIN_GREENHOUSE_TRAPPED": "CH08",
+  "MAIN_CLOCK_STUDENT": "CH26",
+  "MAIN_TRAINING_STUDENT": "CH29",
+  "MAIN_TRAINING_WITNESS": "CH25",
+  "MAIN_FESTIVAL_LEAD": "CH24",
+  "LOC_GREENHOUSE_STUDENT": "CH19"
+}
+```
 
 ### 2.7.2 현재 성장 상태
 
@@ -895,11 +921,14 @@ Active Run 상태 갱신
 
 > `runStatistics`는 현재 회차의 누적 스냅샷이므로 매주 전체 값을 Global Statistics에 다시 더하지 않습니다. Global Statistics에는 **해당 주에 새로 확정된 delta만** 누적하거나, 별도 이벤트 처리 계층에서 한 번만 반영해야 합니다.
 
-## 6.2 엔딩 확정
+## 6.2 엔딩 준비와 열람 완료 확정
 
 ```text
 엔딩 판정
-→ Ending Record 생성
+→ 직업·편지·사용한 기억을 재접속 가능한 상태로 준비 저장
+→ 엔딩 화면 표시
+→ 사용자가 마지막 `타이틀로`를 선택한 뒤 완료 트랜잭션 수행
+→ Ending Record 생성 (runId 기준 중복 방지)
 → seenEndingIds 갱신
 → endingViewCounts 갱신
 → playedCharacterIds 갱신
@@ -913,7 +942,7 @@ Active Run 상태 갱신
 → Save Slot.status = RUN_COMPLETE
 ```
 
-AI 편지 생성 실패가 엔딩/해금 데이터 확정을 막아서는 안 됩니다. 직업 엔딩과 메타 데이터는 먼저 확정 가능해야 하며, 편지는 재시도 또는 fallback으로 저장합니다.
+편지 생성 실패 시 재시도 또는 fallback을 준비 저장하고 같은 결과를 다시 보여 줍니다. 표시 도중 종료하면 저장된 결과로 엔딩을 처음부터 재표시하며 AI를 다시 호출하지 않습니다. 마지막 완료 트랜잭션이 실패하면 타이틀로 이동하지 않고 재시도합니다. AI 실패 자체가 엔딩/해금을 막지 않도록 합니다.
 
 ---
 
@@ -935,6 +964,7 @@ AI 편지 생성 실패가 엔딩/해금 데이터 확정을 막아서는 안 �
 - `statistics/global`
 - `unlockState/global`
 - `endingRecords`
+- `activityDays` (계정 전체의 관리자 기간 통계용 요약)
 - `settings/account`
 
 즉, 슬롯 삭제는 계정 전역 메타 진행을 초기화하지 않습니다.
@@ -992,7 +1022,7 @@ ROOM_DEFAULT
 
 관리자 기능에서 전체 사용자 엔딩 기록을 cross-user로 조회할 계획이 생기면 Collection Group Query와 별도 인덱스를 추가합니다.
 
-현재 단계에서는 사용자 본인 데이터 접근을 기본으로 하고, 관리자 통계용 역정규화 컬렉션은 만들지 않습니다.
+사용자 게임 상태는 UID 하위 문서를 기준으로 조회합니다. 관리자 일·주·월 통계에는 중앙 Firestore의 `activityDays` 요약과 `analyticsDays` 집계를 사용하며, 자세한 경계는 [저장 설계](STORAGE_DESIGN.md)를 따릅니다. 플레이어 로컬 SQLite 기록은 관리자 집계에 사용하지 않습니다.
 
 ---
 
@@ -1019,7 +1049,7 @@ ROOM_DEFAULT
 2. AI 편지 재생성 허용 여부와 호출 횟수 정책
 3. `Ending Record`에서 원시 hidden stats를 보관할지 요약만 보관할지
 4. 영구 최대 체력 보너스의 실제 사용 여부와 상한
-5. 관리자 통계를 위한 별도 집계 컬렉션 필요 여부
+5. 관리자 기간 통계용 `activityDays`/`analyticsDays` 지표·갱신 주기·인덱스
 
 ---
 

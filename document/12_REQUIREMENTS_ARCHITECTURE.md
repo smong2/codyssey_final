@@ -143,6 +143,7 @@ Final Project의 필수 감사로그는 다음 두 범위로 제한합니다.
 ```text
 사용자 브라우저
 └─ Phaser 3 게임 (게임 서비스 URL)
+   └─ 로컬 SQLite WASM/OPFS (마스터·화면 캐시·임시 상태)
         ↓
 Firebase Authentication
 Email/Password + Email Verification
@@ -166,6 +167,7 @@ Cloud Firestore
 ├─ Global Meta
 ├─ 누적 플레이 기록
 ├─ 엔딩 기록·편지
+├─ 관리자 기간 통계용 활동 요약·집계
 ├─ 운영 밸런스 설정
 └─ 관리자 감사로그
 
@@ -178,11 +180,11 @@ FastAPI / Render `/admin/*`
 └─ 전역 밸런스 설정 변경
 ```
 
-게임 클라이언트와 관리자 콘솔은 신뢰해야 하는 Firestore 상태를 직접 임의 수정하지 않고 FastAPI를 통해 서버 규칙과 권한 검증을 적용합니다.
+게임 클라이언트의 로컬 SQLite는 마스터·화면 조회와 미확정 상태에 사용합니다. 확정 세이브·보상·엔딩은 FastAPI가 검증해 Firestore에 저장합니다. 관리자 콘솔은 플레이어 기기의 SQLite에 접근하지 않고 중앙 Firestore의 사용자 기록·기간 집계·설정·감사로그를 권한 검증 후 조회합니다. [저장 경계·테이블 목록](../backend/database/STORAGE_DESIGN.md)을 상세 기준으로 사용합니다.
 
 ## 6. 기술 선택 이유
 
-세부 선정 이유는 `document/10_TECH_STACK.md`를 기준으로 합니다. 요약하면 Phaser 3는 기존 웹 게임/미니게임 자산을 이어 쓰기 위해, FastAPI는 서버 규칙·Firebase Admin·Gemini 연동을 분리하기 위해, Firebase Auth/Firestore는 계정 인증과 계정별 문서형 상태 저장을 위해 사용합니다. Vercel과 Render는 프론트/API 배포 책임을 분리하며, Gemini는 52주 실제 기록을 고정 문구가 아닌 개인화된 서사 보상으로 표현하기 위해 사용합니다.
+세부 선정 이유는 `document/10_TECH_STACK.md`를 기준으로 합니다. 요약하면 Phaser 3는 기존 웹 게임/미니게임 자산을 이어 쓰기 위해, FastAPI는 서버 규칙·Firebase Admin·Gemini 연동을 분리하기 위해, Firebase Auth/Firestore는 계정 인증과 계정별 문서형 상태·관리자 중앙 조회를 위해 사용합니다. 플레이어 로컬 SQLite는 반복 조회와 임시 상태를 기기에서 처리해 불필요한 서버 요청을 줄이기 위해 사용합니다. Vercel과 Render는 프론트/API 배포 책임을 분리하며, Gemini는 52주 실제 기록을 고정 문구가 아닌 개인화된 서사 보상으로 표현하기 위해 사용합니다.
 
 ## 7. 범위 밖 항목
 

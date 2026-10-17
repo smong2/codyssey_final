@@ -28,7 +28,7 @@ LUMIA는 52주 플레이가 끝나면 게임 규칙으로 미래 직업 엔딩�
 | Backend | **Python, FastAPI** |
 | API Deploy | **Render** |
 | Authentication | **Firebase Authentication** — Email/Password + 이메일 인증 |
-| Database | **Cloud Firestore** |
+| Database | **Cloud Firestore** (중앙 데이터) + **SQLite WASM/OPFS** (플레이어 로컬 데이터) |
 | Generative AI | **Gemini API** — 기본 `gemini-3.8-flash`, 환경변수로 모델 교체 |
 
 사용자는 최종 배포 후 **Vercel 서비스 URL**로 게임에 접속하며, 게임 클라이언트가 Render의 FastAPI 서버를 호출합니다. 기술 선택 근거와 환경변수 기준은 [기술 스택 문서](document/10_TECH_STACK.md)에 정리합니다.
