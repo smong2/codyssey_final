@@ -37,7 +37,7 @@ export function beginAction(p,id,token){
  const r=runOf(p,id);
  if(r.pendingWeekSummaryWeek!==undefined)throw new Error('지난주 요약을 먼저 확인해 주세요.');
  if(token===r.lastAction)return false;
- if(r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
+ if(r.pendingActivityStory||r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
  if(r.inProgressActivity){if(r.inProgressActivity.token===token)return false;throw new Error('다른 일정이 이미 진행 중입니다.');}
  if(r.phase!=='ACTING'||r.day>=5||token!==actionToken(r))throw new Error('현재 일정과 시작 요청이 일치하지 않습니다.');
  const forcedDays=forcedRestRemaining(r),forced=forcedDays>0,action=forced?'rest':r.schedule[r.day];
@@ -83,7 +83,9 @@ export function applyAction(p,id,token,result,random=Math.random){
     if(resolved.difficulty!==difficultyForStat(r.stats.exploration)||resolved.locationId!==(checkpoint.locationId??'greenhouse'))throw new Error('저장 탐험 스탯 또는 모험 장소가 시작 정보와 일치하지 않습니다.');
    resolvedOutcome=resolved.outcome==='MISSION_COMPLETE'?'success':'timeout';
    const multiplier=validateGrowthRewardConfig(p.config?.growthRewardConfig??p.meta.growthRewardConfig??{rewardMultiplier:{}}).rewardMultiplier.exploration;
-   const adjustedGrowth=Math.floor(resolved.explorationGrowth*multiplier*(staminaBefore>=10&&staminaBefore<=30?.5:1));
+   // The result contract already applies low stamina. Timeout's +1 is a final minimum.
+   const scaledGrowth=Math.floor(resolved.explorationGrowth*multiplier);
+   const adjustedGrowth=resolved.outcome==='TIMEOUT'&&resolved.foundCount>0?Math.max(1,scaledGrowth):scaledGrowth;
    const before=r.stats.exploration,after=Math.min(500,before+adjustedGrowth);
    r.stats.exploration=after;growth.exploration=after-before;
   }
@@ -126,7 +128,7 @@ export function stopAdventure(p,id,token){
  return recoverInterruptedAction(p,id);
 }
 export function finishWeek(p,id){
- const r=runOf(p,id);if(r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
+ const r=runOf(p,id);if(r.pendingActivityStory||r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
  if(r.pendingWeekSummaryWeek!==undefined)throw new Error('지난주 요약을 먼저 확인해 주세요.');
  if(r.phase!=='WEEK_COMPLETE')throw new Error('평일 5회 행동을 먼저 마쳐야 합니다.');
  r.pendingWeekSummaryWeek=r.week;

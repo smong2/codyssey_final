@@ -1,42 +1,13 @@
 import {canWalk,moveFoot} from '../core/collision.mjs';
-import {createPreviewObjectives,investigateObjective,reachableSafeRoutes,ADVENTURE_GEOMETRY} from '../core/adventure-mission.mjs';
+import {createPreviewObjectives,investigateObjective,ADVENTURE_GEOMETRY} from '../core/adventure-mission.mjs';
 import {SD_DIRECTIONS,sdCharacterStrip} from '../core/sd-characters.mjs';
-import {ADVENTURE_NPC_ENCOUNTER_RADIUS,takeAdventureEncounter} from './adventure-encounters.mjs';
 
 // Development/playtest settings, not final movement or camera balance.
 export const ADVENTURE_VIEW={speed:360,displaySize:256,footY:218/256};
 // User-approved temporary mode; per-object sort-line/zone data remains pending.
 export const FOREGROUND_MODE='always-foreground';
 
-export function midRouteEncounterPoints(routes,spawn,count,{forbiddenZones=[],wallClearance=ADVENTURE_GEOMETRY.footRadius}={}){
- const selected=[],separation=ADVENTURE_NPC_ENCOUNTER_RADIUS*2+24;
- const paths=routes.filter(route=>route.length>1).map(route=>{
-  let length=0;const samples=route.map((point,index)=>{if(index)length+=Math.hypot(point.x-route[index-1].x,point.y-route[index-1].y);return{point,distance:length};});
-  return{samples,length,target:route.at(-1)};
- }).filter(path=>path.length>0).sort((a,b)=>a.length-b.length);
- for(let index=0;index<count&&paths.length;index++){
-  const desiredProgress=index===0?0.4:0.55;
-  let chosen;
-  // Prefer the early-middle route. Short routes may need a later point outside spawn range.
-  for(const fallback of [false,true]){
-   for(let offset=0;offset<paths.length;offset++){
-    const path=paths[(index+offset)%paths.length];
-    chosen=path.samples.filter(({point,distance})=>distance/path.length>=0.32&&(fallback||distance/path.length<=0.65)&&
-     Math.hypot(point.x-spawn.x,point.y-spawn.y)>(fallback?ADVENTURE_NPC_ENCOUNTER_RADIUS+ADVENTURE_GEOMETRY.footRadius:ADVENTURE_NPC_ENCOUNTER_RADIUS*2)&&
-     (fallback||Math.hypot(point.x-path.target.x,point.y-path.target.y)>ADVENTURE_GEOMETRY.investigationRadius)&&
-     !forbiddenZones.some(zone=>point.x>=zone.x-wallClearance&&point.x<=zone.x+zone.width+wallClearance&&point.y>=zone.y-wallClearance&&point.y<=zone.y+zone.height+wallClearance)&&
-     selected.every(other=>Math.hypot(point.x-other.x,point.y-other.y)>=separation))
-     .sort((a,b)=>Math.abs(a.distance/path.length-desiredProgress)-Math.abs(b.distance/path.length-desiredProgress))[0]?.point;
-    if(chosen)break;
-   }
-   if(chosen)break;
-  }
-  if(chosen)selected.push({x:chosen.x,y:chosen.y});
- }
- return selected;
-}
-
-export function mountAdventure(host,{startData,map,characterId='CH01',npcs=[],onEncounter=()=>{},onReady,onState,onFinish}){
+export function mountAdventure(host,{startData,map,characterId='CH01',onReady,onState,onFinish}){
  try{sdCharacterStrip(characterId,'S');}catch{
   onState({error:'선택한 학생의 모험용 SD 이미지가 아직 등록되지 않았습니다. 다른 학생 이미지로 대체하지 않습니다.'});
   return {start:()=>false,pause(){},track(){},direction(){},investigate:()=>false,destroy(){}};
@@ -65,9 +36,6 @@ export function mountAdventure(host,{startData,map,characterId='CH01',npcs=[],on
    this.footShadow=this.add.container(map.spawn.x,map.spawn.y+2).setDepth(9);
    for(const [width,height,alpha] of [[46,14,0.035],[38,11,0.05],[28,8,0.08]])this.footShadow.add(this.add.ellipse(0,0,width*2,height*2,0x40372e,alpha));
    this.player=this.add.sprite(map.spawn.x,map.spawn.y,'walk-S',1).setOrigin(0.5,ADVENTURE_VIEW.footY).setDisplaySize(ADVENTURE_VIEW.displaySize,ADVENTURE_VIEW.displaySize).setDepth(10);
-   const npcRoutes=npcs.length?reachableSafeRoutes(this.mask,map.spawn,this.objectives,map.placement):[];
-   const npcPoints=midRouteEncounterPoints(npcRoutes,map.spawn,npcs.length,map.placement);
-   this.npcEncounters=npcs.flatMap((npc,index)=>npcPoints[index]?[{npc,point:npcPoints[index],triggered:false}]:[]);
    for(const d of ['S','SW','W','NW','N','NE','E','SE'])this.anims.create({key:'walking-'+d,frames:[0,1,2,1].map(frame=>({key:'walk-'+d,frame})),frameRate:7,repeat:-1});
    this.keys=this.input.keyboard.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT');this.input.keyboard.addCapture(['W','A','S','D','UP','DOWN','LEFT','RIGHT']);
    this.input.on('pointerdown',p=>{if(this.active&&!this.paused)this.target={x:p.worldX,y:p.worldY};});
@@ -110,7 +78,6 @@ export function mountAdventure(host,{startData,map,characterId='CH01',npcs=[],on
      if(next.x!==before.x||next.y!==before.y)this.player.play('walking-'+direction,true);else{this.player.anims.stop();this.player.setFrame(1);this.target=null;}
    }else{this.player.anims.stop();this.player.setFrame(1);}
    this.footShadow?.setPosition(this.player.x,this.player.y+2);this.overlay?.setVisible(this.debug);this.lines?.clear();this.coords?.setVisible(this.debug);
-   if(this.active&&!this.paused){const npc=takeAdventureEncounter(this.npcEncounters??[],this.player);if(npc){this.pause(true);onEncounter(npc);}}
    if(this.debug){this.lines.lineStyle(2,0xffcc44).strokeRect(0,0,this.mask.worldWidth,this.mask.worldHeight);this.lines.fillStyle(0xff5555).fillCircle(this.player.x,this.player.y,4);this.coords.setText('발 X '+this.player.x.toFixed(1)+' / Y '+this.player.y.toFixed(1)+' · 흰색만 이동 · 전경 임시 항상 앞');}
   }
  }

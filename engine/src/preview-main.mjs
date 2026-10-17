@@ -15,8 +15,8 @@ import {firstEmptySlot,recentSlot,createNotifier,invitationLines,ADMISSION_SCENE
 import {introFrame} from './core/intro.mjs';
 import {mountAdventure} from './scenes/AdventureScene.mjs';
 import {ADVENTURE_LOCATIONS,getAdventureMap} from './core/adventure-mission.mjs';
-import {selectAdventureNpcs,recordAdventureEncounters,completeStoryEvent,storyContent} from './core/story-events.mjs';
-import {queueNarrative} from './core/narrative.mjs';
+import {completeStoryEvent,storyContent} from './core/story-events.mjs';
+import {createPostActivityStoryFlow} from './core/post-activity-story.mjs';
 import {createNarrativeUI} from './ui/narrative.mjs';
 import {createAdventureResult,createAdventureStartData} from './core/adventure-contract.mjs';
 import {studentCards} from './core/catalogue.mjs';
@@ -75,6 +75,9 @@ function save(retry=false,savedSlotId=slotId,afterSuccess=null){
  const continuation=afterSaveSuccess;afterSaveSuccess=null;continuation?.();return true;
 }
 function retrySave(){const continuing=Boolean(afterSaveSuccess),saved=save(true);return saved&&!continuing;}
+const activityStoryFlow=createPostActivityStoryFlow({current,save:next=>save(false,slotId,next),
+ receive:token=>{const events=engineServices.storyEvents??profile.meta.narrativeEvents??[];return Array.isArray(events)?events.find(event=>event?.activityToken===token):null;},
+ onStory:renderPendingStory,onContinue:continueSchedule});
 function selectPet(id){
  if(saveFailed)return false;
  try{repository.saveSettings({activePetId:id});profile.settings={...(profile.settings??{}),activePetId:id};message(activePet(profile).name+'과 함께합니다.');return true;}
@@ -242,6 +245,7 @@ function dispatchActivity(checkpoint){
 }
 function startScheduledActivity(){
  if(saveFailed){renderRoom();return false;}
+ if(current().pendingActivityStory){const saved=activityStoryFlow.resume();if(saveFailed)renderRoom();return saved;}
  if(current().storyState?.pending||current().narrativeState?.pending){renderPendingStory();return false;}
  const run=current();if(run.phase!=='ACTING'){renderRoom();return false;}
  if(run.inProgressActivity){dispatchActivity(run.inProgressActivity);return true;}
@@ -249,7 +253,7 @@ function startScheduledActivity(){
  if(!checkpoint){renderRoom();return false;}
  const saved=save(false,slotId,()=>dispatchActivity(checkpoint));if(!saved)renderRoom();return saved;
 }
-function resumeToRoom(){if(current().storyState?.pending||current().narrativeState?.pending){renderRoom();setTimeout(renderPendingStory,180);}else if(current().phase==='ACTING')setTimeout(startScheduledActivity,180);else if(current().phase==='WEEK_COMPLETE')setTimeout(finishWeekFlow,180);else renderRoom();}
+function resumeToRoom(){if(saveFailed){renderRoom();return;}if(current().pendingActivityStory||current().storyState?.pending||current().narrativeState?.pending){renderRoom();setTimeout(()=>{activityStoryFlow.resume();if(saveFailed)renderRoom();},180);}else if(current().phase==='ACTING')setTimeout(startScheduledActivity,180);else if(current().phase==='WEEK_COMPLETE')setTimeout(finishWeekFlow,180);else renderRoom();}
 function finishWeekFlow(){
  if(saveFailed){renderRoom();return false;}if(current().phase!=='WEEK_COMPLETE'){renderRoom();return false;}
  reviewPrompt=null;finishWeek(profile,slotId);roomLight.event('next-day');const saved=save(false,slotId,()=>renderRoom());if(saveFailed)renderRoom();return saved;
@@ -274,25 +278,11 @@ function renderPendingStory(){
   frame.append(actions);
  };paint();
 }
-function showAdventureGreeting(npc,onComplete,onClose){
- const body=el('div',null,'adventure-conversation');body.append(el('small','연결 확인용 임시 대사'),el('h3',npc.name));
- if(npc.image){const image=el('img',null,'npc-dialogue-image');image.src='./character-assets/'+npc.image;image.alt=npc.name;body.append(npcStage(image));}
- const line='여기서 만나니까 반가워. 천천히 둘러봐. 나도 주변을 살펴보는 중이야.';
- body.append(el('p',line,'dialogue-text'));let completed=false;
- const dialog=modal(npc.name+'와 이야기하기',body);
- dialog.classList.add('adventure-conversation-dialog');
- const nav=el('nav',null,'story-top-controls');nav.append(btn('대화기록',()=>modal('대화기록',el('p',npc.name+' · '+line)),'text-button'),btn('건너뛰기',()=>dialog.close(),'text-button'));body.prepend(nav);
- body.append(btn('대화 마치기',()=>{if(completed)return;completed=true;onComplete();dialog.close();}));
- dialog.addEventListener('close',()=>{portraitObserver?.disconnect();portraitObserver=null;onClose();},{once:true});
-}
-function completeActivity(token,result,{metNpcIds=[]}={}){
+function completeActivity(token,result){
  const applied=applyAction(profile,slotId,token,result);
  if(applied){reviewPrompt=structuredClone(current().actionHistory.at(-1));roomLight.event('complete');
   const completed=current().actionHistory.at(-1),resultText=activityResultText(completed);
-  if(completed.action==='adventure')recordAdventureEncounters(current(),metNpcIds,completed);
-  const storyEvents=engineServices.storyEvents??profile.meta.narrativeEvents??[];queueNarrative(current(),completed,Array.isArray(storyEvents)?storyEvents.find(event=>event?.activityToken===`${current().runNumber}:${completed.week}:${completed.day}`):null);
-  save(false,slotId,()=>{
-   const advance=()=>{if(current().storyState?.pending||current().narrativeState?.pending)renderPendingStory();else continueSchedule();};
+  activityStoryFlow.complete(completed,advance=>{
    if(completed.action==='adventure'&&['MISSION_COMPLETE','TIMEOUT'].includes(result?.outcome))adventureResultUI.show(shell,{...result,feedback:resultText},advance);
    else{message(resultText);advance();}
   });
@@ -319,7 +309,7 @@ const roomUI=createMyroomUI({el,btn,img,shell,heading,current,characters:CHARACT
 function renderRoom(){titleAudio.playMusic('room');const run=current();if(run.pendingWeekSummaryWeek!==undefined){ensureMainStoryState(run);roomUI.weeklySummary();return;}if(run.flags?.admissionPending){ensureMainStoryState(run);roomUI.room();return;}ensureMainStoryState(run);const due=dueMainStory(run);if(due){renderMainStory(due);return;}if(run.phase==='AWAITING_ENDING'&&run.endingRecord){endingUI.render({actual:true});return;}roomUI.room();}
 function renderAdventure(checkpoint=current().inProgressActivity){
  const run=current(),locationId=checkpoint?.locationId??run.scheduleLocations?.[run.day]??'greenhouse',place=ADVENTURE_LOCATIONS.find(item=>item.id===locationId)??ADVENTURE_LOCATIONS[0];
- const map=getAdventureMap(place.mapId),metNpcIds=new Set();
+ const map=getAdventureMap(place.mapId);
  const startData=createAdventureStartData({missionId:`run-${run.runNumber}-week-${run.week}-day-${run.day}`,locationId:place.id,seed:`run-${run.runNumber}-week-${run.week}-day-${run.day}`,
   storedExploration:run.stats.exploration,petExplorationBonus:activePet(profile).modifiers.exploration,objectiveCount:3});
  const token=checkpoint?.token??actionToken(run);heading(place.title,'adventure-page');
@@ -355,9 +345,8 @@ function renderAdventure(checkpoint=current().inProgressActivity){
   ]);
   dialog.addEventListener('close',()=>{if(!finished)adventureView?.pause(Boolean(briefing));},{once:true});
  }
- const finishMission=(outcome,foundCount)=>{if(finished)return;finished=true;briefing?.remove();const result=createAdventureResult(startData,outcome,{foundCount,successGrowth:8,stamina:checkpoint.staminaBefore});completeActivity(token,result,{metNpcIds:[...metNpcIds]});};
- const npcs=selectAdventureNpcs(run,place.id,startData.seed);
- const mount=()=>{adventureView?.destroy();missionReady=false;started=false;finished=false;lastState=null;adventureView=mountAdventure(host,{startData,map,characterId:run.characterId,npcs,onEncounter:npc=>showAdventureGreeting(npc,()=>metNpcIds.add(npc.id),()=>adventureView?.pause(false)),onReady:state=>{missionReady=true;errorPanel?.remove();errorPanel=null;paintState(state);showClues(true);},onState:paintState,onFinish:finishMission});};
+ const finishMission=(outcome,foundCount)=>{if(finished)return;finished=true;briefing?.remove();const result=createAdventureResult(startData,outcome,{foundCount,successGrowth:8,stamina:checkpoint.staminaBefore});completeActivity(token,result);};
+ const mount=()=>{adventureView?.destroy();missionReady=false;started=false;finished=false;lastState=null;adventureView=mountAdventure(host,{startData,map,characterId:run.characterId,onReady:state=>{missionReady=true;errorPanel?.remove();errorPanel=null;paintState(state);showClues(true);},onState:paintState,onFinish:finishMission});};
  mount();
 }
 class HomeScene extends Phaser.Scene{
