@@ -13,6 +13,8 @@
 
 ## 확정된 설계
 
+현재 DB 쪽 구현 상태: `003_dialogue_runtime_content.sql`에 최종 LINE/IMAGE 표현 필드·화자·ROLE·Choice/Event Effect가 있고, `004_story_event_rules.sql`에 Story 발생 정책·추가 조건·동적 역할 hard exclusion이 있다. Main `seed_dialogue_content.py`는 CH01~CH32의 `MS01~MS06` 시퀀스를 생성하며 사용자가 기존 v3 Main 결과 `192 sequences / 40 choices / 80 effects`를 실제 SQLite에서 확인했다. 현재 스크립트는 v4 migration까지 지원한다. Location은 `seed_location_story_master.py`가 활성 6장면의 master/rule/choice/effect와 세린·온실 ROLE을 같은 DB에 적재하도록 구현되어 있으나 **32인 Character Set이 아직 없으므로 Location dialogue_sequences/nodes/options는 미적재**다. 상세는 `backend/database/LOCATION_STORY_DB_SPEC.md`를 따른다. FastAPI compiler/complete transaction과 Engine 연결은 아직 미구현이다.
+
 ```text
 정규화된 대화 콘텐츠 DB
 → FastAPI

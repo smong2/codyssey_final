@@ -4,6 +4,218 @@
 
 [최근 작업](#순서와-확인-기준) · [UI 이력](#ui-history) · [시안 계획](#preview-history) · [자산 인계 이력](#asset-history) · [과거 README 기록](#readme-history)
 
+## 대화·버튼 UI 및 팀원 미리보기 전달 — 2026-10-17
+
+- `origin/main`은 `5c73326`까지 확인했으며 커밋 전 `dev-ds`와 일치한다. 아래 구현은 기존 계획의 진행 결과이며 운영 대화 API 연결 완료를 뜻하지 않는다.
+- 공통 대화 UI는 LINE·IMAGE·CHOICE·END, 선택 반응·대화기록·허용된 건너뛰기·패널 클릭 진행을 처리한다. 입학 미리보기도 같은 UI를 사용하며 플레이어 이미지는 표시하지 않는다. 서버 대화 세션 컴포넌트와 테스트는 포함하지만 실제 서비스 주입은 후속이다.
+- 이름표와 선택지는 BT04를 원본 비율로 표시한다. 이름표는 패널 왼쪽 위에 걸치며 선택지에서도 유지하고, 패널에는 같은 계열의 얇은 금색 테두리를 둔다. 타이틀은 BT04, 마이룸은 BT01·BT02·BT03 green 이미지를 사용한다.
+- 프로필의 작은 얼굴 이미지를 제거했다. 캐릭터 데이터·NPC 대화·선택지에는 전신 파일을 연결한다. 예전 상반신 파일명이 들어 있는 대화와 저장 기록은 원본 저장을 바꾸지 않고 전신 표시·검증으로 호환한다.
+- 슬롯이 모두 차도 새로 시작하기 버튼을 비활성화하지 않는다. 클릭 시 버튼들 아래에 프레임 안내를 약 3초 표시하며 연속 클릭은 표시 시간을 갱신한다.
+- 인트로 BGM과 공통 클릭 효과음의 `.MP3` → `.mp3` 변경을 Git에도 기록한다. 서버는 한글 퍼즐 PNG를 제공하고 기존 접근 제한·미디어 Range 처리를 유지한다. 새로 추가된 미연결 BGM 7개는 이번 커밋에서 제외한다.
+- 검증: 엔진 테스트 **269개 통과**. 서버의 자원·페이지 **369개 주소**, 실행 모듈 **68개**가 정상 응답했다. 실제 4173 미리보기에서도 수정된 코드 제공을 확인했다. 크롬 화면·재생 검수는 사용자가 진행한다. 문서 동기화 검사에는 기존 자원 README 3개의 `UNAVAILABLE`이 남아 있으며 외부 문서는 수정하지 않았다.
+
+### GitHub WBS 후속 확인
+
+관련 #147·#158의 본문과 댓글을 읽었다. 본문상 각각 작업준비·Backlog이며 댓글은 없지만 실제 Project 필드는 별도 확인이 필요하다. 정식 원고·운영 API 연결과 JW 공동 화면 검수는 남아 있어 작업완료로 처리하지 않는다. 사용자가 GitHub 카드 상태를 관리하며 이번 작업에서는 변경하지 않는다.
+
+```text
+저장소 smong2/codyssey_final의 GitHub만 확인하세요. 파일 수정·commit·branch·PR 생성·issue close·본문 전체 재작성은 하지 마세요.
+대상은 #147 대화·선택·스토리 장면 실행, #158 최종 디자인 자원 적용·조작 검증입니다. 실제 Project Status, 최근 댓글, dev-ds 변경의 main 병합 여부를 먼저 확인하세요.
+#147: 공통 대화 재생/UI·입학 미리보기·전신 이미지 호환을 구현하고 자동 검증했지만 정식 원고와 운영 API 통합은 남아 있습니다. 실제 상태가 작업준비라면 진행중 전환을 검토하고 작업완료로 바꾸지 마세요. 댓글 의도: 공통 대화 UI와 입학 미리보기는 연결했으며 정식 원고·운영 API 연결 및 공동 검수는 후속입니다.
+#158: 타이틀·마이룸 버튼과 대화 이름표를 채택 이미지로 연결했지만 실제 PC/모바일·JW 화면 검수는 남아 있습니다. 실제 상태가 Backlog라면 진행중 전환을 검토하고 작업완료로 바꾸지 마세요. 댓글 의도: 채택 버튼 이미지와 전신 대화 이미지를 연결했으며 최종 화면·조작 검수는 후속입니다.
+동등한 댓글이 있으면 중복 작성하지 말고, 상태/댓글 변경을 실행할 때는 사용자의 GitHub 작업 승인을 확인하세요. 보고는 이슈별 기존 상태 → 변경 상태 / 댓글 요약으로 제한하세요.
+```
+
+<a id="audit-2026-10-17"></a>
+
+## 최신 문서·애셋 대조 재계획 — 2026-10-17
+
+**Goal:** 최신 main `6ebc38b`의 대화 계약과 현재 실행 코드를 대조해, 엔진이 직접 할 일·인계 대기·화면 검수를 분리한다. 이 절은 구현 완료 보고가 아니라 후속 실행 계획이다.
+
+**Architecture:** 공통 순차 DialoguePlayer와 기존 `lumiaEngineServices`를 사용한다. 서버가 결정한 상태를 소비하고 엔진 안에 DB 그래프·캐스팅·보상 판정기를 새로 만들지 않는다. 현재 개발 로컬 저장과 기존 기록은 보존한다.
+
+**Tech Stack:** 현재 Phaser 3·JavaScript ES modules·Node 정적 서버·node:test를 유지한다. 운영 FastAPI/Firebase/SQLite 구현과 `lumia/` 최종 통합은 이 계획의 엔진 직접 수정 범위가 아니다.
+
+**Spec:** `document/dialogue/README.md`, `document/dialogue/01_ENGINE_API_CONTRACT.md`, `document/content/13_DIALOGUE_SEQUENCE.md`, `document_for_ai/07_DIALOGUE_ENGINE_HANDOFF.md`, Main/NPC/Location Production 원고, 각 asset 카테고리 README. 이 문서의 과거 16개 Location/옛 DTO 설명보다 최신 원문 계약이 우선한다.
+
+### 범위와 보존 원칙
+
+- 사용자가 엔진 작업만 승인한 상태다. `engine/minigame-demo/`, 백엔드·공유 문서·원본 애셋·prototype·lumia를 수정하지 않는다. 다른 영역의 파일 추가/변환/수정은 별도 확인한다.
+- 새 Markdown 파일을 늘리지 않는다. 계획은 이 절, 연결 계약은 기존 `DATA_HANDOFF.md`, 실행 상태는 README에 구분해 기록한다. 커밋/푸시는 요청받기 전 하지 않는다.
+- `storyCast`, 이벤트 후보/가중치, 원고의 32명 변형, Choice/Event Effect, 지급/해금 판정은 서버·콘텐츠 책임이다. 엔진은 provider가 전달한 화자·src·최신 activeRun을 소비한다.
+- 새 대화에 허구 원고나 공통 대체 대사를 주입하지 않는다. 계약 샘플은 자동 테스트 fixture에만 사용한다. 서비스/원고가 없으면 연결 대기이고 완료·보상을 만들지 않는다.
+- 기존 저장을 지우거나 소급 재계산하지 않는다. 새 공식 대화 경로와 과거 저장 읽기 호환을 분리한다. 대사 중간 위치/대화 원문을 새로운 장기 세이브로 만들지 않는다.
+- 실제 Chrome·모바일 조작 검수는 사용자가 담당한다. HTTP 200과 단위 테스트는 화면 승인이나 최종 아트 채택의 근거가 아니다.
+
+### 조사 결과: 이미 되는 것과 링크 문제
+
+- 현행 엔진 전체 테스트 **234개 통과**. 주간 진행·활동 저장·6개 본편 수업+요정의 거래·3개 모험 지도·결과 확인·기존 대화/수집/계정 프레임은 이미 있다. 같은 프레임을 처음부터 다시 만드는 계획으로 되돌리지 않는다.
+- 현재 URL 184개 + 보충 URL 16개를 Windows 임시 서버에서 확인했고 모두 200이었다. 캐릭터 32명의 기본/전신, 펫 10종, 배지 40개, 지도 3곳의 월드/썸네일/마스크/전경, SD 48개, 기존 오디오와 주요 UI/배경을 포함한다. 별도 옛 배경·펫·온실 지도 별칭도 응답했다. 모든 반응형 화면·API가 향후 줄 src 전체를 검증한 것은 아니다.
+- asset의 PNG/JPEG/WebP/WOFF2 537개는 파일 헤더 서명도 확인했고 잘못된 서명은 없었다. 로고/마이룸 대표 파일의 Git filter는 unspecified였다. 이는 LFS 포인터 같은 가짜 이미지 본문을 걸러내는 확인이며 전체 디코딩·시각 검수를 대신하지 않는다.
+- **오디오 확장자:** 사용자 요청에 따라 오디오 자산을 소문자 `.mp3`로 통일했다. 엔진 URL과 서버 allowlist도 소문자 자산명을 기준으로 유지한다.
+- **아직 연결하지 않은 경로:** `/design-assets/puzzle/PZ01_우주방_01.png`는 404다. 서버의 카테고리 허용 목록에 puzzle이 없고 파일명 검사도 한글 이름을 지원하지 않는다. 현재 화면이 이 URL을 요청해 깨진 것이 아니라, 새 퍼즐 PNG 채택 때 함께 해결할 제공 경계다.
+- 음악 파일은 조사 중 사용자가 추가/이름 변경했다. 최종 확인한 미추적 목록은 `bgm_minigame.mp3`, `bgm_starlight_observatory.mp3`, `bgm_story_mystery_01.mp3`, `bgm_story_mystery_02.mp3`, `bgm_story_mystery_03.mp3` 5개다. 기존 트랙 등록/서버 허용 목록에는 없으며 첫 두 경로의 404를 확인했다. 나머지도 같은 허용 목록 밖이다. 자동 추가·커밋·재생하지 않았다.
+- 원문 동기화 검사는 기존 `asset/environment/README.md`, `asset/font_files/originals/README.md`, `asset/font_files/typography/README.md`의 UNAVAILABLE로 전체 통과를 확인하지 못했다. 엔진 런타임 이미지 404와 다른 공유 문서 정합성 문제다. 외부 파일을 재생성하거나 manifest를 갱신하지 않는다.
+
+### 남은 일 전체 목록과 담당 경계
+
+| 순서 | 남은 작업 | 현재 상태와 엔진 산출물 | 선행/인계 |
+|---|---|---|---|
+| R1 | 자원 경로 이식성·신규 경로 검증 | 클릭 SFX 확장자 일치, 선택된 신규 PNG의 UTF-8 경로/차단 규칙 테스트 | 엔진 직접 가능 |
+| D1 | 공통 순차 대화 재생기 | LINE/IMAGE/CHOICE/END, 4 lineMode, 단일 FOCUS·배경, 여러 선택/reaction/합류 | 원문 계약 확정, 테스트 fixture로 직접 가능 |
+| D2 | 대화 서비스·완료 경계 | loadDialogue/completeDialogue, canSkip, 같은 requestId 재시도, 서버 activeRun 적용 | 실제 provider·revision/응답 DTO 확인은 M 협업 |
+| D3 | Main/NPC/Location 진입·기록 교체 | 6 Main·12 NPC·6 Location의 제공 이벤트를 같은 player로 실행. 공식 경로에서 옛 16 Location 후보표/로컬 효과 적용 제거 | 실제 pending event·원고·화자/이미지 src는 M/HS |
+| A1 | PNG 버튼 채택 | BT01~03 다이어리/가방/메뉴, BT05~07 타이틀 버튼 연결. 기존 접근성·음향·비활성 상태 유지 | 색상 시안/크롭·최종 채택은 DS/JW 확인 |
+| A2 | 방·36조각 표시 | 우주/공주/식물 3세트와 방 ID·0~11 인덱스 연결, 선택/설정/NEW 기존 경계 재사용 | 최종 3방 채택·크롭, 지급 소유 상태 필요 |
+| A3 | 정식 대화의 기존 이미지 활용 | 루루 18장, 캐릭터 표정, 방치 온실/공방, 축제 밝음/꺼짐을 전달 src로 노출 | 의상/표정·노드별 사용은 Production/API. 새 그림 17장은 제작 예산이며 보유 완료로 세지 않음 |
+| A4 | 새 음악 5곡 | 등록·장면 전환·반복/일회성·음소거·오류 처리 테스트 | 어느 활동/장면에 언제 시작/종료할지 사용자 확인, 원본 추가 커밋 별도 승인 |
+| M1 | 모험 미션 마스터 | 임시 이름/힌트·성공 성장 +8·시드/위치·금지영역을 전달 설정으로 교체 | 3지도는 이미 연결. 201~350 난이도의 목표 3/4 선택 데이터·최종 콘텐츠/배치 기준 필요 |
+| S1 | 운영 계정·저장 소비 | 서버 슬롯/메타/설정·비동기 실패/충돌/revision 처리, 인증 복구/세션 폐기, 실제 탈퇴 후 해당 UID 캐시만 제거 | 현재 UI/uid별 로컬 격리는 구현됨. 실제 provider/응답 계약은 M 제공 |
+| S2 | 실제 수집 결과·전체 알림 | 배지 ID/단계/자동 지급·캐릭터/펫/배경 소유·영구 보너스·신규 표시 수신 연결 | 현재는 표시 모델과 방 퍼즐 알림만 있음. 엔진에서 조건 수치로 지급을 추정하지 않음 |
+| S3 | 실제 엔딩·회차 완료 소비 | 준비 결과/편지/기록 표시, 생성 안내·fallback 구분, 최종 완료 API 후 메타/다음 회차, 이전 편지 재사용 | 엔딩 프레임/로컬 판정은 이미 있음. LTPM/AI 생성/안전 검증/운영 원자성은 M 영역 |
+| Q1 | 배포·최종 조작 검증 | 엔진 배포용 자원·서비스 bootstrap 점검, PC/낮은 가로·오디오/복구·52주 계정 roundtrip | 외부 배포/SQLite WASM 캐시·최종 lumia 통합은 담당 합의. 5명 실사용 검수는 팀 공동 |
+| H1 | 돌아보기·관계 화면 | 현재 질문/기록·관계 데이터 미연결 프레임. 임의로 질문·친밀도 점수·필수 진행을 만들지 않음 | 현재 핵심 진행의 필수 진입점 아님. 내용·개인 기록 계약 승인 후 별도 수행 |
+| DOC | 엔진 안내 갱신 | README 최신 기준 해시·옛 lines/choices/closing/16 Location 설명과 공식 대화 전환 상태 정리 | 구현 완료 전에는 과거 프레임을 새 계약 구현으로 표시하지 않음. 공유 문서는 별도 승인 |
+
+이미 본 모든 직업 후보가 있을 때 전체 후보에서 랜덤 선택하는 현재 엔딩 로직은 원문과 일치한다. 이번 대조에서 오류로 분류하지 않았으며 수정 작업을 추가하지 않는다.
+
+### 신규 애셋 채택표
+
+| 자원 | 현재 연결 | 다음 조치 |
+|---|---|---|
+| 로고/글로우·초대장·프로필, PT01~10, 배지 40개, MP01~03, 기본 6명 SD 48개 | 연결됨 | 경로 회귀 유지. 최종 크롭·동작 검수만 분리 |
+| `BT01_diary_*`, `BT02_backpack_*`, `BT03_menu_*`, `BT05/06/07_*` | 미채택, 파일 제공 가능 | 녹색/아이보리 선택 후 종횡비 유지해 실제 button 안에 적용. 이름·키보드·SFX 유지 |
+| `PZ01_우주방_01~12`, `PZ02_공주방_01~12`, `PZ03_식물방_01~12` | 미연결 | 36 PNG는 실제 존재. 1-based 파일 번호→0-based 소유 인덱스. 조각 드래그 게임을 만들지 않음 |
+| `BG11_myroom4_cosmos_*`, `BG11_myroom5_princess_*`, `BG11_myroom6_botanical_*` | 추가 방 기본 매핑 없음 | 위 퍼즐의 낮 원본과 대응하지만 테마는 1672×941 시안으로 명시됨. 최종 채택·화면 여백 확인 후 day/sunset/night 연결 |
+| 룬 연구실 3장·창가 독서실 3장 | 시안/검토용 | 추가 방은 3종이므로 임의로 네 번째 방을 만들지 않음. nested reading 경로를 flat 공개 경로로 추정하지 않음 |
+| `NPC_LULU_01~03_front/back/expression_01~04` | NPC 외형 미연결 | 루루는 펫이 아님. provider의 portraitSrc/IMAGE에 선택된 한 장만 표시. 18장 의상/표정을 엔진이 추첨하지 않음 |
+| 축제 `lit/unlit` 2장·방치 온실/공방 | HTTP 제공 가능, 현재 장면 코드에서 미사용 | MS05는 원문 지시대로 밝음→꺼짐→밝음. 나머지는 명시적 원고 사용 지시가 있는 노드만 연결 |
+| 새 BGM 5곡 | 미추적·미등록 | 장면/반복/교차 페이드 승인 후 등록. 팀원이 내려받을 수 있도록 원본·오디오 README 변경은 별도 승인 |
+| 학생 32명 전신/표정 | 정적 이미지 존재, 기존 카드에 기본/전신 사용 | 새 player는 API portraitSrc로 화자/표정 교체. 추가 26명의 모험 SD는 별도 인계 필요 |
+
+### 실행 가능한 하위 계획 — R1 → D1 → D2 → D3
+
+> **For agentic workers:** 실행 승인 후 `executing-plans` 또는 `subagent-driven-development`를 선택하고 작업 단위로 실패 테스트→최소 수정→회귀 검증→리뷰를 수행한다. 아래 인터페이스는 엔진 내부 설계 제안이며 운영 API 필드를 새로 확정하지 않는다. 커밋은 사용자 요청 때만 한다.
+
+#### R1. 현재 자원 경로의 이식성부터 수정
+
+**Files:** 수정 `src/core/title-audio.mjs`, `server.mjs`, `tests/server.test.mjs`, `tests/title-audio.test.mjs`. 원본 음악은 수정하지 않는다.
+
+**Interface:** 기존 오디오 컨트롤러/서버 함수는 유지하고 공개 URL 및 실제 `.mp3` 파일명을 소문자로 일치시킨다.
+
+- [x] 새 대문자 URL과 실제 파일 대소문자 매핑을 검사하는 테스트를 먼저 추가하고 수정 전 실패를 확인했다.
+- [x] title-audio와 서버가 소문자 `.mp3` 실제 파일명을 사용한다. MIME/Range 처리는 유지했다.
+- [x] 기존 소문자 URL은 같은 원본으로 호환하고, 오디오·차단 경로 회귀를 실행했다.
+- [ ] 읽기 전용 리뷰 후 사용자 승인 시 독립 커밋한다.
+
+```js
+// tests/server.test.mjs의 기존 base/server fixture 안에서 추가할 회귀
+assert.equal((await fetch(base+'/audio-assets/sfx_button_click.mp3',{method:'HEAD'})).status,200);
+```
+
+#### D1. 서버 없이 검증 가능한 공통 재생기
+
+**Files:** 신규 제안 `src/core/dialogue-playback.mjs`, `src/ui/dialogue.mjs`, `tests/dialogue-playback.test.mjs`, `tests/dialogue-ui.test.mjs`; 수정 `preview.css`. Main/서비스 진입은 다음 단계에서 연결한다.
+
+**Interface:** `createDialoguePlayback(payload)` → `{snapshot(),next(),choose(choiceNodeId,choiceId)}`. snapshot은 `{node,focus,background,selectedChoices,ended}`이며 node는 현재 LINE/CHOICE/END 또는 선택 반응 LINE이다. selectedChoices는 `{choiceNodeId,choiceId}`만 포함한다. UI는 `createDialogueUI(ctx).render({payload,onComplete,onSkip})`로 같은 모델을 소비한다.
+
+- [x] 원문 계약을 바탕으로 테스트 fixture를 만들고, LINE 진행·2회 CHOICE·반응 합류·END·잘못된 선택 거부의 구현 전 실패를 확인했다.
+- [x] 순차 재생·선택 반응 큐를 구현했다. nextNodeId 그래프, storyCast, 보상·발생 확률은 추가하지 않았다.
+- [x] 4 lineMode, 이미지 없는 화자, PLAYER 초상 비표시, FOCUS 교체/KEEP/NONE/HIDE, BACKGROUND SHOW/REPLACE/HIDE, 대화기록을 동일 UI 모델로 검증했다.
+- [x] D2 세션에서 서비스·revision 부재를 명시적 오류로 내보내고 완료 결과를 만들지 않는 테스트를 추가했다. 원문 src를 재해석하지 않는다.
+- [ ] 전체 회귀·리뷰 후 사용자 승인 시 독립 커밋한다. PC/낮은 가로 화면의 폰트·클리핑·버튼 배치는 사용자 검수다.
+
+```js
+const payload={schemaVersion:1,dialogueId:'TEST',storyId:'TEST',eventId:'TEST',title:'검증',dialogueToken:'opaque-test',canSkip:false,speakers:{},sequence:[{type:'LINE',lineMode:'NARRATION',text:'테스트 전용 문장',visualMode:'NONE'},{type:'END'}]};
+const playback=createDialoguePlayback(payload);
+assert.equal(playback.snapshot().node.lineMode,'NARRATION');
+playback.next();assert.equal(playback.snapshot().ended,true);
+```
+
+#### D2. 완료 API·오래된 응답·재시도 경계
+
+**Files:** 신규 제안 `src/core/dialogue-session.mjs`, `tests/dialogue-session.test.mjs`; 수정 `src/preview-main.mjs`, 필요 시 `src/core/storage.mjs`와 기존 경계 테스트.
+
+**Interface:** `createDialogueSession({loadDialogue,completeDialogue,context,applyServerRun,onRender,onContinue,onError,requestIdFactory})` → `{start({slotId,eventId}),finish(completionMode),retry(),cancel()}`. context는 현재 uid/slot/회차 참조와 provider가 전달한 revision을 읽는다. 실제 입력은 공식 loadDialogue/completeDialogue 의미를 그대로 사용하고 revision의 값 형식이나 오류 코드를 엔진이 창작하지 않는다.
+
+**현재 구현:** 엔진 내부 세션의 provider 주입·요청 고정·동일 요청 재시도·서버 `activeRun` 적용 경계는 `src/core/dialogue-session.mjs`와 단위 테스트로 마련했다. 실제 서비스와 revision 출처가 없으면 화면 흐름과 연결할 수 없으며, 이 파일은 API·인증·저장을 대신하지 않는다. 저장 처리 중 이탈·다른 이벤트 시작도 차단한다.
+
+- [ ] context revision 출처, 실제 activeRun 응답의 엔진 변환, pending event 전달 구조를 M에게 확인한다. 백엔드 endpoint·테이블을 대신 만들지 않는다.
+- [ ] API 미제공/실패·잘못된 event/계정/슬롯·화면 이탈 후 늦은 응답·연타를 재현하는 테스트부터 실행한다.
+- [ ] END는 COMPLETE, 허용된 버튼만 SKIP을 요청한다. 완료 요청은 같은 token/selectedChoices/requestId/expectedServerRevision 스냅샷으로 재시도한다. 새 revision 충돌은 임의 덮어쓰기하지 않는다.
+- [ ] 성공 응답 검증·서버 activeRun 적용/안정 저장이 끝나야 onContinue한다. 로컬 +2/+8, 숨은 스탯, 해금 플래그는 더하지 않는다. 서버 성공 뒤 로컬 반영 실패 시 API를 새 요청으로 중복 실행하지 않는다.
+- [ ] 실패/재접속 회귀·리뷰 후 사용자 승인 시 독립 커밋한다. 실제 provider가 없으면 unit/service-contract 검증만 완료로 구분한다.
+
+```js
+// tests/dialogue-session.test.mjs에 저장할 실패→재시도 검증 골격
+const sent=[];const provider=async input=>{sent.push(structuredClone(input));throw new Error('offline');};
+// 위 provider를 completeDialogue로 주입한 session fixture에서 END→retry 실행 후:
+assert.deepEqual(sent[1],sent[0]); // 재시도 ID/선택/revision은 동일
+```
+
+#### D3. 진입 통합·이전 저장 호환·다이어리
+
+**Files:** 수정 `src/preview-main.mjs`, `src/core/post-activity-story.mjs`, `src/core/main-story.mjs`, `src/core/narrative.mjs`, `src/ui/narrative.mjs`, `src/ui/journal.mjs`, 관련 기존 테스트와 신규 `tests/dialogue-integration.test.mjs`.
+
+**Interface:** 공식 Main/NPC/Location 진입은 D2.start에 현재 slot/event를 전달한다. 기존 pending/주차/모험 결과 버튼 경계를 유지하고 공식 신규 경로에서 옛 후보표·finishNarrative 직접 효과 처리를 호출하지 않는다.
+
+- [ ] Main/NPC/Location 세 진입이 같은 player를 사용하고, 금요일 완료 전 다음 주/다음 활동 체력이 진행되지 않는 실패 테스트부터 작성한다.
+- [ ] 새 Production은 Main 6개·NPC 12개·Location 6개다. 목록을 다시 클라이언트 후보 판정기로 복제하지 말고 provider의 pending event와 payload를 따른다. 옛 16개 Location/테스트 대사는 공식 신규 경로에서 제거한다.
+- [ ] `canSkip=false`에는 버튼이 없고 true일 때만 요청한다. SKIP은 서버의 완료 결과를 적용하며 엔진이 원고를 버리기만 하는 dismiss 방식으로 처리하지 않는다.
+- [ ] 기존 저장의 과거 이력은 읽기 호환한다. 새 완료 기록/대표 선택은 안정 ID·week만 사용하고 새 대화 원문을 장기 저장하지 않는다. 새 DTO와 이전 저장의 차이는 명시적 adapter로 다루며 자동 초기화하지 않는다.
+- [ ] 다음/건너뛰기 연타·결과 저장 실패·화면 이탈·금요일·재접속·기존 임시 이야기 복구·다이어리 회귀를 실행하고 리뷰한다. 승인 시 커밋하며 정식 원고/서버가 없는 조건을 별도 남긴다.
+
+```js
+// 기존 createPostActivityStoryFlow 기반 통합 fixture의 핵심 완료 기준
+assert.equal(nextActivityStarts,0); // 완료 요청/저장 대기 중
+assert.equal(nextActivityStarts,1); // 성공 응답 적용+안정 저장 후 한 번
+assert.deepEqual(run.stats,serverRun.stats); // 로컬 선택 보상 중복 합산 없음
+```
+
+### 실행 결과 — 2026-10-17
+
+- **R1 완료:** 오디오 자산명이 소문자 `.mp3`로 정리되어 엔진 재생 경로와 서버 allowlist를 실제 파일명에 맞췄다. UTF-8 한글 퍼즐 이미지 경로도 정적 허용 범위에 추가했다. 문서 파일 노출은 차단한다.
+- **D1 완료(공통 모듈):** 순차 재생기·화면 컴포넌트·테스트를 추가했다. 네 가지 LINE 모드, FOCUS/BACKGROUND 전환, 여러 선택과 반응 뒤 공통 흐름, 플레이어 초상 비표시, `canSkip` 표시, 대화기록과 명시적 종료를 다룬다.
+- **D2 부분 완료(엔진 경계):** 주입형 세션이 payload를 불러오고 동일 완료 요청을 재시도하며 응답 `activeRun` 적용 후에만 계속하도록 했다. provider 서비스나 revision이 없으면 완료를 만들지 않는다. 실제 provider·revision 출처·activeRun 저장 adapter가 없어 기존 게임 흐름에는 아직 연결하지 않았다.
+- **D3 대기:** Main/NPC/Location의 공식 pending event, 실제 slot/revision 입력, 서버 activeRun을 현재 로컬 저장에 안전하게 반영하는 adapter가 전달되면 통합한다. 이 값과 책임은 backend/provider 담당자에게 받아야 하며 임의로 채우지 않는다.
+- 엔진 테스트 **248개 통과**. 브라우저 화면은 사용자가 직접 검수한다. 커밋·푸시는 하지 않았다.
+
+### 후속 묶음의 착수·완료 기준
+
+- **A1/A2/A3:** JW/사용자가 버튼 색상과 최종 3개 방, 루루 의상/표정·사용 노드를 확인한 뒤 작업별 독립 실행 계획을 확정한다. UI는 원본 비율·키보드 이름·SFX 유지, 조각은 획득 위치만 노출, 12/12도 수신 해금 사실 확인, 배경은 명시 선택·설정 저장 성공 후 닫을 때 적용한다. 퍼즐 경로는 UTF-8 허용과 traversal/문서 노출 차단을 함께 테스트한다. API 이미지·스프라이트와 배경 상태 교체는 D1 공통 슬롯으로 처리한다.
+- **A4:** 새 5곡의 사용 장면/진입·복귀·루프·교차 페이드·기존 입학 1회 트랙 유지 여부를 먼저 확인한다. `title-audio.mjs`·server·오디오 테스트만 먼저 바꾸고 실제 파일/asset README 추가 커밋은 별도 승인한다. URL 200만으로 재생 성공으로 판단하지 않는다.
+- **M1:** mission ID·힌트·성공 성장 기준·어려움 목표 3/4·금지 영역/정렬 데이터를 받은 뒤 `adventure-mission.mjs`/`adventure-contract.mjs`/진입값을 교체한다. 3개 지도 각각 도달 가능한 배치·1/2/3~4/5 목표 수·시간 정지·실패 최소 성장·중단·결과 버튼 대기를 검증한다. 그림은 이미 연결돼 있으므로 다시 온실 공용 경로로 되돌리지 않는다.
+- **S1/S2/S3:** provider 계약이 준비된 영역부터 소비한다. 슬롯별 원본/메타 보호, 서버 revision 충돌, 세션 취소, 로그아웃 저장 유지와 **탈퇴 성공 시 해당 uid 캐시만 제거**를 구분한다. 현 콜백은 logout/delete를 구별하지 않아 실제 탈퇴 통합 때 보완이 필요하다. 수집 지급·LTPM 선별·AI 생성·안전 검증·원자성은 M이 구현하며 DS는 수신 상태·표시·진행 잠금만 연결한다.
+- **Q1:** 운영 provider로 초기 주 활동/중요 선택 저장→로그아웃·재접속→52주 편지/기록→최종 확정→새 회차를 검증한다. 같은 편지 재사용·중복 메타 지급 없음·서로 다른 슬롯/계정 격리·fallback/생성 안내를 확인한다. 배포용 자원 크기·대소문자·모바일 가로·오디오 autoplay·6종 미니게임 체감·최소 5명 실사용 근거는 팀 공동 검수다. source/asset 문서 오류는 원 담당자에게 인계한다.
+- **H1:** 돌아보기 질문/저장·관계 표시 계약이 승인되기 전에는 질문이나 친밀도 점수·강제 이동을 임의로 만들지 않는다. 제출 후 범위를 현재 Must로 끌어오지 않는다.
+
+### 검증·보존 결과와 다음 선택
+
+읽기 조사 뒤 기존 엔진 테스트 234개를 다시 실행해 통과했다. 실제 신규 버튼·루루·방 배경·새 장면 배경은 제공 가능함을 별도로 확인했고 퍼즐/새 음악의 제공 공백을 분리했다. 이 계획에서는 엔진 구현·원본·저장 데이터·브랜치·GitHub 상태를 변경하지 않았다. 새 Markdown은 만들지 않았으며 실행은 아직 시작하지 않았다.
+
+**권장 순서:** 작은 R1을 먼저 완료 → D1을 독립 검증 → D2/D3 및 실제 provider 협업. A1~A4는 디자인/음악 선택이 확정되는 묶음부터 병행한다. 운영 저장·AI·추가 캐릭터 SD·정식 원고를 DS가 대신 구현하는 계획으로 확대하지 않는다.
+
+### GitHub WBS 후속 확인
+
+| 이슈 | 이번 확인 | 권장 처리 |
+|---|---|---|
+| #147 대화·선택·스토리 장면 실행 | 이슈 본문 작업준비·댓글 0. 기존 실행 프레임은 main에 있으나 공통 DialoguePlayer/공식 계약은 미구현 | 실제 Project 필드와 최신 댓글 확인 후 진행중 검토. 작업완료 금지 |
+| #158 최종 디자인 자원 적용·조작 검증 | 본문 Backlog·댓글 0. 이번에는 연결 후보 조사만 수행 | 계획만으로 상태를 올리지 않음. JW 공동 화면 검수 후 판단 |
+| #159 계정·저장·API·엔딩 연결 | 본문 Backlog·댓글 0. 기존 계정/슬롯/알림 경계는 main 반영됐으나 실제 운영 통합은 미완료 | 실제 Project 확인 후 진행중 검토. 실제 API 완료로 표현하지 않음 |
+
+실제 Project Status 필드는 조회하지 않았으며 본문 기록으로 현재 필드를 단정하지 않는다. 이 계획만으로 GitHub를 변경하지 않았다. 사용자가 카드 상태를 담당한다.
+
+```text
+저장소 smong2/codyssey_final. GitHub만 다루며 파일/commit/branch/PR 생성·issue close·본문 대규모 재작성은 금지한다.
+대상 #147 [WBS 6.1.3] 대화·선택·스토리 장면 실행, #158 [WBS 6.3.1] 최종 디자인 자원 적용·조작 검증, #159 [WBS 6.3.2] 계정·저장·API·엔딩 연결.
+먼저 실제 Project Status, 본문, 최근 댓글과 main의 엔진 변경을 확인한다. engine/UPDATE_PLAN.md의 audit-2026-10-17은 신규 실행 계획이며 공통 대화 구현 완료가 아니다.
+#147: 활동 후 로컬 임시 이야기 화면은 공통 LINE/CHOICE/END 대화 UI에 연결했다. 기존 저장 완료와 주간 재개를 유지하며 임시 원고 표시를 남긴다. 실서비스 제공자 payload/토큰·완료 API는 미연결이며 별도 연결 검증이 남아 있다.
+#158: 자원 연결 후보와 경로만 조사했으므로 이 조사만으로 Backlog에서 올리지 않는다. 중복 아닌 인계 메모가 필요한지 검토하며 댓글 없이 상태 유지 가능.
+#159: 계정/슬롯 복구·알림/기존 엔딩 프레임은 main에 있지만 실제 provider·서버 저장·AI 워크플로우·공동 검수는 남아 있다. 진행중 검토, 작업완료 금지. 댓글 취지: 엔진 수신·복구 프레임은 반영됐으며 실제 운영 API·저장·엔딩 통합은 후속입니다.
+기존에 동등한 댓글이 있으면 추가하지 않는다. 댓글은 한 문장으로 제한한다. 부모는 active child 완료 검증 없이 완료 처리하지 않는다. Project Status 필드를 우선하고 근거 부족이면 유지한다.
+보고는 이슈별 기존 상태 → 변경 상태 / 댓글 요약으로 한다.
+```
+
 ## 애셋 독립 보완 실행 계획 — 2026-10-17
 
 목표: 원본 애셋 교체 없이 슬롯 오류·계정 화면·수신 획득 알림을 완성하고 저장/수신 실패와 재접속을 검증한다. 기준은 `document/content/08_ACCOUNT_POLICY.md`, `09_TITLE_ACCOUNT_UI.md`, `11_FEATURE_FRAME.md`다. 담당 범위는 `engine/`이며 외부 문서·미니게임·백엔드·원본·실제 사용자 저장은 수정하지 않는다. 실제 서비스는 주입받고 부재를 성공으로 표시하지 않는다. 커밋·푸시는 별도 요청 전 하지 않는다.

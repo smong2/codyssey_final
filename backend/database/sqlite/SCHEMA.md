@@ -1,11 +1,15 @@
-# 플레이어 로컬 SQLite 스키마 v2
+# LUMIA 콘텐츠/로컬 SQLite 스키마 v4
 
-이 문서는 [001_initial.sql](001_initial.sql)과 [002_dialogue_sequences.sql](002_dialogue_sequences.sql)에 실제로 생성되는 테이블·컬럼·제약을 설명한다. 저장 위치와 Firestore와의 권한 경계는 [STORAGE_DESIGN.md](../STORAGE_DESIGN.md), 중앙 사용자 문서의 상세 구조는 [SCHEMA.md](../SCHEMA.md)를 따른다. SQL이 실행 기준이며, 이 문서는 그 의미를 설명한다.
+이 문서는 [001_initial.sql](001_initial.sql), [002_dialogue_sequences.sql](002_dialogue_sequences.sql), [003_dialogue_runtime_content.sql](003_dialogue_runtime_content.sql), [004_story_event_rules.sql](004_story_event_rules.sql)에 실제로 생성되는 테이블·컬럼·제약을 설명한다. 저장 위치와 Firestore와의 권한 경계는 [STORAGE_DESIGN.md](../STORAGE_DESIGN.md), 중앙 사용자 문서의 상세 구조는 [SCHEMA.md](../SCHEMA.md)를 따른다. SQL이 실행 기준이며, 이 문서는 그 의미를 설명한다.
 
 ## 범위와 공통 규칙
 
-- 빈 SQLite DB에 `001_initial.sql`을 한 번 적용한 뒤 `002_dialogue_sequences.sql`을 한 번 적용한다. 적용 후 `PRAGMA user_version = 2`다.
-- 21개 테이블 중 17개는 배포 버전별 **읽기용 게임 마스터 사본**, 4개는 UID별 **로컬 캐시·임시 상태·전송 대기 데이터**다. SQL은 테이블과 인덱스만 만들며 마스터 행은 넣지 않는다.
+- 빈 SQLite DB에는 `001 → 002 → 003 → 004` 순서로 적용한다. 적용 후 `PRAGMA user_version = 4`다.
+- 개발용 SQLite 파일의 기본 경로는 저장소 기준 **`backend/database/sqlite/lumia-content.sqlite3`**다. `seed_dialogue_content.py`에서 `--db`를 생략하면 이 경로에 파일을 생성/갱신한다. 생성 DB와 WAL/SHM 파일은 Git 추적 대상이 아니다.
+- v4는 총 **29개 테이블**이다. 25개는 배포 버전별 읽기용 게임/대화/이벤트 마스터, 4개는 UID별 로컬 캐시·임시 상태·전송 대기 데이터다.
+- `003`은 Main/NPC/Location 공통 대화 표현 필드, 비플레이어 화자, 동적 역할 후보, 선택 효과, 이벤트 공통 효과를 추가한다.
+- `004`는 Main/NPC/Location 공통 발생 정책·추가 조건·동적 배역 hard exclusion을 추가한다. 이벤트별 가변 카운터를 마스터 DB에 저장하지 않고 서버가 `limit_group`과 Firestore 회차 상태를 함께 사용한다.
+- Main Story 마스터 행은 [seed_dialogue_content.py](seed_dialogue_content.py), Location Story 마스터·규칙·효과 행은 [seed_location_story_master.py](seed_location_story_master.py)가 검수된 Markdown에서 생성한다. Location 32인 대화 시퀀스는 Character Set 검수 후 같은 테이블에 후속 적재한다.
 - 마스터의 `version`은 `game_data_versions.version`을 참조한다. `game_data_versions.is_active = 1`은 전체 DB에서 최대 한 행이다. 새 버전 적재·활성화와 구버전 삭제는 후속 동기화 구현에서 다룬다.
 - `uid`는 Firebase Authentication UID다. 로컬 테이블의 `uid`는 계정별 데이터를 구분할 뿐 권한을 증명하지 않는다. 로그인·계정 전환 때 현재 인증 UID와 일치하는 행만 읽는다.
 - `*_at_utc` 필드는 UTC 시각 문자열을 저장한다. 현재 DDL은 문자열 형식 자체를 검사하지 않으므로 애플리케이션에서 일관된 ISO 8601 형식으로 기록한다.
@@ -18,10 +22,16 @@
 ```text
 game_data_versions (1)
   ├─ characters, pets, locations, endings, collectibles
+  ├─ dialogue_speakers
+  ├─ story_roles ── story_role_candidates ── characters
+  │      └─ story_role_exclusions ── story_roles
   ├─ activities ── locations
   ├─ minigames ── activities
   ├─ stories ── locations
-  │    └─ story_events ── story_steps / story_choices
+  │    └─ story_events ── story_steps / story_choices ── story_choice_effects
+  │              ├─ story_event_rules
+  │              ├─ story_event_conditions
+  │              └─ story_event_effects
   │                           └─ dialogue_sequences (캐릭터별)
   │                                └─ dialogue_nodes / dialogue_options
   └─ unlock_conditions ── unlock_rewards
@@ -152,6 +162,9 @@ PK: `(version, story_id, step_no)`. `(version, story_id, event_id)`는 `story_ev
 | `event_id` | TEXT, NOT NULL, FK | 이 단계의 이벤트 |
 | `earliest_week` | INTEGER, NULL 또는 1~52 | 가장 이른 노출 주차 |
 | `display_order` | INTEGER, 기본 0, 0 이상 | 같은 맥락에서의 표시 순서 |
+| `scheduled_month` | INTEGER, NULL 또는 1~12 | 날짜가 고정된 Main Story 등의 월 |
+| `scheduled_day` | INTEGER, NULL 또는 1~31 | 날짜가 고정된 Main Story 등의 일 |
+| `availability_rule_ref` | TEXT, NULL | 서버가 사용할 발생 규칙 식별자. 예: `MAIN_FIXED_DATE`; NPC/Location 가중치·선행 조건은 서버 규칙으로 확장 |
 
 `ix_story_steps_event(version, event_id)`는 이벤트에서 단계 찾기용이다.
 
@@ -166,6 +179,8 @@ PK: `(version, event_id, choice_id)`. 선택지는 원본 이벤트를 참조하
 | `display_order` | INTEGER, 기본 0, 0 이상 | 선택지 순서 |
 | `next_event_id` | TEXT, NULL, FK | 후속 이벤트. NULL이면 여기서 연결 종료 |
 | `summary_text` | TEXT, NULL | 선택 결과 요약 |
+| `is_important` | INTEGER, 기본 0, 0/1 | 중요 선택/장기 기억 후보 여부. 보상 수치와는 별개 |
+| `choice_group_id` | TEXT, NULL | 이벤트 안에서 같은 선택 화면에 속한 선택지 그룹 ID. 예: `MS05_S4_RECONNECT` |
 
 `ix_story_choices_order(version, event_id, display_order)`는 이벤트별 선택지 순서 조회용이다.
 
@@ -219,7 +234,58 @@ PK: `(version, condition_id, reward_type, reward_id)`. `(version, condition_id)`
 | `reward_id` | TEXT, NOT NULL, PK | 대상 ID 또는 영구 보너스 종류 |
 | `amount` | INTEGER, 기본 1, 1~15 | 안내용 수량/보너스값 |
 
-## 캐릭터별 대화 마스터 테이블 (3개, v2)
+## 대화 화자·역할 마스터 (4개, v4)
+
+### `dialogue_speakers`
+
+플레이 가능한 32명은 `characters`에 두고, 그 밖의 고정 NPC·생물·초상 없는 텍스트 화자는 이 테이블에 둔다. 따라서 발렌티누스, 그림자, 향후 룰루·세린을 위해 `characters`에 가짜 플레이 캐릭터 행을 만들지 않는다.
+
+| 컬럼 | 타입·제약 | 의미 |
+|---|---|---|
+| `version`, `speaker_id` | TEXT, NOT NULL, 복합 PK | 마스터 버전과 비플레이어 화자 ID |
+| `display_name` | TEXT, NOT NULL | UI 표시 이름 |
+| `speaker_type` | `NPC`/`CREATURE`/`TEXT_ONLY` | 화자 표현 유형 |
+| `portrait_asset_ref` | TEXT, NULL | 초상 자원. NULL이면 텍스트 화자로 정상 처리 |
+| `description` | TEXT, NULL | 제작용 설명 |
+| `sort_order` | INTEGER, 0 이상 | 관리/목록 순서 |
+
+대화 노드의 `speaker_ref = NPC:<speaker_id>`가 이 마스터를 참조한다. SQL FK로 문자열 prefix까지 묶지는 않고 적재 검증기가 존재 여부를 검사한다.
+
+### `story_roles`
+
+`ROLE:<roleId>`의 서버 해석 규칙이다. `STORY_CAST`는 회차 시작 때 실제 학생을 뽑아 `activeRun.storyCast`에 저장하고, `FIXED_CHARACTER`/`FIXED_SPEAKER`는 고정 대상을 해석한다.
+
+| 컬럼 | 의미 |
+|---|---|
+| `role_id` | `MAIN_GUIDE_STUDENT`, `MAIN_TEACHER` 같은 안정 역할 ID |
+| `role_scope` | `MAIN`/`NPC`/`LOCATION`/`GLOBAL` |
+| `resolver_type` | `STORY_CAST`/`FIXED_CHARACTER`/`FIXED_SPEAKER` |
+| `fixed_ref` | 고정 역할일 때 `CHARACTER:CHxx` 또는 `NPC:<speakerId>` |
+| `exclude_player` | 동적 후보에서 현재 주인공 제외 여부 |
+| `assignment_order` | 회차 시작 시 동적 역할을 확정하는 순서. 0은 고정 역할/배정 순서 없음 |
+| `prior_assignment_policy` | `ALLOW` / `PREFER_DISTINCT` / `REQUIRE_DISTINCT`. 앞서 배정된 학생과의 중복 처리 정책 |
+| `description` | 제작용 설명 |
+
+`assignment_order > 0`은 버전 안에서 UNIQUE다. 서버는 이 순서대로 `STORY_CAST` 역할을 확정해야 앞선 역할과의 캐릭터 중복 회피가 결정론적으로 동작한다. Main 7개 동적 역할은 1~7이며 `REQUIRE_DISTINCT`, `LOC_GREENHOUSE_STUDENT`는 8번이며 `PREFER_DISTINCT`를 사용한다.
+
+### `story_role_candidates`
+
+PK는 `(version, role_id, priority)`이며 같은 역할 안에서 캐릭터 중복 후보를 금지한다. Main Story 7개 동적 학생 역할의 현재 우선 후보 8명씩, 총 56행을 적재한다. 서버는 앞선 역할에서 이미 배정한 학생과 현재 주인공을 제외한 뒤 `priority`가 가장 작은 사용 가능 후보를 선택한다.
+
+`MAIN_TEACHER`는 후보 행을 갖지 않고 `FIXED_SPEAKER → NPC:VALENTINUS`로 저장한다. 향후 `LOC_GREENHOUSE_STUDENT`, NPC Story의 대체 배우 역할도 같은 구조를 사용할 수 있다.
+
+### `story_role_exclusions` (v4)
+
+동적 배역 사이의 **절대 중복 금지**를 저장한다. `prior_assignment_policy=PREFER_DISTINCT`처럼 다른 역할 재사용을 fallback으로 허용하더라도 이 테이블의 관계는 반드시 지켜야 한다.
+
+| 컬럼 | 의미 |
+|---|---|
+| `version`, `role_id`, `excluded_role_id` | 복합 PK. 두 역할 관계 |
+| `exclusion_type` | 현재 `DISTINCT_CHARACTER`만 지원 |
+
+현재 Location 행은 `LOC_GREENHOUSE_STUDENT != MAIN_GREENHOUSE_STUDENT` 한 건이다.
+
+## 캐릭터별 대화 마스터 테이블 (3개, v3~v4 공통)
 
 이 세 테이블은 [대화 시퀀스 콘텐츠 계약](../../../document/content/13_DIALOGUE_SEQUENCE.md)에 따라 **스토리 진행 단계마다 참여 가능한 플레이 캐릭터별로** 사전 작성한 읽기용 데이터다. `event_id`는 `story_steps`에 묶인 이벤트여야 한다. 메인·지역 단계는 캐릭터 32명분, NPC 단계는 대상 NPC와 같은 플레이 캐릭터를 제외한 참여 가능 캐릭터분을 적재한다. 현재 SQL은 행의 키와 참조를 검증하지만 **필수 선택이 모든 경로에 존재하는지, 캐릭터 수가 충분한지**는 마스터 버전 활성화 전 콘텐츠 검증기가 검사한다.
 
@@ -247,13 +313,21 @@ PK: `(version, story_id, step_no, character_id, node_id)`. 앞의 네 컬럼은 
 | `version`, `story_id`, `step_no`, `character_id` | TEXT/TEXT/INTEGER/TEXT, NOT NULL, PK/FK | 소속 대화 시퀀스 |
 | `node_id` | TEXT, NOT NULL, PK | 시퀀스 내 노드 ID |
 | `node_kind` | TEXT, NOT NULL, `LINE`/`IMAGE`/`CHOICE`/`END` | 대사·이미지·선택 지점·종료 |
+| `line_mode` | `DIALOGUE`/`NARRATION`/`THOUGHT`/`CONTEXT`, LINE 필수 | LINE 표현 모드 |
 | `speaker_kind` | TEXT, NULL, `PLAYER`/`NPC`/`NARRATOR` | 대사 화자 유형. `LINE`에는 필수 |
-| `speaker_ref` | TEXT, NULL | NPC 화자 식별자 또는 `ROLE:<roleId>` 동적 배역 참조. `speaker_kind = NPC`면 필수 |
-| `line_text` | TEXT, NULL | 대사 또는 선택 프롬프트. `LINE`이면 비어 있지 않아야 함 |
-| `image_asset_ref` | TEXT, NULL | 스토리 원고에 지정된 이미지 자원 참조. `IMAGE`이면 필수 |
+| `speaker_ref` | TEXT, NULL | `ROLE:<roleId>`, `NPC:<speakerId>` 등. `speaker_kind = NPC`면 필수 |
+| `line_text` | TEXT, NULL | LINE 실제 문구. 공백만 허용하지 않음 |
+| `visual_mode` | `SPEAKER`/`KEEP`/`NONE`, LINE 필수 | 현재 중심 이미지 처리 |
+| `image_target` | `BACKGROUND`/`FOCUS`, IMAGE 필수 | 이미지 출력 슬롯 |
+| `image_action` | `SHOW`/`REPLACE`/`HIDE`, IMAGE 필수 | 이미지 동작 |
+| `image_asset_type` | `CHARACTER`/`ITEM`/`SCENE`/`EFFECT`, IMAGE 필수 | 자원 의미 유형 |
+| `image_asset_ref` | TEXT, NULL | HIDE 외 IMAGE에서 필수인 안정 자원 참조 |
+| `image_alt` | TEXT, NULL | 접근성/관리용 설명 |
+| `choice_group_id` | TEXT, NULL, CHOICE 필수 | 제작 문서의 선택 화면 의미 ID. 예: `MS05_S4_RECONNECT` |
+| `choice_prompt` | TEXT, NULL | 선택 화면 별도 프롬프트가 필요할 때 사용 |
 | `next_node_id` | TEXT, NULL, 지연 FK | `LINE`/`IMAGE` 다음 노드. `CHOICE`/`END`에는 없음 |
 
-`IMAGE` 노드는 이미지가 나타나는 순서를 명시한다. `LINE`에도 같은 순간 표시할 `image_asset_ref`를 둘 수 있다. 실제 이미지 사용 여부는 스토리 원고와 대조한다. `speaker_ref`가 `ROLE:`로 시작하면 현재 슬롯 `activeRun.storyCast`에서 실제 캐릭터 ID를 조회해 이름·스프라이트를 표시한다. 해석할 수 없는 role 참조는 다른 NPC로 임의 대체하지 않고 콘텐츠 데이터 오류로 처리한다. `CHOICE`에서 다음 노드로 가는 간선은 `dialogue_options`에 저장한다.
+`IMAGE`와 `LINE`의 표현 필드는 최종 Dialogue API 계약을 그대로 보존한다. `speaker_ref`가 `ROLE:`이면 `story_roles` 및 현재 슬롯 `activeRun.storyCast`로 해석하고, `NPC:`이면 `dialogue_speakers`에서 표시 정보를 찾는다. 해석할 수 없는 참조는 다른 화자로 임의 대체하지 않고 콘텐츠 데이터 오류로 처리한다. `CHOICE`에서 다음 노드로 가는 간선은 `dialogue_options`에 저장한다.
 
 ### `dialogue_options`
 
@@ -269,6 +343,55 @@ PK: `(version, story_id, step_no, character_id, choice_node_id, choice_id)`. `ch
 | `sort_order` | INTEGER, 기본 0, 0 이상 | 선택지 표시 순서 |
 
 `ix_dialogue_options_order(version, story_id, step_no, character_id, choice_node_id, sort_order)`는 선택지 순서 조회용이다. 기존 `story_choices`는 이벤트 단위의 선택 의미·후속 이벤트 연결을 보관하며, 이 테이블은 캐릭터별 화면 문구·대화 분기를 보관한다. 두 테이블의 `choice_id`가 같은 이벤트 안에서 일치하는지 콘텐츠 적재 시 검사한다.
+
+## 선택·이벤트 효과 마스터 (2개, v3)
+
+### `story_choice_effects`
+
+선택 문구와 실제 결과를 분리한다. PK는 `(version, event_id, choice_id, effect_order)`다. `effect_type`은 현재 `VISIBLE_STAT / HIDDEN_STAT / EVENT_FLAG / COUNTER`, `target`은 `knowledge`, `empathy` 같은 서버 도메인 키, `value_json`은 JSON 정수·불리언·문자열 등을 저장한다.
+
+Main Story 데이터는 canonical choice 40개에 보이는 스탯 + 보이지 않는 스탯 두 효과씩, **80행**을 생성한다. 엔진 payload에는 이 값을 넣지 않고 `completeDialogue` 시 서버가 `choiceId`로 조회한다. `completionMode=SKIP`이면 이 테이블의 선택 효과를 적용하지 않는다.
+
+### `story_event_effects`
+
+선택과 무관한 사건 완료 결과를 저장한다. `apply_on`은 `COMPLETE_ONLY` 또는 `COMPLETE_OR_SKIP`이고, 현재 `STORY_PROGRESS / EVENT_FLAG / COUNTER`를 지원한다.
+
+스토리 진행 완료처럼 스킵해도 반드시 이어져야 하는 결과는 `COMPLETE_OR_SKIP`로 둔다. Main Story에서는 각 `MS01~MS06` 완료 진행 효과와 `MS05 guardianRuneResolved=true`를 이 방식으로 적재한다. 선택 보상과 진행 필드를 분리했기 때문에 QA/첫 엔딩 이후 스킵에서도 스탯 보상 없이 사건만 정상 완료할 수 있다.
+
+## Story 발생 규칙 마스터 (2개, v4)
+
+### `story_event_rules`
+
+Main/NPC/Location 이벤트별 후보 선정 정책을 공통으로 저장한다. PK는 `(version, event_id)`다.
+
+| 컬럼 | 허용값/의미 |
+|---|---|
+| `trigger_phase` | `FIXED_DATE` / `AFTER_ACTIVITY` / `WEEKEND` / `MANUAL` |
+| `selection_policy` | `FIXED` / `UNSEEN_FIRST` / `WEIGHTED` |
+| `repeat_policy` | `ONCE_PER_RUN` / `REPEATABLE` |
+| `requires_location_match` | 현재 활동 장소와 `stories.location_id` 일치 필요 여부 |
+| `limit_group` | 공통 발생 제한 그룹. Location은 `SIDE_STORY` |
+| `cooldown_weeks` | 콘텐츠별 추가 쿨다운. 현재 Location은 0 |
+| `is_active` | 런타임 후보 사용 여부 |
+
+현재 Location 6개는 모두 `AFTER_ACTIVITY / UNSEEN_FIRST / ONCE_PER_RUN / requires_location_match=1 / SIDE_STORY`다. `SIDE_STORY`의 **주당 2회·하루 1회** 같은 가변 카운터는 이 테이블에 저장하지 않고 Firestore `activeRun.storyEventWindow`와 서버 정책으로 적용한다.
+
+### `story_event_conditions`
+
+`earliest_week`, Location 일치, 고정 날짜 같은 기본 컬럼만으로 표현되지 않는 추가 선행 조건을 정규화한다. PK는 `(version, event_id, condition_order)`다.
+
+지원 `condition_type`:
+
+- `PREVIOUS_EVENT_COMPLETE`
+- `LOCATION_ID`
+- `ACTIVITY_TYPE`
+- `NPC_ENCOUNTER_GTE`
+- `STORY_STATUS`
+- `EVENT_FLAG`
+- `MAIN_PROGRESS`
+- `CUSTOM`
+
+조건값은 `value_json`에 유효 JSON으로 저장하고 `operator`는 `EQ / NE / GTE / LTE / IN / NOT_IN`을 사용한다. 현재 천문대는 `LOC_OBS_02→OBS_01`, `OBS_03→OBS_02`, `OBS_04→OBS_03`의 완료 조건 3행을 갖는다.
 
 ## UID별 로컬 테이블 (4개)
 
@@ -330,8 +453,13 @@ PK: `(uid, local_event_id)`. 최근 활동 화면을 위한 로컬 표시 기록
 
 ## 적용·운영 경계
 
-- 새 DB 생성 예: `sqlite3 lumia-client.sqlite3 < backend/database/sqlite/001_initial.sql` 다음 `sqlite3 lumia-client.sqlite3 < backend/database/sqlite/002_dialogue_sequences.sql`. 이 명령은 개발 검증용 예시다. 브라우저에서는 SQLite WASM/OPFS 초기화 코드가 두 SQL을 순서대로 마이그레이션으로 실행해야 한다.
-- 이 스키마는 **마이그레이션 실행 코드, 마스터 데이터 적재, Firestore 동기화 API, 계정 삭제 시 로컬 정리**를 아직 구현하지 않는다. 해당 동작을 SQL 파일 존재만으로 완료 처리하지 않는다.
+- 새 DB는 `001_initial.sql → 002_dialogue_sequences.sql → 003_dialogue_runtime_content.sql → 004_story_event_rules.sql` 순서로 적용한다. `seed_dialogue_content.py --migrate`와 `seed_location_story_master.py --migrate`는 v4까지 자동 적용한다.
+- 저장소 루트에서 Main Story 데이터 적재 예: `python3 backend/database/sqlite/seed_dialogue_content.py --migrate --version dev-dialogue-v1`. 성공하면 **`backend/database/sqlite/lumia-content.sqlite3`**가 생성된다. 다른 DB를 사용할 때만 `--db <경로>`를 지정한다. 전체 마스터 버전이 준비되기 전에는 `--activate`를 생략하고, NPC/Location 등 같은 버전 데이터까지 검증된 뒤 활성화한다.
+- Main v3 마이그레이션과 기존 Main seed의 `192 sequences / 40 choices / 80 effects` 결과는 사용자가 실제 로컬 DB에서 확인했다. 이번 v4 마이그레이션은 아직 사용자 실행 검증 전이다.
+- Location 마스터 적재 예: `python3 backend/database/sqlite/seed_location_story_master.py --migrate --version dev-dialogue-v1`. 현재 단계 예상은 `user_version=4 / Location stories=6 / events=6 / canonical choices=13 / choice effects=29 / Location dialogue_sequences=0`이다. 마지막 `0`은 32인 Character Set 적재 전이므로 정상이다.
+- Location DB 상세 설계·Firestore 경계·검증 SQL은 [Location Story DB 명세](../LOCATION_STORY_DB_SPEC.md)를 따른다.
+- 저장소 작업 도구에는 임의 셸 실행 권한이 없으므로 **v4 migration/Location seed 실행 결과는 아직 확인하지 않았다.** DDL/seed 구현 완료와 실제 실행 검증 완료를 구분한다.
+- Firestore 동기화 API와 정식 FastAPI Dialogue compiler/complete transaction은 별도 구현 작업이다. SQL과 seed 파일 존재만으로 서버 런타임 완료로 보지 않는다.
 - 로컬 계정 탈퇴 시 위 4개 UID별 테이블에서 해당 `uid` 행을 제거한다. 마스터 사본은 UID와 무관하므로 유지할 수 있다. 로그아웃·계정 전환 시 다른 UID의 캐시를 노출하지 않는다.
 - 마스터 사본의 `ON DELETE CASCADE`는 구버전 정리 시 종속 행을 함께 지우기 위한 것이다. 로컬 UID별 테이블에는 마스터 버전 외래 키가 없으므로 마스터 갱신과 별개로 수명주기를 관리한다.
 - 활동 결과·주간 종료·엔딩의 권위 있는 저장은 [Firestore 스키마](../SCHEMA.md)와 서버 트랜잭션 계약에 따른다.

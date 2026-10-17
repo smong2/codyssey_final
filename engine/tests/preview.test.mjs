@@ -21,12 +21,12 @@ test('seal and explicit rune schedules resolve forfeits as failures',()=>{
 });
 test('calendar uses Sunday first and day365 with the approved temporary Arcadia era',async()=>{
  const {calendarModel,titleModel}=await import('../src/core/preview.mjs');
- const p=createProfile();assert.deepEqual(titleModel(p),{startLabel:'시작하기',continueVisible:false,startDisabled:false});
+ const p=createProfile();assert.deepEqual(titleModel(p),{startLabel:'시작하기',continueVisible:false});
  startRun(p,1,'CH01');assert.equal(titleModel(p).continueVisible,true);
  const m=calendarModel(p.slots[0].activeRun);assert.equal(m.month,1);assert.equal(m.day,1);assert.equal(m.weekday,1);assert.equal(m.cells[0].month,12);assert.equal(m.cells[0].day,31);assert.equal(m.cells[0].inWeek,false);assert.equal(m.cells[1].day,1);assert.equal(m.cells.length,42);assert.equal(m.cells[31].day,31);assert.equal(m.cells[41].month,2);assert.equal(m.cells[41].day,10);assert.equal(m.arcadiaYear,327);
  assert.equal(m.cells[1].actionIndex,0);assert.equal(m.cells[7].weekend,true);assert.equal(m.cells[7].actionIndex,null);
  const ending=calendarModel({week:52,day:5,phase:'AWAITING_ENDING'});assert.equal(ending.month,12);assert.equal(ending.day,31);assert.equal(ending.weekday,1);assert.equal(ending.arcadiaYear,327);
- for(const s of p.slots)s.status='RUN_COMPLETE';assert.equal(titleModel(p).startDisabled,true);
+ for(const s of p.slots)s.status='RUN_COMPLETE';assert.deepEqual(titleModel(p),{startLabel:'새로 시작하기',continueVisible:true});
 });
 test('non-leap calendar matches story weeks without changing run progress or history',async()=>{
  const {calendarModel}=await import('../src/core/preview.mjs');
@@ -59,7 +59,7 @@ test('schedule session preserves navigation draft but resets for a replacement r
 test('approved preview assets are served with correct types without exposing repository',async t=>{
  const {createEngineServer}=await import('../server.mjs');const s=createEngineServer();await new Promise(r=>s.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>s.close(r)));
  const base='http://127.0.0.1:'+s.address().port;
- for(const [path,type] of [['/design-assets/pet/PT01_owl.png','image/png'],['/design-assets/font_files/gowun_batang.woff2','font/woff2'],['/design-assets/map/map1_straight.png','image/png'],['/design-assets/ui/player_status_frame_015.png','image/png'],['/intro.mp4','video/mp4']]){
+ for(const [path,type] of [['/design-assets/pet/PT01_owl.png','image/png'],['/design-assets/font_files/gowun_batang.woff2','font/woff2'],['/design-assets/map/map1_straight.png','image/png'],['/design-assets/ui/player_status_frame_015.png','image/png'],['/design-assets/ui/UI10_dialogue_panel_plain.png','image/png'],...['BT01_diary_green.png','BT02_backpack_green.png','BT03_menu_green.png','BT04_blank_green.png','BT04_blank_pale_green.png','BT05_start_game.png','BT06_new_game.png','BT07_continue_game.png'].map(file=>['/design-assets/ui/'+file,'image/png']),['/intro.mp4','video/mp4']]){
  const r=await fetch(base+path,{method:'HEAD'});assert.equal(r.status,200,path);assert.equal(r.headers.get('content-type'),type);
  }
  assert.notEqual((await fetch(base+'/design-assets/font_files/README.md')).status,200);

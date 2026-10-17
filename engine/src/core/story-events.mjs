@@ -1,14 +1,14 @@
 // Local preview content based on story/npc and story/location proposals.
 // These IDs never confirm authored story completion or award collection items.
 export const ADVENTURE_NPCS=Object.freeze([
- {id:'CH01',name:'카엘',image:'kael1_base.png',preferredLocation:'library'},
- {id:'CH15',name:'로빈',image:'robin1_base.png',preferredLocation:'greenhouse'},
- {id:'CH31',name:'니코',image:'nico1_base.png',preferredLocation:'observatory'},
- {id:'CH02',name:'세라',image:'sera1_base.png',preferredLocation:'observatory'},
- {id:'CH08',name:'아이리스',image:'iris1_base.png',preferredLocation:'library'},
- {id:'CH16',name:'티아',image:'tia1_base.png',preferredLocation:'greenhouse'},
- {id:'CH25',name:'렌',image:'ren1_base.png',preferredLocation:'workshop'},
- {id:'CH26',name:'다나',image:'dana1_base.png',preferredLocation:'workshop'},
+ {id:'CH01',name:'카엘',image:'kael0_fullbody.png',preferredLocation:'library'},
+ {id:'CH15',name:'로빈',image:'robin0_fullbody.png',preferredLocation:'greenhouse'},
+ {id:'CH31',name:'니코',image:'nico0_fullbody.png',preferredLocation:'observatory'},
+ {id:'CH02',name:'세라',image:'sera0_fullbody.png',preferredLocation:'observatory'},
+ {id:'CH08',name:'아이리스',image:'iris0_fullbody.png',preferredLocation:'library'},
+ {id:'CH16',name:'티아',image:'tia0_fullbody.png',preferredLocation:'greenhouse'},
+ {id:'CH25',name:'렌',image:'ren0_fullbody.png',preferredLocation:'workshop'},
+ {id:'CH26',name:'다나',image:'dana0_fullbody.png',preferredLocation:'workshop'},
  {id:'NPC_LULU',name:'루루',image:null,preferredLocation:'greenhouse'}
 ].map(Object.freeze));
 const LOCATIONS=['greenhouse','library','observatory'];

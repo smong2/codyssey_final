@@ -21,7 +21,7 @@ function renderRoom(review,{phase='ACTING',schedule=['rest','rune-circuit','rest
   el:fakeNode,
   btn(text,action,className){const button=fakeNode('button',text,className);button.onclick=action;return button;},
   img:fakeNode,shell,heading(title){headingTitle=title;shell.children=[];shell.append(fakeNode('h1',title));},current:()=>run,
-  characters:[{id:'CH01',name:'카엘',image:'CH01_1_base.png'}],
+  characters:[{id:'CH01',name:'카엘',fullbody:'kael0_fullbody.png'}],
   emptyFrame(){},message(){},menu(){},onAdventure(){},onAction(){},onCommit(){},onFinish(){},onEnding(){},onRetry(){},
   isSaveFailed:()=>false,onDiary(){},onBag(){},onAdmission(){},onPet(){},activePet:()=>({name:'베른',image:'PT01_owl.png',modifiers:{}}),meta:()=>({}),decorateRoom(){},
   reviewPrompt:()=>review,onReview(){},onDismissReview(){}
@@ -43,6 +43,14 @@ test('room offers review of the completed activity and its completed weekday',()
 test('room does not show a review prompt without a newly completed activity',()=>{
  const {shell:room}=renderRoom(null);
  assert.equal(findAll(room,node=>node.className.includes('room-review-prompt')).length,0);
+});
+
+test('profile keeps its status frame and text without a small character portrait',()=>{
+ const {shell}=renderRoom(null),profile=findAll(shell,node=>node.className.includes('room-profile-card'))[0];
+ assert.ok(profile);
+ assert.equal(findAll(profile,node=>node.className.includes('mini-profile-face')).length,0);
+ assert.match(profile.textContent,/카엘/);
+ assert.match(profile.textContent,/체력 80/);
 });
 
 test('room date card opens schedule and no separate bottom schedule button is rendered',()=>{
