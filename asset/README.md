@@ -8,7 +8,7 @@
 | [sd_character/](sd_character/README.md) | 기본 오픈 6명 × 8방향, PNG 48개 | 카엘 기존본 + 신규 5명; 256×256 프레임 3개/스트립, 최종 모션·게임 적용 검수 필요 |
 | [item/](item/README.md) | 아이템 20종, 조사 오브젝트와 상태 변형 | 개별 사용 장면·상태 확인 필요 |
 | [background/](background/README.md) | 장소 배경과 마이룸 시간대 변형, 총 15장 | 장소별 화면 적용 검수 필요 |
-| [puzzle/](puzzle/README.md) | 타일 바탕과 연결/회전 상태 그림 | 규칙·시각 상태 연결 검수 필요 |
+| [puzzle/](puzzle/README.md) | 룬 회로 에셋 9개, 마이룸 낮 배경 퍼즐 조각 36개와 경계선 완성본 3개 | 방 퍼즐은 1672×941 시안 원본에서 분할; 실제 화면 적용 검수 필요 |
 | [ui/](ui/README.md) | 카드·초대장·가방·기록·힌트·대화창·로고와 게임용 환경 이미지 15장 | 기존 환경 이미지는 `UI20_environment_` 묶음으로 통합; 배치·경계·가림 및 화면 적용 검수 별도 |
 | [effect/](effect/README.md) | 공통 룬 빛과 확정 로고 전용 빛무리, PNG 2개 | 합성·동작 검수 필요 |
 | [bern/](bern/README.md) | 본편 펫 10종 | 물리 폴더명은 `bern`이지만 의미상 `asset/pet`; `PET01~PET10` 실제 사용 자원 |

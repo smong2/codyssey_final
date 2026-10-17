@@ -7,7 +7,7 @@
 | `asset/character/` | 학생 전신과 상반신 감정 표현 이미지 | `kael0_fullbody.png`, `kael1_base.png`, `kael2_listening.png` |
 | `asset/item/` | 소지품·가구·조사 오브젝트 | `IT01_heart_diary_000.png`, `OBJ01_inspect_plant_wilted_020.png` |
 | `asset/background/` | 학원 장소 배경 | `BG02_clocktower_plaza_1920x1080_011.png` |
-| `asset/puzzle/` | 퍼즐 바탕과 연결 상태 | `PZ01_puzzle_tile_base_000.png`, `PZ_start_active_005.svg` |
+| `asset/puzzle/` | 룬 회로 에셋 9개, 우주방·공주방·식물방 낮 배경 퍼즐 조각 36개와 경계선 완성본 3개 | `tile0_base.png`, `PZ01_우주방.png`, `PZ01_우주방_01.png` |
 | `asset/ui/` | 카드·초대장·가방·기록·대화창·로고와 게임용 환경 이미지 15장 | `UI07_admission_invitation_004.png`, `UI20_environment_arch1_greenhouse.png` |
 | `asset/effect/` | 공통 룬 빛과 확정 로고 전용 빛무리 | `FX01_shared_rune_light.png`, `FX02_lumia_logo_glow.png` |
 | `asset/bern/` | 본편 펫 10종 | 물리 경로명은 과거 이름이나 의미상 `asset/pet/`; `PET01~PET10` 실제 사용 자원 |

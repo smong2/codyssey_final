@@ -233,11 +233,11 @@
     },
     {
       "path": "asset/puzzle/README.md",
-      "sha256": "ff80b7142a2de75dce4e3f12a60ed28af723dc9a24e85e7a0d939242b095e228"
+      "sha256": "43686bfefc1d926d35e41368368eee39accc460dca1e6721b707e0a1e05a649e"
     },
     {
       "path": "asset/README.md",
-      "sha256": "517c8f815c682bce01d84143fa8c8b2872e247fb41854205f725586a20cf80d8"
+      "sha256": "a5da76ad7b9cd463ff0cbd18b13c1d34a078a4962f93b9c3f5d99190e6c1228a"
     },
     {
       "path": "asset/screen/README.md",
@@ -289,7 +289,7 @@
     },
     {
       "path": "document/04_ASSETS.md",
-      "sha256": "fdc30ecabb6072fa7b85db91399a8682707f4f9cd863dc24d33cded6bd813ecd"
+      "sha256": "db1a8341cc92c9051e797ffb8c9582eac1042d7bf08dfde664fc9b19d992a634"
     },
     {
       "path": "document/05_TEAM_ROLES.md",
@@ -462,7 +462,7 @@
   ],
   "assetInventory": {
     "path": "asset",
-    "sha256": "24d28570eda943764f72b1628760cb0be4d15c7dd7fa93faf7c8e3fb813d92d2",
+    "sha256": "88b1dbe8683d01d39ecf09a3b6c4bdbf15aec876664ee75df7b5b2c744cb2fa1",
     "ai": [
       "document_for_ai/04_ASSETS.md"
     ]
