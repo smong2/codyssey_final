@@ -1,0 +1,12 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Firebase Authentication is used by the browser, but all Firestore data
+    // access goes through the authenticated FastAPI server. Admin SDK bypasses
+    // these rules; API authorization and IAM must be enforced separately.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

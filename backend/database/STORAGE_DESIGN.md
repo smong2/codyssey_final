@@ -77,9 +77,46 @@
 | `systemSettings/balance` | 5개 성장 스탯별 `rewardMultiplier`, `version`, `updatedAt`, `updatedBy` | 관리자 API |
 | `adminAuditLogs/{logId}` | 관리자 로그인 성공/실패, 운영 값 변경 내역 | 관리자 API |
 
-`activityDays`는 모든 조작을 쌓는 상세 이벤트 로그가 아니라 **하루 단위 요약**이다. 관리자 일·주·월 통계를 각 기기의 SQLite 없이 계산하기 위한 중앙 데이터다. `analyticsDays`는 재생성 가능한 파생 집계이며, 정확한 지표·중복 방지·갱신 주기는 상세 설계에서 확정한다. 과도한 단일 문서 갱신은 피하고 실제 사용자 규모에 맞춰 집계 방식을 검증한다. 사용자 삭제 시 해당 UID의 `activityDays`를 삭제하고 영향받는 날짜의 파생 집계를 다시 계산한다.
+`activityDays`는 모든 조작을 쌓는 상세 이벤트 로그가 아니라 **하루 단위 요약**이다. 관리자 일·주·월 통계를 각 기기의 SQLite 없이 계산하기 위한 중앙 데이터다. `analyticsDays`는 재생성 가능한 파생 집계이며, 아래 계약을 구현 기준으로 사용한다. 과도한 단일 문서 갱신은 피하고 실제 사용자 규모에 맞춰 집계 방식을 검증한다. 사용자 삭제 시 해당 UID의 `activityDays`를 삭제하고 영향받는 날짜의 파생 집계를 다시 계산한다.
 
 관리자 로그인 실패도 감사로그 대상이므로, 실패 시 식별자는 필요 범위에서 마스킹하거나 해시로 보관한다. 비밀번호·토큰·비밀키를 저장하지 않는다. 관리자 권한은 Firebase Custom Claims 또는 서버 승인 UID 기준으로 확인하며 로컬 SQLite 값으로 판정하지 않는다.
+
+### 3.3 일별 사용자 요약 계약
+
+`users/{uid}/activityDays/{kstDate}`의 ID와 `kstDate` 필드는 실제 확정 시각을 `Asia/Seoul`로 변환한 `YYYY-MM-DD`이며 서로 같아야 한다. 모든 `*At` 필드는 Firestore Timestamp(UTC 시각)다. 클라이언트가 보낸 날짜나 로컬 SQLite 로그는 집계 기준으로 신뢰하지 않는다.
+
+| 필드 | 타입·의미 |
+|---|---|
+| `uid`, `kstDate` | 경로와 일치하는 문자열 |
+| `firstActivityAt`, `lastActivityAt` | 그날 확정된 첫/마지막 게임 활동 시각; 가입·로그인만으로는 설정하지 않음 |
+| `activityCounts` | `class`, `adventure`, `rest`, `special`의 확정 횟수(음수 불가) |
+| `minigame` | `playCount`, `failCount`, `successCount`, `greatCount`, `byGameId.{gameId}.{fail|success|great}`; 게임별 결과 합계가 전체 결과와 일치 |
+| `story` | `mainCompletedCount`, `npcCompletedCount`, `locationCompletedCount` |
+| `run` | `completedRunCount`, `firstCompletedRunUserCount`(계정 최초 완주일에만 1), `endingViewCounts.{endingId}`, `finalStatSums.{stat}`, `finalStatGte300Counts.{stat}`, `finalStatGte500Counts.{stat}` |
+| `unlocks` | `newByTypeAndId.{type}.{id}`; 이 날짜에 계정에 **처음** 추가된 해금만 1회 집계. 기본 지급 항목은 제외 |
+| `updatedAt` | 서버가 마지막으로 요약을 확정한 시각 |
+
+`stat`은 `knowledge/expression/skill/exploration/magic`의 다섯 키다. `endingViewCounts`는 엔딩 화면 진입 시점이 아닌 최종 `타이틀로` 저장 성공 때 증가하며 fallback 엔딩도 포함한다. 같은 날 같은 엔딩을 두 번 완료하면 횟수 2로 저장한다. 최종 스탯 합계와 `300 이상`/`500 도달` 개수도 같은 완료 회차에서만 증가한다. 원시 대화, 선택 문구, hidden stat 수치, 이메일은 이 요약에 저장하지 않는다.
+
+FastAPI는 확정 게임 결과·`requestId` 멱등성 확인과 같은 저장 경계에서 해당 날짜의 요약을 **함께** 갱신한다. 실패한 요청, 재전송된 동일 `requestId`, 아직 확정되지 않은 화면 조작은 카운트를 증가시키지 않는다. 회차 완료·엔딩 확인의 정확한 트랜잭션 분리는 [Firestore 스키마](SCHEMA.md)의 엔딩 저장 원칙을 따른다. 계정 탈퇴 시 요약도 UID 하위 데이터와 함께 삭제하고, 영향받은 날짜를 재집계한다.
+
+### 3.4 전체 일별 집계와 조회 계약
+
+`analyticsDays/{kstDate}`는 식별 정보가 없는 서버 생성 파생 문서다. 해당 날짜의 살아 있는 계정 `activityDays`를 합산해 `activeUserCount`(활동 시각이 있는 UID 수), `activityCounts`, `minigame` 결과·게임별 결과, `story` 완료 횟수, `run` 완료 횟수·최초 완주 사용자 수·엔딩별 확인 횟수·최종 스탯 합계/임계값 개수, `unlocks.newByTypeAndId`를 만든다. `newUserCount`는 `users/{uid}.createdAt`의 KST 날짜로 별도 계산하며, 이 시각은 Firebase Auth 생성 시각을 기준으로 서버가 기록한다. 이 지표는 이메일 인증 후 bootstrap된 서비스 계정만 세며 미인증 Auth-only 가입은 포함하지 않는다. 파생 문서에는 `kstDate`, `generatedAt`도 둔다. 원천 사용자 요약에 없는 이메일·UID 목록은 넣지 않는다.
+
+게임 결과 확정 후 집계 문서를 동기 트랜잭션마다 직접 증가시키지 않는다. 서버 집계 작업이 영향 날짜를 재계산해 **교체**하며, 동시 재계산은 이전 결과가 최신 결과를 덮지 않게 직렬화하거나 원천 버전을 확인한다. 관리자 응답은 `generatedAt`을 함께 제공하여 집계 지연을 숨기지 않는다. 계정 삭제·데이터 복구 시에도 해당 날짜를 재생성한다. 집계가 없으면 0으로 단정하지 말고 재생성 또는 미집계 상태를 표시한다.
+
+일/주/월 범위는 KST 달력 경계로 계산한다. 활동 횟수·스탯 합계·신규 사용자 수처럼 **가산 가능한 지표만** `analyticsDays`의 날짜별 값을 합산한다. 주·월의 순사용자 수는 일별 `activeUserCount` 합이 아니다. 서버가 해당 기간의 `activityDays`를 `kstDate` 범위로 collection-group 조회하고 활동 시각이 있는 UID를 중복 제거한다. 최근 7일/30일도 같은 방식이다. 사용자당 평균 완료 회차와 최종 스탯 평균·임계값 비율은 합계와 완료 사용자/회차 분모로 계산하며 일별 평균을 다시 평균하지 않는다. 현재 전체 가입·플레이·완주 사용자 수와 **현재 보유** 해금 분포는 살아 있는 계정의 `users`, `statistics/global`, `meta/progress`를 별도로 집계한다. 일별 `unlocks`는 새 획득량이며 현재 보유량으로 표시하지 않는다.
+
+### 3.5 밸런스·감사·접근 정책
+
+`systemSettings/balance`는 `rewardMultiplier`에 다섯 성장 스탯을 모두 가지며 각 값은 `0.5~1.0`의 `0.1` 단위다. 기본값은 모두 `1.0`; `version`은 양의 정수로 시작해 실제 변경마다 증가하며 `updatedAt`·`updatedBy`(초기화 시 `SYSTEM`, 이후 승인된 관리자 UID)를 함께 기록한다. 관리자 API는 이전값/새값/버전을 같은 변경 경계의 `adminAuditLogs/{logId}`에 남긴다. 일회성 Story 보상과 hidden stat에는 배율을 적용하지 않는다.
+
+감사로그는 `eventType`(`ADMIN_LOGIN`/`BALANCE_CHANGE`), `occurredAt`, `result`(`SUCCESS`/`FAILURE`), 성공한 관리자 `adminUid` 또는 실패 식별자의 마스킹·해시값, 비밀정보 없는 `reasonCode`를 기본으로 한다. 로그인 시도는 확보 가능한 경우에만 IP/User-Agent를 추가하고, balance 변경은 `target`, `before`, `after`, `version`을 추가한다. 비밀번호·토큰·서비스 계정·Gemini Key는 기록하지 않는다. 로그의 운영 보존 기간은 별도 운영 결정 전까지 임의 자동 삭제하지 않는다.
+
+브라우저와 관리자 웹은 Firebase Authentication만 직접 사용한다. Firestore 게임 상태·관리 데이터의 읽기/쓰기는 인증된 FastAPI 경유로 한정하므로 루트 [`firestore.rules`](../../firestore.rules)는 모든 Client SDK 접근을 거부한다. Firebase Admin SDK의 Rules 우회 권한을 고려해 API가 매 요청의 UID·이메일 인증·관리자 권한을 검사하고 서버 자격 증명은 최소 권한 IAM으로 관리한다. 이 초안을 실제 Firebase 프로젝트에 적용하기 전 Emulator에서 일반 사용자·관리자 Client SDK의 읽기/쓰기 거부와 서버 경유 정상 동작을 검증한다.
+
+[`firestore.indexes.json`](../../firestore.indexes.json)은 기간 순사용자 집계에 필요한 `activityDays.kstDate` collection-group 단일 필드 인덱스만 명시한다. UID별 문서 직접 조회, `analyticsDays` 날짜 ID 범위, `endingRecords.completedAt` 단일 필드 정렬은 기본 인덱스를 사용한다. 향후 API에 복합 필터가 실제 생길 때 그 쿼리·Emulator 오류를 근거로 인덱스를 추가하며 추측으로 선행 생성하지 않는다.
 
 ## 4. 비용·동기화 경계
 
@@ -93,7 +130,7 @@
 
 - 브라우저별 SQLite WASM/OPFS 동작 검증과 대체 경로
 - SQLite WASM/OPFS 초기화·브라우저 마이그레이션 실행 코드와 Main/NPC/Location 전체 마스터 버전 생성·교체 절차. Location 32인 `dialogue_sequences/nodes/options` 변환·실제 SQLite 검증은 완료됐다.
-- Firestore `activityDays`의 지표·문서 크기·집계 전략 및 실제 읽기/쓰기 측정
+- Firestore `activityDays`/`analyticsDays`의 실제 문서 크기·쓰기 경쟁·집계 지연·읽기 비용 측정과 필요 시 집계 작업 분할
 - 요청 ID, 세이브 버전, 충돌·재접속·계정 전환·삭제 계약
-- Firestore 보안 규칙과 관리자 API 권한·감사로그 보존 정책
+- Firestore Rules의 Emulator 검증과 관리자 API 권한·감사로그 운영 보존 기간 결정
 

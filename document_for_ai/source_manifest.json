@@ -359,11 +359,11 @@
     },
     {
       "path": "backend/database/README.md",
-      "sha256": "73347c00e4b28010e4232842ceb83f5424ce5794abb66f4a6d81fe41de0c2755"
+      "sha256": "d50d9615b2df31c6abe9737834c46ed56524f49b6759d1c3791e82bc981c695f"
     },
     {
       "path": "backend/database/LOCATION_STORY_DB_SPEC.md",
-      "sha256": "208b0df7ad2f3f1290ead42e9017022ab4188fcd65250a97cafacadcf33d49fc"
+      "sha256": "8b1dc67d40d2ee14d385341da6036c9664bc09361d85ea1b651e5070609ef1d1"
     },
     {
       "path": "backend/database/NPC_STORY_DB_SPEC.md",
@@ -435,7 +435,7 @@
     },
     {
       "path": "document/dialogue/README.md",
-      "sha256": "183345f5b54425f99f0eb2d7bef05a5f345947954687383829a8a15200093620"
+      "sha256": "d22cf073e4331bd3164d1a1e75354b77b3b9665e72bda9127ec3e9ec18178106"
     },
     {
       "path": "document/dialogue/CHOICE_STAT_EFFECTS.md",
@@ -467,7 +467,7 @@
     },
     {
       "path": "document/dialogue/location/README.md",
-      "sha256": "92cb6755fce5e28dec235d2712f3d794344723b6cba91db4c2a4a7355b546b62"
+      "sha256": "e6ead0d50c42c8f842adc984b9c71f1e225ca37a2062cf54b418d729d201e342"
     },
     {
       "path": "document/dialogue/location/character_sets/CAST_MATRIX.md",
@@ -475,7 +475,7 @@
     },
     {
       "path": "document/dialogue/location/character_sets/README.md",
-      "sha256": "fb59b6508d96106fc8010f0f0ea88eb57e57de106436c68540d951424d731e40"
+      "sha256": "4baa9cc735b9b72366fdcabaa7445c4c202d345c733a392e52dd70074783fc87"
     },
     {
       "path": "document/dialogue/location/character_sets/SET_NF_CH09_CH16.md",
@@ -715,7 +715,7 @@
     },
     {
       "path": "document/content/13_DIALOGUE_SEQUENCE.md",
-      "sha256": "ad90303ec54eca8760fe999e0fa9650a59467c1bc17c9eb0f1a95c186eb448c2"
+      "sha256": "13b5c30a601566f43c76ac7957c9244e24ef997c3dca190826b0438ad1eae3f9"
     },
     {
       "path": "document/content/README.md",
@@ -747,7 +747,7 @@
     },
     {
       "path": "story/location/README.md",
-      "sha256": "63a94cc3d7583d49bf81f2e031ed65353a068ad505216fd284d718ea23902a29"
+      "sha256": "28eb9cd52fc9f0b95e95e1f494ebb2d6142c105391d4b03656aeef7b62e310f5"
     },
     {
       "path": "story/main/main_final.md",
@@ -763,7 +763,7 @@
     },
     {
       "path": "story/location/LOCATION_STORY_PRODUCTION.md",
-      "sha256": "180910b56b35bd234666e636765e6a8df70d936e77c9b0fbd52f74450c8a3de9"
+      "sha256": "fb215826e618eca526af75192b5b1d33a081528819c5641eb88603647248ad74"
     },
     {
       "path": "story/location/장소기반_규칙.md",
