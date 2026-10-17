@@ -11,6 +11,7 @@ import {roomProgress} from './collection-view.mjs';
 import {validateNarrativeState} from './narrative.mjs';
 import {validateEndingView} from './ending-frame.mjs';
 import {validatePendingActivityStory} from './post-activity-story.mjs';
+import {validateCollectionNoticeState} from './collection-notices.mjs';
 export const STORAGE_KEY='lumia.engine.dev.v1';
 export function createBoundaryWriter(repository){
  let pending=null,source=null,savedSlotId=null;
@@ -28,6 +29,7 @@ export function createBoundaryWriter(repository){
 }
 export function validateProfile(p){
  if(p?.version!==1||!p.meta||!Array.isArray(p.meta.unlockedCharacters)||!Array.isArray(p.meta.badges)||!p.meta.counters||!Array.isArray(p.slots)||p.slots.length!==5)throw new Error('지원하지 않거나 손상된 저장 데이터입니다. 원본을 보존했습니다.');
+ validateCollectionNoticeState(p.meta.collectionNoticeState);
  for(const key of ['minigames','classes','adventures'])if(!Number.isSafeInteger(p.meta.counters[key])||p.meta.counters[key]<0)throw new Error('누적 기록이 손상됐습니다.');
  if(p.meta.endingViewCounts!==undefined&&(!p.meta.endingViewCounts||typeof p.meta.endingViewCounts!=='object'||Array.isArray(p.meta.endingViewCounts)||Object.values(p.meta.endingViewCounts).some(value=>!Number.isSafeInteger(value)||value<0)))throw new Error('엔딩 열람 기록이 손상됐습니다.');
  if(p.config!==undefined&&(!p.config||typeof p.config!=='object'||Array.isArray(p.config)))throw new Error('전역 엔진 설정이 손상됐습니다.');

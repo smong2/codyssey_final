@@ -17,6 +17,11 @@ import {mountAdventure} from './scenes/AdventureScene.mjs';
 import {ADVENTURE_LOCATIONS,getAdventureMap} from './core/adventure-mission.mjs';
 import {completeStoryEvent,storyContent} from './core/story-events.mjs';
 import {createPostActivityStoryFlow} from './core/post-activity-story.mjs';
+import {createAccountStorage,selectActivityEvent,ownsActivityEvent} from './core/client-context.mjs';
+import {inspectLocalSlots,deleteUnreadableSlot} from './core/slot-recovery.mjs';
+import {createSlotRecoveryUI} from './ui/slot-recovery.mjs';
+import {createAccountUI} from './ui/account.mjs';
+import {acceptCollectionReceipts,markRoomNoticesRead,unreadRoomIds} from './core/collection-notices.mjs';
 import {createNarrativeUI} from './ui/narrative.mjs';
 import {createAdventureResult,createAdventureStartData} from './core/adventure-contract.mjs';
 import {studentCards} from './core/catalogue.mjs';
@@ -35,6 +40,7 @@ let adventureView=null;
 let portraitObserver=null;
 const shell=document.querySelector('#shell'),notice=document.querySelector('#notice');
 let profile,writer,repository,slotId,pending,reviewPrompt=null,afterSaveSuccess=null,saveFailed=false,monthOffset=0,view='intro',introTimer,introAnimation,titleAudioSyncAnimation=0,audioSync=()=>{},introTimePosition=0;
+let activeStorage,slotSnapshot,clientUid=null;
 const asset=(category,file)=>'./design-assets/'+category+'/'+file;
 function el(tag,text,cls){const e=document.createElement(tag);if(text)e.textContent=text;if(cls)e.className=cls;return e;}
 const notify=createNotifier(notice);
@@ -60,7 +66,7 @@ function audioToggle(){
  refreshAudioToggle=()=>paint(titleAudio.isBgmMuted()||titleAudio.isBlocked());refreshAudioToggle();toggle.onclick=()=>{audioSync();if(titleAudio.isBlocked()){titleAudio.setBgmMuted(false);titleAudio.resume();}else titleAudio.toggleBgmMute();refreshAudioToggle();};return toggle;
 }
 function img(category,file,alt,cls){const i=el('img',null,cls);i.src=asset(category,file);i.alt=alt;return i;}
-function current(){return profile.slots[slotId-1].activeRun;}
+function current(){return profile?.slots?.[slotId-1]?.activeRun??null;}
 function heading(title,cls='page'){adventureResultUI.clear();cancelAnimationFrame(titleAudioSyncAnimation);titleAudioSyncAnimation=0;portraitObserver?.disconnect();portraitObserver=null;if(adventureView){adventureView.destroy();adventureView=null;}view=cls;document.querySelector('#game').hidden=true;shell.hidden=false;shell.className=cls;shell.replaceChildren(el('h1',title));shell.scrollTop=0;shell.append(el('p','실행형 화면 시안 · 계정/백엔드/시나리오 미연결','preview-label'));}
 function npcStage(image){
  const stage=el('div',null,'npc-portrait-stage');stage.append(image);let bounds;
@@ -76,7 +82,7 @@ function save(retry=false,savedSlotId=slotId,afterSuccess=null){
 }
 function retrySave(){const continuing=Boolean(afterSaveSuccess),saved=save(true);return saved&&!continuing;}
 const activityStoryFlow=createPostActivityStoryFlow({current,save:next=>save(false,slotId,next),
- receive:token=>{const events=engineServices.storyEvents??profile.meta.narrativeEvents??[];return Array.isArray(events)?events.find(event=>event?.activityToken===token):null;},
+ receive:token=>selectActivityEvent(engineServices.storyEvents??profile.meta.narrativeEvents,{slotId,activityToken:token,uid:clientUid}),
  onStory:renderPendingStory,onContinue:continueSchedule});
 function selectPet(id){
  if(saveFailed)return false;
@@ -107,7 +113,7 @@ function menu(){
  const close=()=>{shell.classList.remove('menu-open');pop.classList.add('menu-closing');pop.inert=true;for(const child of shell.children)if(child!==pop)child.inert=false;setTimeout(()=>pop.remove(),220);shell.querySelector('[aria-label="메뉴"]')?.setAttribute('aria-expanded','false');shell.querySelector('[aria-label="메뉴"]')?.focus({preventScroll:true});};
  const entry=(label,action)=>btn(label,()=>{close();if(label==='오늘 돌아보기'){reviewPrompt=null;reflectRoom();}action();});
  pop.append(entry('소리 설정',soundSettings));
- pop.append(entry('계속하기',()=>{}),entry('오늘 돌아보기',()=>emptyFrame('오늘 돌아보기','돌아보기 질문과 기록 데이터 연결 예정',[btn('다이어리에 남기기',()=>message('저장할 기록 데이터가 아직 없습니다.'))])),entry('관계',()=>emptyFrame('관계','NPC 관계 데이터 연결 예정')),entry('계정',()=>emptyFrame('계정','계정 정보를 불러올 연결이 아직 준비되지 않았습니다.')));
+ pop.append(entry('계속하기',()=>{}),entry('오늘 돌아보기',()=>emptyFrame('오늘 돌아보기','돌아보기 질문과 기록 데이터 연결 예정',[btn('다이어리에 남기기',()=>message('저장할 기록 데이터가 아직 없습니다.'))])),entry('관계',()=>emptyFrame('관계','NPC 관계 데이터 연결 예정')),entry('계정',()=>{if(saveFailed){message('저장 오류를 해결한 뒤 계정 화면을 열어 주세요.');return;}accountUI.open();}));
  const back=entry('타이틀로 돌아가기',()=>renderTitle());back.disabled=!canLeave();pop.append(back);if(!canLeave())pop.append(el('small','이번 주 일정과 주말 저장 후 타이틀로 돌아갈 수 있습니다.'));shell.append(pop);shell.classList.add('menu-open');const x=btn('X',close,'close-x');x.setAttribute('aria-label','메뉴 닫기');pop.prepend(el('h2','메뉴'),x);for(const child of shell.children)if(child!==pop)child.inert=true;pop.querySelector('button').focus({preventScroll:true});pop.onkeydown=e=>{if(e.key!=='Tab')return;const buttons=[...pop.querySelectorAll('button:not([disabled])')],first=buttons[0],last=buttons.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus({preventScroll:true});}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus({preventScroll:true});}};
 }
 function renderDialogueFrame(){
@@ -131,7 +137,7 @@ function renderTitle(animated=false,overlayVideo=null,audioEntry='direct'){
  logo.append(svgNode('image',{href:asset('ui','lumia_logo_final_034.png'),width:1774,height:887,mask:'url(#title-gold-mask)',class:'logo-wordmark'}),svgNode('image',{href:asset('ui','lumia_logo_final_034.png'),width:1774,height:887,'clip-path':'url(#title-decoration-clip)',class:'logo-decoration'}),svgNode('image',{href:asset('ui','lumia_logo_final_034.png'),width:1774,height:887,'clip-path':'url(#title-subtitle-clip)',class:'logo-subtitle'}));
  wrap.append(img('effect','lumia_logo_glow_003.png','','logo-glow'),logo);
  const particles=el('div',null,'gold-particles');particles.setAttribute('aria-hidden','true');for(let i=0;i<24;i++){const p=el('i');p.style.cssText=`--x:${18+(i*29)%66}%;--y:${10+(i*17)%58}%;--delay:${-(i%8)}s;--size:${1+i%3}px`;particles.append(p);}wrap.append(particles);
- const actions=el('div',null,'title-actions');if(!profile){actions.append(el('p','저장 데이터를 읽지 못했습니다. 기존 데이터를 보존했습니다.'));}else{
+ const actions=el('div',null,'title-actions');if(!profile){actions.append(el('p','저장 데이터를 읽지 못했습니다. 기존 데이터를 보존했습니다.'),btn('저장 슬롯 확인',renderSlots));}else{
  const m=titleModel(profile),start=btn(m.startLabel,renderEmptySlots);start.disabled=saveFailed||m.startDisabled;actions.append(start);if(m.continueVisible)actions.append(btn('이어서 하기',renderSlots,'quiet'));if(m.startDisabled)actions.append(el('p','5개 슬롯이 모두 사용 중입니다. 슬롯을 삭제하면 새로 시작할 수 있습니다.'));
  }
  shell.append(wrap,actions,btn('다시 보기',renderIntro,'text-button title-replay'),audioToggle());if(overlayVideo){overlayVideo.className='intro-overlay';shell.prepend(overlayVideo);}shell.classList.toggle('title-enter',animated);
@@ -166,20 +172,22 @@ function renderSlots(){
  }else renderCharacters(s.slotId,false);};
  let dialog;
  const cardFor=(s,recent=false)=>{
+  if(s.status==='LOAD_ERROR')return slotRecoveryUI.card(s.slotId,{canDelete:slotSnapshot.canDelete});
   const card=el('article',null,'slot-row'+(recent?' recent-slot':''));
   card.append(el('h3',(recent?'최근 저장 · ':'')+'슬롯 '+s.slotId));
   if(s.status==='EMPTY')card.append(el('p','저장 기록 없음'));
   else{
    const c=CHARACTERS.find(c=>c.id===s.activeRun?.characterId);card.append(el('p',s.status==='PLAYING'?(c?.name??'학생')+' · '+s.activeRun.runNumber+'회차 · '+s.activeRun.week+'주차':s.completedRunCount+'회차 완료'));
-   card.append(btn(s.status==='PLAYING'?'이어서 하기':(s.completedRunCount+1)+'회차 시작',()=>resume(s,dialog)));
-   if(!recent)card.append(btn('슬롯 삭제',()=>{
+   const open=btn(s.status==='PLAYING'?'이어서 하기':(s.completedRunCount+1)+'회차 시작',()=>resume(s,dialog));open.disabled=!profile||saveFailed;card.append(open);
+   if(!recent&&profile){const remove=btn('슬롯 삭제',()=>{
     modal('슬롯을 삭제할까요?',el('p','이 슬롯의 회차만 삭제합니다. 공용 메타는 유지됩니다.'),[btn('삭제',()=>{deleteSlot(profile,s.slotId);save(false,null);document.querySelector('dialog:not(.slot-dialog)')?.close();renderSlots();},'danger')]);
-   },'text-button'));
+   },'text-button');remove.disabled=saveFailed;card.append(remove);}
   }
   return card;
  };
- const recent=recentSlot(profile);if(recent)cards.append(cardFor(recent,true));
- for(const s of profile.slots)cards.append(cardFor(s));
+ const recent=profile?recentSlot(profile):null;if(recent)cards.append(cardFor(recent,true));
+ if(!profile)cards.append(el('p','원본 저장을 보호하기 위해 오류 슬롯을 복구하거나 확인 후 삭제할 때까지 새 게임과 이어하기를 잠시 사용할 수 없습니다.','slot-recovery-error'));
+ for(const s of profile?.slots??slotSnapshot.slots)cards.append(cardFor(s));
  dialog=modal('이어서 하기',cards,saveFailed?[btn('저장 다시 시도',()=>{if(retrySave())renderSlots();})]:[]);
  dialog.classList.add('slot-dialog');dialog.querySelector('button')?.focus();
 }
@@ -230,7 +238,13 @@ function renderMainStory(id,index=0){
  else actions.append(btn('이야기 마치기',()=>{completeMainStory(current(),id);save(false,slotId,renderRoom);if(saveFailed)renderRoom();}));
  frame.append(actions);shell.append(frame);
 }
-const journalUI=createJournalUI({el,btn,shell,heading,current,meta:()=>profile.meta,settings:()=>profile.settings,activePet:()=>activePet(profile),onSelectPet:selectPet,onSelectRoom:selectRoom,isSaveFailed:()=>saveFailed,onReturn:renderRoom,turnPage:(_layout,done)=>done(),modal});
+function readRoomNotices(id){
+ if(saveFailed||!unreadRoomIds(profile.meta).includes(id))return;
+ const old=structuredClone(profile.meta.collectionNoticeState);markRoomNoticesRead(profile.meta,id);const next=structuredClone(profile.meta.collectionNoticeState);
+ const saved=save(false,null,()=>{profile.meta.collectionNoticeState=next;if(!unreadRoomIds(profile.meta).length)shell.querySelectorAll('.collection-new-indicator').forEach(node=>node.remove());});
+ if(!saved){profile.meta.collectionNoticeState=old;modal('확인 상태 저장 실패',el('p','NEW 표시를 보존했습니다. 저장을 다시 시도해 주세요.'),[btn('저장 다시 시도',()=>{if(save(true))document.querySelector('dialog[open]')?.close();})]);}
+}
+const journalUI=createJournalUI({el,btn,shell,heading,current,meta:()=>profile.meta,settings:()=>profile.settings,activePet:()=>activePet(profile),onSelectPet:selectPet,onSelectRoom:selectRoom,onReadRoomNotices:readRoomNotices,isSaveFailed:()=>saveFailed,onReturn:renderRoom,turnPage:(_layout,done)=>done(),modal});
 const narrativeUI=createNarrativeUI({el,btn,shell,heading,current,modal,npcStage,onSave:()=>{if(!save(false,slotId,continueSchedule))renderRoom();}});
 function dispatchActivity(checkpoint){
  const run=current(),action=checkpoint.action,lesson=classOf(action);
@@ -282,9 +296,15 @@ function completeActivity(token,result){
  const applied=applyAction(profile,slotId,token,result);
  if(applied){reviewPrompt=structuredClone(current().actionHistory.at(-1));roomLight.event('complete');
   const completed=current().actionHistory.at(-1),resultText=activityResultText(completed);
+  let receiptMessages=[];
+  try{
+   const context={slotId,activityToken:token,uid:clientUid},events=engineServices.collectionEvents??[];
+   const receipts=Array.isArray(events)?events.filter(event=>ownsActivityEvent(event,{...context,slotId:'slot-'+slotId})).map(({uid,...receipt})=>receipt):[];
+   if(receipts.length)receiptMessages=acceptCollectionReceipts(profile.meta,receipts).map(item=>item.message);
+  }catch{receiptMessages=['수집 알림을 확인하지 못했습니다. 활동 결과는 그대로 저장합니다.'];}
   activityStoryFlow.complete(completed,advance=>{
-   if(completed.action==='adventure'&&['MISSION_COMPLETE','TIMEOUT'].includes(result?.outcome))adventureResultUI.show(shell,{...result,feedback:resultText},advance);
-   else{message(resultText);advance();}
+   if(completed.action==='adventure'&&['MISSION_COMPLETE','TIMEOUT'].includes(result?.outcome)){if(receiptMessages.length)message(receiptMessages.join('\n'));adventureResultUI.show(shell,{...result,feedback:resultText},advance);}
+   else{message([resultText,...receiptMessages].filter(Boolean).join('\n'));advance();}
   });
   if(saveFailed)renderRoom();
  }else{renderRoom();message('이미 처리된 일정입니다.');}
@@ -357,7 +377,17 @@ class HomeScene extends Phaser.Scene{
 const game=new Phaser.Game({type:Phaser.AUTO,parent:'game',width:1280,height:720,backgroundColor:'#142a37',scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:[HomeScene,...previewScenes,...curriculumScenes]});
 function receive(result){if(!pending)return;const item=pending;pending=null;slotId=item.slotId;try{completeActivity(item.token,result);}catch(e){renderRoom();message(e.message);}}
 game.events.on('minigame:complete',receive);game.events.on('minigame:quit',receive);
-try{repository=createLocalRepository(window.localStorage);profile=repository.load();writer=createBoundaryWriter(repository);}catch(e){message('저장 데이터를 읽지 못했습니다. 원본을 보존합니다. '+e.message);}
+function loadPreviewProfile(storage){
+ activeStorage=storage;slotSnapshot=inspectLocalSlots(storage);profile=slotSnapshot.profile;
+ repository=createLocalRepository(storage);writer=createBoundaryWriter(repository);
+ if(!profile)message('저장 데이터를 읽지 못했습니다. 원본을 보존하며 슬롯별 재시도를 기다립니다.');
+}
+function previewStorage(){try{return window.localStorage;}catch{return {getItem(){throw new Error('저장소에 접근할 수 없습니다.');},setItem(){throw new Error('저장소에 접근할 수 없습니다.');}};}}
+const slotRecoveryUI=createSlotRecoveryUI({el,btn,modal,onRetry:()=>{if(saveFailed)throw new Error('진행 중인 저장을 먼저 다시 시도해 주세요.');loadPreviewProfile(activeStorage);renderSlots();},onDelete:id=>{if(saveFailed)throw new Error('진행 중인 저장을 먼저 다시 시도해 주세요.');deleteUnreadableSlot(activeStorage,id);loadPreviewProfile(activeStorage);renderSlots();}});
+const accountUI=createAccountUI({el,btn,shell,heading,modal,service:engineServices.account,
+ onAuthenticated:session=>{clientUid=session.uid;loadPreviewProfile(createAccountStorage(previewStorage(),clientUid));renderIntro();},
+ onSignedOut:()=>{clientUid=null;profile=null;writer=null;repository=null;slotSnapshot=null;slotId=undefined;pending=null;afterSaveSuccess=null;saveFailed=false;reviewPrompt=null;previousRoomBackground=null;clearTimeout(introTimer);cancelAnimationFrame(introAnimation);document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());for(const scene of game.scene.getScenes(true))game.scene.stop(scene.scene.key);},
+ onReturn:()=>current()?renderRoom():renderTitle(false,null,'preserve')});
 document.fonts.load('18px "Gowun Batang"').catch(()=>message('폰트를 불러오지 못해 기본 글꼴로 표시합니다.'));
 // Browsers may restrict orientation locking to fullscreen or installed apps.
 // Request it silently at entry and retry on gestures/fullscreen changes.
@@ -374,6 +404,6 @@ async function lockLandscape(fromGesture=false){
 lockLandscape();
 window.addEventListener('pointerdown',()=>lockLandscape(true),{passive:true});
 document.addEventListener('fullscreenchange',()=>lockLandscape());
-renderIntro();
+if(engineServices.account)accountUI.start();else{loadPreviewProfile(previewStorage());renderIntro();}
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&view==='room-page'&&!document.querySelector('dialog[open]'))menu();});
 window.addEventListener('beforeunload',e=>{if(saveFailed||profile?.slots.some(s=>s.activeRun&&['ACTING','WEEK_COMPLETE'].includes(s.activeRun.phase))){e.preventDefault();e.returnValue='';}});
