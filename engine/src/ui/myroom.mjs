@@ -5,6 +5,7 @@ import {activityArt} from './journal.mjs';
 import {studentCards} from '../core/catalogue.mjs';
 import {appendCharacterInfo} from './character-info.mjs';
 import {effectiveStats} from '../core/pets.mjs';
+import {createImageButton,ROOM_BUTTON_ART} from './button-art.mjs';
 import {currentAction,forcedRestRemaining,isForcedRestDay,lowStamina} from '../core/activity-rules.mjs';
 import {ADVENTURE_LOCATIONS} from '../core/adventure-mission.mjs';
 const WEEKDAYS=['일','월','화','수','목','금','토'];
@@ -14,7 +15,7 @@ export const DESCRIPTIONS={CH01:'그림자 도서관의 전략가. 치밀하지�
 export function createMyroomUI(ctx){
  const {el,btn,img,shell,heading,current,characters,emptyFrame,message,menu,onAdventure,onAction,onCommit,onFinish,onEnding,onRetry,isSaveFailed,onDiary,onBag,onAdmission}=ctx;
  let draftSession=null,draft=[],draftLocations=[],selected=null,selectedDayIndex=null,selectedLocationId='greenhouse',monthOffset=0,category='교육';
- const portrait=(c,cls)=>{const i=el('img',null,cls);i.src='./character-assets/'+c.image.replace(/1_base\.png$/,'0_fullbody.png');i.alt=c.name;return i;};
+ const portrait=(c,cls)=>{const i=el('img',null,cls);i.src='./character-assets/'+c.fullbody;i.alt=c.name;return i;};
  const character=()=>characters.find(c=>c.id===current().characterId);
  const close=()=>{const x=btn('X',room,'close-x');x.setAttribute('aria-label','마이룸으로 닫기');shell.append(x);};
  function prepareDraft(){const next=scheduleSession(draftSession,current());if(next!==draftSession){draftSession=next;draft=next.draft;draftLocations=next.draftLocations;selected=null;selectedDayIndex=null;selectedLocationId='greenhouse';monthOffset=0;category='교육';}}
@@ -93,7 +94,7 @@ export function createMyroomUI(ctx){
   const r=current(),c=character(),m=calendarModel(r);heading('마이룸','room-page');ctx.decorateRoom?.();
   const date=btn('',schedule,'room-date paper');date.setAttribute('aria-label','현재 날짜 · 스케줄 열기');date.title='스케줄 열기';date.append(el('small','아르카디아력 '+m.arcadiaYear+'년'),el('strong',m.month+'월 '+m.day+'일 · '+WEEKDAYS[m.weekday]),el('small',m.season+' · '+r.week+' / 52주'));
   const tools=el('nav',null,'room-iconbar');tools.setAttribute('aria-label','마이룸 기능');
-  for(const [label,symbol,action] of [['다이어리','▤',onDiary],['가방','♧',onBag],['메뉴','☰',menu]]){const b=btn('',action,'room-icon');b.setAttribute('aria-label',label);if(label==='다이어리')b.dataset.sfx='diary';b.append(el('span',symbol,'icon-symbol'),el('small',label));tools.append(b);}
+  for(const [label,key,action] of [['다이어리','diary',onDiary],['가방','bag',onBag],['메뉴','menu',menu]]){const b=createImageButton({el,btn,src:'./design-assets/ui/'+ROOM_BUTTON_ART[key],label,onClick:action,className:'room-icon room-image-button'});if(label==='다이어리')b.dataset.sfx='diary';tools.append(b);}
   const actors=el('div',null,'room-actors'),actor=portrait(c,'room-main-character');actor.dataset.character=c.id;const adjustment={CH01:[1.13,3],CH15:[1.09,2],CH31:[1.07,2]}[c.id]??[1,0];actor.style.setProperty('--actor-scale',adjustment[0]);actor.style.setProperty('--actor-drop',adjustment[1]+'vh');actors.append(actor);actors.dataset.character=c.id;const chosenPet=ctx.activePet(),pet=btn('',ctx.onPet,'room-pet');pet.setAttribute('aria-label',chosenPet.name+' 펫 선택');pet.append(img('pet',chosenPet.image,chosenPet.name,'room-bern'),el('span',chosenPet.name));actors.append(pet);
   const action=el('section',null,'room-current-action paper');
   if(isSaveFailed())action.append(el('p','저장 실패 · 다음 행동 중단'),btn('저장 다시 시도',()=>{if(onRetry?.()!==false)room();}));
@@ -101,7 +102,7 @@ export function createMyroomUI(ctx){
   else if(r.phase==='ACTING'){const a=currentAction(r),lesson=classOf(a),restDays=forcedRestRemaining(r),locationId=r.scheduleLocations?.[r.day]??'greenhouse';action.append(el('span',WEEKDAYS[r.day+1]+'요일 · '+(restDays?'강제 휴식 · '+restDays+'일 남음':activityTitle(a,locationId))),btn(a==='adventure'?'모험 시작':lesson?'수업 시작':a==='fairy-trade'?'요정의 거래':restDays?'하루 쉬기':'휴식하기',onAction));}
   else if(r.phase==='WEEK_COMPLETE')action.append(el('span','평일 일정 완료'),btn('주말 보내기 · 자동 저장',onFinish));
   else if(r.phase==='AWAITING_ENDING')action.append(el('span','52주 육성 완료 · 마지막 1일'),btn('최종 이벤트·엔딩 프레임',onEnding));
-  const dateStack=el('div',null,'room-date-stack');const profileUI=btn('',profile,'room-profile-card');profileUI.setAttribute('aria-label',c.name+' 프로필');profileUI.append(img('ui','player_status_frame_015.png','','mini-profile-frame'));const face=el('span',null,'mini-profile-face'),faceImage=el('img');faceImage.src='./character-assets/'+c.image;faceImage.alt='';face.append(faceImage);const profileCopy=el('span',null,'mini-profile-copy');profileCopy.append(el('strong',c.name),el('small','체력 '+r.stamina+' / 100'));profileUI.append(face,profileCopy);dateStack.append(profileUI,date);if(action.childElementCount)dateStack.append(action);
+  const dateStack=el('div',null,'room-date-stack');const profileUI=btn('',profile,'room-profile-card');profileUI.setAttribute('aria-label',c.name+' 프로필');profileUI.append(img('ui','player_status_frame_015.png','','mini-profile-frame'));const profileCopy=el('span',null,'mini-profile-copy');profileCopy.append(el('strong',c.name),el('small','체력 '+r.stamina+' / 100'));profileUI.append(profileCopy);dateStack.append(profileUI,date);if(action.childElementCount)dateStack.append(action);
   const completed=ctx.reviewPrompt?.();if(completed){const completedDate=calendarModel({...r,week:completed.week,day:completed.day});const prompt=el('section',null,'paper room-review-prompt');prompt.append(el('p',completedDate.month+'월 '+completedDate.day+'일 '+WEEKDAYS[completedDate.weekday]+'요일 · '+activityTitle(completed.action,completed.locationId)+' 활동을 마쳤어요.'));const choices=el('div',null,'room-review-actions');choices.append(btn('오늘 돌아보기',ctx.onReview??(()=>{}),'quiet'),btn('나중에',ctx.onDismissReview??(()=>{}),'quiet'));prompt.append(choices);dateStack.append(prompt);}
   shell.append(dateStack,tools,actors);
  }
