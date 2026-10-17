@@ -1,23 +1,25 @@
-import {classOf,validAction} from './classes.mjs';
+import {classOf,validAction,LEGACY_CLASSES} from './classes.mjs';
 import {difficultyForStat,playDifficultyFor,growthForResult,MINIGAME_OUTCOMES,validateGrowthRewardConfig} from './minigame-contract.mjs';
 import {currentAction,forcedRestRemaining,restOutcome} from './activity-rules.mjs';
 import {createAdventureResult} from './adventure-contract.mjs';
 import {isAdventureLocation} from './adventure-mission.mjs';
 import {completeMainStory} from './main-story.mjs';
 import {selectCareerEnding} from './ending-system.mjs';
-export const CHARACTERS = [
-{id:'CH01',name:'카엘',image:'kael1_base.png'},{id:'CH15',name:'로빈',image:'robin1_base.png'},
-{id:'CH31',name:'니코',image:'nico1_base.png'},{id:'CH02',name:'세라',image:'sera1_base.png'},
-{id:'CH08',name:'아이리스',image:'iris1_base.png'},{id:'CH16',name:'티아',image:'tia1_base.png'}];
+import {normalizeCurriculumResult} from './curriculum.mjs';
+import {STUDENTS} from './catalogue.mjs';
+import {startingStats,startingHiddenStats} from './character-start.mjs';
+import {validateEndingView} from './ending-frame.mjs';
+export const CHARACTERS=STUDENTS;
 // Latest main core-loop/stat rules; equal rest odds are an approved preview choice.
 export const BALANCE=Object.freeze({classCost:10,adventureCost:15});
-export function createProfile(){return {version:1,settings:{activePetId:'PET01'},config:{growthRewardConfig:null},meta:{unlockedPetIds:['PET01'],unlockedCharacters:CHARACTERS.map(c=>c.id),badges:[],pets:[],roomPieces:[],seenEndings:[],endingViewCounts:{},endingRecords:[],permanentBonuses:{},counters:{minigames:0,classes:0,adventures:0}},slots:Array.from({length:5},(_,i)=>({slotId:i+1,status:'EMPTY',completedRunCount:0,activeRun:null,lastSavedAt:null}))};}
+export function createProfile(){return {version:1,settings:{activePetId:'PET01'},config:{growthRewardConfig:null},meta:{unlockedPetIds:['PET01'],unlockedCharacters:CHARACTERS.filter(c=>c.basic).map(c=>c.id),badges:[],pets:[],roomPieces:[],seenEndings:[],endingViewCounts:{},endingRecords:[],permanentBonuses:{},counters:{minigames:0,classes:0,adventures:0}},slots:Array.from({length:5},(_,i)=>({slotId:i+1,status:'EMPTY',completedRunCount:0,activeRun:null,lastSavedAt:null}))};}
 function slotOf(p,id){const s=p.slots.find(s=>s.slotId===id);if(!s)throw new Error('저장 슬롯이 없습니다.');return s;}
 function runOf(p,id){const r=slotOf(p,id).activeRun;if(!r)throw new Error('진행 중인 회차가 없습니다.');return r;}
 export function startRun(p,id,characterId){
  const s=slotOf(p,id);if(s.status==='PLAYING')throw new Error('진행 중인 슬롯입니다.');
  if(!CHARACTERS.some(c=>c.id===characterId)||!p.meta.unlockedCharacters.includes(characterId))throw new Error('선택할 수 없는 캐릭터입니다.');
- s.status='PLAYING';s.activeRun={runNumber:s.completedRunCount+1,characterId,week:1,day:0,phase:'PLANNING',schedule:[],scheduleLocations:[],stamina:100,exhausted:false,forcedRestDays:0,stats:{knowledge:50,expression:50,dexterity:50,exploration:50,magic:50},hiddenStats:{},npcRelations:{},storyProgress:{},flags:{},consecutiveFails:{},mainStory:{completedIds:[],pendingId:'MS01',history:[]},lastAction:null};return s.activeRun;
+ const stats=startingStats(characterId,p.meta.permanentBonuses??{});
+ s.status='PLAYING';s.activeRun={runNumber:s.completedRunCount+1,characterId,week:1,day:0,phase:'PLANNING',schedule:[],scheduleLocations:[],stamina:100,exhausted:false,forcedRestDays:0,stats,hiddenStats:startingHiddenStats(),npcRelations:{},storyProgress:{},flags:{},consecutiveFails:{},mainStory:{completedIds:[],pendingId:'MS01',history:[]},lastAction:null};return s.activeRun;
 }
 export function setSchedule(p,id,actions,locations=[]){
  const r=runOf(p,id);if(r.pendingWeekSummaryWeek!==undefined)throw new Error('지난주 요약을 먼저 확인해 주세요.');if(r.phase!=='PLANNING'||r.day!==0)throw new Error('일정은 주 시작에만 등록합니다.');
@@ -35,7 +37,7 @@ export function beginAction(p,id,token){
  const r=runOf(p,id);
  if(r.pendingWeekSummaryWeek!==undefined)throw new Error('지난주 요약을 먼저 확인해 주세요.');
  if(token===r.lastAction)return false;
- if(r.storyState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
+ if(r.pendingActivityStory||r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
  if(r.inProgressActivity){if(r.inProgressActivity.token===token)return false;throw new Error('다른 일정이 이미 진행 중입니다.');}
  if(r.phase!=='ACTING'||r.day>=5||token!==actionToken(r))throw new Error('현재 일정과 시작 요청이 일치하지 않습니다.');
  const forcedDays=forcedRestRemaining(r),forced=forcedDays>0,action=forced?'rest':r.schedule[r.day];
@@ -44,7 +46,7 @@ export function beginAction(p,id,token){
  const rewardDifficulty=lesson?difficultyForStat(r.stats[lesson.stat]):null;
  const failCount=lesson?(r.consecutiveFails?.[lesson.id]??0):0;
  r.inProgressActivity={status:'IN_PROGRESS',token,action,...(action==='adventure'?{locationId:r.scheduleLocations?.[r.day]??'greenhouse'}:{}),staminaBefore,staminaCost:staminaBefore-r.stamina,
-  ...(lesson?{playDifficulty:playDifficultyFor(rewardDifficulty,failCount),rewardDifficulty}:{}),
+  ...(lesson?{playDifficulty:playDifficultyFor(rewardDifficulty,failCount),rewardDifficulty,assistLevel:Math.min(2,Math.floor(failCount/2))}:{}),
   forcedRest:forced,forcedRestDaysBefore:forcedDays,forcedRestDaysAfterStart:!forced&&r.stamina<10?3:0};
  return structuredClone(r.inProgressActivity);
 }
@@ -57,7 +59,8 @@ export function applyAction(p,id,token,result,random=Math.random){
  let recovery;
  const lesson=classOf(action);let resolvedOutcome='complete';
  if(lesson){
-  const normalized=result?.outcome==='quit'?{...result,outcome:'failure'}:result;
+  if(lesson.curriculum&&!LEGACY_CLASSES.some(c=>c.id===lesson.id)&&result?.contractVersion!==2)throw new Error('본편 수업에는 버전 2 결과 계약이 필요합니다.');
+  const normalized=result?.contractVersion===2?normalizeCurriculumResult(result,lesson,checkpoint):result?.outcome==='quit'?{...result,outcome:'failure'}:result;
   if(normalized?.gameId!==lesson.id||normalized?.locationId!==lesson.locationId||normalized?.difficulty!==(checkpoint.playDifficulty??difficultyForStat(r.stats[lesson.stat]))||(normalized.rewardDifficulty!==undefined&&normalized.rewardDifficulty!==(checkpoint.rewardDifficulty??difficultyForStat(r.stats[lesson.stat])))||
    !MINIGAME_OUTCOMES.includes(normalized?.outcome)||
    typeof normalized?.seed!=='string'||!Number.isFinite(normalized?.score)||!Number.isFinite(normalized?.durationMs)||
@@ -68,7 +71,7 @@ export function applyAction(p,id,token,result,random=Math.random){
   const multipliers=validateGrowthRewardConfig(p.config?.growthRewardConfig??p.meta.growthRewardConfig??{rewardMultiplier:{}}).rewardMultiplier;
   const amount=growthForResult(normalized.outcome,checkpoint.rewardDifficulty??normalized.rewardDifficulty??normalized.difficulty,staminaBefore,multipliers[lesson.stat]),before=r.stats[lesson.stat];
   r.stats[lesson.stat]=Math.min(500,before+amount);growth[lesson.stat]=r.stats[lesson.stat]-before;
-  if(['failure','timeout'].includes(normalized.outcome)){const previous=r.consecutiveFails?.[lesson.id]??0;r.consecutiveFails={};r.consecutiveFails[lesson.id]=previous+1;}else if(['success','greatSuccess'].includes(normalized.outcome)){r.consecutiveFails={};r.consecutiveFails[lesson.id]=0;}
+  if(['failure','timeout'].includes(normalized.outcome)){const previous=r.consecutiveFails?.[lesson.id]??0;r.consecutiveFails={...(r.consecutiveFails??{}),[lesson.id]:previous+1};}else if(['success','greatSuccess'].includes(normalized.outcome)){r.consecutiveFails={...(r.consecutiveFails??{}),[lesson.id]:0};}
   p.meta.counters.minigames++;p.meta.counters.classes++;
  }else if(action==='adventure'){
   if(result?.gameId!=='adventure')throw new Error('올바른 모험 결과가 필요합니다.');
@@ -80,7 +83,9 @@ export function applyAction(p,id,token,result,random=Math.random){
     if(resolved.difficulty!==difficultyForStat(r.stats.exploration)||resolved.locationId!==(checkpoint.locationId??'greenhouse'))throw new Error('저장 탐험 스탯 또는 모험 장소가 시작 정보와 일치하지 않습니다.');
    resolvedOutcome=resolved.outcome==='MISSION_COMPLETE'?'success':'timeout';
    const multiplier=validateGrowthRewardConfig(p.config?.growthRewardConfig??p.meta.growthRewardConfig??{rewardMultiplier:{}}).rewardMultiplier.exploration;
-   const adjustedGrowth=Math.floor(resolved.explorationGrowth*multiplier*(staminaBefore>=10&&staminaBefore<=30?.5:1));
+   // The result contract already applies low stamina. Timeout's +1 is a final minimum.
+   const scaledGrowth=Math.floor(resolved.explorationGrowth*multiplier);
+   const adjustedGrowth=resolved.outcome==='TIMEOUT'&&resolved.foundCount>0?Math.max(1,scaledGrowth):scaledGrowth;
    const before=r.stats.exploration,after=Math.min(500,before+adjustedGrowth);
    r.stats.exploration=after;growth.exploration=after-before;
   }
@@ -102,7 +107,7 @@ export function applyAction(p,id,token,result,random=Math.random){
  const effect={outcome:resolvedOutcome,staminaChange:r.stamina-staminaBefore,staminaAfter:r.stamina,growth,forcedRest:forced,forcedRestDays:r.forcedRestDays};
  if(Object.keys(transferChanges).length)effect.transferChanges=transferChanges;
  if(recovery!==undefined)effect.restRecovery=recovery;
- (r.actionHistory??=[]).push({week:r.week,day:r.day,action,...(action==='adventure'?{locationId:checkpoint.locationId??r.scheduleLocations?.[r.day]??'greenhouse'}:{}),status:'COMPLETED',effect});
+ (r.actionHistory??=[]).push({week:r.week,day:r.day,action,...(lesson?{stat:lesson.stat}:{}),...(action==='adventure'?{locationId:checkpoint.locationId??r.scheduleLocations?.[r.day]??'greenhouse'}:{}),status:'COMPLETED',effect});
  r.lastAction=token;delete r.inProgressActivity;r.day++;if(r.day===5)r.phase='WEEK_COMPLETE';return true;
 }
 export function recoverInterruptedAction(p,id){
@@ -116,8 +121,14 @@ export function recoverInterruptedAction(p,id){
  (r.actionHistory??=[]).push({week:r.week,day:r.day,action:checkpoint.action,...(checkpoint.action==='adventure'?{locationId:checkpoint.locationId??'greenhouse'}:{}),status:'INTERRUPTED',effect});
  r.lastAction=checkpoint.token;delete r.inProgressActivity;r.day++;if(r.day===5)r.phase='WEEK_COMPLETE';return true;
 }
+export function stopAdventure(p,id,token){
+ const r=runOf(p,id);if(token===r.lastAction)return false;
+ const checkpoint=r.inProgressActivity;
+ if(!checkpoint||checkpoint.action!=='adventure'||checkpoint.token!==token)throw new Error('현재 모험 일정과 중단 요청이 일치하지 않습니다.');
+ return recoverInterruptedAction(p,id);
+}
 export function finishWeek(p,id){
- const r=runOf(p,id);if(r.storyState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
+ const r=runOf(p,id);if(r.pendingActivityStory||r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
  if(r.pendingWeekSummaryWeek!==undefined)throw new Error('지난주 요약을 먼저 확인해 주세요.');
  if(r.phase!=='WEEK_COMPLETE')throw new Error('평일 5회 행동을 먼저 마쳐야 합니다.');
  r.pendingWeekSummaryWeek=r.week;
@@ -134,9 +145,22 @@ export function prepareEnding(p,id,random=Math.random){
 }
 export function completeRun(p,id){
  const s=slotOf(p,id),run=s.activeRun;if(s.status!=='PLAYING'||!run||run.phase!=='AWAITING_ENDING'||!run.endingRecord||run.pendingWeekSummaryWeek!==undefined)throw new Error('엔딩 마지막 확인 단계가 아닙니다.');
+ const ready=validateEndingView({slotId:id,runNumber:run.runNumber,career:{id:run.endingRecord.careerId,name:run.endingRecord.careerName},letter:run.endingRecord.letter},{slotId:id,runNumber:run.runNumber});
+ if(ready.letter.status!=='ready')throw new Error('준비된 편지를 먼저 확인해 주세요.');
  const record={...structuredClone(run.endingRecord),characterId:run.characterId,completedAt:new Date().toISOString()};
  p.meta.endingRecords??=[];p.meta.seenEndings??=[];p.meta.endingViewCounts??={};p.meta.endingRecords.push(record);p.meta.endingViewCounts[record.careerId]=(p.meta.endingViewCounts[record.careerId]??0)+1;if(record.type==='CAREER'&&!p.meta.seenEndings.includes(record.careerId))p.meta.seenEndings.push(record.careerId);
  s.completedRunCount++;s.status='RUN_COMPLETE';s.activeRun=null;return structuredClone(record);
+}
+export function acceptEndingResult(p,id,value){
+ const run=runOf(p,id),record=run.endingRecord;if(run.phase!=='AWAITING_ENDING'||!record)throw new Error('엔딩 결과를 받을 회차가 아닙니다.');
+ const received=validateEndingView(value,{slotId:id,runNumber:run.runNumber});
+ if(received.career.id!==record.careerId||received.career.name!==record.careerName)throw new Error('준비된 미래 직업과 다른 응답입니다.');
+ if(record.letter.status==='ready')return structuredClone(record);
+ record.letter=received.letter;
+ if(received.playRecords)record.playRecords=received.playRecords;
+ if(received.newUnlocks)record.newUnlocks=received.newUnlocks;
+ if(received.career.careerAnchor)record.careerAnchor=received.career.careerAnchor;
+ return structuredClone(record);
 }
 export {completeMainStory};
 export function deleteSlot(p,id){Object.assign(slotOf(p,id),{status:'EMPTY',activeRun:null,completedRunCount:0,lastSavedAt:null});}

@@ -1,8 +1,8 @@
 # 폰트 이미지
 
-이 폴더에는 설치형 글꼴 파일 없이 **이미지 18개와 이 README**만 둡니다. 파일명 접두어로 용도를 구분합니다: `FN_PREVIEW`는 서체 비교 이미지, `FN_TYPO`는 레터링 방향 시안, `FN_RUNE`은 룬 문자 디자인 SVG입니다. 이미지가 있다는 사실은 게임 적용이나 최종 채택을 뜻하지 않습니다.
+이 폴더에는 **서체 시안 이미지 18개**와 현재 메인 게임 호환용 WOFF2 웹폰트 2개, 관련 라이선스를 둡니다. 파일명 접두어로 용도를 구분합니다: `FN_PREVIEW`는 서체 비교 이미지, `FN_TYPO`는 레터링 방향 시안, `FN_RUNE`은 룬 문자 디자인 SVG입니다. 이미지가 있다는 사실은 게임 적용이나 최종 채택을 뜻하지 않습니다.
 
-게임 화면에서 사용하는 Gowun Batang과 Pretendard 웹폰트 및 라이선스는 [engine/fonts](../../engine/fonts)에 보관합니다. `FN_PREVIEW_03_noto_serif_kr.png`는 비교 이미지만 남긴 것이며 실행용 Noto 폰트 파일은 이 폴더에 없습니다.
+`dev-jw`에서는 엔진 내부에 웹폰트를 보관하지만, 현재 메인 엔진이 참조하는 두 웹폰트와 라이선스는 이 폴더의 기존 경로에 보존했습니다. `FN_PREVIEW_03_noto_serif_kr.png`는 비교 이미지만 남긴 것이며 실행용 Noto 폰트 파일은 이 폴더에 없습니다.
 
 ## 서체 비교 이미지
 
@@ -40,3 +40,13 @@
 | [FN_RUNE_08.svg](./FN_RUNE_08.svg) | 연결 인장 | <img src="./FN_RUNE_08.svg" width="440" alt="룬 문자 디자인 연결 인장"> |
 | [FN_RUNE_09.svg](./FN_RUNE_09.svg) | 꽃잎 문장 | <img src="./FN_RUNE_09.svg" width="440" alt="룬 문자 디자인 꽃잎 문장"> |
 | [FN_RUNE_10.svg](./FN_RUNE_10.svg) | 혜성 궤도 | <img src="./FN_RUNE_10.svg" width="440" alt="룬 문자 디자인 혜성 궤도"> |
+
+## 현재 메인 게임 실행 호환 파일
+
+메인 엔진의 글꼴 경로를 바꾸지 않는 이번 에셋 전용 병합에서 보존한 파일입니다.
+
+| 파일 | 용도 |
+|---|---|
+| [gowun_batang.woff2](./gowun_batang.woff2) | 메인 게임 본문 웹폰트 |
+| [pretendard.woff2](./pretendard.woff2) | 메인 게임 UI 웹폰트 |
+| [licenses/](./licenses/README.md) | 글꼴 라이선스와 출처 기록 |

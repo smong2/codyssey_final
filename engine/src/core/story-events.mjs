@@ -6,7 +6,10 @@ export const ADVENTURE_NPCS=Object.freeze([
  {id:'CH31',name:'니코',image:'nico1_base.png',preferredLocation:'observatory'},
  {id:'CH02',name:'세라',image:'sera1_base.png',preferredLocation:'observatory'},
  {id:'CH08',name:'아이리스',image:'iris1_base.png',preferredLocation:'library'},
- {id:'CH16',name:'티아',image:'tia1_base.png',preferredLocation:'greenhouse'}
+ {id:'CH16',name:'티아',image:'tia1_base.png',preferredLocation:'greenhouse'},
+ {id:'CH25',name:'렌',image:'ren1_base.png',preferredLocation:'workshop'},
+ {id:'CH26',name:'다나',image:'dana1_base.png',preferredLocation:'workshop'},
+ {id:'NPC_LULU',name:'루루',image:null,preferredLocation:'greenhouse'}
 ].map(Object.freeze));
 const LOCATIONS=['greenhouse','library','observatory'];
 const emptyState=()=>({encounters:{},storyProgress:{},eventFlags:{},history:[],pending:null});
@@ -22,7 +25,8 @@ const knownStory=id=>ADVENTURE_NPCS.some(n=>storyIdForNpc(n.id)===id)||LOCATIONS
 
 export function selectAdventureNpcs(run,locationId,seed){
  if(run.flags?.admissionPending||run.week<1||!LOCATIONS.includes(locationId))return [];
- const state=stateOf(run),rng=rngFor(seed),pool=ADVENTURE_NPCS.filter(n=>n.id!==run.characterId),selected=[],count=1+Math.floor(rng()*2);
+ const finished=chain=>run.narrativeState?.history?.some(h=>h.chain===chain&&h.step===4);
+ const state=stateOf(run),rng=rngFor(seed),pool=ADVENTURE_NPCS.filter(n=>n.id!==run.characterId&&!(['CH16','CH15'].includes(n.id)&&finished('GUIDE'))&&!(['CH25','CH26'].includes(n.id)&&finished('WORK'))&&!(n.id==='NPC_LULU'&&finished('LULU'))),selected=[],count=1+Math.floor(rng()*2);
  for(let i=0;i<count&&pool.length;i++){
   const weights=pool.map(n=>{
    const encounter=state.encounters[n.id],progress=progressOf(state,storyIdForNpc(n.id));

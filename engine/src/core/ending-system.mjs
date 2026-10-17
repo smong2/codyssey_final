@@ -1,4 +1,6 @@
+import {classOf} from './classes.mjs';
 const STAT_NAMES={knowledge:'지식',expression:'표현력',dexterity:'솜씨',exploration:'탐험',magic:'마법'};
+export const ENDING_SUBTITLES=Object.fromEntries(['RUNE_RESEARCHER|새로운 문양을 읽는 사람','ARCADIA_EXPLORER|아직 가보지 않은 길','ARCANE_ARTISAN|손으로 완성하는 마법 도구','HERB_GARDENER|자라는 것을 돌보는 사람','ACADEMY_GUARDIAN|안전한 길을 지키는 사람','ACADEMY_TEACHER|다음 학생과 나누는 배움','ARCHIVIST|사라지지 않게 남기는 이야기','MAGIC_PERFORMER|마음을 전하는 무대','MAGICAL_CREATURE_KEEPER|함께 살아가는 법을 배우다','ACADEMY_EVENT_PLANNER|모두가 함께하는 하루'].map(row=>{const [id,title]=row.split('|');return ['ENDING_'+id,title];}));
 const HIDDEN_STAT_NAMES={curiosity:'호기심',prudence:'신중함',cooperation:'협력',empathy:'공감',responsibility:'책임감'};
 const careers=[
  ['ENDING_RUNE_RESEARCHER','룬 연구자','magic','knowledge',['stat','knowledge',200],['hidden','curiosity',40],['class','magic',40]],
@@ -17,10 +19,10 @@ const label=(kind,key)=>kind==='stat'?STAT_NAMES[key]??key:kind==='hidden'?HIDDE
 function career(row){const [id,name,major,minor,...conditions]=row;return {id,name,majorStat:major,majorValue:300,requiredStat:major,requiredValue:300,minorStat:minor,optionalConditions:conditions.map(([kind,key,value])=>({kind,key,value}))};}
 export const ENDING_CAREERS=Object.freeze(careers.map(career));
 const completed=run=>(run.actionHistory??[]).filter(item=>item.status==='COMPLETED');
-function counts(run){const actions=completed(run),encounters=run.storyState?.encounters,npcMeetings=encounters&&typeof encounters==='object'?Object.values(encounters).reduce((sum,value)=>sum+(Number.isSafeInteger(value?.encounterCount)?value.encounterCount:0),0):null;return {classes:actions.filter(a=>['class','rune-circuit','excavation','rune-link','training-guardian','rune-merge','mirror-magic','seal-dismantle'].includes(a.action)).length,
+function counts(run){const actions=completed(run),encounters=run.storyState?.encounters,npcMeetings=encounters&&typeof encounters==='object'?Object.values(encounters).reduce((sum,value)=>sum+(Number.isSafeInteger(value?.encounterCount)?value.encounterCount:0),0):null;return {classes:actions.filter(a=>classOf(a.action)).length,
  adventures:actions.filter(a=>a.action==='adventure').length,
- importantChoices:run.records?.importantChoices??(run.mainStory?.history??[]).filter(s=>s.importantChoice).length,
- npcStoriesCompleted:run.records?.npcStoriesCompleted??null,
+ importantChoices:run.records?.importantChoices??[...(run.mainStory?.history??[]),...(run.narrativeState?.history??[])].filter(s=>s.importantChoice).length,
+ npcStoriesCompleted:run.records?.npcStoriesCompleted??(run.narrativeState?run.narrativeState.history.filter(s=>s.kind==='npc'&&s.step===4).length:null),
  locationsDiscovered:run.records?.locationsDiscovered??null,npcMeetings:run.records?.npcMeetings??npcMeetings,
  specialItemDiscoveries:run.records?.specialItemDiscoveries??null,
  classesByStat:{knowledge:0,expression:0,dexterity:0,exploration:0,magic:0}};}
@@ -35,7 +37,7 @@ function valueFor(run,record,condition){
 function recordFor(run){
  const result=counts(run);const statByAction={
   'rune-circuit':'magic',excavation:'exploration','rune-link':'knowledge','training-guardian':'dexterity','rune-merge':'knowledge','mirror-magic':'magic','seal-dismantle':'exploration'};
- for(const item of completed(run)){const stat=statByAction[item.action]??item.stat;if(stat&&Object.hasOwn(result.classesByStat,stat))result.classesByStat[stat]++;}
+ for(const item of completed(run)){const stat=item.stat??statByAction[item.action]??classOf(item.action)?.stat;if(stat&&Object.hasOwn(result.classesByStat,stat))result.classesByStat[stat]++;}
  return result;
 }
 export function selectCareerEnding(run,meta={seenEndings:[]},random=Math.random){

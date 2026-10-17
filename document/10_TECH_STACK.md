@@ -10,7 +10,7 @@
 | API 서버 | **Python + FastAPI** | 게임 저장·해금·엔딩 판정·AI 호출 등 서버 로직 |
 | API 배포 | **Render Web Service** | FastAPI 서비스 운영 |
 | 인증 | **Firebase Authentication** | 이메일/비밀번호 가입·로그인 및 이메일 인증 |
-| 데이터베이스 | **Cloud Firestore** | 계정별 세이브 슬롯, Global Meta, 해금·누적 기록 저장 |
+| 데이터베이스 | **Cloud Firestore + 플레이어 로컬 SQLite** | Firestore: 계정별 확정 상태·엔딩·관리자 통계·운영 설정·감사로그. SQLite: 플레이어 브라우저의 마스터·화면 캐시와 임시 상태 |
 | 생성형 AI | **Gemini API** | 52주 종료 후 개인화 엔딩 편지 생성 |
 | AI 기본 모델 | **`gemini-3.8-flash`** | 엔딩 편지 생성 기본 모델. 환경변수로 교체 가능 |
 | 관리자 콘솔 | **별도 웹 프론트 + Firebase Auth + FastAPI** | 운영팀 전용 회원·플레이 조회, 통계, 밸런스 설정 |
@@ -23,6 +23,7 @@
     ↓
 Vercel
 Phaser 3 + JavaScript/Vite
+    └─ SQLite WASM/OPFS (플레이어 기기: 마스터·화면 캐시)
     ↓
 Firebase Authentication
 이메일/비밀번호 + 이메일 인증
@@ -30,8 +31,8 @@ Firebase Authentication
 Render
 Python + FastAPI
     ├─ Cloud Firestore
-    │   ├─ Global Meta
-    │   └─ Save Slots × 5
+    │   ├─ Global Meta · Save Slots × 5 · 엔딩 편지
+    │   └─ 관리자 기간 통계 · 전역 보상 배율 · 감사로그
     └─ Gemini API
         └─ 개인화 엔딩 편지 생성
 
@@ -46,7 +47,7 @@ Render / FastAPI `/admin/*`
     └─ 감사로그
 ```
 
-게임 클라이언트는 Firestore의 게임 상태를 임의로 직접 변경하는 구조보다 FastAPI를 통해 서버 규칙을 적용하는 것을 기본으로 합니다. Firebase Authentication은 클라이언트에서 로그인하고, FastAPI는 전달받은 Firebase ID Token을 검증해 API 요청 사용자를 식별합니다.
+게임 클라이언트는 로컬 SQLite의 값을 서버 판정의 근거로 사용하지 않고 FastAPI를 통해 저장·보상·해금 규칙을 적용합니다. Firebase Authentication은 클라이언트에서 로그인하고, FastAPI는 전달받은 Firebase ID Token을 검증해 API 요청 사용자를 식별합니다. 관리자 콘솔은 플레이어 기기의 SQLite에 접근하지 않습니다. 상세 저장 경계와 테이블 목록은 [백엔드 저장 설계](../backend/database/STORAGE_DESIGN.md)를 따릅니다.
 
 ## 3. 선정 이유
 
@@ -84,8 +85,15 @@ Render / FastAPI `/admin/*`
 ### Cloud Firestore
 
 - LUMIA의 주요 영속 데이터는 계정별 Global Meta와 5개 세이브 슬롯 중심이며 문서형 구조와 잘 맞습니다.
-- 캐릭터·펫·배지·퍼즐·엔딩 해금과 누적 카운터처럼 사용자별 상태 저장에 적합합니다.
-- 게임 마스터 데이터와 스토리 원본은 가능한 한 Git의 JSON/코드/문서로 버전 관리하고, Firestore는 사용자 상태 저장에 집중합니다.
+- 캐릭터·펫·배지·퍼즐·엔딩 해금, 누적 카운터, 현재 회차 Long-term Play Memory, 회차별 편지처럼 재접속·복구가 필요한 사용자별 상태의 원본입니다.
+- 관리자 일·주·월 통계용 활동 요약·집계, 전역 성장 보상 배율, 감사로그도 중앙 Firestore에 두어 전체 사용자를 대상으로 조회합니다. 관리자 통계는 플레이어 로컬 SQLite를 읽지 않습니다.
+
+### 플레이어 로컬 SQLite
+
+- 웹 클라이언트에서 SQLite WASM과 브라우저 OPFS를 사용해 마스터·화면 데이터의 반복 조회, 미확정 UI/미니게임 상태와 재시도 요청을 로컬에서 처리하는 방안을 검증합니다.
+- 마스터 데이터 원본은 Git으로 관리합니다. 로컬 SQLite는 기기별 사본이며 다른 기기와 공유되지 않습니다. 보이는 스탯·해금·엔딩의 최종 값은 서버가 검증하고 Firestore에 확정합니다.
+- 로컬 조회를 늘리면 Firestore 사용량을 줄일 수 있지만, 활동 결과 저장과 중앙 관리자 통계에는 Firestore 작업이 남습니다. 비용 절감량은 실제 읽기·쓰기·네트워크 사용을 측정해 확인합니다. [Firebase 과금 문서](https://firebase.google.com/docs/firestore/pricing), [SQLite WASM 영속 저장 문서](https://sqlite.org/wasm/doc/trunk/persistence.md)를 구현 기준으로 확인합니다.
+- 브라우저 저장소가 지워지거나 지원되지 않아도 서버에 확정된 게임 상태는 복구할 수 있어야 합니다. 모바일 브라우저를 포함한 지원 범위와 대체 경로는 구현 전에 검증합니다.
 
 ### Gemini API
 
@@ -150,6 +158,7 @@ Firebase 프로젝트 설정에 따라 `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIR
 - Vercel 허용 Origin
 - Gemini API 키
 - 사용자 테스트를 통해 결정할 Gemini 모델·thinking level 최종값
+- 브라우저별 SQLite WASM/OPFS 지원·대체 경로와 로컬 캐시 동기화 방식
 
 이 문서는 **기술 선택 기준**이며, 위 서비스가 이미 구현·배포 완료됐다는 의미는 아닙니다.
 

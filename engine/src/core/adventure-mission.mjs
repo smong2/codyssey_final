@@ -2,8 +2,8 @@ import {canWalk} from './collision.mjs';
 
 export const ADVENTURE_LOCATIONS=Object.freeze([
  Object.freeze({id:'greenhouse',title:'유리 온실·약초원',mapId:'greenhouse',previewOnly:true}),
- Object.freeze({id:'library',title:'대서고',mapId:'greenhouse',previewOnly:true}),
- Object.freeze({id:'observatory',title:'별빛 천문대',mapId:'greenhouse',previewOnly:true})
+ Object.freeze({id:'library',title:'대서고',mapId:'library',previewOnly:true}),
+ Object.freeze({id:'observatory',title:'별빛 천문대',mapId:'observatory',previewOnly:true})
 ]);
 export const isAdventureLocation=id=>ADVENTURE_LOCATIONS.some(place=>place.id===id);
 
@@ -11,11 +11,27 @@ export const isAdventureLocation=id=>ADVENTURE_LOCATIONS.some(place=>place.id===
 export const ADVENTURE_GEOMETRY=Object.freeze({footRadius:24,investigationRadius:88,spawnRadius:220,spacing:200});
 export const ADVENTURE_MAPS=Object.freeze({
  greenhouse:Object.freeze({
-  world:'./design-assets/map/map01_greenhouse_world_3840x2160.webp',
-  thumbnail:'./design-assets/map/map01_greenhouse_world_1920x1080.webp',
-  mask:'./design-assets/map/map01_greenhouse_collision_mask_1920x1080.png',
-  foreground:'./design-assets/map/map01_greenhouse_foreground_3840x2160.webp',
+  world:'./design-assets/map/MP01_greenhouse_world_3840x2160.webp',
+  thumbnail:'./design-assets/map/MP01_greenhouse_world_1920x1080.webp',
+  mask:'./design-assets/map/MP01_greenhouse_collision_mask_1920x1080.png',
+  foreground:'./design-assets/map/MP01_greenhouse_foreground_3840x2160.webp',
   spawn:Object.freeze({x:1920,y:2000}),zoom:0.7,
+  placement:Object.freeze({wallClearance:ADVENTURE_GEOMETRY.footRadius,forbiddenZones:Object.freeze([])})
+ }),
+ library:Object.freeze({
+  world:'./design-assets/map/MP02_grand_library_world_3840x2160.webp',
+  thumbnail:'./design-assets/map/MP02_grand_library_world_1920x1080.webp',
+  mask:'./design-assets/map/MP02_grand_library_collision_mask_1920x1080.png',
+  foreground:'./design-assets/map/MP02_grand_library_foreground_3840x2160.webp',
+  spawn:Object.freeze({x:1920,y:2100}),zoom:0.7,
+  placement:Object.freeze({wallClearance:ADVENTURE_GEOMETRY.footRadius,forbiddenZones:Object.freeze([])})
+ }),
+ observatory:Object.freeze({
+  world:'./design-assets/map/MP03_starlight_observatory_world_3840x2160.webp',
+  thumbnail:'./design-assets/map/MP03_starlight_observatory_world_1920x1080.webp',
+  mask:'./design-assets/map/MP03_starlight_observatory_collision_mask_1920x1080.png',
+  foreground:'./design-assets/map/MP03_starlight_observatory_foreground_3840x2160.webp',
+  spawn:Object.freeze({x:1920,y:2100}),zoom:0.7,
   placement:Object.freeze({wallClearance:ADVENTURE_GEOMETRY.footRadius,forbiddenZones:Object.freeze([])})
  })
 });
@@ -36,13 +52,13 @@ function random(seed){let value=seed>>>0;return()=>{value=(value+0x6D2B79F5)|0;l
 function maskPoint(mask,mx,my){return{x:(mx+0.5)*mask.worldWidth/mask.width,y:(my+0.5)*mask.worldHeight/mask.height};}
 
 // Erode walls by a world-sized footprint before checking connectivity from spawn.
-export function reachableSafeCandidates(mask,spawn,{gridStep=18,wallClearance=ADVENTURE_GEOMETRY.footRadius,spawnRadius=ADVENTURE_GEOMETRY.spawnRadius,spacing=ADVENTURE_GEOMETRY.spacing,investigationRadius=ADVENTURE_GEOMETRY.investigationRadius,forbiddenZones=[]}={}){
+function reachableSafeArea(mask,spawn,{gridStep=18,wallClearance=ADVENTURE_GEOMETRY.footRadius,spawnRadius=ADVENTURE_GEOMETRY.spawnRadius,spacing=ADVENTURE_GEOMETRY.spacing,investigationRadius=ADVENTURE_GEOMETRY.investigationRadius,forbiddenZones=[]}={},tracePaths=false){
  if(!mask||!Number.isInteger(mask.width)||!Number.isInteger(mask.height)||mask.pixels?.length!==mask.width*mask.height*4||
   !(mask.worldWidth>0)||!(mask.worldHeight>0)||!Number.isInteger(gridStep)||gridStep<1||[wallClearance,spawnRadius,spacing,investigationRadius].some(n=>!Number.isFinite(n)||n<0)||
   !Array.isArray(forbiddenZones)||forbiddenZones.some(z=>!z||!Number.isFinite(z.x)||!Number.isFinite(z.y)||!Number.isFinite(z.width)||!Number.isFinite(z.height)||z.width<=0||z.height<=0))
   throw new Error('모험 충돌 마스크가 올바르지 않습니다.');
  if(!canWalk(mask,spawn.x,spawn.y))throw new Error('모험 시작점이 이동 가능한 영역이 아닙니다.');
- const total=mask.width*mask.height,reachable=new Uint8Array(total),safeCells=new Uint8Array(total),queue=new Int32Array(total),stride=mask.width+1,blocked=new Uint32Array(stride*(mask.height+1));
+ const total=mask.width*mask.height,reachable=new Uint8Array(total),safeCells=new Uint8Array(total),queue=new Int32Array(total),parents=tracePaths?new Int32Array(total):null,stride=mask.width+1,blocked=new Uint32Array(stride*(mask.height+1));
  const white=index=>{const i=index*4,p=mask.pixels;return p[i]===255&&p[i+1]===255&&p[i+2]===255&&p[i+3]===255;};
  for(let y=0;y<mask.height;y++){let row=0;for(let x=0;x<mask.width;x++){row+=white(y*mask.width+x)?0:1;blocked[(y+1)*stride+x+1]=blocked[y*stride+x+1]+row;}}
  const rx=Math.ceil(wallClearance*mask.width/mask.worldWidth),ry=Math.ceil(wallClearance*mask.height/mask.worldHeight);
@@ -55,8 +71,13 @@ export function reachableSafeCandidates(mask,spawn,{gridStep=18,wallClearance=AD
  let head=0,tail=0;reachable[start]=1;queue[tail++]=start;
  while(head<tail){const at=queue[head++],x=at%mask.width,y=(at-x)/mask.width;
   for(const next of [x>0?at-1:-1,x+1<mask.width?at+1:-1,y>0?at-mask.width:-1,y+1<mask.height?at+mask.width:-1])
-   if(next>=0&&!reachable[next]&&safeCells[next]){reachable[next]=1;queue[tail++]=next;}
+   if(next>=0&&!reachable[next]&&safeCells[next]){reachable[next]=1;if(parents)parents[next]=at;queue[tail++]=next;}
  }
+ return{reachable,parents,start,rx,ry,gridStep,wallClearance,spawnRadius,spacing,investigationRadius,forbiddenZones};
+}
+
+export function reachableSafeCandidates(mask,spawn,placement={}){
+ const {reachable,rx,ry,gridStep,wallClearance,spawnRadius,spacing,investigationRadius,forbiddenZones}=reachableSafeArea(mask,spawn,placement);
  const candidates=[],minimumSpacing=Math.max(spacing,2*investigationRadius);
  for(let y=ry;y<mask.height-ry;y+=gridStep)for(let x=rx;x<mask.width-rx;x+=gridStep){
   if(!reachable[y*mask.width+x])continue;const point=maskPoint(mask,x,y);
@@ -64,6 +85,18 @@ export function reachableSafeCandidates(mask,spawn,{gridStep=18,wallClearance=AD
   if(candidates.every(other=>Math.hypot(point.x-other.x,point.y-other.y)>=minimumSpacing))candidates.push(point);
  }
  return candidates;
+}
+
+// Shortest routes use the same eroded, spawn-connected mask as objective placement.
+export function reachableSafeRoutes(mask,spawn,targets,placement={}){
+ const {reachable,parents,start}=reachableSafeArea(mask,spawn,placement,true);
+ return targets.map(target=>{
+  const x=Math.floor(target.x/mask.worldWidth*mask.width),y=Math.floor(target.y/mask.worldHeight*mask.height),end=y*mask.width+x;
+  if(x<0||x>=mask.width||y<0||y>=mask.height||!reachable[end])return [];
+  const route=[];
+  for(let at=end;;at=parents[at]){route.push(maskPoint(mask,at%mask.width,Math.floor(at/mask.width)));if(at===start)break;}
+  route.reverse();route[0]={x:spawn.x,y:spawn.y};route[route.length-1]={x:target.x,y:target.y};return route;
+ });
 }
 
 export function clueForPoint(origin,target){

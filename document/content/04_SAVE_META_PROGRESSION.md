@@ -280,6 +280,7 @@ Save Slot 1
 └─ activeRun
    ├─ runNumber: 3
    ├─ characterId: CH08
+   ├─ storyCast
    ├─ week
    ├─ stats
    ├─ stamina
@@ -288,6 +289,8 @@ Save Slot 1
    ├─ storyProgress
    └─ flags
 ```
+
+`storyCast`는 현재 회차에서 사용할 메인·Location Story의 학생 배역 맵입니다. 주인공 선택이 확정된 직후 역할별 후보에서 주인공 자신과 이미 배정된 핵심 역할을 제외해 한 번 계산하고, **같은 회차가 끝날 때까지 고정**합니다. 재접속해도 다시 뽑지 않습니다. 역할별 후보·충돌 규칙은 `story/main/MAIN_STORY_PRODUCTION.md`와 `story/location/LOCATION_STORY_PRODUCTION.md`를 따릅니다.
 
 엔딩 표시를 마지막 `타이틀로`까지 완료하기 전에는 `activeRun.phase = ENDING_PRESENTATION`처럼 **현재 회차를 유지**합니다. 최종 열람 완료 저장이 성공한 뒤 `activeRun = null`, `status = RUN_COMPLETE`로 전환하고 `completedRunCount + 1`을 다음 회차 번호로 사용할 수 있습니다.
 
@@ -359,9 +362,12 @@ activeRun = null
 - 메인·NPC·공간 이벤트 진행
 - 현재 주차와 일정
 - 현재 회차에서만 사용하는 선택·플래그
+- 현재 회차용 `storyCast` 배역 맵
 - 현재 회차용 행동 기록
 
 새 회차의 성장 스탯은 선택한 캐릭터의 시작값을 기준으로 다시 생성합니다.
+
+새 회차에서 캐릭터를 확정할 때 `storyCast`도 새로 계산합니다. 이전 회차의 배역은 계승하지 않으며, 같은 캐릭터를 다시 플레이하더라도 현재 후보 규칙과 현재 `gameDataVersion`을 기준으로 새 회차용 배역을 저장합니다.
 
 ```text
 캐릭터 기본 시작값
@@ -482,7 +488,7 @@ ScheduleEntry = IN_PROGRESS
 - 요정의 거래: `TRANSFERRED / SKIPPED` 반영
 - 정상 완료 뒤 발생하는 Location Story는 별도 이벤트이며 일정 슬롯을 다시 소비하지 않음
 
-활동 완료 저장이 성공하면 다음 예정 평일 활동으로 자동 전환합니다. 월~금 연속 실행 중에는 활동마다 마이룸을 경유하지 않으며 **휴식 일정 자체가 마이룸을 사용하는 경우에만** 마이룸으로 진입합니다. 저장 실패 시에는 다음 일정으로 넘어가지 않고 재시도 상태를 유지합니다.
+활동 완료 저장이 성공하면 Location/NPC Story 후보를 판정하고, 이야기가 선정되면 분리된 장면의 정상 완료 결과까지 저장한 뒤 다음 예정 평일 활동으로 자동 전환합니다. 후보가 없으면 바로 다음 활동으로 전환합니다. 월~금 연속 실행 중에는 활동마다 마이룸을 경유하지 않으며 **휴식 일정 자체가 마이룸을 사용하는 경우에만** 마이룸으로 진입합니다. 활동 또는 이야기 결과 저장 실패 시에는 다음 일정으로 넘어가지 않고 재시도 상태를 유지합니다.
 
 ### 비정상 종료 복구
 

@@ -1,6 +1,6 @@
 # 맵 에셋
 
-이 폴더의 이미지 14개를 아래에 모두 표시합니다. 미리보기와 파일 링크는 같은 폴더의 실제 파일을 가리킵니다. 크기는 이미지 자체의 픽셀 기준입니다.
+이 폴더의 이미지 22개를 아래에 모두 표시합니다. 미리보기와 파일 링크는 같은 폴더의 실제 파일을 가리킵니다. 크기는 이미지 자체의 픽셀 기준입니다.
 
 ## MP01 · 온실
 
@@ -22,6 +22,11 @@
 | [MP02_foreground_3840x2161.png](./MP02_foreground_3840x2161.png) | 투명 전경 | 3840×2161 | <img src="./MP02_foreground_3840x2161.png" width="260" alt="대서고 전경"> |
 | [MP02_collosion_mask_1920x1081.png](./MP02_collosion_mask_1920x1081.png) | 충돌 마스크 | 1920×1081 | <img src="./MP02_collosion_mask_1920x1081.png" width="260" alt="대서고 충돌 마스크"> |
 
+| [MP02_grand_library_world_3840x2160.webp](./MP02_grand_library_world_3840x2160.webp) | 게임용 전체맵 WebP | 3840×2160 | <img src="./MP02_grand_library_world_3840x2160.webp" width="260" alt="게임용 전체맵 WebP"> |
+| [MP02_grand_library_world_1920x1080.webp](./MP02_grand_library_world_1920x1080.webp) | 축소 전체맵 WebP | 1920×1080 | <img src="./MP02_grand_library_world_1920x1080.webp" width="260" alt="축소 전체맵 WebP"> |
+| [MP02_grand_library_foreground_3840x2160.webp](./MP02_grand_library_foreground_3840x2160.webp) | 게임용 투명 전경 | 3840×2160 | <img src="./MP02_grand_library_foreground_3840x2160.webp" width="260" alt="게임용 투명 전경"> |
+| [MP02_grand_library_collision_mask_1920x1080.png](./MP02_grand_library_collision_mask_1920x1080.png) | 게임용 충돌 마스크 | 1920×1080 | <img src="./MP02_grand_library_collision_mask_1920x1080.png" width="260" alt="게임용 충돌 마스크"> |
+
 ## MP03 · 별빛 천문대
 
 | 파일 | 용도 | 크기 | 미리보기 |
@@ -29,6 +34,11 @@
 | [MP03_starlight_observatory_fullmap3840x2161.png](./MP03_starlight_observatory_fullmap3840x2161.png) | 전체맵 | 3840×2161 | <img src="./MP03_starlight_observatory_fullmap3840x2161.png" width="260" alt="별빛 천문대 전체맵"> |
 | [MP03_foreground_3840x2161.png](./MP03_foreground_3840x2161.png) | 투명 전경 | 3840×2161 | <img src="./MP03_foreground_3840x2161.png" width="260" alt="별빛 천문대 전경"> |
 | [MP03_collision_mask_1920x1081.png](./MP03_collision_mask_1920x1081.png) | 충돌 마스크 | 1920×1081 | <img src="./MP03_collision_mask_1920x1081.png" width="260" alt="별빛 천문대 충돌 마스크"> |
+
+| [MP03_starlight_observatory_world_3840x2160.webp](./MP03_starlight_observatory_world_3840x2160.webp) | 게임용 전체맵 WebP | 3840×2160 | <img src="./MP03_starlight_observatory_world_3840x2160.webp" width="260" alt="게임용 전체맵 WebP"> |
+| [MP03_starlight_observatory_world_1920x1080.webp](./MP03_starlight_observatory_world_1920x1080.webp) | 축소 전체맵 WebP | 1920×1080 | <img src="./MP03_starlight_observatory_world_1920x1080.webp" width="260" alt="축소 전체맵 WebP"> |
+| [MP03_starlight_observatory_foreground_3840x2160.webp](./MP03_starlight_observatory_foreground_3840x2160.webp) | 게임용 투명 전경 | 3840×2160 | <img src="./MP03_starlight_observatory_foreground_3840x2160.webp" width="260" alt="게임용 투명 전경"> |
+| [MP03_starlight_observatory_collision_mask_1920x1080.png](./MP03_starlight_observatory_collision_mask_1920x1080.png) | 게임용 충돌 마스크 | 1920×1080 | <img src="./MP03_starlight_observatory_collision_mask_1920x1080.png" width="260" alt="게임용 충돌 마스크"> |
 
 ## 참고 맵
 
