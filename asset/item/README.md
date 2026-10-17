@@ -2,7 +2,7 @@
 
 명칭·용도는 자원 설명이며 획득 조건·수치·소모 효과를 확정하는 데이터가 아닙니다.
 
-게임용 PNG 25장만 유지합니다. 원본 26장과 이전 회복 식물 시안 1장은 로컬에 보관했습니다. 시든/회복 식물과 비활성/활성 이벤트 룬은 게임 상태가 달라 별도 이미지로 유지합니다. 회복 식물은 승인된 v2를 사용합니다.
+기존 게임용 PNG 25장과 이번에 추가한 프레임형 조사 이미지 5장, 총 30장입니다. 원본 26장과 이전 회복 식물 시안 1장은 로컬에 보관했습니다. 시든/회복 식물과 비활성/활성 이벤트 룬은 게임 상태가 달라 별도 이미지로 유지합니다. 회복 식물은 승인된 v2를 사용합니다.
 
 | 파일 | 명칭·용도 | 규격 | 미리보기 |
 |---|---|---|---|
@@ -32,4 +32,16 @@
 | [event_rune1_inactive.png](./event_rune1_inactive.png) | 이벤트 룬: 비활성 | 512×512 | <img src="./event_rune1_inactive.png" width="140" alt="event_rune1_inactive.png"> |
 | [event_rune2_active.png](./event_rune2_active.png) | 이벤트 룬: 활성 | 512×512 | <img src="./event_rune2_active.png" width="140" alt="event_rune2_active.png"> |
 
-원본: `C:/Users/josep/Desktop/Final Project/asset/item/originals`. 이전 회복 식물: `asset/item/review`. 기존 소지품·가구 20장은 1254×1254 원본에서 1024×1024로 축소했습니다. 조사 오브젝트는 기존 픽셀 데이터를 유지했습니다. 전부 투명 PNG이며 새 이미지 생성은 하지 않았습니다. 실제 게임 적용 검수는 별도입니다.
+## 프레임형 조사 이미지 · 5장
+
+기존 아이템 디자인을 바탕으로 만든 밝은 아이보리 카드 시안입니다. 원본 아이템은 그대로 유지합니다. 얇은 모서리 장식 프레임 4장과 둥근 프레임 1장을 별도 이미지로 구분합니다. 모두 3840×2161 PNG이며 생성 시안을 확대한 출력물입니다. 게임 화면 적용 검수는 별도입니다.
+
+| 파일 | 명칭·용도 | 규격 | 미리보기 |
+|---|---|---|---|
+| [diary1_heart_dusty_frame_thin_3840x2161.png](./diary1_heart_dusty_frame_thin_3840x2161.png) | 천문대: 먼지가 수북한 마음 일기, 얇은 아이보리 프레임 | 3840×2161 | <img src="./diary1_heart_dusty_frame_thin_3840x2161.png" width="180" alt="먼지 쌓인 다이어리"> |
+| [plant1_wilted_frame_thin_3840x2161.png](./plant1_wilted_frame_thin_3840x2161.png) | 온실: 시든 식물, 얇은 아이보리 프레임 | 3840×2161 | <img src="./plant1_wilted_frame_thin_3840x2161.png" width="180" alt="시든 식물"> |
+| [plant2_restored_frame_thin_3840x2161.png](./plant2_restored_frame_thin_3840x2161.png) | 온실: 되살아난 식물, 얇은 아이보리 프레임 | 3840×2161 | <img src="./plant2_restored_frame_thin_3840x2161.png" width="180" alt="되살아난 식물"> |
+| [book1_ancient_frame_thin_3840x2161.png](./book1_ancient_frame_thin_3840x2161.png) | 대서고: 고서, 얇은 아이보리 프레임 | 3840×2161 | <img src="./book1_ancient_frame_thin_3840x2161.png" width="180" alt="얇은 아이보리 프레임 속 대서고 고서"> |
+| [book1_ancient_frame_rounded_3840x2161.png](./book1_ancient_frame_rounded_3840x2161.png) | 대서고: 고서, 둥근 프레임 | 3840×2161 | <img src="./book1_ancient_frame_rounded_3840x2161.png" width="180" alt="둥근 프레임 속 대서고 고서"> |
+
+원본: `C:/Users/josep/Desktop/Final Project/asset/item/originals`. 이전 회복 식물: `asset/item/review`. 기존 소지품·가구 20장은 1254×1254 원본에서 1024×1024로 축소했습니다. 기존 조사 오브젝트는 픽셀 데이터를 유지했습니다. 기존 25장은 새 이미지 생성 없이 정리한 파일이고, 위 프레임형 5장은 새로 생성한 투명 배경 PNG 시안입니다. 실제 게임 적용 검수는 별도입니다.
