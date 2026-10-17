@@ -52,7 +52,7 @@ Long-term Play Memory는 플레이 도중 활동 결과·중요 선택을 안정
 | API | Python + FastAPI | 저장·해금·엔딩 판정·AI 호출 |
 | API 배포 | Render | FastAPI 운영 |
 | 인증 | Firebase Authentication | Email/Password + 이메일 인증 |
-| 데이터 | Cloud Firestore | 세이브 슬롯·Global Meta·플레이 기록·엔딩 기록 |
+| 데이터 | Cloud Firestore + 플레이어 로컬 SQLite | Firestore: 세이브 슬롯·Global Meta·현재 회차 기록·엔딩·관리자 통계/설정/감사로그. SQLite: 플레이어 기기의 마스터·화면 캐시와 임시 상태 |
 | 생성형 AI | Gemini API | 개인화 엔딩 편지 |
 | 관리자 콘솔 | 별도 웹 Admin + Firebase 관리자 권한 + FastAPI | 회원·플레이 조회, 운영 통계, 전역 성장 보상 배율 조정, 감사로그 |
 | 협업 | GitHub / Git | 코드·문서·WBS·변경 이력 |
