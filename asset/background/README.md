@@ -1,8 +1,8 @@
 # 배경 이미지 (`asset/background/`)
 
-이 폴더에는 게임용 배경 15장(1920×1080)과 마이룸 테마 시안 12장(1672×941)이 있습니다. 두 종류의 크기와 적용 상태를 구분합니다. 실제 게임 화면 적용과 가장자리 검수는 별도입니다. 장소 설정은 [세계관 문서](../../document/02_WORLDVIEW.md)를 참고합니다.
+이 폴더에는 게임용 배경 16장(기존 15장 1920×1080, 방치된 온실 1장 3840×2162)과 마이룸 테마 시안 12장(1672×941)이 있습니다. 두 종류의 크기와 적용 상태를 구분합니다. 실제 게임 화면 적용과 가장자리 검수는 별도입니다. 장소 설정은 [세계관 문서](../../document/02_WORLDVIEW.md)를 참고합니다.
 
-## 게임용 장소 배경 · 9장
+## 게임용 장소 배경 · 10장
 
 | 장소 | 파일 | 미리보기 |
 |---|---|---|
@@ -12,6 +12,7 @@
 | 대서고 | [BG04_grand_library_1920x1080_014.png](./BG04_grand_library_1920x1080_014.png) | <img src="./BG04_grand_library_1920x1080_014.png" width="180" alt="대서고"> |
 | 별빛 천문대 | [BG05_starlight_observatory_1920x1080_015.png](./BG05_starlight_observatory_1920x1080_015.png) | <img src="./BG05_starlight_observatory_1920x1080_015.png" width="180" alt="별빛 천문대"> |
 | 유리 온실 | [BG06_glass_greenhouse_1920x1080_016.png](./BG06_glass_greenhouse_1920x1080_016.png) | <img src="./BG06_glass_greenhouse_1920x1080_016.png" width="180" alt="유리 온실"> |
+| 방치된 유리 온실 | [BG06_glass_greenhouse_neglected_3840x2162.png](./BG06_glass_greenhouse_neglected_3840x2162.png) | <img src="./BG06_glass_greenhouse_neglected_3840x2162.png" width="180" alt="넝쿨에 가려진 방치된 유리 온실"> |
 | 치유의 약초원 | [BG07_healing_herb_garden_1920x1080_017.png](./BG07_healing_herb_garden_1920x1080_017.png) | <img src="./BG07_healing_herb_garden_1920x1080_017.png" width="180" alt="치유의 약초원"> |
 | 마도 공방 | [BG08_magic_workshop_1920x1080_018.png](./BG08_magic_workshop_1920x1080_018.png) | <img src="./BG08_magic_workshop_1920x1080_018.png" width="180" alt="마도 공방"> |
 | 룬 수련장 | [BG09_rune_training_ground_1920x1080_019.png](./BG09_rune_training_ground_1920x1080_019.png) | <img src="./BG09_rune_training_ground_1920x1080_019.png" width="180" alt="룬 수련장"> |
@@ -42,7 +43,9 @@
 
 ## 파일 이력과 사용 기준
 
+- `BG06_glass_greenhouse_neglected_3840x2162.png`는 기존 유리 온실의 방치 상태 시안입니다. 생성 원본 1672×941을 3840×2162 PNG로 확대한 출력물입니다.
+
 - 게임용 마이룸 구도 1의 낮·노을·밤은 같은 가구 배치를 유지합니다. 구도 2도 시간대 3장을 별도 세트로 유지합니다.
 - 현재 파일명 기준 테마 번호는 `myroom3_rune`, `myroom4_cosmos`, `myroom5_princess`, `myroom6_botanical`입니다. 이전 문서의 `myroom4~7` 표기는 현재 경로와 다릅니다.
 - 공주방·식물방의 낮은 기존 시안을 재사용했고, 우주방은 창밖을 아르카디아 호수·학원 풍경으로 조정했다는 제작 이력이 있습니다. 과거 콘셉트 파일은 현재 폴더에 없어 링크를 달지 않았습니다.
-- 이전 생성 원본과 구도 검토 자료는 이 폴더 밖의 작업 이력 또는 Git 기록을 확인해야 합니다. 현재 폴더의 27개 PNG를 미리보기와 경로 검증 기준으로 삼습니다.
+- 이전 생성 원본과 구도 검토 자료는 이 폴더 밖의 작업 이력 또는 Git 기록을 확인해야 합니다. 현재 폴더의 28개 PNG를 미리보기와 경로 검증 기준으로 삼습니다.
