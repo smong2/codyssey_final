@@ -56,10 +56,6 @@ function decorateRoom() {
 	shell.classList.toggle("room-light-change", Boolean(previousRoomBackground && previousRoomBackground !== bg));
 	previousRoomBackground = bg;
 }
-function reflectRoom() {
-	roomLight.event("reflect");
-	decorateRoom();
-}
 let adventureView = null;
 let portraitObserver = null;
 const shell = document.querySelector("#shell"),
@@ -69,7 +65,6 @@ let profile,
 	repository,
 	slotId,
 	pending,
-	reviewPrompt = null,
 	afterSaveSuccess = null,
 	saveFailed = false,
 	monthOffset = 0,
@@ -449,11 +444,6 @@ function soundSettings() {
 	refresh();
 	modal("소리 설정", body);
 }
-function openTodayReview() {
-	reviewPrompt = null;
-	reflectRoom();
-	emptyFrame("오늘 돌아보기", "돌아보기 질문과 기록 데이터 연결 예정", [btn("다이어리에 남기기", () => message("저장할 기록 데이터가 아직 없습니다."))]);
-}
 function canLeave() {
 	return !saveFailed && !["ACTING", "WEEK_COMPLETE"].includes(current().phase);
 }
@@ -485,17 +475,12 @@ function menu() {
 	const entry = (label, action) =>
 		btn(label, () => {
 			close();
-			if (label === "오늘 돌아보기") {
-				reviewPrompt = null;
-				reflectRoom();
-			}
 			action();
 		});
 	pop.append(entry("소리 설정", soundSettings));
 	pop.append(entry("지난 엔딩 편지", () => endingUI.history(profile.meta.endingRecords ?? [])));
 	pop.append(
 		entry("계속하기", () => {}),
-		entry("오늘 돌아보기", () => emptyFrame("오늘 돌아보기", "돌아보기 질문과 기록 데이터 연결 예정", [btn("다이어리에 남기기", () => message("저장할 기록 데이터가 아직 없습니다."))])),
 		entry("관계", () => emptyFrame("관계", "NPC 관계 데이터 연결 예정")),
 		entry("계정", () => {
 			if (saveFailed) {
@@ -1079,7 +1064,6 @@ function dispatchActivity(checkpoint) {
 	const run = current(),
 		action = checkpoint.action,
 		lesson = classOf(action);
-	if (action !== "rest") reviewPrompt = null;
 	roomLight.event("start");
 	if (action === "adventure") renderAdventure(checkpoint);
 	else if (serverMode && action === "rest") void completeServerActivity(checkpoint);
@@ -1171,7 +1155,6 @@ function finishWeekFlow() {
 		renderRoom();
 		return false;
 	}
-	reviewPrompt = null;
 	roomLight.event("next-day");
 	if (serverMode) return performServerMutation(() => serverGame.closeWeek(slotId), renderRoom);
 	finishWeek(profile, slotId);
@@ -1290,7 +1273,6 @@ function renderPendingStory() {
 function completeActivity(token, result) {
 	const applied = applyAction(profile, slotId, token, result);
 	if (applied) {
-		reviewPrompt = structuredClone(current().actionHistory.at(-1));
 		roomLight.event("complete");
 		const completed = current().actionHistory.at(-1),
 			resultText = activityResultText(completed);
@@ -1358,7 +1340,6 @@ async function completeServerActivity(checkpoint, result = {}, afterComplete = n
 
 	const complete = () => {
 		const completed = current().actionHistory.at(-1);
-		if (completed) reviewPrompt = structuredClone(completed);
 		roomLight.event("complete");
 		const resultText = completed ? activityResultText(completed) : "활동을 마쳤어요.";
 		const advance = () => showPendingBadgeNotices(() => {
@@ -1473,12 +1454,6 @@ const roomUI = createMyroomUI({
 	activePet: () => activePet(profile),
 	meta: () => profile.meta,
 	isSaveFailed: () => saveFailed,
-	reviewPrompt: () => reviewPrompt,
-	onReview: openTodayReview,
-	onDismissReview: () => {
-		reviewPrompt = null;
-		renderRoom();
-	},
 	onAcknowledgeWeekSummary: () => {
 		if (serverMode) {
 			performServerMutation(() => serverGame.acknowledgeWeekSummary(slotId), renderRoom);
@@ -1964,7 +1939,6 @@ const accountUI = createAccountUI({
 		pending = null;
 		afterSaveSuccess = null;
 		saveFailed = false;
-		reviewPrompt = null;
 		serverRetryContinuation = null;
 		previousRoomBackground = null;
 		clearTimeout(introTimer);

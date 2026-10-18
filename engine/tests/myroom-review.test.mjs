@@ -14,7 +14,7 @@ function fakeNode(tag,text='',className=''){
  return node;
 }
 
-function renderRoom(review,{phase='ACTING',schedule=['rest','rune-circuit','rest','rest','rest'],week=1,day=2}={}){
+function renderRoom({phase='ACTING',schedule=['rest','rune-circuit','rest','rest','rest'],week=1,day=2}={}){
  const shell=fakeNode('main');let headingTitle='';
  const run={characterId:'CH01',week,day,phase,schedule,stamina:80,stats:{},forcedRestDays:0,flags:{},actionHistory:[{week:1,day:1,action:'rune-circuit'}]};
  const ui=createMyroomUI({
@@ -23,30 +23,21 @@ function renderRoom(review,{phase='ACTING',schedule=['rest','rune-circuit','rest
   img:fakeNode,shell,heading(title){headingTitle=title;shell.children=[];shell.append(fakeNode('h1',title));},current:()=>run,
   characters:[{id:'CH01',name:'카엘',fullbody:'kael0_fullbody.png'}],
   emptyFrame(){},message(){},menu(){},onAdventure(){},onAction(){},onCommit(){},onFinish(){},onEnding(){},onRetry(){},
-  isSaveFailed:()=>false,onDiary(){},onBag(){},onAdmission(){},onPet(){},activePet:()=>({name:'베른',image:'PT01_owl.png',modifiers:{}}),meta:()=>({}),decorateRoom(){},
-  reviewPrompt:()=>review,onReview(){},onDismissReview(){}
+  isSaveFailed:()=>false,onDiary(){},onBag(){},onAdmission(){},onPet(){},activePet:()=>({name:'베른',image:'PT01_owl.png',modifiers:{}}),meta:()=>({}),decorateRoom(){}
  });
  ui.room();return {shell,ui,run,get headingTitle(){return headingTitle;}};
 }
 
 function findAll(node,predicate){return [ ...(predicate(node)?[node]:[]),...node.children.flatMap(child=>findAll(child,predicate)) ];}
 
-test('room offers review of the completed activity and its completed weekday',()=>{
- const {shell:prompt}=renderRoom({week:1,day:1,action:'rune-circuit'});
- const card=findAll(prompt,node=>node.className.includes('room-review-prompt'))[0];
- assert.ok(card);
- assert.match(card.textContent,/1월 2일 화요일 · 룬 회로/);
- assert.ok(findAll(card,node=>node.text==='오늘 돌아보기').length);
- assert.ok(findAll(card,node=>node.text==='나중에').length);
-});
-
-test('room does not show a review prompt without a newly completed activity',()=>{
- const {shell:room}=renderRoom(null);
- assert.equal(findAll(room,node=>node.className.includes('room-review-prompt')).length,0);
+test('room omits the retired today-review actions after a completed activity',()=>{
+ const {shell}=renderRoom();
+ assert.equal(findAll(shell,node=>node.text==='오늘 돌아보기'||node.text==='나중에').length,0);
+ assert.equal(findAll(shell,node=>node.className.includes('room-review-prompt')).length,0);
 });
 
 test('profile shows its name and actual stamina bar without visible health numbers or a portrait',()=>{
- const {shell}=renderRoom(null),profile=findAll(shell,node=>node.className.includes('room-profile-card'))[0];
+ const {shell}=renderRoom(),profile=findAll(shell,node=>node.className.includes('room-profile-card'))[0];
  assert.ok(profile);
  assert.equal(findAll(profile,node=>node.className.includes('mini-profile-face')).length,0);
  assert.match(profile.textContent,/카엘/);
@@ -58,7 +49,7 @@ test('profile shows its name and actual stamina bar without visible health numbe
 });
 
 test('room date card opens schedule and no separate bottom schedule button is rendered',()=>{
- const state=renderRoom(null),date=findAll(state.shell,node=>node.className.split(' ').includes('room-date'))[0];
+ const state=renderRoom(),date=findAll(state.shell,node=>node.className.split(' ').includes('room-date'))[0];
  assert.equal(date.tag,'button');
  date.onclick();
  assert.equal(state.headingTitle,'스케줄');
@@ -66,7 +57,7 @@ test('room date card opens schedule and no separate bottom schedule button is re
 });
 
 test('selecting a planned date shows only the activity hint and tapping it again removes its activity',()=>{
- const state=renderRoom(null,{phase:'PLANNING',schedule:['rune-circuit',null,null,null,null]});state.ui.schedule();
+ const state=renderRoom({phase:'PLANNING',schedule:['rune-circuit',null,null,null,null]});state.ui.schedule();
  const monday=()=>findAll(state.shell,node=>node.className.includes('date-cell')&&node.attributes['aria-label']?.startsWith('1월 1일 월요일'))[0];
  monday().onclick();
  assert.equal(findAll(state.shell,node=>node.className.includes('schedule-date-detail')).length,0);
@@ -84,7 +75,7 @@ test('selecting a planned date shows only the activity hint and tapping it again
 });
 
 test('choosing the same activity for its selected date removes it instead of reassigning it',()=>{
- const state=renderRoom(null,{phase:'PLANNING',schedule:['rune-circuit',null,null,null,null]});state.ui.schedule();
+ const state=renderRoom({phase:'PLANNING',schedule:['rune-circuit',null,null,null,null]});state.ui.schedule();
  findAll(state.shell,node=>node.className.includes('date-cell')&&node.attributes['aria-label']?.startsWith('1월 1일 월요일'))[0].onclick();
  const sameActivity=findAll(state.shell,node=>node.attributes['aria-label']==='룬 회로 활동 선택')[0];
  assert.ok(sameActivity);
@@ -94,7 +85,7 @@ test('choosing the same activity for its selected date removes it instead of rea
 });
 
 test('an adjacent-month current-week date stays selected after navigation and receives the chosen activity',()=>{
- const state=renderRoom(null,{phase:'PLANNING',week:9,day:0,schedule:[null,null,null,null,null]});state.ui.schedule();
+ const state=renderRoom({phase:'PLANNING',week:9,day:0,schedule:[null,null,null,null,null]});state.ui.schedule();
  const date=(month,day)=>findAll(state.shell,node=>node.className.includes('date-cell')&&node.attributes['aria-label']?.startsWith(month+'월 '+day+'일 '))[0];
  assert.equal(findAll(state.shell,node=>node.attributes['aria-pressed']==='true'&&node.className.includes('date-cell')).length,0);
  date(3,1).onclick();

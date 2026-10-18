@@ -100,7 +100,7 @@ export function createJournalUI(ctx) {
 				if (result) row.append(el("br"), el("small", result));
 				right.append(row);
 			}
-			right.append(el("small", "완료한 활동만 표시합니다. 활동 결과 저장 후 유지됩니다. 개인 돌아보기 문구는 아직 등록되지 않았습니다."));
+			right.append(el("small", "완료한 활동만 표시합니다. 활동 결과 저장 후 유지됩니다."));
 		} else if (record) {
 			const content = diaryStory(record),
 				choices = record.selectedChoices ?? content.choices.filter((c) => c.id === record.choiceId);
