@@ -26,6 +26,7 @@
 11. [11_FEATURE_FRAME.md](11_FEATURE_FRAME.md) — WBS 4.3 가방·배지·마이룸 퍼즐·대화 인수·엔딩 화면 계약
 12. [12_USER_UCS.md](12_USER_UCS.md) — WBS 4.2 가입·이어 하기·주간 진행·장소 이야기·가방·엔딩·계정의 완결된 사용자 상호작용 순서
 13. [13_DIALOGUE_SEQUENCE.md](13_DIALOGUE_SEQUENCE.md) — Main/NPC/Location 공통 대화의 캐릭터별 원고, DB 식별자, 이미지·선택·완료/스킵 저장 계약. 엔진 DTO는 [대화 시스템 문서](../dialogue/README.md)를 함께 확인
+14. [14_ADVENTURE_ITEM_IMAGES.md](14_ADVENTURE_ITEM_IMAGES.md) — 모험맵별 목표 아이템 15종의 단서 이미지 제작 목록과 연결 ID. 배치·방향·랜덤 선택 규칙은 [공통 엔진 프레임](10_COMMON_ENGINE_FRAME.md#7-숨겨진-아이템-배치)을 참고
 
 독립 상위 개념은 `01_`, `02_`처럼 파일로 유지하고, 상세 문서가 여러 개 생기는 도메인은 `03_COLLECTION_UNLOCKS/`처럼 폴더로 분리합니다. 폴더 안에서는 `README.md`를 상위 개요로 두고 상세 문서는 `01_`, `02_` 순번을 사용합니다.
 

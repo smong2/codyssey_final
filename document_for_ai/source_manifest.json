@@ -703,7 +703,7 @@
     },
     {
       "path": "document/content/10_COMMON_ENGINE_FRAME.md",
-      "sha256": "a8b4c0c3d59fbbc17be423c992a593003f69c77f8a1c63a5c94114e67b9889ae"
+      "sha256": "98771c37d22b0ce64202156de7e769af80ab319d2bcc6d618f7c29404450323a"
     },
     {
       "path": "document/content/11_FEATURE_FRAME.md",
@@ -718,8 +718,12 @@
       "sha256": "13b5c30a601566f43c76ac7957c9244e24ef997c3dca190826b0438ad1eae3f9"
     },
     {
+      "path": "document/content/14_ADVENTURE_ITEM_IMAGES.md",
+      "sha256": "8f00e4ca585f555380d2f539b29a54e84845a2de7a805dc7ea8cbca595afee59"
+    },
+    {
       "path": "document/content/README.md",
-      "sha256": "5a3549cd4684edeca674742657a2b99088d432bf6ef6f532b5d462bc148fcbc5"
+      "sha256": "5aa220707316cb466cc33e47cb5fd66714bb33222b4a31a5fe4944ee3033bdd7"
     },
     {
       "path": "document/실행방법.md",
