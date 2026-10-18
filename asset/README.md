@@ -13,11 +13,11 @@
 
 | 제작 ID | 파일 · 작은 미리보기 | 정확한 사용처 | 상태 |
 |---|---|---|---|
-| `ART-N01` | [흩어진 모임 안내지](item/ART-N01_meeting_notices_scattered.png)<br><img src="item/ART-N01_meeting_notices_scattered.png" width="100" alt="흩어진 작은 모임 안내지"> | `NPC_GUIDE_01` 최초, `NPC_GUIDE_02·04` 재사용. 시계탑 광장 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
-| `ART-N06` | [루루의 열린 보물상자](item/ART-N06_lulu_treasure_chest_open.png)<br><img src="item/ART-N06_lulu_treasure_chest_open.png" width="90" alt="루루의 열린 보물상자"> | `NPC_LULU_02` 최초, `NPC_LULU_03–04` 재사용. 방문 장소는 온실 또는 약초원 | 이미지 채택·파일 등록. 엔진 표시 미검수 |
-| `ART-L01` | [펼친 관측 일기](item/ART-L01_observation_diary_open_dusty.png)<br><img src="item/ART-L01_observation_diary_open_dusty.png" width="110" alt="먼지와 거미줄이 쌓인 펼친 관측 일기"> | `LOC_OBS_01` 최초, `LOC_OBS_02–04` 재사용. 별빛 천문대 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
+| `ART-N01` | [아이보리 프레임 · 흩어진 모임 안내지](item/ART-N01_meeting_notices_scattered.png)<br><img src="item/ART-N01_meeting_notices_scattered.png" width="110" alt="아이보리 프레임 속 흩어진 작은 모임 안내지"> | `NPC_GUIDE_01` 최초, `NPC_GUIDE_02·04` 재사용. 시계탑 광장 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
+| `ART-N06` | [아이보리 프레임 · 루루의 열린 보물상자](item/ART-N06_lulu_treasure_chest_open.png)<br><img src="item/ART-N06_lulu_treasure_chest_open.png" width="110" alt="아이보리 프레임 속 루루의 열린 보물상자"> | `NPC_LULU_02` 최초, `NPC_LULU_03–04` 재사용. 방문 장소는 온실 또는 약초원 | 이미지 채택·파일 등록. 엔진 표시 미검수 |
+| `ART-L01` | [아이보리 프레임 · 펼친 관측 일기](item/ART-L01_observation_diary_open_dusty.png)<br><img src="item/ART-L01_observation_diary_open_dusty.png" width="110" alt="아이보리 프레임 속 먼지와 거미줄이 쌓인 펼친 관측 일기"> | `LOC_OBS_01` 최초, `LOC_OBS_02–04` 재사용. 별빛 천문대 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
 
-게임용 일반 아이템 25장과 기존 프레임 카드 4장까지 포함한 **아이템 이미지 전체 32장**의 파일명·미리보기는 [item/README.md](item/README.md)에서 확인합니다. 프레임 카드·일반 아이템을 `ART-*` 전용 그림에 자동 대입하지 않습니다.
+세 FOCUS는 모두 밝은 아이보리 프레임과 투명한 바깥 배경의 1672×941 PNG입니다. 게임용 일반 아이템 25장과 기존 프레임 카드 4장까지 포함한 **아이템 이미지 전체 32장**의 파일명·미리보기는 [item/README.md](item/README.md)에서 확인합니다. 프레임 카드·일반 아이템을 `ART-*` 전용 그림에 자동 대입하지 않습니다.
 
 ## 메인 스토리와 엔딩
 
