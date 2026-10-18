@@ -1,6 +1,6 @@
 # Phase 12 배포·실환경 검증
 
-현재 상태: Firebase Auth·Firestore Emulator SDK 테스트와 로컬 브라우저 흐름은 통과했다. `codyssey-final`에 웹 앱 `lumia-web`과 Email/Password 공급자를 설정했고 Firestore 기본 DB를 `asia-northeast3`에 프로덕션 모드로 생성했다. `activityDays.kstDate` 그룹 색인은 생성 중이다. Render/Vercel 생성 및 운영 브라우저 15단계 E2E는 남아 있다. 운영 확인 전 `backend/FIREBASE_API_IMPLEMENTATION_PLAN.md`의 Phase 12를 완료로 표시하지 않는다.
+현재 상태: Firebase Auth·Firestore Emulator SDK 테스트와 로컬 브라우저 흐름은 통과했다. `codyssey-final`에 웹 앱 `lumia-web`과 Email/Password 공급자를 설정했고 Firestore 기본 DB를 `asia-northeast3`에 프로덕션 모드로 생성했다. `activityDays.kstDate` 컬렉션 그룹 오름차순 색인은 Console에서 준비 상태를 확인했다. Vercel 프론트는 `https://lumia-web-six.vercel.app/`에 배포되어 로그인 화면 로드를 확인했고, 이 호스트를 Firebase 승인 도메인에 추가했다. Render API는 `https://lumia-api-pcxd.onrender.com/health`에서 200 응답을 확인했다. 운영 브라우저 15단계 E2E는 남아 있다. 운영 확인 전 `backend/FIREBASE_API_IMPLEMENTATION_PLAN.md`의 Phase 12를 완료로 표시하지 않는다.
 
 ## 1. Firebase 프로젝트 준비
 
@@ -23,7 +23,7 @@
 | `GEMINI_API_KEY` | Gemini 호출을 사용할 때만 비밀값으로 입력. 없어도 검수된 fallback 편지 사용 |
 | `GEMINI_MODEL`, `GEMINI_THINKING_LEVEL` | 기본 `gemini-3.8-flash`, `low` |
 
-최초 생성 시 `CORS_ORIGINS`는 실제 Vercel URL을 얻은 뒤 입력하고 재배포한다. Render URL에서 `/health`가 200을 반환한 뒤에도 인증·Firestore 권한·DB 쓰기를 별도로 확인해야 한다. `CONTENT_SQLITE_PATH` 기본값은 빌드 스크립트의 출력 경로와 같다.
+현재 `CORS_ORIGINS`에 입력할 운영 origin은 `https://lumia-web-six.vercel.app`이다. Render URL에서 `/health`가 200을 반환한 뒤에도 인증·Firestore 권한·DB 쓰기를 별도로 확인해야 한다. `CONTENT_SQLITE_PATH` 기본값은 빌드 스크립트의 출력 경로와 같다.
 
 ## 3. Vercel 웹
 
@@ -31,11 +31,14 @@
 
 | 환경변수 | 값 |
 |---|---|
-| `VITE_API_BASE_URL` | Render API의 `https://...onrender.com` origin, 끝의 `/` 없이 |
+| `LUMIA_API_BASE_URL` | 운영 Render API의 `https://...onrender.com` origin, 끝의 `/` 없이. Vercel에서는 공개 Config 변수로 설정하며 `VITE_API_BASE_URL`보다 우선한다. |
+| `VITE_API_BASE_URL` | 로컬/기존 빌드의 API origin 대체값. `LUMIA_API_BASE_URL`이 없을 때 사용한다. |
 | `VITE_FIREBASE_API_KEY` | Firebase Web App의 공개 `apiKey` |
 | `VITE_FIREBASE_AUTH_DOMAIN` | Firebase Web App의 `authDomain` |
 | `VITE_FIREBASE_PROJECT_ID` | `codyssey-final` |
 | `VITE_FIREBASE_APP_ID` | Firebase Web App의 `appId` |
+
+운영 `LUMIA_API_BASE_URL` 값은 `https://lumia-api-pcxd.onrender.com`이다.
 
 빌드 결과의 `runtime-config.json`에는 이 공개 설정과 API 주소만 들어간다. Firebase 서비스 계정 JSON과 Gemini 키는 웹 빌드에 입력하지 않는다. Vercel 주소가 정해지면 Firebase Authentication의 승인된 도메인에 해당 **호스트명**을 추가하고 Render `CORS_ORIGINS`에 전체 origin을 넣는다. Vercel 환경변수를 바꾸면 재빌드한다. 배포한 `runtime-config.json`에 Emulator URL이 없는지 확인한다.
 

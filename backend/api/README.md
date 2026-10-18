@@ -13,7 +13,7 @@ FastAPI는 저장·회차·해금·엔딩 판정처럼 신뢰해야 하는 게�
 
 ## Phase 12 배포·검증 현황
 
-Firebase Auth·Firestore Emulator에서 실제 SDK 연결 테스트와 브라우저 가입→인증→bootstrap→회차 시작→MS01 Dialogue 조회→재접속 복구를 검증했다. Python 회귀 테스트 152개, 엔진·미니게임 회귀 339개와 Emulator 전용 테스트 1개가 통과했다. Firebase 프로젝트 `codyssey-final`에 웹 앱 `lumia-web`과 Email/Password 공급자를 설정했고 Firestore 기본 DB를 Seoul에 프로덕션 모드로 생성했다. `activityDays.kstDate` 그룹 색인은 생성 중이다. Render/Vercel 운영 E2E는 아직 진행 중이며 완료 전까지 Phase 12는 완료로 표시하지 않는다. 설정값, 실행 순서, 15단계 검증 기록 방식은 [Phase 12 배포 안내](deploy/README.md)를 따른다.
+Firebase Auth·Firestore Emulator에서 실제 SDK 연결 테스트와 브라우저 가입→인증→bootstrap→회차 시작→MS01 Dialogue 조회→재접속 복구를 검증했다. Python 회귀 테스트 152개, 엔진·미니게임 회귀 339개와 Emulator 전용 테스트 1개가 통과했다. Firebase 프로젝트 `codyssey-final`에 웹 앱 `lumia-web`과 Email/Password 공급자를 설정했고 Firestore 기본 DB를 Seoul에 프로덕션 모드로 생성했다. `activityDays.kstDate` 그룹 색인과 Vercel 프론트 배포·Firebase 승인 도메인을 확인했다. Render API는 `https://lumia-api-pcxd.onrender.com/health`에서 200 응답을 확인했다. 인증·Firestore 쓰기를 포함한 운영 E2E는 아직 진행 중이며 완료 전까지 Phase 12는 완료로 표시하지 않는다. 설정값, 실행 순서, 15단계 검증 기록 방식은 [Phase 12 배포 안내](deploy/README.md)를 따른다.
 
 대화 기능은 팀에서 확정한 [대화 시스템 안내](../../document/dialogue/README.md)와 [Dialogue API · Engine 계약](../../document/dialogue/01_ENGINE_API_CONTRACT.md)을 따른다. 대화 마스터는 FastAPI가 접근 가능한 서버 측 콘텐츠 저장소에서 읽고, 현재 플레이 캐릭터·`storyCast`·자원 경로·스킵 가능 여부를 해석해 엔진용 `LINE / IMAGE / CHOICE / END` 순차 payload로 변환한다. 선택 보상은 payload에 노출하지 않고 `completeDialogue` 시 서버가 검증·계산·저장한다. 실제 HTTP endpoint 경로와 인증/오류 코드는 구현 단계에서 이 계약을 유지하는 범위로 확정한다.
 

@@ -1,5 +1,7 @@
 # LUMIA 대화 시스템 — 엔진 AI 인계
 
+2026-10-18 Phase 12 최신 검증: 엔진의 운영 HTTP provider와 Firebase Web Auth adapter를 웹 빌드에 연결했다. Firebase Auth·Firestore Emulator 브라우저에서 MS01 Dialogue 조회와 재접속 복구를 확인했다. 실제 Firebase 프로젝트를 사용하는 Render API/운영 Dialogue E2E는 아직 진행 중이다. 아래 과거 단계의 미연결·재검증 대기 설명보다 이 상태를 우선한다.
+
 이 문서는 엔진 개발 AI가 Main/NPC/Location Story의 정식 대화 API를 연결할 때 읽는 **구현 요약**이다.
 
 작업 전 반드시 다음 원문을 함께 읽는다.

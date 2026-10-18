@@ -31,7 +31,7 @@ LUMIA는 52주 플레이가 끝나면 게임 규칙으로 미래 직업 엔딩�
 | Database | **Cloud Firestore** (중앙 데이터) + **SQLite WASM/OPFS** (플레이어 로컬 데이터) |
 | Generative AI | **Gemini API** — 기본 `gemini-3.8-flash`, 환경변수로 모델 교체 |
 
-사용자는 최종 배포 후 **Vercel 서비스 URL**로 게임에 접속하며, 게임 클라이언트가 Render의 FastAPI 서버를 호출합니다. 기술 선택 근거와 환경변수 기준은 [기술 스택 문서](document/10_TECH_STACK.md)에 정리합니다.
+프론트는 [LUMIA Vercel 주소](https://lumia-web-six.vercel.app/)에 배포했습니다. [Render API](https://lumia-api-pcxd.onrender.com/health)는 `/health` 응답을 확인했으며, 실제 Firebase 계정·저장·게임 흐름의 운영 검증은 Phase 12에서 진행 중입니다. 기술 선택 근거와 환경변수 기준은 [기술 스택 문서](document/10_TECH_STACK.md)에 정리합니다.
 
 ## 처음 읽을 문서
 

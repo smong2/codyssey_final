@@ -10,7 +10,9 @@ const required = name => {
   if (!value) throw new Error(`${name} is required for the Vercel build`);
   return value;
 };
-const apiBaseUrl = required('VITE_API_BASE_URL').replace(/\/+$/, '');
+// Vercel treats VITE_* as public configuration, so allow a plain config key
+// when the API origin changes after the first deployment.
+const apiBaseUrl = (process.env.LUMIA_API_BASE_URL?.trim() || required('VITE_API_BASE_URL')).replace(/\/+$/, '');
 const firebase = {
   apiKey: required('VITE_FIREBASE_API_KEY'),
   authDomain: required('VITE_FIREBASE_AUTH_DOMAIN'),
@@ -20,7 +22,7 @@ const firebase = {
 const localTest = process.env.LUMIA_LOCAL_TEST === '1';
 if (localTest ? !/^http:\/\/127\.0\.0\.1:\d+$/.test(apiBaseUrl)
   : !/^https:\/\/[^/]+$/.test(apiBaseUrl))
-  throw new Error('VITE_API_BASE_URL must be the expected API origin');
+  throw new Error('LUMIA_API_BASE_URL or VITE_API_BASE_URL must be the expected API origin');
 if (firebase.projectId !== (localTest ? 'demo-lumia-phase12' : 'codyssey-final'))
   throw new Error('Firebase project ID does not match the build environment');
 if (!firebase.authDomain.endsWith('.firebaseapp.com')) throw new Error('Firebase Auth domain is invalid');
