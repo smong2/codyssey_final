@@ -116,8 +116,8 @@ export function createPreviewObjectives({mask,spawn,count,seed,locationId='green
 export function qualitativeHint(from,target){
  const angle=(Math.atan2(target.y-from.y,target.x-from.x)+Math.PI*2)%(Math.PI*2),direction=DIRECTIONS[Math.round(angle/(Math.PI/4))%8];
  const distance=Math.hypot(target.x-from.x,target.y-from.y);
- const range=distance<150?'가까이':distance<420?'조금 더':'아직 조금';
- return `${direction} 쪽을 더 찾아보자. ${range} 있는 것 같아.`;
+ const range=distance<150?'가까운 곳에':distance<420?'조금 떨어진 곳에':'아직 꽤 떨어진 곳에';
+ return `${direction}을 더 찾아보자. ${range} 있는 것 같아.`;
 }
 
 export function investigateObjective(position,objectives,foundIds=[],radius=ADVENTURE_GEOMETRY.investigationRadius,trackedId=null){

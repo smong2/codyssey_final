@@ -49,13 +49,15 @@ test('legacy NPC options cannot open a dialogue or pause the adventure timer',t=
 });
 test('investigation exposes its busy state and preserves an overlapping clue overlay pause',t=>{
  t.mock.timers.enable({apis:['setTimeout']});
+ t.mock.method(Math,'random',()=>0.5);
  const {scene,view,states}=sceneHarness(t);
  const previousDocument=globalThis.document;globalThis.document={hidden:false};t.after(()=>{globalThis.document=previousDocument;});
  scene.keys=Object.fromEntries(['W','A','S','D','UP','DOWN','LEFT','RIGHT'].map(k=>[k,{isDown:false}]));
  scene.active=true;scene.remainingMs=120000;scene.objectives=[{id:'one',x:500,y:600}];scene.player={x:0,y:0,anims:{stop(){}},setFrame(){}};
  assert.equal(view.investigate(),true);assert.equal(states.at(-1).investigating,true);assert.equal(states.at(-1).paused,true);
+ assert.equal(states.at(-1).investigationDurationMs,1500);
  scene.update(0,1000);assert.equal(scene.remainingMs,120000);
- view.pause(true);t.mock.timers.tick(119);assert.equal(states.at(-1).investigating,true);t.mock.timers.tick(1);
+ view.pause(true);t.mock.timers.tick(1499);assert.equal(states.at(-1).investigating,true);t.mock.timers.tick(1);
  assert.equal(states.at(-1).investigating,false);assert.equal(states.at(-1).paused,true);
  scene.update(0,1000);assert.equal(scene.remainingMs,120000);
  view.pause(false);assert.equal(states.at(-1).paused,false);

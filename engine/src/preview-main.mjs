@@ -1716,6 +1716,9 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 	let missionReady = false,
 		started = false,
 		finished = false,
+		investigationOpen = false,
+		investigationCompleted = false,
+		pendingMissionResult = null,
 		lastState = null,
 		briefing = null;
 	let errorPanel = null;
@@ -1744,24 +1747,41 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 			message(state.error);
 			return;
 		}
+		const investigationFinished = investigationOpen && !investigationCompleted && !state.investigating;
 		lastState = state;
 		timer.textContent = `${String(Math.floor(state.remainingMs / 60000)).padStart(2, "0")}:${String(Math.floor(state.remainingMs / 1000) % 60).padStart(2, "0")}`;
 		progress.textContent = `발견 ${state.foundIds.length} / ${state.objectives.length || startData.objectiveCount}`;
 		searchCount.textContent = `조사 ${state.investigationCount}회`;
-		investigate.textContent = state.investigating ? "찾는 중..." : "조사하기";
-		investigate.disabled = !started || state.paused || finished;
-		clueButton.disabled = !missionReady || finished || state.investigating;
-		stopButton.disabled = !started || finished;
+		investigate.disabled = !started || state.paused || finished || investigationOpen;
+		clueButton.disabled = !missionReady || finished || state.investigating || investigationOpen;
+		stopButton.disabled = !started || finished || investigationOpen;
+		if (state.investigating && !investigationOpen) {
+			investigationOpen = true;
+			investigationCompleted = false;
+			adventureResultUI.showInvestigation(shell, { durationMs: state.investigationDurationMs }, () => {
+				investigationOpen = false;
+				investigationCompleted = false;
+				if (pendingMissionResult) {
+					const result = pendingMissionResult;
+					pendingMissionResult = null;
+					finishMission(result.outcome, result.foundCount);
+					return;
+				}
+				if (!finished) {
+					adventureView?.pause(Boolean(briefing));
+					investigate.focus();
+				}
+			});
+			adventureView?.pause(true);
+		}
+		if (investigationFinished) {
+			investigationCompleted = true;
+			adventureResultUI.finishInvestigation({ hint: state.hint, foundId: state.foundId, foundCount: state.foundIds.length, objectiveCount: state.objectives.length });
+		}
 		if (state.hint) {
 			hintLine.textContent = state.hint;
 			hintLine.hidden = false;
-			message("조사 결과 · " + state.hint);
-		}
-		if (started && !finished && state.foundId && (state.foundIds.length < state.objectives.length || serverMode)) {
-			adventureView?.pause(true);
-			adventureResultUI.showFound(shell, { foundCount: state.foundIds.length, objectiveCount: state.objectives.length }, () => {
-				if (!finished) adventureView?.pause(Boolean(briefing));
-			});
+			if (!investigationOpen) message("조사 결과 · " + state.hint);
 		}
 	};
 	const showClues = (initial) => {
@@ -1858,6 +1878,10 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 	}
 	const finishMission = (outcome, foundCount) => {
 		if (finished) return;
+		if (investigationOpen) {
+			pendingMissionResult = { outcome, foundCount };
+			return;
+		}
 		finished = true;
 		briefing?.remove();
 		if (serverMode) {
@@ -1869,9 +1893,13 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 	};
 	const mount = () => {
 		adventureView?.destroy();
+		adventureResultUI.clear();
 		missionReady = false;
 		started = false;
 		finished = false;
+		investigationOpen = false;
+		investigationCompleted = false;
+		pendingMissionResult = null;
 		lastState = null;
 		adventureView = mountAdventure(host, {
 			startData,
