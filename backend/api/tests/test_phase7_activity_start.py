@@ -530,8 +530,9 @@ def test_special_pending_story_stays_on_activity_day_until_dialogue(activity_db)
         run["storyEventWindow"].pop("locationStoryCount")
         updated, _ = _apply_effects(
             run, {"choice": [], "event": [], "important": []}, mode="COMPLETE",
-            event_id="TEST_EVENT", story_type="LOCATION", step_no=1,
-            choice_ids=[], now=datetime.now(timezone.utc),
+            event_id="TEST_EVENT", story_id="TEST_STORY", title="테스트 이야기",
+            story_type="LOCATION", step_no=1, selected_choices=[], choice_ids=[],
+            now=datetime.now(timezone.utc),
         )
         assert updated["day"] == "MONDAY" and updated["phase"] == "ACTIVITY_IN_PROGRESS"
         assert updated["completedWeekdayCount"] == 0

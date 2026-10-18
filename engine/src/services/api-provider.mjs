@@ -26,7 +26,7 @@ export function createLumiaApiProvider({baseUrl,getIdToken,fetchImpl=globalThis.
  if(typeof fetchImpl!=='function')throw new Error('fetch 구현이 필요합니다.');
  if(!Number.isFinite(timeoutMs)||timeoutMs<=0||!Number.isFinite(endingTimeoutMs)||endingTimeoutMs<timeoutMs||!Number.isInteger(maxAttempts)||maxAttempts<1||maxAttempts>3)throw new Error('API timeout/retry 설정이 올바르지 않습니다.');
  const root=baseUrl.replace(/\/+$/,'');
- const request=async(path,{method='GET',body,retryable=method==='GET',requestTimeoutMs=timeoutMs}={})=>{
+ const request=async(path,{method='GET',body,retryable=method==='GET',retryStatuses=RETRYABLE_STATUS,requestTimeoutMs=timeoutMs}={})=>{
   const bodyText=body===undefined?undefined:JSON.stringify(body);
   let lastError;
   for(let attempt=1;attempt<=maxAttempts;attempt++){
@@ -38,7 +38,7 @@ export function createLumiaApiProvider({baseUrl,getIdToken,fetchImpl=globalThis.
     const response=await fetchImpl(root+path,{method,headers:{Authorization:`Bearer ${token}`,...(bodyText===undefined?{}:{'Content-Type':'application/json'})},body:bodyText,signal:controller.signal});
     let data=null;try{data=await response.json();}catch{}
     if(response.ok)return data;
-    const canRetry=retryable&&RETRYABLE_STATUS.has(response.status)&&attempt<maxAttempts;
+    const canRetry=retryable&&retryStatuses.has(response.status)&&attempt<maxAttempts;
     const error=new LumiaApiError(safeDetail(data)??`API 요청에 실패했습니다. (${response.status})`,{code:errorCode(response.status),status:response.status,retryable:canRetry||RETRYABLE_STATUS.has(response.status)});
     if(canRetry){lastError=error;continue;}throw error;
    }catch(error){
@@ -77,7 +77,7 @@ export function createLumiaApiProvider({baseUrl,getIdToken,fetchImpl=globalThis.
   closeWeek:(slotId,body)=>mutation(`${slotPath(slotId)}/weeks/close`,body),
   acknowledgeWeekSummary:(slotId,body)=>mutation(`${slotPath(slotId)}/weeks/ack-summary`,body),
   loadDialogue:async({slotId,eventId})=>{
-   const payload=await request(`${slotPath(slotId)}/dialogue/${encodeURIComponent(eventId)}`),assetUrl=value=>typeof value==='string'&&value.startsWith('/')?new URL(value,root+'/').href:value;
+   const payload=await request(`${slotPath(slotId)}/dialogue/${encodeURIComponent(eventId)}`,{retryStatuses:new Set()}),assetUrl=value=>typeof value==='string'&&value.startsWith('/')?new URL(value,root+'/').href:value;
    if(payload?.speakers&&typeof payload.speakers==='object')for(const speaker of Object.values(payload.speakers))if(speaker&&typeof speaker==='object')speaker.portraitSrc=assetUrl(speaker.portraitSrc);
    if(Array.isArray(payload?.sequence))for(const entry of payload.sequence)if(entry?.type==='IMAGE')entry.src=assetUrl(entry.src);
    return payload;

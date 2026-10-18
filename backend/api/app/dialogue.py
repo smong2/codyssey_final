@@ -144,7 +144,9 @@ def _validated_choices(groups: list[dict], selected: list[SelectedChoice], mode:
 
 
 def _apply_effects(run: dict, bundle: dict, *, mode: str, event_id: str,
-                   story_type: str, step_no: int, choice_ids: list[str], now: datetime) -> tuple[dict, dict]:
+                   story_id: str, title: str, story_type: str, step_no: int,
+                   selected_choices: list[SelectedChoice], choice_ids: list[str],
+                   now: datetime) -> tuple[dict, dict]:
     result = deepcopy(run)
     visible_delta: dict[str, int] = {}
     if mode == "COMPLETE":
@@ -187,6 +189,27 @@ def _apply_effects(run: dict, bundle: dict, *, mode: str, event_id: str,
             candidate = {"eventId": event_id, "choiceId": choice_id, "week": result["week"]}
             if candidate not in result["representativeChoices"]:
                 result["representativeChoices"].append(candidate)
+    history = result.setdefault("dialogueHistory", [])
+    if (not isinstance(history, list) or len(history) >= 300
+            or any(not isinstance(item, dict) or not isinstance(item.get("eventId"), str)
+                   for item in history)):
+        raise DialogueRejected("Stored dialogue history is invalid")
+    if not any(item.get("eventId") == event_id for item in history):
+        day = result.get("day")
+        day_index = {"MONDAY": 0, "TUESDAY": 1, "WEDNESDAY": 2,
+                     "THURSDAY": 3, "FRIDAY": 4}.get(day)
+        if day_index is None:
+            raise DialogueRejected("Dialogue history day is invalid")
+        history.append({
+            "eventId": event_id,
+            "storyId": story_id,
+            "title": title,
+            "week": result["week"],
+            "day": day_index,
+            "completionMode": mode,
+            "selectedChoices": [choice.model_dump() for choice in selected_choices],
+            "effect": {"growth": deepcopy(visible_delta)},
+        })
     if story_type in {"NPC", "LOCATION"}:
         window = result["storyEventWindow"]
         if window.get("week") != result["week"]:
@@ -285,7 +308,9 @@ def complete_dialogue(
                                     choice_ids=choice_ids)
             updated_run, summary = _apply_effects(
                 run, bundle, mode=body.completionMode, event_id=claims["eventId"],
+                story_id=compiled["storyId"], title=compiled["title"],
                 story_type=compiled["storyType"], step_no=compiled["stepNo"],
+                selected_choices=body.selectedChoices,
                 choice_ids=choice_ids, now=now,
             )
             if body.completionMode == "COMPLETE":

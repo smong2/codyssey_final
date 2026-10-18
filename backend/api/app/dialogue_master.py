@@ -27,6 +27,15 @@ DELIVERED_FOCUS_ASSETS = {
     "ART-L01": "IT_focus_LOC_OBS_01_observation_diary_03.png",
 }
 
+# LOC_GH_01 has reviewed dialogue and approved scene/background/character assets,
+# but its two optional prop focus images are still reserved and undelivered.
+# Keep that location story playable by explicitly hiding FOCUS at those beats.
+# Other missing assets remain fail-closed.
+OPTIONAL_MISSING_FOCUS_ASSETS = {
+    ("LOC_GH_01", "ART-L02"),
+    ("LOC_GH_01", "ART-L03"),
+}
+
 
 def _database(path: Path):
     connection = sqlite3.connect(f"{path.resolve().as_uri()}?mode=ro", uri=True)
@@ -201,7 +210,17 @@ class DialogueMaster:
                          "action": row["image_action"], "assetType": row["image_asset_type"],
                          "alt": row["image_alt"] or ""}
                 if row["image_action"] != "HIDE":
-                    image["src"] = self._image_src(row["image_asset_ref"])
+                    try:
+                        image["src"] = self._image_src(row["image_asset_ref"])
+                    except DialogueAssetMissing:
+                        optional_focus = (
+                            row["image_target"] == "FOCUS"
+                            and (event_id, row["image_asset_ref"])
+                            in OPTIONAL_MISSING_FOCUS_ASSETS
+                        )
+                        if not optional_focus:
+                            raise
+                        image["action"] = "HIDE"
                 commands.append(image)
                 current = row["next_node_id"]
             elif kind == "CHOICE":

@@ -2,6 +2,7 @@ import {createProfile} from './state.mjs';
 import {classOf} from './classes.mjs';
 import {isForcedRestDay} from './activity-rules.mjs';
 import {BADGE_GROUPS} from './collection-view.mjs';
+import {MAIN_STORIES} from './main-story.mjs';
 
 const WEEKDAYS=['MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY'];
 const ADVENTURE_LOCATIONS={ADV_GREENHOUSE:'greenhouse',ADV_LIBRARY:'library',ADV_OBSERVATORY:'observatory'};
@@ -70,6 +71,28 @@ const projectedHistory=(run,schedule)=>{
  const rows=[],seen=new Set(),add=(entry,week,day)=>{const key=`${week}:${day}`;if(seen.has(key))return;rows.push(projectHistoryEntry(run,entry,week,day));seen.add(key);};
  for(const entry of stored??[]){if(!entry||typeof entry!=='object')throw new Error('서버 활동 기록이 올바르지 않습니다.');add(entry,entry.week,entry.day);}
  WEEKDAYS.forEach((weekday,index)=>{const entry=schedule?.[weekday];if(entry?.status==='COMPLETED')add(entry,run.week,index);});
+ return rows.sort((a,b)=>a.week-b.week||a.day-b.day);
+};
+const projectDialogueHistory=run=>{
+ const stored=run.dialogueHistory;
+ if(stored!==undefined&&(!Array.isArray(stored)||stored.length>300))throw new Error('서버 이야기 기록이 올바르지 않습니다.');
+ const rows=[],seen=new Set();
+ for(const record of stored??[]){
+  if(!record||typeof record!=='object'||typeof record.eventId!=='string'||!record.eventId||typeof record.title!=='string'||!Number.isInteger(record.week)||record.week<1||record.week>run.week||!Number.isInteger(record.day)||record.day<0||record.day>4||!['COMPLETE','SKIP'].includes(record.completionMode)||!Array.isArray(record.selectedChoices)||record.selectedChoices.some(choice=>!choice||typeof choice.choiceNodeId!=='string'||typeof choice.choiceId!=='string'))throw new Error('서버 이야기 기록이 올바르지 않습니다.');
+  const rawGrowth=record.effect?.growth??{};
+  if(!rawGrowth||typeof rawGrowth!=='object'||Array.isArray(rawGrowth)||Object.entries(rawGrowth).some(([key,value])=>!['knowledge','expression','skill','exploration','magic'].includes(key)||!Number.isFinite(value)||value<0||value>500))throw new Error('서버 이야기 기록이 올바르지 않습니다.');
+  const growth=projectStats(rawGrowth);
+  if(seen.has(record.eventId))throw new Error('서버 이야기 기록이 중복되었습니다.');
+  seen.add(record.eventId);rows.push({...clone(record),effect:{...(clone(record.effect??{})),growth}});
+ }
+ // Compatibility for runs that completed Main Story before dialogueHistory became
+ // authoritative. Do not invent old choices or rewards; only restore completion.
+ for(const story of MAIN_STORIES){
+  if(seen.has(story.id)||story.week>run.week)continue;
+  const completed=run.eventFlags?.[story.id]===true||run.storyProgress?.[story.id]?.status==='COMPLETED';
+  if(!completed)continue;
+  rows.push({eventId:story.id,storyId:story.id,title:story.title,week:story.week,day:0,completionMode:'COMPLETE',selectedChoices:[],effect:{growth:{}}});seen.add(story.id);
+ }
  return rows.sort((a,b)=>a.week-b.week||a.day-b.day);
 };
 
@@ -143,7 +166,7 @@ export function projectServerRun(run){
  const hasSchedule=WEEKDAYS.every(day=>schedule[day]&&typeof schedule[day]==='object');
  const actions=hasSchedule?WEEKDAYS.map(day=>actionFor(schedule[day])):[],locations=hasSchedule?WEEKDAYS.map(day=>locationFor(schedule[day])):[];
  const finalSummary=run.phase==='FINAL_SUMMARY_PENDING',summaryPending=['WEEK_SUMMARY_PENDING','FINAL_SUMMARY_PENDING'].includes(run.phase);
- const result={runId:run.runId,runNumber:run.runNumber,characterId:run.characterId,week:run.week,day:dayIndex,phase:localPhase(run.phase),serverPhase:run.phase,schedule:actions,scheduleLocations:locations,stamina:run.stamina?.current??0,exhausted:Boolean(run.forcedRest?.active),forcedRestDays:run.forcedRest?.remainingWeekdays??0,stats:projectStats(run.stats),consecutiveFails:clone(run.minigameFailStreaks??{}),pendingStoryEvent:clone(run.pendingStoryEvent??null),storyCast:clone(run.storyCast??{}),actionHistory:projectedHistory(run,schedule),lastWeekSummary:clone(run.lastWeekSummary??null),serverRunStatistics:clone(run.runStatistics??{}),endingDecision:clone(run.endingDecision),endingPrepared:clone(run.endingPrepared)};
+ const result={runId:run.runId,runNumber:run.runNumber,characterId:run.characterId,week:run.week,day:dayIndex,phase:localPhase(run.phase),serverPhase:run.phase,schedule:actions,scheduleLocations:locations,stamina:run.stamina?.current??0,exhausted:Boolean(run.forcedRest?.active),forcedRestDays:run.forcedRest?.remainingWeekdays??0,stats:projectStats(run.stats),consecutiveFails:clone(run.minigameFailStreaks??{}),pendingStoryEvent:clone(run.pendingStoryEvent??null),storyCast:clone(run.storyCast??{}),dialogueHistory:projectDialogueHistory(run),actionHistory:projectedHistory(run,schedule),lastWeekSummary:clone(run.lastWeekSummary??null),serverRunStatistics:clone(run.runStatistics??{}),endingDecision:clone(run.endingDecision),endingPrepared:clone(run.endingPrepared)};
  const progress=inProgressActivity(run,schedule,dayIndex);if(progress)result.inProgressActivity=progress;
  if(summaryPending)result.pendingWeekSummaryWeek=run.lastWeekSummary?.week??(finalSummary?52:Math.max(1,run.week-1));
  return result;

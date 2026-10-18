@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {CLASSES} from '../src/core/classes.mjs';
+import {storyDiaryRecords} from '../src/core/activity-history.mjs';
 import {canRecordServerRoomVisit,createServerProfile,projectServerRun,serverClassStartData,serverRoomBackgroundId,serverRoomVisitKey,serverScheduleActivityIds} from '../src/core/server-state.mjs';
 
 const run={runId:'run-1',runNumber:1,characterId:'CH01',week:2,day:'TUESDAY',phase:'ACTIVITY_STORY_PENDING',storyCast:{GUIDE:'CH16'},pendingStoryEvent:{eventId:'NPC_GUIDE_01',eventType:'NPC'},stats:{knowledge:60,expression:61,skill:62,exploration:63,magic:64},stamina:{current:75,max:100},hiddenStats:{empathy:99},forcedRest:{active:false,remainingWeekdays:0},minigameFailStreaks:{'rune-circuit':2},runStatistics:{classCounts:{knowledge:1,expression:0,skill:0,exploration:0,magic:0}},weeklySchedule:{MONDAY:{type:'CLASS',contentId:'rune-circuit',status:'COMPLETED',resolution:'SUCCESS',staminaBefore:100,staminaCost:10,growthApplied:5},TUESDAY:{type:'ADVENTURE',contentId:'ADV_LIBRARY',status:'IN_PROGRESS',staminaBefore:90,staminaCost:15,adventureDifficulty:2,objectiveCount:3,durationSeconds:120,adventureSeed:'seed',missionId:'mission'},WEDNESDAY:{type:'REST',contentId:'REST_DEFAULT',status:'PLANNED'},THURSDAY:{type:'SPECIAL',contentId:'fairy-trade',status:'PLANNED'},FRIDAY:{type:'CLASS',contentId:'sealed-shelves',status:'PLANNED'}}};
@@ -24,6 +25,26 @@ test('server activity history survives a week rollover for calendar and diary pr
  const value=projectServerRun({...run,week:2,day:'MONDAY',phase:'SCHEDULE_READY',pendingStoryEvent:null,weeklySchedule:{},activityHistory:history});
  assert.equal(value.actionHistory.length,3);assert.deepEqual(value.actionHistory.map(item=>[item.week,item.day,item.action]),[[1,0,'rune-circuit'],[1,1,'adventure'],[1,2,'rest']]);
  assert.equal(value.actionHistory[1].locationId,'library');assert.equal(value.actionHistory[1].effect.growth.exploration,6);
+});
+
+test('server dialogue history projects durable story records and normalizes skill growth',()=>{
+ const value=projectServerRun({...run,pendingStoryEvent:null,dialogueHistory:[{
+  eventId:'MS01',storyId:'MS01',title:'각자의 이유로 아카데미에',week:1,day:0,completionMode:'COMPLETE',
+  selectedChoices:[{choiceNodeId:'C1',choiceId:'A'}],effect:{growth:{knowledge:2,skill:1}},
+ }],eventFlags:{MS01:true},storyProgress:{MS01:{status:'COMPLETED',step:1,lastAdvancedWeek:1}}});
+ assert.equal(value.dialogueHistory.length,1);assert.equal(value.dialogueHistory[0].eventId,'MS01');
+ assert.deepEqual(value.dialogueHistory[0].selectedChoices,[{choiceNodeId:'C1',choiceId:'A'}]);
+ assert.deepEqual(value.dialogueHistory[0].effect.growth,{knowledge:2,dexterity:1});
+ assert.equal(storyDiaryRecords(value)[0].title,'각자의 이유로 아카데미에');
+});
+
+test('legacy completed main story is restored into diary history without inventing choices or rewards',()=>{
+ const value=projectServerRun({...run,pendingStoryEvent:null,eventFlags:{MS01:true},storyProgress:{MS01:{status:'COMPLETED',step:1,lastAdvancedWeek:1}}});
+ assert.deepEqual(value.dialogueHistory,[{
+  eventId:'MS01',storyId:'MS01',title:'각자의 이유로 아카데미에',week:1,day:0,
+  completionMode:'COMPLETE',selectedChoices:[],effect:{growth:{}},
+ }]);
+ assert.equal(storyDiaryRecords(value)[0].eventId,'MS01');
 });
 
 test('weekly-summary and ending phases keep the existing UI gates',()=>{
