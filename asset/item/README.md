@@ -19,25 +19,25 @@
 
 ## 채택한 스토리 FOCUS · 3장
 
-다음 세 장은 사용자 승인에 따라 같은 밝은 아이보리 바탕·얇은 장식 프레임으로 교체했습니다. 미리보기는 좁은 표에서 줄어들지 않도록 각각 따로 배치하고 모두 폭 350px로 맞췄습니다. 프레임 밖은 투명합니다. 아래 규격은 파일의 실제 픽셀 수입니다. **이미지 경로 확정과 엔진 화면 연결 완료는 별개**이며, 게임 화면의 표시·크기 검수는 남아 있습니다.
+다음 세 장은 사용자 승인에 따라 같은 밝은 아이보리 바탕·얇은 장식 프레임으로 교체했습니다. 미리보기는 좁은 표에서 줄어들지 않도록 각각 따로 배치하고 모두 폭 280px로 맞췄습니다. 프레임 밖은 투명합니다. 아래 규격은 파일의 실제 픽셀 수입니다. **이미지 경로 확정과 엔진 화면 연결 완료는 별개**이며, 게임 화면의 표시·크기 검수는 남아 있습니다.
 
 ### `ART-N01` · 바람에 흩어진 모임 안내지
 
-<img src="./ART-N01_meeting_notices_scattered.png" width="350" alt="밝은 아이보리 프레임 속 바람에 흩어진 작은 모임 안내지 여러 장">
+<img src="./ART-N01_meeting_notices_scattered.png" width="280" alt="밝은 아이보리 프레임 속 바람에 흩어진 작은 모임 안내지 여러 장">
 
 - 파일: [ART-N01_meeting_notices_scattered.png](./ART-N01_meeting_notices_scattered.png) · 1672×941 투명 PNG
 - 사용처: `NPC_GUIDE_01` 시계탑 광장에서 처음 표시. `NPC_GUIDE_02`, `NPC_GUIDE_04`에서 같은 그림 재사용. 읽히는 글자 대신 단순 문양 사용.
 
 ### `ART-N06` · 루루의 열린 보물상자
 
-<img src="./ART-N06_lulu_treasure_chest_open.png" width="350" alt="밝은 아이보리 프레임 속 수집품이 보이는 루루의 열린 보물상자">
+<img src="./ART-N06_lulu_treasure_chest_open.png" width="280" alt="밝은 아이보리 프레임 속 수집품이 보이는 루루의 열린 보물상자">
 
 - 파일: [ART-N06_lulu_treasure_chest_open.png](./ART-N06_lulu_treasure_chest_open.png) · 1672×941 투명 PNG
 - 사용처: `NPC_LULU_02` 온실 또는 약초원에서 처음 표시. `NPC_LULU_03–04`에서 같은 그림 재사용. 이후 새 발견물은 대사로 설명.
 
 ### `ART-L01` · 펼쳐진 관측 일기
 
-<img src="./ART-L01_observation_diary_open_dusty.png" width="350" alt="밝은 아이보리 프레임 속 먼지와 거미줄이 수북한 펼친 관측 일기">
+<img src="./ART-L01_observation_diary_open_dusty.png" width="280" alt="밝은 아이보리 프레임 속 먼지와 거미줄이 수북한 펼친 관측 일기">
 
 - 파일: [ART-L01_observation_diary_open_dusty.png](./ART-L01_observation_diary_open_dusty.png) · 1672×941 투명 PNG
 - 사용처: `LOC_OBS_01` 별빛 천문대에서 처음 표시. `LOC_OBS_02–04`에서 같은 그림 재사용. 회차별 기록 내용은 대화창 텍스트로 표시.
