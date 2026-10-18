@@ -1,8 +1,8 @@
 import {classOf} from './classes.mjs';
-export const ENDING_RECORD_LABELS={classes:'수업',adventures:'모험',npcMeetings:'NPC 만남',minigamesCleared:'미니게임 클리어',npcStoriesCompleted:'NPC 개별 스토리 완료',locationsDiscovered:'장소 발견',specialItemDiscoveries:'특별 발견',importantChoices:'중요 선택'};
+export const ENDING_RECORD_LABELS={classes:'수업',adventures:'모험',npcMeetings:'NPC 만남',minigamesCleared:'미니게임 클리어',npcStoriesCompleted:'NPC 개별 스토리 완료',locationsDiscovered:'장소 발견',specialItemDiscoveries:'특별 발견',importantChoices:'중요 선택','class:knowledge':'지식 계열 수업','class:expression':'표현력 계열 수업','class:dexterity':'솜씨 계열 수업','class:exploration':'탐험 계열 수업','class:magic':'마법 계열 수업'};
 export function displayedEndingRecords(record){
  const rows=record.playRecords??record.records??[];
- return Object.keys(ENDING_RECORD_LABELS).map(key=>rows.find(row=>row.key===key)).filter(row=>row&&Number.isSafeInteger(row.value)&&row.value>=0).slice(0,6);
+ return rows.filter(row=>Object.hasOwn(ENDING_RECORD_LABELS,row?.key)&&Number.isSafeInteger(row.value)&&row.value>=0).slice(0,6);
 }
 
 export function endingSnapshot(run,character){

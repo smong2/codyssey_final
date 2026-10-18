@@ -4,7 +4,7 @@
 
 | 폴더 | 내용 | 예시 ID·파일 |
 |---|---|---|
-| `asset/character/` | 학생 전신과 상반신 감정 표현 이미지 | `kael0_fullbody.png`, `kael1_base.png`, `kael2_listening.png` |
+| `asset/character/` | 학생 전신 원본을 현재 UI에 사용, 상반신 표정은 과거 제작 자원으로 보존 | `kael0_fullbody.png` 사용; `kael1_base.png`, `kael2_listening.png` 미사용 |
 | `asset/item/` | 소지품·가구·조사 오브젝트 | `IT01_heart_diary_000.png`, `OBJ01_inspect_plant_wilted_020.png` |
 | `asset/background/` | 학원 장소·마이룸 배경과 테마 시안 | 게임용 15장과 테마 시안 15장; `myroom/`의 창가 독서실 3장은 UI 검토용 원본이며 게임 적용은 별도 |
 | `asset/environment/` | 바닥·식물·구조물·전경 | `ENV05_small_plant_A_006.png` |
@@ -18,7 +18,7 @@
 | `asset/Full screen/` | UI·배경 합성 전체화면 검토 시안 | `FS01~FS21` PNG; 구현 화면이나 최종 채택본 아님 |
 | `asset/Full screen/screen/` | 과거 화면 흐름 참고 시안 | PNG/JPG 9장; 최종 진행 순서 아님 |
 
-**상태 경계:** 파일이 존재해도 최종 선택, 실제 화면 합성, 가장자리·크롭·애니메이션 검수가 완료된 것은 아니다. 학생 32명은 각자 `전신 1장 + 상반신 5장(기본/경청/생각/격려/안도)`을 가지며 총 192장이 표준 캐릭터 세트다. 엘리아는 별도의 전신 크기 보정본 1장이 더 있어 `asset/character/`의 학생 이미지 총수는 193장이다. 엘리아 보정본의 실제 사용 여부는 미정이다. `asset/pet/`의 `PT01~PT10` 이미지 10종은 게임 ID `PET01~PET10`과 번호 순서대로 1:1 연결한다. 같은 폴더의 루루 이미지는 펫이 아닌 NPC 자원이다. 베른이라는 단일 펫 캐릭터 설정은 본편에서 사용하지 않는다. 회복 식물은 현재 `asset/item/plant2_restored.png`만 확인되며 과거 문서의 별도 변형본은 현재 폴더에서 확인되지 않는다. 기존 신비 로고 1안·5안은 시안으로 남아 있고, 현재 최종 사용 로고는 `asset/ui/lumia_logo_final_034.png`, 전용 빛무리는 `asset/effect/lumia_logo_glow_003.png`이다.
+**상태 경계:** 파일이 존재해도 최종 선택, 실제 화면 합성, 가장자리·크롭·애니메이션 검수가 완료된 것은 아니다. 현재 UI는 학생 전신만 사용하며 NPC 대화·선택지도 전신으로 표시한다. 플레이어 이미지는 대화에서 표시하지 않고 마이룸 기본 프로필의 작은 얼굴 이미지도 제거한다. 과거 제작 목록의 `전신 32장 + 상반신 표정 160장 + 엘리아 전신 보정본 1장 = 193장`은 자원 보유 기록이지 현재 필수 사용 세트가 아니다. `img1~img5`와 `*_base.png` 등은 새 화면에 연결하지 않으며 기존 표정 경로는 전신 표시로 호환한다. 실제 원본 파일 삭제는 별도 작업이다. 엘리아 보정본의 실제 사용 여부는 미정이다. `asset/pet/`의 `PT01~PT10` 이미지 10종은 게임 ID `PET01~PET10`과 번호 순서대로 1:1 연결한다. 같은 폴더의 루루 이미지는 펫이 아닌 NPC 자원이다. 베른이라는 단일 펫 캐릭터 설정은 본편에서 사용하지 않는다. 회복 식물은 현재 `asset/item/plant2_restored.png`만 확인되며 과거 문서의 별도 변형본은 현재 폴더에서 확인되지 않는다. 기존 신비 로고 1안·5안은 시안으로 남아 있고, 현재 최종 사용 로고는 `asset/ui/lumia_logo_final_034.png`, 전용 빛무리는 `asset/effect/lumia_logo_glow_003.png`이다.
 
 현재 엔진은 `asset/ui/lumia_logo_final_034.png`와 `asset/effect/lumia_logo_glow_003.png`를 타이틀에 사용한다. 온실 모험은 `asset/map/`의 4K WebP 배경·전경과 1920×1080 흑백 충돌 마스크를 사용하며 원본 PNG는 보존한다. 전경의 오브젝트별 정렬 데이터는 미정이라 현재 엔진에서만 임시로 항상 캐릭터 앞에 둔다. 인트로 영상은 이미지 자원이 아니며 `prototype/assets/intro.mp4`의 교체본을 엔진에서 사용한다. 상세 파일과 내보내기 기준은 각 카테고리 README와 엔진 README를 우선 확인한다.
 
