@@ -1,6 +1,7 @@
 import {createProfile} from './state.mjs';
 import {classOf} from './classes.mjs';
 import {isForcedRestDay} from './activity-rules.mjs';
+import {BADGE_GROUPS} from './collection-view.mjs';
 
 const WEEKDAYS=['MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY'];
 const ADVENTURE_LOCATIONS={ADV_GREENHOUSE:'greenhouse',ADV_LIBRARY:'library',ADV_OBSERVATORY:'observatory'};
@@ -11,6 +12,26 @@ const SERVER_ROOM_VISIT_FORBIDDEN=new Set(['MAIN_STORY_PENDING','ACTIVITY_IN_PRO
 const clone=value=>value===undefined?undefined:structuredClone(value);
 const statKey=key=>key==='skill'?'dexterity':key;
 const projectStats=stats=>Object.fromEntries(Object.entries(stats??{}).filter(([key])=>['knowledge','expression','skill','exploration','magic'].includes(key)).map(([key,value])=>[statKey(key),value]));
+const BADGE_SUBCATEGORIES={forest:['COMPASS','TREASURE','DOOR','CURIOSITY','PET'],star:['SCIENCE','SPEECH','THINKING','INDEPENDENCE','RETRY'],workshop:['ACTIVITY','CHAMPION','PUZZLE','ROOM','PROMISE'],friendship:['FRIENDS','LISTENING','EMPATHY','COOPERATION','HONESTY'],rune:['AWAKEN','CHOICE','COURAGE','CHARACTER','FUTURE']};
+const earnedBadgeTiers=(ids,category,subcategory)=>Array.from({length:8},(_,index)=>index+1).filter(tier=>ids.includes(`BADGE_${category}_${subcategory}_${String(tier).padStart(2,'0')}`));
+function projectBadgeRows(meta,statistics){
+ const ids=Array.isArray(meta.acquiredBadgeIds)?meta.acquiredBadgeIds:[],classCounts=statistics.classCounts??{},tags=statistics.behaviorTagCounts??{};
+ const counters={
+  adventures:statistics.totalAdventureCount,specialItemDiscoveries:statistics.totalSpecialItemDiscoveryCount,locationsDiscovered:statistics.totalLocationDiscoveryCount,
+  'tags.curiosity':tags.curiosity,'tags.prudence':tags.caution,'tags.independence':tags.independence,'tags.responsibility':tags.responsibility,
+  retries:statistics.retryAfterFailureCount,'classesByStat.knowledge':classCounts.knowledge,'classesByStat.expression':classCounts.expression,
+  'classesByStat.dexterity':classCounts.skill,'classesByStat.magic':classCounts.magic,minigamesCleared:statistics.totalMinigameClearCount,
+  roomWeeks:statistics.myRoomActiveWeekCount,npcMeetings:statistics.totalNpcEncounterCount,npcStoriesCompleted:statistics.completedNpcStoryCount,
+  'tags.empathy':tags.empathy,'tags.cooperation':tags.cooperation,'tags.honesty':tags.honesty,importantChoices:statistics.importantChoiceCount,'tags.courage':tags.courage,
+ };
+ const unlockedPets=Array.isArray(meta.unlockedPetIds)?new Set(meta.unlockedPetIds).size:null,unlockedCharacters=Array.isArray(meta.unlockedCharacterIds)?new Set(meta.unlockedCharacterIds).size:null,puzzleCount=Array.isArray(meta.acquiredPuzzlePieceIds)?new Set(meta.acquiredPuzzlePieceIds).size:null,endingCount=Array.isArray(meta.seenEndingIds)?new Set(meta.seenEndingIds.filter(id=>id!=='ENDING_STARPATH_PIONEER')).size:null;
+ return BADGE_GROUPS.flatMap(group=>group.subgroups.map((sub,index)=>{
+  const category=group.id.toUpperCase(),code=BADGE_SUBCATEGORIES[group.id][index],earnedTiers=earnedBadgeTiers(ids,category,code),milestones=[2,5,8].filter(tier=>earnedTiers.length>=tier);
+  const specialCounters={'badge_symbol_forest_pet_009.png':unlockedPets,'badge_symbol_workshop_puzzle_017.png':puzzleCount,'badge_symbol_rune_character_028.png':unlockedCharacters,'badge_symbol_rune_future_029.png':endingCount};
+  const current=sub.counter?counters[sub.counter]:specialCounters[sub.symbol]??null;
+  return {categoryId:group.id,subcategoryTitle:sub.title,current:Number.isSafeInteger(current)&&current>=0?current:null,earnedTiers,awardedMilestones:milestones};
+ }));
+}
 const actionFor=entry=>{
  if(!entry||typeof entry!=='object')return null;
  if(entry.type==='CLASS')return entry.contentId??null;
@@ -38,7 +59,8 @@ const projectedHistory=(run,schedule)=>WEEKDAYS.flatMap((day,index)=>{
  if(transfer&&typeof transfer.fromStat==='string'&&typeof transfer.toStat==='string'&&Number.isFinite(transfer.amount)){
   transferChanges[statKey(transfer.fromStat)]=-transfer.amount;transferChanges[statKey(transfer.toStat)]=transfer.amount;
  }
- return [{week:run.week,day:index,action,...(locationFor(entry)?{locationId:locationFor(entry)}:{}),status:entry.resolution==='INTERRUPTED'?'INTERRUPTED':'COMPLETED',effect:{outcome:String(entry.resolution??'complete').toLowerCase(),staminaChange,staminaAfter,growth,...(Object.keys(transferChanges).length?{transferChanges}:{}),forcedRest:entry.type==='FORCED_REST',forcedRestDays:run.forcedRest?.remainingWeekdays??0}}];
+ const resolutions={GREAT:'greatSuccess',SUCCESS:'success',FAIL:'failure',MISSION_COMPLETE:'success',TIMEOUT:'timeout',TRANSFERRED:'transferred',SKIPPED:'skipped',INTERRUPTED:'interrupted'};
+ return [{week:run.week,day:index,action,...(locationFor(entry)?{locationId:locationFor(entry)}:{}),status:entry.resolution==='INTERRUPTED'?'INTERRUPTED':'COMPLETED',effect:{outcome:resolutions[entry.resolution]??String(entry.resolution??'complete').toLowerCase(),staminaChange,staminaAfter,growth,...(Object.keys(transferChanges).length?{transferChanges}:{}),forcedRest:entry.type==='FORCED_REST',forcedRestDays:run.forcedRest?.remainingWeekdays??0}}];
 });
 
 export function serverScheduleActivityIds(run,actions,locations=[]){
@@ -60,6 +82,18 @@ export function serverScheduleActivityIds(run,actions,locations=[]){
 
 export function serverRoomBackgroundId(engineId){
  const id=ENGINE_ROOMS[engineId];if(!id)throw new Error('서버에 등록되지 않은 마이룸 배경입니다.');return id;
+}
+
+export function serverClassStartData(checkpoint,lesson){
+ const data=checkpoint?.serverStart,names=['EASY','NORMAL','HARD','VERY_HARD'];
+ if(!lesson||!data||data.activityType!=='CLASS'||data.gameId!==lesson.id||data.locationId!==lesson.locationId||!names.includes(data.playDifficulty)||!names.includes(data.rewardDifficulty)||!Number.isInteger(data.assistLevel)||data.assistLevel<0||data.assistLevel>2||typeof data.seed!=='string'||!data.seed||!Number.isFinite(data.maxDurationMs)||data.maxDurationMs<=0||data.replayVersion===undefined)throw new Error('서버 수업 시작 정보가 현재 일정과 일치하지 않습니다.');
+ return {gameId:data.gameId,locationId:data.locationId,difficulty:names.indexOf(data.playDifficulty)+1,seed:data.seed,maxDurationMs:data.maxDurationMs,rewardInputs:null,contractVersion:2,locationCode:lesson.locationCode,targetStat:lesson.stat,rewardDifficulty:data.rewardDifficulty,playDifficulty:data.playDifficulty,assistLevel:data.assistLevel};
+}
+
+export function serverAdventureStartData(checkpoint){
+ const data=checkpoint?.serverStart,locationId=locationFor({type:'ADVENTURE',contentId:data?.activityId}),names=['EASY','NORMAL','HARD','VERY_HARD'];
+ if(!data||data.activityType!=='ADVENTURE'||!locationId||data.locationId!==locationId||typeof data.seed!=='string'||!data.seed||typeof data.missionId!=='string'||!data.missionId||!Number.isInteger(data.adventureDifficulty)||data.adventureDifficulty<1||data.adventureDifficulty>4||!Number.isInteger(data.targetCount)||data.targetCount<1||data.targetCount>5||!Number.isInteger(data.durationSeconds)||data.durationSeconds<=0)throw new Error('서버 모험 시작 정보가 올바르지 않습니다.');
+ return {gameId:'adventure',missionId:data.missionId,locationId,seed:data.seed,difficulty:data.adventureDifficulty,objectiveCount:data.targetCount,durationSeconds:data.durationSeconds};
 }
 
 export function projectServerSettings(collection){
@@ -112,7 +146,8 @@ export function projectServerSlot(slot){
 
 export function projectServerCollection(collection){
  const meta=collection?.meta??{},statistics=collection?.statistics??{},base=createProfile().meta;
- return {...base,unlockedCharacters:clone(meta.unlockedCharacterIds??base.unlockedCharacters),unlockedPetIds:clone(meta.unlockedPetIds??base.unlockedPetIds),permanentBonuses:projectStats(meta.permanentBonuses??{}),seenEndings:clone(meta.seenEndingIds??[]),badges:clone(meta.acquiredBadgeIds??[]),roomPieces:clone(meta.acquiredPuzzlePieceIds??[]),endingViewCounts:clone(statistics.endingViewCounts??{}),collectionView:{...(base.collectionView??{}),rooms:projectServerRooms(meta)},counters:{minigames:statistics.totalMinigamePlayCount??0,classes:statistics.totalClassCount??0,adventures:statistics.totalAdventureCount??0},serverCollection:{pendingCharacterUnlockIds:clone(collection?.pendingCharacterUnlockIds??[]),unlockedRoomBackgroundIds:clone(meta.unlockedRoomBackgroundIds??[]),playedCharacterIds:clone(meta.playedCharacterIds??[])}};
+ const pendingCharacterUnlockIds=clone(collection?.pendingCharacterUnlockIds??[]);
+ return {...base,unlockedCharacters:clone(meta.unlockedCharacterIds??base.unlockedCharacters),pendingCharacterUnlockIds,unlockedPetIds:clone(meta.unlockedPetIds??base.unlockedPetIds),permanentBonuses:projectStats(meta.permanentBonuses??{}),seenEndings:clone(meta.seenEndingIds??[]),badges:clone(meta.acquiredBadgeIds??[]),roomPieces:clone(meta.acquiredPuzzlePieceIds??[]),endingViewCounts:clone(statistics.endingViewCounts??{}),collectionView:{...(base.collectionView??{}),rooms:projectServerRooms(meta),badges:projectBadgeRows(meta,statistics)},counters:{minigames:statistics.totalMinigamePlayCount??0,classes:statistics.totalClassCount??0,adventures:statistics.totalAdventureCount??0},serverCollection:{pendingCharacterUnlockIds,unlockedRoomBackgroundIds:clone(meta.unlockedRoomBackgroundIds??[]),playedCharacterIds:clone(meta.playedCharacterIds??[])}};
 }
 
 export function createServerProfile(slots,collection=null){

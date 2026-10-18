@@ -40,12 +40,12 @@ import { createBadgeResultUI } from "./ui/badge-result.mjs";
 import { createImageButton, TITLE_BUTTON_ART } from "./ui/button-art.mjs";
 import { dueMainStory, ensureMainStoryState, MAIN_STORIES } from "./core/main-story.mjs";
 import { createServerDialogueSession, createServerGameSession } from "./core/server-game-session.mjs";
-import { canRecordServerRoomVisit, serverRoomBackgroundId, serverRoomVisitKey, serverScheduleActivityIds } from "./core/server-state.mjs";
+import { canRecordServerRoomVisit, serverAdventureStartData, serverClassStartData, serverRoomBackgroundId, serverRoomVisitKey, serverScheduleActivityIds } from "./core/server-state.mjs";
 import { PRIVACY_CONSENT_VERSION } from "./services/api-provider.mjs";
 import { createServerEndingUI } from "./ui/server-ending.mjs";
 const roomLight = createRoomLight(),
 	engineServices = globalThis.lumiaEngineServices ?? {};
-const SERVER_GAME_METHODS = ["bootstrapAccount", "updateAccountSettings", "listSaveSlots", "getSaveSlot", "startRun", "deleteSaveSlot", "recoverSaveSlot", "confirmSchedule", "startActivity", "completeSpecial", "completeClassQuit", "completeForcedRest", "completeRest", "completeAdventure", "closeWeek", "acknowledgeWeekSummary", "loadDialogue", "completeDialogue", "getCollection", "openMyRoom", "decideEnding", "prepareEnding", "getEnding", "finishEnding"];
+const SERVER_GAME_METHODS = ["bootstrapAccount", "updateAccountSettings", "listSaveSlots", "getSaveSlot", "startRun", "deleteSaveSlot", "recoverSaveSlot", "confirmSchedule", "startActivity", "completeSpecial", "completeClassQuit", "completeClassReplay", "completeForcedRest", "completeRest", "completeAdventure", "closeWeek", "acknowledgeWeekSummary", "loadDialogue", "completeDialogue", "getCollection", "openMyRoom", "decideEnding", "prepareEnding", "getEnding", "finishEnding"];
 const serverMode = Boolean(engineServices.account && SERVER_GAME_METHODS.every((name) => typeof engineServices[name] === "function"));
 let previousRoomBackground = null;
 function decorateRoom() {
@@ -89,9 +89,11 @@ let serverGame = serverMode
 					profile = next;
 					slotSnapshot = { slots: next?.slots ?? [], canDelete: false };
 				},
+				onCollectionChanges: (messages) => messages.forEach(message),
 			})
 		: null,
 	serverDialogue = null,
+	serverDialogueContinuation = null,
 	serverRetryContinuation = null;
 const serverRoomVisits = new Set(),
 	serverRoomVisitInFlight = new Set();
@@ -716,6 +718,7 @@ function renderSlots() {
 	const cards = el("div", null, "slot-list");
 	const resume = (s, d) => {
 		dialogueRuntime.cancel();
+		serverDialogue?.cancel();
 		d.close();
 		slotId = s.slotId;
 		monthOffset = 0;
@@ -726,7 +729,8 @@ function renderSlots() {
 				recoverInterruptedAction(profile, slotId);
 				save(false, slotId, () => resumeToRoom());
 				if (saveFailed) renderRoom();
-			} else if (current().flags?.admissionPending) renderAdmission();
+			} else if ((serverMode && current().pendingStoryEvent?.eventId === "MS01") || current().flags?.admissionPending) renderAdmission();
+			else if (serverMode && current().pendingStoryEvent) renderPendingStory();
 			else resumeToRoom();
 		} else renderCharacters(s.slotId, false);
 	};
@@ -994,7 +998,20 @@ function readRoomNotices(id) {
 }
 const journalUI = createJournalUI({ el, btn, shell, heading, current, meta: () => profile.meta, settings: () => profile.settings, activePet: () => activePet(profile), onSelectPet: selectPet, onSelectRoom: selectRoom, onReadRoomNotices: readRoomNotices, isSaveFailed: () => saveFailed, onReturn: renderRoom, turnPage: (_layout, done) => done(), modal });
 const dialogueUI = createDialogueUI({ el, btn, shell, heading, modal });
-const usesServerDialogue = () => typeof engineServices.loadDialogue === "function" || typeof engineServices.completeDialogue === "function";
+const usesServerDialogue = () => serverMode;
+function showDialogueError(error, retry) {
+	console.warn("대화 서비스:", error);
+	heading("이야기를 이어갈 준비가 필요해요.", "dialogue-service-page");
+	const frame = el("section", null, "paper stat-panel");
+	frame.append(
+		el("p", "이야기를 불러오거나 저장하지 못했어요. 다음 일정은 잠시 기다립니다."),
+		btn("다시 시도", () => {
+			heading("이야기를 확인하고 있어요.", "dialogue-service-page");
+			retry();
+		}),
+	);
+	shell.append(frame);
+}
 const dialogueRuntime = createDialogueRuntime({
 	services: engineServices,
 	getProfile: () => profile,
@@ -1017,21 +1034,40 @@ const dialogueRuntime = createDialogueRuntime({
 				handlers.onSkip(result);
 			},
 		}),
-	onError: (error, retry) => {
-		console.warn("대화 서비스:", error);
-		heading("이야기를 이어갈 준비가 필요해요.", "dialogue-service-page");
-		const frame = el("section", null, "paper stat-panel");
-		frame.append(
-			el("p", "이야기를 불러오거나 저장하지 못했어요. 다음 일정은 잠시 기다립니다."),
-			btn("다시 시도", () => {
-				heading("이야기를 확인하고 있어요.", "dialogue-service-page");
-				retry();
-			}),
-		);
-		shell.append(frame);
-	},
+	onError: showDialogueError,
 });
+if (serverMode)
+	serverDialogue = createServerDialogueSession({
+		game: serverGame,
+		services: engineServices,
+		slotId: () => slotId,
+		onRender: (payload, handlers) =>
+			dialogueUI.render({
+				payload,
+				onComplete: (result) => {
+					heading("이야기를 저장하고 있어요.", "dialogue-service-page");
+					handlers.onComplete(result);
+				},
+				onSkip: (result) => {
+					heading("이야기를 저장하고 있어요.", "dialogue-service-page");
+					handlers.onSkip(result);
+				},
+			}),
+		onContinue: (response) => {
+			const next = serverDialogueContinuation;
+			serverDialogueContinuation = null;
+			storyResultUI.show(shell, { completionMode: response.completionMode, visibleStatDelta: response.appliedSummary?.visibleStatDelta ?? {} }, () => showPendingBadgeNotices(next));
+		},
+		onError: showDialogueError,
+	});
 function renderServiceDialogue(eventId, next) {
+	if (serverMode) {
+		if (serverDialogue.hasPendingCompletion()) return;
+		serverDialogueContinuation = next;
+		heading("이야기를 준비하고 있어요.", "dialogue-service-page");
+		serverDialogue.start({ slotId, eventId });
+		return;
+	}
 	if (dialogueRuntime.isActive()) return;
 	heading("이야기를 준비하고 있어요.", "dialogue-service-page");
 	dialogueRuntime.start(eventId, (response) => {
@@ -1046,6 +1082,8 @@ function dispatchActivity(checkpoint) {
 	if (action !== "rest") reviewPrompt = null;
 	roomLight.event("start");
 	if (action === "adventure") renderAdventure(checkpoint);
+	else if (serverMode && action === "rest") void completeServerActivity(checkpoint);
+	else if (serverMode && action === "fairy-trade") openFairyTrade(checkpoint);
 	else if (lesson) {
 		pending = { slotId, token: checkpoint.token, server: serverMode, checkpoint: structuredClone(checkpoint) };
 		shell.hidden = true;
@@ -1111,7 +1149,10 @@ function resumeToRoom() {
 		renderRoom();
 		return;
 	}
-	if (current().pendingDialogue || current().pendingActivityStory || current().storyState?.pending || current().narrativeState?.pending) {
+	if (serverMode && current().pendingStoryEvent) {
+		if (current().pendingStoryEvent.eventId === "MS01") renderAdmission();
+		else renderPendingStory();
+	} else if (current().pendingDialogue || current().pendingActivityStory || current().storyState?.pending || current().narrativeState?.pending) {
 		renderRoom();
 		setTimeout(() => {
 			activityStoryFlow.resume();
@@ -1164,12 +1205,10 @@ async function renderServerRoom(run) {
 			roomUI.room();
 		},
 	);
-	if (!ok) roomUI.room();
-}
-function continueSchedule() {
-	if (current().phase === "ACTING") startScheduledActivity();
-	else if (current().phase === "WEEK_COMPLETE") finishWeekFlow();
-	else renderRoom();
+	if (!ok) {
+		serverRoomVisitInFlight.delete(key);
+		roomUI.room();
+	}
 }
 function showPendingBadgeNotices(next) {
 	let badges;
@@ -1187,6 +1226,10 @@ function showPendingBadgeNotices(next) {
 	const before = structuredClone(profile.meta.collectionNoticeState);
 	const ids = badges.map((item) => item.receiptId);
 	acknowledgeBadgeReceipts(profile.meta, ids);
+	if (serverMode) {
+		next?.();
+		return true;
+	}
 	const acknowledged = structuredClone(profile.meta.collectionNoticeState);
 	profile.meta.collectionNoticeState = before;
 	const saveAcknowledgement = (retry) => {
@@ -1204,7 +1247,7 @@ function showPendingBadgeNotices(next) {
 }
 function renderPendingStory() {
 	if (usesServerDialogue()) {
-		const event = current().pendingDialogue ?? current().narrativeState?.pending ?? current().storyState?.pending;
+		const event = current().pendingStoryEvent ?? current().pendingDialogue ?? current().narrativeState?.pending ?? current().storyState?.pending;
 		if (event) {
 			renderServiceDialogue(event.eventId ?? event.id, continueSchedule);
 			return;
@@ -1290,6 +1333,74 @@ function completeActivity(token, result) {
 	}
 	return applied;
 }
+async function completeServerActivity(checkpoint, result = {}, afterComplete = null) {
+	let operation, command;
+	if (checkpoint.action === "adventure") {
+		if (!["MISSION_COMPLETE", "TIMEOUT"].includes(result.outcome)) throw new Error("서버 모험 완료 API가 이 결과를 지원하지 않습니다.");
+		operation = "completeAdventure";
+		command = { resolution: result.outcome, foundCount: result.foundCount, targetCount: checkpoint.serverStart?.targetCount };
+	} else if (classOf(checkpoint.action)) {
+		if (result.endReason === "QUIT") {
+			operation = "completeClassQuit";
+			command = {};
+		} else {
+			if (!Array.isArray(result.inputLog)) throw new Error("서버 수업 검증에 필요한 입력 기록이 없습니다.");
+			operation = "completeClassReplay";
+			command = { inputLog: result.inputLog };
+		}
+	} else if (checkpoint.action === "rest") {
+		operation = checkpoint.forcedRest ? "completeForcedRest" : "completeRest";
+		command = {};
+	} else if (checkpoint.action === "fairy-trade") {
+		operation = "completeSpecial";
+		command = result;
+	} else throw new Error("서버에서 완료할 수 없는 활동입니다.");
+
+	const complete = () => {
+		const completed = current().actionHistory.at(-1);
+		if (completed) reviewPrompt = structuredClone(completed);
+		roomLight.event("complete");
+		const resultText = completed ? activityResultText(completed) : "활동을 마쳤어요.";
+		const advance = () => showPendingBadgeNotices(() => {
+			if (afterComplete) afterComplete();
+			else continueSchedule();
+		});
+		if (checkpoint.action === "adventure" && ["MISSION_COMPLETE", "TIMEOUT"].includes(result.outcome)) {
+			adventureResultUI.show(shell, { outcome: result.outcome, foundCount: result.foundCount, objectiveCount: checkpoint.serverStart.targetCount, feedback: resultText }, advance);
+		} else {
+			message(resultText);
+			advance();
+		}
+	};
+	return performServerMutation(
+		() => (operation === "completeClassReplay" ? serverGame.completeClassReplay(slotId, result.inputLog) : serverGame[operation](slotId, command)),
+		complete,
+	);
+}
+function openFairyTrade(checkpoint) {
+	const run = current(),
+		stats = ["knowledge", "expression", "dexterity", "exploration", "magic"],
+		names = { knowledge: "지식", expression: "표현력", dexterity: "솜씨", exploration: "탐험", magic: "마법" },
+		body = el("div", null, "fairy-trade-form"),
+		from = el("select"),
+		to = el("select"),
+		amount = el("select");
+	for (const key of stats) {
+		from.append(new Option(names[key] + " · " + run.stats[key], key));
+		to.append(new Option(names[key] + " · " + run.stats[key], key));
+	}
+	for (let n = 1; n <= 5; n++) amount.append(new Option(String(n) + "포인트", String(n)));
+	body.append(el("p", "성장 스탯을 1~5포인트, 같은 양으로 교환합니다. 주 1회 · 체력 소모 없음."), el("label", "보낼 스탯"), from, el("label", "받을 스탯"), to, el("label", "포인트"), amount);
+	let tradeDialog;
+	const finish = (value) => completeServerActivity(checkpoint, value, () => {
+		tradeDialog.close();
+		continueSchedule();
+	});
+	tradeDialog = modal("요정의 거래", body, [
+		btn("교환하기", () => finish({ transfer: { fromStat: from.value, toStat: to.value, amount: Number(amount.value) } })),
+		btn("건너뛰기", () => finish({ skip: true }), "quiet"),
+	]);
+}
 function receiveEnding(value) {
 	const record = current().endingRecord;
 	try {
@@ -1328,6 +1439,21 @@ const endingUI = createEndingUI({
 		}
 	},
 });
+const serverEndingUI = serverMode
+	? createServerEndingUI({
+			el,
+			btn,
+			shell,
+			heading,
+			current,
+			slotId: () => slotId,
+			game: serverGame,
+			services: engineServices,
+			mutate: performServerMutation,
+			character: () => CHARACTERS.find((character) => character.id === current()?.characterId),
+			onTitle: () => renderTitle(false, null, "preserve"),
+		})
+	: null;
 const roomUI = createMyroomUI({
 	el,
 	btn,
@@ -1378,6 +1504,17 @@ const roomUI = createMyroomUI({
 	onAdventure: renderAdventure,
 	onCommit: (schedule, locations) => {
 		roomLight.event("start");
+		if (serverMode) {
+			let activityIds;
+			try {
+				activityIds = serverScheduleActivityIds(current(), schedule, locations);
+			} catch (error) {
+				message(error.message);
+				return;
+			}
+			performServerMutation(() => serverGame.confirmSchedule(slotId, activityIds), () => startScheduledActivity());
+			return;
+		}
 		setSchedule(profile, slotId, schedule, locations);
 		save(false, slotId, () => startScheduledActivity());
 		if (saveFailed) renderRoom();
@@ -1385,11 +1522,19 @@ const roomUI = createMyroomUI({
 	onRetry: retrySave,
 	onFinish: finishWeekFlow,
 	onEnding: () => {
+		if (serverMode) {
+			serverEndingUI.render();
+			return;
+		}
 		prepareEnding(profile, slotId, Math.random, { serverAuthority: typeof engineServices.loadEnding === "function" });
 		save(false, slotId, () => endingUI.render({ actual: true }));
 		if (saveFailed) renderRoom();
 	},
 	onAction: () => {
+		if (serverMode) {
+			startScheduledActivity();
+			return;
+		}
 		const run = current(),
 			checkpoint = run.inProgressActivity;
 		if (checkpoint?.action === "rest") {
@@ -1437,6 +1582,27 @@ const roomUI = createMyroomUI({
 function renderRoom() {
 	titleAudio.playMusic("room");
 	const run = current();
+	if (serverMode) {
+		if (run.pendingWeekSummaryWeek !== undefined || run.serverPhase === "WEEK_SUMMARY_PENDING" || run.serverPhase === "FINAL_SUMMARY_PENDING") {
+			roomUI.weeklySummary();
+			return;
+		}
+		if (run.pendingStoryEvent) {
+			if (run.pendingStoryEvent.eventId === "MS01") roomUI.room();
+			else renderPendingStory();
+			return;
+		}
+		if (run.serverPhase === "ENDING_DECIDED" || run.serverPhase === "ENDING_READY") {
+			serverEndingUI.render();
+			return;
+		}
+		void renderServerRoom(run);
+		if (pendingBadgeReceipts(profile.meta).length && !badgeResultUI.isOpen())
+			queueMicrotask(() => {
+				if (view === "room-page" && !badgeResultUI.isOpen()) showPendingBadgeNotices(() => {});
+			});
+		return;
+	}
 	if (run.pendingWeekSummaryWeek !== undefined) {
 		ensureMainStoryState(run);
 		roomUI.weeklySummary();
@@ -1634,18 +1800,9 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 			btn("중단하고 다음으로", async () => {
 				if (finished) return;
 				if (serverMode) {
-					finished = true;
 					dialog.close();
-					briefing?.remove();
-					briefing = null;
-					const saved = await performServerMutation(
-						() => serverGame.recoverSaveSlot(slotId),
-						() => {
-							message("모험을 중단했습니다. 이미 사용한 체력은 유지되고 성장·보상은 적용되지 않습니다.");
-							continueSchedule();
-						},
-					);
-					if (!saved) message("중단 결과 저장을 다시 시도해야 합니다.");
+					message("서버에서 모험 중단 결과를 처리할 API가 아직 없어 중단을 저장할 수 없습니다. 계속 탐험해 주세요.");
+					adventureView?.pause(Boolean(briefing));
 					return;
 				}
 				if (!stopAdventure(profile, slotId, token)) {
