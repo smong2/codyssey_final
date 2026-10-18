@@ -55,7 +55,7 @@ test('investigation exposes its busy state and preserves an overlapping clue ove
  scene.active=true;scene.remainingMs=120000;scene.objectives=[{id:'one',x:500,y:600}];scene.player={x:0,y:0,anims:{stop(){}},setFrame(){}};
  assert.equal(view.investigate(),true);assert.equal(states.at(-1).investigating,true);assert.equal(states.at(-1).paused,true);
  scene.update(0,1000);assert.equal(scene.remainingMs,120000);
- view.pause(true);t.mock.timers.tick(119);assert.equal(states.at(-1).investigating,true);t.mock.timers.tick(1);
+ view.pause(true);t.mock.timers.tick(999);assert.equal(states.at(-1).investigating,true);t.mock.timers.tick(1001);
  assert.equal(states.at(-1).investigating,false);assert.equal(states.at(-1).paused,true);
  scene.update(0,1000);assert.equal(scene.remainingMs,120000);
  view.pause(false);assert.equal(states.at(-1).paused,false);

@@ -65,7 +65,9 @@ export function createMyroomUI(ctx) {
 		else if (lowStamina(r.stamina)) stats.append(el("p", "저체력 · 유효 스탯 70% / 성장량 50%"));
 		for (const [k, v] of Object.entries(effective)) {
 			const row = el("div", null, "profile-stat");
-			row.append(el("span", STAT_NAMES[k]), el("strong", String(v) + (pet.modifiers[k] ? " (펫 +" + pet.modifiers[k] + ")" : "")));
+			const base = Math.max(0, Math.min(500, r.stats[k] + (pet.modifiers[k] ?? 0))), low = lowStamina(r.stamina);
+			row.append(el("span", STAT_NAMES[k]), el("strong", String(v) + (low ? " · 원래 " + base : pet.modifiers[k] ? " (펫 +" + pet.modifiers[k] + ")" : "")));
+			row.classList.toggle("low-stamina-stat", low);
 			const bar = el("progress");
 			bar.max = 500;
 			bar.value = v;
@@ -301,7 +303,7 @@ export function createMyroomUI(ctx) {
 				};
 				picture.append(image);
 			} else picture.textContent = "◇";
-			const detail = isAdventure ? "체력 -15 · 임시 온실 지도" : actionId === "rest" ? "체력 +40 / +50 / +70" : actionId === "fairy-trade" ? "주 1회 · 체력 소모 없음" : (STAT_NAMES[a.stat] ?? "교육") + " · 체력 -10";
+			const detail = isAdventure ? "체력 -15 · 임시 온실 지도" : actionId === "rest" ? "체력 회복 · 휴식 방법 3가지" : actionId === "fairy-trade" ? "주 1회 · 체력 소모 없음" : (STAT_NAMES[a.stat] ?? "교육") + " · 체력 -10";
 			b.append(picture, el("strong", a.title), el("small", detail));
 			cards.append(b);
 		}
@@ -365,7 +367,7 @@ export function createMyroomUI(ctx) {
 				el("p", "저장 실패 · 다시 시도해야 다음 화면으로 이동합니다.", "weekly-summary-error"),
 				btn("저장 다시 시도", () => ctx.onRetry?.()),
 			);
-		else frame.append(btn(final ? "엔딩으로" : "새 일정 작성", ctx.onAcknowledgeWeekSummary ?? (() => {}), "weekly-summary-continue"));
+		else frame.append(btn(final ? "엔딩으로" : "창 닫기", ctx.onAcknowledgeWeekSummary ?? (() => {}), "weekly-summary-continue"));
 		shell.append(frame);
 	}
 	function room() {
@@ -416,7 +418,7 @@ export function createMyroomUI(ctx) {
 				lesson = classOf(a),
 				restDays = forcedRestRemaining(r),
 				locationId = r.scheduleLocations?.[r.day] ?? "greenhouse";
-			action.append(el("span", WEEKDAYS[r.day + 1] + "요일 · " + (restDays ? "강제 휴식 · " + restDays + "일 남음" : activityTitle(a, locationId))), btn(a === "adventure" ? "모험 시작" : lesson ? "수업 시작" : a === "fairy-trade" ? "요정의 거래" : restDays ? "하루 쉬기" : "휴식하기", onAction));
+			action.append(el("span", WEEKDAYS[r.day + 1] + "요일 · " + (restDays ? "강제 휴식 · " + restDays + "일 남음" : activityTitle(a, locationId))), btn(a === "adventure" ? "모험 시작" : lesson ? "수업 시작" : a === "fairy-trade" ? "요정의 거래" : restDays ? restDays + "일 쉬기" : "휴식하기", onAction));
 		} else if (r.phase === "WEEK_COMPLETE") action.append(el("span", "평일 일정 완료"), btn("주말 보내기 · 자동 저장", onFinish));
 		else if (r.phase === "AWAITING_ENDING") action.append(el("span", "52주 육성 완료 · 마지막 1일"), btn("최종 이벤트·엔딩 프레임", onEnding));
 		const dateStack = el("div", null, "room-date-stack");

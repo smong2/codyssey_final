@@ -54,6 +54,7 @@ const projectHistoryEntry=(run,entry,week,day)=>{
  const lesson=entry.type==='CLASS'?classOf(action):null;
  if(lesson&&typeof entry.growthApplied==='number')growth[lesson.stat]=entry.growthApplied;
  if(entry.type==='ADVENTURE'&&Number.isFinite(entry.growthAwarded?.exploration))growth.exploration=entry.growthAwarded.exploration;
+ if(entry.type==='REST'&&typeof entry.targetStat==='string'&&Number.isFinite(entry.growthApplied)&&entry.growthApplied>0)growth[statKey(entry.targetStat)]=entry.growthApplied;
  const staminaChange=(entry.staminaRecovered??0)-(entry.staminaCost??0);
  const staminaAfter=Number.isFinite(entry.staminaBefore)?Math.max(0,Math.min(100,entry.staminaBefore+staminaChange)):null;
  const transfer=entry.type==='SPECIAL'?entry.result?.transfer:null,transferChanges={};
