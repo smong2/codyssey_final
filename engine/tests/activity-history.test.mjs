@@ -18,6 +18,16 @@ test('weekly summary includes server dialogue growth once when the main story al
  const summary=history.createWeeklySummary([],1,history.storyDiaryRecords(run));
  assert.equal(summary.statChanges.knowledge,2);assert.equal(summary.statChanges.dexterity,1);
 });
+test('server weekly summary displays the saved five-day totals after the schedule resets',()=>{
+ const stored={week:1,statDelta:{knowledge:5,expression:1,skill:2,exploration:0,magic:0},classCount:1,staminaSpent:10,staminaRecovered:10,startingStamina:100,endingStamina:100,forcedRestDays:0};
+ const summary=history.projectServerWeeklySummary(stored);
+ assert.equal(summary.activityCount,5);
+ assert.equal(summary.statChanges.dexterity,2);
+ assert.equal(summary.classCount,1);
+ assert.equal(summary.staminaAtStart,100);
+ assert.equal(summary.staminaAtEnd,100);
+ assert.equal(history.projectServerWeeklySummary({...stored,statDelta:{...stored.statDelta,skill:'2'}}),null);
+});
 test('weekly diary groups actual completed activities without filling missing days or changing saved history',()=>{
  const history=[{week:2,day:2,action:'adventure'},{week:1,day:4,action:'rest'},{week:2,day:0,action:'rune-link'}],before=structuredClone(history);
  assert.deepEqual(weeklyActivityRecords(history),[{week:1,activities:[history[1]]},{week:2,activities:[history[2],history[0]]}]);

@@ -17,6 +17,17 @@ export function weeklyActivityRecords(history=[]){
 }
 
 const STAT_KEYS=['knowledge','expression','dexterity','exploration','magic'];
+export function projectServerWeeklySummary(value){
+ if(!value||!Number.isInteger(value.week)||value.week<1||value.week>52||!value.statDelta||typeof value.statDelta!=='object')return null;
+ const statChanges={};
+ for(const stat of STAT_KEYS){
+  const amount=value.statDelta[stat==='dexterity'?'skill':stat];
+  if(!Number.isInteger(amount))return null;
+  statChanges[stat]=amount;
+ }
+ for(const key of ['classCount','staminaSpent','staminaRecovered','startingStamina','endingStamina','forcedRestDays'])if(!Number.isInteger(value[key])||value[key]<0)return null;
+ return {week:value.week,activityCount:5,statChanges,classCount:value.classCount,classCounts:{},staminaSpent:value.staminaSpent,staminaRecovered:value.staminaRecovered,staminaAtStart:value.startingStamina,staminaAtEnd:value.endingStamina,forcedRestDays:value.forcedRestDays};
+}
 export function createWeeklySummary(history=[],week,storyHistory=[]){
  const activities=history.filter(item=>item?.week===week).sort((a,b)=>a.day-b.day);
  const statChanges=Object.fromEntries(STAT_KEYS.map(stat=>[stat,0]));

@@ -1,5 +1,5 @@
 import { calendarModel, calendarActivity, scheduleSession, scheduleReady, assignScheduleActivity } from "../core/preview.mjs";
-import { createWeeklySummary, storyDiaryRecords } from "../core/activity-history.mjs";
+import { createWeeklySummary, projectServerWeeklySummary, storyDiaryRecords } from "../core/activity-history.mjs";
 import { CLASSES, classOf } from "../core/classes.mjs";
 import { activityArt } from "./journal.mjs";
 import { studentCards } from "../core/catalogue.mjs";
@@ -326,7 +326,7 @@ export function createMyroomUI(ctx) {
 			schedule();
 			return;
 		}
-		const summary = createWeeklySummary(r.actionHistory, week, storyDiaryRecords(r)),
+		const summary = (r.lastWeekSummary?.week === week ? projectServerWeeklySummary(r.lastWeekSummary) : null) ?? createWeeklySummary(r.actionHistory, week, storyDiaryRecords(r)),
 			final = week === 52;
 		heading(final ? "52주차 주간 요약" : "지난주 주간 요약", "weekly-summary-page");
 		const frame = el("section", null, "paper weekly-summary");
