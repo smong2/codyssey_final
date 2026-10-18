@@ -22,13 +22,10 @@ from .authentication import (
     require_verified_user,
 )
 from .firebase import FirebaseServices, get_firebase_services
-from .ending_workflow import ENDING_NARRATIVES, LetterValidationError, validate_letter
-from .gemini import GeminiEndingLetterGenerator, GeminiGenerationError
 
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 KST = ZoneInfo("Asia/Seoul")
-
 
 
 def get_admin_repository(
@@ -41,47 +38,6 @@ def require_admin(user: AuthenticatedUser = Depends(require_verified_user)) -> A
     if not user.admin:
         raise HTTPException(status_code=403, detail="Administrator permission required")
     return user
-
-
-@router.post("/phase12/gemini-smoke", include_in_schema=False)
-def phase12_gemini_smoke(
-    request: Request,
-    _: AuthenticatedUser = Depends(require_admin),
-) -> dict:
-    """Temporary Phase 12 provider check using fictional, unsaved play data."""
-    settings = request.app.state.settings
-    narrative = ENDING_NARRATIVES["ENDING_HERB_GARDENER"]
-    context = {
-        "character": {"id": "CH01", "name": "가상 학생"},
-        "ending": {
-            "id": "ENDING_HERB_GARDENER", "name": "약초 정원사", "subtitle": None,
-            "type": "CAREER", "careerAnchor": narrative.career_anchor,
-            "futureSceneGuide": narrative.future_scene_guide,
-            "primaryStat": "knowledge", "secondaryStat": "exploration",
-        },
-        "visibleStats": {stat: 101 + index for index, stat in enumerate(_STATS)},
-        "hiddenHighlights": [],
-        "playRecords": [
-            {"type": "classCount", "label": "수업 횟수", "count": 8},
-            {"type": "adventureCount", "label": "모험 횟수", "count": 3},
-            {"type": "npcEncounterCount", "label": "NPC 만남 횟수", "count": 2},
-            {"type": "locationDiscoveryCount", "label": "장소 발견 횟수", "count": 1},
-        ],
-        "representativeChoices": [],
-        "generationRules": {"audience": "age_9_11", "locale": "ko-KR",
-                            "answerFixedQuestion": False},
-    }
-    generator = GeminiEndingLetterGenerator(
-        api_key=settings.gemini_api_key, model=settings.gemini_model,
-        thinking_level=settings.gemini_thinking_level,
-    )
-    for attempt in range(1, 3):
-        try:
-            validate_letter(generator.generate(context), context)
-            return {"provider": "gemini", "validated": True, "attempts": attempt}
-        except (GeminiGenerationError, LetterValidationError):
-            continue
-    raise HTTPException(status_code=503, detail="Gemini generation or validation failed")
 
 
 def _request_metadata(request: Request) -> dict:
