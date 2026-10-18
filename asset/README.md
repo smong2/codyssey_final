@@ -79,7 +79,7 @@
 | [item/](item/README.md) | 스토리 FOCUS 3장·일반 아이템 25장·기존 프레임 카드 3장과 사용처 |
 | [character/](character/README.md) | 학생 전신 32장·발렌티누스 교수 시안 2장(이미지 총 34장); 동적 배역은 스토리 문서 기준 |
 | [pet/](pet/README.md) | 루루 의상별 앞·뒤·표정; 회차 번호와 분리 |
-| [ui/](ui/README.md) | 대화창·초대장·짧은 빈 버튼 2종·펼친 다이어리 등 공통 UI 재료와 채택 상태 |
+| [ui/](ui/README.md) | 대화창·초대장·현재 BT04 버튼과 짧은 빈 버튼 2종·펼친 다이어리 등 공통 UI 재료와 채택 상태 |
 | [map/](map/README.md) | 이동·충돌용 맵. 위 `BACKGROUND`와 다른 용도 |
 
 그 밖의 [SD 캐릭터](sd_character/README.md), [퍼즐](puzzle/README.md), [이펙트](effect/README.md), [배지](badge/README.md), [풀스크린](Full%20screen/README.md), [글꼴](font_files/README.md), [스탯](stat/README.md)은 각 폴더 README의 목록·미리보기를 사용합니다. 새로운 이미지가 채택되면 **실제 파일·이 표의 경로와 상태·해당 폴더 README의 미리보기·엔진 참조**를 같은 변경에서 확인합니다.
