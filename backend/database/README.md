@@ -28,13 +28,22 @@ Email/Password 인증과 패스워드 관리는 Firebase Authentication이 담�
 - [SQLite Dialogue 런타임/효과 v3 마이그레이션](sqlite/003_dialogue_runtime_content.sql)
 - [SQLite Story 발생 정책 v4 마이그레이션](sqlite/004_story_event_rules.sql)
 - [Main Story 대화 마스터 적재기](sqlite/seed_dialogue_content.py)
-- [Location Story 마스터·효과 적재기](sqlite/seed_location_story_master.py)
+- [NPC Story 마스터·32인 대화 적재기](sqlite/seed_npc_story.py)
+- [NPC Story v4 검증 SQL](sqlite/validate_npc_story.sql)
+- [NPC Story DB 스키마·적재 명세](NPC_STORY_DB_SPEC.md)
+- [Location Story 마스터·32인 대화 적재기](sqlite/seed_location_story_master.py)
 - [Location Story v4 검증 SQL](sqlite/validate_location_story.sql)
+- [Story 선택 보상 전용 재적재기](sqlite/seed_story_choice_rewards.py)
+- [Story 선택 보상 통합 검증 SQL](sqlite/validate_story_choice_rewards.sql)
 - [Location Story DB 스키마·적재 명세](LOCATION_STORY_DB_SPEC.md)
 - [Firestore + SQLite 저장 경계와 테이블 목록](STORAGE_DESIGN.md)
 
-현재 `seed_dialogue_content.py`는 검수된 Main Story 32인 원고를 읽어 Main 대화 데이터를 생성하고, `seed_location_story_master.py`는 같은 DB/버전에 활성 Location Story 6개, 발생 규칙, canonical choice 13개, effect 29개, 세린 화자, 온실 동적 배역을 적재합니다. Location 32인 Character Set은 아직 작성 전이므로 `dialogue_sequences/nodes/options`는 의도적으로 다음 단계까지 넣지 않습니다.
+현재 `seed_dialogue_content.py`는 Main Story 32인 대화와 **40 canonical choice / 102 choice effect**, `seed_npc_story.py`는 NPC 3체인·12이벤트의 **24 canonical choice / 64 choice effect / 384 dialogue sequence / 768 dialogue option**, `seed_location_story_master.py`는 Location 6개 master와 **13 canonical choice / 39 choice effect / 192 dialogue sequence / 416 dialogue option / 3616 dialogue node**를 생성하도록 구현되어 있습니다. Location seed는 공통 master와 CH01~CH32 Character Set을 직접 병합하고 signature/선택 문구/reaction, 온실 배역, canonical choice 연결, FK, graph reachability를 함께 검증합니다. 세 Story 유형의 선택 보상 합계 **77 canonical choice / 205 choice effect**는 사용자가 `seed_story_choice_rewards.py --bootstrap-missing` 실행 결과를 정상 확인했습니다. **2026-10-18 사용자가 Location 32인 seed를 실제 로컬 SQLite에 실행해 `192 sequences / 416 options / validation: OK` 정상 결과를 확인했으므로 Location DB 적재·검수도 완료 상태입니다.**
 
-개발용 SQLite 파일의 기본 경로는 **`backend/database/sqlite/lumia-content.sqlite3`**입니다. 기존 Main DB에 Location master를 이어 넣을 때는 저장소 루트에서 `python3 backend/database/sqlite/seed_location_story_master.py --migrate --version dev-dialogue-v1`를 실행합니다. 이 명령은 v3 DB를 v4로 올린 뒤 같은 파일에 Location master를 추가합니다. `--db`는 다른 경로를 사용할 때만 지정하면 됩니다.
+개발용 SQLite 파일의 기본 경로는 **`backend/database/sqlite/lumia-content.sqlite3`**입니다. 기존 Main DB에 NPC Story를 이어 넣을 때는 저장소 루트에서 `python3 backend/database/sqlite/seed_npc_story.py --migrate --version dev-dialogue-v1`를 실행합니다. Location은 같은 버전에 `python3 backend/database/sqlite/seed_location_story_master.py --migrate --version dev-dialogue-v1`를 실행하면 master/효과와 함께 CH01~CH32 대화까지 다시 적재합니다. `--db`는 다른 경로를 사용할 때만 지정하면 됩니다. Location 정상 결과는 **192 sequences / 416 options / 3616 nodes**입니다.
 
-Security Rules, 실제 API 요청/응답 모델, 브라우저 SQLite 마이그레이션 실행·동기화 정책은 구현 단계에서 이 설계를 기준으로 구체화합니다. 저장소 작업 도구에는 임의 셸 실행 기능이 없어 이번 변경에서는 실제 SQLite 실행 결과까지 검증하지 않았으며, 스키마/적재 코드 구현과 실행 검증을 구분합니다.
+이미 Main/NPC/Location canonical `story_choices` 77개가 들어 있는 v4 DB에서 **선택 스탯 효과만 최신 Production 값으로 갱신**하려면 전체 대화를 다시 seed하지 않고 `python3 backend/database/sqlite/seed_story_choice_rewards.py --version dev-dialogue-v1`를 사용합니다. 이 명령은 `story_choice_effects`만 77개 선택 기준으로 재생성하고 `40/102 + 24/64 + 13/39 = 77 choices / 205 effects`를 검증합니다.
+
+기존 DB가 Main만 있고 NPC/Location `story_choices`가 아직 없다면 `python3 backend/database/sqlite/seed_story_choice_rewards.py --version dev-dialogue-v1 --bootstrap-missing`를 사용합니다. 스크립트가 도메인별 canonical choice를 비교해 **불일치한 Main/NPC/Location만 기존 정식 full seed로 먼저 적재**한 뒤 선택 보상 205행을 갱신합니다. 현재 Main만 있는 개발 DB에서는 보통 NPC와 Location만 bootstrap됩니다.
+
+Security Rules, 실제 API 요청/응답 모델, 브라우저 SQLite 마이그레이션 실행·동기화 정책은 구현 단계에서 이 설계를 기준으로 구체화합니다. 저장소 작업 도구 자체에는 임의 셸 실행 기능이 없지만, 실제 로컬 SQLite 실행 결과는 사용자가 별도로 확인한 경우 문서에 그 검증 상태를 명시합니다.

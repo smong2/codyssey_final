@@ -9,7 +9,7 @@
 1. 서버가 기존 이벤트 발생 규칙으로 Main/NPC/Location 이벤트와 스토리 진행 단계를 결정한다.
 2. `(gameDataVersion, storyId, stepNo, eventId, playerCharacterId)`에 맞는 사전 작성 대화 시퀀스 한 편을 선택한다.
 3. Main/Location Story는 각 단계마다 플레이 캐릭터 32명 각각의 실제 대사 원고를 준비한다.
-4. NPC Story도 참여 가능한 캐릭터마다 시퀀스를 준비한다. 대상 NPC와 플레이 캐릭터가 같은 경우 기존 자기 조우 제외 규칙을 적용한다.
+4. NPC Story도 32명 전원 시퀀스를 준비하며, 대상 NPC와 플레이 캐릭터 충돌은 확정된 대체 actor 규칙으로 해결한다.
 5. 32개 변형 원고는 런타임 생성 문장이 아니라 출시 전에 작성·검수하는 콘텐츠다.
 6. 원고가 없는 캐릭터/이벤트 조합을 임의의 공통 대사로 채우지 않는다.
 
@@ -237,14 +237,14 @@ completeDialogue({dialogueToken,completionMode,selectedChoices,requestId,expecte
 
 provider/adapter가 HTTP, 인증 토큰, 오류 변환, 재시도를 담당한다.
 
-`completeDialogue` 성공 응답은 서버가 확정한 최신 `activeRun`을 반환하는 것을 기본으로 한다. 엔진은 로컬 스탯을 직접 더하지 않고 서버 결과로 갱신한다.
+`completeDialogue` 성공 응답은 서버가 확정한 최신 상태를 반환하는 것을 기본으로 한다. 엔진은 로컬 스탯을 직접 더하지 않는다. Story choice reward는 선택 순간에 노출하지 않고 END에서 합산·저장하며, 결과 UI에는 **상한 clamp 이후 실제 적용된 Visible Stat delta 합계만** 사용한다. Hidden Stat delta는 결과 UI에 노출하지 않는다. 세부 보상 계층은 `document/content/02_STATS_EVENTS_ENDINGS/04_STORY_CHOICE_REWARDS.md`를 따른다.
 
 ## 11. 콘텐츠 적재 전 검수
 
 새 마스터 버전을 활성화하기 전에 최소 다음을 검사한다.
 
 1. Main/Location 각 단계에 플레이 캐릭터 32명분 시퀀스가 존재한다.
-2. NPC Story는 자기 조우 제외 규칙을 반영한 모든 참여 캐릭터 시퀀스를 가진다.
+2. NPC Story는 32명 전원 시퀀스를 가지며 티아/렌 주인공 충돌은 로빈/다나 actor substitution으로 해결한다.
 3. 모든 노드/옵션 참조가 같은 시퀀스 안에서 유효하다.
 4. 모든 선택 노드가 2개 이상의 옵션을 가진다.
 5. 모든 선택 reaction이 이후 공통 흐름으로 정상 합류한다.
@@ -255,6 +255,9 @@ provider/adapter가 HTTP, 인증 토큰, 오류 변환, 재시도를 담당한�
 10. 엔진용 컴파일 결과가 `LINE / IMAGE / CHOICE / END` 순차 payload로 유효하다.
 11. 정상 COMPLETE와 중간 SKIP 모두 서버 검증을 통과하며 중복 적용되지 않는다.
 12. 모든 LINE이 의도에 맞는 `lineMode`를 가지며 NARRATION/CONTEXT/THOUGHT가 사건의 정답을 선행 설명하지 않는다.
+13. 모든 canonical choice에 Visible 1개와 Primary Hidden 1개가 있으며 Secondary Hidden은 최대 1개다.
+14. 같은 choiceNode의 선택지들이 동일한 Hidden 총량을 가진다.
+15. 현재 전체 보상 마스터가 Main `40 choices / 102 effects`, NPC `24 / 64`, Location `13 / 39`, 합계 `77 / 205`와 일치한다.
 
 ## 12. 구현 상태 구분
 
@@ -264,10 +267,11 @@ provider/adapter가 HTTP, 인증 토큰, 오류 변환, 재시도를 담당한�
 
 - **DB 물리 스키마 구현:** `003_dialogue_runtime_content.sql`에서 `LINE.lineMode / visualMode`, IMAGE target/action/type, 비플레이어 화자, ROLE/후보 우선순위, Choice/Event Effect를 구현했다.
 - **Story 발생 정책 스키마 구현:** `004_story_event_rules.sql`에서 `story_event_rules`, `story_event_conditions`, `story_role_exclusions`, `story_roles.prior_assignment_policy`를 구현했다. 엔진은 이 정책을 계산하지 않는다.
-- **Main Story 적재 코드 구현·v3 실행 검증:** `backend/database/sqlite/seed_dialogue_content.py`가 `MS01~MS06` 공통 마스터 + CH01~CH32 Character Set + Main Production 선택 효과/역할 후보를 생성한다. 사용자가 로컬 SQLite에서 기존 v3 Main 결과 `192 sequences / 40 canonical choices / 80 choice effects`를 확인했다. 스크립트는 현재 v4 migration도 지원한다.
-- **Location master 적재 코드 구현:** `seed_location_story_master.py`가 활성 Location Story 6개, eligibility rule, canonical choice 13개, effect 29개, 세린, `LOC_GREENHOUSE_STUDENT` 역할/후보/exclusion을 같은 DB 버전에 생성한다. 상세는 `backend/database/LOCATION_STORY_DB_SPEC.md`를 따른다.
-- **Location 32인 대화:** 공통 시퀀스는 작성됐지만 Character Set이 아직 없으므로 Location `dialogue_sequences/nodes/options`는 의도적으로 미적재 상태다. 32인 검수 뒤 6×32 시퀀스를 추가한다.
-- **v4 실행 검증:** 저장소 작업 도구에는 임의 셸 실행 기능이 없어 `004 + seed_location_story_master.py`의 실제 로컬 SQLite 실행 결과는 아직 사용자 검증 전이다.
+- **Main Story 적재 코드 구현:** `backend/database/sqlite/seed_dialogue_content.py`가 `MS01~MS06` 공통 마스터 + CH01~CH32 Character Set + Main Production 선택 효과/역할 후보를 생성한다. 사용자가 과거 Primary Hidden만 사용하던 v3 규칙의 `192 sequences / 40 canonical choices / 80 choice effects`를 로컬 SQLite에서 확인했다. 현재 Secondary Hidden 규칙을 반영한 기대값은 **102 choice effects**이며 재적재 실행 검증은 아직 전이다. 스크립트는 v4 migration을 지원한다.
+- **NPC Story 적재 코드 구현:** `seed_npc_story.py`가 3체인·12이벤트·32인 대화와 `24 canonical choices / 64 choice effects / 384 sequences / 768 options`를 생성한다. 실제 로컬 SQLite 실행 검증은 아직 전이다.
+- **Location master·32인 대화 적재 코드 구현:** `seed_location_story_master.py`가 활성 Location Story 6개, eligibility rule, canonical choice 13개, effect **39개**, 세린, `LOC_GREENHOUSE_STUDENT` 역할/후보/exclusion과 CH01~CH32 대화를 같은 DB 버전에 생성하도록 구현됐다. 목표 행은 **192 dialogue_sequences / 416 dialogue_options / 3616 dialogue_nodes**이며 signature/선택/reaction 원문 일치, canonical choice 참조, ROLE/NPC 참조, FK, graph reachability를 seed 단계에서 검증한다. 상세는 `backend/database/LOCATION_STORY_DB_SPEC.md`를 따른다.
+- **Location 32인 대화 원고/DB 적재:** `document/dialogue/location/character_sets/`에 CH01~CH32 세트를 작성했다. 검산값은 **32명 / 192 choiceNode / 416 실제 선택 문구**이며 `LOC_GREENHOUSE_STUDENT`는 CH12·CH19에서 하젤, 나머지 30명에서 요한으로 반영했다. DB 변환 코드와 실제 SQLite 적재까지 완료됐고 **2026-10-18 사용자 실행에서 정상 검증**했다.
+- **현재 보상 규칙 실행 검증:** 저장소 작업 도구에는 임의 셸 실행 기능이 없어 Main/NPC/Location seed를 새 보상 규칙으로 다시 실행한 실제 로컬 SQLite 결과는 아직 사용자 검증 전이다. 통합 검증은 `backend/database/sqlite/validate_story_choice_rewards.sql`을 사용한다.
 - **런타임 미구현:** FastAPI Dialogue compiler/complete transaction과 Engine 공통 DialoguePlayer/API provider 연결은 별도 구현 작업이다.
 
 현재 엔진의 테스트용 Main/NPC/Location 대화 데이터와 `lines / choices / closing` 전용 DTO는 이 계약의 최종 구현이 아니다.

@@ -45,6 +45,8 @@ EXPECTED_MAIN_SEQUENCE_COUNT = 6 * 32
 EXPECTED_CHOICE_GROUPS_PER_CHARACTER = 18
 EXPECTED_OPTIONS_PER_CHARACTER = 40
 EXPECTED_CANONICAL_CHOICES = 40
+EXPECTED_MAIN_SECONDARY_HIDDEN_EFFECTS = 22
+EXPECTED_MAIN_CHOICE_EFFECTS = EXPECTED_CANONICAL_CHOICES * 2 + EXPECTED_MAIN_SECONDARY_HIDDEN_EFFECTS
 EXPECTED_MAIN_DYNAMIC_ROLES = 7
 EXPECTED_MAIN_ROLE_CANDIDATES = 7 * 8
 
@@ -547,14 +549,26 @@ def parse_choice_effects() -> dict[str, list[tuple[str, str, int]]]:
         if not stripped.startswith("| `MS"):
             continue
         cells = [cell.strip() for cell in stripped.strip("|").split("|")]
-        if len(cells) != 4:
+        if len(cells) != 5:
             continue
         choice_cell = cells[0].strip("`")
         visible_cell = cells[2]
-        hidden_cell = cells[3]
+        primary_hidden_cell = cells[3]
+        secondary_hidden_cell = cells[4]
         visible_match = re.fullmatch(r"(지식|표현력|솜씨|탐험|마법) \+(\d+)", visible_cell)
-        hidden_match = re.fullmatch(r"(공감|책임|호기심|용기|협력|독립성|신중함|솔직함) \+(\d+)", hidden_cell)
-        if not visible_match or not hidden_match:
+        primary_hidden_match = re.fullmatch(
+            r"(공감|책임|호기심|용기|협력|독립성|신중함|솔직함) \+(\d+)",
+            primary_hidden_cell,
+        )
+        secondary_hidden_match = None
+        if secondary_hidden_cell != "-":
+            secondary_hidden_match = re.fullmatch(
+                r"(공감|책임|호기심|용기|협력|독립성|신중함|솔직함) \+(\d+)",
+                secondary_hidden_cell,
+            )
+        if not visible_match or not primary_hidden_match:
+            continue
+        if secondary_hidden_cell != "-" and not secondary_hidden_match:
             continue
 
         choice_ids = [choice_cell]
@@ -565,11 +579,64 @@ def parse_choice_effects() -> dict[str, list[tuple[str, str, int]]]:
             choice_ids.extend(base_prefix + suffix for suffix in suffixes)
 
         for choice_id in choice_ids:
-            effects[choice_id] = [
+            choice_effects: list[tuple[str, str, int]] = [
                 ("VISIBLE_STAT", VISIBLE_STAT_MAP[visible_match.group(1)], int(visible_match.group(2))),
-                ("HIDDEN_STAT", HIDDEN_STAT_MAP[hidden_match.group(1)], int(hidden_match.group(2))),
+                (
+                    "HIDDEN_STAT",
+                    HIDDEN_STAT_MAP[primary_hidden_match.group(1)],
+                    int(primary_hidden_match.group(2)),
+                ),
             ]
+            if secondary_hidden_match:
+                secondary_target = HIDDEN_STAT_MAP[secondary_hidden_match.group(1)]
+                if secondary_target == choice_effects[1][1]:
+                    raise ValueError(f"{choice_id}: Primary/Secondary Hidden target must differ")
+                choice_effects.append(
+                    ("HIDDEN_STAT", secondary_target, int(secondary_hidden_match.group(2)))
+                )
+            effects[choice_id] = choice_effects
+
+    if len(effects) != EXPECTED_CANONICAL_CHOICES:
+        raise ValueError(
+            f"Expected {EXPECTED_CANONICAL_CHOICES} Main choice effects, found {len(effects)} choices"
+        )
+    effect_count = sum(len(rows) for rows in effects.values())
+    if effect_count != EXPECTED_MAIN_CHOICE_EFFECTS:
+        raise ValueError(
+            f"Expected {EXPECTED_MAIN_CHOICE_EFFECTS} Main choice effect rows, found {effect_count}"
+        )
+    secondary_count = sum(1 for rows in effects.values() if len(rows) == 3)
+    if secondary_count != EXPECTED_MAIN_SECONDARY_HIDDEN_EFFECTS:
+        raise ValueError(
+            f"Expected {EXPECTED_MAIN_SECONDARY_HIDDEN_EFFECTS} Main secondary Hidden effects, "
+            f"found {secondary_count}"
+        )
     return effects
+
+
+def validate_choice_effect_balance(
+    masters: dict[str, StoryMaster],
+    effects: dict[str, list[tuple[str, str, int]]],
+) -> None:
+    for master in masters.values():
+        for group in master.choices.values():
+            hidden_totals: set[int] = set()
+            for option in group.options:
+                rows = effects[option.choice_id]
+                visible_rows = [row for row in rows if row[0] == "VISIBLE_STAT"]
+                hidden_rows = [row for row in rows if row[0] == "HIDDEN_STAT"]
+                if len(visible_rows) != 1 or len(hidden_rows) not in {1, 2}:
+                    raise ValueError(
+                        f"{option.choice_id}: expected 1 visible and 1~2 hidden effects, got {rows}"
+                    )
+                if len({row[1] for row in hidden_rows}) != len(hidden_rows):
+                    raise ValueError(f"{option.choice_id}: duplicate Hidden targets are not allowed")
+                hidden_totals.add(sum(row[2] for row in hidden_rows))
+            if len(hidden_totals) != 1:
+                raise ValueError(
+                    f"{master.story_id}/{group.group_id}: choice options have unequal Hidden totals "
+                    f"{sorted(hidden_totals)}"
+                )
 
 
 def parse_main_role_candidates() -> dict[str, list[str]]:
@@ -715,6 +782,7 @@ def seed_main_story(conn: sqlite3.Connection, version: str, activate: bool) -> N
     validate_main_role_assignability(main_role_candidates, characters)
     validate_variants(masters, variants)
     choice_effects = parse_choice_effects()
+    validate_choice_effect_balance(masters, choice_effects)
 
     all_canonical_choice_ids = {
         option.choice_id
@@ -1126,7 +1194,7 @@ def validate_database(conn: sqlite3.Connection, version: str) -> None:
     if scalar(
         f"SELECT COUNT(*) FROM story_choice_effects WHERE version=? AND event_id IN ({main_placeholders})",
         main_params,
-    ) != EXPECTED_CANONICAL_CHOICES * 2:
+    ) != EXPECTED_MAIN_CHOICE_EFFECTS:
         raise ValueError("DB validation failed: choice effect count")
     if scalar(
         "SELECT COUNT(*) FROM story_roles WHERE version=? AND role_scope='MAIN'",

@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""Seed Location Story master metadata/effects into LUMIA SQLite v4.
+"""Seed reviewed Location Story master + CH01~CH32 dialogue into LUMIA SQLite v4.
 
-This seed intentionally does NOT create character-specific dialogue_sequences yet.
-The Location common scripts are approved, but CH01~CH32 Character Sets are the next
-content step. Run this now to prepare the master/rule/effect layer; later extend the
-Location dialogue seed after the 32 variants are reviewed.
+Scope:
+- 6 active Location Story events
+- 13 canonical choices + 39 choice effects
+- 32 protagonists x 6 events = 192 dialogue_sequences
+- 32 protagonists x 13 choices = 416 dialogue_options
+
+The seed reads the reviewed common dialogue masters and Character Sets directly so
+SQLite remains a compiled copy of Git-managed content rather than a second source.
 
 Default DB:
     backend/database/sqlite/lumia-content.sqlite3
@@ -24,23 +28,42 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from seed_dialogue_content import (
+    CHARACTER_HEADER_RE,
     DEFAULT_DB_PATH,
     HIDDEN_STAT_MAP,
+    MASTER_NODE_RE,
+    CharacterVariant,
+    ChoiceGroup,
+    Node,
+    Reaction,
+    VARIANT_GROUP_RE,
+    VARIANT_SIGNATURE_RE,
     VISIBLE_STAT_MAP,
+    VariantOption,
+    _clean_inline,
+    _next_nonempty,
+    _parse_choice_block,
     apply_migrations,
 )
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 LOCATION_DIALOGUE_DIR = REPO_ROOT / "document" / "dialogue" / "location"
+LOCATION_CHARACTER_SET_DIR = LOCATION_DIALOGUE_DIR / "character_sets"
 LOCATION_PRODUCTION = REPO_ROOT / "story" / "location" / "LOCATION_STORY_PRODUCTION.md"
 
 EXPECTED_CHARACTER_COUNT = 32
 EXPECTED_LOCATION_STORIES = 6
 EXPECTED_LOCATION_EVENTS = 6
 EXPECTED_LOCATION_CHOICES = 13
-EXPECTED_LOCATION_CHOICE_EFFECTS = 29  # 13*(visible+hidden) + OBS04 mark flag 3
+EXPECTED_LOCATION_SECONDARY_HIDDEN_EFFECTS = 10
+EXPECTED_LOCATION_CHOICE_EFFECTS = 39  # 13*(visible+primary hidden) + secondary 10 + OBS04 mark flag 3
 EXPECTED_LOCATION_ROLE_CANDIDATES = 8
+EXPECTED_LOCATION_CHOICE_GROUPS_PER_CHARACTER = 6
+EXPECTED_LOCATION_OPTIONS_PER_CHARACTER = 13
+EXPECTED_LOCATION_SIGNATURES_PER_CHARACTER = 6
+EXPECTED_LOCATION_DIALOGUE_SEQUENCES = EXPECTED_LOCATION_EVENTS * EXPECTED_CHARACTER_COUNT
+EXPECTED_LOCATION_DIALOGUE_OPTIONS = EXPECTED_LOCATION_CHOICES * EXPECTED_CHARACTER_COUNT
 
 LOCATION_ROWS = (
     (
@@ -145,6 +168,15 @@ class ChoiceDefinition:
     display_order: int
 
 
+@dataclass
+class LocationEventMaster:
+    event_id: str
+    title: str
+    content_ref: str
+    nodes: list[Node]
+    choices: dict[str, ChoiceGroup]
+
+
 def _strip_quotes(value: str) -> str:
     value = value.strip()
     for left, right in (("“", "”"), ('"', '"'), ("‘", "’"), ("'", "'")):
@@ -155,6 +187,297 @@ def _strip_quotes(value: str) -> str:
 
 def dialogue_path(event_id: str) -> Path:
     return LOCATION_DIALOGUE_DIR / f"{event_id}.md"
+
+
+def _speaker_from_location_master(token: str) -> tuple[str, str | None]:
+    token = token.strip()
+    if token in {"PLAYER", "PLAYER(BASE)"}:
+        return "PLAYER", None
+    if token in {"LOC_GREENHOUSE_STUDENT", "ROLE:LOC_GREENHOUSE_STUDENT"}:
+        return "NPC", "ROLE:LOC_GREENHOUSE_STUDENT"
+    if token in {"SERIN", "NPC:SERIN"}:
+        return "NPC", "NPC:SERIN"
+    raise ValueError(f"Unsupported Location Story speaker token: {token}")
+
+
+def parse_location_event_master(path: Path) -> LocationEventMaster:
+    lines = path.read_text(encoding="utf-8").splitlines()
+    title_match = next((TITLE_RE.match(line.strip()) for line in lines if TITLE_RE.match(line.strip())), None)
+    if not title_match:
+        raise ValueError(f"Could not parse Location event metadata: {path}")
+
+    event_id = title_match.group(1)
+    title = title_match.group(2).strip()
+    if event_id not in LOCATION_EVENT_IDS:
+        raise ValueError(f"Unexpected Location event id: {event_id}")
+
+    nodes: list[Node] = []
+    choices: dict[str, ChoiceGroup] = {}
+    for index, raw in enumerate(lines):
+        stripped = raw.strip()
+        match = MASTER_NODE_RE.match(stripped)
+        if not match:
+            continue
+        node_id, body = match.group(1), match.group(2).strip()
+
+        if body == "END":
+            nodes.append(Node(node_id=node_id, node_kind="END"))
+            continue
+
+        if body.startswith("CHOICE"):
+            group_match = re.search(r"`([^`]+)`", body)
+            if not group_match:
+                raise ValueError(f"{path}:{index + 1}: choice group id missing")
+            group_id = group_match.group(1)
+            nodes.append(Node(node_id=node_id, node_kind="CHOICE", choice_group_id=group_id))
+            choices[group_id] = _parse_choice_block(lines, index, node_id, group_id)
+            continue
+
+        parts = [part.strip() for part in body.split(" / ")]
+        head = parts[0]
+
+        if head == "IMAGE":
+            if len(parts) != 2:
+                raise ValueError(f"{path}:{index + 1}: malformed IMAGE declaration: {body}")
+            image_bits = parts[1].split()
+            if len(image_bits) != 2:
+                raise ValueError(f"{path}:{index + 1}: malformed IMAGE target/action: {body}")
+            target, action = image_bits
+            asset_ref = None
+            if action != "HIDE":
+                _, asset_line = _next_nonempty(lines, index + 1)
+                if asset_line is None or not (asset_line.startswith("`") and asset_line.endswith("`")):
+                    raise ValueError(f"{path}:{index + 1}: image asset ref missing for {node_id}")
+                asset_ref = asset_line.strip("`")
+            nodes.append(
+                Node(
+                    node_id=node_id,
+                    node_kind="IMAGE",
+                    image_target=target,
+                    image_action=action,
+                    image_asset_type="SCENE",
+                    image_asset_ref=asset_ref,
+                    image_alt=asset_ref,
+                )
+            )
+            continue
+
+        if head in {"DIALOGUE", "THOUGHT", "NARRATION", "CONTEXT"}:
+            _, text_line = _next_nonempty(lines, index + 1)
+            if text_line is None:
+                raise ValueError(f"{path}:{index + 1}: text missing for {node_id}")
+            text = _clean_inline(text_line)
+
+            if head in {"NARRATION", "CONTEXT"}:
+                if len(parts) != 2:
+                    raise ValueError(f"{path}:{index + 1}: malformed {head} declaration")
+                speaker_kind, speaker_ref = "NARRATOR", None
+                visual_mode = parts[1]
+            else:
+                if len(parts) != 3:
+                    raise ValueError(f"{path}:{index + 1}: malformed {head} declaration")
+                speaker_kind, speaker_ref = _speaker_from_location_master(parts[1])
+                visual_mode = parts[2]
+
+            nodes.append(
+                Node(
+                    node_id=node_id,
+                    node_kind="LINE",
+                    line_mode=head,
+                    speaker_kind=speaker_kind,
+                    speaker_ref=speaker_ref,
+                    line_text=text,
+                    visual_mode=visual_mode,
+                )
+            )
+            continue
+
+        raise ValueError(f"{path}:{index + 1}: unsupported node declaration: {body}")
+
+    if not nodes or nodes[-1].node_kind != "END":
+        raise ValueError(f"{path}: sequence must end with END")
+    if len(choices) != 1:
+        raise ValueError(f"{event_id}: expected exactly one choice group, found {len(choices)}")
+    option_count = len(next(iter(choices.values())).options)
+    expected_options = 3 if event_id == "LOC_OBS_04" else 2
+    if option_count != expected_options:
+        raise ValueError(
+            f"{event_id}: expected {expected_options} choice options, found {option_count}"
+        )
+
+    return LocationEventMaster(
+        event_id=event_id,
+        title=title,
+        content_ref=path.relative_to(REPO_ROOT).as_posix(),
+        nodes=nodes,
+        choices=choices,
+    )
+
+
+def parse_all_location_masters() -> dict[str, LocationEventMaster]:
+    masters = {
+        event_id: parse_location_event_master(dialogue_path(event_id))
+        for event_id in LOCATION_EVENT_IDS
+    }
+    if len(masters) != EXPECTED_LOCATION_EVENTS:
+        raise ValueError(f"Expected {EXPECTED_LOCATION_EVENTS} Location masters, found {len(masters)}")
+    return masters
+
+
+def _parse_location_variant_choice_payload(payload: str) -> tuple[str, Reaction]:
+    if " → " not in payload:
+        raise ValueError(f"Location Character Set option is missing inline reaction: {payload}")
+    choice_part, reaction_part = payload.split(" → ", 1)
+    if ": " not in reaction_part:
+        raise ValueError(f"Location Character Set reaction is malformed: {payload}")
+    speaker, reaction_text = reaction_part.split(": ", 1)
+    return _clean_inline(choice_part), Reaction(speaker.strip(), _clean_inline(reaction_text))
+
+
+def parse_location_character_variants() -> dict[str, CharacterVariant]:
+    variants: dict[str, CharacterVariant] = {}
+    for path in sorted(LOCATION_CHARACTER_SET_DIR.glob("SET_*.md")):
+        lines = path.read_text(encoding="utf-8").splitlines()
+        current: CharacterVariant | None = None
+        mode: str | None = None
+        current_group: str | None = None
+
+        for raw in lines:
+            stripped = raw.strip()
+            header = CHARACTER_HEADER_RE.match(stripped)
+            if header:
+                current = CharacterVariant(header.group(1), header.group(2).strip())
+                if current.character_id in variants:
+                    raise ValueError(f"Duplicate Location character variant: {current.character_id}")
+                variants[current.character_id] = current
+                mode = None
+                current_group = None
+                continue
+            if current is None:
+                continue
+            if stripped == "## Signature PLAYER overrides":
+                mode = "signature"
+                current_group = None
+                continue
+            if stripped == "## Choice overrides":
+                mode = "choice"
+                current_group = None
+                continue
+            group_match = VARIANT_GROUP_RE.match(stripped)
+            if group_match and mode == "choice":
+                current_group = group_match.group(1)
+                current.choices.setdefault(current_group, {})
+                continue
+
+            if mode == "signature":
+                signature_match = VARIANT_SIGNATURE_RE.match(stripped)
+                if signature_match:
+                    current.signatures[signature_match.group(1)] = _clean_inline(signature_match.group(2))
+                continue
+
+            if mode == "choice" and current_group:
+                option_match = VARIANT_SIGNATURE_RE.match(stripped)
+                if option_match:
+                    choice_id = option_match.group(1)
+                    choice_text, reaction = _parse_location_variant_choice_payload(option_match.group(2))
+                    current.choices[current_group][choice_id] = VariantOption(
+                        text=choice_text,
+                        reactions=[reaction],
+                    )
+
+    if len(variants) != EXPECTED_CHARACTER_COUNT:
+        raise ValueError(
+            f"Expected {EXPECTED_CHARACTER_COUNT} Location character variants, found {len(variants)}"
+        )
+    return variants
+
+
+def _expected_greenhouse_actor_name(character_id: str) -> str:
+    return "하젤" if character_id in {"CH12", "CH19"} else "요한"
+
+
+def validate_location_authoring(
+    masters: dict[str, LocationEventMaster],
+    variants: dict[str, CharacterVariant],
+) -> None:
+    groups = {
+        group_id: (master, group)
+        for master in masters.values()
+        for group_id, group in master.choices.items()
+    }
+    if len(groups) != EXPECTED_LOCATION_CHOICE_GROUPS_PER_CHARACTER:
+        raise ValueError(
+            f"Expected {EXPECTED_LOCATION_CHOICE_GROUPS_PER_CHARACTER} Location choice groups, "
+            f"found {len(groups)}"
+        )
+
+    player_node_ids = {
+        node.node_id
+        for master in masters.values()
+        for node in master.nodes
+        if node.node_kind == "LINE" and node.speaker_kind == "PLAYER"
+    }
+
+    for character_id, variant in sorted(variants.items()):
+        if len(variant.signatures) != EXPECTED_LOCATION_SIGNATURES_PER_CHARACTER:
+            raise ValueError(
+                f"{character_id}: expected {EXPECTED_LOCATION_SIGNATURES_PER_CHARACTER} Location signatures, "
+                f"got {len(variant.signatures)}"
+            )
+        invalid_signatures = set(variant.signatures) - player_node_ids
+        if invalid_signatures:
+            raise ValueError(
+                f"{character_id}: Location signatures target non-PLAYER/unknown nodes "
+                f"{sorted(invalid_signatures)}"
+            )
+        for event_id in LOCATION_EVENT_IDS:
+            if not any(node_id.startswith(f"{event_id}_") for node_id in variant.signatures):
+                raise ValueError(f"{character_id}: missing signature override for {event_id}")
+
+        if set(variant.choices) != set(groups):
+            missing = sorted(set(groups) - set(variant.choices))
+            extra = sorted(set(variant.choices) - set(groups))
+            raise ValueError(
+                f"{character_id}: Location choice groups mismatch; missing={missing}, extra={extra}"
+            )
+
+        option_count = 0
+        for group_id, (master, base_group) in groups.items():
+            canonical_ids = {option.choice_id for option in base_group.options}
+            actual_ids = set(variant.choices[group_id])
+            if actual_ids != canonical_ids:
+                raise ValueError(
+                    f"{character_id}/{group_id}: choice ids mismatch; "
+                    f"expected={sorted(canonical_ids)}, actual={sorted(actual_ids)}"
+                )
+            for choice_id, option in variant.choices[group_id].items():
+                if not option.text or len(option.reactions) != 1 or not option.reactions[0].text:
+                    raise ValueError(f"{character_id}/{group_id}/{choice_id}: invalid option/reaction")
+                reaction_speaker = option.reactions[0].speaker.strip()
+                if master.event_id.startswith("LOC_OBS_"):
+                    if reaction_speaker not in {"PLAYER", "PLAYER(BASE)"}:
+                        raise ValueError(
+                            f"{character_id}/{choice_id}: OBS reaction must be PLAYER, got {reaction_speaker!r}"
+                        )
+                elif master.event_id == "LOC_GH_01":
+                    expected_actor = _expected_greenhouse_actor_name(character_id)
+                    if reaction_speaker != expected_actor:
+                        raise ValueError(
+                            f"{character_id}/{choice_id}: greenhouse actor must be {expected_actor}, "
+                            f"got {reaction_speaker!r}"
+                        )
+                elif master.event_id == "LOC_LIB_01":
+                    if reaction_speaker not in {"세린", "SERIN"}:
+                        raise ValueError(
+                            f"{character_id}/{choice_id}: library reaction must be 세린, got {reaction_speaker!r}"
+                        )
+            option_count += len(actual_ids)
+
+        if option_count != EXPECTED_LOCATION_OPTIONS_PER_CHARACTER:
+            raise ValueError(
+                f"{character_id}: expected {EXPECTED_LOCATION_OPTIONS_PER_CHARACTER} Location options, "
+                f"got {option_count}"
+            )
 
 
 def parse_location_choices() -> list[ChoiceDefinition]:
@@ -210,29 +533,76 @@ def parse_location_effects() -> dict[str, dict[str, object]]:
         if not stripped.startswith("| `LOC_"):
             continue
         cells = [cell.strip() for cell in stripped.strip("|").split("|")]
-        if len(cells) != 4:
+        if len(cells) != 5:
             continue
         choice_id = cells[0].strip("`")
         meaning = cells[1]
         visible_match = re.fullmatch(r"(지식|표현력|솜씨|탐험|마법) \+(\d+)", cells[2])
-        hidden_match = re.fullmatch(
+        primary_hidden_match = re.fullmatch(
             r"(공감|책임|호기심|용기|협력|독립성|신중함|솔직함) \+(\d+)",
             cells[3],
         )
-        if not visible_match or not hidden_match:
+        secondary_hidden_match = None
+        if cells[4] != "-":
+            secondary_hidden_match = re.fullmatch(
+                r"(공감|책임|호기심|용기|협력|독립성|신중함|솔직함) \+(\d+)",
+                cells[4],
+            )
+        if not visible_match or not primary_hidden_match:
             continue
+        if cells[4] != "-" and not secondary_hidden_match:
+            continue
+        choice_effects: list[tuple[str, str, object]] = [
+            ("VISIBLE_STAT", VISIBLE_STAT_MAP[visible_match.group(1)], int(visible_match.group(2))),
+            (
+                "HIDDEN_STAT",
+                HIDDEN_STAT_MAP[primary_hidden_match.group(1)],
+                int(primary_hidden_match.group(2)),
+            ),
+        ]
+        if secondary_hidden_match:
+            secondary_target = HIDDEN_STAT_MAP[secondary_hidden_match.group(1)]
+            if secondary_target == choice_effects[1][1]:
+                raise ValueError(f"{choice_id}: Primary/Secondary Hidden target must differ")
+            choice_effects.append(
+                ("HIDDEN_STAT", secondary_target, int(secondary_hidden_match.group(2)))
+            )
         effects[choice_id] = {
             "meaning": meaning,
-            "effects": [
-                ("VISIBLE_STAT", VISIBLE_STAT_MAP[visible_match.group(1)], int(visible_match.group(2))),
-                ("HIDDEN_STAT", HIDDEN_STAT_MAP[hidden_match.group(1)], int(hidden_match.group(2))),
-            ],
+            "effects": choice_effects,
         }
 
     if len(effects) != EXPECTED_LOCATION_CHOICES:
         raise ValueError(
             f"Expected effects for {EXPECTED_LOCATION_CHOICES} Location choices, found {len(effects)}"
         )
+    secondary_count = sum(1 for row in effects.values() if len(row["effects"]) == 3)
+    if secondary_count != EXPECTED_LOCATION_SECONDARY_HIDDEN_EFFECTS:
+        raise ValueError(
+            f"Expected {EXPECTED_LOCATION_SECONDARY_HIDDEN_EFFECTS} Location secondary Hidden effects, "
+            f"found {secondary_count}"
+        )
+
+    choices_by_group: dict[tuple[str, str], list[str]] = {}
+    for choice in parse_location_choices():
+        choices_by_group.setdefault((choice.event_id, choice.group_id), []).append(choice.choice_id)
+    for (event_id, group_id), choice_ids in choices_by_group.items():
+        hidden_totals: set[int] = set()
+        for choice_id in choice_ids:
+            rows = effects[choice_id]["effects"]
+            visible_rows = [row for row in rows if row[0] == "VISIBLE_STAT"]
+            hidden_rows = [row for row in rows if row[0] == "HIDDEN_STAT"]
+            if len(visible_rows) != 1 or len(hidden_rows) not in {1, 2}:
+                raise ValueError(
+                    f"{choice_id}: expected 1 visible and 1~2 hidden effects, got {rows}"
+                )
+            if len({row[1] for row in hidden_rows}) != len(hidden_rows):
+                raise ValueError(f"{choice_id}: duplicate Hidden targets are not allowed")
+            hidden_totals.add(sum(int(row[2]) for row in hidden_rows))
+        if len(hidden_totals) != 1:
+            raise ValueError(
+                f"{event_id}/{group_id}: choice options have unequal Hidden totals {sorted(hidden_totals)}"
+            )
 
     # OBS04 explicitly leaves the chosen mark as a completion record. This is not
     # a stat reward; it is a minimal run-scoped flag and is skipped when dialogue
@@ -244,6 +614,11 @@ def parse_location_effects() -> dict[str, dict[str, object]]:
     }
     for choice_id, mark in mark_values.items():
         effects[choice_id]["effects"].append(("EVENT_FLAG", "location.obs.mark", mark))
+    effect_count = sum(len(row["effects"]) for row in effects.values())
+    if effect_count != EXPECTED_LOCATION_CHOICE_EFFECTS:
+        raise ValueError(
+            f"Expected {EXPECTED_LOCATION_CHOICE_EFFECTS} Location choice effect rows, found {effect_count}"
+        )
     return effects
 
 
@@ -596,7 +971,271 @@ def seed_event_effects(conn: sqlite3.Connection, version: str) -> None:
             )
 
 
-def validate_location_master(conn: sqlite3.Connection, version: str) -> None:
+def _reaction_node_id(choice_node_id: str, choice_id: str) -> str:
+    return f"{choice_node_id}__{choice_id}__R01"
+
+
+def _resolve_location_reaction_speaker(
+    event_id: str,
+    character_id: str,
+    speaker_name: str,
+) -> tuple[str, str | None]:
+    name = speaker_name.strip()
+    if event_id.startswith("LOC_OBS_"):
+        if name not in {"PLAYER", "PLAYER(BASE)"}:
+            raise ValueError(f"{event_id}/{character_id}: unexpected OBS reaction speaker {name!r}")
+        return "PLAYER", None
+    if event_id == "LOC_GH_01":
+        expected_actor = _expected_greenhouse_actor_name(character_id)
+        if name != expected_actor:
+            raise ValueError(
+                f"{event_id}/{character_id}: expected greenhouse reaction actor {expected_actor}, got {name!r}"
+            )
+        return "NPC", "ROLE:LOC_GREENHOUSE_STUDENT"
+    if event_id == "LOC_LIB_01":
+        if name not in {"세린", "SERIN"}:
+            raise ValueError(f"{event_id}/{character_id}: unexpected library reaction speaker {name!r}")
+        return "NPC", "NPC:SERIN"
+    raise ValueError(f"Unknown Location event for reaction speaker: {event_id}")
+
+
+def _node_insert_tuple(
+    version: str,
+    story_id: str,
+    step_no: int,
+    character_id: str,
+    node: Node,
+    next_node_id: str | None,
+    line_text_override: str | None,
+) -> tuple[object, ...]:
+    return (
+        version,
+        story_id,
+        step_no,
+        character_id,
+        node.node_id,
+        node.node_kind,
+        node.line_mode,
+        node.speaker_kind,
+        node.speaker_ref,
+        line_text_override if line_text_override is not None else node.line_text,
+        node.visual_mode,
+        node.image_target,
+        node.image_action,
+        node.image_asset_type,
+        node.image_asset_ref,
+        node.image_alt,
+        node.choice_group_id,
+        node.choice_prompt,
+        next_node_id,
+    )
+
+
+def seed_location_dialogues(
+    conn: sqlite3.Connection,
+    version: str,
+    masters: dict[str, LocationEventMaster],
+    variants: dict[str, CharacterVariant],
+) -> None:
+    placeholders = ",".join("?" for _ in LOCATION_EVENT_IDS)
+    conn.execute(
+        f"DELETE FROM dialogue_sequences WHERE version=? AND story_id IN ({placeholders})",
+        (version, *LOCATION_EVENT_IDS),
+    )
+
+    for event_id in LOCATION_EVENT_IDS:
+        master = masters[event_id]
+        story_id = event_id
+        step_no = 1
+        ordered_nodes = master.nodes
+        node_index = {node.node_id: index for index, node in enumerate(ordered_nodes)}
+        group_by_node_id = {group.node_id: group for group in master.choices.values()}
+
+        for character_id in sorted(variants):
+            variant = variants[character_id]
+            conn.execute(
+                """
+                INSERT INTO dialogue_sequences(
+                    version, story_id, step_no, event_id, character_id, entry_node_id
+                ) VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (version, story_id, step_no, event_id, character_id, ordered_nodes[0].node_id),
+            )
+
+            for index, node in enumerate(ordered_nodes):
+                next_node_id = None
+                if node.node_kind in {"LINE", "IMAGE"}:
+                    if index + 1 >= len(ordered_nodes):
+                        raise ValueError(f"{event_id}/{node.node_id}: missing next node")
+                    next_node_id = ordered_nodes[index + 1].node_id
+
+                line_override = variant.signatures.get(node.node_id)
+                conn.execute(
+                    """
+                    INSERT INTO dialogue_nodes(
+                        version, story_id, step_no, character_id, node_id, node_kind,
+                        line_mode, speaker_kind, speaker_ref, line_text, visual_mode,
+                        image_target, image_action, image_asset_type, image_asset_ref, image_alt,
+                        choice_group_id, choice_prompt, next_node_id
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    _node_insert_tuple(
+                        version,
+                        story_id,
+                        step_no,
+                        character_id,
+                        node,
+                        next_node_id,
+                        line_override,
+                    ),
+                )
+
+            for choice_node_id, base_group in group_by_node_id.items():
+                choice_index = node_index[choice_node_id]
+                if choice_index + 1 >= len(ordered_nodes):
+                    raise ValueError(f"{event_id}/{choice_node_id}: choice has no merge node")
+                merge_node_id = ordered_nodes[choice_index + 1].node_id
+                variant_group = variant.choices[base_group.group_id]
+
+                for sort_order, base_option in enumerate(base_group.options, start=1):
+                    variant_option = variant_group[base_option.choice_id]
+                    if len(variant_option.reactions) != 1:
+                        raise ValueError(
+                            f"{character_id}/{base_group.group_id}/{base_option.choice_id}: expected one reaction"
+                        )
+                    reaction = variant_option.reactions[0]
+                    reaction_node_id = _reaction_node_id(choice_node_id, base_option.choice_id)
+                    speaker_kind, speaker_ref = _resolve_location_reaction_speaker(
+                        event_id,
+                        character_id,
+                        reaction.speaker,
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO dialogue_nodes(
+                            version, story_id, step_no, character_id, node_id, node_kind,
+                            line_mode, speaker_kind, speaker_ref, line_text, visual_mode,
+                            image_target, image_action, image_asset_type, image_asset_ref, image_alt,
+                            choice_group_id, choice_prompt, next_node_id
+                        ) VALUES (?, ?, ?, ?, ?, 'LINE',
+                                  'DIALOGUE', ?, ?, ?, 'KEEP',
+                                  NULL, NULL, NULL, NULL, NULL,
+                                  NULL, NULL, ?)
+                        """,
+                        (
+                            version,
+                            story_id,
+                            step_no,
+                            character_id,
+                            reaction_node_id,
+                            speaker_kind,
+                            speaker_ref,
+                            reaction.text,
+                            merge_node_id,
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO dialogue_options(
+                            version, story_id, step_no, character_id,
+                            choice_node_id, choice_id, choice_text,
+                            response_node_id, sort_order
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            version,
+                            story_id,
+                            step_no,
+                            character_id,
+                            choice_node_id,
+                            base_option.choice_id,
+                            variant_option.text,
+                            reaction_node_id,
+                            sort_order,
+                        ),
+                    )
+
+
+def _validate_location_graphs(conn: sqlite3.Connection, version: str) -> None:
+    placeholders = ",".join("?" for _ in LOCATION_EVENT_IDS)
+    params = (version, *LOCATION_EVENT_IDS)
+    sequences = conn.execute(
+        f"""
+        SELECT story_id, step_no, character_id, entry_node_id
+        FROM dialogue_sequences
+        WHERE version=? AND story_id IN ({placeholders})
+        ORDER BY story_id, step_no, character_id
+        """,
+        params,
+    ).fetchall()
+
+    for story_id, step_no, character_id, entry_node_id in sequences:
+        node_rows = conn.execute(
+            """
+            SELECT node_id, node_kind, next_node_id
+            FROM dialogue_nodes
+            WHERE version=? AND story_id=? AND step_no=? AND character_id=?
+            """,
+            (version, story_id, step_no, character_id),
+        ).fetchall()
+        nodes = {node_id: (node_kind, next_node_id) for node_id, node_kind, next_node_id in node_rows}
+        option_rows = conn.execute(
+            """
+            SELECT choice_node_id, response_node_id
+            FROM dialogue_options
+            WHERE version=? AND story_id=? AND step_no=? AND character_id=?
+            """,
+            (version, story_id, step_no, character_id),
+        ).fetchall()
+        branches: dict[str, list[str]] = {}
+        for choice_node_id, response_node_id in option_rows:
+            branches.setdefault(choice_node_id, []).append(response_node_id)
+
+        visiting: set[str] = set()
+        visited: set[str] = set()
+
+        def walk(node_id: str) -> None:
+            if node_id in visiting:
+                raise ValueError(f"Cycle detected: {story_id}/{step_no}/{character_id}/{node_id}")
+            if node_id in visited:
+                return
+            if node_id not in nodes:
+                raise ValueError(f"Missing node: {story_id}/{step_no}/{character_id}/{node_id}")
+            visiting.add(node_id)
+            node_kind, next_node_id = nodes[node_id]
+            if node_kind == "END":
+                pass
+            elif node_kind == "CHOICE":
+                targets = branches.get(node_id, [])
+                expected = 3 if story_id == "LOC_OBS_04" else 2
+                if len(targets) != expected:
+                    raise ValueError(
+                        f"Invalid Location choice branches: {story_id}/{step_no}/{character_id}/{node_id}: "
+                        f"expected {expected}, got {len(targets)}"
+                    )
+                for target in targets:
+                    walk(target)
+            else:
+                if not next_node_id:
+                    raise ValueError(f"Missing next node: {story_id}/{step_no}/{character_id}/{node_id}")
+                walk(next_node_id)
+            visiting.remove(node_id)
+            visited.add(node_id)
+
+        walk(entry_node_id)
+        if len(visited) != len(nodes):
+            orphaned = sorted(set(nodes) - visited)
+            raise ValueError(
+                f"Unreachable Location nodes: {story_id}/{step_no}/{character_id}: {orphaned[:5]}"
+            )
+
+
+def validate_location_master(
+    conn: sqlite3.Connection,
+    version: str,
+    masters: dict[str, LocationEventMaster],
+    variants: dict[str, CharacterVariant],
+) -> None:
     event_placeholders = ",".join("?" for _ in LOCATION_EVENT_IDS)
     event_params = (version, *LOCATION_EVENT_IDS)
 
@@ -645,6 +1284,32 @@ def validate_location_master(conn: sqlite3.Connection, version: str) -> None:
         event_params,
     ) != EXPECTED_LOCATION_EVENTS:
         raise ValueError("Location master validation failed: event-effect count")
+
+    if scalar(
+        f"SELECT COUNT(*) FROM dialogue_sequences WHERE version=? AND story_id IN ({event_placeholders})",
+        event_params,
+    ) != EXPECTED_LOCATION_DIALOGUE_SEQUENCES:
+        raise ValueError("Location master validation failed: dialogue sequence count")
+
+    if scalar(
+        f"SELECT COUNT(*) FROM dialogue_options WHERE version=? AND story_id IN ({event_placeholders})",
+        event_params,
+    ) != EXPECTED_LOCATION_DIALOGUE_OPTIONS:
+        raise ValueError("Location master validation failed: dialogue option count")
+
+    expected_dialogue_nodes = (
+        sum(len(master.nodes) for master in masters.values()) * EXPECTED_CHARACTER_COUNT
+        + EXPECTED_LOCATION_DIALOGUE_OPTIONS
+    )
+    actual_dialogue_nodes = scalar(
+        f"SELECT COUNT(*) FROM dialogue_nodes WHERE version=? AND story_id IN ({event_placeholders})",
+        event_params,
+    )
+    if actual_dialogue_nodes != expected_dialogue_nodes:
+        raise ValueError(
+            "Location master validation failed: dialogue node count: "
+            f"expected {expected_dialogue_nodes}, got {actual_dialogue_nodes}"
+        )
 
     role_candidates = scalar(
         """
@@ -738,14 +1403,215 @@ def validate_location_master(conn: sqlite3.Connection, version: str) -> None:
     if accidental:
         raise ValueError(f"Excluded Location events are active: {accidental}")
 
+    per_character = dict(
+        conn.execute(
+            f"""
+            SELECT character_id, COUNT(*)
+            FROM dialogue_sequences
+            WHERE version=? AND story_id IN ({event_placeholders})
+            GROUP BY character_id
+            """,
+            event_params,
+        ).fetchall()
+    )
+    if len(per_character) != EXPECTED_CHARACTER_COUNT:
+        raise ValueError("Location master validation failed: sequence character coverage")
+    for character_id, count in sorted(per_character.items()):
+        if count != EXPECTED_LOCATION_EVENTS:
+            raise ValueError(
+                f"{character_id}: expected {EXPECTED_LOCATION_EVENTS} Location sequences, got {count}"
+            )
+
+    choice_nodes = dict(
+        conn.execute(
+            f"""
+            SELECT character_id, COUNT(*)
+            FROM dialogue_nodes
+            WHERE version=? AND story_id IN ({event_placeholders}) AND node_kind='CHOICE'
+            GROUP BY character_id
+            """,
+            event_params,
+        ).fetchall()
+    )
+    option_counts = dict(
+        conn.execute(
+            f"""
+            SELECT character_id, COUNT(*)
+            FROM dialogue_options
+            WHERE version=? AND story_id IN ({event_placeholders})
+            GROUP BY character_id
+            """,
+            event_params,
+        ).fetchall()
+    )
+    for character_id in sorted(per_character):
+        if choice_nodes.get(character_id) != EXPECTED_LOCATION_CHOICE_GROUPS_PER_CHARACTER:
+            raise ValueError(
+                f"{character_id}: expected {EXPECTED_LOCATION_CHOICE_GROUPS_PER_CHARACTER} Location choice nodes, "
+                f"got {choice_nodes.get(character_id)}"
+            )
+        if option_counts.get(character_id) != EXPECTED_LOCATION_OPTIONS_PER_CHARACTER:
+            raise ValueError(
+                f"{character_id}: expected {EXPECTED_LOCATION_OPTIONS_PER_CHARACTER} Location options, "
+                f"got {option_counts.get(character_id)}"
+            )
+
+    unresolved_roles = conn.execute(
+        f"""
+        SELECT DISTINCT dn.speaker_ref
+        FROM dialogue_nodes dn
+        LEFT JOIN story_roles sr
+          ON sr.version=dn.version AND sr.role_id=substr(dn.speaker_ref, 6)
+        WHERE dn.version=? AND dn.story_id IN ({event_placeholders})
+          AND dn.speaker_ref LIKE 'ROLE:%' AND sr.role_id IS NULL
+        """,
+        event_params,
+    ).fetchall()
+    if unresolved_roles:
+        raise ValueError(f"Location master validation failed: unresolved roles {unresolved_roles}")
+
+    unresolved_npcs = conn.execute(
+        f"""
+        SELECT DISTINCT dn.speaker_ref
+        FROM dialogue_nodes dn
+        LEFT JOIN dialogue_speakers ds
+          ON ds.version=dn.version AND ds.speaker_id=substr(dn.speaker_ref, 5)
+        WHERE dn.version=? AND dn.story_id IN ({event_placeholders})
+          AND dn.speaker_ref LIKE 'NPC:%' AND ds.speaker_id IS NULL
+        """,
+        event_params,
+    ).fetchall()
+    if unresolved_npcs:
+        raise ValueError(f"Location master validation failed: unresolved NPC speakers {unresolved_npcs}")
+
+    unresolved_choice_ids = conn.execute(
+        f"""
+        SELECT DISTINCT ds.event_id, do.choice_id
+        FROM dialogue_options do
+        JOIN dialogue_sequences ds
+          ON ds.version=do.version
+         AND ds.story_id=do.story_id
+         AND ds.step_no=do.step_no
+         AND ds.character_id=do.character_id
+        LEFT JOIN story_choices sc
+          ON sc.version=ds.version
+         AND sc.event_id=ds.event_id
+         AND sc.choice_id=do.choice_id
+        WHERE do.version=? AND do.story_id IN ({event_placeholders})
+          AND sc.choice_id IS NULL
+        """,
+        event_params,
+    ).fetchall()
+    if unresolved_choice_ids:
+        raise ValueError(
+            f"Location master validation failed: dialogue choices missing canonical rows {unresolved_choice_ids}"
+        )
+
+    # Verify all protagonist-specific signature, choice text, and branch reaction
+    # overrides actually reached the compiled database.
+    group_to_master = {
+        group_id: (master, group)
+        for master in masters.values()
+        for group_id, group in master.choices.items()
+    }
+    for character_id, variant in sorted(variants.items()):
+        for node_id, expected_text in variant.signatures.items():
+            row = conn.execute(
+                f"""
+                SELECT line_text
+                FROM dialogue_nodes
+                WHERE version=? AND character_id=? AND node_id=?
+                  AND story_id IN ({event_placeholders})
+                """,
+                (version, character_id, node_id, *LOCATION_EVENT_IDS),
+            ).fetchone()
+            if row is None or row[0] != expected_text:
+                raise ValueError(
+                    f"Location master validation failed: signature override {character_id}/{node_id}: {row}"
+                )
+
+        for group_id, variant_options in variant.choices.items():
+            master, base_group = group_to_master[group_id]
+            for base_option in base_group.options:
+                variant_option = variant_options[base_option.choice_id]
+                reaction = variant_option.reactions[0]
+                expected_reaction_id = _reaction_node_id(base_group.node_id, base_option.choice_id)
+                option_row = conn.execute(
+                    """
+                    SELECT choice_text, response_node_id
+                    FROM dialogue_options
+                    WHERE version=? AND story_id=? AND step_no=1 AND character_id=?
+                      AND choice_node_id=? AND choice_id=?
+                    """,
+                    (
+                        version,
+                        master.event_id,
+                        character_id,
+                        base_group.node_id,
+                        base_option.choice_id,
+                    ),
+                ).fetchone()
+                if option_row != (variant_option.text, expected_reaction_id):
+                    raise ValueError(
+                        f"Location master validation failed: option override "
+                        f"{character_id}/{base_option.choice_id}: {option_row}"
+                    )
+
+                expected_kind, expected_ref = _resolve_location_reaction_speaker(
+                    master.event_id,
+                    character_id,
+                    reaction.speaker,
+                )
+                reaction_row = conn.execute(
+                    """
+                    SELECT speaker_kind, speaker_ref, line_text, visual_mode
+                    FROM dialogue_nodes
+                    WHERE version=? AND story_id=? AND step_no=1 AND character_id=? AND node_id=?
+                    """,
+                    (version, master.event_id, character_id, expected_reaction_id),
+                ).fetchone()
+                if reaction_row != (expected_kind, expected_ref, reaction.text, "KEEP"):
+                    raise ValueError(
+                        f"Location master validation failed: reaction override "
+                        f"{character_id}/{base_option.choice_id}: {reaction_row}"
+                    )
+
     foreign_key_errors = conn.execute("PRAGMA foreign_key_check").fetchall()
     if foreign_key_errors:
         raise ValueError(f"Foreign key validation failed: {foreign_key_errors[:5]}")
 
+    _validate_location_graphs(conn, version)
+
 
 def seed_location_master(conn: sqlite3.Connection, version: str) -> None:
     ensure_version_and_characters(conn, version)
+    masters = parse_all_location_masters()
+    variants = parse_location_character_variants()
+    validate_location_authoring(masters, variants)
+
+    canonical_ids = {
+        option.choice_id
+        for master in masters.values()
+        for group in master.choices.values()
+        for option in group.options
+    }
+    parsed_choice_ids = {choice.choice_id for choice in parse_location_choices()}
+    effect_ids = set(parse_location_effects())
+    if len(canonical_ids) != EXPECTED_LOCATION_CHOICES:
+        raise ValueError(
+            f"Expected {EXPECTED_LOCATION_CHOICES} unique Location canonical choices, found {len(canonical_ids)}"
+        )
+    if canonical_ids != parsed_choice_ids or canonical_ids != effect_ids:
+        raise ValueError(
+            "Location canonical source mismatch; "
+            f"dialogue-only={sorted(canonical_ids - parsed_choice_ids)}, "
+            f"choice-only={sorted(parsed_choice_ids - canonical_ids)}, "
+            f"effect-only={sorted(effect_ids - canonical_ids)}, "
+            f"effect-missing={sorted(canonical_ids - effect_ids)}"
+        )
+
     conn.execute("PRAGMA foreign_keys = ON")
+    conn.execute("PRAGMA defer_foreign_keys = ON")
     conn.execute("BEGIN IMMEDIATE")
     try:
         seed_locations(conn, version)
@@ -753,7 +1619,8 @@ def seed_location_master(conn: sqlite3.Connection, version: str) -> None:
         seed_story_structure(conn, version)
         seed_choices_and_effects(conn, version)
         seed_event_effects(conn, version)
-        validate_location_master(conn, version)
+        seed_location_dialogues(conn, version, masters, variants)
+        validate_location_master(conn, version, masters, variants)
         conn.commit()
     except Exception:
         conn.rollback()
@@ -783,6 +1650,10 @@ def print_summary(conn: sqlite3.Connection, version: str, db_path: Path) -> None
         f"SELECT COUNT(*) FROM dialogue_sequences WHERE version=? AND story_id IN ({event_placeholders})",
         params,
     ).fetchone()[0]
+    option_count = conn.execute(
+        f"SELECT COUNT(*) FROM dialogue_options WHERE version=? AND story_id IN ({event_placeholders})",
+        params,
+    ).fetchone()[0]
     print(f"database: {db_path.resolve()}")
     print(f"schema user_version: {conn.execute('PRAGMA user_version').fetchone()[0]}")
     print(f"gameDataVersion: {version}")
@@ -790,13 +1661,14 @@ def print_summary(conn: sqlite3.Connection, version: str, db_path: Path) -> None
     print(f"Location events: {event_count}")
     print(f"Location canonical choices: {choice_count}")
     print(f"Location choice effects: {effect_count}")
-    print(f"Location dialogue sequences: {dialogue_count} (expected 0 until 32 Character Sets are seeded)")
+    print(f"Location dialogue sequences: {dialogue_count}")
+    print(f"Location dialogue options: {option_count}")
     print("validation: OK")
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Seed LUMIA Location Story master/rule/effect data into SQLite v4"
+        description="Seed reviewed LUMIA Location Story master + 32-character dialogue into SQLite v4"
     )
     parser.add_argument(
         "--db",

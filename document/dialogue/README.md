@@ -148,9 +148,16 @@ API가 엔진에 보내는 대화에는 **스탯 증가량을 넣지 않는다.*
 → Choice Effect 조회
 → 스탯/hidden stat/flag 계산
 → 장면 종료 시 한 번 저장
+→ 저장 성공 후 실제 적용된 보이는 스탯 증가량만 스탯별 합산 결과로 반환
 ```
 
 대사 한 줄마다 서버 저장하지 않는다.
+
+선택 버튼에는 `지식 +2`, `공감 +8` 같은 보상 정보를 표시하지 않는다. Main/NPC/Location의 정확한 선택별 효과는 각 Production 문서를 원본으로 하고, 공통 공개·합산 규칙은 [Story 선택 스탯 보상·결과 공개 규칙](../content/02_STATS_EVENTS_ENDINGS/04_STORY_CHOICE_REWARDS.md)을 따른다.
+
+이벤트별 77개 canonical `choiceId`를 한 번에 검수할 때는 [Dialogue 선택지별 스탯 효과 참조표](CHOICE_STAT_EFFECTS.md)를 사용한다. 캐릭터별 실제 선택 문구가 달라도 같은 `choiceId`의 스탯 효과는 동일하다.
+
+완료 응답에서 결과 화면에 필요한 것은 **상한 clamp 이후 실제 적용된 Visible Stat delta의 이벤트 합계**다. Hidden Stat delta는 선택 결과 UI에 보내거나 표시하지 않는다. `completionMode=SKIP`은 기존 규칙대로 Visible/Hidden choice reward를 모두 `0`으로 처리한다.
 
 ## 6. 스킵 정책
 
@@ -229,7 +236,9 @@ Main Story, NPC Story, Location Story 모두 같은 방식으로 작성한다.
 
 현재 Main Story의 사람 검수용 실제 대화 마스터는 [`main/README.md`](main/README.md)에서 관리한다. `MS01~MS06`의 사건·선택·이미지 전환을 실제 시퀀스로 풀어 썼으며, 승인 후 32인 플레이어 말투와 대체 `storyCast` 말투를 확장한 뒤 DB에 적재한다.
 
-현재 Location Story의 공통 대화 마스터는 [`location/README.md`](location/README.md)에서 관리한다. `LOC_OBS_01~04 / LOC_GH_01 / LOC_LIB_01`의 6장면을 실제 `LINE / IMAGE / CHOICE / END` 순서로 작성했으며, 현재는 **공통 원고 검수 단계**다. Location 32인 Character Set과 DB 적재는 다음 단계에서 수행한다.
+현재 Location Story의 공통 대화 마스터는 [`location/README.md`](location/README.md), 32인 실제 플레이어 대사·선택·reaction은 [`location/character_sets/README.md`](location/character_sets/README.md)에서 관리한다. `LOC_OBS_01~04 / LOC_GH_01 / LOC_LIB_01` 6장면에 대해 **CH01~CH32 / 192 choiceNode / 416 실제 선택 문구**를 작성·검산했다. 온실 `LOC_GREENHOUSE_STUDENT`는 CH12·CH19 protagonist에서 하젤, 나머지 30명에서 요한이다. `seed_location_story_master.py`가 이를 **192 sequence / 416 option / 3616 node**로 컴파일하며, **2026-10-18 사용자가 실제 SQLite seed 실행 결과 `validation: OK`를 확인했다.**
+
+현재 NPC Story의 공통 대화 마스터는 [`npc/README.md`](npc/README.md), 32인 실제 플레이어 대사와 선택별 반응은 [`npc/character_sets/README.md`](npc/character_sets/README.md)에서 관리한다. `GUIDE / WORK / LULU` 각 4단계, 총 12장면을 실제 `LINE / IMAGE / CHOICE / END` 순서로 작성했고 **선택 화면 12개 / canonical choice 24개**를 Production과 동일하게 유지한다. CH01~CH32 모두 12개 choiceNode의 실제 문구를 가지므로 총 **384개 캐릭터별 선택 화면 / 768개 실제 선택 문구**가 작성되어 있다. GUIDE는 티아 기본·CH16 주인공 시 로빈 전체 대사 대체, WORK는 렌 기본·CH25 주인공 시 다나 전체 대사 대체, LULU는 고정 루루다. 현재는 **공통 원고 + 32인 Character Set 검수 승인 / SQLite v4 NPC seed 구현 완료 / 실제 DB 실행 검증 전**이다. 적재 계약은 `backend/database/NPC_STORY_DB_SPEC.md`를 따른다.
 
 ## 8. 전체 예시
 

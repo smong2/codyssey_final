@@ -9,6 +9,7 @@
    - [01_STATS_SYSTEM.md](02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md) — 보이는 스탯, 보이지 않는 스탯, 기본값과 증감 원칙
    - [02_EVENTS.md](02_STATS_EVENTS_ENDINGS/02_EVENTS.md) — NPC·공간 이벤트 발생 규칙
    - [03_ENDINGS.md](02_STATS_EVENTS_ENDINGS/03_ENDINGS.md) — 미래 직업 엔딩 판정 구조
+   - [04_STORY_CHOICE_REWARDS.md](02_STATS_EVENTS_ENDINGS/04_STORY_CHOICE_REWARDS.md) — Story 선택 보상 계층, Hidden 편향 보정, 이벤트 종료 결과 공개·DB 규칙
 3. [03_COLLECTION_UNLOCKS/README.md](03_COLLECTION_UNLOCKS/README.md) — 수집 배지, 캐릭터·펫·배경 해금
    - [01_BADGE_COLLECTION_DESIGN.md](03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md) — 가방 수집 배지 200개의 분류·조립형 디자인 기준
    - [02_CHARACTER_UNLOCK_TIMING.md](03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md) — 추가 플레이 가능 캐릭터의 조건 달성·해금·사용 가능 시점
