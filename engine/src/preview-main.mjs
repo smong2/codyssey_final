@@ -3,7 +3,7 @@ import {classOf} from './core/classes.mjs';
 import {createMinigameStartData} from './core/minigame-contract.mjs';
 import {activityResultText} from './core/activity-rules.mjs';
 import {titleModel} from './core/preview.mjs';
-import {createLocalRepository,createBoundaryWriter} from './core/storage.mjs';
+import {createLocalRepository,createBoundaryWriter,prepareEngineStateUpdate} from './core/storage.mjs';
 import {previewScenes} from './scenes/PreviewScenes.mjs';
 import {curriculumScenes} from './scenes/CurriculumScenes.mjs';
 import {curriculumStart} from './core/curriculum.mjs';
@@ -16,13 +16,14 @@ import {introFrame} from './core/intro.mjs';
 import {mountAdventure} from './scenes/AdventureScene.mjs';
 import {ADVENTURE_LOCATIONS,getAdventureMap} from './core/adventure-mission.mjs';
 import {completeStoryEvent,storyContent} from './core/story-events.mjs';
-import {createPostActivityStoryFlow} from './core/post-activity-story.mjs';
+import {createPostActivityStoryFlow,queueServiceDialogue} from './core/post-activity-story.mjs';
 import {createAccountStorage,selectActivityEvent,ownsActivityEvent} from './core/client-context.mjs';
 import {inspectLocalSlots,deleteUnreadableSlot} from './core/slot-recovery.mjs';
 import {createSlotRecoveryUI} from './ui/slot-recovery.mjs';
 import {createAccountUI} from './ui/account.mjs';
 import {acceptCollectionReceipts,acceptBadgeReceipts,pendingBadgeReceipts,acknowledgeBadgeReceipts,markRoomNoticesRead,unreadRoomIds} from './core/collection-notices.mjs';
-import {createDialogueUI} from './ui/dialogue.mjs';
+import {createDialogueUI,createStoryResultUI} from './ui/dialogue.mjs';
+import {createDialogueRuntime} from './core/dialogue-session.mjs';
 import {createAdmissionPreviewPayload,createPreviewDialoguePayload} from './core/preview-dialogue.mjs';
 import {createNarrativeDialoguePayload} from './core/narrative-dialogue.mjs';
 import {finishNarrative,dismissNarrative} from './core/narrative.mjs';
@@ -49,7 +50,7 @@ let activeStorage,slotSnapshot,clientUid=null;
 const asset=(category,file)=>'./design-assets/'+category+'/'+file;
 function el(tag,text,cls){const e=document.createElement(tag);if(text)e.textContent=text;if(cls)e.className=cls;return e;}
 const notify=createNotifier(notice);
-const adventureResultUI=createAdventureResultUI({el}),badgeResultUI=createBadgeResultUI({el});
+const adventureResultUI=createAdventureResultUI({el}),badgeResultUI=createBadgeResultUI({el}),storyResultUI=createStoryResultUI({el,btn});
 function message(text){notify(text);}
 function btn(text,action,cls=''){const b=el('button',text,cls);b.type='button';b.onclick=()=>{try{action();}catch(e){message(e.message);}};return b;}
 let refreshAudioToggle=()=>{};
@@ -72,7 +73,7 @@ function audioToggle(){
 }
 function img(category,file,alt,cls){const i=el('img',null,cls);i.src=asset(category,file);i.alt=alt;return i;}
 function current(){return profile?.slots?.[slotId-1]?.activeRun??null;}
-function heading(title,cls='page'){adventureResultUI.clear();badgeResultUI.clear();cancelAnimationFrame(titleAudioSyncAnimation);titleAudioSyncAnimation=0;portraitObserver?.disconnect();portraitObserver=null;if(adventureView){adventureView.destroy();adventureView=null;}view=cls;document.querySelector('#game').hidden=true;shell.hidden=false;shell.className=cls;shell.replaceChildren(el('h1',title));shell.scrollTop=0;shell.append(el('p','실행형 화면 시안 · 계정/백엔드/시나리오 미연결','preview-label'));}
+function heading(title,cls='page'){adventureResultUI.clear();badgeResultUI.clear();storyResultUI.clear();shell.onclick=null;cancelAnimationFrame(titleAudioSyncAnimation);titleAudioSyncAnimation=0;portraitObserver?.disconnect();portraitObserver=null;if(adventureView){adventureView.destroy();adventureView=null;}view=cls;document.querySelector('#game').hidden=true;shell.hidden=false;shell.className=cls;shell.replaceChildren(el('h1',title));shell.scrollTop=0;shell.append(el('p','실행형 화면 시안 · 서비스 제공 여부에 따라 연결','preview-label'));}
 function npcStage(image){
  const stage=el('div',null,'npc-portrait-stage');stage.append(image);let bounds;
  const fit=()=>{if(!bounds||!stage.isConnected)return;const p=fitPortraitBounds(stage.clientWidth,stage.clientHeight,image.naturalWidth,image.naturalHeight,bounds);for(const k of ['width','height','left','top'])image.style[k]=p[k]+'px';};
@@ -88,6 +89,7 @@ function save(retry=false,savedSlotId=slotId,afterSuccess=null){
 function retrySave(){const continuing=Boolean(afterSaveSuccess),saved=save(true);return saved&&!continuing;}
 const activityStoryFlow=createPostActivityStoryFlow({current,save:next=>save(false,slotId,next),
  receive:token=>selectActivityEvent(engineServices.storyEvents??profile.meta.narrativeEvents,{slotId,activityToken:token,uid:clientUid}),
+ queue:typeof engineServices.loadDialogue==='function'||typeof engineServices.completeDialogue==='function'?queueServiceDialogue:undefined,
  onStory:renderPendingStory,onContinue:continueSchedule});
 function selectPet(id){
  if(saveFailed)return false;
@@ -118,6 +120,7 @@ function menu(){
  const close=()=>{shell.classList.remove('menu-open');pop.classList.add('menu-closing');pop.inert=true;for(const child of shell.children)if(child!==pop)child.inert=false;setTimeout(()=>pop.remove(),220);shell.querySelector('[aria-label="메뉴"]')?.setAttribute('aria-expanded','false');shell.querySelector('[aria-label="메뉴"]')?.focus({preventScroll:true});};
  const entry=(label,action)=>btn(label,()=>{close();if(label==='오늘 돌아보기'){reviewPrompt=null;reflectRoom();}action();});
  pop.append(entry('소리 설정',soundSettings));
+ pop.append(entry('지난 엔딩 편지',()=>endingUI.history(profile.meta.endingRecords??[])));
  pop.append(entry('계속하기',()=>{}),entry('오늘 돌아보기',()=>emptyFrame('오늘 돌아보기','돌아보기 질문과 기록 데이터 연결 예정',[btn('다이어리에 남기기',()=>message('저장할 기록 데이터가 아직 없습니다.'))])),entry('관계',()=>emptyFrame('관계','NPC 관계 데이터 연결 예정')),entry('계정',()=>{if(saveFailed){message('저장 오류를 해결한 뒤 계정 화면을 열어 주세요.');return;}accountUI.open();}));
  const back=entry('타이틀로 돌아가기',()=>renderTitle());back.disabled=!canLeave();pop.append(back);if(!canLeave())pop.append(el('small','이번 주 일정과 주말 저장 후 타이틀로 돌아갈 수 있습니다.'));shell.append(pop);shell.classList.add('menu-open');const x=btn('X',close,'close-x');x.setAttribute('aria-label','메뉴 닫기');pop.prepend(el('h2','메뉴'),x);for(const child of shell.children)if(child!==pop)child.inert=true;pop.querySelector('button').focus({preventScroll:true});pop.onkeydown=e=>{if(e.key!=='Tab')return;const buttons=[...pop.querySelectorAll('button:not([disabled])')],first=buttons[0],last=buttons.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus({preventScroll:true});}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus({preventScroll:true});}};
 }
@@ -166,7 +169,7 @@ function renderSlots(){
  if(view!=='title-page')renderTitle();
  document.querySelector('.slot-dialog')?.close();
  const cards=el('div',null,'slot-list');
- const resume=(s,d)=>{d.close();slotId=s.slotId;monthOffset=0;roomLight.event('resume');previousRoomBackground=null;if(s.status==='PLAYING'){
+ const resume=(s,d)=>{dialogueRuntime.cancel();d.close();slotId=s.slotId;monthOffset=0;roomLight.event('resume');previousRoomBackground=null;if(s.status==='PLAYING'){
   if(current().inProgressActivity){recoverInterruptedAction(profile,slotId);save(false,slotId,()=>resumeToRoom());if(saveFailed)renderRoom();}
   else if(current().flags?.admissionPending)renderAdmission();else resumeToRoom();
  }else renderCharacters(s.slotId,false);};
@@ -219,7 +222,7 @@ function renderCharacters(id,isNew,gender='male',selectedId=null){
 function renderAdmission(){
  titleAudio.playMusic('admission');heading('입학 초대장','admission-page');const c=CHARACTERS.find(c=>c.id===current().characterId);
  const letter=el('section',null,'invitation-letter');const art=img('ui','UI07_admission_invitation_004.png','','invitation-art');art.onload=()=>{letter.style.aspectRatio=art.naturalWidth+'/'+art.naturalHeight;};letter.append(art);
- const copy=el('div',null,'invitation-copy');invitationLines(c.name).forEach((text,i)=>copy.append(el(i===0?'h2':'p',text)));copy.append(btn('입학하기',()=>renderAdmissionScene(0)));letter.append(copy);shell.append(letter);
+ const copy=el('div',null,'invitation-copy');invitationLines(c.name).forEach((text,i)=>copy.append(el(i===0?'h2':'p',text)));copy.append(btn('입학하기',()=>usesServerDialogue()?renderServiceDialogue('MS01',renderRoom):renderAdmissionScene(0)));letter.append(copy);shell.append(letter);
 }
 function finishAdmissionPreview(){if(current().flags?.admissionPending)current().flags.admissionPending=false;completeMainStory(current(),'MS01');save(false,slotId,renderRoom);if(saveFailed)renderRoom();}
 function renderAdmissionScene(index){
@@ -231,6 +234,7 @@ function renderAdmissionScene(index){
   onComplete:()=>isLast?finishAdmissionPreview():renderAdmissionScene(index+1),onSkip:finishAdmissionPreview});
 }
 function renderMainStory(id,index=0){
+ if(usesServerDialogue()){renderServiceDialogue(id,renderRoom);return;}
  const story=MAIN_STORIES.find(item=>item.id===id);if(!story){renderRoom();return;}
  const stage=story.stages[index];heading(story.title,'admission-story-page');
  const frame=el('section',null,'paper life-dialogue main-story-unregistered');frame.append(el('small',story.id+' · '+(index+1)+' / '+story.stages.length),el('h2',story.title),el('p','미등록 프레임 · 정식 대사와 장면 연출이 등록되지 않았습니다.','dialogue-text'),el('small',stage.id+' · 스토리 원고 연결 대기'));
@@ -247,6 +251,17 @@ function readRoomNotices(id){
 }
 const journalUI=createJournalUI({el,btn,shell,heading,current,meta:()=>profile.meta,settings:()=>profile.settings,activePet:()=>activePet(profile),onSelectPet:selectPet,onSelectRoom:selectRoom,onReadRoomNotices:readRoomNotices,isSaveFailed:()=>saveFailed,onReturn:renderRoom,turnPage:(_layout,done)=>done(),modal});
 const dialogueUI=createDialogueUI({el,btn,shell,heading,modal});
+const usesServerDialogue=()=>typeof engineServices.loadDialogue==='function'||typeof engineServices.completeDialogue==='function';
+const dialogueRuntime=createDialogueRuntime({services:engineServices,getProfile:()=>profile,getSlotId:()=>slotId,getUid:()=>clientUid,
+ setProfile:value=>{profile=value;saveFailed=false;},persist:(value,id)=>writer.save(value,id),
+ render:(payload,handlers)=>dialogueUI.render({payload,onComplete:result=>{heading('이야기를 저장하고 있어요.','dialogue-service-page');handlers.onComplete(result);},onSkip:result=>{heading('이야기를 저장하고 있어요.','dialogue-service-page');handlers.onSkip(result);}}),
+ onError:(error,retry)=>{console.warn('대화 서비스:',error);heading('이야기를 이어갈 준비가 필요해요.','dialogue-service-page');const frame=el('section',null,'paper stat-panel');frame.append(el('p','이야기를 불러오거나 저장하지 못했어요. 다음 일정은 잠시 기다립니다.'),btn('다시 시도',()=>{heading('이야기를 확인하고 있어요.','dialogue-service-page');retry();}));shell.append(frame);}
+});
+function renderServiceDialogue(eventId,next){
+ if(dialogueRuntime.isActive())return;
+ heading('이야기를 준비하고 있어요.','dialogue-service-page');
+ dialogueRuntime.start(eventId,response=>{if(response.messages?.length)message(response.messages.join('\n'));storyResultUI.show(shell,response,()=>showPendingBadgeNotices(next));});
+}
 function dispatchActivity(checkpoint){
  const run=current(),action=checkpoint.action,lesson=classOf(action);
  if(action!=='rest')reviewPrompt=null;
@@ -261,14 +276,14 @@ function dispatchActivity(checkpoint){
 function startScheduledActivity(){
  if(saveFailed){renderRoom();return false;}
  if(current().pendingActivityStory){const saved=activityStoryFlow.resume();if(saveFailed)renderRoom();return saved;}
- if(current().storyState?.pending||current().narrativeState?.pending){renderPendingStory();return false;}
+ if(current().pendingDialogue||current().storyState?.pending||current().narrativeState?.pending){renderPendingStory();return false;}
  const run=current();if(run.phase!=='ACTING'){renderRoom();return false;}
  if(run.inProgressActivity){dispatchActivity(run.inProgressActivity);return true;}
  const checkpoint=beginAction(profile,slotId,actionToken(run));
  if(!checkpoint){renderRoom();return false;}
  const saved=save(false,slotId,()=>dispatchActivity(checkpoint));if(!saved)renderRoom();return saved;
 }
-function resumeToRoom(){if(saveFailed){renderRoom();return;}if(current().pendingActivityStory||current().storyState?.pending||current().narrativeState?.pending){renderRoom();setTimeout(()=>{activityStoryFlow.resume();if(saveFailed)renderRoom();},180);}else if(current().phase==='ACTING')setTimeout(startScheduledActivity,180);else if(current().phase==='WEEK_COMPLETE')setTimeout(finishWeekFlow,180);else renderRoom();}
+function resumeToRoom(){if(saveFailed){renderRoom();return;}if(current().pendingDialogue||current().pendingActivityStory||current().storyState?.pending||current().narrativeState?.pending){renderRoom();setTimeout(()=>{activityStoryFlow.resume();if(saveFailed)renderRoom();},180);}else if(current().phase==='ACTING')setTimeout(startScheduledActivity,180);else if(current().phase==='WEEK_COMPLETE')setTimeout(finishWeekFlow,180);else renderRoom();}
 function finishWeekFlow(){
  if(saveFailed){renderRoom();return false;}if(current().phase!=='WEEK_COMPLETE'){renderRoom();return false;}
  reviewPrompt=null;finishWeek(profile,slotId);roomLight.event('next-day');const saved=save(false,slotId,()=>renderRoom());if(saveFailed)renderRoom();return saved;
@@ -287,6 +302,10 @@ function showPendingBadgeNotices(next){
  badgeResultUI.show(shell,badges,()=>saveAcknowledgement(false));return true;
 }
 function renderPendingStory(){
+ if(usesServerDialogue()){
+  const event=current().pendingDialogue??current().narrativeState?.pending??current().storyState?.pending;
+  if(event){renderServiceDialogue(event.eventId??event.id,continueSchedule);return;}
+ }
  if(current().narrativeState?.pending){
   const pendingStory=current().narrativeState.pending,playerName=CHARACTERS.find(character=>character.id===current().characterId)?.name??'카엘';
   const payload=createNarrativeDialoguePayload(pendingStory,{playerName});
@@ -327,15 +346,25 @@ function completeActivity(token,result){
  }else{renderRoom();message('이미 처리된 일정입니다.');}
  return applied;
 }
-const endingUI=createEndingUI({el,btn,shell,heading,current,character:()=>CHARACTERS.find(c=>c.id===current().characterId),slotId:()=>slotId,onReturn:renderRoom,isSaveFailed:()=>saveFailed,loadEnding:typeof engineServices.loadEnding==='function'?key=>engineServices.loadEnding(key):null,onReceive:value=>{acceptEndingResult(profile,slotId,value);return save(false,slotId);},onComplete:()=>{completeRun(profile,slotId);save(false,slotId,renderTitle);if(saveFailed){heading('저장 확인이 필요합니다.','ending-page');shell.append(el('p','회차 완료를 저장하지 못했습니다. 저장에 성공할 때까지 진행 상태를 유지합니다.','ending-placeholder'),btn('저장 다시 시도',retrySave,'ending-continue'));}}});
+function receiveEnding(value){
+ const record=current().endingRecord;
+ try{
+  const received=prepareEngineStateUpdate(profile,value);acceptEndingResult(received.profile,slotId,value);
+  writer.save(received.profile,slotId);
+  Object.assign(record,received.profile.slots[slotId-1].activeRun.endingRecord);
+  profile.meta=received.profile.meta;profile.settings=received.profile.settings;profile.config=received.profile.config;
+  if(received.messages.length)message(received.messages.join('\n'));return true;
+ }catch(error){console.warn('엔딩 결과 저장:',error);return false;}
+}
+const endingUI=createEndingUI({el,btn,shell,heading,current,character:()=>CHARACTERS.find(c=>c.id===current().characterId),slotId:()=>slotId,onReturn:renderRoom,isSaveFailed:()=>saveFailed,loadEnding:typeof engineServices.loadEnding==='function'?key=>engineServices.loadEnding(key):null,onReceive:receiveEnding,onComplete:()=>{completeRun(profile,slotId);save(false,slotId,renderTitle);if(saveFailed){heading('저장 확인이 필요합니다.','ending-page');shell.append(el('p','회차 완료를 저장하지 못했습니다. 저장에 성공할 때까지 진행 상태를 유지합니다.','ending-placeholder'),btn('저장 다시 시도',retrySave,'ending-continue'));}}});
 const roomUI=createMyroomUI({el,btn,img,shell,heading,current,characters:CHARACTERS,emptyFrame,message,menu,decorateRoom,onDiary:()=>journalUI.diary(),onBag:()=>journalUI.bag(),onAdmission:renderAdmission,onPet:()=>journalUI.bag('펫'),activePet:()=>activePet(profile),meta:()=>profile.meta,isSaveFailed:()=>saveFailed,
  reviewPrompt:()=>reviewPrompt,onReview:openTodayReview,onDismissReview:()=>{reviewPrompt=null;renderRoom();},onAcknowledgeWeekSummary:()=>{
   const final=current().phase==='AWAITING_ENDING',summaryWeek=current().pendingWeekSummaryWeek;acknowledgeWeekSummary(profile,slotId);
-  const advance=()=>{delete current().pendingWeekSummaryWeek;if(final){prepareEnding(profile,slotId);save(false,slotId,()=>endingUI.render({actual:true}));if(saveFailed)roomUI.room();}else renderRoom();};
+const advance=()=>{delete current().pendingWeekSummaryWeek;if(final){prepareEnding(profile,slotId,Math.random,{serverAuthority:typeof engineServices.loadEnding==='function'});save(false,slotId,()=>endingUI.render({actual:true}));if(saveFailed)roomUI.room();}else renderRoom();};
   save(false,slotId,advance);if(saveFailed){current().pendingWeekSummaryWeek=summaryWeek;roomUI.weeklySummary();}
  },
  onAdventure:renderAdventure,onCommit:(schedule,locations)=>{roomLight.event('start');setSchedule(profile,slotId,schedule,locations);save(false,slotId,()=>startScheduledActivity());if(saveFailed)renderRoom();},onRetry:retrySave,
- onFinish:finishWeekFlow,onEnding:()=>{prepareEnding(profile,slotId);save(false,slotId,()=>endingUI.render({actual:true}));if(saveFailed)renderRoom();},
+ onFinish:finishWeekFlow,onEnding:()=>{prepareEnding(profile,slotId,Math.random,{serverAuthority:typeof engineServices.loadEnding==='function'});save(false,slotId,()=>endingUI.render({actual:true}));if(saveFailed)renderRoom();},
  onAction:()=>{const run=current(),checkpoint=run.inProgressActivity;if(checkpoint?.action==='rest'){completeActivity(checkpoint.token);return;}if(checkpoint?.action==='fairy-trade'){
   const stats=['knowledge','expression','dexterity','exploration','magic'],names={knowledge:'지식',expression:'표현력',dexterity:'솜씨',exploration:'탐험',magic:'마법'},body=el('div',null,'fairy-trade-form');
   const from=el('select'),to=el('select'),amount=el('select');for(const key of stats){from.append(new Option(names[key]+' · '+run.stats[key],key));to.append(new Option(names[key]+' · '+run.stats[key],key));}for(let n=1;n<=5;n++)amount.append(new Option(String(n)+'포인트',String(n)));
@@ -413,6 +442,7 @@ const game=new Phaser.Game({type:Phaser.AUTO,parent:'game',width:1280,height:720
 function receive(result){if(!pending)return;const item=pending;pending=null;slotId=item.slotId;try{completeActivity(item.token,result);}catch(e){renderRoom();message(e.message);}}
 game.events.on('minigame:complete',receive);game.events.on('minigame:quit',receive);
 function loadPreviewProfile(storage){
+ dialogueRuntime.cancel();
  activeStorage=storage;slotSnapshot=inspectLocalSlots(storage);profile=slotSnapshot.profile;
  repository=createLocalRepository(storage);writer=createBoundaryWriter(repository);
  if(!profile)message('저장 데이터를 읽지 못했습니다. 원본을 보존하며 슬롯별 재시도를 기다립니다.');

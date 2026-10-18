@@ -11,8 +11,31 @@ import {roomProgress} from './collection-view.mjs';
 import {validateNarrativeState} from './narrative.mjs';
 import {validateEndingView} from './ending-frame.mjs';
 import {validatePendingActivityStory} from './post-activity-story.mjs';
-import {validateCollectionNoticeState} from './collection-notices.mjs';
+import {validateCollectionNoticeState,acceptCollectionChanges} from './collection-notices.mjs';
 export const STORAGE_KEY='lumia.engine.dev.v1';
+// Engine-facing provider projection only; not a new HTTP or Firestore schema.
+export function prepareEngineStateUpdate(profile,received){
+ const object=value=>!!value&&typeof value==='object'&&!Array.isArray(value);
+ if(!object(received))throw new Error('받은 게임 상태를 확인할 수 없습니다.');
+ const next=structuredClone(profile);
+ if(received.meta!==undefined){
+  if(!object(received.meta))throw new Error('계정 수집 정보를 확인할 수 없습니다.');
+  next.meta={...next.meta,...structuredClone(received.meta)};
+  if(next.meta.permanentBonuses&&Object.hasOwn(next.meta.permanentBonuses,'skill')){if(Object.hasOwn(next.meta.permanentBonuses,'dexterity'))throw new Error('중복된 솜씨 영구 보너스입니다.');next.meta.permanentBonuses.dexterity=next.meta.permanentBonuses.skill;delete next.meta.permanentBonuses.skill;}
+  for(const key of ['unlockedCharacters','unlockedPetIds','badges'])if(received.meta[key]!==undefined&&(!Array.isArray(received.meta[key])||(profile.meta[key]??[]).some(id=>!received.meta[key].includes(id))))throw new Error('기존 획득 정보가 누락된 응답입니다.');
+ }
+ if(received.settings!==undefined){if(!object(received.settings))throw new Error('받은 설정을 확인할 수 없습니다.');next.settings={...(next.settings??{}),...structuredClone(received.settings)};}
+ if(next.settings?.activePetId&&!unlockedPetIds(next.meta).includes(next.settings.activePetId))throw new Error('해금되지 않은 펫 설정입니다.');
+ if(next.settings?.activeRoomBackgroundId&&!roomProgress(next.meta,next.settings.activeRoomBackgroundId).unlocked)throw new Error('해금되지 않은 배경 설정입니다.');
+ if(received.growthRewardConfig!==undefined){
+  const config=structuredClone(received.growthRewardConfig);
+  if(object(config?.rewardMultiplier)&&Object.hasOwn(config.rewardMultiplier,'skill')){if(Object.hasOwn(config.rewardMultiplier,'dexterity'))throw new Error('중복된 솜씨 배율입니다.');config.rewardMultiplier.dexterity=config.rewardMultiplier.skill;delete config.rewardMultiplier.skill;}
+  next.config={...(next.config??{}),growthRewardConfig:validateGrowthRewardConfig(config)};
+ }
+ if(next.meta.pendingCharacterUnlockIds!==undefined&&(!Array.isArray(next.meta.pendingCharacterUnlockIds)||next.meta.pendingCharacterUnlockIds.some(id=>!CHARACTERS.some(character=>character.id===id))))throw new Error('캐릭터 조건 달성 정보를 확인할 수 없습니다.');
+ const messages=received.meta===undefined?[]:acceptCollectionChanges(profile.meta,next.meta);
+ validateProfile(next);return {profile:next,messages};
+}
 export function createBoundaryWriter(repository){
  let pending=null,source=null,savedSlotId=null;
  function retry(){
@@ -42,9 +65,11 @@ export function validateProfile(p){
   if(s.status!=='PLAYING'&&r!==null)throw new Error('슬롯 상태가 회차와 일치하지 않습니다.');
   if(s.status==='PLAYING'){
    validatePendingActivityStory(r);
+   if(r.dialogueHistory!==undefined&&(!Array.isArray(r.dialogueHistory)||r.dialogueHistory.length>300||new Set(r.dialogueHistory.map(item=>item?.eventId)).size!==r.dialogueHistory.length||r.dialogueHistory.some(item=>!item||typeof item.eventId!=='string'||!item.eventId.trim()||typeof item.title!=='string'||!Number.isInteger(item.week)||item.week<1||item.week>r.week||!Number.isInteger(item.day)||item.day<0||item.day>4||!['COMPLETE','SKIP'].includes(item.completionMode)||!Array.isArray(item.selectedChoices)||item.selectedChoices.some(choice=>typeof choice?.choiceNodeId!=='string'||typeof choice.choiceId!=='string')||!item.effect?.growth||Object.entries(item.effect.growth).some(([key,value])=>!['knowledge','expression','dexterity','exploration','magic'].includes(key)||!Number.isFinite(value)||value<0||value>500))))throw new Error('완료한 대화 표시 기록이 손상됐습니다.');
+   if(r.pendingDialogue){const pending=r.pendingDialogue,last=r.actionHistory?.at(-1);if(typeof pending.eventId!=='string'||!pending.eventId.trim()||!last||pending.activityToken!==`${r.runNumber}:${last.week}:${last.day}`||last.week!==r.week||last.day!==r.day-1||last.status!=='COMPLETED'||last.effect?.outcome==='interrupted'||r.inProgressActivity||r.narrativeState?.pending||r.storyState?.pending||r.pendingActivityStory)throw new Error('대기 중인 이야기가 완료 활동과 일치하지 않습니다.');}
    if(r.narrativeState!==undefined)validateNarrativeState(r.narrativeState,r);
-   if(r.endingRecord&&(!Number.isInteger(r.endingRecord.runNumber)||r.endingRecord.runNumber!==r.runNumber||!['CAREER','FALLBACK'].includes(r.endingRecord.type)||typeof r.endingRecord.careerId!=='string'||typeof r.endingRecord.careerName!=='string'||!Array.isArray(r.endingRecord.records)||!['pending','ready','failed'].includes(r.endingRecord.letter?.status)||r.phase!=='AWAITING_ENDING'))throw new Error('엔딩 준비 기록이 손상됐습니다.');
-   if(r.endingRecord)validateEndingView({slotId:s.slotId,runNumber:r.runNumber,career:{id:r.endingRecord.careerId,name:r.endingRecord.careerName},letter:r.endingRecord.letter,...(r.endingRecord.playRecords?{playRecords:r.endingRecord.playRecords}:{}),...(r.endingRecord.newUnlocks?{newUnlocks:r.endingRecord.newUnlocks}:{})},{slotId:s.slotId,runNumber:r.runNumber});
+   if(r.endingRecord&&(!Number.isInteger(r.endingRecord.runNumber)||r.endingRecord.runNumber!==r.runNumber||!['PENDING','CAREER','FALLBACK'].includes(r.endingRecord.type)||(r.endingRecord.type==='PENDING'?r.endingRecord.careerId!==null||r.endingRecord.careerName!==null||r.endingRecord.letter?.status!=='pending':typeof r.endingRecord.careerId!=='string'||typeof r.endingRecord.careerName!=='string')||!Array.isArray(r.endingRecord.records)||!['pending','ready','failed'].includes(r.endingRecord.letter?.status)||r.phase!=='AWAITING_ENDING'))throw new Error('엔딩 준비 기록이 손상됐습니다.');
+   if(r.endingRecord&&r.endingRecord.type!=='PENDING')validateEndingView({slotId:s.slotId,runNumber:r.runNumber,career:{id:r.endingRecord.careerId,name:r.endingRecord.careerName},letter:r.endingRecord.letter,...(r.endingRecord.playRecords?{playRecords:r.endingRecord.playRecords}:{}),...(r.endingRecord.newUnlocks?{newUnlocks:r.endingRecord.newUnlocks}:{})},{slotId:s.slotId,runNumber:r.runNumber});
     if(r.storyState!==undefined){
      validateStoryState(r.storyState);
      const events=[...r.storyState.history,...(r.storyState.pending?[r.storyState.pending]:[])];

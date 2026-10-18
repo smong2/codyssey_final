@@ -78,6 +78,31 @@ export function acknowledgeBadgeReceipts(meta,receiptIds){
  const acknowledged=new Set(receiptIds);state.pendingBadgeReceipts=(state.pendingBadgeReceipts??[]).filter(item=>!acknowledged.has(item.receiptId));
 }
 
+// Diff already-confirmed ownership; never infer awards from gameplay counters.
+export function acceptCollectionChanges(previous,next){
+ validateCollectionNoticeState(previous.collectionNoticeState);validateCollectionNoticeState(next.collectionNoticeState);
+ const state=structuredClone(next.collectionNoticeState??previous.collectionNoticeState??{processedIds:[],unreadRoomIds:[]});
+ state.processedIds=[...new Set([...state.processedIds,...(previous.collectionNoticeState?.processedIds??[])])];
+ const messages=[],add=(id,message)=>{if(state.processedIds.includes(id))return false;state.processedIds.push(id);if(message)messages.push(message);return true;};
+ for(const id of next.pendingCharacterUnlockIds??[])if(!(previous.pendingCharacterUnlockIds??[]).includes(id)&&!(next.unlockedCharacters??[]).includes(id))add('character-pending:'+id,'새로운 캐릭터 조건을 달성했어요. 이번 회차를 마치면 선택할 수 있어요.');
+ for(const id of next.unlockedPetIds??[])if(!(previous.unlockedPetIds??[]).includes(id))add('pet-unlocked:'+id,'새 펫을 만났어요! 가방 > 펫에서 확인해 보세요.');
+ for(const id of next.unlockedCharacters??[])if(!(previous.unlockedCharacters??[]).includes(id))add('character-unlocked:'+id,'새로운 캐릭터가 열렸어요. 다음 회차에서 선택해 보세요.');
+ for(const room of next.collectionView?.rooms??[]){
+  const old=previous.collectionView?.rooms?.find(item=>item.id===room.id);
+  if(!ROOMS.has(room.id))continue;
+  if(!Array.isArray(room.pieces)||new Set(room.pieces).size!==room.pieces.length||room.pieces.some(index=>!Number.isInteger(index)||index<0||index>11)||room.unlocked&&room.pieces.length!==12)throw new Error('수신한 배경 보유 정보가 올바르지 않습니다.');
+  if(room.pieces.length>(old?.pieces?.length??0)&&add('room-pieces:'+room.id+':'+[...room.pieces].sort((a,b)=>a-b).join('-'),room.unlocked?'새로운 마이룸 배경을 완성했어요! 가방 > 마이룸에서 확인해보세요.':'퍼즐 조각을 발견했어요! 가방 > 마이룸에서 확인해 보세요.'))if(!state.unreadRoomIds.includes(room.id))state.unreadRoomIds.push(room.id);
+ }
+ for(const row of next.collectionView?.badges??[]){
+  const old=previous.collectionView?.badges?.find(item=>item.categoryId===row.categoryId&&item.subcategoryTitle===row.subcategoryTitle);
+  for(const tier of row.earnedTiers??[])if(!(old?.earnedTiers??[]).includes(tier)){
+   const receipt={receiptId:'badge-earned:'+row.categoryId+':'+row.subcategoryTitle+':'+tier,categoryId:row.categoryId,subcategoryTitle:row.subcategoryTitle,tier};
+   badgeReceiptView(next,receipt);if(add(receipt.receiptId)){state.pendingBadgeReceipts??=[];state.pendingBadgeReceipts.push(receipt);}
+  }
+ }
+ validateCollectionNoticeState(state);next.collectionNoticeState=state;return messages;
+}
+
 export function markRoomNoticesRead(meta,roomId){
  const state=meta?.collectionNoticeState;validateCollectionNoticeState(state);if(state===undefined)return;
  if(roomId!==undefined&&!ROOMS.has(roomId))throw new Error('등록되지 않은 마이룸입니다.');

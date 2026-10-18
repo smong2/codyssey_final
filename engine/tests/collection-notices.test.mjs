@@ -2,6 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {acceptCollectionReceipts,markRoomNoticesRead,unreadRoomIds,validateCollectionNoticeState} from '../src/core/collection-notices.mjs';
 import {renderRoomPanel} from '../src/ui/collection-panels.mjs';
+import * as notices from '../src/core/collection-notices.mjs';
+test('received ownership changes produce badge, room and unlock notices once without awarding anything',()=>{
+ assert.equal(typeof notices.acceptCollectionChanges,'function');
+ const previous={unlockedPetIds:['PET01'],unlockedCharacters:['CH01'],collectionView:{rooms:[],badges:[]}};
+ const next={...structuredClone(previous),pendingCharacterUnlockIds:['CH03'],unlockedPetIds:['PET01','PET02'],collectionView:{rooms:[{id:'room-1',pieces:[0],unlocked:false}],badges:[{categoryId:'forest',subcategoryTitle:'오늘도 탐험!',earnedTiers:[1]}]}};
+ const result=notices.acceptCollectionChanges(previous,next);
+ assert.equal(result.length,3);assert.equal(notices.pendingBadgeReceipts(next).length,1);assert.deepEqual(notices.unreadRoomIds(next),['room-1']);
+ assert.deepEqual(next.unlockedCharacters,['CH01']);assert.deepEqual(notices.acceptCollectionChanges(previous,next),[]);
+});
 
 const metaWithRooms=()=>({collectionView:{rooms:[{id:'room-2',pieces:[0,1,2,3,4,5,6,7],unlocked:false}]}});
 const receipt=(overrides={})=>({receiptId:'receipt-1',slotId:'slot-1',activityToken:'1:1:0',roomId:'room-2',pieceCount:8,unlocked:false,...overrides});

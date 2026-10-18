@@ -37,7 +37,7 @@ export function beginAction(p,id,token){
  const r=runOf(p,id);
  if(r.pendingWeekSummaryWeek!==undefined)throw new Error('지난주 요약을 먼저 확인해 주세요.');
  if(token===r.lastAction)return false;
- if(r.pendingActivityStory||r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
+ if(r.pendingDialogue||r.pendingActivityStory||r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
  if(r.inProgressActivity){if(r.inProgressActivity.token===token)return false;throw new Error('다른 일정이 이미 진행 중입니다.');}
  if(r.phase!=='ACTING'||r.day>=5||token!==actionToken(r))throw new Error('현재 일정과 시작 요청이 일치하지 않습니다.');
  const forcedDays=forcedRestRemaining(r),forced=forcedDays>0,action=forced?'rest':r.schedule[r.day];
@@ -128,7 +128,7 @@ export function stopAdventure(p,id,token){
  return recoverInterruptedAction(p,id);
 }
 export function finishWeek(p,id){
- const r=runOf(p,id);if(r.pendingActivityStory||r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
+ const r=runOf(p,id);if(r.pendingDialogue||r.pendingActivityStory||r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');
  if(r.pendingWeekSummaryWeek!==undefined)throw new Error('지난주 요약을 먼저 확인해 주세요.');
  if(r.phase!=='WEEK_COMPLETE')throw new Error('평일 5회 행동을 먼저 마쳐야 합니다.');
  r.pendingWeekSummaryWeek=r.week;
@@ -138,9 +138,9 @@ export function acknowledgeWeekSummary(p,id){
  const r=runOf(p,id);if(!Number.isInteger(r.pendingWeekSummaryWeek))throw new Error('확인할 주간 요약이 없습니다.');
  const week=r.pendingWeekSummaryWeek;delete r.pendingWeekSummaryWeek;return week;
 }
-export function prepareEnding(p,id,random=Math.random){
+export function prepareEnding(p,id,random=Math.random,{serverAuthority=false}={}){
  const run=runOf(p,id);if(run.phase!=='AWAITING_ENDING'||run.pendingWeekSummaryWeek!==undefined)throw new Error('마지막 주간 요약을 먼저 확인해야 합니다.');
- if(!run.endingRecord){const selected=selectCareerEnding(run,p.meta,random);run.endingRecord={runNumber:run.runNumber,careerId:selected.career.id,careerName:selected.career.name,type:selected.type,fit:selected.fit,checks:selected.checks,records:selected.records,preparedAt:new Date().toISOString(),letter:{status:'pending'}};}
+ if(!run.endingRecord){const selected=serverAuthority?{career:{id:null,name:null},type:'PENDING',fit:0,checks:[],records:[]}:selectCareerEnding(run,p.meta,random);run.endingRecord={runNumber:run.runNumber,careerId:selected.career.id,careerName:selected.career.name,type:selected.type,fit:selected.fit,checks:selected.checks,records:selected.records,preparedAt:new Date().toISOString(),letter:{status:'pending'}};}
  return structuredClone(run.endingRecord);
 }
 export function completeRun(p,id){
@@ -154,7 +154,8 @@ export function completeRun(p,id){
 export function acceptEndingResult(p,id,value){
  const run=runOf(p,id),record=run.endingRecord;if(run.phase!=='AWAITING_ENDING'||!record)throw new Error('엔딩 결과를 받을 회차가 아닙니다.');
  const received=validateEndingView(value,{slotId:id,runNumber:run.runNumber});
- if(received.career.id!==record.careerId||received.career.name!==record.careerName)throw new Error('준비된 미래 직업과 다른 응답입니다.');
+ if(record.type!=='PENDING'&&(received.career.id!==record.careerId||received.career.name!==record.careerName))throw new Error('준비된 미래 직업과 다른 응답입니다.');
+ if(record.type==='PENDING'){record.careerId=received.career.id;record.careerName=received.career.name;record.type=record.careerId==='ENDING_STARPATH_PIONEER'?'FALLBACK':'CAREER';}
  if(record.letter.status==='ready')return structuredClone(record);
  record.letter=received.letter;
  if(received.playRecords)record.playRecords=received.playRecords;

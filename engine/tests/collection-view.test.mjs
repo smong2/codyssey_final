@@ -1,5 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import * as storage from '../src/core/storage.mjs';
+test('engine receives confirmed meta, settings and balance values atomically without granting from counters',()=>{
+ assert.equal(typeof storage.prepareEngineStateUpdate,'function');
+ const profile=createProfile(),before=structuredClone(profile);
+ const next=storage.prepareEngineStateUpdate(profile,{meta:{unlockedPetIds:['PET01','PET02'],pendingCharacterUnlockIds:['CH03'],counters:{minigames:0,classes:0,adventures:100}},settings:{activePetId:'PET02'},growthRewardConfig:{rewardMultiplier:{skill:.8}}});
+ assert.deepEqual(profile,before);assert.equal(next.profile.settings.activePetId,'PET02');assert.equal(next.profile.config.growthRewardConfig.rewardMultiplier.dexterity,.8);
+ assert.deepEqual(next.profile.meta.unlockedCharacters,before.meta.unlockedCharacters);assert.deepEqual(next.profile.meta.badges,[]);
+ assert.throws(()=>storage.prepareEngineStateUpdate(profile,{settings:{activePetId:'PET10'}}));
+ assert.throws(()=>storage.prepareEngineStateUpdate(profile,{meta:{unlockedCharacters:['CH01']}}));
+});
 import {BADGE_GROUPS,badgeProgress,ROOM_BACKGROUNDS,roomProgress,activeRoom,roomPieceImage} from '../src/core/collection-view.mjs';
 import {access} from 'node:fs/promises';
 import {renderBadgePanel,renderRoomPanel} from '../src/ui/collection-panels.mjs';

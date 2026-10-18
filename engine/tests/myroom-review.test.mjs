@@ -74,8 +74,10 @@ test('selecting a planned date shows only the activity hint and tapping it again
  assert.match(hint.textContent,/월요일 선택/);
  assert.match(hint.textContent,/변경/);
  assert.match(hint.textContent,/삭제/);
- const activityPanel=findAll(state.shell,node=>node.className.includes('activity-panel'))[0];
- assert.ok(activityPanel.children.includes(hint));
+ const footer=findAll(state.shell,node=>node.className==='schedule-footer')[0];
+ assert.ok(footer.children.includes(hint));
+ const frame=findAll(state.shell,node=>node.className.includes('schedule-frame'))[0];
+ assert.ok(frame.children.includes(footer));
  assert.equal(findAll(state.shell,node=>node.text==='닫기'||node.text==='활동 삭제').length,0);
  monday().onclick();
  assert.match(monday().title,/일정 등록/);

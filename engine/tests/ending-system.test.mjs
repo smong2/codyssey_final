@@ -3,6 +3,13 @@ import assert from 'node:assert/strict';
 import {selectCareerEnding,ENDING_CAREERS} from '../src/core/ending-system.mjs';
 import {createProfile,startRun,prepareEnding,acceptEndingResult,completeRun} from '../src/core/state.mjs';
 import {validateProfile} from '../src/core/storage.mjs';
+test('a connected ending provider supplies the career instead of conflicting with a local fallback prediction',()=>{
+ const profile=createProfile(),run=startRun(profile,1,'CH01');run.week=52;run.day=5;run.phase='AWAITING_ENDING';run.schedule=Array(5).fill('rest');run.scheduleLocations=Array(5).fill(null);
+ const prepared=prepareEnding(profile,1,()=>0,{serverAuthority:true});assert.equal(prepared.type,'PENDING');assert.equal(prepared.careerId,null);validateProfile(profile);
+ acceptEndingResult(profile,1,{slotId:1,runNumber:1,career:{id:'ENDING_RUNE_RESEARCHER',name:'룬 연구자'},letter:{status:'pending'}});
+ assert.equal(run.endingRecord.careerId,'ENDING_RUNE_RESEARCHER');assert.equal(run.endingRecord.type,'CAREER');validateProfile(profile);
+ assert.throws(()=>acceptEndingResult(profile,1,{slotId:1,runNumber:1,career:{id:'ENDING_ARCHIVIST',name:'아카이브 기록관'},letter:{status:'pending'}}));
+});
 
 const defaults=()=>({stats:{knowledge:50,expression:50,dexterity:50,exploration:50,magic:50},hiddenStats:{},actionHistory:[],storyState:{history:[]}});
 

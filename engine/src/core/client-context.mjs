@@ -9,7 +9,9 @@ export function createAccountStorage(storage,uid){
 }
 
 export function ownsActivityEvent(event,{slotId,activityToken,uid=null}){
- return event?.activityToken===activityToken&&(uid===null?event.uid===undefined&&(event.slotId===undefined||event.slotId===slotId):event.uid===uid&&event.slotId===slotId);
+ const canonicalSlot=value=>Number.isInteger(value)&&value>=1&&value<=5?'slot-'+value:typeof value==='string'&&/^slot-[1-5]$/.test(value)?value:null;
+ const slot=canonicalSlot(slotId);
+ return slot!==null&&event?.activityToken===activityToken&&(uid===null?event.uid===undefined&&(event.slotId===undefined||canonicalSlot(event.slotId)===slot):event.uid===uid&&canonicalSlot(event.slotId)===slot);
 }
 export function selectActivityEvent(events,context){
  if(!Array.isArray(events))return null;

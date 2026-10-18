@@ -35,6 +35,15 @@ test('authenticated event ownership requires matching account and explicit slot'
  assert.equal(contextApi.selectActivityEvent([{uid:'alice',activityToken:'1:8:0'}],{uid:'alice',slotId:1,activityToken:'1:8:0'}),null);
 });
 
+test('canonical provider slot IDs match engine slot numbers without crossing ownership',()=>{
+ const event={uid:'alice',slotId:'slot-1',activityToken:'1:8:0',eventId:'NPC_WORK_01'};
+ assert.equal(contextApi.selectActivityEvent([event],{uid:'alice',slotId:1,activityToken:'1:8:0'}),event);
+ assert.equal(contextApi.ownsActivityEvent({...event,slotId:1},{uid:'alice',slotId:'slot-1',activityToken:'1:8:0'}),true);
+ for(const slotId of [2,'slot-2',0,6,'1','slot-01',null,undefined])assert.equal(contextApi.ownsActivityEvent(event,{uid:'alice',slotId,activityToken:'1:8:0'}),false);
+ assert.equal(contextApi.ownsActivityEvent(event,{uid:'bob',slotId:1,activityToken:'1:8:0'}),false);
+ assert.equal(contextApi.ownsActivityEvent({...event,slotId:'invalid'},{uid:'alice',slotId:'invalid',activityToken:'1:8:0'}),false);
+});
+
 test('activity receipt waits for successful result save and remains deduplicated after reconnect',()=>{
  let raw=null,blocked=false,continuation=null,shown=0,advanced=0;
  const storage={getItem:()=>raw,setItem:(_,value)=>{if(blocked)throw Error('quota');raw=value;}},repository=createLocalRepository(storage),writer=createBoundaryWriter(repository);

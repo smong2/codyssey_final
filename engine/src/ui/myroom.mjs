@@ -1,5 +1,5 @@
 import {calendarModel,calendarActivity,scheduleSession,scheduleReady,assignScheduleActivity} from '../core/preview.mjs';
-import {createWeeklySummary} from '../core/activity-history.mjs';
+import {createWeeklySummary,storyDiaryRecords} from '../core/activity-history.mjs';
 import {CLASSES,classOf} from '../core/classes.mjs';
 import {activityArt} from './journal.mjs';
 import {studentCards} from '../core/catalogue.mjs';
@@ -17,7 +17,7 @@ export function createMyroomUI(ctx){
  let draftSession=null,draft=[],draftLocations=[],selected=null,selectedDayIndex=null,selectedLocationId='greenhouse',monthOffset=0,category='교육';
  const portrait=(c,cls)=>{const i=el('img',null,cls);i.src='./character-assets/'+c.fullbody;i.alt=c.name;return i;};
  const character=()=>characters.find(c=>c.id===current().characterId);
- const close=()=>{const x=btn('X',room,'close-x');x.setAttribute('aria-label','마이룸으로 닫기');shell.append(x);};
+ const close=(target=shell)=>{const x=btn('X',room,'close-x');x.setAttribute('aria-label','마이룸으로 닫기');target.append(x);};
  function prepareDraft(){const next=scheduleSession(draftSession,current());if(next!==draftSession){draftSession=next;draft=next.draft;draftLocations=next.draftLocations;selected=null;selectedDayIndex=null;selectedLocationId='greenhouse';monthOffset=0;category='교육';}}
  function profile(){
   const r=current(),c=character();heading('프로필','profile-page');
@@ -39,7 +39,7 @@ export function createMyroomUI(ctx){
   shell.append(panel,btn('마이룸으로',room,'screen-back'));
  }
  function schedule(){
-  const r=current();if(r.pendingWeekSummaryWeek!==undefined){weeklySummary();return;}prepareDraft();heading('스케줄','schedule-page');const titleFrame=el('header',null,'paper schedule-title-frame');titleFrame.append(shell.querySelector('h1'),el('p','활동 카드만 고르면 가장 빠른 빈 평일에 등록됩니다. 날짜를 먼저 고르면 해당 날짜에 들어갑니다. 토·일은 자동으로 지나갑니다.','schedule-instruction'));shell.append(titleFrame);
+  const r=current();if(r.pendingWeekSummaryWeek!==undefined){weeklySummary();return;}prepareDraft();heading('스케줄','schedule-page');const frame=el('section',null,'paper schedule-frame'),titleFrame=el('header',null,'schedule-title-frame');titleFrame.append(shell.querySelector('h1'),el('p','날짜를 먼저 고르거나 활동 카드를 바로 선택하세요. 토·일은 자동으로 지나갑니다.','schedule-instruction'));frame.append(titleFrame);shell.append(frame);
   const layout=el('div',null,'schedule-layout'),m=calendarModel(r,monthOffset),calendar=el('section',null,'paper calendar'),top=el('div',null,'calendar-heading');
   top.append(btn('이전 달',()=>{monthOffset--;schedule();},'month-button'),el('h2','아르카디아력 '+m.arcadiaYear+'년 · '+m.month+'월'),btn('다음 달',()=>{monthOffset++;schedule();},'month-button'));calendar.append(top);
   const grid=el('div',null,'calendar-grid');grid.style.gridTemplateRows='auto repeat('+Math.ceil(m.cells.length/7)+',minmax(0,1fr))';grid.setAttribute('aria-label','일요일 시작 월간 달력');WEEKDAYS.forEach(d=>grid.append(el('div',d,'weekday')));
@@ -72,12 +72,13 @@ export function createMyroomUI(ctx){
   }
   const selectedPrompt=el('p',selectedDayIndex===null?(selected?'선택한 활동: '+activityTitle(selected,selectedLocationId):'활동 카드를 고르면 가장 빠른 빈 평일에 등록됩니다.'):null,'chosen-activity'+(selectedDayIndex!==null?' schedule-date-hint':''));
   if(selectedDayIndex!==null)selectedPrompt.append(el('strong',WEEKDAYS[selectedDayIndex+1]+'요일 선택'),el('span',draft[selectedDayIndex]?'활동 카드로 변경 · 날짜를 다시 누르면 삭제':'활동 카드를 골라 주세요.'));
-  activities.append(cards,selectedPrompt);
-  const footer=el('div',null,'schedule-footer');if(r.phase==='PLANNING'){const start=btn('이번 주 일정 시작',()=>onCommit([...draft],[...draftLocations]));start.disabled=!scheduleReady(draft)||isSaveFailed();footer.append(el('p',draft.filter(Boolean).length+' / 5일 등록'),start);}else footer.append(el('p','진행 중인 일정은 변경할 수 없습니다.'));
-  layout.append(calendar,activities);shell.append(layout,footer);close();
+  activities.append(cards);
+  const footer=el('div',null,'schedule-footer');if(r.phase==='PLANNING'){const start=createImageButton({el,btn,src:'./design-assets/ui/BT04_blank_pale_green.png',label:'이번 주 일정 시작',caption:'이번 주 일정 시작',onClick:()=>onCommit([...draft],[...draftLocations]),className:'schedule-art-button'});start.disabled=!scheduleReady(draft)||isSaveFailed();footer.append(el('p',draft.filter(Boolean).length+' / 5일 등록'),start);}else footer.append(el('p','진행 중인 일정은 변경할 수 없습니다.'));
+  footer.append(selectedPrompt);
+  layout.append(calendar,activities);frame.append(layout,footer);close(frame);
  }
  function weeklySummary(){
-  const r=current(),week=r.pendingWeekSummaryWeek;if(!Number.isInteger(week)){schedule();return;}const summary=createWeeklySummary(r.actionHistory,week,[...(r.mainStory?.history??[]),...(r.narrativeState?.history??[])]),final=week===52;
+  const r=current(),week=r.pendingWeekSummaryWeek;if(!Number.isInteger(week)){schedule();return;}const summary=createWeeklySummary(r.actionHistory,week,storyDiaryRecords(r)),final=week===52;
   heading(final?'52주차 주간 요약':'지난주 주간 요약','weekly-summary-page');const frame=el('section',null,'paper weekly-summary');frame.append(el('p',week+'주차 · '+(final?'회차 마지막 주':'활동 기록 요약'),'weekly-summary-kicker'));
   if(!summary.activityCount)frame.append(el('p','이 주의 상세 활동 기록을 확인할 수 없습니다. 기록을 새로 만들지 않고 저장된 내용만 표시합니다.','weekly-summary-empty'));
   else{

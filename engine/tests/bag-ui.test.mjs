@@ -1,6 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createJournalUI} from '../src/ui/journal.mjs';
+test('pending character conditions are shown without enabling that character early',async()=>{
+ const {studentCards}=await import('../src/core/catalogue.mjs');
+ const meta={unlockedCharacters:['CH01'],pendingCharacterUnlockIds:['CH03']};
+ const card=studentCards(meta).find(character=>character.id==='CH03');
+ assert.equal(card.pendingUnlock,true);assert.equal(card.selectable,false);
+ const view=setup(meta);view.ui.bag('캐릭터');
+ const cards=all(view.shell,item=>item.tag==='button'&&item.className.includes('collection-item-card'));
+ cards[2].onclick();assert.match(view.modals.at(-1).body.textContent,/조건 달성 완료/);
+});
 
 function node(tag,text='',className=''){
  const item={tag,text,className,children:[],attributes:{},dataset:{},style:{},disabled:false,append(...children){this.children.push(...children);},replaceChildren(...children){this.children=children;},setAttribute(key,value){this.attributes[key]=value;},get textContent(){return [this.text,...this.children.map(child=>child.textContent)].filter(Boolean).join(' ');}};

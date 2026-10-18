@@ -62,7 +62,7 @@ export function renderRoomPanel(panel,{el,btn,meta,settings=()=>({}),onSelectRoo
   };
   function paintDetail(){
    const room=roomProgress(meta(),id);detail.replaceChildren();
-   if(room.theme)detail.append(el('p',room.theme+' · 퍼즐 조각','room-detail-theme'));
+   if(room.theme)detail.append(el('p','퍼즐 조각','room-detail-theme'));
    if(id==='default'){
     if(room.images)detail.append(image('./world-assets/'+room.images.day,'room-detail-preview'));
     detail.append(el('p','기본 제공','room-piece-progress'));
@@ -87,19 +87,19 @@ export function renderRoomPanel(panel,{el,btn,meta,settings=()=>({}),onSelectRoo
    }
    if(failed){const error=el('section',null,'room-selection-error');error.setAttribute('role','alert');error.append(el('p','배경을 변경하지 못했어요. 다시 시도해 주세요.'),button('다시 시도',select));detail.append(error);}
   }
-  paintDetail();const dialog=modal?.(roomProgress(meta(),id).title,detail);dialog?.classList?.add('room-puzzle-modal');
+  paintDetail();const room=roomProgress(meta(),id),dialog=modal?.(room.theme||room.title,detail);dialog?.classList?.add('room-puzzle-modal');
  }
  function paint(){
   const scroll=body.scrollTop;body.replaceChildren();const unread=new Set(unreadRoomIds(meta())),grid=el('div',null,'room-collection-grid');body.append(grid);
   for(const master of ROOM_BACKGROUNDS){
    const room=roomProgress(meta(),master.id),active=selected(room),item=el('article',null,'room-card-item');
    const card=btn('',()=>openRoom(room.id),'collection-item-card room-card-trigger'+(!room.unlocked?' is-locked':'')+(active?' is-current':''));
-   card.setAttribute('aria-label',room.title+' · '+(room.id==='default'?'기본 제공':room.pieces.length+' / 12')+' · 상세 보기');card.setAttribute('aria-pressed',String(active));
+   card.setAttribute('aria-label',(room.theme||room.title)+' · '+(room.id==='default'?'기본 제공':room.pieces.length+' / 12')+' · 상세 보기');card.setAttribute('aria-pressed',String(active));
    if(room.images)card.append(image('./world-assets/'+room.images.day,'room-card-art'));
    if(!room.unlocked)card.append(image('./design-assets/badge/badge_state_locked_038.png','room-card-lock'));
    if(active){const check=el('span','✓','room-current-check');check.setAttribute('aria-label','현재 사용 중인 배경');card.append(check);}
-   item.append(card,el('h3',room.title),el('p',room.id==='default'?'기본 제공':room.pieces.length+' / 12'));
-   if(room.theme)item.append(el('small',room.theme));if(unread.has(room.id))item.append(el('small','NEW','collection-new-indicator'));
+   item.append(card,el('h3',room.theme||room.title),el('p',room.id==='default'?'기본 제공':room.pieces.length+' / 12'));
+   if(unread.has(room.id))item.append(el('small','NEW','collection-new-indicator'));
    grid.append(item);
   }
   body.scrollTop=scroll;
