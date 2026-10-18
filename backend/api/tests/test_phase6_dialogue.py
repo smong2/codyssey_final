@@ -47,6 +47,23 @@ def test_compiler_resolves_cast_and_keeps_rewards_server_only(content_db):
     assert any(item.get("lineMode") == "NARRATION" for item in payload["sequence"])
 
 
+def test_approved_focus_asset_is_delivered(content_db):
+    master = DialogueMaster(content_db, asset_root="asset")
+    cast = ContentMaster(content_db).character_and_cast(
+        version="dev-dialogue-v1", character_id="CH01"
+    )[1]
+    payload = master.compile(version="dev-dialogue-v1", event_id="LOC_OBS_01",
+                             character_id="CH01", cast=cast)
+    assert any(item.get("src") ==
+               "/item-assets/IT_focus_LOC_OBS_01_observation_diary_03.png"
+               for item in payload["sequence"])
+    client, _ = phase5_client(content_db, dialogue_secret=SECRET)
+    with client:
+        image = client.get("/item-assets/IT_focus_LOC_OBS_01_observation_diary_03.png")
+        assert image.status_code == 200
+        assert image.headers["content-type"] == "image/png"
+
+
 def test_all_reviewed_graphs_compile_without_asset_delivery_assumption(content_db):
     class GraphOnlyMaster(DialogueMaster):
         def _image_src(self, reference, *, is_portrait=False):

@@ -21,6 +21,13 @@ class DialogueAssetMissing(DialogueMasterError):
     pass
 
 
+DELIVERED_FOCUS_ASSETS = {
+    "ART-N01": "IT_focus_NPC_GUIDE_01_meeting_notices_01.png",
+    "ART-N06": "IT_focus_NPC_LULU_02_treasure_chest_02.png",
+    "ART-L01": "IT_focus_LOC_OBS_01_observation_diary_03.png",
+}
+
+
 def _database(path: Path):
     connection = sqlite3.connect(f"{path.resolve().as_uri()}?mode=ro", uri=True)
     connection.row_factory = sqlite3.Row
@@ -41,6 +48,8 @@ class DialogueMaster:
             if not reference.startswith(prefix):
                 raise DialogueMasterError("Unsupported portrait reference")
             category, filename = "character", reference[len(prefix):]
+        elif reference in DELIVERED_FOCUS_ASSETS:
+            category, filename = "item", DELIVERED_FOCUS_ASSETS[reference]
         elif reference.startswith("asset/character/"):
             category, filename = "character", reference[len("asset/character/"):]
         elif reference.startswith("asset/background/"):
@@ -53,7 +62,7 @@ class DialogueMaster:
             raise DialogueMasterError("Unsafe image reference")
         if not (self.asset_root / category / filename).is_file():
             raise DialogueAssetMissing(f"Image asset is not delivered: {reference}")
-        base = "character-assets" if category == "character" else "world-assets"
+        base = {"character": "character-assets", "background": "world-assets", "item": "item-assets"}[category]
         return f"/{base}/{quote(filename)}"
 
     def _speaker(self, connection, version: str, reference: str, cast: dict[str, str]) -> tuple[str, dict]:

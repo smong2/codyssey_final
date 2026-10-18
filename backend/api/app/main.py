@@ -35,6 +35,7 @@ def create_app(
     asset_root = Path(__file__).resolve().parents[3] / "asset"
     api.mount("/world-assets", StaticFiles(directory=asset_root / "background"), name="world-assets")
     api.mount("/character-assets", StaticFiles(directory=asset_root / "character"), name="character-assets")
+    api.mount("/item-assets", StaticFiles(directory=asset_root / "item"), name="item-assets")
     api.add_middleware(
         CORSMiddleware,
         allow_origins=list(

@@ -67,24 +67,24 @@ export function createServerGameSession({services,requestIdFactory=defaultId,onC
 export function createServerDialogueSession({game,services,slotId,onRender,onContinue=()=>{},onError=()=>{},requestIdFactory=defaultId}){
  if(!game||typeof game.currentRevision!=='function'||typeof game.applyDialogueResult!=='function')throw new Error('서버 게임 세션이 필요합니다.');
  if(typeof slotId!=='function')throw new Error('대화 저장 슬롯 provider가 필요합니다.');
- let activeSlotId=null;
+ let activeSlotId=null,lastInput=null;
  const session=createDialogueSession({
   loadDialogue:services?.loadDialogue,completeDialogue:services?.completeDialogue,
   context:()=>({expectedServerRevision:game.currentRevision(activeSlotId)}),
   applyServerRun:(activeRun,response)=>game.applyDialogueResult(activeSlotId,activeRun,response),
   onRender:(payload,handlers)=>{if(activeSlotId===slotId())onRender?.(payload,handlers);},
   onContinue:(run,response)=>{if(activeSlotId===slotId())onContinue(run,response);},
-  onError:(error,retry)=>{if(activeSlotId===slotId())onError(error,retry);},
+  onError:error=>{if(activeSlotId===slotId())onError(error,()=>session.hasPendingCompletion()?session.retry():session.start(lastInput));},
   requestIdFactory,
  });
  return {
   start(input={}){
    if(session.hasPendingCompletion())return false;
    if(!Number.isInteger(input.slotId)||input.slotId<1||input.slotId>5)throw new Error('대화 슬롯 번호가 올바르지 않습니다.');
-   activeSlotId=input.slotId;
+   activeSlotId=input.slotId;lastInput=clone(input);
    return session.start(input);
   },
-  cancel(){const cancelled=session.cancel();if(cancelled)activeSlotId=null;return cancelled;},
+  cancel(){const cancelled=session.cancel();if(cancelled){activeSlotId=null;lastInput=null;}return cancelled;},
   hasPendingCompletion:()=>session.hasPendingCompletion(),
  };
 }

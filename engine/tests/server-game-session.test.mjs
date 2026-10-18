@@ -28,6 +28,21 @@ test('dialogue session applies authoritative activeRun before continuation and n
  assert.equal(game.slot(1).activeRun.stats.knowledge,52);assert.equal(game.slot(1).activeRun.hiddenStats,undefined);assert.equal(game.slot(1).serverRevision,4);assert.equal(continued,1);
 });
 
+test('server dialogue can retry a failed load with the same pending event',async()=>{
+ let loads=0,retry;const rendered=[];
+ const services={loadDialogue:async({eventId})=>{
+  if(++loads===1)throw new Error('asset unavailable');
+  return {schemaVersion:1,eventId,dialogueToken:'token',canSkip:false,speakers:{},sequence:[{type:'END'}]};
+ }};
+ const game={currentRevision:()=>3,applyDialogueResult:async()=>{}};
+ const dialogue=createServerDialogueSession({game,services,slotId:()=>1,onRender:payload=>rendered.push(payload),onError:(_error,again)=>{retry=again;}});
+ assert.equal(await dialogue.start({slotId:1,eventId:'LOC_OBS_01'}),false);
+ assert.equal(typeof retry,'function');
+ assert.equal(await retry(),true);
+ assert.equal(loads,2);
+ assert.equal(rendered[0].eventId,'LOC_OBS_01');
+});
+
 test('account settings refresh the projected shared pet and room selection',async()=>{
  let accountCollection=structuredClone(collection);const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[playing(),...[2,3,4,5].map(empty)]}),getSaveSlot:async()=>playing(),getCollection:async()=>accountCollection,
   updateAccountSettings:async command=>{accountCollection={...accountCollection,settings:{...accountCollection.settings,...command}};return structuredClone(accountCollection.settings);}};
