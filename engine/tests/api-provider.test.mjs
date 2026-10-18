@@ -66,3 +66,9 @@ test('dialogue load encodes the event id and GET can retry a transient network f
  const value=await provider.loadDialogue({slotId:4,eventId:'NPC A/1'});
  assert.equal(value.eventId,'NPC A/1');assert.equal(urls.length,2);assert.match(urls[0],/NPC%20A%2F1$/);
 });
+
+test('dialogue load does not automatically repeat an HTTP 503',async()=>{
+ let calls=0;const provider=createLumiaApiProvider({baseUrl:'https://api.example',getIdToken:async()=>'token',maxAttempts:3,fetchImpl:async()=>{calls++;return response(503,{detail:'Image asset is not delivered'});}});
+ await assert.rejects(()=>provider.loadDialogue({slotId:1,eventId:'LOC_GH_01'}),error=>error.status===503);
+ assert.equal(calls,1);
+});

@@ -47,12 +47,13 @@ test('schedule confirmation reuses returned revision and activity start skips un
 test('dialogue session applies authoritative activeRun before continuation and never exposes hidden stats',async()=>{
  let current=playing(),continued=0;const rendered=[];const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>collection,getSaveSlot:async()=>current,
   loadDialogue:async({eventId})=>({schemaVersion:1,dialogueId:'D1',storyId:'S1',eventId,title:'메인',dialogueToken:'token',canSkip:false,speakers:{},sequence:[{type:'END'}]}),
-  completeDialogue:async input=>({success:true,completionMode:input.completionMode,serverRevision:4,activeRun:{...current.activeRun,phase:'STORY_COMPLETE',pendingStoryEvent:null,stats:{...current.activeRun.stats,knowledge:52},hiddenStats:{empathy:8}},appliedSummary:{visibleStatDelta:{knowledge:2}}})};
+  completeDialogue:async input=>{const activeRun={...current.activeRun,phase:'STORY_COMPLETE',pendingStoryEvent:null,stats:{...current.activeRun.stats,knowledge:52},hiddenStats:{empathy:8},dialogueHistory:[{eventId:'MS01',storyId:'S1',title:'메인',week:1,day:0,completionMode:input.completionMode,selectedChoices:[],effect:{growth:{knowledge:2}}}]};current=playing(4,activeRun);return {success:true,completionMode:input.completionMode,serverRevision:4,activeRun,appliedSummary:{visibleStatDelta:{knowledge:2}}};}};
  const game=createServerGameSession({services});await game.load();
  const dialogue=createServerDialogueSession({game,services,slotId:()=>1,onRender:(payload,handlers)=>rendered.push({payload,handlers}),onContinue:()=>continued++,requestIdFactory:()=> 'dialogue-request'});
  assert.equal(await dialogue.start({slotId:1,eventId:'MS01'}),true);
  assert.equal(await rendered[0].handlers.onComplete({completionMode:'COMPLETE',selectedChoices:[]}),true);
- assert.equal(game.slot(1).activeRun.stats.knowledge,52);assert.equal(game.slot(1).activeRun.hiddenStats,undefined);assert.equal(game.slot(1).serverRevision,4);assert.equal(continued,1);
+ assert.equal(game.slot(1).activeRun.stats.knowledge,52);assert.equal(game.slot(1).activeRun.hiddenStats,undefined);assert.equal(game.slot(1).activeRun.dialogueHistory[0].eventId,'MS01');assert.equal(game.slot(1).serverRevision,4);assert.equal(continued,1);
+ await game.refreshSlot(1,{collection:false});assert.equal(game.slot(1).activeRun.dialogueHistory[0].title,'메인');
 });
 
 test('server dialogue can retry a failed load with the same pending event',async()=>{

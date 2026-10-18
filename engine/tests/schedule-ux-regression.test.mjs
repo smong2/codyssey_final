@@ -13,13 +13,10 @@ test('fairy trade renders as its own dormitory scene with the approved fairy ass
 
 test('forced rest explains the cancelled schedule and three-day recovery before continuing',()=>{
  const source=readFileSync(new URL('../src/preview-main.mjs',import.meta.url),'utf8');
- assert.match(source,/너무 무리한 것 같다\. 체력 관리해야지\./);
- assert.match(source,/오늘 예정된 일정은 취소되고, 오늘부터 3일 동안 강제로 쉽니다\./);
- assert.match(source,/세 번째 휴식이 끝나면 체력이 100으로 회복됩니다\./);
+ assert.match(source,/몸이 너무 지쳐서 지금은 집중하기 어려워\. 푹 쉬고 다시 시작하자\./);
+ assert.match(source,/오늘 예정된 일정은 취소되고, 가능한 휴식일을 한 번에 보냅니다\./);
+ assert.match(source,/사흘을 모두 쉬면 체력이 100으로 회복됩니다\./);
 });
 
-test('adventure investigation no longer waits one to two seconds before reporting a find',()=>{
- const source=readFileSync(new URL('../src/scenes/AdventureScene.mjs',import.meta.url),'utf8');
- assert.match(source,/const delay=120;/);
- assert.doesNotMatch(source,/1000\+Math\.random\(\)\*1000/);
-});
+// Investigation timing and overlapping pauses are covered by the fake-clock
+// behavior tests in adventure-scene.test.mjs (approved duration: 1–2 seconds).

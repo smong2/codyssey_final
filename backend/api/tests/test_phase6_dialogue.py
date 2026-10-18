@@ -64,6 +64,36 @@ def test_approved_focus_asset_is_delivered(content_db):
         assert image.headers["content-type"] == "image/png"
 
 
+def test_loc_gh_01_runs_without_undelivered_optional_focus_art(content_db):
+    master = DialogueMaster(content_db, asset_root="asset")
+    cast = ContentMaster(content_db).character_and_cast(
+        version="dev-dialogue-v1", character_id="CH01"
+    )[1]
+    payload = master.compile(version="dev-dialogue-v1", event_id="LOC_GH_01",
+                             character_id="CH01", cast=cast)
+    assert payload["sequence"][-1] == {"type": "END"}
+    focus_commands = [
+        item for item in payload["sequence"]
+        if item.get("type") == "IMAGE" and item.get("target") == "FOCUS"
+    ]
+    assert focus_commands
+    assert all(item["action"] == "HIDE" and "src" not in item for item in focus_commands)
+    assert any(item.get("src", "").startswith("/world-assets/")
+               for item in payload["sequence"])
+
+    client, database = phase5_client(content_db, dialogue_secret=SECRET)
+    with client:
+        assert start(client).status_code == 200
+        run = database.data["users/owner/saveSlots/1"]["activeRun"]
+        run["pendingStoryEvent"] = {"eventId": "LOC_GH_01"}
+        loaded = client.get("/v1/save-slots/1/dialogue/LOC_GH_01", headers=headers())
+        assert loaded.status_code == 200, loaded.text
+        sequence = loaded.json()["sequence"]
+        assert any(item.get("type") == "CHOICE" for item in sequence)
+        assert all("ART-L02" not in item.get("src", "") and
+                   "ART-L03" not in item.get("src", "") for item in sequence)
+
+
 def test_all_reviewed_graphs_compile_without_asset_delivery_assumption(content_db):
     class GraphOnlyMaster(DialogueMaster):
         def _image_src(self, reference, *, is_portrait=False):
@@ -111,6 +141,14 @@ def test_load_complete_and_idempotent_replay(content_db):
         assert result["activeRun"]["eventFlags"]["MS01"] is True
         assert result["activeRun"]["storyProgress"]["MS01"]["status"] == "COMPLETED"
         assert sum(result["appliedSummary"]["visibleStatDelta"].values()) > 0
+        record = result["activeRun"]["dialogueHistory"][0]
+        assert record["eventId"] == "MS01"
+        assert record["storyId"] == "MS01"
+        assert record["title"]
+        assert record["week"] == 1 and record["day"] == 0
+        assert record["completionMode"] == "COMPLETE"
+        assert record["selectedChoices"] == choices
+        assert record["effect"]["growth"] == result["appliedSummary"]["visibleStatDelta"]
         snapshot = deepcopy(database.data)
         replay = _complete(client, payload, choices).json()
         assert replay["replayed"] is True
@@ -134,6 +172,11 @@ def test_skip_requires_prior_ending_and_applies_no_choice_reward(content_db):
         assert result.json()["appliedSummary"]["visibleStatDelta"] == {}
         assert all(value == 50 for value in active["stats"].values())
         assert active["storyProgress"]["MS01"]["status"] == "COMPLETED"
+        assert active["dialogueHistory"] == [{
+            "eventId": "MS01", "storyId": "MS01", "title": active["dialogueHistory"][0]["title"],
+            "week": 1, "day": 0, "completionMode": "SKIP", "selectedChoices": [],
+            "effect": {"growth": {}},
+        }]
 
 
 def test_ms05_important_memory_and_clamped_visible_delta(content_db):

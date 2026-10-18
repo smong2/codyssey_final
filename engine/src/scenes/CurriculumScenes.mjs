@@ -7,6 +7,17 @@ import {SPACES} from '../core/spaces.mjs';
 
 const ART={observatory:'BG05_starlight_observatory_1920x1080_015.png',plaza:'BG02_clocktower_plaza_1920x1080_011.png',greenhouse:'BG06_glass_greenhouse_1920x1080_016.png',library:'BG04_grand_library_1920x1080_014.png',workshop:'BG08_magic_workshop_1920x1080_018.png',training:'BG09_rune_training_ground_1920x1080_019.png'};
 const COLORS=['#de8b82','#8ca97f','#8da8c0','#c5a15f','#aa90bd','#81b7ac'];
+const GUIDES={
+ 'observatory-mirror':['거울을 눌러 별빛의 방향을 바꿔요.','별빛이 모든 관측 룬에 닿으면 다음 단계로 넘어가요.'],
+ 'starlight-stage':['별빛이 아래 선에 닿을 때 같은 레인을 눌러요.','길게 이어진 별빛은 끝날 때까지 누르고 있어요.'],
+ 'spirit-pot-sort':['화분 두 개를 차례로 골라 꽃빛을 옮겨요.','각 화분에 같은 꽃빛만 모으면 성공이에요.'],
+ 'sealed-shelves':['옮길 책 묶음을 고른 뒤 화살표를 눌러요.','별이 표시된 고서 A를 오른쪽 출구로 보내요.'],
+ 'rune-circuit':['회로 조각을 눌러 방향을 돌려요.','마력 발생점부터 모든 목표까지 길을 이어요.'],
+ 'rune-pin-training':['원판의 빈 곳을 보고 룬 핀을 보내요.','다른 핀과 보호 구역을 피해서 세 라운드를 마쳐요.']
+};
+const guideKey=id=>'lumia:minigame-guide:'+id;
+const hasSeenGuide=id=>{try{return globalThis.localStorage?.getItem(guideKey(id))==='1';}catch{return false;}};
+const rememberGuide=id=>{try{globalThis.localStorage?.setItem(guideKey(id),'1');}catch{}};
 function el(tag,text,cls){const node=document.createElement(tag);if(text!==undefined&&text!==null)node.textContent=text;if(cls)node.className=cls;return node;}
 function svgNode(tag,attrs={}){
  const node=typeof document.createElementNS==='function'?document.createElementNS('http://www.w3.org/2000/svg',tag):document.createElement(tag);
@@ -107,12 +118,19 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
   this.startedAt=performance.now();this.root=el('section',null,'curriculum-game');
   const bg=SPACES[lesson.locationId]?.image??ART[lesson.locationId];
   this.root.style.backgroundImage=`linear-gradient(#203126bb,#203126bb),url('./world-assets/${bg}')`;
-  const header=el('header',null,'paper curriculum-header');this.timer=el('span','');header.append(el('h1',lesson.title),this.timer,button('포기하기',()=>this.quit()));
+  const header=el('header',null,'paper curriculum-header');this.timer=el('span','');header.append(el('h1',lesson.title),this.timer,button('게임 방법 보기',()=>this.showGuide()),button('포기하기',()=>this.quit()));
   this.instruction=el('p','', 'curriculum-instruction');this.board=el('div',null,'paper curriculum-board');this.status=el('p','', 'curriculum-status');
   this.root.append(header,this.instruction,this.board,this.status);document.querySelector('#game').append(this.root);
   this.events.once('shutdown',()=>{this.done=true;this.root?.remove();});
   if(this.startData.assistLevel)this.status.textContent='조금 더 쉬운 연습으로 준비했어.';
-  this.loadRound();
+  this.loadRound();if(!hasSeenGuide(this.gameId))this.showGuide(true);
+ }
+ showGuide(first=false){
+  if(this.guideOverlay||this.done)return;
+  const openedAt=performance.now(),overlay=el('div',null,'curriculum-guide-overlay'),panel=el('section',null,'paper curriculum-guide');
+  panel.append(el('small',first?'처음 한 번만 자동으로 보여 줘요.':'게임 방법'),el('h2',lesson.title+' 방법'));
+  const list=el('ol');for(const line of GUIDES[this.gameId]??[])list.append(el('li',line));panel.append(list);
+  const close=button('알겠어!',()=>{this.pausedMs+=performance.now()-openedAt;rememberGuide(this.gameId);overlay.remove();this.guideOverlay=null;});panel.append(close);overlay.append(panel);this.root.append(overlay);this.guideOverlay=overlay;close.focus?.();
  }
  elapsed(){return Math.max(0,performance.now()-this.startedAt-this.pausedMs);}
  logInput(action,data={},at=this.elapsed()){

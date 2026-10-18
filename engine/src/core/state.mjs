@@ -1,6 +1,6 @@
 import {classOf,validAction,LEGACY_CLASSES} from './classes.mjs';
 import {difficultyForStat,playDifficultyFor,growthForResult,MINIGAME_OUTCOMES,validateGrowthRewardConfig} from './minigame-contract.mjs';
-import {currentAction,forcedRestRemaining,restOutcome} from './activity-rules.mjs';
+import {currentAction,forcedRestRemaining,restOutcome,chosenRestOutcome} from './activity-rules.mjs';
 import {createAdventureResult} from './adventure-contract.mjs';
 import {isAdventureLocation} from './adventure-mission.mjs';
 import {completeMainStory} from './main-story.mjs';
@@ -98,15 +98,18 @@ export function applyAction(p,id,token,result,random=Math.random){
    r.stats[transfer.from]-=transfer.amount;r.stats[transfer.to]+=transfer.amount;transferChanges[transfer.from]=-transfer.amount;transferChanges[transfer.to]=transfer.amount;resolvedOutcome='transferred';
   }
  }else{
-  if(result!==undefined)throw new Error('휴식 일정에는 수업·모험 결과를 적용할 수 없습니다.');
   if(forced){r.forcedRestDays=restDays-1;if(r.forcedRestDays===0)r.stamina=100;}
-  else{recovery=restOutcome(random).recovery;r.stamina=Math.min(100,r.stamina+recovery);}
+  else{
+   const rest=result?.restChoice?chosenRestOutcome(result.restChoice,random):restOutcome(random);recovery=rest.recovery;r.stamina=Math.min(100,r.stamina+recovery);
+   if(rest.stat&&rest.growth){const before=r.stats[rest.stat];r.stats[rest.stat]=Math.min(500,before+rest.growth);growth[rest.stat]=r.stats[rest.stat]-before;}
+  }
  }
  if(!forced)r.forcedRestDays=checkpoint.forcedRestDaysAfterStart|| (r.stamina<10?3:0);
  r.exhausted=r.forcedRestDays>0;
  const effect={outcome:resolvedOutcome,staminaChange:r.stamina-staminaBefore,staminaAfter:r.stamina,growth,forcedRest:forced,forcedRestDays:r.forcedRestDays};
  if(Object.keys(transferChanges).length)effect.transferChanges=transferChanges;
  if(recovery!==undefined)effect.restRecovery=recovery;
+ if(result?.restChoice)effect.restChoice=result.restChoice;
  (r.actionHistory??=[]).push({week:r.week,day:r.day,action,...(lesson?{stat:lesson.stat}:{}),...(action==='adventure'?{locationId:checkpoint.locationId??r.scheduleLocations?.[r.day]??'greenhouse'}:{}),status:'COMPLETED',effect});
  r.lastAction=token;delete r.inProgressActivity;r.day++;if(r.day===5)r.phase='WEEK_COMPLETE';return true;
 }

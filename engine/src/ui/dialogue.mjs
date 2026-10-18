@@ -64,7 +64,10 @@ export function createDialogueUI({el,btn,shell,heading,modal}){
      image.classList?.toggle('dialogue-focus-centered',true);
      image.classList?.toggle('dialogue-focus-choice',playback.snapshot().node.type==='CHOICE');
     }
-    if(image._dialogueSource!==entry.src){image.src=entry.src;image._dialogueSource=entry.src;}
+    if(image._dialogueSource!==entry.src){
+     if(isBackground){image.classList?.add?.('dialogue-background-changing');image.onload=()=>image.classList?.remove?.('dialogue-background-changing');}
+     image.src=entry.src;image._dialogueSource=entry.src;
+    }
     image.alt=entry.alt??'';
    };
    syncImage(state.background,'dialogue-background');syncImage(state.focus,'dialogue-focus');

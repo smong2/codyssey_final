@@ -14,7 +14,10 @@ export function createServerGameSession({services,requestIdFactory=defaultId,onC
  const slot=id=>{const value=profile?.slots?.find(item=>item.slotId===id);if(!value)throw new Error('서버 저장 슬롯을 먼저 불러와 주세요.');return value;};
  const refreshCollection=async()=>{if(typeof services.getCollection!=='function')return;const previous=clone(profile.meta);applyServerCollection(profile,await services.getCollection());onCollectionChanges(acceptCollectionChanges(previous,profile.meta));};
  const refreshSlot=async(slotId,{collection=true}={})=>{
-  const received=await services.getSaveSlot(slotId),projected=projectServerSlot(received),index=profile.slots.findIndex(item=>item.slotId===slotId);if(index<0)throw new Error('새로 받은 서버 슬롯을 적용할 수 없습니다.');profile.slots[index]=projected;if(collection)await refreshCollection();emit();return projected;
+  const [received,collectionValue]=await Promise.all([services.getSaveSlot(slotId),collection&&typeof services.getCollection==='function'?services.getCollection():null]);
+  const projected=projectServerSlot(received),index=profile.slots.findIndex(item=>item.slotId===slotId);if(index<0)throw new Error('새로 받은 서버 슬롯을 적용할 수 없습니다.');profile.slots[index]=projected;
+  if(collectionValue){const previous=clone(profile.meta);applyServerCollection(profile,collectionValue);onCollectionChanges(acceptCollectionChanges(previous,profile.meta));}
+  emit();return projected;
  };
  const submit=async()=>{
   if(!pendingMutation)return false;const job=pendingMutation,fn=services[job.service];if(typeof fn!=='function')throw new Error(`서버 ${job.service} provider가 준비되지 않았습니다.`);
@@ -56,10 +59,10 @@ export function createServerGameSession({services,requestIdFactory=defaultId,onC
   completeSpecial:(slotId,command)=>mutate('completeSpecial',slotId,command),
   completeClassQuit:slotId=>mutate('completeClassQuit',slotId),
   completeClassReplay:(slotId,inputLog)=>mutate('completeClassReplay',slotId,{inputLog:clone(inputLog)}),
-  completeForcedRest:slotId=>mutate('completeForcedRest',slotId),
-  completeRest:slotId=>mutate('completeRest',slotId),
+  completeForcedRest:slotId=>mutate('completeForcedRest',slotId,{},'slot'),
+  completeRest:(slotId,command={})=>mutate('completeRest',slotId,command,'slot'),
   completeAdventure:(slotId,command)=>mutate('completeAdventure',slotId,command),
-  closeWeek:slotId=>mutate('closeWeek',slotId),
+  closeWeek:slotId=>mutate('closeWeek',slotId,{},'slot'),
   acknowledgeWeekSummary:slotId=>mutate('acknowledgeWeekSummary',slotId),
   openMyRoom:slotId=>mutate('openMyRoom',slotId),
   decideEnding:slotId=>mutate('decideEnding',slotId),
