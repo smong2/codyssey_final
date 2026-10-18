@@ -3,6 +3,12 @@ import assert from 'node:assert/strict';
 import {createEndingUI} from '../src/ui/ending.mjs';
 function node(tag,text='',className=''){return {tag,text,className,children:[],disabled:false,append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;},get textContent(){return [this.text,...this.children.map(n=>n.textContent)].join(' ');}};}
 const all=n=>[n,...n.children.flatMap(all)];
+test('past ending letters are read without loading, completing a run, or changing the original record',()=>{
+ const s=setup(),record={runNumber:2,careerName:'룬 연구자',letter:{status:'ready',source:'ai',sections:{future:'과거 미래',reflection:'과거 기억',encouragement:'과거 응원'}}},before=structuredClone(record);
+ assert.equal(typeof s.ui.history,'function');s.ui.history([record]);
+ assert.match(s.shell.textContent,/과거 기억/);assert.match(s.shell.textContent,/AI가 작성한 개인화 편지/);
+ assert.equal(s.calls.finished,0);assert.equal(s.calls.received,0);assert.deepEqual(record,before);
+});
 function setup({ready=false,newUnlocks=[],loadEnding=null,save=true}={}){
  const shell=node('main'),calls={finished:0,received:0},record={careerId:'ENDING_RUNE_RESEARCHER',careerName:'룬 연구자',records:[{key:'classes',value:10},{key:'npcMeetings',value:null}],letter:ready?{status:'ready',sections:{future:'준비된 미래',reflection:'준비된 기록',encouragement:'준비된 응원'}}:{status:'pending'},newUnlocks};
  const run={runNumber:1,week:52,phase:'AWAITING_ENDING',endingRecord:record};shell.classList={contains:cls=>shell.className===cls};shell.querySelector=()=>shell.children[0];

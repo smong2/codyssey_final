@@ -5,6 +5,15 @@ import {createProfile,startRun,setSchedule,beginAction,applyAction,finishWeek,re
 import {createLocalRepository,createBoundaryWriter,validateProfile} from '../src/core/storage.mjs';
 import {finishNarrative,dismissNarrative,narrativeCandidates} from '../src/core/narrative.mjs';
 import {createMinigameResult} from '../src/core/minigame-contract.mjs';
+test('a server-selected event bypasses the old local candidate table and blocks the next activity until completion',()=>{
+ assert.equal(typeof flowApi.queueServiceDialogue,'function');
+ const {profile,run,activity,token}=fixture();
+ assert.equal(flowApi.queueServiceDialogue(run,activity,{eventId:'LOC_GH_01',activityToken:token}),true);
+ assert.deepEqual(run.pendingDialogue,{eventId:'LOC_GH_01',activityToken:token});validateProfile(profile);
+ assert.throws(()=>beginAction(profile,1,'1:1:1'));
+ assert.equal(flowApi.queueServiceDialogue(run,activity,{eventId:'OLD',activityToken:'1:2:0'}),false);
+ delete run.pendingDialogue;assert.ok(beginAction(profile,1,'1:1:1'));
+});
 
 function fixture({friday=false,action='adventure'}={}){
  const profile=createProfile(),run=startRun(profile,1,'CH01');

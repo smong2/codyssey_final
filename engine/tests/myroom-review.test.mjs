@@ -45,12 +45,16 @@ test('room does not show a review prompt without a newly completed activity',()=
  assert.equal(findAll(room,node=>node.className.includes('room-review-prompt')).length,0);
 });
 
-test('profile keeps its status frame and text without a small character portrait',()=>{
+test('profile shows its name and actual stamina bar without visible health numbers or a portrait',()=>{
  const {shell}=renderRoom(null),profile=findAll(shell,node=>node.className.includes('room-profile-card'))[0];
  assert.ok(profile);
  assert.equal(findAll(profile,node=>node.className.includes('mini-profile-face')).length,0);
  assert.match(profile.textContent,/카엘/);
- assert.match(profile.textContent,/체력 80/);
+ assert.doesNotMatch(profile.textContent,/체력|80/);
+ const bar=findAll(profile,node=>node.tag==='progress')[0];
+ assert.ok(bar);
+ assert.equal(bar.value,80);
+ assert.equal(bar.max,100);
 });
 
 test('room date card opens schedule and no separate bottom schedule button is rendered',()=>{
@@ -70,8 +74,10 @@ test('selecting a planned date shows only the activity hint and tapping it again
  assert.match(hint.textContent,/월요일 선택/);
  assert.match(hint.textContent,/변경/);
  assert.match(hint.textContent,/삭제/);
- const activityPanel=findAll(state.shell,node=>node.className.includes('activity-panel'))[0];
- assert.ok(activityPanel.children.includes(hint));
+ const footer=findAll(state.shell,node=>node.className==='schedule-footer')[0];
+ assert.ok(footer.children.includes(hint));
+ const frame=findAll(state.shell,node=>node.className.includes('schedule-frame'))[0];
+ assert.ok(frame.children.includes(footer));
  assert.equal(findAll(state.shell,node=>node.text==='닫기'||node.text==='활동 삭제').length,0);
  monday().onclick();
  assert.match(monday().title,/일정 등록/);

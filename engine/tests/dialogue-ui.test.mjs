@@ -2,14 +2,23 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createDialogueUI} from '../src/ui/dialogue.mjs';
+import * as dialogueUI from '../src/ui/dialogue.mjs';
 import {createAdmissionPreviewPayload} from '../src/core/preview-dialogue.mjs';
 
 function node(tag,text='',className=''){
- const item={tag,text,className,src:'',alt:'',type:'',style:{},children:[],append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;},remove(){},setAttribute(){},get textContent(){return [this.text,...this.children.map(child=>child.textContent)].filter(Boolean).join(' ');}};
+ const item={tag,text,className,src:'',alt:'',type:'',style:{},children:[],append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;},remove(){},setAttribute(){},addEventListener(){},showModal(){this.open=true;},get textContent(){return [this.text,...this.children.map(child=>child.textContent)].filter(Boolean).join(' ');}};
  item.classList={toggle(name,enabled){const names=new Set(item.className.split(/\s+/).filter(Boolean));if(enabled)names.add(name);else names.delete(name);item.className=[...names].join(' ');}};
  return item;
 }
 const all=element=>[element,...element.children.flatMap(all)];
+test('story results show only actual visible growth and wait for confirmation',()=>{
+ assert.equal(typeof dialogueUI.createStoryResultUI,'function');
+ const target=node('main');let advanced=0;
+ const ui=dialogueUI.createStoryResultUI({el:node,btn:(text,onclick,className)=>Object.assign(node('button',text,className),{onclick})});
+ ui.show(target,{completionMode:'COMPLETE',visibleStatDelta:{knowledge:1,magic:0}},()=>advanced++);
+ assert.match(target.textContent,/지식 \+1/);assert.doesNotMatch(target.textContent,/마법 \+0|Hidden|공감/);assert.equal(advanced,0);
+ all(target).find(item=>item.tag==='button').onclick();assert.equal(advanced,1);
+});
 function setup(payload,options={}){
  const shell=node('main');let history=null,completed=null,skipped=null;
  const ui=createDialogueUI({el:node,btn:(text,onclick,className)=>Object.assign(node('button',text,className),{onclick}),shell,

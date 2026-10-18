@@ -1,6 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {endingSnapshot,validateEndingView,exampleEnding} from '../src/core/ending-frame.mjs';
+import {displayedEndingRecords} from '../src/core/ending-frame.mjs';
+test('ending records retain the server-selected order and include career-specific class counts',()=>{
+ const playRecords=[{key:'class:magic',value:40},{key:'minigamesCleared',value:12},{key:'classes',value:80},{key:'adventures',value:10}];
+ const response={slotId:1,runNumber:1,career:{id:'career',name:'직업'},letter:{status:'pending'},playRecords};
+ assert.deepEqual(displayedEndingRecords(validateEndingView(response,{slotId:1,runNumber:1})),playRecords);
+});
 test('ending frame uses current run activity records and never completes or changes the run',()=>{
  const run={runNumber:2,week:3,phase:'PLANNING',actionHistory:[{action:'rest'},{action:'adventure'},{action:'rune-link'}]},before=structuredClone(run);
  const view=endingSnapshot(run,{id:'CH01',name:'카엘'});
