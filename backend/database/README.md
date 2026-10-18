@@ -32,6 +32,7 @@ Email/Password 인증과 패스워드 관리는 Firebase Authentication이 담�
 - [NPC Story v4 검증 SQL](sqlite/validate_npc_story.sql)
 - [NPC Story DB 스키마·적재 명세](NPC_STORY_DB_SPEC.md)
 - [Location Story 마스터·32인 대화 적재기](sqlite/seed_location_story_master.py)
+- [수업·모험·휴식·특수 활동 마스터 적재기](sqlite/seed_activities.py)
 - [Location Story v4 검증 SQL](sqlite/validate_location_story.sql)
 - [Story 선택 보상 전용 재적재기](sqlite/seed_story_choice_rewards.py)
 - [Story 선택 보상 통합 검증 SQL](sqlite/validate_story_choice_rewards.sql)
@@ -45,5 +46,7 @@ Email/Password 인증과 패스워드 관리는 Firebase Authentication이 담�
 이미 Main/NPC/Location canonical `story_choices` 77개가 들어 있는 v4 DB에서 **선택 스탯 효과만 최신 Production 값으로 갱신**하려면 전체 대화를 다시 seed하지 않고 `python3 backend/database/sqlite/seed_story_choice_rewards.py --version dev-dialogue-v1`를 사용합니다. 이 명령은 `story_choice_effects`만 77개 선택 기준으로 재생성하고 `40/102 + 24/64 + 13/39 = 77 choices / 205 effects`를 검증합니다.
 
 기존 DB가 Main만 있고 NPC/Location `story_choices`가 아직 없다면 `python3 backend/database/sqlite/seed_story_choice_rewards.py --version dev-dialogue-v1 --bootstrap-missing`를 사용합니다. 스크립트가 도메인별 canonical choice를 비교해 **불일치한 Main/NPC/Location만 기존 정식 full seed로 먼저 적재**한 뒤 선택 보상 205행을 갱신합니다. 현재 Main만 있는 개발 DB에서는 보통 NPC와 Location만 bootstrap됩니다.
+
+Phase 7 일정 API용 활동 마스터는 Story seed 이후 `python3 backend/database/sqlite/seed_activities.py --version dev-dialogue-v1`로 추가합니다. 수업 6개는 엔진의 현행 action ID를 그대로 사용하고, 모험 3개는 장소별 `ADV_GREENHOUSE / ADV_LIBRARY / ADV_OBSERVATORY`, 휴식은 `REST_DEFAULT`, 특수 활동은 `fairy-trade`입니다. 기존 행을 수정·삭제하지 않으며 같은 ID의 계약이 다르면 트랜잭션을 중단합니다. 이 로컬 개발 DB는 11개 활동·6개 미니게임을 적재해 무결성을 확인했지만, 배포 빌드에는 해당 seed 명령을 별도로 연결해야 합니다. 모험 맵의 `previewOnly` 엔진 상태 및 수업·모험 결과 서버 검증은 별도 완료 조건입니다.
 
 Security Rules, 실제 API 요청/응답 모델, 브라우저 SQLite 마이그레이션 실행·동기화 정책은 구현 단계에서 이 설계를 기준으로 구체화합니다. 저장소 작업 도구 자체에는 임의 셸 실행 기능이 없지만, 실제 로컬 SQLite 실행 결과는 사용자가 별도로 확인한 경우 문서에 그 검증 상태를 명시합니다.

@@ -351,15 +351,15 @@
     },
     {
       "path": "backend/admin/README.md",
-      "sha256": "b1998018d7b113e2ea75de855893bfa6a7a7813100416c17a9a3658fbb6ad4ec"
+      "sha256": "c194a585351633deb682d7f52f71dc2b737881f4d655c65943bcea3248969c4f"
     },
     {
       "path": "backend/api/README.md",
-      "sha256": "1bf817f6ecbaefceed8b9656dbc223adc473d289f7931b26c662d58be3c9bd34"
+      "sha256": "f6aba600ae7a282e5f55036b4a11d19d3f1cd67d4edc65ad12771cc127a52a97"
     },
     {
       "path": "backend/database/README.md",
-      "sha256": "d50d9615b2df31c6abe9737834c46ed56524f49b6759d1c3791e82bc981c695f"
+      "sha256": "23c0f02b4addfccab6d4465be5ae191a577185a5699ac532218564a4dfec18d9"
     },
     {
       "path": "backend/database/LOCATION_STORY_DB_SPEC.md",
@@ -731,7 +731,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "348c32f6c2b086c08974142c7fc1a66cf533e8df119e1156e190929dc571f235"
+      "sha256": "11c00fba83c4bc6f4f8e7fe2827d8818fcb30810c1b71f32e9e15c761e42d68d"
     },
     {
       "path": "lumia/README.md",

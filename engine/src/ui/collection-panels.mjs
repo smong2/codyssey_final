@@ -23,7 +23,7 @@ export function renderRoomPanel(panel,{el,btn,meta,settings=()=>({}),onSelectRoo
   const unread=new Set(unreadRoomIds(meta()));const grid=el('div',null,'bag-card-grid');body.append(grid);for(const master of ROOM_BACKGROUNDS){const room=roomProgress(meta(),master.id),selected=(settings().activeRoomBackgroundId??'default')===room.id,card=el('article',null,'collection-item-card');
    if(room.images&&(room.id==='default'||room.unlocked)){const art=el('img',null,'bag-room-image');art.src='./world-assets/'+room.images.day;art.alt=room.title;card.append(art);}else card.append(el('div','🔒','room-art-placeholder'));
    card.append(el('h3',room.title),el('p',room.id==='default'?'기본 제공':room.pieces.length+' / 12'));if(unread.has(room.id))card.append(el('small','NEW','collection-new-indicator'));if(room.id!=='default')card.append(btn('퍼즐 보기',()=>paint(room.id)));
-   if(room.unlocked){const use=btn(selected?'사용 중':'사용하기',()=>{if(onSelectRoom?.(room.id))paint();});use.disabled=selected||!room.images||isSaveFailed();card.append(use);}grid.append(card);
+   if(room.unlocked){const use=btn(selected?'사용 중':'사용하기',async()=>{if(await onSelectRoom?.(room.id))paint();});use.disabled=selected||!room.images||isSaveFailed();card.append(use);}grid.append(card);
   }
  }
  paint();

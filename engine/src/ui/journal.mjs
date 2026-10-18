@@ -62,7 +62,7 @@ export function createJournalUI(ctx){
       const names={knowledge:'지식',expression:'표현력',dexterity:'솜씨',exploration:'탐험',magic:'마법'};
       body.append(el('h2',c.name),el('p',c.description),el('h3','함께하는 효과'),el('p',Object.entries(c.modifiers).map(([key,value])=>names[key]+' +'+value).join(' · ')));
       if(c.selected)body.append(el('small','현재 함께하는 펫입니다.'));
-      else if(ctx.onSelectPet){const choose=btn('함께하기',()=>{if(ctx.onSelectPet(c.id)){dialog?.close?.();bag('펫');}});choose.disabled=ctx.isSaveFailed?.()??false;actions.push(choose);}
+      else if(ctx.onSelectPet){const choose=btn('함께하기',async()=>{if(await ctx.onSelectPet(c.id)){dialog?.close?.();bag('펫');}});choose.disabled=ctx.isSaveFailed?.()??false;actions.push(choose);}
      }
      dialog=modal?.(kind+' 정보',body,actions);
     },'collection-item-card collection-card-trigger silhouette-collection-card'+(locked?' locked-card':'')+(c.selected?' active-collection-card':''));

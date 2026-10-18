@@ -55,5 +55,5 @@ export function createDialogueSession({loadDialogue,completeDialogue,context=()=
   }catch(error){if(token===generation){active=false;payload=null;report(error);}return false;}
   finally{if(token===generation)loading=false;}
  };
- return {start,finish,retry(){if(finished||!completionInput)return Promise.resolve(false);return submit(generation);},cancel(){if(sending)return false;generation++;payload=null;completionInput=null;completionResult=null;loading=false;active=false;finished=false;return true;}};
+ return {start,finish,retry(){if(finished||!completionInput)return Promise.resolve(false);return submit(generation);},hasPendingCompletion(){return !finished&&!!completionInput;},cancel(){if(sending)return false;generation++;payload=null;completionInput=null;completionResult=null;loading=false;active=false;finished=false;return true;}};
 }

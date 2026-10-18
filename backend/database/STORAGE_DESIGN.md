@@ -89,7 +89,7 @@
 |---|---|
 | `uid`, `kstDate` | 경로와 일치하는 문자열 |
 | `firstActivityAt`, `lastActivityAt` | 그날 확정된 첫/마지막 게임 활동 시각; 가입·로그인만으로는 설정하지 않음 |
-| `activityCounts` | `class`, `adventure`, `rest`, `special`의 확정 횟수(음수 불가) |
+| `activityCounts` | `class`, `adventure`, 일반 `rest`, `special`, `forcedRest`의 확정 횟수(음수 불가). 강제휴식은 일반 휴식 누적 통계와 섞지 않음 |
 | `minigame` | `playCount`, `failCount`, `successCount`, `greatCount`, `byGameId.{gameId}.{fail|success|great}`; 게임별 결과 합계가 전체 결과와 일치 |
 | `story` | `mainCompletedCount`, `npcCompletedCount`, `locationCompletedCount` |
 | `run` | `completedRunCount`, `firstCompletedRunUserCount`(계정 최초 완주일에만 1), `endingViewCounts.{endingId}`, `finalStatSums.{stat}`, `finalStatGte300Counts.{stat}`, `finalStatGte500Counts.{stat}` |

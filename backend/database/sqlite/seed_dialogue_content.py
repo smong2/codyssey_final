@@ -49,6 +49,20 @@ EXPECTED_MAIN_SECONDARY_HIDDEN_EFFECTS = 22
 EXPECTED_MAIN_CHOICE_EFFECTS = EXPECTED_CANONICAL_CHOICES * 2 + EXPECTED_MAIN_SECONDARY_HIDDEN_EFFECTS
 EXPECTED_MAIN_DYNAMIC_ROLES = 7
 EXPECTED_MAIN_ROLE_CANDIDATES = 7 * 8
+EXPECTED_PET_COUNT = 10
+
+PET_MASTER = (
+    ("PET01", "에든", "대서고의 높은 창가를 좋아하는 작은 부엉이. 새로운 걸 알게 되면 가만히 듣고 있다가, 네가 그 이야기를 꺼낼 때 조용히 고개를 끄덕여 준다.", "PT01_owl.png", 1, 5, 3, 0, 0, 0),
+    ("PET02", "루엔", "희미한 룬빛을 따라다니는 여우. 낯선 마법을 만나면 서두르지 않고 주변을 한 바퀴 돌며 원리와 흔적부터 살펴본다.", "PT02_fox.png", 0, 5, 0, 0, 0, 3),
+    ("PET03", "포포", "리본과 작은 도구를 좋아하는 토끼. 떠오른 생각이 있으면 가만히 두기보다 손으로 금세 만들어 보여 주는 걸 좋아한다.", "PT03_rabbit.png", 0, 0, 5, 3, 0, 0),
+    ("PET04", "마린", "아르카디아의 호숫가와 물길을 좋아하는 수달. 새로운 길을 찾으면 먼저 달려가 신나게 손짓하며 발견한 것을 함께 보자고 한다.", "PT04_otter.png", 0, 0, 5, 0, 3, 0),
+    ("PET05", "토비", "마도 공방 근처를 자주 맴도는 강아지. 작은 소리와 냄새를 잘 기억해 흩어진 부품이나 지나친 단서를 곧잘 찾아낸다.", "PT05_puppy.png", 0, 3, 0, 5, 0, 0),
+    ("PET06", "니브", "룬빛이 비치면 앞발로 살짝 건드려 보는 고양이. 작은 장치와 마법 도구를 다룰 때는 장난기 많은 모습과 달리 꽤나 침착하다.", "PT06_cat.png", 0, 0, 0, 5, 0, 3),
+    ("PET07", "로코", "나무와 난간을 잘 타는 레서판다. 낯선 곳에서도 가볍게 움직이며 손 닿는 곳을 하나씩 살펴보는 것을 좋아한다.", "PT07_red_panda.png", 0, 0, 0, 3, 5, 0),
+    ("PET08", "피핀", "작은 주머니에 발견한 것을 차곡차곡 모으는 다람쥐. 어디서 무엇을 보았는지 잘 기억해 다음 탐험에서 든든한 길잡이가 되어 준다.", "PT08_squirrel.png", 0, 5, 0, 0, 5, 0),
+    ("PET09", "브램", "기분이 들뜨면 가시 끝에 작은 룬빛이 번지는 고슴도치. 말로 다 하지 못한 마음도 빛과 몸짓으로 또렷하게 보여 준다.", "PT09_hedgehog.png", 0, 0, 5, 0, 0, 5),
+    ("PET10", "세렌", "숲과 별빛 사이에 남은 희미한 룬의 흔적을 알아보는 아기사슴. 낯선 길에서도 조용히 앞을 살피며 새로운 곳으로 발을 내딛는다.", "PT10_fawn.png", 0, 0, 0, 0, 5, 5),
+)
 
 NON_PLAYER_SPEAKERS = (
     {
@@ -852,6 +866,32 @@ def seed_main_story(conn: sqlite3.Connection, version: str, activate: bool) -> N
                 ),
             )
 
+        for sort_order, pet in enumerate(PET_MASTER, start=1):
+            (pet_id, display_name, description, asset_ref, is_default,
+             knowledge, expression, skill, exploration, magic) = pet
+            conn.execute(
+                """
+                INSERT INTO pets(
+                    version, pet_id, display_name, description, asset_ref, is_default,
+                    knowledge_modifier, expression_modifier, skill_modifier,
+                    exploration_modifier, magic_modifier, sort_order
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(version, pet_id) DO UPDATE SET
+                    display_name=excluded.display_name,
+                    description=excluded.description,
+                    asset_ref=excluded.asset_ref,
+                    is_default=excluded.is_default,
+                    knowledge_modifier=excluded.knowledge_modifier,
+                    expression_modifier=excluded.expression_modifier,
+                    skill_modifier=excluded.skill_modifier,
+                    exploration_modifier=excluded.exploration_modifier,
+                    magic_modifier=excluded.magic_modifier,
+                    sort_order=excluded.sort_order
+                """,
+                (version, pet_id, display_name, description, asset_ref, is_default,
+                 knowledge, expression, skill, exploration, magic, sort_order),
+            )
+
         for speaker in NON_PLAYER_SPEAKERS:
             conn.execute(
                 """
@@ -972,16 +1012,25 @@ def seed_main_story(conn: sqlite3.Connection, version: str, activate: bool) -> N
                 (version, story_id, story_id, master.week, master.month, master.day),
             )
 
+            important_choice_summaries = {
+                # Existing reviewed planning summaries.  These are factual memory
+                # sentences for Phase 9; they are not generated from player-facing text.
+                "MS05_S3_TELL_ALL": "확인한 사실을 모두에게 먼저 알린다",
+                "MS05_S3_TELL_CLOSE": "가까운 친구부터 차례로 알린다",
+            }
             for group in master.choices.values():
                 for option_order, option in enumerate(group.options, start=1):
                     important = 1 if group.group_id == "MS05_S3_SHARE_INFO" else 0
+                    summary_text = important_choice_summaries.get(option.choice_id)
+                    if important and summary_text is None:
+                        raise ValueError(f"Important choice requires reviewed summary_text: {option.choice_id}")
                     conn.execute(
                         """
                         INSERT INTO story_choices(
                             version, event_id, choice_id, choice_text,
                             display_order, next_event_id, summary_text,
                             is_important, choice_group_id
-                        ) VALUES (?, ?, ?, ?, ?, NULL, NULL, ?, ?)
+                        ) VALUES (?, ?, ?, ?, ?, NULL, ?, ?, ?)
                         """,
                         (
                             version,
@@ -989,6 +1038,7 @@ def seed_main_story(conn: sqlite3.Connection, version: str, activate: bool) -> N
                             option.choice_id,
                             option.text,
                             option_order,
+                            summary_text,
                             important,
                             group.group_id,
                         ),
@@ -1176,6 +1226,10 @@ def validate_database(conn: sqlite3.Connection, version: str) -> None:
 
     if scalar("SELECT COUNT(*) FROM characters WHERE version=?", (version,)) != EXPECTED_CHARACTER_COUNT:
         raise ValueError("DB validation failed: character count")
+    if scalar("SELECT COUNT(*) FROM pets WHERE version=?", (version,)) != EXPECTED_PET_COUNT:
+        raise ValueError("DB validation failed: pet count")
+    if scalar("SELECT COUNT(*) FROM pets WHERE version=? AND is_default=1", (version,)) != 1:
+        raise ValueError("DB validation failed: default pet count")
     if scalar(
         f"SELECT COUNT(*) FROM stories WHERE version=? AND story_id IN ({main_placeholders}) AND story_type='MAIN'",
         main_params,

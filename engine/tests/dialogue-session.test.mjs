@@ -34,7 +34,9 @@ test('retries the exact completion input with one request id and no duplicate lo
  await session.start({slotId:'slot-1',eventId:'NPC01'});
  const submit=calls.rendered[0].handlers.onComplete({completionMode:'COMPLETE',selectedChoices:[{choiceNodeId:'C1',choiceId:'A'}]});
  assert.equal(await submit,false);
+ assert.equal(session.hasPendingCompletion(),true);
  assert.equal(await session.retry(),true);
+ assert.equal(session.hasPendingCompletion(),false);
  assert.deepEqual(calls.complete[1],calls.complete[0]);
  assert.equal(calls.applied.length,1);assert.equal(calls.continued,1);
 });

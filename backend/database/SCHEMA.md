@@ -415,6 +415,8 @@ NPC·Location Story가 공통으로 사용하는 발생 제한 상태입니다. 
 | `completedWeekdayCount` | Integer | 현재 주 완료 평일 수 |
 | `forcedRest.remainingWeekdays` | Integer | 남은 강제휴식 평일 수 |
 | `forcedRest.active` | Boolean | 강제휴식 활성 여부 |
+| `weekStartSnapshot` | Map/Null | 일정 확정 당시 5개 성장 스탯·체력. 주간 변화 계산용 서버 스냅샷 |
+| `lastWeekSummary` | Map/Null | 마지막으로 확정된 주의 성장 스탯 변화, 수업 수, 체력 소비·회복, 시작·종료 체력, 강제휴식 일수와 완료 시각 |
 | `minigameFailStreaks` | Map<GameId, Integer> | 현재 회차 게임별 연속 `FAIL` 횟수. 2회/4회 실패 보조 난이도 계산에 사용 |
 
 ### ScheduleEntry 예시
