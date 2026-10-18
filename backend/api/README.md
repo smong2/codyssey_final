@@ -11,11 +11,15 @@ API 서버 코드와 계약을 두는 공간입니다.
 
 FastAPI는 저장·회차·해금·엔딩 판정처럼 신뢰해야 하는 게임 규칙을 처리하고, 엔딩 직업 확정 후 Gemini에 개인화 편지 생성을 요청합니다.
 
+## Phase 12 배포·검증 현황
+
+Firebase Auth·Firestore Emulator에서 실제 SDK 연결 테스트와 브라우저 가입→인증→bootstrap→회차 시작→MS01 Dialogue 조회→재접속 복구를 검증했다. Python 회귀 테스트 152개, 엔진·미니게임 회귀 339개와 Emulator 전용 테스트 1개가 통과했다. Firebase 프로젝트 `codyssey-final`에 웹 앱 `lumia-web`과 Email/Password 공급자를 설정했고 Firestore 기본 DB를 Seoul에 프로덕션 모드로 생성했다. `activityDays.kstDate` 그룹 색인은 생성 중이다. Render/Vercel 운영 E2E는 아직 진행 중이며 완료 전까지 Phase 12는 완료로 표시하지 않는다. 설정값, 실행 순서, 15단계 검증 기록 방식은 [Phase 12 배포 안내](deploy/README.md)를 따른다.
+
 대화 기능은 팀에서 확정한 [대화 시스템 안내](../../document/dialogue/README.md)와 [Dialogue API · Engine 계약](../../document/dialogue/01_ENGINE_API_CONTRACT.md)을 따른다. 대화 마스터는 FastAPI가 접근 가능한 서버 측 콘텐츠 저장소에서 읽고, 현재 플레이 캐릭터·`storyCast`·자원 경로·스킵 가능 여부를 해석해 엔진용 `LINE / IMAGE / CHOICE / END` 순차 payload로 변환한다. 선택 보상은 payload에 노출하지 않고 `completeDialogue` 시 서버가 검증·계산·저장한다. 실제 HTTP endpoint 경로와 인증/오류 코드는 구현 단계에서 이 계약을 유지하는 범위로 확정한다.
 
 ## Phase 2–3 실행 기반
 
-`app/main.py`는 `/health`와 Firebase Admin 초기화를 제공한다. 인증·계정·일부 게임 API는 코드 및 오프라인 테스트까지만 구현했으며, 실제 Firebase 프로젝트 검증은 아직 완료되지 않았다. 실행 전 `requirements.txt`를 설치하고 다음 서버 환경변수를 설정한다.
+`app/main.py`는 `/health`와 Firebase Admin 초기화를 제공한다. API는 오프라인 회귀와 일부 Firebase Emulator 통합 검증을 통과했으며, 실제 Firebase 프로젝트 E2E는 아직 완료되지 않았다. 실행 전 `requirements.txt`를 설치하고 다음 서버 환경변수를 설정한다.
 
 | 변수 | Phase 2 동작 |
 |---|---|
@@ -48,6 +52,7 @@ backend/api/.venv/bin/uvicorn backend.api.app.main:app --host 127.0.0.1 --port 8
 | `GET /v1/account/settings` | 계정 전역 `activePetId / activeRoomBackgroundId / locale`을 반환한다. 슬롯별 설정으로 복제하지 않는다. |
 | `PATCH /v1/account/settings` | `activePetId` 또는 `activeRoomBackgroundId` 일부 변경. 서버가 현재 계정의 해금 목록에 포함된 ID만 허용하며 펫은 `PET01~PET10`, 마이룸 배경은 `ROOM_DEFAULT / ROOM_01~03`만 받는다. |
 | `DELETE /v1/account` | JSON `{ "confirm": true }`와 최근 5분 내 재인증된 ID Token을 요구한다. 자기 UID 하위 문서, Auth 계정을 삭제한다. |
+| `POST /v1/account/revoke-sessions` | 최근 5분 내 재인증된 ID Token으로 다른 세션의 refresh token을 폐기한다. 현재 브라우저는 새 ID Token을 받아 계속 사용한다. |
 
 초기 슬롯 5개는 실제 `EMPTY` 문서로 생성한다. 초기 `gameDataVersion`은 현재 SQLite seed의 `dev-dialogue-v1`이며, 마스터 버전 운영 정책은 슬롯 API 단계에서 재확인한다. 탈퇴 시 영향받는 KST 날짜의 `analyticsDays` 파생 문서를 먼저 제거해 오래된 집계가 표시되지 않게 한다. 일별 집계 재생성 작업은 관리자 통계 단계에서 연결해야 한다. Firestore와 Firebase Auth 간 분산 트랜잭션은 없으므로, Auth 삭제 전 오류가 나면 `deletionPending` 표시를 유지해 재인증 후 재시도한다. Auth 삭제 후 마지막 Firestore 루트 삭제가 실패하는 경우에는 운영자 정리가 필요하다. 이 경계는 실제 Firebase Emulator/프로젝트에서 추가 검증해야 한다.
 
@@ -71,7 +76,7 @@ backend/api/.venv/bin/uvicorn backend.api.app.main:app --host 127.0.0.1 --port 8
 | `POST /v1/save-slots/{slot_id}/recover` | `{requestId, expectedServerRevision}`. 단일 `IN_PROGRESS` 활동을 `INTERRUPTED`로 저장한 뒤 마이룸 복귀 경계에 둔다. 체력 소비는 유지하고 보상·실패 카운터는 추가하지 않는다. |
 | `DELETE /v1/save-slots/{slot_id}` | `{confirm: true, requestId, expectedServerRevision}`. 해당 슬롯만 초기화하며 계정 전역 메타·통계·해금·엔딩 기록은 보존한다. |
 
-새 회차의 캐릭터 해금, 시작 스탯(기본 50 + 캐릭터 보정 + 영구 보너스), `storyCast`, 주간/스토리 카운터는 서버가 계산한다. `storyCast`는 회차 생성 시 한 번 저장하고 조회·복구에서 다시 추첨하지 않는다. 정상 시작은 MS01 진입 전 저장을 완료한다. 모든 변경은 Phase 4의 UID별 request receipt와 slot revision 트랜잭션을 사용한다. 충돌은 409이며 동일 명령 재전송은 `replayed: true`를 반환한다. 이 코드는 로컬 모의 Firestore에서 검증했으며 Firebase Emulator/실제 프로젝트와 클라이언트 연결은 아직 검증하지 않았다.
+새 회차의 캐릭터 해금, 시작 스탯(기본 50 + 캐릭터 보정 + 영구 보너스), `storyCast`, 주간/스토리 카운터는 서버가 계산한다. `storyCast`는 회차 생성 시 한 번 저장하고 조회·복구에서 다시 추첨하지 않는다. 정상 시작은 MS01 진입 전 저장을 완료한다. 모든 변경은 Phase 4의 UID별 request receipt와 slot revision 트랜잭션을 사용한다. 충돌은 409이며 동일 명령 재전송은 `replayed: true`를 반환한다. 이 코드는 모의 Firestore와 Emulator에서 검증했고, 로컬 브라우저의 회차 시작·MS01 로드·재접속을 확인했다. 실제 프로젝트 검증은 남아 있다.
 
 SQLite 파일은 `.gitignore` 대상이므로 Render의 새 빌드 환경에는 자동으로 존재하지 않는다. 서버를 시작하기 전에 저장소 루트에서 다음 순서로 버전 `dev-dialogue-v1` 마스터를 생성·검증하고, 결과 파일을 `CONTENT_SQLITE_PATH`로 지정해야 한다. 파일이 없거나 캐스팅 데이터가 불완전하면 새 회차 생성은 503으로 실패하며 임의 기본값으로 진행하지 않는다.
 

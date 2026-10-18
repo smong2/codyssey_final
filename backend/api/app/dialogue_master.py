@@ -75,14 +75,14 @@ class DialogueMaster:
         if reference.startswith("CHARACTER:"):
             character_id = reference[10:]
             row = connection.execute(
-                "SELECT display_name,portrait_asset_ref FROM characters WHERE version=? AND character_id=?",
+                "SELECT display_name,full_body_asset_ref FROM characters WHERE version=? AND character_id=?",
                 (version, character_id),
             ).fetchone()
             if row is None:
                 raise DialogueMasterError("Unknown character speaker")
             return character_id, {
                 "kind": "CHARACTER", "id": character_id, "name": row["display_name"],
-                "portraitSrc": self._image_src(row["portrait_asset_ref"], is_portrait=True),
+                "portraitSrc": self._image_src(row["full_body_asset_ref"], is_portrait=True),
             }
         if reference.startswith("NPC:"):
             speaker_id = reference[4:]

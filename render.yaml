@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: lumia-api
+    runtime: python
+    plan: free
+    buildCommand: bash backend/api/deploy/build.sh
+    startCommand: uvicorn backend.api.app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: FIREBASE_PROJECT_ID
+        value: codyssey-final
+      - key: FIREBASE_SERVICE_ACCOUNT_JSON
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: DIALOGUE_TOKEN_SECRET
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.8-flash
+      - key: GEMINI_THINKING_LEVEL
+        value: low

@@ -208,6 +208,22 @@ def update_account_settings(
     return settings.model_dump(mode="json")
 
 
+@router.post("/revoke-sessions")
+def revoke_sessions(
+    user: AuthenticatedUser = Depends(require_verified_user),
+    services: FirebaseServices = Depends(get_firebase_services),
+) -> dict[str, bool]:
+    """Invalidate all refresh tokens after a recent client reauthentication."""
+    now = int(datetime.now(timezone.utc).timestamp())
+    if user.auth_time > now + 60 or now - user.auth_time > 300:
+        raise HTTPException(status_code=403, detail="Recent reauthentication required")
+    try:
+        services.auth.revoke_refresh_tokens(user.uid)
+    except Exception:
+        raise HTTPException(status_code=503, detail="Session revocation unavailable") from None
+    return {"revoked": True}
+
+
 @router.delete("")
 def delete_account(
     body: DeleteAccountRequest,

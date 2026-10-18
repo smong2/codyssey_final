@@ -111,6 +111,7 @@ class Auth:
         self.admin = admin
         self.verify_calls = []
         self.deleted = []
+        self.revoked = []
         self.fail_delete = False
         self.auth_time = int(datetime.now(timezone.utc).timestamp())
 
@@ -144,6 +145,9 @@ class Auth:
         if self.fail_delete:
             raise RuntimeError("Firebase Auth unavailable")
         self.deleted.append(uid)
+
+    def revoke_refresh_tokens(self, uid):
+        self.revoked.append(uid)
 
 
 def client_for(*, verified=True, error=None):
@@ -279,6 +283,16 @@ def test_delete_requires_explicit_confirmation_and_recent_authentication():
         assert client.request("DELETE", "/v1/account", json={"confirm": True}, headers=headers()).status_code == 403
     assert "users/owner" in db.data
     assert auth_client.deleted == []
+
+
+def test_revoke_sessions_requires_recent_verified_token_and_uses_own_uid():
+    client, _, auth_client = client_for()
+    with client:
+        result = client.post("/v1/account/revoke-sessions", headers=headers())
+        assert result.status_code == 200 and result.json() == {"revoked": True}
+        auth_client.auth_time -= 301
+        assert client.post("/v1/account/revoke-sessions", headers=headers()).status_code == 403
+    assert auth_client.revoked == ["owner"]
 
 
 def test_delete_invalidates_affected_analytics_then_removes_all_user_data_and_auth():

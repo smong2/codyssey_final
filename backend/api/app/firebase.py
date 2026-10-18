@@ -39,6 +39,9 @@ class FirebaseAuthClient:
     def delete_user(self, uid: str) -> None:
         auth.delete_user(uid, app=self._app)
 
+    def revoke_refresh_tokens(self, uid: str) -> None:
+        auth.revoke_refresh_tokens(uid, app=self._app)
+
 
 @dataclass(frozen=True, repr=False)
 class FirebaseServices:

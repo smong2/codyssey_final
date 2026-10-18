@@ -4,3 +4,12 @@
 /backend/database/sqlite/lumia-content.sqlite3
 /backend/database/sqlite/lumia-content.sqlite3-wal
 /backend/database/sqlite/lumia-content.sqlite3-shm
+
+# Local test and deployment build products
+__pycache__/
+*.pyc
+/firestore-debug.log
+/firebase-debug.log
+/ui-debug.log
+/web-dist/
+/node_modules/
