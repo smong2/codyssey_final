@@ -351,7 +351,7 @@
     },
     {
       "path": "backend/admin/README.md",
-      "sha256": "c194a585351633deb682d7f52f71dc2b737881f4d655c65943bcea3248969c4f"
+      "sha256": "bd5b53a991c935bdf006caf9a1f0c2771687def7927db14ab2ce907624ddcec8"
     },
     {
       "path": "backend/api/README.md",
@@ -359,7 +359,7 @@
     },
     {
       "path": "backend/api/deploy/README.md",
-      "sha256": "27e323efb93f6953f5efd2ced2da224ca6f8956984e7aa41c393f57e3f88d6c2"
+      "sha256": "26d36fabb93f6a5e4aec336c2afad3fcf4bc1c21017a69d60263ae40ad536646"
     },
     {
       "path": "backend/database/README.md",
