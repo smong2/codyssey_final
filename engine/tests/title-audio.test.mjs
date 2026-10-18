@@ -51,7 +51,7 @@ test('admission music stays active through the admission sequence and room entry
 
 test('button click sound plays unless the shared mute control is active',async()=>{
  const {audio,tracks}=fakeAudioHarness();
- const click=tracks.find(track=>track.source.endsWith('sfx_button_click.mp3'));
+ const click=tracks.find(track=>track.source.endsWith('sfx_button_press.mp3'));
  audio.playClick();
  await new Promise(resolve=>setImmediate(resolve));
  assert.equal(click.playCount,1);
@@ -67,7 +67,7 @@ test('button click sound plays unless the shared mute control is active',async()
 
 test('BGM and sound effects have independent mute controls',async()=>{
  const {audio,tracks}=fakeAudioHarness();
- const click=tracks.find(track=>track.source.endsWith('sfx_button_click.mp3'));
+ const click=tracks.find(track=>track.source.endsWith('sfx_button_press.mp3'));
  audio.startTitle(0);
  audio.setBgmMuted(true);
  audio.playClick();
@@ -84,7 +84,7 @@ test('BGM and sound effects have independent mute controls',async()=>{
 
 test('diary entry uses its dedicated click sound',async()=>{
  const {audio,tracks}=fakeAudioHarness();
- const click=tracks.find(track=>track.source.endsWith('sfx_button_click.mp3'));
+ const click=tracks.find(track=>track.source.endsWith('sfx_button_press.mp3'));
  const diary=tracks.find(track=>track.source.endsWith('sfx_diary_open.mp3'));
  audio.playClick('diary');
  await new Promise(resolve=>setImmediate(resolve));

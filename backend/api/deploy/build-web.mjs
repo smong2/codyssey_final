@@ -72,7 +72,7 @@ for (const item of await readdir(path.join(root, 'prototype/assets'))) {
 await copyFile(path.join(root, 'prototype/assets/intro.mp4'), path.join(output, 'intro.mp4'));
 await mkdir(path.join(output, 'audio-assets'), {recursive: true});
 for (const file of ['bgm_title_intro.mp3', 'bgm_title_main.mp3', 'bgm_admission_invitation.mp3',
-  'bgm_myroom.mp3', 'sfx_button_click.mp3', 'sfx_diary_open.mp3']) {
+  'bgm_myroom.mp3', 'sfx_button_press.mp3', 'sfx_diary_open.mp3']) {
   const folder = file.startsWith('bgm_') ? 'bgm' : 'sfx';
   await copyFile(path.join(root, 'asset/audio', folder, file), path.join(output, 'audio-assets', file));
 }

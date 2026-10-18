@@ -11,6 +11,7 @@
 | `asset/puzzle/` | 퍼즐 바탕과 연결 상태 | `PZ01_puzzle_tile_base_000.png`, `PZ_start_active_005.svg` |
 | `asset/ui/` | 카드·초대장·가방·기록·대화창·로고 | `UI07_admission_invitation_004.png` |
 | `asset/effect/` | 룬 빛과 달빛 광휘 | `FX01_shared_rune_light_000.png` |
+| `asset/audio/` | BGM·SFX 파일과 API 매칭 기준 | 모험맵 3종은 `bgm_map.mp3`, 미니게임 전체는 `bgm_minigame.mp3`. 실제 파일명·스토리별 매칭은 [오디오 안내](../asset/audio/README.md)를 따름. 매칭 문서 작성과 API·엔진 연결 완료는 구분 |
 | `asset/pet/` | 본편 펫 10종과 동물 NPC 루루 | `PT01~PT10` 이미지가 게임 ID `PET01~PET10`과 번호별 대응; 루루는 펫 아님 |
 | `asset/map/` | 온실 모험맵과 대서고·천문대 추가 맵 | 온실은 `MP01` 원본·WebP·충돌 자원이 엔진 연결됨; `MP02/MP03` 전체맵·전경·충돌 자원은 보유하나 엔진 연결/검수 별도 |
 | `asset/font_files/` | 게임용 WOFF2·창작 룬 SVG·폰트 원본·라이선스 | 자체 서체 시제품, 무료 웹폰트, `originals/`, `licenses/` |

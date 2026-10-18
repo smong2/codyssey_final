@@ -271,7 +271,7 @@
     },
     {
       "path": "asset/audio/README.md",
-      "sha256": "c8ab2a43a54c08bd96d6cba7de71336bcb1bc8f0743b5b915c7e4d00fa10fe3b"
+      "sha256": "5a01e7340924dbdcb88350ab6c9b3b8d6e0d0faae8a9320a5fc77db4eac308b6"
     },
     {
       "path": "asset/background/README.md",
@@ -739,7 +739,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "11c00fba83c4bc6f4f8e7fe2827d8818fcb30810c1b71f32e9e15c761e42d68d"
+      "sha256": "6c0d733eb9ea0666d9385a9863bcaf835cbb6ac0138c35107fdd0799517a3239"
     },
     {
       "path": "lumia/README.md",

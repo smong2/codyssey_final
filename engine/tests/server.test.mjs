@@ -16,16 +16,16 @@ test('server serves only the approved game music and button sound files with str
  const {createEngineServer,resolveAudioAssetFilename}=await import('../server.mjs');
  const server=createEngineServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>server.close(r)));
  const base='http://127.0.0.1:'+server.address().port;
- for(const path of ['/audio-assets/bgm_title_intro.mp3','/audio-assets/bgm_title_main.mp3','/audio-assets/bgm_admission_invitation.mp3','/audio-assets/bgm_myroom.mp3','/audio-assets/sfx_button_click.mp3','/audio-assets/sfx_diary_open.mp3']){
+ for(const path of ['/audio-assets/bgm_title_intro.mp3','/audio-assets/bgm_title_main.mp3','/audio-assets/bgm_admission_invitation.mp3','/audio-assets/bgm_myroom.mp3','/audio-assets/sfx_button_press.mp3','/audio-assets/sfx_diary_open.mp3']){
   const response=await fetch(base+path,{method:'HEAD'});
   assert.equal(response.status,200,path);
   assert.equal(response.headers.get('content-type'),'audio/mpeg',path);
   assert.equal(response.headers.get('accept-ranges'),'bytes',path);
  }
- assert.equal(resolveAudioAssetFilename('/audio-assets/sfx_button_click.mp3'),'sfx_button_click.mp3');
+ assert.equal(resolveAudioAssetFilename('/audio-assets/sfx_button_press.mp3'),'sfx_button_press.mp3');
  assert.equal(resolveAudioAssetFilename('/audio-assets/bgm_title_intro.mp3'),'bgm_title_intro.mp3');
- assert.equal(resolveAudioAssetFilename('/audio-assets/sfx_button_click.MP3'),null);
- assert.equal((await fetch(base+'/audio-assets/sfx_button_click.MP3',{method:'HEAD'})).status,404);
+ assert.equal(resolveAudioAssetFilename('/audio-assets/sfx_button_press.MP3'),null);
+ assert.equal((await fetch(base+'/audio-assets/sfx_button_press.MP3',{method:'HEAD'})).status,404);
  const range=await fetch(base+'/audio-assets/bgm_title_intro.mp3',{headers:{Range:'bytes=0-15'}});
  assert.equal(range.status,206);
  assert.equal(range.headers.get('content-range').startsWith('bytes 0-15/'),true);

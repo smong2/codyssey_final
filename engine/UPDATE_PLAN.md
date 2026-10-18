@@ -145,7 +145,7 @@ smong2/codyssey_final의 GitHub만 확인하세요. 저장소 파일 수정·com
 
 ```js
 // tests/server.test.mjs의 기존 base/server fixture 안에서 추가할 회귀
-assert.equal((await fetch(base+'/audio-assets/sfx_button_click.mp3',{method:'HEAD'})).status,200);
+assert.equal((await fetch(base+'/audio-assets/sfx_button_press.mp3',{method:'HEAD'})).status,200);
 ```
 
 #### D1. 서버 없이 검증 가능한 공통 재생기

@@ -11,7 +11,7 @@ const TRACK_URLS={
  title:'./audio-assets/bgm_title_main.mp3',
  admission:'./audio-assets/bgm_admission_invitation.mp3',
  room:'./audio-assets/bgm_myroom.mp3',
- click:'./audio-assets/sfx_button_click.mp3',
+ click:'./audio-assets/sfx_button_press.mp3',
  diary:'./audio-assets/sfx_diary_open.mp3'
 };
 

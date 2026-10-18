@@ -10,7 +10,7 @@ const audioAssets=new Map([
  ['/audio-assets/bgm_title_main.mp3','bgm_title_main.mp3'],
  ['/audio-assets/bgm_admission_invitation.mp3','bgm_admission_invitation.mp3'],
  ['/audio-assets/bgm_myroom.mp3','bgm_myroom.mp3'],
- ['/audio-assets/sfx_button_click.mp3','sfx_button_click.mp3'],
+ ['/audio-assets/sfx_button_press.mp3','sfx_button_press.mp3'],
  ['/audio-assets/sfx_diary_open.mp3','sfx_diary_open.mp3']
 ]);
 export function resolveAudioAssetFilename(pathname){return audioAssets.get(pathname)??null;}

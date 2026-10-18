@@ -136,7 +136,7 @@ node engine/server.mjs
 
 ### 타이틀 음악 전환
 
-인트로와 타이틀 음악은 `asset/audio/bgm/bgm_title_intro.mp3`, `asset/audio/bgm/bgm_title_main.mp3`를 사용합니다. 입학 장면에는 1회성 트랙 `asset/audio/bgm/bgm_admission_invitation.mp3`, 마이룸에는 반복 트랙 `asset/audio/bgm/bgm_myroom.mp3`를 사용합니다. 클릭 효과음은 `asset/audio/sfx/sfx_button_click.mp3`, 다이어리 열기에는 `asset/audio/sfx/sfx_diary_open.mp3`를 사용합니다. 오디오 파일 확장자는 소문자 `.mp3`로 통일합니다. 시계탑 전용 트랙은 현재 이 흐름에서 재생하지 않습니다. 엔진 서버는 위 파일만 오디오 경로로 허용하며, 다른 오디오 파일은 공개하지 않습니다. MP3는 Range 요청을 지원해 재생 중 필요한 구간을 읽습니다.
+인트로와 타이틀 음악은 `asset/audio/bgm/bgm_title_intro.mp3`, `asset/audio/bgm/bgm_title_main.mp3`를 사용합니다. 입학 장면에는 1회성 트랙 `asset/audio/bgm/bgm_admission_invitation.mp3`, 마이룸에는 반복 트랙 `asset/audio/bgm/bgm_myroom.mp3`를 사용합니다. 클릭 효과음은 `asset/audio/sfx/sfx_button_press.mp3`, 다이어리 열기에는 `asset/audio/sfx/sfx_diary_open.mp3`를 사용합니다. 오디오 파일 확장자는 소문자 `.mp3`로 통일합니다. 시계탑 전용 트랙은 현재 이 흐름에서 재생하지 않습니다. 엔진 서버는 위 파일만 오디오 경로로 허용하며, 다른 오디오 파일은 공개하지 않습니다. MP3는 Range 요청을 지원해 재생 중 필요한 구간을 읽습니다.
 
 인트로 음악은 영상과 함께 시작하고, 영상이 먼저 끝나도 음악 트랙을 계속 재생합니다. 실제 트랙 재생 위치가 끝나기 약 6초 전이 되면 메인 BGM을 0초부터 시작해 약 6초간 교차 페이드합니다. 트랙 종료 이벤트는 메타데이터를 읽지 못했을 때의 대체 경로입니다. `건너뛰기`는 0.65초 교차 페이드하며 메인 BGM을 항상 0초부터 시작합니다. `다시 보기`는 인트로 음악을 다시 시작하고 메인 BGM 위치도 0초로 초기화해, 인트로 트랙 종료 시 메인 BGM을 처음부터 재생합니다. 캐릭터 선택에서 `시작하기`를 누르면 초대장 전환 전에 0.9초 블랙 디졸브를 적용합니다. 입학 트랙은 초대장과 시계탑 장면의 흐름 동안 유지하고, 마이룸 진입 시 마이룸 BGM으로 교체합니다. 오른쪽 아래 스피커는 BGM만 음소거/해제하며, 마이룸 메뉴의 `소리 설정`에서 BGM과 효과음을 각각 전환할 수 있습니다. 자동 재생 차단과 사용자의 음소거 설정을 별도로 유지하며, 효과음 재생 오류는 개발자 콘솔에만 기록하고 화면 안내는 띄우지 않습니다. 다이어리 버튼은 전용 효과음을 사용하고 나머지 버튼은 공통 클릭 효과음을 사용합니다. 실제 크롬 재생/화면 검수는 사용자가 진행합니다.
 
