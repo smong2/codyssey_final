@@ -8,12 +8,12 @@
 
 아래 그림은 보유 이미지입니다. `ART-*`는 최신 제작 문서의 **필요 그림 ID**이며, 이름이나 장소가 비슷하다는 이유로 자동 확정하지 않습니다. [전체 장면 연결표](../README.md)에서 배경·화자와 함께 확인하세요.
 
-| 이야기·필요 그림 | 현재 보유 이미지 · 작은 미리보기 | 판단 |
+| 이야기·필요 그림 | 현재 보유 이미지 · 미리보기 | 판단 |
 |---|---|---|
-| `LOC_OBS_01–04` · `ART-L01` 펼친 관측 일기 | [먼지·거미줄이 쌓인 펼친 관측 일기](./ART-L01_observation_diary_open_dusty.png)<br><img src="./ART-L01_observation_diary_open_dusty.png" width="110" alt="먼지와 거미줄이 쌓인 펼친 관측 일기"> | **이미지 채택**: 네 회차가 이 한 장을 재사용. 엔진 표시 검수는 별도 |
-| `LOC_GH_01-R1` · `ART-L02` 시든 허브 화분 | [시든 화분 카드](./plant1_wilted_frame_thin_3840x2161.png)<br><img src="./plant1_wilted_frame_thin_3840x2161.png" width="110" alt="시든 화분 카드"> | **채택 후보**: 프레임을 포함한 3840×2161 카드. 온실 배경 위 FOCUS 표시 방식 검수 필요 |
-| `LOC_GH_01-R2` · `ART-L03` 같은 화분의 회복 상태 | [회복 화분 카드](./plant2_restored_frame_thin_3840x2161.png)<br><img src="./plant2_restored_frame_thin_3840x2161.png" width="110" alt="회복 화분 카드"> | **채택 후보**: L02와 한 쌍. 상태 전환·규격 검수 필요 |
-| `LOC_LIB_01-R1` · `ART-L04` 책장 위 평범한 책 | [장식 있는 고서 카드](./book1_ancient_frame_thin_3840x2161.png)<br><img src="./book1_ancient_frame_thin_3840x2161.png" width="110" alt="장식 있는 고서 카드"> | **불일치 후보**: 보유 그림은 장식 있는 고서 카드. 평범한 책이 책장 위에 가로로 놓인 구도가 아님 |
+| `LOC_OBS_01–04` · `ART-L01` 펼친 관측 일기 | [먼지·거미줄이 쌓인 펼친 관측 일기](./ART-L01_observation_diary_open_dusty.png)<br><img src="./ART-L01_observation_diary_open_dusty.png" width="200" alt="먼지와 거미줄이 쌓인 펼친 관측 일기"> | **이미지 채택**: 네 회차가 이 한 장을 재사용. 엔진 표시 검수는 별도 |
+| `LOC_GH_01-R1` · `ART-L02` 시든 허브 화분 | [시든 화분 카드](./plant1_wilted_frame_thin_3840x2161.png)<br><img src="./plant1_wilted_frame_thin_3840x2161.png" width="200" alt="시든 화분 카드"> | **채택 후보**: 프레임을 포함한 3840×2161 카드. 온실 배경 위 FOCUS 표시 방식 검수 필요 |
+| `LOC_GH_01-R2` · `ART-L03` 같은 화분의 회복 상태 | [회복 화분 카드](./plant2_restored_frame_thin_3840x2161.png)<br><img src="./plant2_restored_frame_thin_3840x2161.png" width="200" alt="회복 화분 카드"> | **채택 후보**: L02와 한 쌍. 상태 전환·규격 검수 필요 |
+| `LOC_LIB_01-R1` · `ART-L04` 책장 위 평범한 책 | [장식 있는 고서 카드](./book1_ancient_frame_thin_3840x2161.png)<br><img src="./book1_ancient_frame_thin_3840x2161.png" width="200" alt="장식 있는 고서 카드"> | **불일치 후보**: 보유 그림은 장식 있는 고서 카드. 평범한 책이 책장 위에 가로로 놓인 구도가 아님 |
 
 `MS02`의 마법 덩굴은 `ART-M01/M02`로 별도 제작 지시가 있습니다. 여기의 일상 시든·회복 화분이나 `LOC_GH_01` 카드를 MS02에 자동 연결하지 않습니다. `ART-N01` 안내지와 `ART-N06` 루루 보물상자는 아래의 전용 FOCUS를 사용합니다. 그 밖의 `ART-N02–N05`, `ART-M01–M06`, `ART-E01`은 이름이 비슷한 일반 아이템을 대신 연결하지 않습니다.
 
@@ -21,11 +21,11 @@
 
 다음 세 장은 사용자 시안 선택에 따라 등록했습니다. `ART-*`는 제작 문서의 ID입니다. **이미지 경로 확정과 엔진 화면 연결 완료는 별개**이며, 실제 표시·크기 검수는 남아 있습니다. 아래 규격은 파일의 실제 픽셀 수입니다.
 
-| 파일 · ID | 처음 사용하는 장면과 재사용처 | 규격 | 작은 미리보기 |
+| 파일 · ID | 처음 사용하는 장면과 재사용처 | 규격 | 미리보기 |
 |---|---|---:|:---:|
-| [ART-N01_meeting_notices_scattered.png](./ART-N01_meeting_notices_scattered.png) · `ART-N01` | `NPC_GUIDE_01` 시계탑 광장: 바람에 흩어진 작은 모임 안내지 여러 장. `NPC_GUIDE_02`, `NPC_GUIDE_04`에서 같은 그림 재사용. 글자는 읽히지 않는 문양으로 표현 | 1536×1024 | <img src="./ART-N01_meeting_notices_scattered.png" width="140" alt="바람에 흩어진 모임 안내지"> |
-| [ART-N06_lulu_treasure_chest_open.png](./ART-N06_lulu_treasure_chest_open.png) · `ART-N06` | `NPC_LULU_02` 온실 또는 약초원: 루루가 단추와 작은 수집품을 보관하는 열린 보물상자. `NPC_LULU_03–04`에서 같은 그림 재사용. 새 발견물은 대사로 설명 | 1226×1283 | <img src="./ART-N06_lulu_treasure_chest_open.png" width="120" alt="소소한 수집품이 보이는 루루의 열린 보물상자"> |
-| [ART-L01_observation_diary_open_dusty.png](./ART-L01_observation_diary_open_dusty.png) · `ART-L01` | `LOC_OBS_01` 별빛 천문대: 오래 방치되어 먼지와 거미줄이 쌓인 펼친 관측 일기. `LOC_OBS_02–04`에서 같은 그림 재사용. 회차별 기록 내용은 대화창 텍스트로 표시 | 1672×941 | <img src="./ART-L01_observation_diary_open_dusty.png" width="180" alt="아이보리 프레임 속 먼지 쌓인 펼친 관측 일기"> |
+| [ART-N01_meeting_notices_scattered.png](./ART-N01_meeting_notices_scattered.png) · `ART-N01` | `NPC_GUIDE_01` 시계탑 광장: 바람에 흩어진 작은 모임 안내지 여러 장. `NPC_GUIDE_02`, `NPC_GUIDE_04`에서 같은 그림 재사용. 글자는 읽히지 않는 문양으로 표현 | 1536×1024 | <img src="./ART-N01_meeting_notices_scattered.png" width="240" alt="바람에 흩어진 모임 안내지"> |
+| [ART-N06_lulu_treasure_chest_open.png](./ART-N06_lulu_treasure_chest_open.png) · `ART-N06` | `NPC_LULU_02` 온실 또는 약초원: 루루가 단추와 작은 수집품을 보관하는 열린 보물상자. `NPC_LULU_03–04`에서 같은 그림 재사용. 새 발견물은 대사로 설명 | 1226×1283 | <img src="./ART-N06_lulu_treasure_chest_open.png" width="200" alt="소소한 수집품이 보이는 루루의 열린 보물상자"> |
+| [ART-L01_observation_diary_open_dusty.png](./ART-L01_observation_diary_open_dusty.png) · `ART-L01` | `LOC_OBS_01` 별빛 천문대: 오래 방치되어 먼지와 거미줄이 쌓인 펼친 관측 일기. `LOC_OBS_02–04`에서 같은 그림 재사용. 회차별 기록 내용은 대화창 텍스트로 표시 | 1672×941 | <img src="./ART-L01_observation_diary_open_dusty.png" width="320" alt="아이보리 프레임 속 먼지 쌓인 펼친 관측 일기"> |
 
 ## 기존 게임용 아이템 · 25장
 
