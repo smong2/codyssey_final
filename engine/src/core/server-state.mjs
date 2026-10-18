@@ -48,9 +48,9 @@ const localPhase=phase=>{
  if(['SCHEDULE_CONFIRMED','ACTIVITY_READY','ACTIVITY_IN_PROGRESS','ACTIVITY_PRE_STORY_PENDING','ACTIVITY_STORY_PENDING','MY_ROOM_RECOVERY'].includes(phase))return 'ACTING';
  return 'PLANNING';
 };
-const projectedHistory=(run,schedule)=>WEEKDAYS.flatMap((day,index)=>{
- const entry=schedule?.[day];if(!entry||entry.status!=='COMPLETED')return [];
+const projectHistoryEntry=(run,entry,week,day)=>{
  const action=actionFor(entry),growth={};
+ if(!action||!Number.isInteger(week)||week<1||week>52||!Number.isInteger(day)||day<0||day>4||entry.status!=='COMPLETED')throw new Error('서버 활동 기록이 올바르지 않습니다.');
  const lesson=entry.type==='CLASS'?classOf(action):null;
  if(lesson&&typeof entry.growthApplied==='number')growth[lesson.stat]=entry.growthApplied;
  if(entry.type==='ADVENTURE'&&Number.isFinite(entry.growthAwarded?.exploration))growth.exploration=entry.growthAwarded.exploration;
@@ -61,8 +61,16 @@ const projectedHistory=(run,schedule)=>WEEKDAYS.flatMap((day,index)=>{
   transferChanges[statKey(transfer.fromStat)]=-transfer.amount;transferChanges[statKey(transfer.toStat)]=transfer.amount;
  }
  const resolutions={GREAT:'greatSuccess',SUCCESS:'success',FAIL:'failure',MISSION_COMPLETE:'success',TIMEOUT:'timeout',TRANSFERRED:'transferred',SKIPPED:'skipped',INTERRUPTED:'interrupted'};
- return [{week:run.week,day:index,action,...(locationFor(entry)?{locationId:locationFor(entry)}:{}),status:entry.resolution==='INTERRUPTED'?'INTERRUPTED':'COMPLETED',effect:{outcome:resolutions[entry.resolution]??String(entry.resolution??'complete').toLowerCase(),staminaChange,staminaAfter,growth,...(Object.keys(transferChanges).length?{transferChanges}:{}),forcedRest:entry.type==='FORCED_REST',forcedRestDays:run.forcedRest?.remainingWeekdays??0}}];
-});
+ const forcedRestDays=entry.type==='FORCED_REST'?(Number.isInteger(entry.forcedRestDays)?entry.forcedRestDays:run.forcedRest?.remainingWeekdays??0):0;
+ return {week,day,action,...(locationFor(entry)?{locationId:locationFor(entry)}:{}),status:entry.resolution==='INTERRUPTED'?'INTERRUPTED':'COMPLETED',effect:{outcome:resolutions[entry.resolution]??String(entry.resolution??'complete').toLowerCase(),staminaChange,staminaAfter,growth,...(Object.keys(transferChanges).length?{transferChanges}:{}),forcedRest:entry.type==='FORCED_REST',forcedRestDays}};
+};
+const projectedHistory=(run,schedule)=>{
+ const stored=run.activityHistory;if(stored!==undefined&&(!Array.isArray(stored)||stored.length>260))throw new Error('서버 활동 기록이 올바르지 않습니다.');
+ const rows=[],seen=new Set(),add=(entry,week,day)=>{const key=`${week}:${day}`;if(seen.has(key))return;rows.push(projectHistoryEntry(run,entry,week,day));seen.add(key);};
+ for(const entry of stored??[]){if(!entry||typeof entry!=='object')throw new Error('서버 활동 기록이 올바르지 않습니다.');add(entry,entry.week,entry.day);}
+ WEEKDAYS.forEach((weekday,index)=>{const entry=schedule?.[weekday];if(entry?.status==='COMPLETED')add(entry,run.week,index);});
+ return rows.sort((a,b)=>a.week-b.week||a.day-b.day);
+};
 
 export function serverScheduleActivityIds(run,actions,locations=[]){
  if(!run||typeof run!=='object'||!Array.isArray(actions)||actions.length!==5)throw new Error('서버 주간 일정 입력이 올바르지 않습니다.');

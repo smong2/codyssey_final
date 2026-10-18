@@ -30,6 +30,18 @@ test('revision conflict can discard the stale mutation and refresh authoritative
  assert.equal(calls,1);assert.equal(game.pending(),null);assert.equal(game.slot(1).serverRevision,4);assert.equal(game.slot(1).activeRun.phase,'MY_ROOM_RECOVERY');
 });
 
+test('schedule confirmation reuses returned revision and activity start skips unrelated collection refresh',async()=>{
+ let current=playing(),slotReads=0,collectionReads=0;
+ const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>{collectionReads++;return collection;},getSaveSlot:async()=>{slotReads++;return current;},
+  confirmSchedule:async()=>({serverRevision:4}),startActivity:async()=>{current=playing(5,{...current.activeRun,phase:'ACTIVITY_IN_PROGRESS',pendingStoryEvent:null});return {serverRevision:5};}};
+ const game=createServerGameSession({services,requestIdFactory:()=> 'fast-path'});await game.load();
+ assert.equal(collectionReads,1);assert.equal(slotReads,0);
+ await game.confirmSchedule(1,['REST_DEFAULT','REST_DEFAULT','REST_DEFAULT','REST_DEFAULT','REST_DEFAULT']);
+ assert.equal(game.slot(1).serverRevision,4);assert.equal(slotReads,0);assert.equal(collectionReads,1);
+ await game.startActivity(1);
+ assert.equal(game.slot(1).serverRevision,5);assert.equal(slotReads,1);assert.equal(collectionReads,1);
+});
+
 test('dialogue session applies authoritative activeRun before continuation and never exposes hidden stats',async()=>{
  let current=playing(),continued=0;const rendered=[];const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>collection,getSaveSlot:async()=>current,
   loadDialogue:async({eventId})=>({schemaVersion:1,dialogueId:'D1',storyId:'S1',eventId,title:'메인',dialogueToken:'token',canSkip:false,speakers:{},sequence:[{type:'END'}]}),

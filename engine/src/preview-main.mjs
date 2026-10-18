@@ -35,6 +35,7 @@ import { createEndingUI } from "./ui/ending.mjs";
 import { activePet } from "./core/pets.mjs";
 import { createTitleAudioController } from "./core/title-audio.mjs";
 import { createAdventureResultUI } from "./ui/adventure-result.mjs";
+import { createActivityResultUI } from "./ui/activity-result.mjs";
 import { createBadgeResultUI } from "./ui/badge-result.mjs";
 import { createImageButton, TITLE_BUTTON_ART } from "./ui/button-art.mjs";
 import { dueMainStory, ensureMainStoryState, MAIN_STORIES } from "./core/main-story.mjs";
@@ -100,6 +101,7 @@ function el(tag, text, cls) {
 }
 const notify = createNotifier(notice);
 const adventureResultUI = createAdventureResultUI({ el }),
+	activityResultUI = createActivityResultUI({ el, btn }),
 	badgeResultUI = createBadgeResultUI({ el }),
 	storyResultUI = createStoryResultUI({ el, btn });
 function message(text) {
@@ -201,6 +203,7 @@ function current() {
 }
 function heading(title, cls = "page") {
 	adventureResultUI.clear();
+	activityResultUI.clear();
 	badgeResultUI.clear();
 	storyResultUI.clear();
 	shell.onclick = null;
@@ -1086,14 +1089,36 @@ function renderServiceDialogue(eventId, next) {
 		storyResultUI.show(shell, response, () => showPendingBadgeNotices(next));
 	});
 }
+function showForcedRestNotice(checkpoint, next) {
+	if (!checkpoint?.forcedRest || checkpoint.forcedRestDaysBefore !== 3) {
+		next();
+		return;
+	}
+	activityResultUI.show(shell, {
+		title: "강제 휴식",
+		message: "너무 무리한 것 같다. 체력 관리해야지.",
+		details: ["오늘 예정된 일정은 취소되고, 오늘부터 3일 동안 강제로 쉽니다.", "세 번째 휴식이 끝나면 체력이 100으로 회복됩니다."],
+		buttonLabel: "휴식 시작",
+		symbol: "☾",
+	}, next);
+}
+function completeRestCheckpoint(checkpoint) {
+	const complete = () => {
+		if (serverMode) {
+			renderBusy("휴식 결과를 저장하고 있어요.", "activity-transition-page");
+			void completeServerActivity(checkpoint);
+		} else completeActivity(checkpoint.token);
+	};
+	showForcedRestNotice(checkpoint, complete);
+}
 function dispatchActivity(checkpoint) {
 	const run = current(),
 		action = checkpoint.action,
 		lesson = classOf(action);
 	roomLight.event("start");
 	if (action === "adventure") renderAdventure(checkpoint);
-	else if (serverMode && action === "rest") void completeServerActivity(checkpoint);
-	else if (serverMode && action === "fairy-trade") openFairyTrade(checkpoint);
+	else if (action === "rest" && (serverMode || checkpoint.forcedRest)) completeRestCheckpoint(checkpoint);
+	else if (action === "fairy-trade") renderFairyTrade(checkpoint);
 	else if (lesson) {
 		pending = { slotId, token: checkpoint.token, server: serverMode, checkpoint: structuredClone(checkpoint) };
 		shell.hidden = true;
@@ -1102,6 +1127,13 @@ function dispatchActivity(checkpoint) {
 		const startData = serverMode ? serverClassStartData(checkpoint, lesson) : lesson.curriculum ? curriculumStart(input) : createMinigameStartData(input);
 		game.scene.start(lesson.sceneKey ?? lesson.id, startData);
 	} else renderRoom();
+}
+function beginServerActivity() {
+	renderBusy("다음 일정을 준비하고 있어요.", "activity-transition-page");
+	return performServerMutation(
+		() => serverGame.startActivity(slotId),
+		() => current().pendingStoryEvent ? renderPendingStory() : dispatchActivity(current().inProgressActivity),
+	);
 }
 async function startScheduledActivity() {
 	if (saveFailed) {
@@ -1122,10 +1154,7 @@ async function startScheduledActivity() {
 			dispatchActivity(run.inProgressActivity);
 			return true;
 		}
-		return performServerMutation(
-			() => serverGame.startActivity(slotId),
-			() => current().pendingStoryEvent ? renderPendingStory() : dispatchActivity(current().inProgressActivity),
-		);
+		return beginServerActivity();
 	}
 	if (current().pendingActivityStory) {
 		const saved = activityStoryFlow.resume();
@@ -1329,8 +1358,7 @@ function completeActivity(token, result) {
 				if (receiptMessages.length) message(receiptMessages.join("\n"));
 				adventureResultUI.show(shell, { ...result, feedback: resultText }, continueWithBadges);
 			} else {
-				message([resultText, ...receiptMessages].filter(Boolean).join("\n"));
-				continueWithBadges();
+				activityResultUI.show(shell, {title: "활동 결과", details: [resultText, ...receiptMessages]}, continueWithBadges);
 			}
 		});
 		if (saveFailed) renderRoom();
@@ -1374,8 +1402,7 @@ async function completeServerActivity(checkpoint, result = {}, afterComplete = n
 		if (checkpoint.action === "adventure" && ["MISSION_COMPLETE", "TIMEOUT"].includes(result.outcome)) {
 			adventureResultUI.show(shell, { outcome: result.outcome, foundCount: result.foundCount, objectiveCount: checkpoint.serverStart.targetCount, feedback: resultText }, advance);
 		} else {
-			message(resultText);
-			advance();
+			activityResultUI.show(shell, {title: "활동 결과", details: [resultText]}, advance);
 		}
 	};
 	return performServerMutation(
@@ -1383,37 +1410,58 @@ async function completeServerActivity(checkpoint, result = {}, afterComplete = n
 		complete,
 	);
 }
-function openFairyTrade(checkpoint) {
+function renderFairyTrade(checkpoint) {
 	const run = current(),
 		stats = ["knowledge", "expression", "dexterity", "exploration", "magic"],
-		names = { knowledge: "지식", expression: "표현력", dexterity: "솜씨", exploration: "탐험", magic: "마법" },
+		names = { knowledge: "지식", expression: "표현력", dexterity: "솜씨", exploration: "탐험", magic: "마법" };
+	heading("요정의 거래", "fairy-trade-page");
+	const stage = el("section", null, "fairy-trade-stage"),
+		fairy = el("img", null, "fairy-trade-character"),
+		panel = el("section", null, "paper fairy-trade-panel"),
 		body = el("div", null, "fairy-trade-form"),
 		from = el("select"),
 		to = el("select"),
 		amount = el("select");
+	fairy.src = "./character-assets/CH_DRM_fairy_trade_upperbody_01.png";
+	fairy.alt = "요정의 거래 요정";
 	for (const key of stats) {
 		from.append(new Option(names[key] + " · " + run.stats[key], key));
 		to.append(new Option(names[key] + " · " + run.stats[key], key));
 	}
 	to.selectedIndex = Math.min(1, to.options.length - 1);
 	for (let n = 1; n <= 5; n++) amount.append(new Option(String(n) + "포인트", String(n)));
-	body.append(el("p", "성장 스탯을 1~5포인트, 같은 양으로 교환합니다. 주 1회 · 체력 소모 없음."), el("label", "보낼 스탯"), from, el("label", "받을 스탯"), to, el("label", "포인트"), amount);
-	let tradeDialog;
-	const serverStat = (key) => key === "dexterity" ? "skill" : key;
-	const finish = (value) => completeServerActivity(checkpoint, value, () => {
-		tradeDialog.close();
-		continueSchedule();
-	});
-	tradeDialog = modal("요정의 거래", body, [
+	body.append(el("p", "성장 스탯을 1~5포인트, 같은 양으로 교환합니다. 전체 성장 스탯 합계는 변하지 않습니다."), el("label", "보낼 스탯"), from, el("label", "받을 스탯"), to, el("label", "포인트"), amount);
+	const actions = el("nav", null, "actions fairy-trade-actions"),
+		serverStat = (key) => key === "dexterity" ? "skill" : key;
+	let submitting = false;
+	const submit = async (value) => {
+		if (submitting) return false;
+		submitting = true;
+		for (const button of actions.children) button.disabled = true;
+		let saved;
+		if (serverMode) saved = await completeServerActivity(checkpoint, value);
+		else {
+			completeActivity(checkpoint.token, value);
+			saved = true;
+		}
+		if (saved === false) {
+			submitting = false;
+			for (const button of actions.children) button.disabled = false;
+		}
+		return saved;
+	};
+	actions.append(
 		btn("교환하기", () => {
 			if (from.value === to.value) {
 				message("서로 다른 스탯을 선택해 주세요.");
 				return false;
 			}
-			return finish({ transfer: { fromStat: serverStat(from.value), toStat: serverStat(to.value), amount: Number(amount.value) } });
+			return submit(serverMode ? { transfer: { fromStat: serverStat(from.value), toStat: serverStat(to.value), amount: Number(amount.value) } } : { transfer: { from: from.value, to: to.value, amount: Number(amount.value) } });
 		}),
-		btn("건너뛰기", () => finish({ skip: true }), "quiet"),
-	]);
+		btn("거래하지 않기", () => submit({ skip: true }), "quiet"),
+	);
+	panel.append(el("h2", "요정의 거래"), body, actions);
+	stage.append(fairy, panel);shell.append(stage);
 }
 function receiveEnding(value) {
 	const record = current().endingRecord;
@@ -1520,7 +1568,8 @@ const roomUI = createMyroomUI({
 				message(error.message);
 				return;
 			}
-			performServerMutation(() => serverGame.confirmSchedule(slotId, activityIds), () => startScheduledActivity());
+			renderBusy("이번 주 일정을 저장하고 첫 활동을 준비하고 있어요.", "activity-transition-page");
+			performServerMutation(() => serverGame.confirmSchedule(slotId, activityIds), beginServerActivity);
 			return;
 		}
 		setSchedule(profile, slotId, schedule, locations);
@@ -1546,42 +1595,11 @@ const roomUI = createMyroomUI({
 		const run = current(),
 			checkpoint = run.inProgressActivity;
 		if (checkpoint?.action === "rest") {
-			completeActivity(checkpoint.token);
+			completeRestCheckpoint(checkpoint);
 			return;
 		}
 		if (checkpoint?.action === "fairy-trade") {
-			const stats = ["knowledge", "expression", "dexterity", "exploration", "magic"],
-				names = { knowledge: "지식", expression: "표현력", dexterity: "솜씨", exploration: "탐험", magic: "마법" },
-				body = el("div", null, "fairy-trade-form");
-			const from = el("select"),
-				to = el("select"),
-				amount = el("select");
-			for (const key of stats) {
-				from.append(new Option(names[key] + " · " + run.stats[key], key));
-				to.append(new Option(names[key] + " · " + run.stats[key], key));
-			}
-			for (let n = 1; n <= 5; n++) amount.append(new Option(String(n) + "포인트", String(n)));
-			body.append(el("p", "성장 스탯을 1~5포인트, 같은 양으로 교환합니다. 주 1회 · 체력 소모 없음."), el("label", "보낼 스탯"), from, el("label", "받을 스탯"), to, el("label", "포인트"), amount);
-			let tradeDialog;
-			tradeDialog = modal("요정의 거래", body, [
-				btn("교환하기", async () => {
-					try {
-						const value = { transfer: { from: from.value, to: to.value, amount: Number(amount.value) } },
-							saved = serverMode ? await completeServerActivity(checkpoint, value) : (completeActivity(checkpoint.token, value), true);
-						if (saved !== false) tradeDialog.close();
-					} catch (e) {
-						message(e.message);
-					}
-				}),
-				btn(
-					"건너뛰기",
-					async () => {
-						const saved = serverMode ? await completeServerActivity(checkpoint, { skip: true }) : (completeActivity(checkpoint.token, { skip: true }), true);
-						if (saved !== false) tradeDialog.close();
-					},
-					"quiet",
-				),
-			]);
+			renderFairyTrade(checkpoint);
 			return;
 		}
 		startScheduledActivity();
@@ -1739,7 +1757,7 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 			hintLine.hidden = false;
 			message("조사 결과 · " + state.hint);
 		}
-		if (started && !finished && state.foundId && state.foundIds.length < state.objectives.length) {
+		if (started && !finished && state.foundId && (state.foundIds.length < state.objectives.length || serverMode)) {
 			adventureView?.pause(true);
 			adventureResultUI.showFound(shell, { foundCount: state.foundIds.length, objectiveCount: state.objectives.length }, () => {
 				if (!finished) adventureView?.pause(Boolean(briefing));
@@ -1889,6 +1907,7 @@ function receive(result) {
 	pending = null;
 	slotId = item.slotId;
 	try {
+		renderBusy("활동 결과를 정리하고 있어요.", "activity-transition-page");
 		if (item.server) {
 			completeServerActivity(item.checkpoint, result).catch((e) => {
 				renderRoom();

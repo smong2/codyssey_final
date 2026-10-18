@@ -153,6 +153,35 @@ def _increase_counter(container: dict, key: str) -> None:
     container[key] = value + 1
 
 
+def _record_activity_history(run: dict, *, day: str, entry: dict) -> None:
+    """Append one compact, client-safe completed activity record to the active run."""
+    week = run.get("week")
+    if type(week) is not int or not 1 <= week <= 52 or day not in WEEKDAYS:
+        raise ActivityRejected("Activity history position is invalid")
+    history = run.setdefault("activityHistory", [])
+    if not isinstance(history, list) or len(history) > 260:
+        raise ActivityRejected("Stored activity history is invalid")
+    day_index = WEEKDAYS.index(day)
+    if any(isinstance(item, dict) and item.get("week") == week and item.get("day") == day_index
+           for item in history):
+        raise ActivityRejected("Activity history already contains this weekday")
+    record = {
+        "week": week, "day": day_index, "type": entry.get("type"),
+        "contentId": entry.get("contentId"), "status": "COMPLETED",
+        "resolution": entry.get("resolution"),
+    }
+    for key in ("staminaBefore", "staminaCost", "staminaRecovered", "growthApplied",
+                "growthAwarded", "result", "foundCount", "targetCount"):
+        if key in entry:
+            record[key] = deepcopy(entry[key])
+    if entry.get("type") == "FORCED_REST":
+        remaining = run.get("forcedRest", {}).get("remainingWeekdays")
+        if type(remaining) is not int or not 0 <= remaining <= 3:
+            raise ActivityRejected("Forced-rest history state is invalid")
+        record["forcedRestDays"] = remaining
+    history.append(record)
+
+
 def _apply_account_progression(
     *, documents: dict, statistics: GlobalStatistics, repository: SaveSlotRepository,
     now: datetime, daily_summary: dict,
@@ -454,6 +483,7 @@ def complete_special(
         entry["resolution"] = "SKIPPED" if body.skip else "TRANSFERRED"
         entry["completedAt"] = now
         entry["result"] = command
+        _record_activity_history(run, day=day, entry=entry)
         run["completedWeekdayCount"] += 1
         pending = candidates.after_activity(
             version=slot.gameDataVersion, run=run,
@@ -573,6 +603,7 @@ def complete_class_quit(
         stats[definition.target_stat] = current + growth
         entry.update(status="COMPLETED", resolution="FAIL", endReason="QUIT",
                      completedAt=now, growthApplied=growth, balanceVersion=balance.version)
+        _record_activity_history(run, day=day, entry=entry)
         run["completedWeekdayCount"] += 1
         pending = candidates.after_activity(
             version=slot.gameDataVersion, run=run,
@@ -772,6 +803,7 @@ def complete_class_replay(
                      completedAt=now, growthApplied=growth, balanceVersion=balance.version,
                      inputLogDigest=log_digest, replayVersion=REPLAY_VERSION,
                      replayedMoves=result.moves, durationMs=result.duration_ms)
+        _record_activity_history(run, day=day, entry=entry)
         run["completedWeekdayCount"] += 1
         pending = candidates.after_activity(
             version=slot.gameDataVersion, run=run,
@@ -1035,6 +1067,7 @@ def complete_forced_rest(
         entry["resolution"] = "SUCCESS"
         entry["staminaRecovered"] = recovered
         entry["completedAt"] = now
+        _record_activity_history(run, day=day, entry=entry)
         run["completedWeekdayCount"] += 1
         _advance_completed_day(run)
         run["updatedAt"] = now
@@ -1109,6 +1142,7 @@ def complete_rest(
         entry["resolution"] = "SUCCESS"
         entry["completedAt"] = now
         entry["staminaRecovered"] = recovered
+        _record_activity_history(run, day=day, entry=entry)
         run_stats = run.get("runStatistics")
         if (not isinstance(run_stats, dict) or type(run_stats.get("restCount")) is not int
                 or run_stats["restCount"] < 0):
@@ -1246,6 +1280,7 @@ def complete_adventure(
         entry["foundCount"] = body.foundCount
         entry["targetCount"] = body.targetCount
         entry["growthAwarded"] = {"exploration": growth}
+        _record_activity_history(run, day=day, entry=entry)
 
         run_stats = run.get("runStatistics")
         if not isinstance(run_stats, dict):

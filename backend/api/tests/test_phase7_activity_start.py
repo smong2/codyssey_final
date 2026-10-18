@@ -189,6 +189,11 @@ def test_locked_forced_rest_uses_three_weekdays_then_recovers_to_100(activity_db
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["day"] == "THURSDAY"
         assert run["forcedRest"] == {"active": False, "remainingWeekdays": 0}
+        assert [(item["week"], item["day"], item["type"], item["forcedRestDays"])
+                for item in run["activityHistory"]] == [
+                    (1, 0, "FORCED_REST", 2), (1, 1, "FORCED_REST", 1),
+                    (1, 2, "FORCED_REST", 0),
+                ]
         assert run["runStatistics"]["restCount"] == 0
         assert database.data["users/owner/statistics/global"]["totalRestCount"] == 0
         summary = next(value for path, value in database.data.items() if "/activityDays/" in path)
@@ -247,6 +252,9 @@ def test_forced_rest_carries_across_week_and_locks_next_schedule(activity_db):
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["week"] == 2 and run["day"] == "MONDAY"
         assert run["forcedRest"]["remainingWeekdays"] == 2
+        assert run["activityHistory"][-1]["week"] == 1
+        assert run["activityHistory"][-1]["day"] == 4
+        assert run["activityHistory"][-1]["type"] == "FORCED_REST"
         assert _schedule(client, [None, None, "REST_TEST", "REST_TEST", "REST_TEST"],
                          request="week2-schedule", revision=5).status_code == 409
         acknowledged = _ack_summary(client)

@@ -15,6 +15,17 @@ test('server run is projected to the existing engine display model without hidde
  assert.equal(value.actionHistory[0].effect.growth.magic,5);assert.equal(value.actionHistory[0].effect.staminaAfter,90);
 });
 
+test('server activity history survives a week rollover for calendar and diary projection',()=>{
+ const history=[
+  {week:1,day:0,type:'CLASS',contentId:'rune-circuit',status:'COMPLETED',resolution:'SUCCESS',staminaBefore:100,staminaCost:10,growthApplied:4},
+  {week:1,day:1,type:'ADVENTURE',contentId:'ADV_LIBRARY',status:'COMPLETED',resolution:'MISSION_COMPLETE',staminaBefore:90,staminaCost:15,growthAwarded:{exploration:6}},
+  {week:1,day:2,type:'REST',contentId:'REST_DEFAULT',status:'COMPLETED',resolution:'SUCCESS',staminaBefore:75,staminaCost:0,staminaRecovered:25},
+ ];
+ const value=projectServerRun({...run,week:2,day:'MONDAY',phase:'SCHEDULE_READY',pendingStoryEvent:null,weeklySchedule:{},activityHistory:history});
+ assert.equal(value.actionHistory.length,3);assert.deepEqual(value.actionHistory.map(item=>[item.week,item.day,item.action]),[[1,0,'rune-circuit'],[1,1,'adventure'],[1,2,'rest']]);
+ assert.equal(value.actionHistory[1].locationId,'library');assert.equal(value.actionHistory[1].effect.growth.exploration,6);
+});
+
 test('weekly-summary and ending phases keep the existing UI gates',()=>{
  const summary=projectServerRun({...run,day:'MONDAY',phase:'WEEK_SUMMARY_PENDING',pendingStoryEvent:null,lastWeekSummary:{week:1,statDelta:{knowledge:2,expression:0,skill:1,exploration:0,magic:0}}});
  assert.equal(summary.phase,'PLANNING');assert.equal(summary.pendingWeekSummaryWeek,1);

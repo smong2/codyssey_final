@@ -37,6 +37,7 @@ export function createDialogueUI({el,btn,shell,heading,modal}){
   },'text-button'));
   shell.append(controls);
   const stage=el('div',null,'dialogue-stage');shell.append(stage);
+  const choiceLayer=el('div',null,'dialogue-choice-layer');choiceLayer.hidden=true;shell.append(choiceLayer);
   const frame=el('section',null,'paper life-dialogue');
   shell.append(frame);
   const nameplate=el('div',null,'dialogue-speaker-nameplate dialogue-speaker-nameplate--overlap');
@@ -68,6 +69,7 @@ export function createDialogueUI({el,btn,shell,heading,modal}){
    };
    syncImage(state.background,'dialogue-background');syncImage(state.focus,'dialogue-focus');
    frame.replaceChildren();
+   choiceLayer.replaceChildren();choiceLayer.hidden=current.type!=='CHOICE';
    frame.hidden=current.type==='END';
    stage.classList?.toggle('dialogue-choice-active',current.type==='CHOICE');
    const mode=current.lineMode??'DIALOGUE',speaker=mode==='DIALOGUE'?payload.speakers[current.speaker]:null;
@@ -83,16 +85,16 @@ export function createDialogueUI({el,btn,shell,heading,modal}){
     const indicator=el('span','↓','dialogue-advance-indicator');indicator.setAttribute('aria-hidden','true');
     frame.append(indicator);
    }else if(current.type==='CHOICE'){
+    if(current.prompt)frame.append(el('p',current.prompt,'dialogue-text dialogue-choice-question'));
     const choices=el('nav',null,'dialogue-choice-panel-right');
-    if(current.prompt)choices.append(el('p',current.prompt,'dialogue-choice-prompt'));
     for(const option of current.options)choices.append(btn(option.text,()=>{
      log.push('선택 · '+option.text);playback.choose(current.choiceNodeId,option.choiceId);paint();
     },'dialogue-choice dialogue-choice-nameplate'));
     for(const option of choices.children){
      const tag=(option.tagName??option.tag??'').toLowerCase();
-     if(tag!=='p')option.style.backgroundImage='url("./design-assets/ui/BT04_blank_pale_green.png")';
+     if(tag!=='p')option.style.backgroundImage='url("./design-assets/ui/BT04_choice_blank_pale_green.png")';
     }
-    frame.append(choices);
+    choiceLayer.append(choices);
    }else{
     queueMicrotask(complete);
    }

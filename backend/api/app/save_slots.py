@@ -137,6 +137,7 @@ def _new_active_run(*, run_id: str, run_number: int, character_id: str,
         "representativeChoices": [],
         "minigameFailStreaks": {},
         "weeklySchedule": {},
+        "activityHistory": [],
         "completedWeekdayCount": 0,
         "forcedRest": {"active": False, "remainingWeekdays": 0},
         "runStatistics": {

@@ -13,17 +13,21 @@ export function createServerGameSession({services,requestIdFactory=defaultId,onC
  const requestId=()=>{const id=requestIdFactory?.();if(typeof id!=='string'||!id)throw new Error('서버 변경 요청 ID를 만들 수 없습니다.');return id;};
  const slot=id=>{const value=profile?.slots?.find(item=>item.slotId===id);if(!value)throw new Error('서버 저장 슬롯을 먼저 불러와 주세요.');return value;};
  const refreshCollection=async()=>{if(typeof services.getCollection!=='function')return;const previous=clone(profile.meta);applyServerCollection(profile,await services.getCollection());onCollectionChanges(acceptCollectionChanges(previous,profile.meta));};
- const refreshSlot=async slotId=>{
-  const received=await services.getSaveSlot(slotId),projected=projectServerSlot(received),index=profile.slots.findIndex(item=>item.slotId===slotId);if(index<0)throw new Error('새로 받은 서버 슬롯을 적용할 수 없습니다.');profile.slots[index]=projected;await refreshCollection();emit();return projected;
+ const refreshSlot=async(slotId,{collection=true}={})=>{
+  const received=await services.getSaveSlot(slotId),projected=projectServerSlot(received),index=profile.slots.findIndex(item=>item.slotId===slotId);if(index<0)throw new Error('새로 받은 서버 슬롯을 적용할 수 없습니다.');profile.slots[index]=projected;if(collection)await refreshCollection();emit();return projected;
  };
  const submit=async()=>{
   if(!pendingMutation)return false;const job=pendingMutation,fn=services[job.service];if(typeof fn!=='function')throw new Error(`서버 ${job.service} provider가 준비되지 않았습니다.`);
-  const result=await fn(job.slotId,clone(job.input));await refreshSlot(job.slotId);pendingMutation=null;return {result:clone(result),slot:clone(slot(job.slotId))};
+  const result=await fn(job.slotId,clone(job.input));
+  if(job.refresh==='revision'){
+   if(!Number.isInteger(result?.serverRevision)||result.serverRevision<0)throw new Error('서버 저장 revision 응답이 올바르지 않습니다.');slot(job.slotId).serverRevision=result.serverRevision;emit();
+  }else await refreshSlot(job.slotId,{collection:job.refresh!=='slot'});
+  pendingMutation=null;return {result:clone(result),slot:clone(slot(job.slotId))};
  };
- const mutate=async(service,slotId,command={})=>{
+ const mutate=async(service,slotId,command={},refresh='full')=>{
   if(pendingMutation)throw new Error('실패한 서버 저장 요청을 먼저 다시 시도해 주세요.');
   const current=slot(slotId);if(!Number.isInteger(current.serverRevision))throw new Error('현재 슬롯의 서버 revision이 없습니다.');
-  pendingMutation={service,slotId,input:{...clone(command),requestId:requestId(),expectedServerRevision:current.serverRevision}};return submit();
+  pendingMutation={service,slotId,refresh,input:{...clone(command),requestId:requestId(),expectedServerRevision:current.serverRevision}};return submit();
  };
  const load=async()=>{const listed=await services.listSaveSlots(),collection=await services.getCollection();profile=createServerProfile(listed?.slots,collection);pendingMutation=null;return emit();};
  return {
@@ -47,8 +51,8 @@ export function createServerGameSession({services,requestIdFactory=defaultId,onC
   startRun:(slotId,characterId)=>mutate('startRun',slotId,{characterId}),
   deleteSaveSlot:slotId=>mutate('deleteSaveSlot',slotId,{confirm:true}),
   recoverSaveSlot:slotId=>mutate('recoverSaveSlot',slotId),
-  confirmSchedule:(slotId,activityIds)=>mutate('confirmSchedule',slotId,{activityIds:clone(activityIds)}),
-  startActivity:slotId=>mutate('startActivity',slotId),
+  confirmSchedule:(slotId,activityIds)=>mutate('confirmSchedule',slotId,{activityIds:clone(activityIds)},'revision'),
+  startActivity:slotId=>mutate('startActivity',slotId,{},'slot'),
   completeSpecial:(slotId,command)=>mutate('completeSpecial',slotId,command),
   completeClassQuit:slotId=>mutate('completeClassQuit',slotId),
   completeClassReplay:(slotId,inputLog)=>mutate('completeClassReplay',slotId,{inputLog:clone(inputLog)}),
