@@ -36,6 +36,7 @@ test('only received badge progress is displayed while unrelated old cumulative v
 });
 test('room art is mapped without unlocking rooms and legacy overrides preserve independently saved runs',()=>{
  assert.equal(ROOM_BACKGROUNDS.length,4);const p=createProfile();startRun(p,1,'CH01');
+ assert.equal(ROOM_BACKGROUNDS[0].images.day,'BG11_myroom2_day_1920x1080_023.png');
  assert.equal(roomProgress(p.meta,'room-1').unlocked,false);assert.equal(roomProgress(p.meta,'room-1').images.day,'BG11_myroom4_cosmos_day.png');
  p.meta.collectionView={rooms:[{id:'room-1',pieces:[0,3,4],unlocked:true,images:{day:'BG03_myroom1_day_1920x1080_012.png'}}]};
  let raw;const repository=createLocalRepository({getItem:()=>raw,setItem:(_key,value)=>raw=value});repository.save(p);p.slots[0].activeRun.stats.magic=300;

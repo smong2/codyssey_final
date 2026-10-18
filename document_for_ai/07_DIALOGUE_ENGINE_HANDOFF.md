@@ -1,6 +1,6 @@
 # LUMIA 대화 시스템 — 엔진 AI 인계
 
-2026-10-18 Phase 12 최신 검증: 엔진의 운영 HTTP provider와 Firebase Web Auth adapter를 웹 빌드에 연결했다. Firebase Auth·Firestore Emulator 브라우저와 실제 Firebase/Render/Vercel 운영 환경에서 MS01 Dialogue 조회·완료를 확인했다. 운영 1주차 `LOC_OBS_01` pending Story를 재접속 후 조회·선택·완료했으며 승인된 관측 일기 FOCUS 경로와 로드 실패 재시도를 수정했다. 52주 엔딩·관리자·탈퇴까지 포함한 운영 E2E는 계속 진행 중이다. 아래 과거 단계의 미연결·재검증 대기 설명보다 이 상태를 우선한다.
+2026-10-18 Phase 12 최신 검증: 엔진의 운영 HTTP provider와 Firebase Web Auth adapter를 웹 빌드에 연결했다. Firebase Auth·Firestore Emulator 브라우저와 실제 Firebase/Render/Vercel 운영 환경에서 MS01 Dialogue 조회·완료를 확인했다. 이후 운영 브라우저 검수에서 대화 UI·마이룸 배경·Location 발생 시점·409 재시도 문제가 발견되어 수정 중이다. 최신 표시 계약은 대화 배경 fullscreen, 선택지를 대화 패널 안에 유지, `NARRATION/CONTEXT=[ ... ]`, `THOUGHT=' ... '`, 별도 `장면/속마음` 라벨 및 `이야기가 끝났습니다.` 합성 문구 제거다. Location Story는 활동 시작 체크포인트 직후 실제 게임 화면 전에 먼저 실행하며 `OBS01=3 / GH01=7 / LIB01=13 / OBS02=22 / OBS03=33 / OBS04=46` 최초 후보 주차와 Location 주 1회 제한을 사용한다. 이 검수 수정은 코드·테스트 계약까지 반영됐지만 실제 재배포 브라우저 재검증 전이므로 새 검수 완료로 간주하지 않는다. 52주 엔딩·관리자·탈퇴까지 포함한 운영 E2E도 계속 진행 중이다. 아래 과거 단계의 미연결·재검증 대기 설명보다 이 상태를 우선한다.
 
 이 문서는 엔진 개발 AI가 Main/NPC/Location Story의 정식 대화 API를 연결할 때 읽는 **구현 요약**이다.
 
@@ -46,6 +46,8 @@ CONTEXT   = 이미 알려진 과거·배경 정보
 ```
 
 따라서 제3자 설명 때문에 `NARRATION` 같은 새로운 sequence type을 만들지 않는다. `NARRATION/CONTEXT`는 화자 없이 표시할 수 있고, `THOUGHT`는 `PLAYER`와 연결하되 플레이어 초상은 표시하지 않는다.
+
+표시 단계에서는 테스트용 `장면 / 속마음 / 기억` 라벨을 붙이지 않는다. `NARRATION/CONTEXT`는 `[ ... ]`, `THOUGHT`는 `' ... '`로 감싸고, `END`는 합성 종료 문구 없이 바로 완료 저장으로 넘어간다.
 
 ### 모든 Story가 같은 player 사용
 

@@ -175,19 +175,29 @@ def test_story_candidates_respect_location_progress_and_pending(content_db):
         version="dev-dialogue-v1", character_id="CH01"
     )[1]
     run = {
-        "runId": "candidate-run", "week": 1, "day": "MONDAY", "storyCast": cast,
-        "pendingStoryEvent": None, "storyEventWindow": {"week": 1, "sideStoryCount": 0,
+        "runId": "candidate-run", "week": 7, "day": "MONDAY", "storyCast": cast,
+        "pendingStoryEvent": None, "storyEventWindow": {"week": 7, "sideStoryCount": 0,
+                                                "locationStoryCount": 0,
                                                 "lastResultStoryDay": None},
         "eventFlags": {}, "storyProgress": {}, "npcProgress": {},
     }
     activity = ActivityContext("gh-activity", "ADVENTURE", "GH")
-    chosen = selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity)
+    chosen = selector.before_activity(version="dev-dialogue-v1", run=run, activity=activity)
     assert chosen["eventId"] == "LOC_GH_01"
     run["pendingStoryEvent"] = chosen
-    assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity) == chosen
+    assert selector.before_activity(version="dev-dialogue-v1", run=run, activity=activity) == chosen
     run["pendingStoryEvent"] = None
-    run["storyEventWindow"]["sideStoryCount"] = 2
-    assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
+    run["storyEventWindow"]["locationStoryCount"] = 1
+    assert selector.before_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
+    run["storyEventWindow"].pop("locationStoryCount")
+    run["storyProgress"]["LOC_OBS_01"] = {
+        "step": 1, "status": "COMPLETED", "lastAdvancedWeek": 7,
+    }
+    assert selector.before_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
+    run["storyProgress"].clear()
+    run["storyEventWindow"]["locationStoryCount"] = 0
+    run["week"] = 6
+    assert selector.before_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
     run["week"] = 10
     assert selector.fixed_main(version="dev-dialogue-v1", run=run, month=3, day=5)["eventId"] == "MS02"
 

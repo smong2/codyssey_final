@@ -1,5 +1,11 @@
-import {registry} from '../../minigame-demo/src/minigames/index.js';
 import {createMinigameResult} from '../core/minigame-contract.mjs';
+
+let registry = [];
+try {
+ const mod = await import('../../minigame-demo/src/minigames/index.js');
+ registry = mod.registry ?? [];
+} catch {}
+
 export const previewScenes=registry.map(entry=>class extends entry.scene{
  init(data={}){super.init(data);this.engineContext=data;}
  createShell(...args){

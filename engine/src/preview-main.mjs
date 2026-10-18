@@ -4,11 +4,10 @@ import { createMinigameStartData } from "./core/minigame-contract.mjs";
 import { activityResultText } from "./core/activity-rules.mjs";
 import { titleModel } from "./core/preview.mjs";
 import { createLocalRepository, createBoundaryWriter, prepareEngineStateUpdate } from "./core/storage.mjs";
-import { previewScenes } from "./scenes/PreviewScenes.mjs";
 import { curriculumScenes } from "./scenes/CurriculumScenes.mjs";
 import { curriculumStart, DIFFICULTY_NAMES } from "./core/curriculum.mjs";
 import { activeRoom } from "./core/collection-view.mjs";
-import { SPACES } from "../minigame-demo/src/ui/theme.js";
+import { SPACES } from "./core/spaces.mjs";
 import { createMyroomUI, DESCRIPTIONS } from "./ui/myroom.mjs";
 import { createJournalUI } from "./ui/journal.mjs";
 import { firstEmptySlot, recentSlot, createNotifier, invitationLines, ADMISSION_SCENES } from "./core/ui-flow.mjs";
@@ -1883,7 +1882,7 @@ class HomeScene extends Phaser.Scene {
 	}
 	create() {}
 }
-const game = new Phaser.Game({ type: Phaser.AUTO, parent: "game", width: 1280, height: 720, backgroundColor: "#142a37", scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, scene: [HomeScene, ...previewScenes, ...curriculumScenes] });
+const game = new Phaser.Game({ type: Phaser.AUTO, parent: "game", width: 1280, height: 720, backgroundColor: "#142a37", scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, scene: [HomeScene, ...curriculumScenes] });
 function receive(result) {
 	if (!pending) return;
 	const item = pending;

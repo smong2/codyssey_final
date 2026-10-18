@@ -17,6 +17,19 @@ test('server mutation uses current revision and retains the identical request fo
  await game.retry();assert.deepEqual(calls[1],calls[0]);assert.equal(game.slot(1).serverRevision,4);assert.equal(game.pending(),null);
 });
 
+test('revision conflict can discard the stale mutation and refresh authoritative slot state',async()=>{
+ let current=playing(),calls=0;
+ const conflict=Object.assign(new Error('revision conflict'),{status:409,code:'CONFLICT'});
+ const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>collection,getSaveSlot:async()=>current,
+  async recoverSaveSlot(){calls++;throw conflict;}};
+ const game=createServerGameSession({services,requestIdFactory:()=> 'stale-request'});await game.load();
+ await assert.rejects(()=>game.recoverSaveSlot(1),error=>error===conflict);
+ assert.equal(game.pending().input.expectedServerRevision,3);
+ current=playing(4,{...current.activeRun,phase:'MY_ROOM_RECOVERY',pendingStoryEvent:null});
+ await game.resolveConflict();
+ assert.equal(calls,1);assert.equal(game.pending(),null);assert.equal(game.slot(1).serverRevision,4);assert.equal(game.slot(1).activeRun.phase,'MY_ROOM_RECOVERY');
+});
+
 test('dialogue session applies authoritative activeRun before continuation and never exposes hidden stats',async()=>{
  let current=playing(),continued=0;const rendered=[];const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>collection,getSaveSlot:async()=>current,
   loadDialogue:async({eventId})=>({schemaVersion:1,dialogueId:'D1',storyId:'S1',eventId,title:'메인',dialogueToken:'token',canSkip:false,speakers:{},sequence:[{type:'END'}]}),

@@ -408,6 +408,8 @@ NPC·Location Story가 공통으로 사용하는 발생 제한 상태입니다. 
 
 현재 공통 제한은 **NPC + Location Story 합계 주당 최대 2회**, **Location Story 자체 주당 최대 1회**, 결과를 가지는 Story는 **하루 최대 1회**입니다. Main Story는 이 `SIDE_STORY` 제한에 포함하지 않습니다. 새 주가 시작되면 `week`를 새 값으로 바꾸고 `sideStoryCount=0`, `locationStoryCount=0`, `lastResultStoryDay=null`로 초기화합니다.
 
+`locationStoryCount` 도입 이전에 만들어진 진행 중 세이브는 필드가 없을 수 있습니다. 이 경우 서버는 현재 주의 `storyProgress`에서 `LOC_*` 완료 기록과 `lastAdvancedWeek`를 확인해 이미 완료한 Location Story 수를 보수적으로 복구한 뒤 주 1회 제한을 적용합니다. 새 쓰기부터는 명시적인 `locationStoryCount`를 저장합니다.
+
 ### 2.7.5 주간 일정/강제 휴식
 
 | 필드 | 논리 타입 | 설명 |

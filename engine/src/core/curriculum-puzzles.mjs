@@ -1,6 +1,6 @@
-import {makeRng} from '../../minigame-demo/src/minigames/shared/rng.js';
-import {buildBoard,connections} from '../../minigame-demo/src/minigames/rune-circuit/logic.js';
-import {LEVELS,traceBeam} from '../../minigame-demo/src/minigames/mirror-magic/logic.js';
+import {makeRng} from './rng.mjs';
+import {buildBoard,connections} from './circuit-logic.mjs';
+import {LEVELS,traceBeam} from './mirror-logic.mjs';
 
 export function circuitStage(difficulty,seed,round=0){
  const index=difficulty===1?0:difficulty===2?1:2,board=buildBoard(index,seed+':'+round);

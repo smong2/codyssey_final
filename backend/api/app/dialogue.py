@@ -196,7 +196,15 @@ def _apply_effects(run: dict, bundle: dict, *, mode: str, event_id: str,
             })
         if window["sideStoryCount"] >= 2 or window.get("lastResultStoryDay") == f"{result['week']}:{result['day']}":
             raise DialogueRejected("Side-story occurrence limit is exceeded")
-        location_count = window.get("locationStoryCount", 0)
+        location_count = window.get("locationStoryCount")
+        if location_count is None:
+            location_count = sum(
+                1 for story_id, progress in run.get("storyProgress", {}).items()
+                if story_id.startswith("LOC_")
+                and isinstance(progress, dict)
+                and progress.get("status") == "COMPLETED"
+                and progress.get("lastAdvancedWeek") == result["week"]
+            )
         if type(location_count) is not int or location_count < 0:
             raise DialogueRejected("Location Story occurrence counter is invalid")
         if story_type == "LOCATION":

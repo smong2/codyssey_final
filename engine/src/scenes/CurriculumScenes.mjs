@@ -1,8 +1,8 @@
 import {CLASSES} from '../core/classes.mjs';
 import {curriculumResult} from '../core/curriculum.mjs';
 import {circuitStage,mirrorStage,potStage,pourPot,potsSolved,shelfStage,moveShelf,shelvesSolved,rhythmPattern,pinRotation,firePin} from '../core/curriculum-puzzles.mjs';
-import {rotate,connections} from '../../minigame-demo/src/minigames/rune-circuit/logic.js';
-import {traceBeam} from '../../minigame-demo/src/minigames/mirror-magic/logic.js';
+import {rotate,connections} from '../core/circuit-logic.mjs';
+import {traceBeam} from '../core/mirror-logic.mjs';
 
 const ART={observatory:'BG06_starlight_observatory_1920x1080_015.png',plaza:'BG02_clocktower_plaza_1920x1080_011.png',greenhouse:'BG07_glass_greenhouse_1920x1080_016.png',library:'BG05_grand_library_1920x1080_014.png',workshop:'BG09_magic_workshop_1920x1080_018.png',training:'BG10_rune_training_ground_1920x1080_019.png'};
 const COLORS=['#de8b82','#8ca97f','#8da8c0','#c5a15f','#aa90bd','#81b7ac'];

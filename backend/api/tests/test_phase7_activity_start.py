@@ -489,12 +489,15 @@ def test_special_invalid_transfer_does_not_commit(activity_db):
 
 def test_special_pending_story_stays_on_activity_day_until_dialogue(activity_db):
     class ForcedCandidate:
-        def after_activity(self, *, version, run, activity):
+        def before_activity(self, *, version, run, activity):
             assert activity.activity_type == "SPECIAL"
             assert activity.location_id == "LOC_TEST"
             return {"storyId": "TEST_STORY", "eventId": "TEST_EVENT", "storyType": "LOCATION",
                     "sourceLocationId": activity.location_id, "selectedWeek": run["week"],
                     "selectedDay": run["day"]}
+
+        def after_activity(self, *, version, run, activity):
+            return None
 
     client, database = phase5_client(activity_db)
     client.app.dependency_overrides[get_story_candidates] = lambda: ForcedCandidate()
@@ -502,24 +505,29 @@ def test_special_pending_story_stays_on_activity_day_until_dialogue(activity_db)
         assert start(client).status_code == 200
         database.data["users/owner/saveSlots/1"]["activeRun"]["pendingStoryEvent"] = None
         assert _schedule(client, ["fairy-trade", "REST_TEST", "REST_TEST", "REST_TEST", "REST_TEST"]).status_code == 200
-        assert _start(client).status_code == 200
-        result = _complete_special(client, skip=True)
-        assert result.status_code == 200, result.text
+        begun = _start(client)
+        assert begun.status_code == 200, begun.text
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
-        assert run["day"] == "MONDAY" and run["phase"] == "ACTIVITY_STORY_PENDING"
-        assert run["completedWeekdayCount"] == 1
+        assert run["day"] == "MONDAY" and run["phase"] == "ACTIVITY_PRE_STORY_PENDING"
+        assert run["completedWeekdayCount"] == 0
         assert run["pendingStoryEvent"]["eventId"] == "TEST_EVENT"
+        run["storyEventWindow"].pop("locationStoryCount")
         updated, _ = _apply_effects(
             run, {"choice": [], "event": [], "important": []}, mode="COMPLETE",
             event_id="TEST_EVENT", story_type="LOCATION", step_no=1,
             choice_ids=[], now=datetime.now(timezone.utc),
         )
-        assert updated["day"] == "TUESDAY" and updated["phase"] == "ACTIVITY_READY"
+        assert updated["day"] == "MONDAY" and updated["phase"] == "ACTIVITY_IN_PROGRESS"
+        assert updated["completedWeekdayCount"] == 0
+        assert updated["storyEventWindow"]["locationStoryCount"] == 1
         assert updated["pendingStoryEvent"] is None
 
 
 def test_special_story_rule_failure_rolls_back_transfer_and_summary(activity_db):
     class MissingRules:
+        def before_activity(self, *, version, run, activity):
+            return None
+
         def after_activity(self, *, version, run, activity):
             raise StorySelectionError("Story rules unavailable")
 

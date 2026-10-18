@@ -125,7 +125,15 @@ class StoryCandidates:
         used = window.get("sideStoryCount", 0) if window.get("week") == week else 0
         if used >= 2 or window.get("lastResultStoryDay") == f"{week}:{day}":
             return None
-        location_used = window.get("locationStoryCount", 0) if window.get("week") == week else 0
+        location_used = window.get("locationStoryCount") if window.get("week") == week else 0
+        if location_used is None:
+            location_used = sum(
+                1 for story_id, progress in run.get("storyProgress", {}).items()
+                if story_id.startswith("LOC_")
+                and isinstance(progress, dict)
+                and progress.get("status") == "COMPLETED"
+                and progress.get("lastAdvancedWeek") == week
+            )
         if story_type == "LOCATION" and location_used >= 1:
             return None
         if not activity.activity_id or not activity.location_id:

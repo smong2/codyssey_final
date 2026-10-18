@@ -15,8 +15,8 @@ test('story results show only actual visible growth and wait for confirmation',(
  assert.equal(typeof dialogueUI.createStoryResultUI,'function');
  const target=node('main');let advanced=0;
  const ui=dialogueUI.createStoryResultUI({el:node,btn:(text,onclick,className)=>Object.assign(node('button',text,className),{onclick})});
- ui.show(target,{completionMode:'COMPLETE',visibleStatDelta:{knowledge:1,magic:0}},()=>advanced++);
- assert.match(target.textContent,/지식 \+1/);assert.doesNotMatch(target.textContent,/마법 \+0|Hidden|공감/);assert.equal(advanced,0);
+ ui.show(target,{completionMode:'COMPLETE',visibleStatDelta:{knowledge:1,skill:2,magic:0}},()=>advanced++);
+ assert.match(target.textContent,/지식 \+1/);assert.match(target.textContent,/솜씨 \+2/);assert.doesNotMatch(target.textContent,/마법 \+0|Hidden|공감/);assert.equal(advanced,0);
  all(target).find(item=>item.tag==='button').onclick();assert.equal(advanced,1);
 });
 function setup(payload,options={}){
@@ -38,7 +38,7 @@ const payload=(canSkip=false)=>({schemaVersion:1,dialogueId:'UI',storyId:'UI',ev
   {type:'LINE',lineMode:'THOUGHT',speaker:'PLAYER',text:'좋은 만남이다.',visualMode:'NONE'},
   {type:'END'}]});
 
-test('renders shared dialogue controls, imagery, choice reactions, history, and explicit completion',()=>{
+test('renders shared dialogue controls, imagery, choice reactions, history, and automatic END completion',async()=>{
  const view=setup(payload());
  assert.match(view.shell.textContent,/저녁 바람이 분다/);
  assert.equal(all(view.shell).some(item=>item.tag==='img'&&item.src==='/scene.png'),true);
@@ -53,12 +53,12 @@ test('renders shared dialogue controls, imagery, choice reactions, history, and 
  assert.ok(choicePanel);
  const choicePortrait=all(view.shell).find(item=>item.tag==='img'&&item.src==='/guide.png');
  assert.match(choicePortrait.className,/dialogue-focus-choice/);
- assert.equal(all(view.shell).some(item=>item.className.includes('life-dialogue')&&item.hidden),true);
+ assert.equal(all(view.shell).some(item=>item.className.includes('life-dialogue')&&!item.hidden),true);
  view.click('응');
  assert.match(view.shell.textContent,/반가워/);
  view.surfaceClick();
  assert.match(view.shell.textContent,/좋은 만남이다/);
- view.surfaceClick();view.surfaceClick();
+ view.surfaceClick();view.surfaceClick();await Promise.resolve();
  assert.deepEqual(view.completed,{completionMode:'COMPLETE',selectedChoices:[{choiceNodeId:'C1',choiceId:'A'}]});
  view.click('대화기록');
  assert.match(view.history.body.textContent,/저녁 바람이 분다/);
@@ -72,18 +72,28 @@ test('shows skip only when the service payload permits it and passes selected ch
  assert.equal(view.completed,null);
 });
 
-test('shows the same down arrow at the end and advances to completion from a panel click',()=>{
+test('completes automatically at END without a synthetic ending sentence',async()=>{
  const view=setup({...payload(),sequence:[
   {type:'LINE',lineMode:'DIALOGUE',speaker:'GUIDE',text:'마지막 인사'},
   {type:'END'}
  ]});
  view.surfaceClick();
- const frame=all(view.shell).find(item=>item.tag==='section'&&item.className.includes('life-dialogue'));
- assert.ok(all(frame).some(item=>item.className.includes('dialogue-advance-indicator')&&item.text==='↓'));
- assert.equal(all(frame).some(item=>item.tag==='button'&&['다음','다음 장면','이야기 마치기'].includes(item.text)),false);
- assert.equal(view.completed,null);
- view.surfaceClick();
+ await Promise.resolve();
+ assert.doesNotMatch(view.shell.textContent,/이야기가 끝났습니다/);
  assert.deepEqual(view.completed,{completionMode:'COMPLETE',selectedChoices:[]});
+});
+
+test('formats narration and thought inline without scene or thought labels',()=>{
+ const view=setup(payload());
+ assert.match(view.shell.textContent,/\[저녁 바람이 분다\.\]/);
+ assert.doesNotMatch(view.shell.textContent,/장면|속마음/);
+ view.surfaceClick();
+ view.surfaceClick();
+ view.click('응');
+ view.surfaceClick();
+ assert.match(view.shell.textContent,/'좋은 만남이다\.'/);
+ const nameplate=all(view.shell).find(item=>item.className.includes('dialogue-speaker-nameplate'));
+ assert.equal(nameplate.hidden,true);
 });
 
 test('labels local-only dialogue payloads as preview content',()=>{
@@ -174,14 +184,14 @@ test('anchors the speaker nameplate at BT04 native ratio and outlines the dialog
  assert.match(choiceRule,/background-size:contain/);
 });
 
-test('keeps the NPC nameplate visible while the choice screen replaces the dialogue panel',()=>{
+test('keeps the dialogue panel visible and hides the stale NPC nameplate on choices',()=>{
  const view=setup(payload());
  view.surfaceClick();
  view.surfaceClick();
  const frame=all(view.shell).find(item=>item.className.includes('life-dialogue'));
  const nameplate=all(view.shell).find(item=>item.className.includes('dialogue-speaker-nameplate'));
- assert.equal(frame.hidden,true);
+ assert.equal(frame.hidden,false);
  assert.ok(nameplate);
- assert.equal(nameplate.hidden,false);
+ assert.equal(nameplate.hidden,true);
  assert.ok(view.shell.children.includes(nameplate));
 });

@@ -91,6 +91,8 @@ visualMode = SPEAKER | KEEP | NONE
 - `THOUGHT`: 현재 플레이 캐릭터의 속마음. `speaker=PLAYER`, 플레이어 초상 없음.
 - `CONTEXT`: 플레이어가 이미 알고 있는 과거·배경 사실. `speaker` 없음.
 
+본편 표시에서는 별도 `장면`, `속마음`, `기억` 같은 테스트용 라벨을 붙이지 않는다. `NARRATION`과 `CONTEXT`는 본문을 `[ ... ]`로 감싸고, `THOUGHT`는 `' ... '`로 감싸 일반 대사와 시각적으로 구분한다. 원문 DB의 `text` 자체에는 이 기호를 중복 저장하지 않고 DialoguePlayer가 표시 단계에서 적용한다.
+
 `visualMode` 생략 시 `DIALOGUE`는 `SPEAKER`, 나머지 lineMode는 `KEEP`을 기본으로 둘 수 있으나 콘텐츠에서 의도가 명확하지 않을 때는 명시하는 것을 권장한다.
 
 #### IMAGE
@@ -136,7 +138,7 @@ options[]
 type = END
 ```
 
-엔진은 `END` 도달 시 `COMPLETE` 완료 요청을 보낸다.
+엔진은 `END` 도달 시 별도의 `이야기가 끝났습니다.` 같은 합성 문장을 노출하지 않고 즉시 `COMPLETE` 완료 요청을 보낸다.
 
 ## 4. 중심 이미지 규칙
 
@@ -280,8 +282,8 @@ if payload.canSkip:
 3. CHARACTER/NPC 화자가 바뀌면 FOCUS 이미지가 한 명 기준으로 교체된다.
 4. 이미지 없는 화자는 대사만 정상 표시된다.
 5. `NARRATION`이 화자 없이 정상 표시된다.
-6. `THOUGHT`가 플레이어 초상 없이 별도 표현으로 표시된다.
-7. `CONTEXT`가 화자 없이 정상 표시된다.
+6. `NARRATION/CONTEXT`가 별도 라벨 없이 `[ ... ]`로 표시된다.
+7. `THOUGHT`가 플레이어 초상과 별도 라벨 없이 `' ... '`로 표시된다.
 8. ITEM 이미지 이후 `visualMode=KEEP` LINE에서 아이템이 유지된다.
 9. 선택 reaction 이후 항상 다음 공통 sequence로 합류한다.
 10. 대화 중간에는 스탯/스토리 결과를 확정 저장하지 않는다.
@@ -290,4 +292,5 @@ if payload.canSkip:
 13. 같은 `requestId` 재전송으로 결과가 중복 적용되지 않는다.
 14. API/서비스 오류 시 다음 일정으로 진행하지 않는다.
 15. 기존 테스트용 대화 데이터를 삭제해도 운영 API payload만으로 동일 UI 흐름이 실행된다.
+16. `END`에서 합성 종료 문구를 노출하지 않고 완료 저장으로 전환된다.
 

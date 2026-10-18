@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {connections} from '../minigame-demo/src/minigames/rune-circuit/logic.js';
-import {traceBeam} from '../minigame-demo/src/minigames/mirror-magic/logic.js';
+import {connections} from '../src/core/circuit-logic.mjs';
+import {traceBeam} from '../src/core/mirror-logic.mjs';
 import {circuitStage,mirrorStage,potStage,pourPot,potsSolved,shelfStage,moveShelf,shelvesSolved,rhythmPattern,firePin} from '../src/core/curriculum-puzzles.mjs';
 test('every difficulty and stage has a replayable verified circuit, mirror, pot and shelf solution',()=>{
  for(let d=1;d<=4;d++)for(let stage=0;stage<3;stage++){

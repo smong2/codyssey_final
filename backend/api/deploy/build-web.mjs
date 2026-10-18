@@ -35,10 +35,15 @@ await mkdir(output, {recursive: true});
 for (const file of ['style.css', 'preview.css'])
   await copyFile(path.join(root, 'engine', file), path.join(output, file));
 await cp(path.join(root, 'engine/src'), path.join(output, 'src'), {recursive: true});
-await cp(path.join(root, 'engine/minigame-demo/src'), path.join(output, 'minigame-demo/src'), {recursive: true});
-await mkdir(path.join(output, 'minigame-demo/vendor'), {recursive: true});
-await copyFile(path.join(root, 'engine/minigame-demo/vendor/phaser.min.js'),
-  path.join(output, 'minigame-demo/vendor/phaser.min.js'));
+await mkdir(path.join(output, 'vendor'), {recursive: true});
+await copyFile(path.join(root, 'engine/vendor/phaser.min.js'),
+  path.join(output, 'vendor/phaser.min.js'));
+try {
+  await cp(path.join(root, 'engine/minigame-demo/src'), path.join(output, 'minigame-demo/src'), {recursive: true});
+  await mkdir(path.join(output, 'minigame-demo/vendor'), {recursive: true});
+  await copyFile(path.join(root, 'engine/vendor/phaser.min.js'),
+    path.join(output, 'minigame-demo/vendor/phaser.min.js'));
+} catch {}
 
 const html = await readFile(path.join(root, 'engine/index.html'), 'utf8');
 const entry = '<script type="module" src="./src/preview-main.mjs"></script>';

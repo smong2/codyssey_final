@@ -9,7 +9,7 @@ export function createStoryResultUI({el,btn}){
  let panel=null;
  const clear=()=>{panel?.remove();panel=null;};
  return {clear,show(target,{completionMode,visibleStatDelta={}},next){
-  clear();const names={knowledge:'지식',expression:'표현력',dexterity:'솜씨',exploration:'탐험',magic:'마법'};
+  clear();const names={knowledge:'지식',expression:'표현력',skill:'솜씨',dexterity:'솜씨',exploration:'탐험',magic:'마법'};
   const rows=Object.entries(visibleStatDelta).filter(([key,value])=>Object.hasOwn(names,key)&&Number.isFinite(value)&&value>0&&value<=500);
   if(completionMode==='SKIP'||!rows.length){next();return;}
   panel=el('dialog',null,'collection-result-overlay');panel.setAttribute('aria-label','이야기 완료');panel.addEventListener('cancel',event=>event.preventDefault());
@@ -21,7 +21,7 @@ export function createStoryResultUI({el,btn}){
 
 export function createDialogueUI({el,btn,shell,heading,modal}){
  return {render({payload,onComplete=()=>{},onSkip=()=>{},extraControls=[],pageClassName='dialogue-preview-page'}){
-  const playback=createDialoguePlayback(payload),log=[];let completed=false,backgroundImage=null,focusImage=null,activeSpeaker=null;
+  const playback=createDialoguePlayback(payload),log=[];let completed=false,backgroundImage=null,focusImage=null;
   heading('',pageClassName);
   const controls=el('nav',null,'story-top-controls');
   controls.append(btn('대화기록',()=>{
@@ -71,10 +71,9 @@ export function createDialogueUI({el,btn,shell,heading,modal}){
    frame.hidden=current.type==='END';
    stage.classList?.toggle('dialogue-choice-active',current.type==='CHOICE');
    const mode=current.lineMode??'DIALOGUE',speaker=mode==='DIALOGUE'?payload.speakers[current.speaker]:null;
-   if(speaker?.name)activeSpeaker=speaker;
-   nameplate.hidden=current.type!=='LINE'||!activeSpeaker?.name;
+   nameplate.hidden=current.type!=='LINE'||mode!=='DIALOGUE'||!speaker?.name;
    nameplate.replaceChildren();
-   if(activeSpeaker?.name)nameplate.append(el('span',activeSpeaker.name,'dialogue-speaker-nameplate-text'));
+   if(speaker?.name)nameplate.append(el('span',speaker.name,'dialogue-speaker-nameplate-text'));
    if(payload.previewOnly===true)frame.append(el('small',payload.previewNotice??'연결 확인용 임시 원고 · 정식 시나리오·보상 아님','dialogue-preview-notice'));
    const actions=el('nav',null,'actions dialogue-actions');
    if(current.type==='LINE'){
@@ -89,7 +88,10 @@ export function createDialogueUI({el,btn,shell,heading,modal}){
     for(const option of current.options)choices.append(btn(option.text,()=>{
      log.push('선택 · '+option.text);playback.choose(current.choiceNodeId,option.choiceId);paint();
     },'dialogue-choice dialogue-choice-nameplate'));
-    for(const option of choices.children)if(option.tag!=='p')option.style.backgroundImage='url("./design-assets/ui/BT04_blank_pale_green.png")';
+    for(const option of choices.children){
+     const tag=(option.tagName??option.tag??'').toLowerCase();
+     if(tag!=='p')option.style.backgroundImage='url("./design-assets/ui/BT04_blank_pale_green.png")';
+    }
     frame.append(choices);
    }else{
     queueMicrotask(complete);

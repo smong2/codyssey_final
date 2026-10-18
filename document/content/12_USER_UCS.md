@@ -18,7 +18,7 @@
 
 ### 1.1 정상 진행과 재접속 진행을 구분
 
-정상적으로 한 주를 플레이하고 있을 때는 한 활동 결과 저장이 성공하면 Location/NPC Story 후보를 판정하고, 선택적 별도 이야기 장면까지 끝난 뒤 마이룸을 거치지 않고 다음 예정 활동으로 자동 진행합니다.
+정상적으로 한 주를 플레이하고 있을 때는 Location Story를 활동 시작 체크포인트 저장 뒤 실제 플레이 화면 전에 판정·실행하고, NPC Story는 활동 결과 저장 뒤 판정합니다. 필요한 별도 이야기 장면 저장까지 끝난 뒤 마이룸을 거치지 않고 다음 예정 활동으로 자동 진행합니다.
 
 반면 **로그인 후 `이어 하기`, 브라우저 재접속, 비정상 종료 후 복구**는 기본적으로 마이룸을 복귀 허브로 사용합니다.
 
@@ -260,11 +260,13 @@
 ```text
 활동 시작
 → IN_PROGRESS + 필요한 체력 선차감 저장
+→ Location Story 후보 판정
+→ 있으면 Story 실행·완료 저장 후 같은 IN_PROGRESS 활동으로 복귀
 → 콘텐츠 실행
 → 결과 확정
 → 활동 완료 저장
 → 저장 성공
-→ Location/NPC Story 후보 판정
+→ NPC Story 후보 판정
 → 이야기가 있으면 분리된 장면 실행·결과 저장
 → 다음 평일 활동 자동 진입
 ```
@@ -278,7 +280,7 @@
 
 ```text
 금요일 활동 완료 저장
-→ Location/NPC Story 후보 판정·선택적 별도 장면
+→ NPC Story 후보 판정·선택적 별도 장면
 → 토·일 자동 처리
 → 가능한 주말 이벤트
 → 주간 결과 저장
@@ -349,14 +351,16 @@
 ```text
 예정 활동 진입
 → IN_PROGRESS 체크포인트 저장
+→ Location Story 후보 판정
+→ 있으면 Location Story 먼저 실행·완료 저장
 → 콘텐츠 실행
 → 결과 확정
 → 성장/통계 반영
 → 활동 완료 저장
-→ Location/NPC Story 판정
+→ NPC Story 판정
 ```
 
-수업 미니게임·특수 활동·직접 모험의 플레이 화면에는 NPC를 배치하지 않으며 NPC 대화나 NPC/Location Story를 실행하지 않습니다. 이야기 판정과 대화 장면은 위 흐름처럼 활동 결과 저장이 끝난 뒤에만 시작합니다.
+수업 미니게임·특수 활동·직접 모험의 플레이 화면에는 NPC를 배치하지 않으며 NPC 대화나 NPC/Location Story를 실행하지 않습니다. Location Story는 활동 시작 체크포인트 저장 뒤 실제 플레이 화면 전에 먼저 실행하고, NPC Story는 활동 결과 저장이 끝난 뒤 시작합니다.
 
 활동별 결과는 기존 계약을 사용합니다.
 
@@ -364,11 +368,18 @@
 - 모험: `MISSION_COMPLETE / TIMEOUT`
 - 요정의 거래: `TRANSFERRED / SKIPPED`
 
-## UCS-L02 활동 후 이야기
+## UCS-L02 활동 전 Location Story / 활동 후 NPC Story
 
 ```text
+활동 시작 체크포인트 저장
+→ Location Story 후보 판정
+
+Location Story 있음
+→ 장면 시작·완료 저장
+→ 같은 IN_PROGRESS 활동 실행
+
 활동 완료 자동 저장
-→ Location/NPC Story 후보 판정
+→ NPC Story 후보 판정
 
 이야기 없음
 → 다음 일정
