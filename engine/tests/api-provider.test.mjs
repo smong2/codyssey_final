@@ -1,8 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createLumiaApiProvider,LumiaApiError} from '../src/services/api-provider.mjs';
+import {createLumiaApiProvider,installLumiaApiProvider,LumiaApiError} from '../src/services/api-provider.mjs';
 
 const response=(status,data)=>({ok:status>=200&&status<300,status,async json(){return data;}});
+
+test('provider installer preserves the preinstalled account service and adds server API methods',()=>{
+ const account={getSession:async()=>null},target={lumiaEngineServices:{account}};
+ const installed=installLumiaApiProvider({baseUrl:'https://api.example',getIdToken:async()=>'token',maxAttempts:1,fetchImpl:async()=>response(200,{})},target);
+ assert.equal(installed,target.lumiaEngineServices);assert.equal(installed.account,account);
+ for(const name of ['bootstrapAccount','listSaveSlots','startRun','loadDialogue','completeDialogue','getCollection','prepareEnding','finishEnding'])assert.equal(typeof installed[name],'function',name);
+});
 
 test('API provider sends the Firebase token and exact mutation body',async()=>{
  const calls=[];const provider=createLumiaApiProvider({baseUrl:'https://api.example/',getIdToken:async()=>'token-secret',maxAttempts:1,fetchImpl:async(url,init)=>{calls.push({url,init});return response(200,{ok:true});}});

@@ -85,17 +85,12 @@ button.room-date{cursor:pointer;text-align:left}
 .room-date-stack{position:absolute;left:18px;top:18px;z-index:4;display:grid;gap:12px;max-width:min(310px,calc(100% - 36px))}
 .room-date-stack>.room-date{position:static;max-width:none}
 .room-date-stack>.room-current-action{position:static;max-width:none;display:flex;flex-direction:column;align-items:flex-start}
-.room-review-prompt{display:grid;gap:6px;padding:8px 10px;background-color:#f7efd9ef;font-size:12px}
-.room-review-prompt p{margin:0;line-height:1.35}
-.room-review-actions{display:grid;grid-template-columns:1.35fr 1fr;gap:6px}
-.room-review-actions button{min-width:0;padding:6px 8px;font-size:12px;white-space:nowrap}
 @media(max-width:700px){
  .room-main-character{left:44%;max-width:82vw}
  .room-pet{left:auto;right:1%;bottom:18%;width:28%;height:30%}
  .room-date-stack{left:10px;top:10px;max-width:145px;gap:9px}
  .room-date-stack>.room-current-action{padding:8px;gap:7px}
  .room-date-stack>.room-current-action button{width:100%;font-size:12px}
- .room-review-prompt{padding:6px;gap:4px}.room-review-prompt p{font-size:10px}.room-review-actions{gap:4px}.room-review-actions button{padding:5px 2px;font-size:9px}
 }
 
 /* User-approved post-title UI refinement. Intro timing/keyframes are unchanged. */

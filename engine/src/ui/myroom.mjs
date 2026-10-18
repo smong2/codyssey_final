@@ -433,16 +433,6 @@ export function createMyroomUI(ctx) {
 		profileUI.append(profileCopy);
 		dateStack.append(profileUI, date);
 		if (action.childElementCount) dateStack.append(action);
-		const completed = ctx.reviewPrompt?.();
-		if (completed) {
-			const completedDate = calendarModel({ ...r, week: completed.week, day: completed.day });
-			const prompt = el("section", null, "paper room-review-prompt");
-			prompt.append(el("p", completedDate.month + "월 " + completedDate.day + "일 " + WEEKDAYS[completedDate.weekday] + "요일 · " + activityTitle(completed.action, completed.locationId) + " 활동을 마쳤어요."));
-			const choices = el("div", null, "room-review-actions");
-			choices.append(btn("오늘 돌아보기", ctx.onReview ?? (() => {}), "quiet"), btn("나중에", ctx.onDismissReview ?? (() => {}), "quiet"));
-			prompt.append(choices);
-			dateStack.append(prompt);
-		}
 		shell.append(dateStack, tools, actors);
 	}
 	return { room, profile, schedule, collection, weeklySummary };

@@ -41,6 +41,7 @@ const actionFor=entry=>{
  return null;
 };
 const locationFor=entry=>entry?.type==='ADVENTURE'?(ADVENTURE_LOCATIONS[entry.contentId]??null):null;
+const classLocationFor=entry=>entry?.type==='CLASS'?(classOf(entry.contentId)?.locationId??null):null;
 const localPhase=phase=>{
  if(['WEEKEND_PENDING'].includes(phase))return 'WEEK_COMPLETE';
  if(['ENDING_PENDING','ENDING_DECIDED','ENDING_READY','FINAL_SUMMARY_PENDING'].includes(phase))return 'AWAITING_ENDING';
@@ -106,8 +107,9 @@ function projectServerRooms(meta){
  const pieces=Array.isArray(meta.acquiredPuzzlePieceIds)?meta.acquiredPuzzlePieceIds:[],unlocked=new Set(meta.unlockedRoomBackgroundIds??[]);
  if(pieces.some(id=>typeof id!=='string'||!/^PUZZLE_ROOM_0[1-3]_(?:0[1-9]|1[0-2])$/.test(id))||[...unlocked].some(id=>!Object.hasOwn(SERVER_ROOMS,id)))throw new Error('서버 마이룸 수집 정보가 올바르지 않습니다.');
  return Object.entries(SERVER_ROOMS).filter(([serverId])=>serverId!=='ROOM_DEFAULT').map(([serverId,engineId])=>{
-  const prefix=`PUZZLE_${serverId}_`,owned=pieces.filter(id=>typeof id==='string'&&id.startsWith(prefix)).map(id=>Number(id.slice(prefix.length))-1).filter(index=>Number.isInteger(index)&&index>=0&&index<12);
-  return {id:engineId,pieces:[...new Set(owned)].sort((a,b)=>a-b),unlocked:unlocked.has(serverId),images:null};
+  const prefix=`PUZZLE_${serverId}_`,owned=[...new Set(pieces.filter(id=>typeof id==='string'&&id.startsWith(prefix)).map(id=>Number(id.slice(prefix.length))-1).filter(index=>Number.isInteger(index)&&index>=0&&index<12))].sort((a,b)=>a-b),isUnlocked=unlocked.has(serverId);
+  if(isUnlocked&&owned.length!==12)throw new Error('서버 마이룸 수집 정보가 올바르지 않습니다.');
+  return {id:engineId,pieces:owned,unlocked:isUnlocked,images:null};
  });
 }
 
@@ -121,9 +123,9 @@ export function canRecordServerRoomVisit(run){
 
 function inProgressActivity(run,schedule,dayIndex){
  const day=WEEKDAYS[dayIndex],entry=schedule?.[day];if(!entry||entry.status!=='IN_PROGRESS')return undefined;
- const action=actionFor(entry);return {status:'IN_PROGRESS',token:`${run.runId}:${run.week}:${day}`,action,...(locationFor(entry)?{locationId:locationFor(entry)}:{}),staminaBefore:entry.staminaBefore,staminaCost:entry.staminaCost??0,forcedRest:entry.type==='FORCED_REST',forcedRestDaysBefore:run.forcedRest?.remainingWeekdays??0,forcedRestDaysAfterStart:run.forcedRest?.remainingWeekdays??0,
+ const action=actionFor(entry),adventureLocation=locationFor(entry),classLocation=classLocationFor(entry);return {status:'IN_PROGRESS',token:`${run.runId}:${run.week}:${day}`,action,...(adventureLocation?{locationId:adventureLocation}:{}),staminaBefore:entry.staminaBefore,staminaCost:entry.staminaCost??0,forcedRest:entry.type==='FORCED_REST',forcedRestDaysBefore:run.forcedRest?.remainingWeekdays??0,forcedRestDaysAfterStart:run.forcedRest?.remainingWeekdays??0,
   ...(entry.playDifficulty?{playDifficulty:entry.playDifficulty}:{}),...(entry.rewardDifficulty?{rewardDifficulty:entry.rewardDifficulty}:{}),...(Number.isInteger(entry.assistLevel)?{assistLevel:entry.assistLevel}:{}),
-  serverStart:{activityId:entry.contentId,activityType:entry.type,gameId:entry.type==='CLASS'?entry.contentId:null,locationId:locationFor(entry),seed:entry.seed??entry.adventureSeed,maxDurationMs:entry.maxDurationMs,replayVersion:entry.replayVersion,rewardDifficulty:entry.rewardDifficulty,playDifficulty:entry.playDifficulty,assistLevel:entry.assistLevel,adventureDifficulty:entry.adventureDifficulty,targetCount:entry.objectiveCount,durationSeconds:entry.durationSeconds,missionId:entry.missionId}};
+  serverStart:{activityId:entry.contentId,activityType:entry.type,gameId:entry.type==='CLASS'?entry.contentId:null,locationId:classLocation??adventureLocation,seed:entry.seed??entry.adventureSeed,maxDurationMs:entry.maxDurationMs,replayVersion:entry.replayVersion,rewardDifficulty:entry.rewardDifficulty,playDifficulty:entry.playDifficulty,assistLevel:entry.assistLevel,adventureDifficulty:entry.adventureDifficulty,targetCount:entry.objectiveCount,durationSeconds:entry.durationSeconds,missionId:entry.missionId}};
 }
 
 export function projectServerRun(run){
