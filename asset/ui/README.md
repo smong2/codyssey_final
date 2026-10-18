@@ -1,8 +1,14 @@
 # UI 이미지 목록 (`asset/ui/`)
 
-병합된 이미지 **54개**(PNG 52개, JPG 2개)와 이 README를 정리했습니다. 신규 정리 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·환경 재료·검토 시안)·`LG`(로고)로 시작합니다. `UI20_environment_`는 기존 `asset/environment/`의 게임 규격 이미지 15장을 내용 변경 없이 통합한 묶음입니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
+이미지 **59개**(PNG 57개, JPG 2개)와 이 README를 정리했습니다. 신규 정리 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·환경 재료·검토 시안)·`LG`(로고)로 시작합니다. `UI20_environment_`는 기존 `asset/environment/`의 게임 규격 이미지 15장을 내용 변경 없이 통합한 묶음입니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
 
 파일이 존재한다는 사실만으로 게임 적용·최종 승인·동작 검수가 끝난 것은 아닙니다. 이름에 `final`이 있는 기존 파일의 상태도 별도 기획·검수 기준을 따릅니다.
+
+## 빠른 탐색
+
+| 사용처·장면 | 파일명 기준 | 현재 상태 | 파일 목록·미리보기 |
+|---|---|---|---|
+| 버튼·프레임·로고·환경 UI; 마이룸 프로필·날짜, 일지 화살표·닫기, 대화·버튼 | `BT / UI / LG 및 실행 호환 이름` | 이 폴더 이미지 59장. 개별 파일의 채택·후보·검수 상태는 아래 설명을 따름 | 아래 파일 표와 미리보기, [에셋 전체 장면표](../README.md) 참조 |
 
 ## 이야기에서 사용하는 UI 재료
 
@@ -18,15 +24,15 @@
 
 ## 마이룸·일지 프레임과 조작 아이콘
 
-사용자 지정 저장 위치인 [`asset/item/`](../item/README.md)에 승인된 UI 재료 5장을 보관합니다. 이 폴더에 복제본은 없습니다. 두 프레임은 글자 없는 같은 가로 폭의 마이룸 왼쪽 위 프로필·날짜 표시용이며, 화살표 두 방향과 첫 번째 X 시안은 일지 화면용입니다. 실제 화면 합성·클릭 연결은 별도 검수 대상입니다.
+승인된 UI 재료 5장을 이 폴더에 보관합니다. `asset/item/`에서 이동했으며 복제본은 없습니다. 두 프레임은 글자 없는 같은 가로 폭의 마이룸 왼쪽 위 프로필·날짜 표시용이며, 화살표 두 방향과 첫 번째 X 시안은 일지 화면용입니다. 실제 화면 합성·클릭 연결은 별도 검수 대상입니다.
 
 | 사용처 | 파일 · 미리보기 |
 |---|---|
-| 마이룸 프로필 | [녹색 프로필 프레임](../item/UI21_myroom_profile_frame_green.png)<br><img src="../item/UI21_myroom_profile_frame_green.png" width="160" alt="마이룸 프로필 프레임"> |
-| 마이룸 날짜 | [아이보리 날짜 프레임](../item/UI22_myroom_date_frame_ivory.png)<br><img src="../item/UI22_myroom_date_frame_ivory.png" width="160" alt="마이룸 날짜 프레임"> |
-| 일지 오른쪽 이동 | [오른쪽 화살표](../item/UI23_journal_arrow_right.png)<br><img src="../item/UI23_journal_arrow_right.png" width="70" alt="일지 오른쪽 화살표"> |
-| 일지 아래 방향 변형 | [아래 화살표](../item/UI24_journal_arrow_down.png)<br><img src="../item/UI24_journal_arrow_down.png" width="70" alt="일지 아래 화살표"> |
-| 일지 닫기 | [첫 번째 X 시안](../item/UI25_journal_close_x.png)<br><img src="../item/UI25_journal_close_x.png" width="70" alt="일지 닫기 X"> |
+| 마이룸 프로필 | [녹색 프로필 프레임](./UI21_myroom_profile_frame_green.png)<br><img src="./UI21_myroom_profile_frame_green.png" width="160" alt="마이룸 프로필 프레임"> |
+| 마이룸 날짜 | [아이보리 날짜 프레임](./UI22_myroom_date_frame_ivory.png)<br><img src="./UI22_myroom_date_frame_ivory.png" width="160" alt="마이룸 날짜 프레임"> |
+| 일지 오른쪽 이동 | [오른쪽 화살표](./UI23_journal_arrow_right.png)<br><img src="./UI23_journal_arrow_right.png" width="70" alt="일지 오른쪽 화살표"> |
+| 일지 아래 방향 변형 | [아래 화살표](./UI24_journal_arrow_down.png)<br><img src="./UI24_journal_arrow_down.png" width="70" alt="일지 아래 화살표"> |
+| 일지 닫기 | [첫 번째 X 시안](./UI25_journal_close_x.png)<br><img src="./UI25_journal_close_x.png" width="70" alt="일지 닫기 X"> |
 
 ## 버튼
 

@@ -1,6 +1,30 @@
 # 이미지 자원 안내 · 스토리별 찾기
 
-이 문서는 **이야기 ID → 화면에 쓸 이미지 경로**를 찾는 시작점입니다. 파일의 실제 위치는 유지하고, 사용처를 문서로 연결합니다. 이미지가 폴더에 있다는 사실과 이야기용 채택·엔진 연결 완료는 다릅니다. 아래의 `확정 경로`도 게임에서 표시되는지 별도 검수가 필요합니다.
+이 문서는 **이야기 ID → 화면에 쓸 이미지 경로**를 찾는 시작점입니다. 사용처를 문서로 연결하며, 아이템과 UI 파일은 용도에 맞는 경로로 정리했습니다. 이미지가 폴더에 있다는 사실과 이야기용 채택·엔진 연결 완료는 다릅니다. 아래의 `확정 경로`도 게임에서 표시되는지 별도 검수가 필요합니다.
+
+## 폴더별 바로 찾기
+
+먼저 이야기 ID로 아래 [장면 연결표](#메인-스토리와-엔딩)를 찾고, 이미지 종류를 확인한 뒤 해당 폴더 README의 파일 목록과 미리보기를 엽니다. **확정 경로·후보·미제작·엔진 표시 여부를 서로 구분**합니다. 모든 폴더 README는 `빠른 탐색 → 사용처/상태 → 파일 목록·미리보기` 순서로 읽습니다.
+
+| 폴더 · 상세 README | 찾는 이미지 | 파일명 기준 | 판단 기준 |
+|---|---|---|---|
+| [background/](background/README.md) | 장면·시간대별 공간 배경 · 이미지 31장 | `BG*, 기존 마이룸 계열` | MS/LOC/NPC의 BACKGROUND·마이룸; 채택과 후보 구분 |
+| [character/](character/README.md) | 학생 전신·교수 캐릭터 · 이미지 34장 | `기존 32인 전신 이름` | 캐스팅 조건에 맞는 화자 이미지; 회차별 인물 고정 아님 |
+| [item/](item/README.md) | 스토리 FOCUS·소품·가구 · 이미지 31장 | `IT_<역할>_<장면/후보 영역>_<대상>_<번호>` | ART 제작 ID·장면 ID로 채택 그림 검색; 후보는 자동 배치 금지 |
+| [ui/](ui/README.md) | 버튼·프레임·로고·환경 UI · 이미지 59장 | `BT / UI / LG 및 실행 호환 이름` | 마이룸 프로필·날짜, 일지 화살표·닫기, 대화·버튼 |
+| [map/](map/README.md) | 이동·충돌용 맵 · 이미지 22장 | `MP* 및 기존 참고 맵` | 장소별 이동 지형; BACKGROUND와 구분 |
+| [pet/](pet/README.md) | 펫·루루 의상/표정 · 이미지 28장 | `PT / NPC_LULU` | 루루 회차와 의상 번호를 구별해 검색 |
+| [sd_character/](sd_character/README.md) | SD 캐릭터 · 이미지 48장 | `기존 캐릭터별 SD 계열` | Adventure용 작은 캐릭터; 전신 대화 화자와 구분 |
+| [puzzle/](puzzle/README.md) | 방 배경 12조각 퍼즐 · 이미지 48장 | `PZ + 방·조각 번호` | 우주방·공주방·식물방 완성본과 개별 조각 |
+| [badge/](badge/README.md) | 배지 프레임·심볼·상태 · 이미지 41장 | `기존 badge 계열` | 배지 조합과 잠금/해금 상태; 실행 호환 이름 유지 |
+| [effect/](effect/README.md) | 게임 효과·로고 광휘 · 이미지 3장 | `FX 및 실행 호환 이름` | 효과 레이어; 로고 본체는 ui에서 검색 |
+| [font_files/](font_files/README.md) | 서체·타이포그래피 이미지 · 이미지 18장 | `기존 서체별 이름` | 글꼴 비교 이미지; 메인 호환 웹폰트 2개와 라이선스도 보관 |
+| [Full screen/](Full%20screen/README.md) | 전체화면 검토 시안 · 이미지 21장 | `FS*` | 구성 확인용 합성 화면; 분리 UI와 구별 |
+| [Full screen/screen/](Full%20screen/screen/README.md) | 이전 화면 비교 자료 · 이미지 9장 | `기존 screen 계열` | 이전 레이아웃 비교; 채택 게임 화면 아님 |
+| [audio/](audio/README.md) | 배경음·효과음 · 이미지 0장 | `bgm / sfx` | 소리 파일; 이미지 미리보기 대신 파일 표 |
+| [stat/](stat/README.md) | 스탯 이미지 예정 · 이미지 0장 | `미정` | 현재 이미지 없음; 제작 완료로 해석하지 않음 |
+
+`Full screen/screen`은 `Full screen`의 하위 자료입니다. `background/myroom`은 [background README](background/README.md), `audio/bgm`·`audio/sfx`는 [audio README](audio/README.md), `font_files/licenses`는 [font_files README](font_files/README.md)에서 함께 찾습니다. Git에서 관리하지 않는 로컬 검토 폴더는 이 배포용 목록에 넣지 않았습니다.
 
 ## 판단 기준
 
@@ -11,7 +35,7 @@
 
 ## 파일명과 배치 상태
 
-이 브랜치의 새 UI는 `BT`(버튼)·`UI`(화면 재료)·`LG`(로고), 장소 배경은 `BG`, 이동 맵은 `MP`, 스토리 FOCUS는 제작 ID `ART-*`를 기준으로 찾습니다. 학생 전신, 펫 `PT`, 루루 의상 `NPC_LULU`, 퍼즐 `PZ`와 배지는 해당 폴더의 기존 번호 체계를 유지합니다. 번호가 같은 루루 **의상**과 **대화 회차**는 별개입니다. 게임 코드가 참조하는 일반 아이템·배지·기존 로고 광휘의 파일명은 경로 호환을 위해 임의 변경하지 않습니다. 새 그림이 생길 때 해당 폴더 README에 실제 파일명·장면 ID 또는 후보 용도·연결 상태·미리보기를 함께 갱신합니다.
+이 브랜치의 새 UI는 `BT`(버튼)·`UI`(화면 재료)·`LG`(로고), 장소 배경은 `BG`, 이동 맵은 `MP`, 아이템은 `IT_<역할>_<장면 또는 후보 영역>_<대상>_<번호>`로 찾습니다. 제작 ID `ART-*`와 파일 경로는 아래 장면표에서 연결합니다. 학생 전신, 펫 `PT`, 루루 의상 `NPC_LULU`, 퍼즐 `PZ`와 배지는 해당 폴더의 기존 번호 체계를 유지합니다. 번호가 같은 루루 **의상**과 **대화 회차**는 별개입니다. 일반 아이템은 `IT` 체계로 통일했습니다. 배지·기존 로고 광휘 등 다른 범주의 실행 호환 파일명은 유지합니다. 엔진의 아트 미리보기 목록과 경로 테스트는 새 이름에 맞췄습니다. 에셋 밖 기획 문서의 옛 파일명 예시는 별도 정비가 필요합니다. 새 그림이 생길 때 해당 폴더 README에 실제 파일명·장면 ID 또는 후보 용도·연결 상태·미리보기를 함께 갱신합니다.
 
 아이템 검색은 [item/README.md](item/README.md)의 `채택한 스토리 FOCUS`에서 **확정 경로**, `스토리 FOCUS 연결 상태`에서 **후보·불일치**, `일반 아이템 아트`에서 **장면 미배정 소품**을 구분합니다. 아이템 목록의 의미상 용도만으로 획득·배치·엔진 표시를 추정하지 않습니다.
 
@@ -19,11 +43,11 @@
 
 | 제작 ID | 파일 · 작은 미리보기 | 정확한 사용처 | 상태 |
 |---|---|---|---|
-| `ART-N01` | [아이보리 프레임 · 흩어진 모임 안내지](item/ART-N01_meeting_notices_scattered.png)<br><img src="item/ART-N01_meeting_notices_scattered.png" width="110" alt="아이보리 프레임 속 흩어진 작은 모임 안내지"> | `NPC_GUIDE_01` 최초, `NPC_GUIDE_02·04` 재사용. 시계탑 광장 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
-| `ART-N06` | [아이보리 프레임 · 루루의 열린 보물상자](item/ART-N06_lulu_treasure_chest_open.png)<br><img src="item/ART-N06_lulu_treasure_chest_open.png" width="110" alt="아이보리 프레임 속 루루의 열린 보물상자"> | `NPC_LULU_02` 최초, `NPC_LULU_03–04` 재사용. 방문 장소는 온실 또는 약초원 | 이미지 채택·파일 등록. 엔진 표시 미검수 |
-| `ART-L01` | [아이보리 프레임 · 펼친 관측 일기](item/ART-L01_observation_diary_open_dusty.png)<br><img src="item/ART-L01_observation_diary_open_dusty.png" width="110" alt="아이보리 프레임 속 먼지와 거미줄이 쌓인 펼친 관측 일기"> | `LOC_OBS_01` 최초, `LOC_OBS_02–04` 재사용. 별빛 천문대 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
+| `ART-N01` | [아이보리 프레임 · 흩어진 모임 안내지](item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png)<br><img src="item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png" width="110" alt="아이보리 프레임 속 흩어진 작은 모임 안내지"> | `NPC_GUIDE_01` 최초, `NPC_GUIDE_02·04` 재사용. 시계탑 광장 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
+| `ART-N06` | [아이보리 프레임 · 루루의 열린 보물상자](item/IT_focus_NPC_LULU_02_treasure_chest_02.png)<br><img src="item/IT_focus_NPC_LULU_02_treasure_chest_02.png" width="110" alt="아이보리 프레임 속 루루의 열린 보물상자"> | `NPC_LULU_02` 최초, `NPC_LULU_03–04` 재사용. 방문 장소는 온실 또는 약초원 | 이미지 채택·파일 등록. 엔진 표시 미검수 |
+| `ART-L01` | [아이보리 프레임 · 펼친 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png)<br><img src="item/IT_focus_LOC_OBS_01_observation_diary_03.png" width="110" alt="아이보리 프레임 속 먼지와 거미줄이 쌓인 펼친 관측 일기"> | `LOC_OBS_01` 최초, `LOC_OBS_02–04` 재사용. 별빛 천문대 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
 
-세 FOCUS는 모두 밝은 아이보리 프레임과 투명한 바깥 배경의 1672×941 PNG입니다. 일반 아이템 25장, 기존 프레임 카드 3장, 사용자 승인 마이룸·일지 UI 재료 5장까지 포함한 **item 폴더 이미지 전체 36장**의 파일명·미리보기는 [item/README.md](item/README.md)에서 확인합니다. UI 재료는 사용자의 저장 위치 요청에 따라 `item/`에 두었지만 소지품이나 스토리 FOCUS가 아닙니다. 프레임 카드·일반 아이템을 `ART-*` 전용 그림에 자동 대입하지 않습니다.
+세 FOCUS는 모두 밝은 아이보리 프레임과 투명한 바깥 배경의 1672×941 PNG입니다. 일반 아이템 25장과 기존 프레임 카드 3장까지 포함한 **item 폴더 이미지 전체 31장**의 파일명·미리보기는 [item/README.md](item/README.md)에서 확인합니다. 승인된 마이룸·일지 UI 재료 5장은 [`ui/`](ui/README.md)에 보관합니다. 프레임 카드·일반 아이템을 `ART-*` 전용 그림에 자동 대입하지 않습니다.
 
 ## 메인 스토리와 엔딩
 
@@ -43,18 +67,18 @@
 
 | 이야기 ID | BACKGROUND | FOCUS/화자 이미지 | 연결 판정 |
 |---|---|---|---|
-| `NPC_GUIDE_01` 안내지 줍기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | `ART-N01` [흩어진 모임 안내지](item/ART-N01_meeting_notices_scattered.png)<br><img src="item/ART-N01_meeting_notices_scattered.png" width="92" alt="흩어진 모임 안내지">; 티아 [티아 전신](character/tia0_fullbody.png) / 티아가 주인공이면 [로빈 전신](character/robin0_fullbody.png) | 배경·화자·FOCUS 파일 경로 확인 / 엔진 표시 미검수 |
-| `NPC_GUIDE_02` 안내지 놓기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png) | [`ART-N01` 안내지](item/ART-N01_meeting_notices_scattered.png) 재사용; 티아/로빈 조건 동일 | FOCUS 추가 제작 없음 / 엔진 표시 미검수 |
+| `NPC_GUIDE_01` 안내지 줍기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | `ART-N01` [흩어진 모임 안내지](item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png)<br><img src="item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png" width="92" alt="흩어진 모임 안내지">; 티아 [티아 전신](character/tia0_fullbody.png) / 티아가 주인공이면 [로빈 전신](character/robin0_fullbody.png) | 배경·화자·FOCUS 파일 경로 확인 / 엔진 표시 미검수 |
+| `NPC_GUIDE_02` 안내지 놓기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png) | [`ART-N01` 안내지](item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png) 재사용; 티아/로빈 조건 동일 | FOCUS 추가 제작 없음 / 엔진 표시 미검수 |
 | `NPC_GUIDE_03` 리본 고르기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | `ART-N02` 색이 다른 리본 두 개; 티아/로빈 조건 동일 | FOCUS 미연결. 선택 색별 그림 없음 |
-| `NPC_GUIDE_04` 준비 확인 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png) | [`ART-N01` 안내지](item/ART-N01_meeting_notices_scattered.png) 재사용; `ART-N02` 리본은 별도 미제작 | 안내지 파일 경로 확인 / 리본 미연결 / 엔진 표시 미검수 |
+| `NPC_GUIDE_04` 준비 확인 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png) | [`ART-N01` 안내지](item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png) 재사용; `ART-N02` 리본은 별도 미제작 | 안내지 파일 경로 확인 / 리본 미연결 / 엔진 표시 미검수 |
 | `NPC_WORK_01` 부품 모으기 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N03` 홈·모양이 다른 부품; 렌 [렌 전신](character/ren0_fullbody.png)<br><img src="character/ren0_fullbody.png" width="72" alt="렌 전신"> / 렌이 주인공이면 [다나 전신](character/dana0_fullbody.png)<br><img src="character/dana0_fullbody.png" width="72" alt="다나 전신"> | 배경·화자 경로 확인 / FOCUS 미연결 |
 | `NPC_WORK_02` 부품 찾기 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N03` 재사용; 렌/다나 조건 동일 | FOCUS 신규 0장; N03 미연결 |
 | `NPC_WORK_03` 도구 정돈 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N04` 천·도구·정돈된 작업대; 렌/다나 조건 동일 | FOCUS 미연결 |
 | `NPC_WORK_04` 작업대 확인 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N04` 재사용; 렌/다나 조건 동일 | FOCUS 신규 0장; N04 미연결 |
 | `NPC_LULU_01` 단추 | 방문 장소에 따라 [유리 온실](background/BG06_glass_greenhouse_1920x1080_016.png)<br><img src="background/BG06_glass_greenhouse_1920x1080_016.png" width="92" alt="유리 온실"> 또는 [치유의 약초원](background/BG07_healing_herb_garden_1920x1080_017.png)<br><img src="background/BG07_healing_herb_garden_1920x1080_017.png" width="92" alt="치유의 약초원"> | `ART-N05` 손바닥 위 단추; 루루 의상·표정은 별도 지정 필요. [초록 탐험복 예시](pet/NPC_LULU_01_front.png)<br><img src="pet/NPC_LULU_01_front.png" width="72" alt="초록 탐험복 예시"> | 배경 조건부 / FOCUS 미연결 / 의상 미정 |
-| `NPC_LULU_02` 보물상자 | 방문 장소에 따라 온실 또는 약초원 | `ART-N06` [열린 보물상자](item/ART-N06_lulu_treasure_chest_open.png)<br><img src="item/ART-N06_lulu_treasure_chest_open.png" width="82" alt="루루의 열린 보물상자">; 필요하면 `ART-N05` 회상 | FOCUS 파일 경로 확인 / 엔진 표시·루루 의상 미검수 |
-| `NPC_LULU_03` 발견물 | 온실 또는 약초원, 방문 장소 조건 동일 | [`ART-N06` 보물상자](item/ART-N06_lulu_treasure_chest_open.png) 재사용. 새 물건은 대사로 설명 | FOCUS 추가 제작 없음 / 엔진 표시 미검수 |
-| `NPC_LULU_04` 마지막 만남 | 온실 또는 약초원, 방문 장소 조건 동일 | [`ART-N06` 보물상자](item/ART-N06_lulu_treasure_chest_open.png) 재사용. 깃털·씨앗은 대사로 설명 | FOCUS 추가 제작 없음 / 엔진 표시 미검수 |
+| `NPC_LULU_02` 보물상자 | 방문 장소에 따라 온실 또는 약초원 | `ART-N06` [열린 보물상자](item/IT_focus_NPC_LULU_02_treasure_chest_02.png)<br><img src="item/IT_focus_NPC_LULU_02_treasure_chest_02.png" width="82" alt="루루의 열린 보물상자">; 필요하면 `ART-N05` 회상 | FOCUS 파일 경로 확인 / 엔진 표시·루루 의상 미검수 |
+| `NPC_LULU_03` 발견물 | 온실 또는 약초원, 방문 장소 조건 동일 | [`ART-N06` 보물상자](item/IT_focus_NPC_LULU_02_treasure_chest_02.png) 재사용. 새 물건은 대사로 설명 | FOCUS 추가 제작 없음 / 엔진 표시 미검수 |
+| `NPC_LULU_04` 마지막 만남 | 온실 또는 약초원, 방문 장소 조건 동일 | [`ART-N06` 보물상자](item/IT_focus_NPC_LULU_02_treasure_chest_02.png) 재사용. 깃털·씨앗은 대사로 설명 | FOCUS 추가 제작 없음 / 엔진 표시 미검수 |
 
 `NPC_LULU_01–04`는 **이야기 회차 번호**입니다. `pet/NPC_LULU_01_front.png`의 `01`은 **의상 번호**이므로 자동으로 같은 번호끼리 연결하지 않습니다. 초록 의상 미리보기는 보유 이미지의 예일 뿐, 이 회차의 확정 의상이 아닙니다.
 
@@ -62,30 +86,21 @@
 
 | 이야기 ID | BACKGROUND | FOCUS/화자 이미지 | 연결 판정 |
 |---|---|---|---|
-| `LOC_OBS_01` 첫 관측 일기 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png)<br><img src="background/BG05_starlight_observatory_1920x1080_015.png" width="92" alt="별빛 천문대"> | `ART-L01` [펼친 관측 일기](item/ART-L01_observation_diary_open_dusty.png)<br><img src="item/ART-L01_observation_diary_open_dusty.png" width="92" alt="먼지 쌓인 펼친 관측 일기"> | 배경·FOCUS 파일 경로 확인 / 엔진 표시 미검수 |
-| `LOC_OBS_02` 늦은 관측 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png) | [`ART-L01` 관측 일기](item/ART-L01_observation_diary_open_dusty.png) 재사용. 기록 내용만 대사로 변경 | 새 페이지 그림 없음 / 엔진 표시 미검수 |
-| `LOC_OBS_03` 자리 맡아 주기 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png) | [`ART-L01` 관측 일기](item/ART-L01_observation_diary_open_dusty.png) 재사용 | 새 찻잔·자리표 그림 없음 / 엔진 표시 미검수 |
-| `LOC_OBS_04` 빈 관측 칸 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png) | [`ART-L01` 관측 일기](item/ART-L01_observation_diary_open_dusty.png) 재사용. 선택 표식은 대사 텍스트 | 새 선택별 그림 없음 / 엔진 표시 미검수 |
-| `LOC_GH_01` 시든 화분 | [유리 온실](background/BG06_glass_greenhouse_1920x1080_016.png)<br><img src="background/BG06_glass_greenhouse_1920x1080_016.png" width="92" alt="유리 온실"> | R1 `ART-L02` 시든 화분 후보 [시든 화분 후보](item/plant1_wilted_frame_thin_3840x2161.png)<br><img src="item/plant1_wilted_frame_thin_3840x2161.png" width="92" alt="시든 화분 후보"> → R2 `ART-L03` 건강해진 화분 후보 [회복 화분 후보](item/plant2_restored_frame_thin_3840x2161.png)<br><img src="item/plant2_restored_frame_thin_3840x2161.png" width="92" alt="회복 화분 후보">. 화자 `LOC_GREENHOUSE_STUDENT`는 동적 배정 | 배경 확인 / 두 FOCUS는 **후보**, 채택·표시 방식 검수 필요 |
+| `LOC_OBS_01` 첫 관측 일기 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png)<br><img src="background/BG05_starlight_observatory_1920x1080_015.png" width="92" alt="별빛 천문대"> | `ART-L01` [펼친 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png)<br><img src="item/IT_focus_LOC_OBS_01_observation_diary_03.png" width="92" alt="먼지 쌓인 펼친 관측 일기"> | 배경·FOCUS 파일 경로 확인 / 엔진 표시 미검수 |
+| `LOC_OBS_02` 늦은 관측 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png) | [`ART-L01` 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png) 재사용. 기록 내용만 대사로 변경 | 새 페이지 그림 없음 / 엔진 표시 미검수 |
+| `LOC_OBS_03` 자리 맡아 주기 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png) | [`ART-L01` 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png) 재사용 | 새 찻잔·자리표 그림 없음 / 엔진 표시 미검수 |
+| `LOC_OBS_04` 빈 관측 칸 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png) | [`ART-L01` 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png) 재사용. 선택 표식은 대사 텍스트 | 새 선택별 그림 없음 / 엔진 표시 미검수 |
+| `LOC_GH_01` 시든 화분 | [유리 온실](background/BG06_glass_greenhouse_1920x1080_016.png)<br><img src="background/BG06_glass_greenhouse_1920x1080_016.png" width="92" alt="유리 온실"> | R1 `ART-L02` 시든 화분 후보 [시든 화분 후보](item/IT_card_candidate_GH_wilted_plant_01.png)<br><img src="item/IT_card_candidate_GH_wilted_plant_01.png" width="92" alt="시든 화분 후보"> → R2 `ART-L03` 건강해진 화분 후보 [회복 화분 후보](item/IT_card_candidate_GH_restored_plant_02.png)<br><img src="item/IT_card_candidate_GH_restored_plant_02.png" width="92" alt="회복 화분 후보">. 화자 `LOC_GREENHOUSE_STUDENT`는 동적 배정 | 배경 확인 / 두 FOCUS는 **후보**, 채택·표시 방식 검수 필요 |
 | `LOC_LIB_01` 책 정리 | [대서고](background/BG04_grand_library_1920x1080_014.png)<br><img src="background/BG04_grand_library_1920x1080_014.png" width="92" alt="대서고"> | R1 `ART-L04` **책장 위에 가로로 놓인 평범한 책** → R2 숨김. 세린은 이미지 없이 화자명·대사 사용 가능 | 배경 확인 / FOCUS 미연결 |
 
 ### 관측 일기 선택과 비슷한 시안 구분
 
 | 보유 이미지 미리보기 | 사용 판단 |
 |---|---|
-| [펼친 관측 일기](item/ART-L01_observation_diary_open_dusty.png)<br><img src="item/ART-L01_observation_diary_open_dusty.png" width="110" alt="아이보리 프레임 속 펼친 관측 일기"> | **확정:** `LOC_OBS_01–04`의 `ART-L01` FOCUS는 이 그림 한 장을 재사용합니다. |
-| [장식 있는 고서](item/book1_ancient_frame_thin_3840x2161.png)<br><img src="item/book1_ancient_frame_thin_3840x2161.png" width="110" alt="장식 있는 고서"> | `ART-L04`는 **책장 위에 가로로 놓인 평범한 책**입니다. 현재 고서는 그 구도와 내용이 다릅니다. |
+| [펼친 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png)<br><img src="item/IT_focus_LOC_OBS_01_observation_diary_03.png" width="110" alt="아이보리 프레임 속 펼친 관측 일기"> | **확정:** `LOC_OBS_01–04`의 `ART-L01` FOCUS는 이 그림 한 장을 재사용합니다. |
+| [장식 있는 고서](item/IT_card_candidate_LIB_ancient_book_03.png)<br><img src="item/IT_card_candidate_LIB_ancient_book_03.png" width="110" alt="장식 있는 고서"> | `ART-L04`는 **책장 위에 가로로 놓인 평범한 책**입니다. 현재 고서는 그 구도와 내용이 다릅니다. |
 | [방치된 온실](background/BG06_glass_greenhouse_neglected_3840x2162.png)<br><img src="background/BG06_glass_greenhouse_neglected_3840x2162.png" width="110" alt="방치된 온실"> | 보유 시안이지만 `MS02`의 `ART-M01/M02`를 대신하는 확정 그림은 아닙니다. |
 
-## 폴더별 역방향 찾기
+## README 갱신 기준
 
-| 폴더 | 무엇을 찾나 |
-|---|---|
-| [background/](background/README.md) | 장면 배경·마이룸 시간대·게임용/시안 구분 |
-| [item/](item/README.md) | 스토리 FOCUS 3장·일반 아이템 25장·기존 프레임 카드 3장·승인된 마이룸/일지 UI 5장과 사용처 |
-| [character/](character/README.md) | 학생 전신 32장·발렌티누스 교수 시안 2장(이미지 총 34장); 동적 배역은 스토리 문서 기준 |
-| [pet/](pet/README.md) | 루루 의상별 앞·뒤·표정; 회차 번호와 분리 |
-| [ui/](ui/README.md) | 대화창·초대장·현재 BT04 버튼과 짧은 빈 버튼 2종·펼친 다이어리 등 공통 UI 재료와 채택 상태 |
-| [map/](map/README.md) | 이동·충돌용 맵. 위 `BACKGROUND`와 다른 용도 |
-
-그 밖의 [SD 캐릭터](sd_character/README.md), [퍼즐](puzzle/README.md), [이펙트](effect/README.md), [배지](badge/README.md), [풀스크린](Full%20screen/README.md), [글꼴](font_files/README.md), [스탯](stat/README.md)은 각 폴더 README의 목록·미리보기를 사용합니다. 새로운 이미지가 채택되면 **실제 파일·이 표의 경로와 상태·해당 폴더 README의 미리보기·엔진 참조**를 같은 변경에서 확인합니다.
+새 이미지나 파일명 변경 시 이 문서의 장면 ID별 경로·상태, 해당 폴더 README의 사용처·미리보기, 실제 이미지 파일을 같은 변경에서 대조합니다. 후보 그림은 제작 문서와 일치하고 승인되기 전까지 확정 경로로 올리지 않습니다. 게임 엔진의 경로 변경은 별도 검증이 필요합니다.
