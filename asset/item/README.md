@@ -1,8 +1,10 @@
 # 게임용 아이템
 
-명칭·용도는 자원 설명이며 획득 조건·수치·소모 효과를 확정하는 데이터가 아닙니다.
+이 폴더는 **스토리에서 채택한 FOCUS 3장**, **채택 검수 전 프레임 카드 3장**, **일반 아이템 아트 25장**을 분리해 기록합니다. `ART-*`는 제작 문서의 그림 ID입니다. 이름이 비슷한 일반 아이템을 해당 장면에 자동으로 연결하지 않습니다.
 
-기존 게임용 PNG 25장과 프레임형 조사 이미지 3장, 스토리 FOCUS 3장, 총 31장입니다. 원본 26장과 이전 회복 식물 시안 1장은 로컬에 보관했습니다. 시든/회복 식물과 비활성/활성 이벤트 룬은 게임 상태가 달라 별도 이미지로 유지합니다. 회복 식물은 승인된 v2를 사용합니다.
+명칭·용도는 자원 설명이며 획득 조건·수치·소모 효과를 확정하는 데이터가 아닙니다. 일반 25장은 [엔진의 아트 미리보기 목록](../../engine/src/core/bag-assets.mjs)에 파일명이 등록되어 있으나, 이 목록 자체에 소지품·해금 데이터가 아니라고 명시되어 있습니다. 현재 저장소에서 이 목록을 가져와 사용하는 화면 코드는 확인되지 않았습니다. 따라서 아래의 `배치 후보`는 **검색을 돕는 용도 분류**이고 실제 스토리 배정이나 게임 표시 완료를 뜻하지 않습니다.
+
+기존 일반 아이템 PNG 25장과 프레임형 조사 이미지 3장, 스토리 FOCUS 3장, 총 31장입니다. 원본 26장과 이전 회복 식물 시안 1장은 로컬에 보관했습니다. 시든/회복 식물과 비활성/활성 이벤트 룬은 게임 상태가 달라 별도 이미지로 유지합니다. 회복 식물은 승인된 v2를 사용합니다.
 
 ## 스토리 FOCUS 연결 상태
 
@@ -42,35 +44,37 @@
 - 파일: [ART-L01_observation_diary_open_dusty.png](./ART-L01_observation_diary_open_dusty.png) · 1672×941 투명 PNG
 - 사용처: `LOC_OBS_01` 별빛 천문대에서 처음 표시. `LOC_OBS_02–04`에서 같은 그림 재사용. 회차별 기록 내용은 대화창 텍스트로 표시.
 
-## 기존 게임용 아이템 · 25장
+## 일반 아이템 아트 · 25장
 
-| 파일 | 명칭·용도 | 규격 | 미리보기 |
-|---|---|---:|:---:|
-| [diary1_heart.png](./diary1_heart.png) | 마음 일기: 일반 기록 소품. 관측 일기 `ART-L01`과 별개 | 1024×1024 | <img src="./diary1_heart.png" width="140" alt="diary1_heart.png"> |
-| [lamp1_rune.png](./lamp1_rune.png) | 룬 램프: 조명 소품 | 1024×1024 | <img src="./lamp1_rune.png" width="140" alt="lamp1_rune.png"> |
-| [tea1_set.png](./tea1_set.png) | 차 세트: 생활 소품 | 1024×1024 | <img src="./tea1_set.png" width="140" alt="tea1_set.png"> |
-| [pot1_herb.png](./pot1_herb.png) | 약초 화분 | 1024×1024 | <img src="./pot1_herb.png" width="140" alt="pot1_herb.png"> |
-| [rune1_fragment.png](./rune1_fragment.png) | 룬 조각 | 1024×1024 | <img src="./rune1_fragment.png" width="140" alt="rune1_fragment.png"> |
-| [frame1_memory.png](./frame1_memory.png) | 추억 액자 | 1024×1024 | <img src="./frame1_memory.png" width="140" alt="frame1_memory.png"> |
-| [desk1_myroom.png](./desk1_myroom.png) | 마이룸 책상 | 1024×1024 | <img src="./desk1_myroom.png" width="140" alt="desk1_myroom.png"> |
-| [chair1_myroom.png](./chair1_myroom.png) | 마이룸 의자 | 1024×1024 | <img src="./chair1_myroom.png" width="140" alt="chair1_myroom.png"> |
-| [bed1_myroom.png](./bed1_myroom.png) | 마이룸 침대 | 1024×1024 | <img src="./bed1_myroom.png" width="140" alt="bed1_myroom.png"> |
-| [bookshelf1_myroom.png](./bookshelf1_myroom.png) | 마이룸 책장 | 1024×1024 | <img src="./bookshelf1_myroom.png" width="140" alt="bookshelf1_myroom.png"> |
-| [rug1_myroom.png](./rug1_myroom.png) | 마이룸 러그 | 1024×1024 | <img src="./rug1_myroom.png" width="140" alt="rug1_myroom.png"> |
-| [ornament1_rune.png](./ornament1_rune.png) | 룬 장식품 | 1024×1024 | <img src="./ornament1_rune.png" width="140" alt="ornament1_rune.png"> |
-| [book1_ancient.png](./book1_ancient.png) | 고서 | 1024×1024 | <img src="./book1_ancient.png" width="140" alt="book1_ancient.png"> |
-| [letter1_parchment.png](./letter1_parchment.png) | 양피지 편지 | 1024×1024 | <img src="./letter1_parchment.png" width="140" alt="letter1_parchment.png"> |
-| [tools1_workshop.png](./tools1_workshop.png) | 공방 도구 | 1024×1024 | <img src="./tools1_workshop.png" width="140" alt="tools1_workshop.png"> |
-| [sword1_wooden.png](./sword1_wooden.png) | 목검: 훈련 소품 | 1024×1024 | <img src="./sword1_wooden.png" width="140" alt="sword1_wooden.png"> |
-| [stone1_magic.png](./stone1_magic.png) | 마석 | 1024×1024 | <img src="./stone1_magic.png" width="140" alt="stone1_magic.png"> |
-| [rune2_heart.png](./rune2_heart.png) | 마음의 룬 | 1024×1024 | <img src="./rune2_heart.png" width="140" alt="rune2_heart.png"> |
-| [rune3_shadow.png](./rune3_shadow.png) | 그림자 룬 | 1024×1024 | <img src="./rune3_shadow.png" width="140" alt="rune3_shadow.png"> |
-| [rune4_purified.png](./rune4_purified.png) | 정화된 룬 | 1024×1024 | <img src="./rune4_purified.png" width="140" alt="rune4_purified.png"> |
-| [plant1_wilted.png](./plant1_wilted.png) | 시든 식물: 회복 전 | 512×512 | <img src="./plant1_wilted.png" width="140" alt="plant1_wilted.png"> |
-| [plant2_restored.png](./plant2_restored.png) | 회복된 식물: 승인 v2 | 512×512 | <img src="./plant2_restored.png" width="140" alt="plant2_restored.png"> |
-| [herb1_moonlight.png](./herb1_moonlight.png) | 달빛 약초: 조사·획득 대상 | 256×256 | <img src="./herb1_moonlight.png" width="140" alt="herb1_moonlight.png"> |
-| [event_rune1_inactive.png](./event_rune1_inactive.png) | 이벤트 룬: 비활성 | 512×512 | <img src="./event_rune1_inactive.png" width="140" alt="event_rune1_inactive.png"> |
-| [event_rune2_active.png](./event_rune2_active.png) | 이벤트 룬: 활성 | 512×512 | <img src="./event_rune2_active.png" width="140" alt="event_rune2_active.png"> |
+같은 대상을 그린 일반 PNG와 프레임 카드는 화면 역할이 다릅니다. 일반 PNG는 소품·가구 이미지 후보이고, 프레임 카드는 대화 중 중앙에 띄울 FOCUS 후보입니다. 아래의 `마이룸`, `온실`, `공방` 등은 파일명·그림 내용에 따른 후보 장소입니다. 제작 문서가 장면 ID를 지정하기 전에는 엔진이 이 표만 보고 배치하지 않습니다.
+
+| 파일 | 명칭·용도 | 배치 후보 · 연결 상태 | 규격 | 미리보기 |
+|---|---|---|---:|:---:|
+| [diary1_heart.png](./diary1_heart.png) | 마음 일기: 일반 기록 소품. 관측 일기 `ART-L01`과 별개 | 개인 기록·마이룸 소품 후보. `ART-L01` 관측 일기 아님; 화면 배치 미확인 | 1024×1024 | <img src="./diary1_heart.png" width="140" alt="diary1_heart.png"> |
+| [lamp1_rune.png](./lamp1_rune.png) | 룬 램프: 조명 소품 | 마이룸 조명 소품 후보; 화면 배치 미확인 | 1024×1024 | <img src="./lamp1_rune.png" width="140" alt="lamp1_rune.png"> |
+| [tea1_set.png](./tea1_set.png) | 차 세트: 생활 소품 | 마이룸 생활 소품 후보; 화면 배치 미확인 | 1024×1024 | <img src="./tea1_set.png" width="140" alt="tea1_set.png"> |
+| [pot1_herb.png](./pot1_herb.png) | 약초 화분 | 마이룸·온실 화분 후보. `ART-L02/L03` 확정 그림 아님 | 1024×1024 | <img src="./pot1_herb.png" width="140" alt="pot1_herb.png"> |
+| [rune1_fragment.png](./rune1_fragment.png) | 룬 조각 | 룬 수집·조사 소품 후보; 획득 조건·화면 배치 미확인 | 1024×1024 | <img src="./rune1_fragment.png" width="140" alt="rune1_fragment.png"> |
+| [frame1_memory.png](./frame1_memory.png) | 추억 액자 | 마이룸 장식 후보; 화면 배치 미확인 | 1024×1024 | <img src="./frame1_memory.png" width="140" alt="frame1_memory.png"> |
+| [desk1_myroom.png](./desk1_myroom.png) | 마이룸 책상 | 마이룸 가구 후보; 화면 배치 미확인 | 1024×1024 | <img src="./desk1_myroom.png" width="140" alt="desk1_myroom.png"> |
+| [chair1_myroom.png](./chair1_myroom.png) | 마이룸 의자 | 마이룸 가구 후보; 화면 배치 미확인 | 1024×1024 | <img src="./chair1_myroom.png" width="140" alt="chair1_myroom.png"> |
+| [bed1_myroom.png](./bed1_myroom.png) | 마이룸 침대 | 마이룸 가구 후보; 화면 배치 미확인 | 1024×1024 | <img src="./bed1_myroom.png" width="140" alt="bed1_myroom.png"> |
+| [bookshelf1_myroom.png](./bookshelf1_myroom.png) | 마이룸 책장 | 마이룸 가구 후보; 화면 배치 미확인 | 1024×1024 | <img src="./bookshelf1_myroom.png" width="140" alt="bookshelf1_myroom.png"> |
+| [rug1_myroom.png](./rug1_myroom.png) | 마이룸 러그 | 마이룸 가구 후보; 화면 배치 미확인 | 1024×1024 | <img src="./rug1_myroom.png" width="140" alt="rug1_myroom.png"> |
+| [ornament1_rune.png](./ornament1_rune.png) | 룬 장식품 | 마이룸 룬 장식 후보; 화면 배치 미확인 | 1024×1024 | <img src="./ornament1_rune.png" width="140" alt="ornament1_rune.png"> |
+| [book1_ancient.png](./book1_ancient.png) | 고서 | 대서고 소품 후보. `ART-L04`의 평범한 가로 책과 불일치 | 1024×1024 | <img src="./book1_ancient.png" width="140" alt="book1_ancient.png"> |
+| [letter1_parchment.png](./letter1_parchment.png) | 양피지 편지 | 편지·문서 소품 후보. `MS01` 초대장이나 `END` 편지로 확정되지 않음 | 1024×1024 | <img src="./letter1_parchment.png" width="140" alt="letter1_parchment.png"> |
+| [tools1_workshop.png](./tools1_workshop.png) | 공방 도구 | 마도 공방 소품 후보. `ART-N03/N04`로 확정되지 않음 | 1024×1024 | <img src="./tools1_workshop.png" width="140" alt="tools1_workshop.png"> |
+| [sword1_wooden.png](./sword1_wooden.png) | 목검: 훈련 소품 | 훈련 소품 후보; 룬 수련장 배치 미확인 | 1024×1024 | <img src="./sword1_wooden.png" width="140" alt="sword1_wooden.png"> |
+| [stone1_magic.png](./stone1_magic.png) | 마석 | 마법 재료 후보; 스토리 배정 미확인 | 1024×1024 | <img src="./stone1_magic.png" width="140" alt="stone1_magic.png"> |
+| [rune2_heart.png](./rune2_heart.png) | 마음의 룬 | 룬 수집·조사 소품 후보; 스토리 배정 미확인 | 1024×1024 | <img src="./rune2_heart.png" width="140" alt="rune2_heart.png"> |
+| [rune3_shadow.png](./rune3_shadow.png) | 그림자 룬 | 룬 수집·조사 소품 후보. `ART-M04/M05` 그림자 장면 아님 | 1024×1024 | <img src="./rune3_shadow.png" width="140" alt="rune3_shadow.png"> |
+| [rune4_purified.png](./rune4_purified.png) | 정화된 룬 | 룬 수집·조사 소품 후보; 스토리 배정 미확인 | 1024×1024 | <img src="./rune4_purified.png" width="140" alt="rune4_purified.png"> |
+| [plant1_wilted.png](./plant1_wilted.png) | 시든 식물: 회복 전 | 온실 상태 소품 후보. `ART-L02` 프레임 카드는 아래 별도 파일 | 512×512 | <img src="./plant1_wilted.png" width="140" alt="plant1_wilted.png"> |
+| [plant2_restored.png](./plant2_restored.png) | 회복된 식물: 승인 v2 | 온실 상태 소품 후보. `ART-L03` 프레임 카드는 아래 별도 파일 | 512×512 | <img src="./plant2_restored.png" width="140" alt="plant2_restored.png"> |
+| [herb1_moonlight.png](./herb1_moonlight.png) | 달빛 약초: 조사 소품 | 약초원 조사 소품 후보; 획득 조건·장면 배정 미확인 | 256×256 | <img src="./herb1_moonlight.png" width="140" alt="herb1_moonlight.png"> |
+| [event_rune1_inactive.png](./event_rune1_inactive.png) | 이벤트 룬: 비활성 | 이벤트 룬 비활성 상태 후보; 장면 배정 미확인 | 512×512 | <img src="./event_rune1_inactive.png" width="140" alt="event_rune1_inactive.png"> |
+| [event_rune2_active.png](./event_rune2_active.png) | 이벤트 룬: 활성 | 이벤트 룬 활성 상태 후보; 장면 배정 미확인 | 512×512 | <img src="./event_rune2_active.png" width="140" alt="event_rune2_active.png"> |
 
 ## 기존 프레임형 조사 이미지 · 3장
 

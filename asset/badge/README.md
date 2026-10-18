@@ -3,7 +3,7 @@
 ## 상태와 기준
 
 - 제작·정규화: 2026-10-11. 사용자 승인 시안을 바탕으로 저장한 아트 자원이다.
-- 저장 위치: **smong2/codyssey_final** 저장소의 **main / asset/badge/**.
+- 현재 정리 기준: **smong2/codyssey_final** 저장소의 **dev-jw / asset/badge/**. 병합 후에도 실제 파일 경로 `asset/badge/`는 같습니다.
 - **아트 디자인 승인 및 파일 규격 검증 완료 / 게임 연결·실제 화면 검수 미완료.** 이미지 존재를 기능 구현 완료로 해석하지 않는다.
 - 기준: [가방 수집 배지 디자인](../../document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md), [수집·해금 기획](../../document/content/03_COLLECTION_UNLOCKS/README.md), 사용자의 최신 프레임 선택과 골드 완성 상태 선택.
 - 프레임 선택: 숲 B / 별 A / 공방 C / 우정 B / 룬 C. 반짝이는 보석·에나멜 재질은 이번 배지에 대해 승인된 방향이며 게임 전체 UI 재질을 변경하는 결정은 아니다.

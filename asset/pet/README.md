@@ -4,13 +4,13 @@
 
 ## 루루 이야기에서 찾기
 
-`NPC_LULU_01–04`는 네 번의 **대화 사건**이고, 파일명 `NPC_LULU_01–03`은 세 벌의 **의상**입니다. 같은 번호로 연결하지 않습니다. 대화 소품 `ART-N05` 손 위 단추와 `ART-N06` 열린 보물상자는 현재 확정 파일 경로가 없습니다. 루루의 의상·표정도 제작 문서에 회차별 지정이 없어 **미정**입니다.
+`NPC_LULU_01–04`는 네 번의 **대화 사건**이고, 파일명 `NPC_LULU_01–03`은 세 벌의 **의상**입니다. 같은 번호로 연결하지 않습니다. 대화 소품 `ART-N05` 손 위 단추는 확정 파일이 없습니다. `ART-N06` 열린 보물상자는 [아이템 폴더의 승인 이미지](../item/ART-N06_lulu_treasure_chest_open.png)를 사용합니다. 루루의 의상·표정은 제작 문서에 회차별 지정이 없어 **미정**입니다.
 
 | 이야기 | 필요한 FOCUS | 보유한 루루 의상 예시 · 작은 미리보기 |
 |---|---|---|
 | `NPC_LULU_01` | `ART-N05` 단추 | [초록 탐험복](./NPC_LULU_01_front.png)<br><img src="./NPC_LULU_01_front.png" width="75" alt="초록 탐험복"> |
-| `NPC_LULU_02` | `ART-N06` 보물상자, N05 회상 가능 | [남색 학자복](./NPC_LULU_02_front.png)<br><img src="./NPC_LULU_02_front.png" width="75" alt="남색 학자복"> |
-| `NPC_LULU_03–04` | `ART-N06` 재사용 | [분홍 꽃 의상](./NPC_LULU_03_front.png)<br><img src="./NPC_LULU_03_front.png" width="75" alt="분홍 꽃 의상"> |
+| `NPC_LULU_02` | [열린 보물상자 `ART-N06`](../item/ART-N06_lulu_treasure_chest_open.png)<br><img src="../item/ART-N06_lulu_treasure_chest_open.png" width="120" alt="아이보리 프레임 속 루루의 열린 보물상자">; N05 회상 가능 | [남색 학자복](./NPC_LULU_02_front.png)<br><img src="./NPC_LULU_02_front.png" width="75" alt="남색 학자복"> |
+| `NPC_LULU_03–04` | [같은 `ART-N06` 그림](../item/ART-N06_lulu_treasure_chest_open.png) 재사용 | [분홍 꽃 의상](./NPC_LULU_03_front.png)<br><img src="./NPC_LULU_03_front.png" width="75" alt="분홍 꽃 의상"> |
 
 위 의상 그림은 **보유 예시**이며 해당 회차에 확정 배정된 이미지가 아닙니다. 배경은 실제 만남 장소에 따라 [유리 온실 또는 치유의 약초원](../background/README.md)을 사용합니다. [전체 장면 연결표](../README.md)와 [NPC 제작 문서](../../story/npc/NPC_STORY_PRODUCTION.md)를 함께 확인하세요.
 
