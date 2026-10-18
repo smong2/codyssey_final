@@ -9,10 +9,10 @@
 | 폴더 · 상세 README | 찾는 이미지 | 파일명 기준 | 판단 기준 |
 |---|---|---|---|
 | [background/](background/README.md) | 장면·시간대별 공간 배경 · 이미지 31장 | `BG*, 기존 마이룸 계열` | MS/LOC/NPC의 BACKGROUND·마이룸; 채택과 후보 구분 |
-| [character/](character/README.md) | 학생 전신·교수 캐릭터 · 이미지 34장 | `기존 32인 전신 이름` | 캐스팅 조건에 맞는 화자 이미지; 회차별 인물 고정 아님 |
+| [character/](character/README.md) | 학생 전신·교수 캐릭터·`요정의 거래` 전용 요정 캐릭터 · 이미지 35장 | `기존 32인 전신 이름` / `CH_DRM_fairy_trade_upperbody_01.png` | 캐스팅 조건에 맞는 화자 이미지와 기숙사 `DRM` 특수 활동에 사용하는 요정 캐릭터를 구분 |
 | [item/](item/README.md) · [모험 목표 15종](item/adventure/README.md) | 스토리 FOCUS·소품·가구·모험 목표 · 이미지 46장 | `IT_*` / `ADV_GH/LIB/OBS_*` | `ART-*` FOCUS와 `ADV_*` 모험 목표를 용도별로 검색; 후보는 자동 배치 금지 |
-| [ui/](ui/README.md) | 버튼·프레임·로고·환경 UI · 이미지 59장 | `BT / UI / LG 및 실행 호환 이름` | 마이룸 프로필·날짜, 일지 화살표·닫기, 대화·버튼 |
-| [map/](map/README.md) | 이동·충돌용 맵 · 이미지 22장 | `MP* 및 기존 참고 맵` | 장소별 이동 지형; BACKGROUND와 구분 |
+| [ui/](ui/README.md) | 버튼·프레임·로고·환경 UI · 이미지 60장 | `BT / UI / LG 및 실행 호환 이름` | 마이룸 프로필·날짜 프레임 `UI21`·`UI22`(공통 가로 2058px), 일지 화살표·닫기, 대화·선택지 버튼 |
+| [map/](map/README.md) | 이동·충돌용 맵 · 이미지 22장 | `MP* 및 기존 참고 맵` | MP02·MP03 갱신 마스터와 기존 게임용 WebP를 구분. [대서고 원본](map/MP02_grand_library_master_3840x2161.png) <img src="map/MP02_grand_library_master_3840x2161.png" width="72" alt="갱신된 대서고 마스터"> · [천문대 원본](map/MP03_starlight_observatory_master_3840x2162.png) <img src="map/MP03_starlight_observatory_master_3840x2162.png" width="72" alt="갱신된 천문대 마스터"> |
 | [pet/](pet/README.md) | 펫·루루 의상/표정 · 이미지 28장 | `PT / NPC_LULU` | 루루 회차와 의상 번호를 구별해 검색 |
 | [sd_character/](sd_character/README.md) | SD 캐릭터 · 이미지 48장 | `기존 캐릭터별 SD 계열` | Adventure용 작은 캐릭터; 전신 대화 화자와 구분 |
 | [puzzle/](puzzle/README.md) | 방 배경 12조각 퍼즐 · 이미지 48장 | `PZ + 방·조각 번호` | 우주방·공주방·식물방 완성본과 개별 조각 |
@@ -35,9 +35,21 @@
 
 ## 파일명과 배치 상태
 
-이 브랜치의 새 UI는 `BT`(버튼)·`UI`(화면 재료)·`LG`(로고), 장소 배경은 `BG`, 이동 맵은 `MP`, 일반 아이템·FOCUS는 `IT_<역할>_<장면 또는 후보 영역>_<대상>_<번호>`, 모험 목표는 문서·엔진 ID와 같은 `ADV_<장소>_<번호>`로 찾습니다. 제작 ID `ART-*`와 파일 경로는 아래 장면표에서 연결합니다. 학생 전신, 펫 `PT`, 루루 의상 `NPC_LULU`, 퍼즐 `PZ`와 배지는 해당 폴더의 기존 번호 체계를 유지합니다. 번호가 같은 루루 **의상**과 **대화 회차**는 별개입니다. 일반 아이템은 `IT` 체계로 통일했습니다. 배지·기존 로고 광휘 등 다른 범주의 실행 호환 파일명은 유지합니다. 엔진의 아트 미리보기 목록과 경로 테스트는 새 이름에 맞췄습니다. 에셋 밖 기획 문서의 옛 파일명 예시는 별도 정비가 필요합니다. 새 그림이 생길 때 해당 폴더 README에 실제 파일명·장면 ID 또는 후보 용도·연결 상태·미리보기를 함께 갱신합니다.
+`MS05_S4_SHARE_ROLES`(메인 스토리 5장, 겨울 별빛축제)의 48자 선택지로 폭을 확인한 [공통 긴 선택지 빈 프레임](ui/BT04_choice_blank_pale_green.png)을 `asset/ui/`에 둡니다. <img src="ui/BT04_choice_blank_pale_green.png" width="160" alt="긴 선택지용 녹색 빈 버튼 프레임"> 다른 선택지에도 재사용할 수 있으며, 실제 문구는 이미지에 들어 있지 않습니다. 엔진 연결 여부와 전체 목록은 [UI README](ui/README.md#버튼)에서 확인합니다.
+
+이 브랜치의 새 UI는 `BT`(버튼)·`UI`(화면 재료)·`LG`(로고), 장소 배경은 `BG`, 이동 맵은 `MP`, 일반 아이템·FOCUS는 `IT_<역할>_<장면 또는 후보 영역>_<대상>_<번호>`, 모험 목표는 문서·엔진 ID와 같은 `ADV_<장소>_<번호>`로 찾습니다. 제작 ID `ART-*`와 파일 경로는 아래 장면표에서 연결합니다. 학생 전신, 기숙사 `요정의 거래` 전용 요정 캐릭터 `CH_DRM`, 펫 `PT`, 루루 의상 `NPC_LULU`, 퍼즐 `PZ`와 배지는 해당 폴더의 기존 번호 체계를 유지합니다. 번호가 같은 루루 **의상**과 **대화 회차**는 별개입니다. 일반 아이템은 `IT` 체계로 통일했습니다. 배지·기존 로고 광휘 등 다른 범주의 실행 호환 파일명은 유지합니다. 엔진의 아트 미리보기 목록과 경로 테스트는 새 이름에 맞췄습니다. 에셋 밖 기획 문서의 옛 파일명 예시는 별도 정비가 필요합니다. 새 그림이 생길 때 해당 폴더 README에 실제 파일명·장면 ID 또는 후보 용도·연결 상태·미리보기를 함께 갱신합니다.
 
 아이템 검색은 [모험 목표 15종](item/adventure/README.md)에서 장소별 `ADV_*`와 단서 화면용 이미지를 찾고, [item/README.md](item/README.md)의 `채택한 스토리 FOCUS`에서 **확정 경로**, `스토리 FOCUS 연결 상태`에서 **후보·불일치**, `일반 아이템 아트`에서 **장면 미배정 소품**을 구분합니다. 아이템 목록의 의미상 용도만으로 획득·배치·엔진 표시를 추정하지 않습니다.
+
+## 기숙사 특수 활동 · 요정의 거래
+
+| 활동 · 장소 | 캐릭터 이미지 · 작은 미리보기 | 사용·연결 상태 |
+|---|---|---|
+| `DRM` · `fairy-trade` · 요정의 거래에 사용하는 요정 캐릭터 | [CH_DRM_fairy_trade_upperbody_01.png](character/CH_DRM_fairy_trade_upperbody_01.png)<br><img src="character/CH_DRM_fairy_trade_upperbody_01.png" width="110" alt="요정의 거래에 사용하는 요정 캐릭터 상반신"> | 5개 성장 스탯 사이에서 1~5포인트를 1:1로 옮기는 **요정의 거래 전용 캐릭터 이미지**. 사용자 선택으로 이미지 확정·파일 등록; 엔진 표시 미연결. 거래 플레이 화면의 NPC 대화·배치에는 사용하지 않음. |
+
+**콘텐츠 식별자:** `fairy-trade` · **정확한 에셋 경로:** `asset/character/CH_DRM_fairy_trade_upperbody_01.png`. 백엔드·엔진에서 해당 활동의 요정 이미지를 찾을 때 이 경로를 기준으로 합니다. 실제 화면 연결은 별도 검수 대상입니다.
+
+세부 구도·파일 상태는 [캐릭터 README](character/README.md#기숙사-공용-공간-요정의-거래), 활동 규칙은 [7개 공간 콘텐츠 상세 규칙](../document/content/06_01_LOCATION_ACTIVITIES.md)을 참조합니다.
 
 ## 모험 목표 아이템 · 15장
 
