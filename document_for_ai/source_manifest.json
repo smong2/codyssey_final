@@ -358,6 +358,10 @@
       "sha256": "f6aba600ae7a282e5f55036b4a11d19d3f1cd67d4edc65ad12771cc127a52a97"
     },
     {
+      "path": "backend/api/deploy/README.md",
+      "sha256": "27e323efb93f6953f5efd2ced2da224ca6f8956984e7aa41c393f57e3f88d6c2"
+    },
+    {
       "path": "backend/database/README.md",
       "sha256": "23c0f02b4addfccab6d4465be5ae191a577185a5699ac532218564a4dfec18d9"
     },

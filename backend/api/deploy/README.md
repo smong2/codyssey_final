@@ -1,6 +1,7 @@
 # Phase 12 배포·실환경 검증
 
 실제 확인 결과는 [Phase 12 검증 기록](PHASE12_VALIDATION.md)에 남긴다.
+아직 납품되지 않은 정식 FOCUS 그림의 파일명·운영 URL은 [FOCUS ID별 예약표](FOCUS_ASSET_LINKS.md)에 고정했다. 예약 상태는 실제 API 연결이나 그림 채택을 뜻하지 않는다.
 
 현재 상태: Firebase Auth·Firestore Emulator SDK 테스트와 로컬 브라우저 흐름은 통과했다. `codyssey-final`에 웹 앱 `lumia-web`과 Email/Password 공급자를 설정했고 Firestore 기본 DB를 `asia-northeast3`에 프로덕션 모드로 생성했다. `activityDays.kstDate` 컬렉션 그룹 오름차순 색인은 Console에서 준비 상태를 확인했다. Vercel 프론트는 `https://lumia-web-six.vercel.app/`에, Render API는 `https://lumia-api-pcxd.onrender.com/`에 배포했다. 실제 사용자 가입·이메일 인증·회차 시작·MS01 완료·1주차 일정/활동·`LOC_OBS_01` 완료·재접속 후 주간 요약까지 확인했다. 남은 운영 E2E 결과는 검증 기록을 따른다. 전체 시나리오 확인 전 `backend/FIREBASE_API_IMPLEMENTATION_PLAN.md`의 Phase 12를 완료로 표시하지 않는다.
 

@@ -21,7 +21,7 @@
 6. 담당자, 기술 스택, 게임 설정, 에셋 최종 선택처럼 확정 근거가 없는 사항은 `미정`으로 두고 사용자에게 확인합니다.
 7. 기획·콘텐츠·요구사항·프로젝트 문서를 수정한 작업은 문서 동기화가 끝난 뒤 [`github-wbs-handoff`](../skills/github-wbs-handoff/SKILL.md) 절차로 관련 GitHub WBS를 확인합니다. 상태나 comment 변경이 필요하면 저장소 파일을 건드리지 않고 GitHub 작업만 수행하는 Codex 프롬프트를 생성합니다. 변경할 것이 없으면 `Codex GitHub 작업 불필요`라고 명시합니다. 사용자가 직접 GitHub 변경을 요청하지 않은 한 문서 작업과 GitHub 변경을 한 단계에서 섞지 않습니다.
 
-사용자 결정으로 `engine/`의 엔진은 Phaser 3를 사용합니다. 실행형 시안은 `node engine/server.mjs`로 실행하며 기본 주소는 `http://127.0.0.1:4173/`입니다. 상태·저장·서버·Scene 연결 검증은 `node --test engine/tests/*.test.mjs`입니다. 모험 SD 이동·마스크 충돌, 입학 프레임, 본편 펫의 로컬 선택·임시 스탯 보정과 직업 엔딩 표시 프레임은 구현돼 있습니다. Phase 12에서 별도 Vite 웹 빌드와 Firebase Web Auth·FastAPI 연동을 추가하고 Emulator 브라우저 일부 흐름을 검증했습니다. 운영 Firebase/Render/Vercel 전체 E2E와 `lumia/` 최종 통합은 후속입니다. 확정된 운영 기술 스택을 미정으로 되돌리지 않고 구현 상태와 구분합니다. 범위와 로컬 저장 제한은 [engine README](../engine/README.md)를 확인합니다.
+사용자 결정으로 `engine/`의 엔진은 Phaser 3를 사용합니다. 실행형 시안은 `node engine/server.mjs`로 실행하며 기본 주소는 `http://127.0.0.1:4173/`입니다. 상태·저장·서버·Scene 연결 검증은 `node --test engine/tests/*.test.mjs`입니다. 모험 SD 이동·마스크 충돌, 입학 프레임, 본편 펫의 로컬 선택·임시 스탯 보정과 직업 엔딩 표시 프레임은 구현돼 있습니다. Phase 12에서 별도 Vite 웹 빌드와 Firebase Web Auth·FastAPI 연동을 추가했고, 운영 Firebase/Render/Vercel에서 가입·인증부터 1주차 요약까지 E2E를 확인했습니다. 52주 엔딩·관리자·탈퇴 검증과 `lumia/` 최종 통합은 후속입니다. 미납 FOCUS 그림 14개의 향후 파일명·공개 경로는 [백엔드 예약표](../backend/api/deploy/FOCUS_ASSET_LINKS.md)에 정했지만 파일 제작·채택·API 연결은 완료되지 않았습니다. 확정된 운영 기술 스택을 미정으로 되돌리지 않고 구현 상태와 구분합니다. 범위와 로컬 저장 제한은 [engine README](../engine/README.md)를 확인합니다.
 
 `engine/minigame-demo/`는 여전히 별도 7종 미니게임 검증 환경이며 기본 포트는 4174입니다. 명령은 [데모 README](../engine/minigame-demo/README.md) 및 [공식 실행방법](../document/실행방법.md)에 있습니다. 독립 데모의 동작을 최종 게임 전체 구현·검수 완료로 취급하지 않습니다.
 

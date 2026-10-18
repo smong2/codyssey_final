@@ -47,4 +47,4 @@
 - 대화 로드 실패 화면의 재시도 함수가 전달되지 않았다. `c3d08e4`에서 동일 pending 이벤트를 다시 로드하도록 고쳤다.
 - 1주차를 닫으면 서버는 `weeklySchedule`을 비우고 `lastWeekSummary`를 보존하지만, 웹은 비워진 일정에서 요약을 만들고 있었다. `bf50013`에서 서버의 주간 요약 수치를 우선 표시하도록 고쳤다. Vercel 운영 화면 재접속 후 5/5일과 성장·수업·체력 수치가 표시됨을 확인했다.
 
-`GEMINI_API_KEY`와 별도 관리자 Custom Claim은 아직 설정하지 않았다. Gemini 실제 호출과 관리자 허용 경로는 준비 전까지 미검증으로 남긴다. `ART-M01/M02` 등 미납 FOCUS 그림을 대신 연결하지 않으므로 52주 전체 진행에는 승인 자산 준비가 필요하다. 자동 문서 동기화 검사는 작업 공간에 없는 세 원본 README 때문에 `UNAVAILABLE`에서 멈췄다: `asset/environment/README.md`, `asset/font_files/originals/README.md`, `asset/font_files/typography/README.md`.
+`GEMINI_API_KEY`와 별도 관리자 Custom Claim은 아직 설정하지 않았다. Gemini 실제 호출과 관리자 허용 경로는 준비 전까지 미검증으로 남긴다. `ART-M01/M02` 등 미납 FOCUS 그림은 [ID별 파일·공개 경로 예약표](FOCUS_ASSET_LINKS.md)에 향후 주소만 정했으며 실제 대화에는 연결하지 않았다. 따라서 52주 전체 진행에는 승인 자산 준비가 필요하다. 자동 문서 동기화 검사는 작업 공간에 없는 세 원본 README 때문에 `UNAVAILABLE`에서 멈췄다: `asset/environment/README.md`, `asset/font_files/originals/README.md`, `asset/font_files/typography/README.md`.
