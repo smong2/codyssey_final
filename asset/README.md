@@ -1,66 +1,106 @@
-# 이미지 자원 안내
+# 이미지 자원 안내 · 스토리별 찾기
 
-`dev-jw` 에셋과 메인의 신규·실행 자원을 병합한 구성을 기준으로 합니다. 각 폴더 README에서 파일 목록과 미리보기를 확인합니다. 이미지 저장, 디자인 선택, 게임 구현·화면 검수는 서로 다른 상태입니다.
+이 문서는 **이야기 ID → 화면에 쓸 이미지 경로**를 찾는 시작점입니다. 사용처를 문서로 연결하며, 아이템과 UI 파일은 용도에 맞는 경로로 정리했습니다. 이미지가 폴더에 있다는 사실과 이야기용 채택·엔진 연결 완료는 다릅니다. 아래의 `확정 경로`도 게임에서 표시되는지 별도 검수가 필요합니다.
 
-| 폴더 | 내용 | 현재 구분 |
-|---|---|---|
-| [character/](character/README.md) | 학생 전신 32장 + 상반신 표정 160장 + 엘리아 보정본 1장, 총 193장 | 학생 캐릭터 자원; 게임 적용 검수 별도 |
-| [sd_character/](sd_character/README.md) | 기본 오픈 6명 × 8방향, PNG 48개 | 카엘 기존본 + 신규 5명; 256×256 프레임 3개/스트립, 최종 모션·게임 적용 검수 필요 |
-| [item/](item/README.md) | 아이템 이미지 30장과 조사 오브젝트·상태 변형 | 개별 사용 장면·상태 확인 필요 |
-| [background/](background/README.md) | 게임용 배경 19장과 마이룸 테마 시안 15장, 총 34장 | 창가 독서실 3장은 UI 검토용 원본; 게임 화면 적용 검수 별도 |
-| [puzzle/](puzzle/README.md) | 룬 회로 및 방 퍼즐 이미지 48장 | 규칙·시각 상태 연결 검수 필요 |
-| [ui/](ui/README.md) | 버튼·화면 요소·로고·환경 이미지 59장 | LUMIA 로고 최종본 확정, 화면 합성·게임 적용 검수 별도 |
-| [effect/](effect/README.md) | 룬 빛과 로고 빛무리 PNG 3장 | 합성·동작 검수 필요 |
-| [pet/](pet/README.md) | 본편 펫 10종과 동물 NPC 루루 | 펫 `PET01~PET10`은 `PT01~PT10` 이미지와 대응; 루루는 별도 NPC 자원 |
-| [badge/](badge/README.md) | 200×200 투명 PNG 41장 | 프레임 5 + 심볼 25 + 장식 8 + 상태 3; 하트 획득 표식 포함, 조립형 200개용 |
-| [map/](map/README.md) | 온실·대서고·천문대 맵, 전경, 충돌 마스크와 참고맵 이미지 22장 | 자원별 해상도·런타임 연결 상태는 하위 문서 확인 |
-| [Full screen/screen/](Full%20screen/screen/README.md) | 화면 흐름·마이룸 구성 참고 시안 | 구현 화면이나 최종 채택과 구별 |
-| [Full screen/](Full%20screen/README.md) | 루미아 프레임 전체화면 검토 시안 21장 | 1920×1080 합성 PNG; 조작 가능한 게임 화면이나 최종 채택본과 구별 |
-| [font_files/](font_files/README.md) | 폰트 시안 이미지 18장, 메인 게임 호환용 웹폰트 2개와 라이선스 | 글꼴 시안과 현재 메인 게임의 실행 자원 |
-| [stat/](stat/README.md) | 이미지 0장, 제작 예정 | 이제부터 제작할 스탯 이미지 영역 |
+## 폴더별 바로 찾기
 
-현재 폴더의 파일 구성이 기준입니다. 본편 펫 이미지는 `asset/pet/PT01~PT10`이며 게임의 `PET01~PET10`과 번호 순서대로 대응합니다. 타이포그래피 시안은 `asset/font_files/`의 `FN_TYPO_` 파일에 있습니다. source·화면 시안·변형은 각 README의 설명으로 구분하며 최종 채택을 임의로 정하지 않습니다. 원본·이전 버전의 로컬 보관은 각 폴더 기록을 따릅니다. 관련 기획은 [이미지 자원 문서](../document/04_ASSETS.md)를 참고하되 현재 자원 구성과 최신 사용자 결정을 우선합니다.
+먼저 이야기 ID로 아래 [장면 연결표](#메인-스토리와-엔딩)를 찾고, 이미지 종류를 확인한 뒤 해당 폴더 README의 파일 목록과 미리보기를 엽니다. **확정 경로·후보·미제작·엔진 표시 여부를 서로 구분**합니다. 모든 폴더 README는 `빠른 탐색 → 사용처/상태 → 파일 목록·미리보기` 순서로 읽습니다.
 
-이번 에셋 병합은 `dev-jw`의 에셋 변경과 메인의 신규·실행 자원을 합친 상태입니다. `asset/` 밖의 파일은 변경하지 않았습니다. 이미지를 추가·삭제·교체하면 해당 카테고리 README의 파일 목록, 설명, 미리보기를 같은 작업에서 갱신합니다.
+| 폴더 · 상세 README | 찾는 이미지 | 파일명 기준 | 판단 기준 |
+|---|---|---|---|
+| [background/](background/README.md) | 장면·시간대별 공간 배경 · 이미지 31장 | `BG*, 기존 마이룸 계열` | MS/LOC/NPC의 BACKGROUND·마이룸; 채택과 후보 구분 |
+| [character/](character/README.md) | 학생 전신·교수 캐릭터 · 이미지 34장 | `기존 32인 전신 이름` | 캐스팅 조건에 맞는 화자 이미지; 회차별 인물 고정 아님 |
+| [item/](item/README.md) | 스토리 FOCUS·소품·가구 · 이미지 31장 | `IT_<역할>_<장면/후보 영역>_<대상>_<번호>` | ART 제작 ID·장면 ID로 채택 그림 검색; 후보는 자동 배치 금지 |
+| [ui/](ui/README.md) | 버튼·프레임·로고·환경 UI · 이미지 59장 | `BT / UI / LG 및 실행 호환 이름` | 마이룸 프로필·날짜, 일지 화살표·닫기, 대화·버튼 |
+| [map/](map/README.md) | 이동·충돌용 맵 · 이미지 22장 | `MP* 및 기존 참고 맵` | 장소별 이동 지형; BACKGROUND와 구분 |
+| [pet/](pet/README.md) | 펫·루루 의상/표정 · 이미지 28장 | `PT / NPC_LULU` | 루루 회차와 의상 번호를 구별해 검색 |
+| [sd_character/](sd_character/README.md) | SD 캐릭터 · 이미지 48장 | `기존 캐릭터별 SD 계열` | Adventure용 작은 캐릭터; 전신 대화 화자와 구분 |
+| [puzzle/](puzzle/README.md) | 방 배경 12조각 퍼즐 · 이미지 48장 | `PZ + 방·조각 번호` | 우주방·공주방·식물방 완성본과 개별 조각 |
+| [badge/](badge/README.md) | 배지 프레임·심볼·상태 · 이미지 41장 | `기존 badge 계열` | 배지 조합과 잠금/해금 상태; 실행 호환 이름 유지 |
+| [effect/](effect/README.md) | 게임 효과·로고 광휘 · 이미지 3장 | `FX 및 실행 호환 이름` | 효과 레이어; 로고 본체는 ui에서 검색 |
+| [font_files/](font_files/README.md) | 서체·타이포그래피 이미지 · 이미지 18장 | `기존 서체별 이름` | 글꼴 비교 이미지; 메인 호환 웹폰트 2개와 라이선스도 보관 |
+| [Full screen/](Full%20screen/README.md) | 전체화면 검토 시안 · 이미지 21장 | `FS*` | 구성 확인용 합성 화면; 분리 UI와 구별 |
+| [Full screen/screen/](Full%20screen/screen/README.md) | 이전 화면 비교 자료 · 이미지 9장 | `기존 screen 계열` | 이전 레이아웃 비교; 채택 게임 화면 아님 |
+| [audio/](audio/README.md) | 배경음·효과음 · 이미지 0장 | `bgm / sfx` | 소리 파일; 이미지 미리보기 대신 파일 표 |
+| [stat/](stat/README.md) | 스탯 이미지 예정 · 이미지 0장 | `미정` | 현재 이미지 없음; 제작 완료로 해석하지 않음 |
 
-## 에셋 이미지 제작 마스터 목록 v0.1
+`Full screen/screen`은 `Full screen`의 하위 자료입니다. `background/myroom`은 [background README](background/README.md), `audio/bgm`·`audio/sfx`는 [audio README](audio/README.md), `font_files/licenses`는 [font_files README](font_files/README.md)에서 함께 찾습니다. Git에서 관리하지 않는 로컬 검토 폴더는 이 배포용 목록에 넣지 않았습니다.
 
-사용자가 제공한 `LUMIA_ASSET_MASTER_v0.1.csv`의 35개 항목을 순서와 내용 그대로 옮겼습니다. 아래 판정·기획 상태는 제공 목록의 기록이며, 이번 첨부 작업으로 제작 승인·재사용 적합성·스토리 전체 누락 검증이 완료된 것은 아닙니다. 기존 파일 매칭의 빈칸은 원본 CSV의 미기재 상태를 유지합니다. 신규 이미지나 목록에 없는 아이템을 추가하지 않았습니다.
+## 판단 기준
 
-| ID       | 스토리구분  | 장면                | 원문에 명시된 시각요소                | 기존 파일 매칭                                                                                                                    | 판정                  | 기획 상태          | 원문 경로                                                                                                                     |
-| -------- | ----------- | ------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| MAIN-I01 | 메인 인트로 | 아카데미 입학       | 시계탑 광장                           | [asset/background/BG02_clocktower_plaza_1920x1080_011.png](../asset/background/BG02_clocktower_plaza_1920x1080_011.png)           | 기존 보유             | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-I02 | 메인 인트로 | 수호 룬 이상        | 어두워진 수호 룬                      | [asset/item/rune3_shadow.png](../asset/item/rune3_shadow.png)                                                                     | 재사용 검증           | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-101 | 메인 EP1    | 온실 식물 조사      | 유리 온실                             | [asset/background/BG06_glass_greenhouse_1920x1080_016.png](../asset/background/BG06_glass_greenhouse_1920x1080_016.png)           | 기존 보유             | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-102 | 메인 EP1    | 온실 식물 조사      | 시든 식물                             | [asset/item/plant1_wilted.png](../asset/item/plant1_wilted.png)                                                                   | 재사용 검증           | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-103 | 메인 EP1    | 새순·씨앗 보존 선택 | 건강한 새순과 씨앗                    |                                                                                                                                   | 기존 에셋 매칭 미확인 | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-104 | 메인 EP1    | 식물 돌봄 결과      | 회복된 식물                           | [asset/item/plant2_restored.png](../asset/item/plant2_restored.png)                                                               | 재사용 검증           | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-201 | 메인 EP2    | 대서고 기록 조사    | 대서고                                | [asset/background/BG04_grand_library_1920x1080_014.png](../asset/background/BG04_grand_library_1920x1080_014.png)                 | 기존 보유             | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-202 | 메인 EP2    | 기록 비교           | 서로 다른 두 기록                     |                                                                                                                                   | 기존 에셋 매칭 미확인 | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-203 | 메인 EP2    | 룬 기록 발견        | 수호 룬에 관한 오래된 기록            |                                                                                                                                   | 기존 에셋 매칭 미확인 | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-301 | 메인 EP3    | 수련장 결계 정지    | 수련장                                | [asset/background/BG09_rune_training_ground_1920x1080_019.png](../asset/background/BG09_rune_training_ground_1920x1080_019.png)   | 기존 보유             | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-302 | 메인 EP3    | 결계 점검           | 안전 결계 장치와 헐거워진 부품        |                                                                                                                                   | 기존 에셋 매칭 미확인 | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-303 | 메인 EP3    | 공방 수리           | 마도 공방                             | [asset/background/BG08_magic_workshop_1920x1080_018.png](../asset/background/BG08_magic_workshop_1920x1080_018.png)               | 기존 보유             | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-401 | 메인 EP4    | 시계탑 수호 룬 문제 | 시계탑 광장                           | [asset/background/BG02_clocktower_plaza_1920x1080_011.png](../asset/background/BG02_clocktower_plaza_1920x1080_011.png)           | 기존 보유             | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-402 | 메인 EP4    | 수호 룬 회복        | 수호 룬 그림자 상태                   | [asset/item/rune3_shadow.png](../asset/item/rune3_shadow.png)                                                                     | 재사용 검증           | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| MAIN-403 | 메인 EP4    | 수호 룬 회복        | 수호 룬 정화 상태                     | [asset/item/rune4_purified.png](../asset/item/rune4_purified.png)                                                                 | 재사용 검증           | 초안               | [story/main/09_MAIN_STORY_SCENARIO.md](../story/main/09_MAIN_STORY_SCENARIO.md)                                               |
-| LOC-O01  | 장소 천문대 | 첫 방문 별자리 기록 | 천문대                                | [asset/background/BG05_starlight_observatory_1920x1080_015.png](../asset/background/BG05_starlight_observatory_1920x1080_015.png) | 기존 보유             | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-O02  | 장소 천문대 | 관측 일기           | 오래된 노트와 페이지 변화             |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-O03  | 장소 천문대 | 첫 방문             | 별 모양 낙서                          |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-O04  | 장소 천문대 | 두 번째 방문        | 찻잔 자국                             |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-O05  | 장소 천문대 | 세 번째 방문        | 별표 종이표                           |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-O06  | 장소 천문대 | 네 번째 방문        | 선택한 별 모양 표식                   |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-G01  | 장소 온실   | 작은 허브에 물 주기 | 물뿌리개·평범한 허브 화분·잎의 물방울 |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-G02  | 장소 온실   | 이름표 돌려놓기     | 허브 이름표                           |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-L01  | 장소 대서고 | 책 제자리 찾기      | 반납 책·책장 칸                       |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-L02  | 장소 대서고 | 떨어진 책갈피       | 천 책갈피·반납 바구니                 |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-W01  | 장소 공방   | 부품 분류           | 여분의 나사·조각·접시                 |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-W02  | 장소 공방   | 도구 닦기           | 작은 도구·천·걸이                     |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-T01  | 장소 수련장 | 연습 깃발 정리      | 연습 깃발·바구니                      |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-T02  | 장소 수련장 | 표적 바로잡기       | 연습용 표적                           |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-P01  | 장소 광장   | 축제 리본 묶기      | 느슨한 장식 리본                      |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-P02  | 장소 광장   | 종이 조각 줍기      | 색종이 조각·재활용 바구니             |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-D01  | 장소 기숙사 | 창가 쿠션 놓기      | 쿠션·창가 의자                        |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| LOC-D02  | 장소 기숙사 | 공용 컵 정리        | 빈 컵·쟁반                            |                                                                                                                                   | 기존 에셋 매칭 미확인 | 제안               | [story/location/LOCATION_BASED_STORIES.md](../story/location/LOCATION_BASED_STORIES.md)                                       |
-| SYS-S01  | 시스템 스탯 | 스탯 UI             | 체력·지식·표현력·솜씨·탐험·마법       |                                                                                                                                   | 신규 이미지 제작 후보 | 기획 명시          | [document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md](../document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md) |
-| SUB-000  | 서브 스토리 | 개별 시나리오       | 확정 장면 미확인                      |                                                                                                                                   | 기획 미정             | 예시 템플릿만 확인 | [story/sub/README.md](../story/sub/README.md)                                                                                 |
+- 현재 제작 기준: [메인](../story/main/MAIN_STORY_PRODUCTION.md) · [장소](../story/location/LOCATION_STORY_PRODUCTION.md) · [NPC](../story/npc/NPC_STORY_PRODUCTION.md) · [공통 아트 목록](../story/ASSET_DIALOGUE_LEDGER.md). 옛 에셋 제작 마스터 v0.1의 장면 번호·발주량은 이 최신 제작안과 다르므로 현재 검색 기준에서 제외했습니다. 이전 표는 Git 이력에서 볼 수 있습니다.
+- **확정 경로**: 해당 파일이 현재 브랜치에 있고 제작 지시와 일치합니다. **조건부**: 주인공·방문 장소·선택에 따라 파일이 달라집니다. **후보**: 파일은 있으나 제작 지시와의 일치 또는 사용 승인이 남았습니다. **미제작/미연결**: `ART-*`에 대응하는 확정 파일 경로가 없습니다. 후보를 AI나 엔진이 확정 이미지로 대신 쓰지 않습니다.
+- `BACKGROUND`는 화면 전체 배경, `FOCUS`는 대화 중 중앙에 표시하는 한 장의 그림, **화자 이미지**는 캐릭터 표정/스프라이트입니다. [대화 엔진 인계 기준](../document_for_ai/07_DIALOGUE_ENGINE_HANDOFF.md)과 [대화 시퀀스](../document/content/13_DIALOGUE_SEQUENCE.md)를 따릅니다. 같은 FOCUS 이미지를 여러 회차에서 재사용해도 파일을 복제하지 않습니다.
+- `MS07`은 별도 스토리 사건이 아닌 자유 플레이 구간입니다. 아래 `END`는 마지막 카드 화면입니다.
+
+## 파일명과 배치 상태
+
+이 브랜치의 새 UI는 `BT`(버튼)·`UI`(화면 재료)·`LG`(로고), 장소 배경은 `BG`, 이동 맵은 `MP`, 아이템은 `IT_<역할>_<장면 또는 후보 영역>_<대상>_<번호>`로 찾습니다. 제작 ID `ART-*`와 파일 경로는 아래 장면표에서 연결합니다. 학생 전신, 펫 `PT`, 루루 의상 `NPC_LULU`, 퍼즐 `PZ`와 배지는 해당 폴더의 기존 번호 체계를 유지합니다. 번호가 같은 루루 **의상**과 **대화 회차**는 별개입니다. 일반 아이템은 `IT` 체계로 통일했습니다. 배지·기존 로고 광휘 등 다른 범주의 실행 호환 파일명은 유지합니다. 엔진의 아트 미리보기 목록과 경로 테스트는 새 이름에 맞췄습니다. 에셋 밖 기획 문서의 옛 파일명 예시는 별도 정비가 필요합니다. 새 그림이 생길 때 해당 폴더 README에 실제 파일명·장면 ID 또는 후보 용도·연결 상태·미리보기를 함께 갱신합니다.
+
+아이템 검색은 [item/README.md](item/README.md)의 `채택한 스토리 FOCUS`에서 **확정 경로**, `스토리 FOCUS 연결 상태`에서 **후보·불일치**, `일반 아이템 아트`에서 **장면 미배정 소품**을 구분합니다. 아이템 목록의 의미상 용도만으로 획득·배치·엔진 표시를 추정하지 않습니다.
+
+## 이번에 경로가 확정된 스토리 FOCUS
+
+| 제작 ID | 파일 · 작은 미리보기 | 정확한 사용처 | 상태 |
+|---|---|---|---|
+| `ART-N01` | [아이보리 프레임 · 흩어진 모임 안내지](item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png)<br><img src="item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png" width="110" alt="아이보리 프레임 속 흩어진 작은 모임 안내지"> | `NPC_GUIDE_01` 최초, `NPC_GUIDE_02·04` 재사용. 시계탑 광장 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
+| `ART-N06` | [아이보리 프레임 · 루루의 열린 보물상자](item/IT_focus_NPC_LULU_02_treasure_chest_02.png)<br><img src="item/IT_focus_NPC_LULU_02_treasure_chest_02.png" width="110" alt="아이보리 프레임 속 루루의 열린 보물상자"> | `NPC_LULU_02` 최초, `NPC_LULU_03–04` 재사용. 방문 장소는 온실 또는 약초원 | 이미지 채택·파일 등록. 엔진 표시 미검수 |
+| `ART-L01` | [아이보리 프레임 · 펼친 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png)<br><img src="item/IT_focus_LOC_OBS_01_observation_diary_03.png" width="110" alt="아이보리 프레임 속 먼지와 거미줄이 쌓인 펼친 관측 일기"> | `LOC_OBS_01` 최초, `LOC_OBS_02–04` 재사용. 별빛 천문대 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
+
+세 FOCUS는 모두 밝은 아이보리 프레임과 투명한 바깥 배경의 1672×941 PNG입니다. 일반 아이템 25장과 기존 프레임 카드 3장까지 포함한 **item 폴더 이미지 전체 31장**의 파일명·미리보기는 [item/README.md](item/README.md)에서 확인합니다. 승인된 마이룸·일지 UI 재료 5장은 [`ui/`](ui/README.md)에 보관합니다. 프레임 카드·일반 아이템을 `ART-*` 전용 그림에 자동 대입하지 않습니다.
+
+## 메인 스토리와 엔딩
+
+| 이야기·단계 | BACKGROUND·기존 재료 | FOCUS/화자와 전환 | 연결 판정 |
+|---|---|---|---|
+| `MS01-S1–S5` 입학·안내 | S2 광장 [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> / 생활 공간 [기숙사](background/BG03_academy_dormitory_1920x1080_013.png)<br><img src="background/BG03_academy_dormitory_1920x1080_013.png" width="92" alt="기숙사"> / S4 마이룸 후보 [마이룸 낮](background/BG10_myroom1_day_1920x1080_012.png)<br><img src="background/BG10_myroom1_day_1920x1080_012.png" width="92" alt="마이룸 낮"> | S1 초대장 후보 [입학 초대장](ui/UI07_admission_invitation_004.png)<br><img src="ui/UI07_admission_invitation_004.png" width="92" alt="입학 초대장">; 안내 학생은 동적 캐스팅. 시설별 표시 순서·초대장 채택은 미확정 | 기존 이미지 재사용, **정확한 단계별 배정 확인 필요**. 신규 그림 0장 |
+| `MS02-S1–S5` 마법 덩굴 | [유리 온실](background/BG06_glass_greenhouse_1920x1080_016.png)<br><img src="background/BG06_glass_greenhouse_1920x1080_016.png" width="92" alt="유리 온실"> | S1 `ART-M01` 출구 봉쇄, S3–S4 `ART-M02` 급성장 덩굴·빛나는 꽃봉오리. S4 뒤 FOCUS 숨기고 온실 배경 복귀 | 배경 경로 확인 / FOCUS 2장 미연결. 일상 화분 `ART-L02/L03`과 다른 사건 |
+| `MS03-S1–S5` 시계탑 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | S1–S4 `ART-M03` 잘못된 시각의 시계판·흐릿한 문양; S5 평상 광장 | 배경 경로 확인 / FOCUS 미연결 |
+| `MS04-S1–S5` 그림자 | [룬 수련장](background/BG09_rune_training_ground_1920x1080_019.png)<br><img src="background/BG09_rune_training_ground_1920x1080_019.png" width="92" alt="룬 수련장"> | S1–S2 `ART-M04` 그림자 1명 → S3–S4 `ART-M05` 여러 그림자의 반사 방패 → S5 평상 수련장, M04 잠깐 재사용 | 배경 경로 확인 / FOCUS 2장 미연결 |
+| `MS05-S1–S5` 별빛 축제 | S1–S2 [별빛 켜진 광장](background/BG02_clocktower_plaza_starlight_festival_lit_3840x2161.png)<br><img src="background/BG02_clocktower_plaza_starlight_festival_lit_3840x2161.png" width="92" alt="별빛 켜진 광장"> → S3–S4 해결 전 [별빛 꺼진 광장](background/BG02_clocktower_plaza_starlight_festival_unlit_3840x2161.png)<br><img src="background/BG02_clocktower_plaza_starlight_festival_unlit_3840x2161.png" width="92" alt="별빛 꺼진 광장"> → S4 해결 후–S5 밝음 재사용 | 기존 배경 두 장을 교체. 새 FOCUS 그림 없음 | **제작 문서에 파일명·전환 순서 명시** |
+| `MS06-S1–S5` 후일담 | 평온한 광장 장면. [기본 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="기본 광장">은 장소 대응 후보 | `ART-M06` 겨울 놀이회 한 장을 S1–S5 재사용 | 배경 버전 확인 필요 / FOCUS 미연결 |
+| `END` 직업·편지 | 배경 파일 지정 없음 | `ART-E01` 공용 직업 카드 1장; 직업명·부제는 텍스트 치환 | FOCUS 미연결. 직업별 10장으로 추정하지 않음 |
+
+메인 등장 학생 역할(`MAIN_GUIDE_STUDENT`, `MAIN_GREENHOUSE_STUDENT` 등)은 [메인 제작 문서의 캐스팅 순서](../story/main/MAIN_STORY_PRODUCTION.md)에 따라 주인공과 겹치지 않게 결정합니다. 한 인물의 파일명을 모든 플레이에 고정하지 않습니다. 실제 학생 전신과 발렌티누스 교수 시안은 [character/](character/README.md)에서 확인합니다. 상반신 표정 파일은 로컬 보관본으로 옮겼으며, 엔진의 기존 참조는 전신 기준으로 연결 확인이 필요합니다.
+
+## NPC 대화 12회
+
+| 이야기 ID | BACKGROUND | FOCUS/화자 이미지 | 연결 판정 |
+|---|---|---|---|
+| `NPC_GUIDE_01` 안내지 줍기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | `ART-N01` [흩어진 모임 안내지](item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png)<br><img src="item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png" width="92" alt="흩어진 모임 안내지">; 티아 [티아 전신](character/tia0_fullbody.png) / 티아가 주인공이면 [로빈 전신](character/robin0_fullbody.png) | 배경·화자·FOCUS 파일 경로 확인 / 엔진 표시 미검수 |
+| `NPC_GUIDE_02` 안내지 놓기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png) | [`ART-N01` 안내지](item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png) 재사용; 티아/로빈 조건 동일 | FOCUS 추가 제작 없음 / 엔진 표시 미검수 |
+| `NPC_GUIDE_03` 리본 고르기 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="시계탑 광장"> | `ART-N02` 색이 다른 리본 두 개; 티아/로빈 조건 동일 | FOCUS 미연결. 선택 색별 그림 없음 |
+| `NPC_GUIDE_04` 준비 확인 | [시계탑 광장](background/BG02_clocktower_plaza_1920x1080_011.png) | [`ART-N01` 안내지](item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png) 재사용; `ART-N02` 리본은 별도 미제작 | 안내지 파일 경로 확인 / 리본 미연결 / 엔진 표시 미검수 |
+| `NPC_WORK_01` 부품 모으기 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N03` 홈·모양이 다른 부품; 렌 [렌 전신](character/ren0_fullbody.png)<br><img src="character/ren0_fullbody.png" width="72" alt="렌 전신"> / 렌이 주인공이면 [다나 전신](character/dana0_fullbody.png)<br><img src="character/dana0_fullbody.png" width="72" alt="다나 전신"> | 배경·화자 경로 확인 / FOCUS 미연결 |
+| `NPC_WORK_02` 부품 찾기 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N03` 재사용; 렌/다나 조건 동일 | FOCUS 신규 0장; N03 미연결 |
+| `NPC_WORK_03` 도구 정돈 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N04` 천·도구·정돈된 작업대; 렌/다나 조건 동일 | FOCUS 미연결 |
+| `NPC_WORK_04` 작업대 확인 | [마도 공방](background/BG08_magic_workshop_1920x1080_018.png)<br><img src="background/BG08_magic_workshop_1920x1080_018.png" width="92" alt="마도 공방"> | `ART-N04` 재사용; 렌/다나 조건 동일 | FOCUS 신규 0장; N04 미연결 |
+| `NPC_LULU_01` 단추 | 방문 장소에 따라 [유리 온실](background/BG06_glass_greenhouse_1920x1080_016.png)<br><img src="background/BG06_glass_greenhouse_1920x1080_016.png" width="92" alt="유리 온실"> 또는 [치유의 약초원](background/BG07_healing_herb_garden_1920x1080_017.png)<br><img src="background/BG07_healing_herb_garden_1920x1080_017.png" width="92" alt="치유의 약초원"> | `ART-N05` 손바닥 위 단추; 루루 의상·표정은 별도 지정 필요. [초록 탐험복 예시](pet/NPC_LULU_01_front.png)<br><img src="pet/NPC_LULU_01_front.png" width="72" alt="초록 탐험복 예시"> | 배경 조건부 / FOCUS 미연결 / 의상 미정 |
+| `NPC_LULU_02` 보물상자 | 방문 장소에 따라 온실 또는 약초원 | `ART-N06` [열린 보물상자](item/IT_focus_NPC_LULU_02_treasure_chest_02.png)<br><img src="item/IT_focus_NPC_LULU_02_treasure_chest_02.png" width="82" alt="루루의 열린 보물상자">; 필요하면 `ART-N05` 회상 | FOCUS 파일 경로 확인 / 엔진 표시·루루 의상 미검수 |
+| `NPC_LULU_03` 발견물 | 온실 또는 약초원, 방문 장소 조건 동일 | [`ART-N06` 보물상자](item/IT_focus_NPC_LULU_02_treasure_chest_02.png) 재사용. 새 물건은 대사로 설명 | FOCUS 추가 제작 없음 / 엔진 표시 미검수 |
+| `NPC_LULU_04` 마지막 만남 | 온실 또는 약초원, 방문 장소 조건 동일 | [`ART-N06` 보물상자](item/IT_focus_NPC_LULU_02_treasure_chest_02.png) 재사용. 깃털·씨앗은 대사로 설명 | FOCUS 추가 제작 없음 / 엔진 표시 미검수 |
+
+`NPC_LULU_01–04`는 **이야기 회차 번호**입니다. `pet/NPC_LULU_01_front.png`의 `01`은 **의상 번호**이므로 자동으로 같은 번호끼리 연결하지 않습니다. 초록 의상 미리보기는 보유 이미지의 예일 뿐, 이 회차의 확정 의상이 아닙니다.
+
+## 장소 이야기 6회
+
+| 이야기 ID | BACKGROUND | FOCUS/화자 이미지 | 연결 판정 |
+|---|---|---|---|
+| `LOC_OBS_01` 첫 관측 일기 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png)<br><img src="background/BG05_starlight_observatory_1920x1080_015.png" width="92" alt="별빛 천문대"> | `ART-L01` [펼친 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png)<br><img src="item/IT_focus_LOC_OBS_01_observation_diary_03.png" width="92" alt="먼지 쌓인 펼친 관측 일기"> | 배경·FOCUS 파일 경로 확인 / 엔진 표시 미검수 |
+| `LOC_OBS_02` 늦은 관측 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png) | [`ART-L01` 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png) 재사용. 기록 내용만 대사로 변경 | 새 페이지 그림 없음 / 엔진 표시 미검수 |
+| `LOC_OBS_03` 자리 맡아 주기 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png) | [`ART-L01` 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png) 재사용 | 새 찻잔·자리표 그림 없음 / 엔진 표시 미검수 |
+| `LOC_OBS_04` 빈 관측 칸 | [별빛 천문대](background/BG05_starlight_observatory_1920x1080_015.png) | [`ART-L01` 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png) 재사용. 선택 표식은 대사 텍스트 | 새 선택별 그림 없음 / 엔진 표시 미검수 |
+| `LOC_GH_01` 시든 화분 | [유리 온실](background/BG06_glass_greenhouse_1920x1080_016.png)<br><img src="background/BG06_glass_greenhouse_1920x1080_016.png" width="92" alt="유리 온실"> | R1 `ART-L02` 시든 화분 후보 [시든 화분 후보](item/IT_card_candidate_GH_wilted_plant_01.png)<br><img src="item/IT_card_candidate_GH_wilted_plant_01.png" width="92" alt="시든 화분 후보"> → R2 `ART-L03` 건강해진 화분 후보 [회복 화분 후보](item/IT_card_candidate_GH_restored_plant_02.png)<br><img src="item/IT_card_candidate_GH_restored_plant_02.png" width="92" alt="회복 화분 후보">. 화자 `LOC_GREENHOUSE_STUDENT`는 동적 배정 | 배경 확인 / 두 FOCUS는 **후보**, 채택·표시 방식 검수 필요 |
+| `LOC_LIB_01` 책 정리 | [대서고](background/BG04_grand_library_1920x1080_014.png)<br><img src="background/BG04_grand_library_1920x1080_014.png" width="92" alt="대서고"> | R1 `ART-L04` **책장 위에 가로로 놓인 평범한 책** → R2 숨김. 세린은 이미지 없이 화자명·대사 사용 가능 | 배경 확인 / FOCUS 미연결 |
+
+### 관측 일기 선택과 비슷한 시안 구분
+
+| 보유 이미지 미리보기 | 사용 판단 |
+|---|---|
+| [펼친 관측 일기](item/IT_focus_LOC_OBS_01_observation_diary_03.png)<br><img src="item/IT_focus_LOC_OBS_01_observation_diary_03.png" width="110" alt="아이보리 프레임 속 펼친 관측 일기"> | **확정:** `LOC_OBS_01–04`의 `ART-L01` FOCUS는 이 그림 한 장을 재사용합니다. |
+| [장식 있는 고서](item/IT_card_candidate_LIB_ancient_book_03.png)<br><img src="item/IT_card_candidate_LIB_ancient_book_03.png" width="110" alt="장식 있는 고서"> | `ART-L04`는 **책장 위에 가로로 놓인 평범한 책**입니다. 현재 고서는 그 구도와 내용이 다릅니다. |
+| [방치된 온실](background/BG06_glass_greenhouse_neglected_3840x2162.png)<br><img src="background/BG06_glass_greenhouse_neglected_3840x2162.png" width="110" alt="방치된 온실"> | 보유 시안이지만 `MS02`의 `ART-M01/M02`를 대신하는 확정 그림은 아닙니다. |
+
+## README 갱신 기준
+
+새 이미지나 파일명 변경 시 이 문서의 장면 ID별 경로·상태, 해당 폴더 README의 사용처·미리보기, 실제 이미지 파일을 같은 변경에서 대조합니다. 후보 그림은 제작 문서와 일치하고 승인되기 전까지 확정 경로로 올리지 않습니다. 게임 엔진의 경로 변경은 별도 검증이 필요합니다.
