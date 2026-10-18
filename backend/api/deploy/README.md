@@ -1,6 +1,8 @@
 # Phase 12 배포·실환경 검증
 
-현재 상태: Firebase Auth·Firestore Emulator SDK 테스트와 로컬 브라우저 흐름은 통과했다. `codyssey-final`에 웹 앱 `lumia-web`과 Email/Password 공급자를 설정했고 Firestore 기본 DB를 `asia-northeast3`에 프로덕션 모드로 생성했다. `activityDays.kstDate` 컬렉션 그룹 오름차순 색인은 Console에서 준비 상태를 확인했다. Vercel 프론트는 `https://lumia-web-six.vercel.app/`에 배포되어 로그인 화면 로드를 확인했고, 이 호스트를 Firebase 승인 도메인에 추가했다. Render API는 `https://lumia-api-pcxd.onrender.com/health`에서 200 응답을 확인했다. 운영 브라우저 15단계 E2E는 남아 있다. 운영 확인 전 `backend/FIREBASE_API_IMPLEMENTATION_PLAN.md`의 Phase 12를 완료로 표시하지 않는다.
+실제 확인 결과는 [Phase 12 검증 기록](PHASE12_VALIDATION.md)에 남긴다.
+
+현재 상태: Firebase Auth·Firestore Emulator SDK 테스트와 로컬 브라우저 흐름은 통과했다. `codyssey-final`에 웹 앱 `lumia-web`과 Email/Password 공급자를 설정했고 Firestore 기본 DB를 `asia-northeast3`에 프로덕션 모드로 생성했다. `activityDays.kstDate` 컬렉션 그룹 오름차순 색인은 Console에서 준비 상태를 확인했다. Vercel 프론트는 `https://lumia-web-six.vercel.app/`에, Render API는 `https://lumia-api-pcxd.onrender.com/`에 배포했다. 실제 사용자 가입·이메일 인증·회차 시작·MS01 완료·1주차 일정/활동·`LOC_OBS_01` 완료·재접속 후 주간 요약까지 확인했다. 남은 운영 E2E 결과는 검증 기록을 따른다. 전체 시나리오 확인 전 `backend/FIREBASE_API_IMPLEMENTATION_PLAN.md`의 Phase 12를 완료로 표시하지 않는다.
 
 ## 1. Firebase 프로젝트 준비
 
