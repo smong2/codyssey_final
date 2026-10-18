@@ -252,6 +252,9 @@ def test_forced_rest_carries_across_week_and_locks_next_schedule(activity_db):
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["week"] == 2 and run["day"] == "MONDAY"
         assert run["forcedRest"]["remainingWeekdays"] == 2
+        assert [(item["week"], item["day"]) for item in run["activityHistory"]] == [
+            (1, 0), (1, 1), (1, 2), (1, 3), (1, 4),
+        ]
         assert run["activityHistory"][-1]["week"] == 1
         assert run["activityHistory"][-1]["day"] == 4
         assert run["activityHistory"][-1]["type"] == "FORCED_REST"
@@ -289,6 +292,9 @@ def test_week_close_prepares_fixed_main_story_before_next_schedule(activity_db):
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["week"] == 10 and run["phase"] == "WEEK_SUMMARY_PENDING"
         assert run["pendingStoryEvent"]["eventId"] == "MS02"
+        assert [(item["week"], item["day"], item["type"]) for item in run["activityHistory"]] == [
+            (9, 0, "REST"), (9, 1, "REST"), (9, 2, "REST"), (9, 3, "REST"), (9, 4, "REST"),
+        ]
         assert _schedule(client, ["REST_TEST"] * 5, request="week10-schedule", revision=3).status_code == 409
         acknowledged = _ack_summary(client, revision=3)
         assert acknowledged.status_code == 200 and acknowledged.json()["phase"] == "MAIN_STORY_PENDING"

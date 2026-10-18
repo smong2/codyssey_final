@@ -159,7 +159,12 @@ def _record_activity_history(run: dict, *, day: str, entry: dict) -> None:
     if type(week) is not int or not 1 <= week <= 52 or day not in WEEKDAYS:
         raise ActivityRejected("Activity history position is invalid")
     history = run.setdefault("activityHistory", [])
-    if not isinstance(history, list) or len(history) > 260:
+    if not isinstance(history, list) or len(history) >= 260:
+        raise ActivityRejected("Stored activity history is invalid")
+    if any(not isinstance(item, dict)
+           or type(item.get("week")) is not int or not 1 <= item["week"] <= 52
+           or type(item.get("day")) is not int or not 0 <= item["day"] < len(WEEKDAYS)
+           for item in history):
         raise ActivityRejected("Stored activity history is invalid")
     day_index = WEEKDAYS.index(day)
     if any(isinstance(item, dict) and item.get("week") == week and item.get("day") == day_index
@@ -180,6 +185,25 @@ def _record_activity_history(run: dict, *, day: str, entry: dict) -> None:
             raise ActivityRejected("Forced-rest history state is invalid")
         record["forcedRestDays"] = remaining
     history.append(record)
+    history.sort(key=lambda item: (item["week"], item["day"]))
+
+
+def _backfill_completed_week_history(run: dict) -> None:
+    """Migrate current-week completions from pre-history saves before the week is cleared."""
+    schedule = run.get("weeklySchedule")
+    history = run.setdefault("activityHistory", [])
+    if not isinstance(schedule, dict) or set(schedule) != set(WEEKDAYS) or not isinstance(history, list):
+        raise ActivityRejected("Completed week activity history is unavailable")
+    week = run.get("week")
+    existing = {
+        (item.get("week"), item.get("day"))
+        for item in history if isinstance(item, dict)
+    }
+    for day_index, day in enumerate(WEEKDAYS):
+        entry = schedule[day]
+        if isinstance(entry, dict) and entry.get("status") == "COMPLETED" and (week, day_index) not in existing:
+            _record_activity_history(run, day=day, entry=entry)
+            existing.add((week, day_index))
 
 
 def _apply_account_progression(
@@ -944,6 +968,7 @@ def close_week(
         if type(week) is not int or not 1 <= week <= 52:
             raise ActivityRejected("Run week is invalid")
         candidates.require_no_weekend_rules(version=slot.gameDataVersion)
+        _backfill_completed_week_history(run)
         summary = _completed_week_summary(run, now=now)
         run["lastWeekSummary"] = summary
         if week == 52:

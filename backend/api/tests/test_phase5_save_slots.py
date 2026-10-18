@@ -135,7 +135,9 @@ def test_missing_slot_is_load_error_and_recovery_read_is_non_mutating(content_db
         assert start(client).status_code == 200
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         run["weeklySchedule"] = {
-            day: {"status": "IN_PROGRESS" if index == 0 else "PLANNED"}
+            day: {"status": "IN_PROGRESS" if index == 0 else "PLANNED",
+                  "type": "REST", "contentId": "REST_DEFAULT",
+                  "staminaBefore": 100, "staminaCost": 0}
             for index, day in enumerate(("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"))
         }
         before = deepcopy(database.data)
@@ -151,6 +153,11 @@ def test_missing_slot_is_load_error_and_recovery_read_is_non_mutating(content_db
         assert restored["weeklySchedule"]["MONDAY"]["status"] == "COMPLETED"
         assert restored["completedWeekdayCount"] == 1
         assert restored["day"] == "TUESDAY"
+        assert restored["activityHistory"] == [{
+            "week": 1, "day": 0, "type": "REST", "contentId": "REST_DEFAULT",
+            "status": "COMPLETED", "resolution": "INTERRUPTED",
+            "staminaBefore": 100, "staminaCost": 0,
+        }]
         assert restored["stamina"] == before["users/owner/saveSlots/1"]["activeRun"]["stamina"]
         assert restored["stats"] == before["users/owner/saveSlots/1"]["activeRun"]["stats"]
         assert client.get("/v1/save-slots/1", headers=headers()).json()["recoveryRequired"] is False

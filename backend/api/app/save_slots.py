@@ -273,6 +273,33 @@ def recover_interrupted_activity(
         entry["status"] = "COMPLETED"
         entry["resolution"] = "INTERRUPTED"
         entry["completedAt"] = now
+        history = run.setdefault("activityHistory", [])
+        week = run.get("week")
+        if (not isinstance(history, list) or len(history) >= 260
+                or type(week) is not int or not 1 <= week <= 52
+                or not isinstance(entry.get("type"), str) or not entry["type"]
+                or not isinstance(entry.get("contentId"), str) or not entry["contentId"]):
+            raise StartRunRejected("Stored activity history is invalid")
+        if any(not isinstance(item, dict)
+               or type(item.get("week")) is not int or not 1 <= item["week"] <= 52
+               or type(item.get("day")) is not int or not 0 <= item["day"] < len(weekdays)
+               for item in history):
+            raise StartRunRejected("Stored activity history is invalid")
+        day_index = weekdays.index(day)
+        if any(isinstance(item, dict) and item.get("week") == week
+               and item.get("day") == day_index for item in history):
+            raise StartRunRejected("Activity history already contains this weekday")
+        record = {
+            "week": week, "day": day_index, "type": entry["type"],
+            "contentId": entry["contentId"], "status": "COMPLETED",
+            "resolution": "INTERRUPTED",
+        }
+        for key in ("staminaBefore", "staminaCost", "staminaRecovered", "growthApplied",
+                    "growthAwarded", "result", "foundCount", "targetCount"):
+            if key in entry:
+                record[key] = deepcopy(entry[key])
+        history.append(record)
+        history.sort(key=lambda item: (item["week"], item["day"]))
         run["completedWeekdayCount"] = completed_count + 1
         if run["completedWeekdayCount"] < len(weekdays):
             run["day"] = weekdays[run["completedWeekdayCount"]]

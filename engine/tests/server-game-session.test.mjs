@@ -27,7 +27,9 @@ test('revision conflict can discard the stale mutation and refresh authoritative
  assert.equal(game.pending().input.expectedServerRevision,3);
  current=playing(4,{...current.activeRun,phase:'MY_ROOM_RECOVERY',pendingStoryEvent:null});
  await game.resolveConflict();
- assert.equal(calls,1);assert.equal(game.pending(),null);assert.equal(game.slot(1).serverRevision,4);assert.equal(game.slot(1).activeRun.phase,'MY_ROOM_RECOVERY');
+ assert.equal(calls,1);assert.equal(game.pending(),null);assert.equal(game.slot(1).serverRevision,4);
+ assert.equal(game.slot(1).activeRun.phase,'ACTING');
+ assert.equal(game.slot(1).activeRun.serverPhase,'MY_ROOM_RECOVERY');
 });
 
 test('schedule confirmation reuses returned revision and activity start skips unrelated collection refresh',async()=>{
