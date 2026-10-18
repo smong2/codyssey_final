@@ -45,12 +45,16 @@ test('room does not show a review prompt without a newly completed activity',()=
  assert.equal(findAll(room,node=>node.className.includes('room-review-prompt')).length,0);
 });
 
-test('profile keeps its status frame and text without a small character portrait',()=>{
+test('profile shows its name and actual stamina bar without visible health numbers or a portrait',()=>{
  const {shell}=renderRoom(null),profile=findAll(shell,node=>node.className.includes('room-profile-card'))[0];
  assert.ok(profile);
  assert.equal(findAll(profile,node=>node.className.includes('mini-profile-face')).length,0);
  assert.match(profile.textContent,/카엘/);
- assert.match(profile.textContent,/체력 80/);
+ assert.doesNotMatch(profile.textContent,/체력|80/);
+ const bar=findAll(profile,node=>node.tag==='progress')[0];
+ assert.ok(bar);
+ assert.equal(bar.value,80);
+ assert.equal(bar.max,100);
 });
 
 test('room date card opens schedule and no separate bottom schedule button is rendered',()=>{

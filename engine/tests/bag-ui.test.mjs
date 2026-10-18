@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createJournalUI} from '../src/ui/journal.mjs';
 
 function node(tag,text='',className=''){
- const item={tag,text,className,children:[],attributes:{},dataset:{},disabled:false,append(...children){this.children.push(...children);},replaceChildren(...children){this.children=children;},setAttribute(key,value){this.attributes[key]=value;},get textContent(){return [this.text,...this.children.map(child=>child.textContent)].filter(Boolean).join(' ');}};
+ const item={tag,text,className,children:[],attributes:{},dataset:{},style:{},disabled:false,append(...children){this.children.push(...children);},replaceChildren(...children){this.children=children;},setAttribute(key,value){this.attributes[key]=value;},get textContent(){return [this.text,...this.children.map(child=>child.textContent)].filter(Boolean).join(' ');}};
  return item;
 }
 function all(item,predicate){return [...(predicate(item)?[item]:[]),...item.children.flatMap(child=>all(child,predicate))];}
@@ -20,11 +20,24 @@ function setup(meta={unlockedCharacters:['CH01','CH02','CH08','CH15','CH16','CH3
  return {ui,shell,modals,get headingNode(){return headingNode;},get selectedPetId(){return selectedPetId;}};
 }
 
-test('bag opens on My Room with the agreed four tabs and omits item previews',()=>{
+test('bag opens on badges with the approved tab order and omits item previews',()=>{
  const {ui,shell}=setup();ui.bag();
  const labels=all(shell,n=>n.tag==='button').map(n=>n.text).filter(text=>['아이템','배지','펫','캐릭터','마이룸'].includes(text));
- assert.deepEqual(labels,['마이룸','배지','펫','캐릭터']);
+ assert.deepEqual(labels,['배지','펫','캐릭터','마이룸']);
  assert.doesNotMatch(shell.textContent,/아이템/);
+});
+
+test('bag uses asset-free capsule navigation without a visible title and keeps selected states on tab changes',()=>{
+ const {ui,shell}=setup();ui.bag();
+ const tabs=()=>all(shell,n=>n.className.includes('bag-tabs'))[0];
+ assert.equal(all(shell,n=>n.tag==='h1').length,0);
+ assert.equal(tabs().children.length,4);
+ assert.ok(tabs().children.every(n=>n.className.includes('bag-tab')&&!n.style.backgroundImage));
+ for(let index=0;index<4;index++){
+  tabs().children[index].onclick();
+  assert.equal(all(shell,n=>n.tag==='h1').length,0);
+  assert.deepEqual(tabs().children.map(n=>n.attributes['aria-pressed']),[0,1,2,3].map(i=>String(i===index)));
+ }
 });
 
 test('character collection cards hide names and open full information for unlocked silhouettes',()=>{

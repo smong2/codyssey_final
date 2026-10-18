@@ -34,9 +34,9 @@ test('read state clears only unread indicators and malformed state is rejected',
 test('room panel marks unread rooms and reads them only when their detail is opened',()=>{
  const meta=metaWithRooms();acceptCollectionReceipts(meta,[receipt()]);const nodes=[];
  const el=(tag,text='',className='')=>({tag,text,className,children:[],style:{},append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;},setAttribute(){},get textContent(){return [this.text,...this.children.map(item=>item.textContent)].filter(Boolean).join(' ');},set textContent(value){this.text=value;this.children=[];}});
- const btn=(text,action)=>{const item=el('button',text);item.onclick=action;return item;};
+ const btn=(text,action,className='')=>{const item=el('button',text,className);item.onclick=action;return item;};
  const panel=el('section');renderRoomPanel(panel,{el,btn,meta:()=>meta,onReadRoomNotices:id=>markRoomNoticesRead(meta,id)});
  assert.ok(panel.textContent.includes('NEW'));assert.deepEqual(unreadRoomIds(meta),['room-2']);
- const visit=item=>[item,...item.children.flatMap(visit)];const detail=visit(panel).filter(item=>item.text==='퍼즐 보기').at(1);detail.onclick();
+ const visit=item=>[item,...item.children.flatMap(visit)];const detail=visit(panel).filter(item=>item.className.includes('room-card-trigger')).at(2);detail.onclick();
  assert.deepEqual(unreadRoomIds(meta),[]);
 });

@@ -488,6 +488,72 @@ button:active:not(:disabled){scale:.97}
 .schedule-layout .date-cell.current-week.outside-month{background:#e5ddcd}
 .schedule-layout .date-cell.current-week.selected-schedule-day{border-color:#bc6050;background:#edc5b8;box-shadow:none}
 .schedule-layout .selected-schedule-day .calendar-activity-image{opacity:.62}
+
+/* UI08 keeps its 1286:850 ratio; UI09 tabs layer over the book at its left edge. */
+#shell.diary-page{display:grid;place-items:center;grid-template-rows:minmax(0,1fr);padding:20px!important;overflow:hidden}
+.diary-page>.close-x{position:absolute;top:12px;right:12px;z-index:5}
+.diary-page .book-layout{display:block;isolation:isolate;width:min(1180px,calc((100vw - 40px)*.76),calc((100dvh - 48px)*1.512941));height:auto;min-height:0;max-height:calc(100dvh - 48px);aspect-ratio:1286/850;margin:0;padding:0;box-sizing:border-box;border:0;border-radius:0;background:transparent;box-shadow:none;perspective:none}
+.diary-page .book-layout:before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:url('./design-assets/ui/UI08_diary_open_book.png') center/contain no-repeat}
+.diary-page .book-page{position:absolute;z-index:2;top:9%;bottom:12%;width:39%;min-height:0;max-height:none;padding:0 2px;box-sizing:border-box;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#ab94624d transparent;border:0;border-radius:0;background:transparent;color:#594835;box-shadow:none}
+.diary-page .book-left{left:7%}
+.diary-page .book-right{right:7%}
+.diary-page .book-spine{display:none}
+.diary-page .book-left>h1{margin:0 0 7px;text-align:left;color:#45513b;font-size:clamp(18px,2vw,28px)}
+.diary-page .book-page h2{margin:0 0 10px;color:#45513b;font-size:clamp(15px,1.5vw,21px)}
+.diary-page .book-tabs{position:absolute;z-index:3;left:auto;right:95.7%;top:16%;display:flex;flex-direction:column;justify-content:flex-start;gap:clamp(6px,1.5vh,16px);width:17%}
+.diary-page .book-tabs button{position:relative;isolation:isolate;display:grid;place-items:center;width:100%;aspect-ratio:1028/432;min-width:0;min-height:0;padding:0 14% 0 5%;border:0;border-radius:0;outline:0!important;background:transparent!important;color:#3e4230;font:inherit;font-size:clamp(11px,1.3vw,18px);font-weight:400;white-space:nowrap;box-shadow:none!important;text-shadow:none;transform:none!important;transition:font-size .18s ease}
+.diary-page .book-tabs button:before{content:'';position:absolute;z-index:-1;inset:0;background:url('./design-assets/ui/UI09_diary_bookmark_fabric.png') center/100% 100% no-repeat;transition:left .18s ease,filter .18s ease}
+.diary-page .book-tabs button.selected{background:transparent;color:#fff4d9;font-size:clamp(12.5px,1.5vw,20px)}
+.diary-page .book-tabs button.selected:before{left:-18%;filter:brightness(.58) saturate(.75)}
+.diary-page .book-tabs button:hover,.diary-page .book-tabs button:focus,.diary-page .book-tabs button:focus-visible,.diary-page .book-tabs button:active{outline:0!important;outline-offset:0;background:transparent!important;box-shadow:none!important}
+.diary-page .scrap-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(5px,1vw,12px);padding:2px;align-items:start}
+.diary-page .scrap-card,.diary-page .scrap-card:nth-child(even){min-width:0;min-height:0;box-sizing:border-box;padding:6px;gap:6px;transform:none;background:#faf3e4;border:1px solid #d4bf91;border-radius:5px;box-shadow:0 1px 3px #624a2820;text-align:left}
+.diary-page .scrap-card.selected{border-color:#83935f;background:#e8ebd7}
+.diary-page .scrap-card:before{display:none}
+.diary-page .scrap-card img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:3px}
+.diary-page .scrap-card strong{font-size:clamp(10px,1.2vw,15px);font-weight:400}
+.diary-page .scrap-card small{font-size:clamp(8px,.9vw,11px);line-height:1.4}
+.diary-page .book-footer{position:absolute;z-index:2;left:10%;right:10%;bottom:5%;justify-content:space-between;pointer-events:none}
+.diary-page .book-footer button{min-height:32px;padding:2px 8px;border:0;background:transparent;color:#6b5838;font-size:0;box-shadow:none;pointer-events:auto}
+.diary-page .book-footer button:before{font-size:25px;line-height:1}
+.diary-page .book-footer button:first-child:before{content:'‹'}
+.diary-page .book-footer button:last-child:before{content:'›'}
+.diary-page .book-footer span{position:absolute;left:50%;transform:translateX(-50%);font-size:11px;color:#88724d}
+.diary-page .book-right{padding-top:0}
+.diary-page .book-right>h2{margin-bottom:12px;text-align:center}
+.diary-page .book-right p{margin:7px 0;padding:8px 10px;border-bottom:1px solid #c9b47e;line-height:1.45}
+.diary-page .book-right p small{color:#796744}
+.diary-page .book-empty{margin:15% auto;text-align:center;line-height:1.8;color:#796744}
+.collection-result-overlay{width:min(580px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:0;border:0;background:transparent;overflow:visible}
+.collection-result-overlay::backdrop{background:#15201dcc;backdrop-filter:blur(3px)}
+.collection-result{display:grid;justify-items:center;gap:12px;padding:clamp(18px,4vw,34px);border:2px solid #c4a45f;border-radius:16px;background:#f6ecd7 url('./design-assets/ui/UI01_parchment_tile_000.png');color:#40503e;text-align:center;box-shadow:0 10px 30px #1119}
+.collection-result-symbol{color:#b89443;font-size:32px;line-height:1}
+.collection-result h2{margin:0;font-size:clamp(20px,3vw,28px)}
+.collection-result-badges{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;max-height:45dvh;overflow:auto}
+.collection-result-badge{display:grid;justify-items:center;gap:6px;min-width:120px;padding:10px;border:1px solid #c9b47e;border-radius:10px;background:#fff8e7}
+.collection-result-art{height:92px}
+.collection-result-badge p{margin:0;font-size:14px}
+.collection-result-badge small{color:#88724d}
+.collection-result-confirm{min-width:130px}
+@media(orientation:landscape) and (max-height:500px){
+ #shell.diary-page{padding:10px!important}
+ .diary-page .book-layout{width:min(calc((100vw - 24px)*.76),calc((100dvh - 24px)*1.512941));max-height:calc(100dvh - 24px);margin:0;padding:0}
+ .diary-page .book-page{padding:0 2px}
+ .diary-page .book-left>h1{font-size:clamp(15px,2.5vw,20px);margin-bottom:3px}
+ .diary-page .book-page h2{font-size:clamp(12px,1.9vw,16px);margin-bottom:4px}
+ .diary-page .book-tabs{top:16%;gap:5px}
+ .diary-page .book-tabs button{padding:0 14% 0 5%;font-size:10px}
+ .diary-page .book-tabs button.selected{font-size:11.5px}
+ .diary-page .scrap-cards{gap:5px}
+ .diary-page .scrap-card,.diary-page .scrap-card:nth-child(even){padding:4px;gap:3px;font-size:10px}
+ .diary-page .scrap-card img{height:auto}
+ .diary-page .scrap-card small{font-size:8px}
+ .diary-page .book-right{padding-top:0}
+ .diary-page .book-right>h2{margin-bottom:5px}
+ .diary-page .book-right p{margin:3px 0;padding:4px 7px;font-size:11px;line-height:1.25}
+ .diary-page .book-right small{font-size:9px}
+ .diary-page .book-footer{bottom:3%}
+}
 .schedule-layout .outside-month:not(.current-week) .calendar-activity-image{filter:grayscale(1);opacity:.35}
 .schedule-layout .past-activity .calendar-activity-image{filter:grayscale(1);opacity:.6}
 #shell.weekly-summary-page{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;overflow:auto;padding:20px!important;background:linear-gradient(#17261f70,#17261f70),url('./world-assets/BG11_myroom2_day_1920x1080_023.png') center/cover!important}
@@ -588,3 +654,113 @@ button:active:not(:disabled){scale:.97}
 .dialogue-speaker-nameplate{width:clamp(220px,28vw,360px);height:auto;aspect-ratio:1940/311;background-size:contain}
 #shell.dialogue-preview-page>.life-dialogue,#shell.admission-story-page>.life-dialogue{border:1px solid #b79555}
 @media(orientation:landscape) and (max-height:500px){.dialogue-speaker-nameplate{width:clamp(164px,28vw,224px);height:auto;aspect-ratio:1940/311}}
+
+/* Bag text controls use the two native 1362 x 311 exports. Collection cards keep their square layout. */
+.bag-ui-button{position:relative;box-sizing:border-box;flex:none;display:grid;place-items:center;width:clamp(136px,17vw,220px);max-width:100%;height:auto;min-height:0;aspect-ratio:1362/311;padding:0 14px;border:0!important;border-radius:0;background-color:transparent!important;background-repeat:no-repeat;background-position:center;background-size:contain;box-shadow:none!important;color:#38452f;font-size:clamp(11px,1.45vw,16px);line-height:1.1;white-space:nowrap;text-shadow:none;font-weight:400}
+.bag-ui-button.is-selected{color:#fff8e4}
+.bag-ui-button:hover{filter:none;transform:none}
+.bag-ui-button:active:not(:disabled){transform:scale(.97)}
+.bag-ui-button:disabled{opacity:1;cursor:default;filter:none}
+.bag-frame>.bag-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:min(100%,1000px);gap:clamp(6px,1.6vw,20px);margin:8px auto 16px}
+.bag-tabs .bag-ui-button{width:100%;font-size:clamp(13px,1.8vw,23px)}
+.bag-ui-button .collection-new-indicator{position:absolute;right:8%;top:-6%;font-size:10px}
+.collection-breadcrumb .bag-ui-button{padding:0 14px}
+.collection-item-card>.bag-ui-button{width:min(220px,100%);margin:4px auto}
+.collection-next-badge{padding:10px 16px;margin:8px 0 12px;border:1px solid #bca16e;border-radius:9px;background:#f7f0dc}
+.collection-next-badge h3,.collection-next-badge p{margin:3px 0}
+.room-piece-grid{width:min(640px,100%,calc(45dvh * 1672 / 941));aspect-ratio:1672/941;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:314fr 313fr 314fr;gap:0}
+.room-piece{position:relative;min-width:0;min-height:0;overflow:hidden;border:0;box-shadow:inset 0 0 0 1px #b7a78588}
+.room-piece img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
+.room-piece-progress{text-align:center}
+.room-selection-error{padding:8px;border:1px solid #a87960;border-radius:8px;color:#734b36}
+
+/* Room cards open a collection modal; locked artwork retains brown tonal shading. */
+.room-collection-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,2vw,26px);max-width:1100px;margin:18px auto}
+.room-card-item{min-width:0;text-align:center;color:var(--ink)}
+.bag-frame .room-card-trigger{display:block;position:relative;isolation:isolate;width:100%;min-width:0;min-height:0;aspect-ratio:1;padding:0;border:1px solid #b49456;border-radius:16px;overflow:hidden;background:#e9dfcd;box-shadow:none;transform:none}
+.room-card-art{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.room-card-trigger.is-locked .room-card-art{filter:grayscale(1) contrast(.68) brightness(.8)}
+.room-card-trigger.is-locked::after{content:'';position:absolute;inset:0;z-index:1;background:#6b5545;mix-blend-mode:color;pointer-events:none}
+.room-card-lock{position:absolute;left:30%;top:30%;width:40%;height:40%;object-fit:contain;z-index:2}
+.bag-frame .room-card-trigger.is-current{border:2px solid #718858;box-shadow:inset 0 0 0 2px #e5d7b7}
+.room-current-check{position:absolute;right:6px;top:6px;z-index:2;display:grid;place-items:center;width:28px;height:28px;border:1px solid #eee1b8;border-radius:50%;background:#647c50;color:#fff9df;font:20px/1 sans-serif}
+.room-card-item h3{font-size:clamp(13px,1.6vw,20px);font-weight:400;margin:10px 0 4px}.room-card-item p{font-size:14px;margin:3px 0}.room-card-item small{display:block;font-size:12px;color:#786d55}
+.room-card-item .collection-new-indicator{display:inline-block;color:#fffaf3}
+.room-card-trigger:hover{filter:none;transform:none}.room-card-trigger:active{transform:scale(.97)}.room-card-trigger:focus-visible{outline:3px solid #52684c;outline-offset:-4px}
+dialog.paper-modal.room-puzzle-modal{box-sizing:border-box;width:min(920px,88vw);max-width:88vw;max-height:94dvh;padding:24px 26px 18px;overflow:auto;border:1px solid #b49456;border-radius:16px;text-shadow:none}
+.room-puzzle-modal>h2{text-align:center;font-size:clamp(18px,2vw,26px);font-weight:400;margin:0 36px 6px}
+.room-puzzle-modal>.close-x{color:#705b3b;text-shadow:none}
+.room-puzzle-modal::backdrop{background:#251c1a66;backdrop-filter:blur(2px)}
+.room-puzzle-detail{text-align:center;min-width:0}.room-detail-theme{font-size:13px;margin:0 0 8px}
+.room-puzzle-modal .room-piece-grid{width:min(100%,calc(50dvh * 1672 / 941));margin:10px auto;overflow:hidden;border:1px solid #bca16e;border-radius:8px}
+.room-puzzle-modal .room-piece{background-color:#d5c9b0;box-shadow:inset 0 0 0 .5px #ac99787a}
+.room-piece-progress{margin:5px 0;font-size:18px}
+.room-collection-progress{display:block;width:min(65%,420px);height:10px;margin:5px auto 12px;accent-color:#6e8157}
+.room-detail-help,.room-detail-current{font-size:14px;margin:8px 0 4px}.room-detail-current{color:#526b42}
+.room-puzzle-detail>small{display:block;font-size:12px;color:#786d55}.room-puzzle-detail>.bag-ui-button{margin:10px auto 0}
+.room-detail-preview{display:block;width:min(100%,calc(50dvh * 16 / 9));max-height:50dvh;object-fit:contain;margin:8px auto;border-radius:8px}
+.room-puzzle-modal>.actions:empty{display:none}
+@media(orientation:landscape) and (max-height:500px){.room-collection-grid{margin:8px auto;gap:12px}.room-card-item h3{margin:5px 0 2px;font-size:13px}.room-card-item p{font-size:12px}.room-card-item small{font-size:11px}dialog.paper-modal.room-puzzle-modal{width:min(680px,88vw);padding:12px 18px 10px}.room-puzzle-modal>h2{font-size:18px;margin-bottom:2px}.room-detail-theme{font-size:11px;margin:0}.room-puzzle-modal .room-piece-grid{width:min(100%,calc(42dvh * 1672 / 941));margin:5px auto}.room-piece-progress{font-size:15px;margin:3px 0}.room-collection-progress{height:8px;margin:3px auto 5px}.room-detail-help,.room-detail-current{font-size:12px;margin:4px 0 2px}.room-puzzle-detail>small{font-size:10px}.room-puzzle-detail>.bag-ui-button{margin-top:5px}}
+
+/* Badge collection: fixed text-only categories, independently scrolling accordion. */
+.bag-frame:has(>.badge-browser){display:flex;flex-direction:column;overflow:hidden;border:1px solid #bca16e}
+.bag-frame:has(>.badge-browser)>h1,.bag-frame:has(>.badge-browser)>.bag-tabs{flex-shrink:0}
+.badge-browser{display:grid;grid-template-columns:minmax(140px,24%) minmax(0,1fr);gap:clamp(12px,2vw,30px);flex:1;min-height:0;overflow:hidden;text-shadow:none}
+.badge-category-list{display:flex;flex-direction:column;gap:clamp(10px,2dvh,22px);padding:10px clamp(10px,1.6vw,24px) 10px 0;border-right:1px solid #bca16e;min-height:0;overflow-y:auto}
+.badge-category-list .bag-ui-button{width:100%;font-size:clamp(12px,1.65vw,21px);padding:0 12px}
+.badge-content{min-width:0;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 8px 12px 0;scrollbar-gutter:stable}
+.badge-group-heading{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:4px 0 12px}
+.badge-group-heading h2{font-size:clamp(18px,2.2vw,28px);margin:0}.badge-group-heading small{font:12px 'Lumia Gothic',sans-serif;color:#75674d}
+.badge-subgroup{margin-bottom:8px;border:1px solid #c6af80;border-radius:10px;overflow:hidden;background:#fbf4e5a6}
+.badge-subgroup.is-open{border-color:#b49456}
+.badge-subgroup-toggle{display:flex;align-items:center;width:100%;gap:10px;min-height:0;padding:9px 14px;border:0;border-radius:0;background:transparent;color:var(--ink);box-shadow:none;text-align:left;font-size:clamp(13px,1.65vw,20px);line-height:1.4;font-weight:400;text-shadow:none}
+.is-open>.badge-subgroup-toggle{background:#e6e8d5}
+.badge-subgroup-toggle>:first-child{min-width:0}.badge-subgroup-count{margin-left:auto;white-space:nowrap;font-size:.85em}
+.badge-complete-mark{width:24px;height:24px;object-fit:contain}.badge-chevron{font:18px/1 sans-serif;width:18px;text-align:center}
+.badge-subgroup-detail{padding:10px}
+.badge-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px}
+.badge-tier{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0;min-height:0;padding:5px 2px;border:1px solid #d6c6a6;border-radius:10px;background:#f3ebda;color:var(--ink);box-shadow:none;font:12px/1.3 'Lumia Gothic',sans-serif;text-shadow:none}
+.badge-tier.is-selected{border-color:#bd9c4b;box-shadow:inset 0 0 0 1px #bd9c4b;background:#faf1da}
+.badge-tier small{font-size:10px;font-weight:400;color:#786d55}
+.badge-tier>.collection-square-art,.badge-tier>.badge-layer-stack{display:block;position:relative;width:100%;height:auto;aspect-ratio:1;margin:0;object-fit:contain}
+.badge-tier .badge-layer-stack img{height:100%}
+.badge-subgroup-toggle:hover,.badge-tier:hover{transform:none;filter:none}
+.badge-subgroup-toggle:active,.badge-tier:active{transform:scale(.97)}
+.badge-browser button:focus-visible{outline:2px solid #52684e;outline-offset:-3px}
+.badge-summary{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);margin-top:12px;border:1px solid #d6c6a6;border-radius:9px;background:#f8f1df}
+.badge-summary .collection-next-badge{margin:0;padding:10px 12px;border:0;background:transparent;min-width:0}
+.badge-summary h3{font-size:clamp(13px,1.35vw,17px);margin:0 0 5px;font-weight:400}
+.badge-summary p{font-size:clamp(11px,1.2vw,15px);margin:4px 0;line-height:1.5}
+.badge-summary small{font:11px/1.5 'Lumia Gothic',sans-serif;color:#786d55}
+.badge-summary progress{display:block;width:100%;height:10px;margin-top:6px;accent-color:#6f815b}
+.badge-summary .collection-reward{border:0;border-left:1px solid #d6c6a6;padding:10px 12px;min-width:0}
+.badge-summary .collection-reward p{display:inline-block;margin:2px 12px 2px 0;font:11px/1.6 'Lumia Gothic',sans-serif}
+.badge-summary .reward-paid{color:#536e43}.badge-summary .reward-next{color:#9b732c}
+@media(max-width:1000px){.badge-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.badge-tier>.collection-square-art,.badge-tier>.badge-layer-stack{max-width:80px}.badge-summary{grid-template-columns:1fr}.badge-summary .collection-reward{border-left:0;border-top:1px solid #d6c6a6}}
+@media(orientation:landscape) and (max-height:500px){.bag-frame:has(>.badge-browser)>.bag-tabs{margin:2px auto 8px;width:min(100%,800px)}.badge-category-list{padding-top:2px;gap:7px}.badge-category-list .bag-ui-button{font-size:12px}.badge-group-heading{margin:0 0 6px}.badge-group-heading h2{font-size:17px}.badge-subgroup-toggle{padding:5px 9px;font-size:13px}.badge-subgroup-detail{padding:7px}.badge-summary{margin-top:7px}}
+
+/* Antique book index tabs, using the shared parchment texture. */
+.bag-frame>.bag-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:end;width:100%;gap:5px;min-height:52px;padding:0;margin:2px auto 18px;border:0;border-bottom:1px solid #b29153;border-radius:0;background:transparent;box-shadow:none;flex-shrink:0}
+.bag-tabs .bag-tab{position:relative;display:grid;place-items:center;min-width:0;min-height:42px;padding:9px 8px;border:1px solid #b29153;border-bottom:0;border-radius:12px 12px 0 0;background:#eadcbb url('./design-assets/ui/UI01_parchment_tile_000.png') repeat;background-blend-mode:multiply;color:#5b523f;box-shadow:inset 0 1px 0 #fff4db;font:400 clamp(10.4px,1.36vw,16px)/1.3 'Gowun Batang',serif;text-align:center;text-shadow:none;white-space:nowrap;transition:background-color .16s,color .16s,min-height .16s}
+.bag-tabs .bag-tab.is-selected{min-height:52px;background-color:#394d3e;color:#fff3d7;box-shadow:inset 0 1px 0 #b8b58a55;font-weight:700}
+.bag-tabs .bag-tab:hover{filter:none;transform:none}.bag-tabs .bag-tab:active{transform:scale(.97)}
+.bag-tabs .bag-tab:focus-visible{outline:2px solid #e8d4a8;outline-offset:-2px}.bag-tabs .bag-tab.is-selected:focus-visible{outline-color:#6c7d53}
+.bag-tab .collection-new-indicator{position:absolute;right:5%;top:-2px;font-size:9px;line-height:1.1;padding:2px 4px}
+@media(orientation:landscape) and (max-height:500px){.bag-frame>.bag-tabs,.bag-frame:has(>.badge-browser)>.bag-tabs{min-height:36px;margin:0 auto 10px;padding:0;gap:3px;width:100%}.bag-tabs .bag-tab{min-height:29px;padding:5px 6px;font-size:10.4px;border-radius:8px 8px 0 0}.bag-tabs .bag-tab.is-selected{min-height:36px}}
+
+/* Raised antique brass edge, keeping the original parchment surface intact. */
+.bag-frame,.bag-frame:has(>.badge-browser){position:relative;margin-top:52px;height:calc(100% - 52px);overflow:visible}
+.bag-frame>.bag-tabs,.bag-frame:has(>.badge-browser)>.bag-tabs{position:absolute;left:16px;right:auto;bottom:100%;width:33.333%;margin:0;z-index:1}
+.bag-frame>.bag-card-grid{max-height:100%;overflow:auto}
+@media(orientation:landscape) and (max-height:500px){.bag-frame,.bag-frame:has(>.badge-browser){margin-top:36px;height:calc(100% - 36px)}.bag-frame>.bag-tabs,.bag-frame:has(>.badge-browser)>.bag-tabs{left:10px;right:auto;width:33.333%;margin:0}}
+.bag-frame,.bag-frame:has(>.badge-browser){border:2.1px solid #b29153;border-top-color:#d8bd7d;border-left-color:#c8aa6c;border-right-color:#92703c;border-bottom-color:#826134;box-shadow:0 0 0 .7px #6f542f,0 2.1px 8.4px #33271640,inset 0 0 0 .7px #fae8b9,inset 0 0 0 2.1px #a68750,inset 0 0 0 2.8px #e3cf99}
+
+/* Room quick profile: match the utility-button height and show name plus stamina only. */
+.room-date-stack{max-width:min(380px,calc(100% - 36px))}
+.room-profile-card{position:relative;width:min(223.3px,calc((100vw - 36px)*.77));height:auto;aspect-ratio:1860/846;padding:0;border:0;border-radius:0;background:transparent!important;box-shadow:none;text-align:left;overflow:visible}
+.mini-profile-frame{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.mini-profile-copy{position:absolute;z-index:1;left:30%;right:20%;top:0;bottom:0;color:#fff4df}
+.mini-profile-copy>strong{position:absolute;top:27%;left:0;right:0;overflow:hidden;font-size:clamp(23.1px,.847vw,38.5px);font-weight:700;line-height:1.1;text-overflow:ellipsis;text-shadow:0 1px 2px #14142b;white-space:nowrap}
+.mini-profile-copy>.mini-profile-stamina{position:absolute;top:68%;left:0;width:100%;min-width:0;height:4.4px;margin:0;border:0;border-radius:5px;background:#171a35;accent-color:#62c876}
+@media(max-width:700px){.room-date-stack{max-width:min(340px,calc(100% - 16px))}.room-profile-card{width:min(200.2px,calc((100vw - 24px)*.77))}.mini-profile-copy>.mini-profile-stamina{height:3.85px}}
+@media(orientation:landscape) and (max-height:500px){.room-date-stack{max-width:min(380px,calc(100% - 24px));gap:7px}.room-profile-card{width:min(185.9px,calc((100vw - 24px)*.77))}.mini-profile-copy>.mini-profile-stamina{height:3.85px}}
