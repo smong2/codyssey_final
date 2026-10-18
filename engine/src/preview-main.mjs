@@ -33,7 +33,7 @@ import { createRoomLight } from "./core/room-light.mjs";
 import { appendCharacterInfo } from "./ui/character-info.mjs";
 import { createEndingUI } from "./ui/ending.mjs";
 import { activePet } from "./core/pets.mjs";
-import { createTitleAudioController } from "./core/title-audio.mjs";
+import { createTitleAudioController, dialogueMusicKey } from "./core/title-audio.mjs";
 import { createAdventureResultUI } from "./ui/adventure-result.mjs";
 import { createActivityResultUI } from "./ui/activity-result.mjs";
 import { createBadgeResultUI } from "./ui/badge-result.mjs";
@@ -1012,6 +1012,10 @@ function readRoomNotices(id) {
 }
 const journalUI = createJournalUI({ el, btn, shell, heading, current, meta: () => profile.meta, settings: () => profile.settings, activePet: () => activePet(profile), onSelectPet: selectPet, onSelectRoom: selectRoom, onReadRoomNotices: readRoomNotices, isSaveFailed: () => saveFailed, onReturn: renderRoom, turnPage: (_layout, done) => done(), modal });
 const dialogueUI = createDialogueUI({ el, btn, shell, heading, modal });
+function playDialogueMusic(payload) {
+	const key = dialogueMusicKey(payload);
+	if (key) titleAudio.playMusic(key);
+}
 const usesServerDialogue = () => serverMode;
 function showDialogueError(error, retry) {
 	console.warn("대화 서비스:", error);
@@ -1036,7 +1040,9 @@ const dialogueRuntime = createDialogueRuntime({
 		saveFailed = false;
 	},
 	persist: (value, id) => writer.save(value, id),
-	render: (payload, handlers) =>
+	render: (payload, handlers) => {
+		playDialogueMusic(payload);
+		return (
 		dialogueUI.render({
 			payload,
 			onComplete: (result) => {
@@ -1047,7 +1053,8 @@ const dialogueRuntime = createDialogueRuntime({
 				renderBusy("이야기 진행을 저장하고 있어요.");
 				handlers.onSkip(result);
 			},
-		}),
+		}));
+	},
 	onError: showDialogueError,
 });
 if (serverMode)
@@ -1055,7 +1062,9 @@ if (serverMode)
 		game: serverGame,
 		services: engineServices,
 		slotId: () => slotId,
-		onRender: (payload, handlers) =>
+		onRender: (payload, handlers) => {
+			playDialogueMusic(payload);
+			return (
 			dialogueUI.render({
 				payload,
 				onComplete: (result) => {
@@ -1066,7 +1075,8 @@ if (serverMode)
 					renderBusy("이야기 진행을 저장하고 있어요.");
 					handlers.onSkip(result);
 				},
-			}),
+			}));
+		},
 		onContinue: (response) => {
 			const next = serverDialogueContinuation;
 			serverDialogueContinuation = null;
@@ -1146,6 +1156,7 @@ function dispatchActivity(checkpoint) {
 	else if (action === "rest") renderRestChoice(checkpoint);
 	else if (action === "fairy-trade") renderFairyTrade(checkpoint);
 	else if (lesson) {
+		titleAudio.playMusic("minigame");
 		pending = { slotId, token: checkpoint.token, server: serverMode, checkpoint: structuredClone(checkpoint) };
 		shell.hidden = true;
 		document.querySelector("#game").hidden = false;
@@ -1689,6 +1700,7 @@ function renderRoom() {
 		});
 }
 function renderAdventure(checkpoint = current().inProgressActivity) {
+	titleAudio.playMusic("map");
 	const run = current(),
 		locationId = checkpoint?.locationId ?? run.scheduleLocations?.[run.day] ?? "greenhouse",
 		place = ADVENTURE_LOCATIONS.find((item) => item.id === locationId) ?? ADVENTURE_LOCATIONS[0];
@@ -1809,7 +1821,7 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 		}
 		if (investigationFinished) {
 			investigationCompleted = true;
-			adventureResultUI.finishInvestigation({ hint: state.hint, foundId: state.foundId, foundCount: state.foundIds.length, objectiveCount: state.objectives.length });
+			adventureResultUI.finishInvestigation({ hint: state.hint, foundId: state.foundId, item: state.objectives.find(item => item.id === state.foundId), foundCount: state.foundIds.length, objectiveCount: state.objectives.length });
 		}
 		if (state.hint) {
 			hintLine.textContent = state.hint;
@@ -1838,7 +1850,16 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 					"adventure-clue" + (selected ? " selected" : ""),
 				);
 			b.disabled = found;
-			b.append(el("strong", item.name), el("span", item.clue), el("small", found ? "발견 완료" : selected ? "현재 추적 중" : "누르면 추적"));
+			if (item.imageSrc) {
+				const art = el("img", null, "adventure-clue-art");
+				art.src = item.imageSrc;
+				art.alt = "";
+				art.onerror = () => art.remove();
+				b.append(art);
+			}
+			const copy = el("span", null, "adventure-clue-copy");
+			copy.append(el("strong", item.name), el("span", item.clue), el("small", found ? "발견 완료" : selected ? "현재 추적 중" : "누르면 추적"));
+			b.append(copy);
 			list.append(b);
 		}
 		briefing.append(list);

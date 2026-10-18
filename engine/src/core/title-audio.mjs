@@ -5,15 +5,23 @@ export const TITLE_BGM_TIMING=Object.freeze({
  sceneCrossfadeSeconds:.8
 });
 
-const MUSIC_KEYS=['intro','title','admission','room'];
-const TRACK_URLS={
- intro:'./audio-assets/bgm_title_intro.mp3',
- title:'./audio-assets/bgm_title_main.mp3',
- admission:'./audio-assets/bgm_admission_invitation.mp3',
- room:'./audio-assets/bgm_myroom.mp3',
- click:'./audio-assets/sfx_button_press.mp3',
- diary:'./audio-assets/sfx_diary_open.mp3'
-};
+export const AUDIO_TRACK_FILES=Object.freeze({
+ intro:'bgm_title_intro.mp3',title:'bgm_title_main.mp3',admission:'bgm_admission_invitation.mp3',room:'bgm_myroom.mp3',
+ click:'sfx_button_press.mp3',diary:'sfx_diary_open.mp3',
+ map:'bgm_map.mp3',minigame:'bgm_minigame.mp3',calm:'bgm_calm_01.mp3',daily:'bgm_daily_bright_01.mp3',
+ mysteryDark:'bgm_mystery_01.mp3',mysteryDetective:'bgm_mystery_02.mp3',mysteryLight:'bgm_mystery_03.mp3',
+ observatory:'bgm_observatory_01.mp3',playful:'bgm_playful_01.mp3',resolution:'bgm_gentle_resolution_01.mp3',winter:'bgm_winter_gathering_01.mp3',restoration:'bgm_hopeful_restoration_01.mp3'
+});
+const MUSIC_KEYS=Object.keys(AUDIO_TRACK_FILES).filter(key=>!['click','diary'].includes(key));
+const TRACK_URLS=Object.fromEntries(Object.entries(AUDIO_TRACK_FILES).map(([key,file])=>[key,'./audio-assets/'+file]));
+
+export function dialogueMusicKey({storyId,eventId}={}){
+ const main={MS01:'admission',MS02:'mysteryDetective',MS03:'mysteryDetective',MS04:'playful',MS05:'playful',MS06:'winter'};
+ if(Object.hasOwn(main,storyId))return main[storyId];
+ const id=eventId??storyId??'';
+ for(const [prefix,key] of [['NPC_GUIDE','daily'],['NPC_WORK','calm'],['NPC_LULU','playful'],['LOC_OBS','observatory'],['LOC_GH','calm'],['LOC_LIB','calm']])if(id===prefix||id.startsWith(prefix+'_'))return key;
+ return null;
+}
 
 export function crossfadeGains(progress){
  const p=Math.max(0,Math.min(1,progress));
@@ -33,7 +41,7 @@ export function createTitleAudioController({
  onSoundError=()=>{}
 }={}){
  const tracks=Object.fromEntries(Object.entries(TRACK_URLS).map(([key,url])=>[key,createAudio(url)]));
- for(const key of MUSIC_KEYS){tracks[key].loop=key==='title'||key==='room';tracks[key].preload='auto';tracks[key].volume=0;tracks[key].muted=false;}
+ for(const key of MUSIC_KEYS){tracks[key].loop=!['intro','admission'].includes(key);tracks[key].preload=['intro','title','admission','room'].includes(key)?'auto':'none';tracks[key].volume=0;tracks[key].muted=false;}
  for(const key of ['click','diary']){tracks[key].loop=false;tracks[key].preload='auto';tracks[key].volume=1;tracks[key].muted=false;}
  let mix=Object.fromEntries(MUSIC_KEYS.map(key=>[key,0])),bgmMuted=false,sfxMuted=false,blocked=false,frame=0,timer=0,introTransitionStarted=false,activeMusicKey=null,pending=Object.fromEntries(Object.keys(TRACK_URLS).map(key=>[key,false]));
 

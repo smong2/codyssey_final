@@ -32,6 +32,7 @@ test('server serves only the approved game music and button sound files with str
  assert.equal((await range.arrayBuffer()).byteLength,16);
  assert.equal((await fetch(base+'/audio-assets/README.md')).status,404);
  assert.equal((await fetch(base+'/audio-assets/bgm_clocktower_plaza.mp3')).status,404);
+ for(const name of ['bgm_map.mp3','bgm_minigame.mp3','bgm_calm_01.mp3','bgm_daily_bright_01.mp3','bgm_mystery_01.mp3','bgm_mystery_02.mp3','bgm_mystery_03.mp3','bgm_observatory_01.mp3','bgm_playful_01.mp3','bgm_gentle_resolution_01.mp3','bgm_winter_gathering_01.mp3','bgm_hopeful_restoration_01.mp3'])assert.equal((await fetch(base+'/audio-assets/'+name,{method:'HEAD'})).status,200,name);
 });
 
 test('server serves Korean puzzle image filenames without exposing sibling files',async t=>{
@@ -43,4 +44,11 @@ test('server serves Korean puzzle image filenames without exposing sibling files
  assert.equal(puzzle.headers.get('content-type'),'image/png');
  assert.equal((await fetch(base+'/design-assets/puzzle/README.md')).status,404);
  assert.equal((await fetch(base+'/design-assets/puzzle/../README.md')).status,404);
+});
+
+test('adventure clue pictures are served through a narrow nested allowlist',async t=>{
+ const {createEngineServer}=await import('../server.mjs');const server=createEngineServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>server.close(r)));
+ const base='http://127.0.0.1:'+server.address().port;
+ for(const area of ['GH','LIB','OBS'])for(let i=1;i<=5;i++)assert.equal((await fetch(`${base}/design-assets/item/adventure/ADV_${area}_0${i}.png`,{method:'HEAD'})).status,200);
+ for(const path of ['/design-assets/item/adventure/README.md','/design-assets/item/adventure/ADV_GH_06.png','/design-assets/item/adventure/unknown.png'])assert.equal((await fetch(base+path)).status,404);
 });

@@ -27,8 +27,14 @@ export function createJournalUI(ctx) {
 		page = 0,
 		selected = 0;
 	const turns = createPageTurnGate();
-	const close = () => {
-		const x = btn("X", onReturn, "close-x");
+	const close = (diary = false) => {
+		const x = btn(diary ? "" : "X", onReturn, "close-x");
+		if (diary) {
+			const art = el("img", null, "journal-close-art");
+			art.src = "./design-assets/ui/UI25_journal_close_x.png";
+			art.alt = "";
+			x.append(art);
+		}
 		x.setAttribute("aria-label", "마이룸으로 닫기");
 		shell.append(x);
 	};
@@ -138,9 +144,16 @@ export function createJournalUI(ctx) {
 			);
 		previous.disabled = page === 0;
 		next.disabled = page + 1 >= pages;
+		for (const [button, label] of [[previous, "이전 페이지"], [next, "다음 페이지"]]) {
+			button.setAttribute("aria-label", label);
+			const art = el("img", null, "journal-page-arrow");
+			art.src = "./design-assets/ui/UI23_journal_arrow_right.png";
+			art.alt = "";
+			button.append(art);
+		}
 		footer.append(previous, el("span", page + 1 + " / " + pages), next);
 		layout.append(footer);
-		close();
+		close(true);
 	}
 	function bag(tab = "배지") {
 		heading("가방", "bag-page");

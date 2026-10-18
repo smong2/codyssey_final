@@ -137,7 +137,7 @@ test('uses the original dialogue frame, shows the speaker nameplate and advances
  assert.equal(nameplate.style.backgroundImage,'url("./design-assets/ui/BT04_blank_pale_green.png")');
  const arrow=all(frame).find(item=>item.className.includes('dialogue-advance-indicator'));
  assert.ok(arrow);
- assert.equal(arrow.text,'↓');
+ assert.equal(arrow.children[0].src,'./design-assets/ui/UI24_journal_arrow_down.png');
  assert.equal(all(frame).some(item=>item.tag==='button'&&['다음','다음 장면'].includes(item.text)),false);
  assert.equal(all(view.shell).some(item=>item.tag==='img'&&item.src==='/character-assets/tia0_fullbody.png'),true);
  view.surfaceClick();

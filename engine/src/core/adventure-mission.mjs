@@ -41,12 +41,12 @@ export function getAdventureMap(mapId){
 }
 
 const PREVIEW_OBJECTS=Object.freeze({
- greenhouse:['푸른 잎의 씨앗','작은 약초 주머니','햇살을 머금은 유리구슬','반짝이는 룬 조각','은빛 물뿌리개'],
- library:['책갈피 룬 조각','빛바랜 서가 열쇠','접힌 관측 기록','푸른 잉크병','작은 종이별'],
- observatory:['별빛 렌즈 조각','달무늬 나침반','접힌 별자리 지도','은빛 룬 조각','작은 수정구슬']
+ greenhouse:['푸른 잎의 씨앗','작은 약초 주머니','햇살을 머금은 유리구슬','꽃잎 표본 카드','은빛 물뿌리개'],
+ library:['책갈피 룬 조각','빛바랜 서가 열쇠','접힌 장서 목록','푸른 잉크병','봉인된 두루마리'],
+ observatory:['별빛 렌즈 조각','달무늬 나침반','접힌 별자리 지도','황동 성도판','작은 수정구슬']
 });
 const DIRECTIONS=['동쪽','남동쪽','남쪽','남서쪽','서쪽','북서쪽','북쪽','북동쪽'];
-const clockDirections=['3시','4시 30분','6시','7시 30분','9시','10시 30분','12시','1시 30분'];
+const clockIndex=(origin,target)=>Math.round(((Math.atan2(target.y-origin.y,target.x-origin.x)+Math.PI*2.5)%(Math.PI*2))/(Math.PI/12))%24;
 const hashSeed=value=>{let h=2166136261;for(const char of String(value)){h^=char.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;};
 function random(seed){let value=seed>>>0;return()=>{value=(value+0x6D2B79F5)|0;let t=value;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
 function maskPoint(mask,mx,my){return{x:(mx+0.5)*mask.worldWidth/mask.width,y:(my+0.5)*mask.worldHeight/mask.height};}
@@ -100,17 +100,23 @@ export function reachableSafeRoutes(mask,spawn,targets,placement={}){
 }
 
 export function clueForPoint(origin,target){
- const angle=(Math.atan2(target.y-origin.y,target.x-origin.x)+Math.PI*2)%(Math.PI*2),index=Math.round(angle/(Math.PI/4))%8;
- return `입구에서 ${clockDirections[index]} 방향`;
+ const index=clockIndex(origin,target),hour=Math.floor(index/2)||12;
+ return `맵 중심에서 ${hour}시${index%2?' 30분':''} 방향`;
 }
 
 export function createPreviewObjectives({mask,spawn,count,seed,locationId='greenhouse',placement}){
  if(!Number.isInteger(count)||count<1||count>5)throw new Error('모험 목표 개수는 1~5개여야 합니다.');
  const labels=PREVIEW_OBJECTS[locationId];if(!labels)throw new Error('등록되지 않은 모험 장소입니다.');
- const candidates=reachableSafeCandidates(mask,spawn,placement);if(candidates.length<count)throw new Error('충돌 마스크에서 배치 가능한 목표 위치가 부족합니다.');
+ const center={x:mask.worldWidth/2,y:mask.worldHeight/2},radius=placement?.investigationRadius??ADVENTURE_GEOMETRY.investigationRadius;
+ const candidates=reachableSafeCandidates(mask,spawn,placement).filter(point=>Math.hypot(point.x-center.x,point.y-center.y)>radius);if(candidates.length<count)throw new Error('충돌 마스크에서 배치 가능한 목표 위치가 부족합니다.');
  const rng=random(hashSeed(seed)),pool=[...candidates];
  for(let i=pool.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
- return pool.slice(0,count).map((point,index)=>({id:`${seed}-objective-${index+1}`,name:labels[index],clue:clueForPoint(spawn,point),x:point.x,y:point.y}));
+ const chosen=[],directions=new Set(),add=point=>{chosen.push(point);directions.add(clockIndex(center,point));};
+ for(const point of pool){const direction=clockIndex(center,point);if(direction!==12&&!directions.has(direction))add(point);if(chosen.length===count)break;}
+ for(const avoidSix of [true,false]){for(const point of pool){if(chosen.length===count)break;if(!chosen.includes(point)&&(!avoidSix||clockIndex(center,point)!==12))add(point);}}
+ const items=labels.map((name,index)=>({id:`ADV_${{greenhouse:'GH',library:'LIB',observatory:'OBS'}[locationId]}_${String(index+1).padStart(2,'0')}`,name}));
+ for(let i=items.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[items[i],items[j]]=[items[j],items[i]];}
+ return chosen.map((point,index)=>({...items[index],imageSrc:'./design-assets/item/adventure/'+items[index].id+'.png',clue:clueForPoint(center,point),x:point.x,y:point.y}));
 }
 
 export function qualitativeHint(from,target){

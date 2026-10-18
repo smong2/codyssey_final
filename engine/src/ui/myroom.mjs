@@ -376,10 +376,12 @@ export function createMyroomUI(ctx) {
 			m = calendarModel(r);
 		heading("마이룸", "room-page");
 		ctx.decorateRoom?.();
-		const date = btn("", schedule, "room-date paper");
+		const date = btn("", schedule, "room-date");
 		date.setAttribute("aria-label", "현재 날짜 · 스케줄 열기");
 		date.title = "스케줄 열기";
-		date.append(el("small", "아르카디아력 " + m.arcadiaYear + "년"), el("strong", m.month + "월 " + m.day + "일 · " + WEEKDAYS[m.weekday]), el("small", m.season + " · " + r.week + " / 52주"));
+		const dateCopy = el("span", null, "room-date-copy");
+		dateCopy.append(el("small", "아르카디아력 " + m.arcadiaYear + "년"), el("strong", m.month + "월 " + m.day + "일 · " + WEEKDAYS[m.weekday]), el("small", m.season + " · " + r.week + " / 52주"));
+		date.append(img("ui", "UI22_myroom_date_frame_ivory.png", "", "room-date-art"), dateCopy);
 		const tools = el("nav", null, "room-iconbar");
 		tools.setAttribute("aria-label", "마이룸 기능");
 		for (const [label, key, action] of [
@@ -424,7 +426,7 @@ export function createMyroomUI(ctx) {
 		const dateStack = el("div", null, "room-date-stack");
 		const profileUI = btn("", profile, "room-profile-card");
 		profileUI.setAttribute("aria-label", c.name + " 프로필 · 체력 " + r.stamina + " / 100");
-		profileUI.append(img("ui", "UI14_date_frame_variant_01.png", "", "mini-profile-frame"));
+		profileUI.append(img("ui", "UI21_myroom_profile_frame_green.png", "", "mini-profile-frame"));
 		const profileCopy = el("span", null, "mini-profile-copy");
 		profileCopy.append(el("strong", c.name));
 		const staminaBar = el("progress", null, "mini-profile-stamina");
