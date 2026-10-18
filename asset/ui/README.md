@@ -1,6 +1,6 @@
 # UI 이미지 목록 (`asset/ui/`)
 
-병합된 이미지 **59개**(PNG 57개, JPG 2개)와 이 README를 정리했습니다. 신규 정리 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·환경 재료·검토 시안)·`LG`(로고)로 시작합니다. `UI20_environment_`는 기존 `asset/environment/`의 게임 규격 이미지 15장을 내용 변경 없이 통합한 묶음입니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
+병합된 이미지 **61개**(PNG 59개, JPG 2개)와 이 README를 정리했습니다. 신규 정리 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·환경 재료·검토 시안)·`LG`(로고)로 시작합니다. `UI20_environment_`는 기존 `asset/environment/`의 게임 규격 이미지 15장을 내용 변경 없이 통합한 묶음입니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
 
 파일이 존재한다는 사실만으로 게임 적용·최종 승인·동작 검수가 끝난 것은 아닙니다. 이름에 `final`이 있는 기존 파일의 상태도 별도 기획·검수 기준을 따릅니다.
 
@@ -30,6 +30,8 @@
 | [BT04_blank_light_green.png](./BT04_blank_light_green.png) | 텍스트 없는 가로 버튼 · 라이트그린 시안 | 2162×727 | <img src="./BT04_blank_light_green.png" width="220" alt="텍스트 없는 가로 버튼 · 라이트그린 시안"> |
 | [BT04_blank_ivory.png](./BT04_blank_ivory.png) | 텍스트 없는 가로 버튼 · 아이보리 시안 | 2173×724 | <img src="./BT04_blank_ivory.png" width="220" alt="텍스트 없는 가로 버튼 · 아이보리 시안"> |
 | [BT04_blank_pale_green.png](./BT04_blank_pale_green.png) | 텍스트 없는 가로 버튼 · 연그린 시안 | 2098×750 | <img src="./BT04_blank_pale_green.png" width="220" alt="텍스트 없는 가로 버튼 · 연그린 시안"> |
+| [BT04_blank_pale_green_short.png](./BT04_blank_pale_green_short.png) | 텍스트 없는 짧은 가로 버튼 · 연그린 | 1362×311 | <img src="./BT04_blank_pale_green_short.png" width="220" alt="텍스트 없는 짧은 가로 버튼 · 연그린"> |
+| [BT04_blank_pale_ivory_short.png](./BT04_blank_pale_ivory_short.png) | 텍스트 없는 짧은 가로 버튼 · 아이보리 | 1362×311 | <img src="./BT04_blank_pale_ivory_short.png" width="220" alt="텍스트 없는 짧은 가로 버튼 · 아이보리"> |
 | [BT05_start_game.png](./BT05_start_game.png) | ‘시작하기’ 버튼 | 2098×750 | <img src="./BT05_start_game.png" width="220" alt="시작하기 버튼"> |
 | [BT06_new_game.png](./BT06_new_game.png) | ‘새로 시작하기’ 버튼 | 2098×750 | <img src="./BT06_new_game.png" width="220" alt="새로 시작하기 버튼"> |
 | [BT07_continue_game.png](./BT07_continue_game.png) | ‘이어서 하기’ 버튼 | 2098×750 | <img src="./BT07_continue_game.png" width="220" alt="이어서 하기 버튼"> |
@@ -64,7 +66,7 @@
 
 | 파일 | 설명 | 원본 크기 | 미리보기 |
 |---|---|---:|---|
-| [UI08_diary_open_book.png](./UI08_diary_open_book.png) | 빈 다이어리 펼친 책 프레임 | 1672×941 | <img src="./UI08_diary_open_book.png" width="150" alt="빈 다이어리 펼친 책 프레임"> |
+| [UI08_diary_open_book.png](./UI08_diary_open_book.png) | 빈 다이어리 펼친 책 프레임 | 1286×850 | <img src="./UI08_diary_open_book.png" width="150" alt="빈 다이어리 펼친 책 프레임"> |
 | [UI09_diary_bookmark_fabric.png](./UI09_diary_bookmark_fabric.png) | 다이어리용 빈티지 천 책갈피 | 1028×432 | <img src="./UI09_diary_bookmark_fabric.png" width="220" alt="다이어리용 빈티지 천 책갈피"> |
 | [UI10_dialogue_panel_plain.png](./UI10_dialogue_panel_plain.png) | 이름표 없는 대화 패널 | 1988×791 | <img src="./UI10_dialogue_panel_plain.png" width="220" alt="이름표 없는 대화 패널"> |
 | [UI11_dialogue_panel_nameplate.png](./UI11_dialogue_panel_nameplate.png) | 이름표가 있는 대화 패널 | 1280×320 | <img src="./UI11_dialogue_panel_nameplate.png" width="220" alt="이름표가 있는 대화 패널"> |
