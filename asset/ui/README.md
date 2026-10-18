@@ -1,6 +1,6 @@
 # UI 이미지 목록 (`asset/ui/`)
 
-이미지 **59개**(PNG 57개, JPG 2개)와 이 README를 정리했습니다. 신규 정리 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·환경 재료·검토 시안)·`LG`(로고)로 시작합니다. `UI20_environment_`는 기존 `asset/environment/`의 게임 규격 이미지 15장을 내용 변경 없이 통합한 묶음입니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
+이미지 **60개**(PNG 58개, JPG 2개)와 이 README를 정리했습니다. 신규 정리 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·환경 재료·검토 시안)·`LG`(로고)로 시작합니다. `UI20_environment_`는 기존 `asset/environment/`의 게임 규격 이미지 15장을 내용 변경 없이 통합한 묶음입니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
 
 파일이 존재한다는 사실만으로 게임 적용·최종 승인·동작 검수가 끝난 것은 아닙니다. 이름에 `final`이 있는 기존 파일의 상태도 별도 기획·검수 기준을 따릅니다.
 
@@ -8,7 +8,7 @@
 
 | 사용처·장면 | 파일명 기준 | 현재 상태 | 파일 목록·미리보기 |
 |---|---|---|---|
-| 버튼·프레임·로고·환경 UI; 마이룸 프로필·날짜, 일지 화살표·닫기, 대화·버튼 | `BT / UI / LG 및 실행 호환 이름` | 이 폴더 이미지 59장. 개별 파일의 채택·후보·검수 상태는 아래 설명을 따름 | 아래 파일 표와 미리보기, [에셋 전체 장면표](../README.md) 참조 |
+| 버튼·프레임·로고·환경 UI; 마이룸 프로필·날짜, 일지 화살표·닫기, 대화·버튼 | `BT / UI / LG 및 실행 호환 이름` | 이 폴더 이미지 60장. 개별 파일의 채택·후보·검수 상태는 아래 설명을 따름 | 아래 파일 표와 미리보기, [에셋 전체 장면표](../README.md) 참조 |
 
 ## 이야기에서 사용하는 UI 재료
 
@@ -19,6 +19,7 @@
 | `MS01-S1` 입학 초대 | [입학 초대장 재료](./UI07_admission_invitation_004.png)<br><img src="./UI07_admission_invitation_004.png" width="110" alt="입학 초대장 재료"> | **후보**: 초대장을 보여 주는 장면과 내용 일치, 채택·표시 방식 확인 필요 |
 | `MS01–MS06`, `LOC_*`, `NPC_*` 대화 | [이름표 없는 대화 패널](./UI10_dialogue_panel_plain.png)<br><img src="./UI10_dialogue_panel_plain.png" width="110" alt="이름표 없는 대화 패널"> | 공통 대화 UI **재료**. 실제 사용 변형 확인 필요 |
 | 같은 대화 화면의 이름표 변형 | [이름표 있는 대화 패널](./UI11_dialogue_panel_nameplate.png)<br><img src="./UI11_dialogue_panel_nameplate.png" width="110" alt="이름표 있는 대화 패널"> | UI10과 대안/구성 관계 확인 필요 |
+| `MS01–MS06`, `LOC_*`, `NPC_*` 선택지 버튼; 폭 확인 기준 `MS05_S4_SHARE_ROLES` | [긴 선택지용 빈 프레임](./BT04_choice_blank_pale_green.png)<br><img src="./BT04_choice_blank_pale_green.png" width="160" alt="녹색 바탕의 긴 선택지 버튼 프레임"> | **승인된 빈 프레임** 2400×311. 48자 선택지로 폭을 확인했습니다. 문구는 이미지에 포함하지 않고 게임에서 왼쪽 정렬로 표시합니다. 엔진 연결·표시 검수는 별도입니다. |
 
 화면의 `BACKGROUND`·`FOCUS` 이미지는 이 대화 패널과 별개의 자원입니다. 버튼·로고·환경 재료를 해당 이야기의 FOCUS 그림으로 추정하지 않습니다.
 
@@ -47,6 +48,7 @@
 | [BT04_blank_pale_green.png](./BT04_blank_pale_green.png) | 텍스트 없는 가로 버튼 · 연그린 시안 | 2098×750 | <img src="./BT04_blank_pale_green.png" width="220" alt="텍스트 없는 가로 버튼 · 연그린 시안"> |
 | [BT04_blank_pale_green_short.png](./BT04_blank_pale_green_short.png) | 텍스트 없는 짧은 가로 버튼 · 연그린 | 1362×311 | <img src="./BT04_blank_pale_green_short.png" width="220" alt="텍스트 없는 짧은 가로 버튼 · 연그린"> |
 | [BT04_blank_pale_ivory_short.png](./BT04_blank_pale_ivory_short.png) | 텍스트 없는 짧은 가로 버튼 · 아이보리 | 1362×311 | <img src="./BT04_blank_pale_ivory_short.png" width="220" alt="텍스트 없는 짧은 가로 버튼 · 아이보리"> |
+| [BT04_choice_blank_pale_green.png](./BT04_choice_blank_pale_green.png) | 공통 선택지용 긴 빈 버튼 프레임 · `MS05_S4_SHARE_ROLES` 폭 기준 | 2400×311 | <img src="./BT04_choice_blank_pale_green.png" width="220" alt="긴 선택지용 녹색 빈 버튼 프레임"> |
 
 ## 기본 재료·프레임
 
