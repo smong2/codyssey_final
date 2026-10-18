@@ -16,6 +16,18 @@
 
 화면의 `BACKGROUND`·`FOCUS` 이미지는 이 대화 패널과 별개의 자원입니다. 버튼·로고·환경 재료를 해당 이야기의 FOCUS 그림으로 추정하지 않습니다.
 
+## 마이룸·일지 프레임과 조작 아이콘
+
+사용자 지정 저장 위치인 [`asset/item/`](../item/README.md)에 승인된 UI 재료 5장을 보관합니다. 이 폴더에 복제본은 없습니다. 두 프레임은 글자 없는 같은 가로 폭의 마이룸 왼쪽 위 프로필·날짜 표시용이며, 화살표 두 방향과 첫 번째 X 시안은 일지 화면용입니다. 실제 화면 합성·클릭 연결은 별도 검수 대상입니다.
+
+| 사용처 | 파일 · 미리보기 |
+|---|---|
+| 마이룸 프로필 | [녹색 프로필 프레임](../item/UI21_myroom_profile_frame_green.png)<br><img src="../item/UI21_myroom_profile_frame_green.png" width="160" alt="마이룸 프로필 프레임"> |
+| 마이룸 날짜 | [아이보리 날짜 프레임](../item/UI22_myroom_date_frame_ivory.png)<br><img src="../item/UI22_myroom_date_frame_ivory.png" width="160" alt="마이룸 날짜 프레임"> |
+| 일지 오른쪽 이동 | [오른쪽 화살표](../item/UI23_journal_arrow_right.png)<br><img src="../item/UI23_journal_arrow_right.png" width="70" alt="일지 오른쪽 화살표"> |
+| 일지 아래 방향 변형 | [아래 화살표](../item/UI24_journal_arrow_down.png)<br><img src="../item/UI24_journal_arrow_down.png" width="70" alt="일지 아래 화살표"> |
+| 일지 닫기 | [첫 번째 X 시안](../item/UI25_journal_close_x.png)<br><img src="../item/UI25_journal_close_x.png" width="70" alt="일지 닫기 X"> |
+
 ## 버튼
 
 | 파일 | 설명 | 원본 크기 | 미리보기 |
