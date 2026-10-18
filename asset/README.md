@@ -11,7 +11,7 @@
 | [background/](background/README.md) | 장면·시간대별 공간 배경 · 이미지 31장 | `BG*, 기존 마이룸 계열` | MS/LOC/NPC의 BACKGROUND·마이룸; 채택과 후보 구분 |
 | [character/](character/README.md) | 학생 전신·교수 캐릭터·`요정의 거래` 전용 요정 캐릭터 · 이미지 35장 | `기존 32인 전신 이름` / `CH_DRM_fairy_trade_upperbody_01.png` | 캐스팅 조건에 맞는 화자 이미지와 기숙사 `DRM` 특수 활동에 사용하는 요정 캐릭터를 구분 |
 | [item/](item/README.md) · [모험 목표 15종](item/adventure/README.md) | 스토리 FOCUS·소품·가구·모험 목표 · 이미지 46장 | `IT_*` / `ADV_GH/LIB/OBS_*` | `ART-*` FOCUS와 `ADV_*` 모험 목표를 용도별로 검색; 후보는 자동 배치 금지 |
-| [ui/](ui/README.md) | 버튼·프레임·로고·환경 UI · 이미지 59장 | `BT / UI / LG 및 실행 호환 이름` | 마이룸 프로필·날짜, 일지 화살표·닫기, 대화·버튼 |
+| [ui/](ui/README.md) | 버튼·프레임·로고·환경 UI · 이미지 59장 | `BT / UI / LG 및 실행 호환 이름` | 마이룸 프로필·날짜 프레임 `UI21`·`UI22`(공통 가로 2058px), 일지 화살표·닫기, 대화·버튼 |
 | [map/](map/README.md) | 이동·충돌용 맵 · 이미지 22장 | `MP* 및 기존 참고 맵` | 장소별 이동 지형; BACKGROUND와 구분 |
 | [pet/](pet/README.md) | 펫·루루 의상/표정 · 이미지 28장 | `PT / NPC_LULU` | 루루 회차와 의상 번호를 구별해 검색 |
 | [sd_character/](sd_character/README.md) | SD 캐릭터 · 이미지 48장 | `기존 캐릭터별 SD 계열` | Adventure용 작은 캐릭터; 전신 대화 화자와 구분 |
