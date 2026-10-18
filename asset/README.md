@@ -17,7 +17,7 @@
 | `ART-N06` | [아이보리 프레임 · 루루의 열린 보물상자](item/ART-N06_lulu_treasure_chest_open.png)<br><img src="item/ART-N06_lulu_treasure_chest_open.png" width="110" alt="아이보리 프레임 속 루루의 열린 보물상자"> | `NPC_LULU_02` 최초, `NPC_LULU_03–04` 재사용. 방문 장소는 온실 또는 약초원 | 이미지 채택·파일 등록. 엔진 표시 미검수 |
 | `ART-L01` | [아이보리 프레임 · 펼친 관측 일기](item/ART-L01_observation_diary_open_dusty.png)<br><img src="item/ART-L01_observation_diary_open_dusty.png" width="110" alt="아이보리 프레임 속 먼지와 거미줄이 쌓인 펼친 관측 일기"> | `LOC_OBS_01` 최초, `LOC_OBS_02–04` 재사용. 별빛 천문대 배경 위 FOCUS | 이미지 채택·파일 등록. 엔진 표시 미검수 |
 
-세 FOCUS는 모두 밝은 아이보리 프레임과 투명한 바깥 배경의 1672×941 PNG입니다. 게임용 일반 아이템 25장과 기존 프레임 카드 4장까지 포함한 **아이템 이미지 전체 32장**의 파일명·미리보기는 [item/README.md](item/README.md)에서 확인합니다. 프레임 카드·일반 아이템을 `ART-*` 전용 그림에 자동 대입하지 않습니다.
+세 FOCUS는 모두 밝은 아이보리 프레임과 투명한 바깥 배경의 1672×941 PNG입니다. 게임용 일반 아이템 25장과 기존 프레임 카드 3장까지 포함한 **아이템 이미지 전체 31장**의 파일명·미리보기는 [item/README.md](item/README.md)에서 확인합니다. 프레임 카드·일반 아이템을 `ART-*` 전용 그림에 자동 대입하지 않습니다.
 
 ## 메인 스토리와 엔딩
 
@@ -63,11 +63,11 @@
 | `LOC_GH_01` 시든 화분 | [유리 온실](background/BG06_glass_greenhouse_1920x1080_016.png)<br><img src="background/BG06_glass_greenhouse_1920x1080_016.png" width="92" alt="유리 온실"> | R1 `ART-L02` 시든 화분 후보 [시든 화분 후보](item/plant1_wilted_frame_thin_3840x2161.png)<br><img src="item/plant1_wilted_frame_thin_3840x2161.png" width="92" alt="시든 화분 후보"> → R2 `ART-L03` 건강해진 화분 후보 [회복 화분 후보](item/plant2_restored_frame_thin_3840x2161.png)<br><img src="item/plant2_restored_frame_thin_3840x2161.png" width="92" alt="회복 화분 후보">. 화자 `LOC_GREENHOUSE_STUDENT`는 동적 배정 | 배경 확인 / 두 FOCUS는 **후보**, 채택·표시 방식 검수 필요 |
 | `LOC_LIB_01` 책 정리 | [대서고](background/BG04_grand_library_1920x1080_014.png)<br><img src="background/BG04_grand_library_1920x1080_014.png" width="92" alt="대서고"> | R1 `ART-L04` **책장 위에 가로로 놓인 평범한 책** → R2 숨김. 세린은 이미지 없이 화자명·대사 사용 가능 | 배경 확인 / FOCUS 미연결 |
 
-### 비슷하지만 자동 배정하면 안 되는 그림
+### 관측 일기 선택과 비슷한 시안 구분
 
-| 보유 이미지 미리보기 | 차이 |
+| 보유 이미지 미리보기 | 사용 판단 |
 |---|---|
-| [먼지 쌓인 닫힌 마음 일기](item/diary1_heart_dusty_frame_thin_3840x2161.png)<br><img src="item/diary1_heart_dusty_frame_thin_3840x2161.png" width="110" alt="먼지 쌓인 닫힌 마음 일기"> | 닫힌 책은 `ART-L01`에 사용하지 않습니다. [`ART-L01` 펼친 관측 일기](item/ART-L01_observation_diary_open_dusty.png)를 사용합니다. |
+| [펼친 관측 일기](item/ART-L01_observation_diary_open_dusty.png)<br><img src="item/ART-L01_observation_diary_open_dusty.png" width="110" alt="아이보리 프레임 속 펼친 관측 일기"> | **확정:** `LOC_OBS_01–04`의 `ART-L01` FOCUS는 이 그림 한 장을 재사용합니다. |
 | [장식 있는 고서](item/book1_ancient_frame_thin_3840x2161.png)<br><img src="item/book1_ancient_frame_thin_3840x2161.png" width="110" alt="장식 있는 고서"> | `ART-L04`는 **책장 위에 가로로 놓인 평범한 책**입니다. 현재 고서는 그 구도와 내용이 다릅니다. |
 | [방치된 온실](background/BG06_glass_greenhouse_neglected_3840x2162.png)<br><img src="background/BG06_glass_greenhouse_neglected_3840x2162.png" width="110" alt="방치된 온실"> | 보유 시안이지만 `MS02`의 `ART-M01/M02`를 대신하는 확정 그림은 아닙니다. |
 
@@ -76,7 +76,7 @@
 | 폴더 | 무엇을 찾나 |
 |---|---|
 | [background/](background/README.md) | 장면 배경·마이룸 시간대·게임용/시안 구분 |
-| [item/](item/README.md) | 스토리 FOCUS 3장·일반 아이템 25장·기존 프레임 카드 4장과 사용처 |
+| [item/](item/README.md) | 스토리 FOCUS 3장·일반 아이템 25장·기존 프레임 카드 3장과 사용처 |
 | [character/](character/README.md) | 학생 전신 32장·발렌티누스 교수 시안 2장(이미지 총 34장); 동적 배역은 스토리 문서 기준 |
 | [pet/](pet/README.md) | 루루 의상별 앞·뒤·표정; 회차 번호와 분리 |
 | [ui/](ui/README.md) | 대화창·초대장 등 공통 UI 재료와 채택 상태 |
