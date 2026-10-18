@@ -1,17 +1,18 @@
 import {createDialogueSession} from './dialogue-session.mjs';
 import {applyServerActiveRun,applyServerCollection,createServerProfile,projectServerSlot} from './server-state.mjs';
+import {acceptCollectionChanges} from './collection-notices.mjs';
 
 const clone=value=>value===undefined?undefined:structuredClone(value);
 const required=['bootstrapAccount','listSaveSlots','getSaveSlot','getCollection'];
 const defaultId=()=>globalThis.crypto?.randomUUID?.();
 
-export function createServerGameSession({services,requestIdFactory=defaultId,onChange=()=>{}}={}){
+export function createServerGameSession({services,requestIdFactory=defaultId,onChange=()=>{},onCollectionChanges=()=>{}}={}){
  if(!services||required.some(name=>typeof services[name]!=='function'))throw new Error('서버 저장 provider가 준비되지 않았습니다.');
  let profile=null,pendingMutation=null;
  const emit=()=>{onChange(profile);return profile;};
  const requestId=()=>{const id=requestIdFactory?.();if(typeof id!=='string'||!id)throw new Error('서버 변경 요청 ID를 만들 수 없습니다.');return id;};
  const slot=id=>{const value=profile?.slots?.find(item=>item.slotId===id);if(!value)throw new Error('서버 저장 슬롯을 먼저 불러와 주세요.');return value;};
- const refreshCollection=async()=>{if(typeof services.getCollection!=='function')return;applyServerCollection(profile,await services.getCollection());};
+ const refreshCollection=async()=>{if(typeof services.getCollection!=='function')return;const previous=clone(profile.meta);applyServerCollection(profile,await services.getCollection());onCollectionChanges(acceptCollectionChanges(previous,profile.meta));};
  const refreshSlot=async slotId=>{
   const received=await services.getSaveSlot(slotId),projected=projectServerSlot(received),index=profile.slots.findIndex(item=>item.slotId===slotId);if(index<0)throw new Error('새로 받은 서버 슬롯을 적용할 수 없습니다.');profile.slots[index]=projected;await refreshCollection();emit();return projected;
  };
@@ -65,10 +66,25 @@ export function createServerGameSession({services,requestIdFactory=defaultId,onC
 
 export function createServerDialogueSession({game,services,slotId,onRender,onContinue=()=>{},onError=()=>{},requestIdFactory=defaultId}){
  if(!game||typeof game.currentRevision!=='function'||typeof game.applyDialogueResult!=='function')throw new Error('서버 게임 세션이 필요합니다.');
- return createDialogueSession({
+ if(typeof slotId!=='function')throw new Error('대화 저장 슬롯 provider가 필요합니다.');
+ let activeSlotId=null;
+ const session=createDialogueSession({
   loadDialogue:services?.loadDialogue,completeDialogue:services?.completeDialogue,
-  context:()=>({expectedServerRevision:game.currentRevision(slotId())}),
-  applyServerRun:(activeRun,response)=>game.applyDialogueResult(slotId(),activeRun,response),
-  onRender,onContinue,onError,requestIdFactory,
+  context:()=>({expectedServerRevision:game.currentRevision(activeSlotId)}),
+  applyServerRun:(activeRun,response)=>game.applyDialogueResult(activeSlotId,activeRun,response),
+  onRender:(payload,handlers)=>{if(activeSlotId===slotId())onRender?.(payload,handlers);},
+  onContinue:(run,response)=>{if(activeSlotId===slotId())onContinue(run,response);},
+  onError:(error,retry)=>{if(activeSlotId===slotId())onError(error,retry);},
+  requestIdFactory,
  });
+ return {
+  start(input={}){
+   if(session.hasPendingCompletion())return false;
+   if(!Number.isInteger(input.slotId)||input.slotId<1||input.slotId>5)throw new Error('대화 슬롯 번호가 올바르지 않습니다.');
+   activeSlotId=input.slotId;
+   return session.start(input);
+  },
+  cancel(){const cancelled=session.cancel();if(cancelled)activeSlotId=null;return cancelled;},
+  hasPendingCompletion:()=>session.hasPendingCompletion(),
+ };
 }

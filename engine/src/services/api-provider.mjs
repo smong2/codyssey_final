@@ -76,7 +76,12 @@ export function createLumiaApiProvider({baseUrl,getIdToken,fetchImpl=globalThis.
   completeAdventure:(slotId,body)=>mutation(`${slotPath(slotId)}/activities/complete-adventure`,body),
   closeWeek:(slotId,body)=>mutation(`${slotPath(slotId)}/weeks/close`,body),
   acknowledgeWeekSummary:(slotId,body)=>mutation(`${slotPath(slotId)}/weeks/ack-summary`,body),
-  loadDialogue:({slotId,eventId})=>request(`${slotPath(slotId)}/dialogue/${encodeURIComponent(eventId)}`),
+  loadDialogue:async({slotId,eventId})=>{
+   const payload=await request(`${slotPath(slotId)}/dialogue/${encodeURIComponent(eventId)}`),assetUrl=value=>typeof value==='string'&&value.startsWith('/')?new URL(value,root+'/').href:value;
+   if(payload?.speakers&&typeof payload.speakers==='object')for(const speaker of Object.values(payload.speakers))if(speaker&&typeof speaker==='object')speaker.portraitSrc=assetUrl(speaker.portraitSrc);
+   if(Array.isArray(payload?.sequence))for(const entry of payload.sequence)if(entry?.type==='IMAGE')entry.src=assetUrl(entry.src);
+   return payload;
+  },
   completeDialogue:body=>mutation('/v1/dialogue/complete',body),
   getCollection:()=>request('/v1/collection'),
   openMyRoom:(slotId,body)=>mutation(`${slotPath(slotId)}/my-room/open`,body),
