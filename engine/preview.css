@@ -372,9 +372,9 @@ button:active:not(:disabled){scale:.97}
 }
 @media(max-width:700px){.book-page p{font-size:14px}.book-page small{font-size:12px}.dialogue-preview-box{left:4%;right:4%;padding:14px}.dialogue-preview-student,.dialogue-preview-npc{height:40dvh;bottom:220px}.dialogue-preview-student{left:3%}.dialogue-preview-npc{right:3%}}
 
-#shell.dialogue-preview-page,#shell.admission-story-page{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;align-items:stretch;justify-items:stretch;padding:54px 6% 24px;overflow:hidden;gap:0}
+#shell.dialogue-preview-page,#shell.admission-story-page{display:block;padding:0;overflow:hidden}
 .dialogue-preview-page>h1,.dialogue-preview-page>.preview-label,.admission-story-page>h1,.admission-story-page>.preview-label{display:none}
-.dialogue-stage{position:relative;grid-row:1;min-height:0;overflow:hidden;display:grid;place-items:center}
+.dialogue-stage{position:absolute;inset:0;min-height:0;overflow:hidden;display:grid;place-items:center}
 .dialogue-stage .dialogue-background{position:absolute;inset:0;width:100%;height:100%;max-width:none;max-height:none;object-fit:cover;z-index:0}
 .dialogue-stage .dialogue-focus{position:absolute;left:auto;right:1%;top:80px;bottom:70px;margin:0;width:42%;height:calc(100% - 150px);max-width:42%;max-height:none;object-fit:contain;object-position:center bottom;z-index:1;filter:drop-shadow(0 3px 5px #0003);animation:npcSlideIn .4s ease-out both}
 .dialogue-stage .dialogue-focus.dialogue-focus-centered{left:50%;right:auto;top:0;bottom:0;width:min(48%,600px);height:100%;max-width:none;transform:translateX(-50%);object-position:center bottom;animation:npcCenterSlideIn .4s ease-out both}
@@ -408,13 +408,14 @@ button:active:not(:disabled){scale:.97}
 .life-dialogue .dialogue-actions{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;align-items:center}
 .life-dialogue .dialogue-actions .dialogue-next-action{min-height:0;padding:5px 24px}
 .dialogue-advance-indicator{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);font-family:'Lumia Gothic','Malgun Gothic',sans-serif;font-size:28px;line-height:1;color:var(--ink);opacity:.78;pointer-events:none;animation:dialogueArrowPulse 1.2s ease-in-out infinite}
-.dialogue-choice-layer{position:absolute;inset:0;z-index:3;pointer-events:none}
-.dialogue-choice-panel-right{position:absolute;left:54%;right:5%;top:18%;bottom:clamp(170px,29dvh,310px);display:flex;flex-direction:column;justify-content:center;gap:clamp(8px,1.5dvh,16px);pointer-events:auto}
+.dialogue-choice-layer{display:none}
+.life-dialogue .dialogue-choice-panel-right{position:static;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));align-items:center;gap:clamp(8px,1.5dvh,16px);width:100%;pointer-events:auto}
+.life-dialogue .dialogue-choice-panel-right .dialogue-choice-prompt{grid-column:1/-1;margin:0 0 2px;text-align:center;font-size:clamp(14px,1.25vw,18px)}
 .dialogue-choice-panel-right .dialogue-choice-nameplate{appearance:none;border:0;border-radius:0;background-color:transparent;background-position:center;background-size:contain;background-repeat:no-repeat;color:var(--ink);font-family:'Lumia Gothic','Malgun Gothic',sans-serif;font-size:clamp(15px,1.35vw,21px);font-weight:600;text-align:left;min-height:clamp(40px,6dvh,62px);padding:7px clamp(20px,3vw,42px);cursor:pointer;box-shadow:none;transition:filter .15s ease}
 .dialogue-choice-panel-right .dialogue-choice-nameplate:hover,.dialogue-choice-panel-right .dialogue-choice-nameplate:focus-visible{filter:brightness(1.06)}
 .dialogue-stage .dialogue-focus.dialogue-focus-choice{left:30%;right:auto;top:0;bottom:0;width:min(43%,560px);height:100%;max-width:none;transform:translateX(-50%);object-fit:contain;object-position:center bottom;animation:npcCenterSlideIn .4s ease-out both}
 @keyframes dialogueArrowPulse{0%,100%{opacity:.48;transform:translate(-50%,0)}50%{opacity:1;transform:translate(-50%,3px)}}
-@media(orientation:landscape) and (max-height:500px){#shell.dialogue-preview-page>.life-dialogue,#shell.admission-story-page>.life-dialogue{left:16px;right:16px;bottom:10px;height:clamp(145px,38dvh,190px);max-height:48dvh;padding:clamp(52px,14dvh,64px) 18px 42px;overflow:auto}.dialogue-speaker-nameplate{left:38px;top:calc(100% - 10px - clamp(145px,38dvh,190px));width:clamp(164px,28vw,224px);height:auto;aspect-ratio:2098/750;font-size:clamp(16px,2.5vw,20px)}.life-dialogue .dialogue-actions{bottom:6px}.life-dialogue .dialogue-actions .dialogue-next-action{font-size:12px;padding:3px 16px}.dialogue-advance-indicator{bottom:7px;font-size:22px}.dialogue-choice-panel-right{left:52%;right:4%;top:14%;bottom:154px;gap:5px}.dialogue-choice-panel-right .dialogue-choice-nameplate{min-height:38px;padding:4px 20px;font-size:14px}.dialogue-stage .dialogue-focus.dialogue-focus-choice{left:28%;height:100%;object-fit:contain;object-position:center bottom}}
+@media(orientation:landscape) and (max-height:500px){#shell.dialogue-preview-page>.life-dialogue,#shell.admission-story-page>.life-dialogue{left:16px;right:16px;bottom:10px;height:clamp(145px,38dvh,190px);max-height:48dvh;padding:clamp(52px,14dvh,64px) 18px 42px;overflow:auto}.dialogue-speaker-nameplate{left:38px;top:calc(100% - 10px - clamp(145px,38dvh,190px));width:clamp(164px,28vw,224px);height:auto;aspect-ratio:2098/750;font-size:clamp(16px,2.5vw,20px)}.life-dialogue .dialogue-actions{bottom:6px}.life-dialogue .dialogue-actions .dialogue-next-action{font-size:12px;padding:3px 16px}.dialogue-advance-indicator{bottom:7px;font-size:22px}.life-dialogue .dialogue-choice-panel-right{gap:5px}.dialogue-choice-panel-right .dialogue-choice-nameplate{min-height:38px;padding:4px 20px;font-size:14px}.dialogue-stage .dialogue-focus.dialogue-focus-choice{left:28%;height:100%;object-fit:contain;object-position:center bottom}}
 .bag-frame{height:100%;box-sizing:border-box;overflow:auto;padding:16px;color:var(--ink)}
 .bag-frame>h1,.book-left>h1{font-size:24px;text-align:center;margin:0 0 12px}
 .bag-frame>.actions{margin:0 0 14px;flex-wrap:wrap;gap:6px}
@@ -648,6 +649,7 @@ button:active:not(:disabled){scale:.97}
 /* Keep dialogue nameplates at BT04's exported ratio and echo its gold frame. */
 .dialogue-speaker-nameplate{width:clamp(220px,28vw,360px);height:auto;aspect-ratio:1940/311;background-size:contain}
 #shell.dialogue-preview-page>.life-dialogue,#shell.admission-story-page>.life-dialogue{border:1px solid #b79555}
+.service-busy{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:16px;background:#17261fe8;color:#fff8df;z-index:20;text-align:center}.service-busy p{margin:0;font-size:clamp(16px,2vw,22px)}.service-spinner{width:44px;height:44px;border:4px solid #fff4d84d;border-top-color:#fff4d8;border-radius:50%;animation:serviceSpin .8s linear infinite}@keyframes serviceSpin{to{transform:rotate(360deg)}}
 @media(orientation:landscape) and (max-height:500px){.dialogue-speaker-nameplate{width:clamp(164px,28vw,224px);height:auto;aspect-ratio:1940/311}}
 
 /* Bag text controls use the two native 1362 x 311 exports. Collection cards keep their square layout. */

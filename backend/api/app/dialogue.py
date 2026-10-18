@@ -190,9 +190,19 @@ def _apply_effects(run: dict, bundle: dict, *, mode: str, event_id: str,
     if story_type in {"NPC", "LOCATION"}:
         window = result["storyEventWindow"]
         if window.get("week") != result["week"]:
-            window.update({"week": result["week"], "sideStoryCount": 0, "lastResultStoryDay": None})
+            window.update({
+                "week": result["week"], "sideStoryCount": 0,
+                "locationStoryCount": 0, "lastResultStoryDay": None,
+            })
         if window["sideStoryCount"] >= 2 or window.get("lastResultStoryDay") == f"{result['week']}:{result['day']}":
             raise DialogueRejected("Side-story occurrence limit is exceeded")
+        location_count = window.get("locationStoryCount", 0)
+        if type(location_count) is not int or location_count < 0:
+            raise DialogueRejected("Location Story occurrence counter is invalid")
+        if story_type == "LOCATION":
+            if location_count >= 1:
+                raise DialogueRejected("Location Story weekly limit is exceeded")
+            window["locationStoryCount"] = location_count + 1
         window["sideStoryCount"] += 1
         window["lastResultStoryDay"] = f"{result['week']}:{result['day']}"
     if story_type == "NPC":
@@ -209,8 +219,12 @@ def _apply_effects(run: dict, bundle: dict, *, mode: str, event_id: str,
                 raise DialogueRejected("Completed NPC Story count is invalid")
             run_stats["completedNpcStoryCount"] = completed + 1
     result["pendingStoryEvent"] = None
-    result["phase"] = "STORY_COMPLETE"
-    if run.get("phase") == "ACTIVITY_STORY_PENDING":
+    origin_phase = run.get("phase")
+    if origin_phase == "ACTIVITY_PRE_STORY_PENDING":
+        result["phase"] = "ACTIVITY_IN_PROGRESS"
+    else:
+        result["phase"] = "STORY_COMPLETE"
+    if origin_phase == "ACTIVITY_STORY_PENDING":
         try:
             _advance_completed_day(result)
         except ActivityRejected:

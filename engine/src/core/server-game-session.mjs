@@ -34,6 +34,10 @@ export function createServerGameSession({services,requestIdFactory=defaultId,onC
   currentRevision:id=>slot(id).serverRevision,
   pending:()=>clone(pendingMutation),
   retry(){return submit();},
+  async resolveConflict(){
+   if(!pendingMutation)return false;
+   const slotId=pendingMutation.slotId;pendingMutation=null;return refreshSlot(slotId);
+  },
   refreshSlot,
   async updateSettings(command){
    if(pendingMutation)throw new Error('실패한 서버 저장 요청을 먼저 다시 시도해 주세요.');

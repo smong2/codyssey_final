@@ -221,6 +221,16 @@ function heading(title, cls = "page") {
 	shell.scrollTop = 0;
 	shell.append(el("p", "실행형 화면 시안 · 서비스 제공 여부에 따라 연결", "preview-label"));
 }
+function renderBusy(text, cls = "dialogue-service-page") {
+	heading("", cls);
+	const status = el("div", null, "service-busy");
+	status.setAttribute("role", "status");
+	status.setAttribute("aria-live", "polite");
+	const spinner = el("span", null, "service-spinner");
+	spinner.setAttribute("aria-hidden", "true");
+	status.append(spinner, el("p", text));
+	shell.append(status);
+}
 function npcStage(image) {
 	const stage = el("div", null, "npc-portrait-stage");
 	stage.append(image);
@@ -350,12 +360,29 @@ async function retryServerMutation() {
 	continuation?.(result);
 	return true;
 }
+async function recoverServerConflict() {
+	if (!serverMode || !serverGame?.pending()) return false;
+	try {
+		renderBusy("최신 저장 상태를 불러오고 있어요.", "room-page");
+		await serverGame.resolveConflict();
+	} catch (error) {
+		showServerMutationError(error, null);
+		return false;
+	}
+	serverRetryContinuation = null;
+	document.querySelector("dialog.server-save-error[open]")?.close();
+	message("최신 서버 저장 상태를 불러왔습니다.");
+	if (current()) resumeToRoom();
+	else renderSlots();
+	return true;
+}
 function showServerMutationError(error, continuation = null) {
 	serverRetryContinuation = continuation;
 	document.querySelector("dialog.server-save-error[open]")?.close();
 	const body = el("div", null, "empty-frame");
-	body.append(el("p", "서버 저장을 완료하지 못했습니다."), el("small", error?.message ?? "잠시 후 다시 시도해 주세요."));
-	const actions = serverGame?.pending() ? [btn("저장 다시 시도", retryServerMutation)] : [];
+	const conflict = error?.status === 409 || error?.code === "CONFLICT";
+	body.append(el("p", conflict ? "다른 저장이 먼저 반영되어 현재 상태가 달라졌습니다." : "서버 저장을 완료하지 못했습니다."), el("small", conflict ? "같은 요청을 반복하지 않고 최신 상태를 다시 불러옵니다." : (error?.message ?? "잠시 후 다시 시도해 주세요.")));
+	const actions = serverGame?.pending() ? [btn(conflict ? "최신 상태 불러오기" : "저장 다시 시도", conflict ? recoverServerConflict : retryServerMutation)] : [];
 	const d = modal("서버 저장 확인", body, actions);
 	d.classList.add("server-save-error");
 }
@@ -991,7 +1018,7 @@ function showDialogueError(error, retry) {
 	frame.append(
 		el("p", "이야기를 불러오거나 저장하지 못했어요. 다음 일정은 잠시 기다립니다."),
 		btn("다시 시도", () => {
-			heading("이야기를 확인하고 있어요.", "dialogue-service-page");
+			renderBusy("이야기를 확인하고 있어요.");
 			retry();
 		}),
 	);
@@ -1011,11 +1038,11 @@ const dialogueRuntime = createDialogueRuntime({
 		dialogueUI.render({
 			payload,
 			onComplete: (result) => {
-				heading("이야기를 저장하고 있어요.", "dialogue-service-page");
+				renderBusy("이야기 진행을 저장하고 있어요.");
 				handlers.onComplete(result);
 			},
 			onSkip: (result) => {
-				heading("이야기를 저장하고 있어요.", "dialogue-service-page");
+				renderBusy("이야기 진행을 저장하고 있어요.");
 				handlers.onSkip(result);
 			},
 		}),
@@ -1030,11 +1057,11 @@ if (serverMode)
 			dialogueUI.render({
 				payload,
 				onComplete: (result) => {
-					heading("이야기를 저장하고 있어요.", "dialogue-service-page");
+					renderBusy("이야기 진행을 저장하고 있어요.");
 					handlers.onComplete(result);
 				},
 				onSkip: (result) => {
-					heading("이야기를 저장하고 있어요.", "dialogue-service-page");
+					renderBusy("이야기 진행을 저장하고 있어요.");
 					handlers.onSkip(result);
 				},
 			}),
@@ -1049,12 +1076,12 @@ function renderServiceDialogue(eventId, next) {
 	if (serverMode) {
 		if (serverDialogue.hasPendingCompletion()) return;
 		serverDialogueContinuation = next;
-		heading("이야기를 준비하고 있어요.", "dialogue-service-page");
+		renderBusy("이야기를 준비하고 있어요.");
 		serverDialogue.start({ slotId, eventId });
 		return;
 	}
 	if (dialogueRuntime.isActive()) return;
-	heading("이야기를 준비하고 있어요.", "dialogue-service-page");
+	renderBusy("이야기를 준비하고 있어요.");
 	dialogueRuntime.start(eventId, (response) => {
 		if (response.messages?.length) message(response.messages.join("\n"));
 		storyResultUI.show(shell, response, () => showPendingBadgeNotices(next));
@@ -1098,7 +1125,7 @@ async function startScheduledActivity() {
 		}
 		return performServerMutation(
 			() => serverGame.startActivity(slotId),
-			() => dispatchActivity(current().inProgressActivity),
+			() => current().pendingStoryEvent ? renderPendingStory() : dispatchActivity(current().inProgressActivity),
 		);
 	}
 	if (current().pendingActivityStory) {
@@ -1178,8 +1205,7 @@ async function renderServerRoom(run) {
 		return;
 	}
 	serverRoomVisitInFlight.add(key);
-	heading("마이룸 기록 중", "room-page");
-	shell.append(el("p", "이번 주 마이룸 방문을 서버에 기록하고 있습니다.", "ending-placeholder"));
+	renderBusy("이번 주 마이룸 방문을 기록하고 있어요.", "room-page");
 	const ok = await performServerMutation(
 		() => serverGame.openMyRoom(slotId),
 		() => {
@@ -1370,15 +1396,23 @@ function openFairyTrade(checkpoint) {
 		from.append(new Option(names[key] + " · " + run.stats[key], key));
 		to.append(new Option(names[key] + " · " + run.stats[key], key));
 	}
+	to.selectedIndex = Math.min(1, to.options.length - 1);
 	for (let n = 1; n <= 5; n++) amount.append(new Option(String(n) + "포인트", String(n)));
 	body.append(el("p", "성장 스탯을 1~5포인트, 같은 양으로 교환합니다. 주 1회 · 체력 소모 없음."), el("label", "보낼 스탯"), from, el("label", "받을 스탯"), to, el("label", "포인트"), amount);
 	let tradeDialog;
+	const serverStat = (key) => key === "dexterity" ? "skill" : key;
 	const finish = (value) => completeServerActivity(checkpoint, value, () => {
 		tradeDialog.close();
 		continueSchedule();
 	});
 	tradeDialog = modal("요정의 거래", body, [
-		btn("교환하기", () => finish({ transfer: { fromStat: from.value, toStat: to.value, amount: Number(amount.value) } })),
+		btn("교환하기", () => {
+			if (from.value === to.value) {
+				message("서로 다른 스탯을 선택해 주세요.");
+				return false;
+			}
+			return finish({ transfer: { fromStat: serverStat(from.value), toStat: serverStat(to.value), amount: Number(amount.value) } });
+		}),
 		btn("건너뛰기", () => finish({ skip: true }), "quiet"),
 	]);
 }

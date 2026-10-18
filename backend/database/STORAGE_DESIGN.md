@@ -66,7 +66,7 @@
 | `users/{uid}/saveSlots/{1..5}` | 확정된 슬롯 상태와 현재 `activeRun`; 장기 플레이 기억의 원본 |
 | `users/{uid}/endingRecords/{recordId}` | 완료 회차의 직업·편지·편지에 사용한 기록 |
 
-`activeRun`은 슬롯 문서 내부 필드다. `storyProgress`, `pendingStoryEvent`, `storyEventWindow`도 여기에 포함한다. 일반 UI 조회는 로컬 캐시를 사용할 수 있지만, 로그인·계정 전환·저장 충돌 후에는 서버 상태를 확인한다. 활동 중 매 프레임의 이동·조작·임시 미니게임 상태를 Firestore에 전송하지 않는다. 활동 결과 저장 뒤 Story를 선정하면 `pendingStoryEvent`를 안정 저장하고, Story의 END/SKIP 완료 트랜잭션에서 효과·진행·주간 제한 카운터를 함께 반영한 뒤 pending을 지운다.
+`activeRun`은 슬롯 문서 내부 필드다. `storyProgress`, `pendingStoryEvent`, `storyEventWindow`도 여기에 포함한다. 일반 UI 조회는 로컬 캐시를 사용할 수 있지만, 로그인·계정 전환·저장 충돌 후에는 서버 상태를 확인한다. 활동 중 매 프레임의 이동·조작·임시 미니게임 상태를 Firestore에 전송하지 않는다. Location Story는 활동 시작 체크포인트 저장 직후 실제 플레이 화면 전에 `pendingStoryEvent`를 저장하고, 완료 후 같은 `IN_PROGRESS` 활동으로 복귀한다. NPC Story는 활동 결과 저장 뒤 선정한다. Story의 END/SKIP 완료 트랜잭션에서 효과·진행·주간 제한 카운터를 함께 반영한 뒤 pending을 지운다. `storyEventWindow`는 NPC+Location 합계 주 2회·하루 1회와 함께 Location 전용 `locationStoryCount` 주 1회 제한을 유지한다.
 
 ### 3.2 관리자와 기간 통계
 

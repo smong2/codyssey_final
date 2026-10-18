@@ -260,8 +260,9 @@ def start_activity(
     body: MutationRequest,
     repository: SaveSlotRepository = Depends(get_slot_repository),
     master: ActivityMaster = Depends(get_activity_master),
+    candidates: StoryCandidates = Depends(get_story_candidates),
 ) -> dict:
-    """Charge stamina and save IN_PROGRESS before a client can start content."""
+    """Charge stamina, checkpoint IN_PROGRESS, then queue eligible Location Story before client content."""
     now = datetime.now(timezone.utc)
     challenge_seed = token_urlsafe(24)  # fixed outside retryable Firestore transaction
 
@@ -374,6 +375,18 @@ def start_activity(
                 response.update(replayVersion=REPLAY_VERSION, seed=challenge_seed,
                                 maxDurationMs=duration_ms,
                                 replaySupported=definition.game_id in SUPPORTED_REPLAY_GAMES)
+        if definition is not None:
+            pending = candidates.before_activity(
+                version=slot.gameDataVersion,
+                run=run,
+                activity=ActivityContext(
+                    definition.activity_id, definition.activity_type, definition.location_id,
+                ),
+            )
+            if pending is not None:
+                run["pendingStoryEvent"] = pending
+                run["phase"] = "ACTIVITY_PRE_STORY_PENDING"
+                response["pendingStoryEvent"] = pending
         slot.activeRun = run
         return MutationPlan(slot=slot, result_data=response)
 
@@ -911,7 +924,8 @@ def close_week(
             run["completedWeekdayCount"] = 0
             run["weekStartSnapshot"] = None
             run["storyEventWindow"] = {
-                "week": run["week"], "sideStoryCount": 0, "lastResultStoryDay": None,
+                "week": run["week"], "sideStoryCount": 0,
+                "locationStoryCount": 0, "lastResultStoryDay": None,
             }
             pending = candidates.next_week_main(version=slot.gameDataVersion, run=run)
             run["pendingStoryEvent"] = pending

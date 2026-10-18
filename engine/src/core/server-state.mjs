@@ -8,7 +8,7 @@ const ADVENTURE_LOCATIONS={ADV_GREENHOUSE:'greenhouse',ADV_LIBRARY:'library',ADV
 const SERVER_ADVENTURE_IDS=Object.fromEntries(Object.entries(ADVENTURE_LOCATIONS).map(([server,engine])=>[engine,server]));
 const SERVER_ROOMS={ROOM_DEFAULT:'default',ROOM_01:'room-1',ROOM_02:'room-2',ROOM_03:'room-3'};
 const ENGINE_ROOMS=Object.fromEntries(Object.entries(SERVER_ROOMS).map(([server,engine])=>[engine,server]));
-const SERVER_ROOM_VISIT_FORBIDDEN=new Set(['MAIN_STORY_PENDING','ACTIVITY_IN_PROGRESS','ACTIVITY_STORY_PENDING','ENDING_PENDING','ENDING_DECIDED','ENDING_READY','FINAL_SUMMARY_PENDING','WEEK_SUMMARY_PENDING']);
+const SERVER_ROOM_VISIT_FORBIDDEN=new Set(['MAIN_STORY_PENDING','ACTIVITY_IN_PROGRESS','ACTIVITY_PRE_STORY_PENDING','ACTIVITY_STORY_PENDING','ENDING_PENDING','ENDING_DECIDED','ENDING_READY','FINAL_SUMMARY_PENDING','WEEK_SUMMARY_PENDING']);
 const clone=value=>value===undefined?undefined:structuredClone(value);
 const statKey=key=>key==='skill'?'dexterity':key;
 const projectStats=stats=>Object.fromEntries(Object.entries(stats??{}).filter(([key])=>['knowledge','expression','skill','exploration','magic'].includes(key)).map(([key,value])=>[statKey(key),value]));
@@ -45,7 +45,7 @@ const classLocationFor=entry=>entry?.type==='CLASS'?(classOf(entry.contentId)?.l
 const localPhase=phase=>{
  if(['WEEKEND_PENDING'].includes(phase))return 'WEEK_COMPLETE';
  if(['ENDING_PENDING','ENDING_DECIDED','ENDING_READY','FINAL_SUMMARY_PENDING'].includes(phase))return 'AWAITING_ENDING';
- if(['SCHEDULE_CONFIRMED','ACTIVITY_READY','ACTIVITY_IN_PROGRESS','ACTIVITY_STORY_PENDING','MY_ROOM_RECOVERY'].includes(phase))return 'ACTING';
+ if(['SCHEDULE_CONFIRMED','ACTIVITY_READY','ACTIVITY_IN_PROGRESS','ACTIVITY_PRE_STORY_PENDING','ACTIVITY_STORY_PENDING','MY_ROOM_RECOVERY'].includes(phase))return 'ACTING';
  return 'PLANNING';
 };
 const projectedHistory=(run,schedule)=>WEEKDAYS.flatMap((day,index)=>{
