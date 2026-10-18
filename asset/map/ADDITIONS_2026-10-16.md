@@ -4,7 +4,7 @@
 
 | 장소 | 배경 | 전경 | 충돌 마스크 |
 |---|---|---|---|
-| 별빛 천문대 | [MP03_starlight_observatory_fullmap3840x2161.png](MP03_starlight_observatory_fullmap3840x2161.png) · 3840×2161 | [MP03_foreground_3840x2161.png](MP03_foreground_3840x2161.png) · 3840×2161 | [MP03_collision_mask_1920x1081.png](MP03_collision_mask_1920x1081.png) · 1920×1081 |
-| 대서고 | [MP02_grand_library3840x2161.png](MP02_grand_library3840x2161.png) · 3840×2161 | [MP02_foreground_3840x2161.png](MP02_foreground_3840x2161.png) · 3840×2161 | [MP02_collosion_mask_1920x1081.png](MP02_collosion_mask_1920x1081.png) · 1920×1081 |
+| 별빛 천문대 | [MP03_starlight_observatory_master_3840x2161.png](MP03_starlight_observatory_master_3840x2161.png) · 3840×2161 | [MP03_starlight_observatory_foreground_3840x2161.png](MP03_starlight_observatory_foreground_3840x2161.png) · 3840×2161 | [MP03_starlight_observatory_collision_mask_1920x1081.png](MP03_starlight_observatory_collision_mask_1920x1081.png) · 1920×1081 |
+| 대서고 | [MP02_grand_library_master_3840x2161.png](MP02_grand_library_master_3840x2161.png) · 3840×2161 | [MP02_grand_library_foreground_3840x2161.png](MP02_grand_library_foreground_3840x2161.png) · 3840×2161 | [MP02_grand_library_collision_mask_1920x1081.png](MP02_grand_library_collision_mask_1920x1081.png) · 1920×1081 |
 
-미리보기: <img src="MP02_grand_library3840x2161.png" width="260" alt="대서고 전체맵"> <img src="MP03_starlight_observatory_fullmap3840x2161.png" width="260" alt="별빛 천문대 전체맵">
+미리보기: <img src="MP02_grand_library_master_3840x2161.png" width="260" alt="대서고 전체맵"> <img src="MP03_starlight_observatory_master_3840x2161.png" width="260" alt="별빛 천문대 전체맵">

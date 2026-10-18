@@ -1,10 +1,28 @@
 # 펫 및 동물 NPC 이미지 (`asset/pet/`)
 
-이 폴더의 `PT01~PT10`은 본편 펫 10종입니다. `NPC_LULU_01~03`은 별도의 동물 NPC 루루의 의상별 이미지로, 펫 번호나 해금 목록에 포함하지 않습니다. 루루의 NPC 역할과 이야기는 [NPC 문서](../../story/npc/feedback_npc.md)를 따릅니다.
+이 폴더의 `PT01–PT10`은 본편 펫 10종입니다. `NPC_LULU_01–03`은 별도의 동물 NPC 루루의 의상별 이미지로, 펫 번호나 해금 목록에 포함하지 않습니다. 루루의 NPC 역할과 이야기는 [NPC 문서](../../story/npc/feedback_npc.md)를 따릅니다.
+
+## 빠른 탐색
+
+| 사용처·장면 | 파일명 기준 | 현재 상태 | 파일 목록·미리보기 |
+|---|---|---|---|
+| 펫·루루 의상/표정; 루루 회차와 의상 번호를 구별해 검색 | `PT / NPC_LULU` | 이 폴더 이미지 28장. 개별 파일의 채택·후보·검수 상태는 아래 설명을 따름 | 아래 파일 표와 미리보기, [에셋 전체 장면표](../README.md) 참조 |
+
+## 루루 이야기에서 찾기
+
+`NPC_LULU_01–04`는 네 번의 **대화 사건**이고, 파일명 `NPC_LULU_01–03`은 세 벌의 **의상**입니다. 같은 번호로 연결하지 않습니다. 대화 소품 `ART-N05` 손 위 단추는 확정 파일이 없습니다. `ART-N06` 열린 보물상자는 [아이템 폴더의 승인 이미지](../item/IT_focus_NPC_LULU_02_treasure_chest_02.png)를 사용합니다. 루루의 의상·표정은 제작 문서에 회차별 지정이 없어 **미정**입니다.
+
+| 이야기 | 필요한 FOCUS | 보유한 루루 의상 예시 · 작은 미리보기 |
+|---|---|---|
+| `NPC_LULU_01` | `ART-N05` 단추 | [초록 탐험복](./NPC_LULU_01_front.png)<br><img src="./NPC_LULU_01_front.png" width="75" alt="초록 탐험복"> |
+| `NPC_LULU_02` | [열린 보물상자 `ART-N06`](../item/IT_focus_NPC_LULU_02_treasure_chest_02.png)<br><img src="../item/IT_focus_NPC_LULU_02_treasure_chest_02.png" width="120" alt="아이보리 프레임 속 루루의 열린 보물상자">; N05 회상 가능 | [남색 학자복](./NPC_LULU_02_front.png)<br><img src="./NPC_LULU_02_front.png" width="75" alt="남색 학자복"> |
+| `NPC_LULU_03–04` | [같은 `ART-N06` 그림](../item/IT_focus_NPC_LULU_02_treasure_chest_02.png) 재사용 | [분홍 꽃 의상](./NPC_LULU_03_front.png)<br><img src="./NPC_LULU_03_front.png" width="75" alt="분홍 꽃 의상"> |
+
+위 의상 그림은 **보유 예시**이며 해당 회차에 확정 배정된 이미지가 아닙니다. 배경은 실제 만남 장소에 따라 [유리 온실 또는 치유의 약초원](../background/README.md)을 사용합니다. [전체 장면 연결표](../README.md)와 [NPC 제작 문서](../../story/npc/NPC_STORY_PRODUCTION.md)를 함께 확인하세요.
 
 ## 본편 펫
 
-기존 `PT01~PT10` 파일과 ID 매핑을 유지합니다.
+기존 `PT01–PT10` 파일과 ID 매핑을 유지합니다.
 
 | 펫 ID | 이름 | 동물 | 파일 | 미리보기 |
 |---|---|---|---|---|
@@ -44,4 +62,4 @@
 | 03 · 분홍 꽃 의상 | 표정 3 | [NPC_LULU_03_expression_03.png](./NPC_LULU_03_expression_03.png) | <img src="./NPC_LULU_03_expression_03.png" width="100" alt="루루 분홍 꽃 의상 표정 3"> |
 | 03 · 분홍 꽃 의상 | 표정 4 | [NPC_LULU_03_expression_04.png](./NPC_LULU_03_expression_04.png) | <img src="./NPC_LULU_03_expression_04.png" width="100" alt="루루 분홍 꽃 의상 표정 4"> |
 
-파일명 `NPC_LULU_<의상 번호>_<front|back|expression_01~04>.png`은 루루 NPC 이미지의 구분용입니다. `NPC_LULU_01~04` 스토리 사건 ID와 혼동하지 않습니다. 이미지 확정과 게임 화면 적용·크기 검수는 별개입니다.
+파일명 `NPC_LULU_<의상 번호>_<front|back|expression_01–04>.png`은 루루 NPC 이미지의 구분용입니다. `NPC_LULU_01–04` 스토리 사건 ID와 혼동하지 않습니다. 이미지 확정과 게임 화면 적용·크기 검수는 별개입니다.
