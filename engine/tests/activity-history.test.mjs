@@ -1,10 +1,23 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {weeklyActivityRecords} from '../src/core/activity-history.mjs';
+import * as history from '../src/core/activity-history.mjs';
 import {createProfile,startRun,setSchedule,finishWeek} from '../src/core/state.mjs';
 import {runAction as applyAction} from './activity-helpers.mjs';
 import {createLocalRepository,createBoundaryWriter} from '../src/core/storage.mjs';
 import {calendarModel} from '../src/core/preview.mjs';
+test('story diary includes Main stories and all supplied choices without changing saved records',()=>{
+ assert.equal(typeof history.storyDiaryRecords,'function');
+ const run={mainStory:{history:[{id:'MS01',week:1,selectedChoices:[{choiceNodeId:'C1',choiceId:'A'},{choiceNodeId:'C2',choiceId:'B'}]}]},narrativeState:{history:[{id:'LOC_OBS_01',week:3,day:1,choiceId:'C'}]}};
+ const before=structuredClone(run),records=history.storyDiaryRecords(run);
+ assert.equal(records.length,2);assert.equal(records[0].id,'LOC_OBS_01');assert.equal(records[1].kind,'main');assert.equal(records[1].selectedChoices.length,2);
+ assert.equal(records[1].title,'각자의 이유로 아카데미에');assert.deepEqual(run,before);
+});
+test('weekly summary includes server dialogue growth once when the main story also has a completion record',()=>{
+ const run={mainStory:{history:[{id:'MS01',week:1,effect:{growth:{knowledge:2}}}]},dialogueHistory:[{eventId:'MS01',week:1,day:0,title:'입학',effect:{growth:{knowledge:2}}},{eventId:'LOC_GH_01',week:1,day:2,title:'온실',effect:{growth:{dexterity:1}}}]};
+ const summary=history.createWeeklySummary([],1,history.storyDiaryRecords(run));
+ assert.equal(summary.statChanges.knowledge,2);assert.equal(summary.statChanges.dexterity,1);
+});
 test('weekly diary groups actual completed activities without filling missing days or changing saved history',()=>{
  const history=[{week:2,day:2,action:'adventure'},{week:1,day:4,action:'rest'},{week:2,day:0,action:'rune-link'}],before=structuredClone(history);
  assert.deepEqual(weeklyActivityRecords(history),[{week:1,activities:[history[1]]},{week:2,activities:[history[2],history[0]]}]);

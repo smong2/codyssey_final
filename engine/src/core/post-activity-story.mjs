@@ -2,6 +2,11 @@ import {activityPlace,queueNarrative} from './narrative.mjs';
 
 const tokenFor=(run,activity)=>`${run.runNumber}:${activity.week}:${activity.day}`;
 const eligible=activity=>activity?.status==='COMPLETED'&&activity.effect?.outcome!=='interrupted'&&activityPlace(activity)!==null;
+export function queueServiceDialogue(run,activity,event){
+ if(!eligible(activity)||event?.activityToken!==tokenFor(run,activity)||typeof event.eventId!=='string'||!event.eventId.trim())return false;
+ if(run.pendingDialogue)return false;
+ run.pendingDialogue={eventId:event.eventId,activityToken:event.activityToken};return true;
+}
 export function validatePendingActivityStory(run){
  const pending=run.pendingActivityStory;if(pending===undefined)return;
  const activity=run.actionHistory?.at(-1);
@@ -12,17 +17,17 @@ export function validatePendingActivityStory(run){
 
 // `save` invokes its continuation only after a successful stable-boundary write.
 // A failed write must retain that same continuation for the existing retry UI.
-export function createPostActivityStoryFlow({current,save,receive,onStory,onContinue}){
+export function createPostActivityStoryFlow({current,save,receive,onStory,onContinue,queue=queueNarrative}){
  let awaitingSave=false;
  const persist=next=>{awaitingSave=true;return save(()=>{awaitingSave=false;next();});};
- const route=()=>current().narrativeState?.pending||current().storyState?.pending?onStory():onContinue();
+ const route=()=>current().pendingDialogue||current().narrativeState?.pending||current().storyState?.pending?onStory():onContinue();
  const resume=()=>{
   if(awaitingSave)return false;
   const run=current(),pending=run.pendingActivityStory;
   if(!pending){route();return true;}
   validatePendingActivityStory(run);
   const activity=run.actionHistory.at(-1),received=receive(pending.activityToken);
-  queueNarrative(run,activity,received);
+  queue(run,activity,received);
   delete run.pendingActivityStory;
   return persist(route);
  };

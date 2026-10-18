@@ -1,6 +1,19 @@
 import {createDialoguePlayback} from '../core/dialogue-playback.mjs';
 
 const lineLabels={DIALOGUE:'대화',NARRATION:'장면',THOUGHT:'속마음',CONTEXT:'기억'};
+export function createStoryResultUI({el,btn}){
+ let panel=null;
+ const clear=()=>{panel?.remove();panel=null;};
+ return {clear,show(target,{completionMode,visibleStatDelta={}},next){
+  clear();const names={knowledge:'지식',expression:'표현력',dexterity:'솜씨',exploration:'탐험',magic:'마법'};
+  const rows=Object.entries(visibleStatDelta).filter(([key,value])=>Object.hasOwn(names,key)&&Number.isFinite(value)&&value>0&&value<=500);
+  if(completionMode==='SKIP'||!rows.length){next();return;}
+  panel=el('dialog',null,'collection-result-overlay');panel.setAttribute('aria-label','이야기 완료');panel.addEventListener('cancel',event=>event.preventDefault());
+  const content=el('section',null,'paper collection-result story-result');
+  content.append(el('h2','이야기를 마쳤어요'));for(const [key,value]of rows)content.append(el('p',names[key]+' +'+value));
+  let done=false;content.append(btn('계속',()=>{if(done)return;done=true;clear();next();}));panel.append(content);target.append(panel);panel.showModal();
+ }};
+}
 
 export function createDialogueUI({el,btn,shell,heading,modal}){
  return {render({payload,onComplete=()=>{},onSkip=()=>{},extraControls=[],pageClassName='dialogue-preview-page'}){

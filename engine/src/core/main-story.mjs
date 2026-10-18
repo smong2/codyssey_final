@@ -1,7 +1,7 @@
 const stories=[
  {id:'MS01',date:'1/1',week:1,title:'각자의 이유로 아카데미에'},
  {id:'MS02',date:'3/5',week:10,title:'온실을 삼킨 마법 덩굴'},
- {id:'MS03',date:'6/4',week:23,title:'시계탑의 도망친 종소리'},
+ {id:'MS03',date:'6/4',week:23,title:'울리지 않는 시계탑'},
  {id:'MS04',date:'9/3',week:36,title:'도망친 그림자를 찾아서'},
  {id:'MS05',date:'12/3',week:49,title:'별빛 축제의 마지막 소원'},
  {id:'MS06',date:'12/24',week:52,title:'우리가 지켜낸 것'}

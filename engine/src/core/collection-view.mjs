@@ -18,14 +18,23 @@ export function badgeProgress(meta,group,subgroup){
  const rows=meta.collectionView?.badges;if(rows!==undefined&&!Array.isArray(rows))throw new Error('배지 진행 정보를 읽지 못했습니다.');
  const data=rows?.find(row=>row?.categoryId===group.id&&row.subcategoryTitle===subgroup.title);
  let current=count(data?.current);
- if(current===null&&subgroup.counter)current=count(subgroup.counter.split('.').reduce((value,key)=>value?.[key],meta.counters));
+ // Legacy preview counters have no badge adjudication provenance; do not present them as received badge progress.
+ if(current===null&&subgroup.symbol==='badge_symbol_forest_pet_009.png'&&Array.isArray(meta.unlockedPetIds))current=new Set(meta.unlockedPetIds).size;
+ if(current===null&&subgroup.symbol==='badge_symbol_rune_character_028.png'&&Array.isArray(meta.unlockedCharacters))current=new Set(meta.unlockedCharacters).size;
+ if(current===null&&subgroup.symbol==='badge_symbol_workshop_puzzle_017.png'){
+  if(Array.isArray(meta.collectionView?.rooms))current=['room-1','room-2','room-3'].reduce((sum,id)=>sum+roomProgress(meta,id).pieces.length,0);
+  else if(Array.isArray(meta.roomPieces)&&meta.roomPieces.length===0)current=0;
+ }
  const earned=data?.earnedTiers;
  if(earned!==undefined&&(!Array.isArray(earned)||new Set(earned).size!==earned.length||earned.some(tier=>!Number.isInteger(tier)||tier<1||tier>8)))throw new Error('배지 진행 정보를 읽지 못했습니다.');
  if(data?.awardedMilestones!==undefined&&(!Array.isArray(data.awardedMilestones)||new Set(data.awardedMilestones).size!==data.awardedMilestones.length||data.awardedMilestones.some(tier=>![2,5,8].includes(tier))))throw new Error('배지 보상 정보를 읽지 못했습니다.');
  return {current,earned:earned??(meta.badges?.length?null:[]),awardedMilestones:data?.awardedMilestones??[]};
 }
 const DEFAULT_IMAGES={day:'BG03_myroom2_day_1920x1080_023.png',sunset:'BG03_myroom2_sunset_1920x1080_024.png',night:'BG03_myroom2_night_1920x1080_025.png'};
-export const ROOM_BACKGROUNDS=[{id:'default',title:'기본 기숙사방',images:DEFAULT_IMAGES},...Array.from({length:3},(_,i)=>({id:'room-'+(i+1),title:'기숙사방 '+(i+1),images:null}))];
+// PZ01/02/03 map to cosmos/princess/botanical in asset/puzzle/README.md.
+export const ROOM_BACKGROUNDS=[{id:'default',title:'기본 기숙사방',images:DEFAULT_IMAGES},...[
+ ['4_cosmos','우주방','PZ01_우주방'],['5_princess','공주방','PZ02_공주방'],['6_botanical','식물방','PZ03_식물방']
+].map(([file,theme,puzzlePrefix],i)=>({id:'room-'+(i+1),title:'기숙사방 '+(i+1),theme,puzzlePrefix,images:Object.fromEntries(['day','sunset','night'].map(time=>[time,`BG11_myroom${file}_${time}.png`]))}))];
 export function roomProgress(meta,id){
  const master=ROOM_BACKGROUNDS.find(room=>room.id===id);if(!master)throw new Error('등록되지 않은 마이룸 배경입니다.');
  const rows=meta.collectionView?.rooms;if(rows!==undefined&&!Array.isArray(rows))throw new Error('배경 퍼즐 정보를 읽지 못했습니다.');
@@ -33,7 +42,22 @@ export function roomProgress(meta,id){
  if(!Array.isArray(pieces)||new Set(pieces).size!==pieces.length||pieces.some(index=>!Number.isInteger(index)||index<0||index>11))throw new Error('배경 퍼즐 정보를 읽지 못했습니다.');
  const images=data?.images??master.images;
  if(images&&(!images.day||Object.values(images).some(value=>!/^BG\d+_[\w.-]+\.png$/.test(value))))throw new Error('배경 이미지 경로가 올바르지 않습니다.');
- return {...master,pieces,images,unlocked:id==='default'||data?.unlocked===true,mapped:!!data||id==='default'};
+ return {...master,pieces,images,puzzlePrefix:images?.day===master.images?.day?master.puzzlePrefix:null,unlocked:id==='default'||data?.unlocked===true,mapped:!!images};
+}
+export function roomPieceImage(room,index){
+ if(!Number.isInteger(index)||index<0||index>11)throw new Error('등록되지 않은 퍼즐 조각입니다.');
+ return room.puzzlePrefix&&room.pieces.includes(index)?`./design-assets/puzzle/${room.puzzlePrefix}_${String(index+1).padStart(2,'0')}.png`:null;
+}
+export function badgeConditionText(sub,target){
+ const tagNames={curiosity:'호기심 어린',prudence:'신중한',independence:'스스로 선택하는',responsibility:'책임감 있는',empathy:'공감하는',cooperation:'함께 힘을 모으는',honesty:'솔직한',courage:'용기 있는'};
+ const tag=sub.counter?.startsWith('tags.')?tagNames[sub.counter.slice(5)]:null;
+ if(tag)return `${tag} 행동·선택 ${target}번 해보기`;
+ if(sub.symbol==='badge_symbol_forest_pet_009.png')return `펫 ${target}마리 해금하기`;
+ if(sub.symbol==='badge_symbol_rune_character_028.png')return `학생 ${target}명 해금하기`;
+ if(sub.symbol==='badge_symbol_workshop_puzzle_017.png')return `마이룸 퍼즐 ${target}조각 모으기`;
+ if(sub.symbol==='badge_symbol_rune_future_029.png')return `서로 다른 정규 직업 엔딩 ${target}개 만나기`;
+ const labels={adventures:`모험 ${target}번 떠나기`,specialItemDiscoveries:`특별한 발견물 ${target}번 찾기`,locationsDiscovered:`장소·조사 포인트 ${target}번 발견하기`,retries:`실패한 미니게임에 다른 일정에서 ${target}번 다시 도전하기`,minigamesCleared:`미니게임 ${target}번 클리어하기`,roomWeeks:`마이룸을 연 주 ${target}주 모으기`,npcMeetings:`친구 ${target}번 만나기`,npcStoriesCompleted:`친구의 이야기 ${target}개 끝까지 듣기`,importantChoices:`중요한 선택 ${target}번 경험하기`};
+ return labels[sub.counter]??`${sub.condition} ${target}${sub.counter?.startsWith('classesByStat.')?'회':'개'} 달성하기`;
 }
 export function activeRoom(profile,time='day'){
  let room;try{room=roomProgress(profile.meta,profile.settings?.activeRoomBackgroundId??'default');}catch{room=roomProgress(profile.meta,'default');}

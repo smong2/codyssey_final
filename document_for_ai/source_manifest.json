@@ -11,7 +11,8 @@
       "story/location/LOCATION_STORY_PRODUCTION.md",
       "story/location/장소기반_규칙.md",
       "story/ASSET_DIALOGUE_LEDGER.md",
-      "backend/database/LOCATION_STORY_DB_SPEC.md"
+      "backend/database/LOCATION_STORY_DB_SPEC.md",
+      "backend/database/NPC_STORY_DB_SPEC.md"
     ],
     "markdownTrees": [
       "document"
@@ -228,6 +229,13 @@
       ]
     },
     {
+      "path": "backend/database/NPC_STORY_DB_SPEC.md",
+      "ai": [
+        "document_for_ai/03_GAME_CONTENT.md",
+        "document_for_ai/07_DIALOGUE_ENGINE_HANDOFF.md"
+      ]
+    },
+    {
       "prefix": "backend/",
       "filename": "README.md",
       "ai": [
@@ -343,19 +351,23 @@
     },
     {
       "path": "backend/admin/README.md",
-      "sha256": "b1998018d7b113e2ea75de855893bfa6a7a7813100416c17a9a3658fbb6ad4ec"
+      "sha256": "c194a585351633deb682d7f52f71dc2b737881f4d655c65943bcea3248969c4f"
     },
     {
       "path": "backend/api/README.md",
-      "sha256": "1bf817f6ecbaefceed8b9656dbc223adc473d289f7931b26c662d58be3c9bd34"
+      "sha256": "f6aba600ae7a282e5f55036b4a11d19d3f1cd67d4edc65ad12771cc127a52a97"
     },
     {
       "path": "backend/database/README.md",
-      "sha256": "57648f5a04beb89947ceb3d93072c93caaafa084b52519062fbb2484dd9548af"
+      "sha256": "23c0f02b4addfccab6d4465be5ae191a577185a5699ac532218564a4dfec18d9"
     },
     {
       "path": "backend/database/LOCATION_STORY_DB_SPEC.md",
-      "sha256": "7b64fd0fa09867c3084da4cac82a3343d31bd200efe2a81c4cd14b89b5f1a0b0"
+      "sha256": "8b1dc67d40d2ee14d385341da6036c9664bc09361d85ea1b651e5070609ef1d1"
+    },
+    {
+      "path": "backend/database/NPC_STORY_DB_SPEC.md",
+      "sha256": "faf195f51bc131edf462e3ee3584073341f6715543bcb4c8c61284f4ce5d68bd"
     },
     {
       "path": "backend/README.md",
@@ -415,7 +427,7 @@
     },
     {
       "path": "document/dialogue/01_ENGINE_API_CONTRACT.md",
-      "sha256": "2b2a9e19d598bf024cc5b1c1691c3fdae95b6be20566f00ef7e49d72b484faeb"
+      "sha256": "09b2cb40434f2be8c4c8c7944bcbbaa8fed5ff6c0696fa2cbc1181690aea840c"
     },
     {
       "path": "document/dialogue/02_DIALOGUE_WRITING_GUIDE.md",
@@ -423,35 +435,139 @@
     },
     {
       "path": "document/dialogue/README.md",
-      "sha256": "fb23c4b90c543a471502379eec4dd84b6c3f42a91ba4e2ce4b6a6649d911031d"
+      "sha256": "d22cf073e4331bd3164d1a1e75354b77b3b9665e72bda9127ec3e9ec18178106"
+    },
+    {
+      "path": "document/dialogue/CHOICE_STAT_EFFECTS.md",
+      "sha256": "d5f0367bd7bfc2b87263f0b66d580d6ac8cf7aada8db6bc057e68be206725797"
     },
     {
       "path": "document/dialogue/location/LOC_GH_01.md",
-      "sha256": "0c54ef7586d11845acda0d87db2689b77b7667aed35335ebf775bf765cdf9fd1"
+      "sha256": "45bb1026cf0f4bca628f7ca4b31374f3040e3b5a837c9650c7498f7605ace63a"
     },
     {
       "path": "document/dialogue/location/LOC_LIB_01.md",
-      "sha256": "59ad2994b969d9301fbe6483c6698cc9a9556c107bcd1e0f80ad80cc50ffad76"
+      "sha256": "24c0db63d137943592849f6341f9693ad714e577e9ba2cca1b67def844c1a2a0"
     },
     {
       "path": "document/dialogue/location/LOC_OBS_01.md",
-      "sha256": "6d04a0a0012aa09a6a174b058488dd8d98bfbf53170dffda26bb47380ee207e6"
+      "sha256": "93777b01be7ae4f714032b508faaaa4c4408163e29791768ec07fd21f8ca1361"
     },
     {
       "path": "document/dialogue/location/LOC_OBS_02.md",
-      "sha256": "3327793ecad4581c1819d8b2fc0da4c435a6b1737f7456af91b5062f23d17185"
+      "sha256": "35e3d21ae8e4ce8b84c7ab5d2dc3e4fa151d5f0d17bca982667fb548766a60b7"
     },
     {
       "path": "document/dialogue/location/LOC_OBS_03.md",
-      "sha256": "2fce09de78b0b12d075039c8f122661ed7e4dace9b3e65419bd666042194b348"
+      "sha256": "8ed66a1724e0832c919a0cd50b24cca5ea59cf40e3f64f276625da10e0d41a5f"
     },
     {
       "path": "document/dialogue/location/LOC_OBS_04.md",
-      "sha256": "62af25ac1fb80fc4ff31185959df2a28814219e836897c327c131b0837590d51"
+      "sha256": "7678cfba821564e04b780924a0c9f000878e27038deab655b91c65240b8a2981"
     },
     {
       "path": "document/dialogue/location/README.md",
-      "sha256": "92534b23c270f673cd6a19931a63ad213b21e07bbb034cc79c765e59ea9c0c67"
+      "sha256": "e6ead0d50c42c8f842adc984b9c71f1e225ca37a2062cf54b418d729d201e342"
+    },
+    {
+      "path": "document/dialogue/location/character_sets/CAST_MATRIX.md",
+      "sha256": "9d02f9ca53a2a7df2e020e63048733815cb95a05314e95010b3196d3b87bc6fc"
+    },
+    {
+      "path": "document/dialogue/location/character_sets/README.md",
+      "sha256": "4baa9cc735b9b72366fdcabaa7445c4c202d345c733a392e52dd70074783fc87"
+    },
+    {
+      "path": "document/dialogue/location/character_sets/SET_NF_CH09_CH16.md",
+      "sha256": "6f3de226b694fd35ab123c563ac599aa122b55c8a6ec665c7f4d8b8bfdd7f322"
+    },
+    {
+      "path": "document/dialogue/location/character_sets/SET_NT_CH01_CH08.md",
+      "sha256": "08d1be1bcf1e49d2dc7d30e6214c0bc18c987bf0512786ef71e97a9c78612230"
+    },
+    {
+      "path": "document/dialogue/location/character_sets/SET_SJ_CH17_CH24.md",
+      "sha256": "f7c6edf68dc4ee71390755f0988636656625fd65a52a1b9baa54a5069b593c41"
+    },
+    {
+      "path": "document/dialogue/location/character_sets/SET_SP_CH25_CH32.md",
+      "sha256": "f2bbe4792da91838f2e755d2633f56ffbc6cc3bbdc8028a4352df2bd2b727be4"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_GUIDE_01.md",
+      "sha256": "3f308d19eff68e216a2570fc84f9860df998cb280a81ea764a62e9a6c6d99924"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_GUIDE_02.md",
+      "sha256": "ee3ab336b834e414337b05f8ea492a12c3a7c64156427bd4101fde37e6f0ab43"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_GUIDE_03.md",
+      "sha256": "a94fe549381579bacb86b977456ba81a42a89adfe58fde9185f6fe53004dadf6"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_GUIDE_04.md",
+      "sha256": "ed3e53d4d2691059bea79c95d1ae5c033bdaae220001fd1b757c120ed47ddd30"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_LULU_01.md",
+      "sha256": "e6a06158a60e26a6a80825f5ec359c36337306b97a06383cfef5efc8672ba39f"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_LULU_02.md",
+      "sha256": "dcf25582332375580e95452df63316bf500247d73179156a61ef3675a259794c"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_LULU_03.md",
+      "sha256": "c0428d08937b8cde4db737fb60b3d6fbbb7c497bf5444a66945ea90fdec3af13"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_LULU_04.md",
+      "sha256": "47e197deedc7b66fd5b9aa3876efd1d258704161579afd99c57563bf64f3074d"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_WORK_01.md",
+      "sha256": "6e907b0ea7944e1113c73d7f117dad0d2c3dfa333bc4665a8c9becc9560a3ea4"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_WORK_02.md",
+      "sha256": "bdfa06878b547a8fe17d06899233dafe1a5c8236a6d950fc0378f74db43608dd"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_WORK_03.md",
+      "sha256": "617aa6c13cbef9e6159b008400e6f6bc910d5f1f8c2256e925c932cac91056b2"
+    },
+    {
+      "path": "document/dialogue/npc/NPC_WORK_04.md",
+      "sha256": "c14d4290b777c2305ffba1253eec7326c09212473d82d74048a30228a7a9dffb"
+    },
+    {
+      "path": "document/dialogue/npc/README.md",
+      "sha256": "8375944222df163731a17e799ba1ba8298e063de9c62d5ae9e3de1d6997fbfe6"
+    },
+    {
+      "path": "document/dialogue/npc/character_sets/ACTOR_SUBSTITUTIONS.md",
+      "sha256": "b7665f7c9cd1ada74dd2f625521fbf19acaba2529b1eefcb02ae68fc5d6f832f"
+    },
+    {
+      "path": "document/dialogue/npc/character_sets/README.md",
+      "sha256": "075a5f065f81971c85f226345107056a7778181a239897816af39f99b2c04a0d"
+    },
+    {
+      "path": "document/dialogue/npc/character_sets/SET_NF_CH09_CH16.md",
+      "sha256": "4f1422111b730d4318a76df9bd38516f6dc62c8fad77b210381b6314d8876772"
+    },
+    {
+      "path": "document/dialogue/npc/character_sets/SET_NT_CH01_CH08.md",
+      "sha256": "fbcd6cde055d3d3d43e2e97caa468ee23caf848787adebed3df4b9ab2fe5ef85"
+    },
+    {
+      "path": "document/dialogue/npc/character_sets/SET_SJ_CH17_CH24.md",
+      "sha256": "4913faef3df1dff526c7f5a52f7a3c951e99da15b7c230c4f77f5d1b22f7f0cf"
+    },
+    {
+      "path": "document/dialogue/npc/character_sets/SET_SP_CH25_CH32.md",
+      "sha256": "d115337fa5cb56e42c04056ee06e3d683a60ee58dcc73e5a49689df6c7bb433d"
     },
     {
       "path": "document/dialogue/main/MS01.md",
@@ -515,11 +631,11 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "9f6247f5beb73da20e8cdac83fad88a949e217f27902cc310550d7f27eeb8315"
+      "sha256": "f09d4237230fb4b9eb2f1d15c8c2a63ca4d97a5991933e4f5dfaf1d0f5c8e6e4"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
-      "sha256": "6b92ba11c4ae06259390f4044ee36dd70ce169f3e2b89a31ee2dd21a4ba1f36b"
+      "sha256": "479eda83cb23bfa788cde8814dde0891e4c350abd931cc226456c90cbce92309"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
@@ -527,7 +643,11 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
-      "sha256": "848c223e43183d04fa15cba1e39d44f92fec86cbd55cb466078e20ef36a19457"
+      "sha256": "933fe873028bc52dba59485cd45574047dc2c66c615800efed7d86ea78b23cc7"
+    },
+    {
+      "path": "document/content/02_STATS_EVENTS_ENDINGS/04_STORY_CHOICE_REWARDS.md",
+      "sha256": "b89a4dbc1d3e4085eee0ba82e97d52199adf8dc2b4f92f7ec7ea05884a4e78b7"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md",
@@ -555,7 +675,7 @@
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "133716eda41747a80a76b72b215a000f84e863036e99c6a42a19c9c53569c493"
+      "sha256": "7c377efedbdde0b38b4cf8ba20a413b08feefaaf28039144971b126a22eb20b7"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
@@ -583,7 +703,7 @@
     },
     {
       "path": "document/content/10_COMMON_ENGINE_FRAME.md",
-      "sha256": "a8b4c0c3d59fbbc17be423c992a593003f69c77f8a1c63a5c94114e67b9889ae"
+      "sha256": "98771c37d22b0ce64202156de7e769af80ab319d2bcc6d618f7c29404450323a"
     },
     {
       "path": "document/content/11_FEATURE_FRAME.md",
@@ -595,11 +715,15 @@
     },
     {
       "path": "document/content/13_DIALOGUE_SEQUENCE.md",
-      "sha256": "8f099aad7d63eb5efa6484c2c3dab2baaa8ced90d3b6584f3e1a6a4dc1928e2d"
+      "sha256": "13b5c30a601566f43c76ac7957c9244e24ef997c3dca190826b0438ad1eae3f9"
+    },
+    {
+      "path": "document/content/14_ADVENTURE_ITEM_IMAGES.md",
+      "sha256": "8f00e4ca585f555380d2f539b29a54e84845a2de7a805dc7ea8cbca595afee59"
     },
     {
       "path": "document/content/README.md",
-      "sha256": "93f88f2962573c91e20c9794d955474af8747424b748443a216be5057c6ecbd4"
+      "sha256": "5aa220707316cb466cc33e47cb5fd66714bb33222b4a31a5fe4944ee3033bdd7"
     },
     {
       "path": "document/실행방법.md",
@@ -611,7 +735,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "348c32f6c2b086c08974142c7fc1a66cf533e8df119e1156e190929dc571f235"
+      "sha256": "11c00fba83c4bc6f4f8e7fe2827d8818fcb30810c1b71f32e9e15c761e42d68d"
     },
     {
       "path": "lumia/README.md",
@@ -627,7 +751,7 @@
     },
     {
       "path": "story/location/README.md",
-      "sha256": "118388a3f6567a8dc650c470c39bd12bbcce144a73e20663d58d1e3430406ef8"
+      "sha256": "28eb9cd52fc9f0b95e95e1f494ebb2d6142c105391d4b03656aeef7b62e310f5"
     },
     {
       "path": "story/main/main_final.md",
@@ -635,15 +759,15 @@
     },
     {
       "path": "story/main/MAIN_STORY_PRODUCTION.md",
-      "sha256": "13976529b4f2e5bfef0873adc3b4935a0bea27f21485f106dadf46847e54d451"
+      "sha256": "458d88a293bbf1102cec052656b9ad0dae988b3d4279b8f5ee8993fc380106c9"
     },
     {
       "path": "story/npc/NPC_STORY_PRODUCTION.md",
-      "sha256": "981225670945f7a64117b91394e5a996f167d531c4c5285c2e202a07eea48cc1"
+      "sha256": "c0ac8e560a61ec8aa4c0b7da0d4704a81c11e3e9a452fd2a9295b969d06c4e93"
     },
     {
       "path": "story/location/LOCATION_STORY_PRODUCTION.md",
-      "sha256": "4d7e207acb6613772f2d0afa68e72dd79d593d256fee85b57731ff8d4f62ef93"
+      "sha256": "fb215826e618eca526af75192b5b1d33a081528819c5641eb88603647248ad74"
     },
     {
       "path": "story/location/장소기반_규칙.md",
@@ -659,7 +783,7 @@
     },
     {
       "path": "story/npc/README.md",
-      "sha256": "1cca5b2b126651e76f66bb01836434396568ba19582ecc196dcf2bc64ef2bd1d"
+      "sha256": "42ba31c9a4519ce63ba918b20fa9bc90471a6c0f4530760433b99ae798657e79"
     },
     {
       "path": "story/README.md",

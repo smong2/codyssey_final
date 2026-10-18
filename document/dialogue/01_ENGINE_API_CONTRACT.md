@@ -175,6 +175,8 @@ IMAGE + target=FOCUS
 
 정상 `COMPLETE` 요청을 받으면 서버가 해당 대화에서 실제 가능한 선택 조합인지 검증하고 Choice Effect/Event Effect를 계산한 뒤 한 번 저장한다.
 
+선택 버튼에는 스탯 종류·증가량을 표시하지 않는다. Choice Effect의 정확한 값은 서버가 `story_choice_effects`에서 조회하며, 공통 규칙은 `document/content/02_STATS_EVENTS_ENDINGS/04_STORY_CHOICE_REWARDS.md`를 따른다.
+
 ## 6. 스킵
 
 엔진은 `canSkip`만 보고 버튼을 표시한다.
@@ -213,10 +215,11 @@ DialogueCompletionResult
 ├─ completionMode
 ├─ serverRevision
 ├─ activeRun
-└─ appliedSummary?   # UI 표시가 필요할 때만
+└─ appliedSummary?
+   └─ visibleStatDelta  # clamp 후 실제 적용된 이벤트 전체 Visible 증가 합계
 ```
 
-엔진은 자신의 로컬 스탯에 `+2`, `+8` 등을 직접 더하지 않고 반환된 `activeRun`을 신뢰 가능한 새 상태로 적용한다.
+엔진은 자신의 로컬 스탯에 `+2`, `+8` 등을 직접 더하지 않고 반환된 서버 상태를 신뢰 가능한 새 상태로 적용한다. 결과 UI에는 `appliedSummary.visibleStatDelta`만 사용하고, 선택별 상세 효과나 Hidden Stat delta는 표시하지 않는다. `visibleStatDelta`는 nominal reward가 아니라 `0~500` clamp 후 실제 저장값이 증가한 양이다. `SKIP`에서는 빈 객체 또는 모든 값 `0`으로 처리한다.
 
 `requestId`는 네트워크 재시도 시 중복 효과 적용을 막는 멱등 키다.
 

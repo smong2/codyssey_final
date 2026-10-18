@@ -44,7 +44,7 @@ export function mountAdventure(host,{startData,map,characterId='CH01',onReady,on
    this.lines=this.add.graphics().setDepth(30);this.coords=this.add.text(12,68,'',{fontFamily:'Gowun Batang',fontSize:'14px',color:'#ffffff',backgroundColor:'#000000cc',padding:{x:6,y:4}}).setScrollFactor(0).setDepth(40);
    onReady(this.snapshot());
   }
-  snapshot(hint=null){return{objectives:this.objectives??[],durationSeconds:startData.durationSeconds,remainingMs:this.remainingMs,foundIds:[...this.foundIds],trackedId:this.trackedId,investigationCount:this.investigationCount,investigating:this.investigating,hint,active:this.active,paused:this.paused};}
+  snapshot(hint=null,foundId=null){return{objectives:this.objectives??[],durationSeconds:startData.durationSeconds,remainingMs:this.remainingMs,foundIds:[...this.foundIds],foundId,trackedId:this.trackedId,investigationCount:this.investigationCount,investigating:this.investigating,hint,active:this.active,paused:this.paused};}
   start(){if(!this.objectives||this.active)return false;this.active=true;this.paused=false;this.lastPublishedSecond=Math.ceil(this.remainingMs/1000);onState(this.snapshot());return true;}
   pause(value){if(!this.active)return;this.overlayPaused=Boolean(value);this.paused=this.overlayPaused||this.investigating;this.pad={x:0,y:0};if(this.paused){this.target=null;this.player?.anims.stop();}onState(this.snapshot());}
   track(id){if(this.objectives?.some(item=>item.id===id&&!this.foundIds.includes(id)))this.trackedId=id;onState(this.snapshot());}
@@ -59,7 +59,7 @@ export function mountAdventure(host,{startData,map,characterId='CH01',onReady,on
     if(result.foundId){this.foundIds.push(result.foundId);this.trackedId=this.objectives.find(item=>!this.foundIds.includes(item.id))?.id??null;}
     this.investigating=false;this.paused=this.overlayPaused;
     if(this.foundIds.length===this.objectives.length)this.active=false;
-    onState(this.snapshot(result.hint));
+    onState(this.snapshot(result.hint,result.foundId??null));
     if(!this.active)onFinish('MISSION_COMPLETE',this.foundIds.length);
    },delay);return true;
   }

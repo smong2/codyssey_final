@@ -1,0 +1,35 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createServerDialogueSession,createServerGameSession} from '../src/core/server-game-session.mjs';
+
+const empty=id=>({slotId:id,status:'EMPTY',completedRunCount:0,lastCompletedCharacterId:null,lastEndingId:null,createdAt:null,lastSavedAt:null,saveVersion:1,gameDataVersion:'v1',activeRun:null,serverRevision:0});
+const playing=(revision=3,activeRun={runId:'run-1',runNumber:1,characterId:'CH01',week:1,day:'MONDAY',phase:'MAIN_STORY_PENDING',storyCast:{},pendingStoryEvent:{eventId:'MS01'},stats:{knowledge:50,expression:50,skill:50,exploration:50,magic:50},stamina:{current:100,max:100},hiddenStats:{},forcedRest:{active:false,remainingWeekdays:0},minigameFailStreaks:{},runStatistics:{classCounts:{}},weeklySchedule:{}})=>({...empty(1),status:'PLAYING',activeRun,serverRevision:revision});
+const collection={meta:{unlockedCharacterIds:['CH01'],unlockedPetIds:['PET01','PET02'],permanentBonuses:{knowledge:0,expression:0,skill:0,exploration:0,magic:0},seenEndingIds:[],acquiredBadgeIds:[],acquiredPuzzlePieceIds:[],unlockedRoomBackgroundIds:['ROOM_DEFAULT','ROOM_01'],playedCharacterIds:[]},statistics:{totalMinigamePlayCount:0,totalClassCount:0,totalAdventureCount:0,endingViewCounts:{}},pendingCharacterUnlockIds:[],settings:{activePetId:'PET01',activeRoomBackgroundId:'ROOM_DEFAULT'}};
+
+test('server mutation uses current revision and retains the identical request for explicit retry',async()=>{
+ let current=playing(),attempt=0,bootstraps=0;const calls=[];
+ const services={bootstrapAccount:async()=>{bootstraps++;return {created:false};},listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>collection,getSaveSlot:async()=>current,async recoverSaveSlot(slotId,input){calls.push({slotId,input:structuredClone(input)});if(++attempt===1)throw new Error('offline');current=playing(4,{...current.activeRun,phase:'MY_ROOM_RECOVERY',pendingStoryEvent:null});return {serverRevision:4};}};
+ const game=createServerGameSession({services,requestIdFactory:()=> 'request-fixed'});await game.load();
+ assert.equal(bootstraps,0);
+ await game.bootstrap({privacyConsentAccepted:true,privacyConsentVersion:'2026-10-15'});assert.equal(bootstraps,1);
+ await assert.rejects(()=>game.recoverSaveSlot(1),/offline/);assert.equal(game.pending().input.requestId,'request-fixed');assert.equal(game.pending().input.expectedServerRevision,3);
+ await game.retry();assert.deepEqual(calls[1],calls[0]);assert.equal(game.slot(1).serverRevision,4);assert.equal(game.pending(),null);
+});
+
+test('dialogue session applies authoritative activeRun before continuation and never exposes hidden stats',async()=>{
+ let current=playing(),continued=0;const rendered=[];const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>collection,getSaveSlot:async()=>current,
+  loadDialogue:async({eventId})=>({schemaVersion:1,dialogueId:'D1',storyId:'S1',eventId,title:'메인',dialogueToken:'token',canSkip:false,speakers:{},sequence:[{type:'END'}]}),
+  completeDialogue:async input=>({success:true,completionMode:input.completionMode,serverRevision:4,activeRun:{...current.activeRun,phase:'STORY_COMPLETE',pendingStoryEvent:null,stats:{...current.activeRun.stats,knowledge:52},hiddenStats:{empathy:8}},appliedSummary:{visibleStatDelta:{knowledge:2}}})};
+ const game=createServerGameSession({services});await game.load();
+ const dialogue=createServerDialogueSession({game,services,slotId:()=>1,onRender:(payload,handlers)=>rendered.push({payload,handlers}),onContinue:()=>continued++,requestIdFactory:()=> 'dialogue-request'});
+ assert.equal(await dialogue.start({slotId:1,eventId:'MS01'}),true);
+ assert.equal(await rendered[0].handlers.onComplete({completionMode:'COMPLETE',selectedChoices:[]}),true);
+ assert.equal(game.slot(1).activeRun.stats.knowledge,52);assert.equal(game.slot(1).activeRun.hiddenStats,undefined);assert.equal(game.slot(1).serverRevision,4);assert.equal(continued,1);
+});
+
+test('account settings refresh the projected shared pet and room selection',async()=>{
+ let accountCollection=structuredClone(collection);const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[playing(),...[2,3,4,5].map(empty)]}),getSaveSlot:async()=>playing(),getCollection:async()=>accountCollection,
+  updateAccountSettings:async command=>{accountCollection={...accountCollection,settings:{...accountCollection.settings,...command}};return structuredClone(accountCollection.settings);}};
+ const game=createServerGameSession({services});await game.load();assert.equal(game.profile().settings.activePetId,'PET01');
+ await game.updateSettings({activePetId:'PET02',activeRoomBackgroundId:'ROOM_01'});assert.equal(game.profile().settings.activePetId,'PET02');assert.equal(game.profile().settings.activeRoomBackgroundId,'room-1');
+});

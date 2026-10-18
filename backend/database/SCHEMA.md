@@ -1,6 +1,6 @@
 # LUMIA Firestore 사용자 데이터 스키마
 
-이 문서는 LUMIA 백엔드의 **Firestore 사용자 데이터** 저장 구조를 정의합니다. 인증은 Firebase Authentication이 담당하고, 사용자별 확정 게임 상태는 Cloud Firestore에 저장합니다. 플레이어/콘텐츠 SQLite는 [SQLite 상세 스키마](sqlite/SCHEMA.md)와 [기본 테이블 SQL](sqlite/001_initial.sql)·[대화 그래프 SQL](sqlite/002_dialogue_sequences.sql)·[Dialogue 런타임/효과 v3 SQL](sqlite/003_dialogue_runtime_content.sql)·[Story 발생 정책 v4 SQL](sqlite/004_story_event_rules.sql)을 따릅니다. Main Story는 [Main 대화 적재기](sqlite/seed_dialogue_content.py), Location Story master/rule/effect는 [Location 적재기](sqlite/seed_location_story_master.py)와 [Location DB 명세](LOCATION_STORY_DB_SPEC.md)를 기준으로 하며, 전체 저장 권한 경계는 [STORAGE_DESIGN.md](STORAGE_DESIGN.md)를 따릅니다.
+이 문서는 LUMIA 백엔드의 **Firestore 사용자 데이터** 저장 구조를 정의합니다. 인증은 Firebase Authentication이 담당하고, 사용자별 확정 게임 상태는 Cloud Firestore에 저장합니다. 플레이어/콘텐츠 SQLite는 [SQLite 상세 스키마](sqlite/SCHEMA.md)와 [기본 테이블 SQL](sqlite/001_initial.sql)·[대화 그래프 SQL](sqlite/002_dialogue_sequences.sql)·[Dialogue 런타임/효과 v3 SQL](sqlite/003_dialogue_runtime_content.sql)·[Story 발생 정책 v4 SQL](sqlite/004_story_event_rules.sql)을 따릅니다. Main Story는 [Main 대화 적재기](sqlite/seed_dialogue_content.py), NPC Story는 [NPC 적재기](sqlite/seed_npc_story.py)와 [NPC DB 명세](NPC_STORY_DB_SPEC.md), Location Story master/rule/effect는 [Location 적재기](sqlite/seed_location_story_master.py)와 [Location DB 명세](LOCATION_STORY_DB_SPEC.md)를 기준으로 하며, 전체 저장 권한 경계는 [STORAGE_DESIGN.md](STORAGE_DESIGN.md)를 따릅니다.
 
 문서는 **논리 스키마(Logical Schema)** 와 **물리 스키마(Physical Schema)** 를 분리해 설명합니다.
 
@@ -262,7 +262,7 @@ RUN_COMPLETE
 | `week` | Integer | 1~52 |
 | `day` | Enum/String | 현재 진행 위치 |
 | `phase` | String | 일정 등록/활동 진행/주말 처리/엔딩 진입 등 세부 진행 단계 |
-| `storyCast` | Map<RoleId, CharacterId> | 주인공 선택 직후 확정한 메인·Location Story 학생 배역. 같은 회차 동안 고정 |
+| `storyCast` | Map<RoleId, CharacterId> | 주인공 선택 직후 확정한 Main·NPC·Location Story 학생 배역. 같은 회차 동안 고정 |
 | `pendingStoryEvent` | PendingStoryEvent/Null | 활동 결과 저장 뒤 선정됐지만 아직 END/SKIP 완료 저장 전인 Main/NPC/Location Story |
 | `storyEventWindow` | StoryEventWindow | NPC·Location Story의 주간/일일 발생 제한 상태 |
 | `startedAt` | DateTime | 회차 시작 시각 |
@@ -270,11 +270,14 @@ RUN_COMPLETE
 
 #### `storyCast` 규칙
 
-- 역할별 후보·우선순위는 `story/main/MAIN_STORY_PRODUCTION.md`, `story/location/LOCATION_STORY_PRODUCTION.md`를 콘텐츠 원본으로 사용합니다.
+- 역할별 후보·우선순위는 `story/main/MAIN_STORY_PRODUCTION.md`, `story/npc/NPC_STORY_PRODUCTION.md`, `story/location/LOCATION_STORY_PRODUCTION.md`를 콘텐츠 원본으로 사용합니다.
 - 회차 생성 시 `characterId`가 확정된 직후 한 번 계산하고 같은 회차에서는 다시 뽑지 않습니다.
 - 현재 플레이 캐릭터 자신을 학생 상대역으로 배정하지 않습니다.
 - 핵심 메인 학생 역할은 가능한 한 서로 다른 캐릭터를 사용합니다.
 - `LOC_GREENHOUSE_STUDENT`는 `MAIN_GREENHOUSE_STUDENT`와 다른 학생을 사용합니다.
+- `NPC_GUIDE_ACTOR`는 티아 `CH16`을 우선 사용하고, 주인공이 티아일 때 로빈 `CH15`을 사용합니다.
+- `NPC_WORK_ACTOR`는 렌 `CH25`를 우선 사용하고, 주인공이 렌일 때 다나 `CH26`을 사용합니다.
+- NPC actor 역할은 Main/Location 역할과의 중복을 금지하지 않습니다. NPC 체인에서는 현재 주인공 자신과 상대역이 겹치지 않는 것이 핵심 제약입니다.
 - 잠긴 캐릭터도 NPC 역할로는 등장할 수 있으며, 주인공 해금 여부와 조력 NPC 출연 여부를 분리합니다.
 - 고정 조력자인 발렌티누스와 텍스트 단역 세린은 이 학생 `storyCast` 맵에 넣지 않아도 됩니다.
 
@@ -289,7 +292,9 @@ RUN_COMPLETE
   "MAIN_TRAINING_STUDENT": "CH29",
   "MAIN_TRAINING_WITNESS": "CH25",
   "MAIN_FESTIVAL_LEAD": "CH24",
-  "LOC_GREENHOUSE_STUDENT": "CH19"
+  "LOC_GREENHOUSE_STUDENT": "CH19",
+  "NPC_GUIDE_ACTOR": "CH16",
+  "NPC_WORK_ACTOR": "CH25"
 }
 ```
 
@@ -410,6 +415,8 @@ NPC·Location Story가 공통으로 사용하는 발생 제한 상태입니다. 
 | `completedWeekdayCount` | Integer | 현재 주 완료 평일 수 |
 | `forcedRest.remainingWeekdays` | Integer | 남은 강제휴식 평일 수 |
 | `forcedRest.active` | Boolean | 강제휴식 활성 여부 |
+| `weekStartSnapshot` | Map/Null | 일정 확정 당시 5개 성장 스탯·체력. 주간 변화 계산용 서버 스냅샷 |
+| `lastWeekSummary` | Map/Null | 마지막으로 확정된 주의 성장 스탯 변화, 수업 수, 체력 소비·회복, 시작·종료 체력, 강제휴식 일수와 완료 시각 |
 | `minigameFailStreaks` | Map<GameId, Integer> | 현재 회차 게임별 연속 `FAIL` 횟수. 2회/4회 실패 보조 난이도 계산에 사용 |
 
 ### ScheduleEntry 예시

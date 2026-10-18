@@ -24,5 +24,6 @@ test('all six scene types mount at every difficulty, time out once and remove th
   scene.init(curriculumStart({gameId:'spirit-pot-sort',statValue:50,seed:'touch'}));scene.create();const solution=structuredClone(scene.puzzle.solution);
   for(const [from,to]of solution){scene.board.children[0].children[from].onclick();scene.board.children[0].children[to].onclick();}
   assert.equal(results.length,1);assert.equal(results[0].outcome,'GREAT');assert.equal(results[0].endReason,'COMPLETE');scene.finish();assert.equal(results.length,1);
+  assert.deepEqual(results[0].inputLog.map(({action,fromPot,toPot})=>({action,fromPot,toPot})),solution.map(([fromPot,toPot])=>({action:'POUR',fromPot,toPot})));
  }finally{Object.assign(globalThis,previous);}
 });

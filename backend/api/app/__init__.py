@@ -1,0 +1,1 @@
+"""LUMIA FastAPI application package."""

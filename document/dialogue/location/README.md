@@ -32,7 +32,7 @@
 - 한 말풍선에는 가능한 한 한 가지 정보나 감정만 담는다.
 - 천문대 과거 학생의 이름·정체·메인 룬 단서를 새로 만들지 않는다.
 - 천문대 일기의 새 정보는 화면에서 읽고 있는 기록이므로 주로 `NARRATION`으로 제시한다. 이미 앞 회차에서 읽은 사실을 되짚을 때만 `CONTEXT`를 사용한다.
-- 천문대의 선택은 혼자 읽는 장면이므로 `PLAYER(BASE)`의 짧은 선택 후 반응을 사용한다. 32인 세트 작성 시 이 반응까지 캐릭터 Voice에 맞게 바꾼다.
+- 천문대의 선택은 혼자 읽는 장면이므로 `PLAYER(BASE)`의 짧은 선택 후 반응을 사용한다. 현재 32인 Character Set에서는 이 반응까지 각 캐릭터 Voice에 맞게 작성했다.
 - `LOC_GH_01`은 `ROLE:LOC_GREENHOUSE_STUDENT`를 사용한다. 마스터 기준 화자는 요한이며 실제 회차 배역은 `storyCast`가 결정한다.
 - `LOC_LIB_01`의 세린은 전용 초상 없이 `NPC:SERIN` 텍스트 화자로 사용한다.
 - 발생 날짜·주차는 이 대화 원고에서 새로 확정하지 않는다. 런타임 발생 규칙은 별도 시스템 문서를 따른다.
@@ -63,6 +63,8 @@ Production 신규 이미지 요청:
 - [LOC_OBS_04 · 빈 관측 칸](LOC_OBS_04.md)
 - [LOC_GH_01 · 시든 화분 돌보기](LOC_GH_01.md)
 - [LOC_LIB_01 · 책 한 권 제자리 찾기](LOC_LIB_01.md)
+- [32인 Character Set](character_sets/README.md)
+- [Location 온실 배역 Matrix](character_sets/CAST_MATRIX.md)
 
 ## 이후 작업 순서
 
@@ -70,11 +72,11 @@ Production 신규 이미지 요청:
 
 ```text
 공통 대화 시퀀스 작성·사람 검수
-→ 32인 Character Set 작성
-→ 주인공/상대방 Voice 및 배역 충돌 검산
+→ 32인 Character Set 작성 완료
+→ 주인공/상대방 Voice 및 배역 충돌 검산 완료
 → 작성용 alias를 canonical choiceId로 정규화
 → 같은 SQLite v4에 Location Story 32인 대화 데이터 적재
 → 실제 DB 실행 검증
 ```
 
-현재 상태는 **공통 대화 시퀀스 작성 완료 + Location DB v4 스키마/마스터 seed 작성 완료 / 32인 Character Set 작성 전**이다. `backend/database/sqlite/seed_location_story_master.py`로 장소·Story·발생 규칙·13개 canonical choice·효과·세린·온실 ROLE까지 먼저 적재할 수 있지만, 32인 세트가 없으므로 `dialogue_sequences/nodes/options`는 아직 만들지 않는다. 상세는 `backend/database/LOCATION_STORY_DB_SPEC.md`를 따른다.
+현재 상태는 **공통 대화 + CH01~CH32 Location Character Set 작성·수량 검산 완료 / Location DB master·효과·32인 대화 seed 구현 완료 / 실제 SQLite 적재·검증 완료**다. Character Set은 `32명 × 6 choiceNode = 192 선택 화면`, `32명 × 13 canonical choiceId = 416 실제 선택 문구`를 갖고, 실제 seed 기준은 `192 dialogue_sequences / 416 dialogue_options / 3616 dialogue_nodes`다. 온실 배역은 CH12·CH19에서 하젤, 나머지 30명에서 요한으로 검산했다. **2026-10-18 사용자 로컬 실행에서 정상 결과를 확인했다.** 상세 DB 계약은 `backend/database/LOCATION_STORY_DB_SPEC.md`를 따른다.

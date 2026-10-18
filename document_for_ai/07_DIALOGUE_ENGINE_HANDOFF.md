@@ -13,7 +13,7 @@
 
 ## 확정된 설계
 
-현재 DB 쪽 구현 상태: `003_dialogue_runtime_content.sql`에 최종 LINE/IMAGE 표현 필드·화자·ROLE·Choice/Event Effect가 있고, `004_story_event_rules.sql`에 Story 발생 정책·추가 조건·동적 역할 hard exclusion이 있다. Main `seed_dialogue_content.py`는 CH01~CH32의 `MS01~MS06` 시퀀스를 생성하며 사용자가 기존 v3 Main 결과 `192 sequences / 40 choices / 80 effects`를 실제 SQLite에서 확인했다. 현재 스크립트는 v4 migration까지 지원한다. Location은 `seed_location_story_master.py`가 활성 6장면의 master/rule/choice/effect와 세린·온실 ROLE을 같은 DB에 적재하도록 구현되어 있으나 **32인 Character Set이 아직 없으므로 Location dialogue_sequences/nodes/options는 미적재**다. 상세는 `backend/database/LOCATION_STORY_DB_SPEC.md`를 따른다. FastAPI compiler/complete transaction과 Engine 연결은 아직 미구현이다.
+현재 DB 쪽 구현 상태: `003_dialogue_runtime_content.sql`에 최종 LINE/IMAGE 표현 필드·화자·ROLE·Choice/Event Effect가 있고, `004_story_event_rules.sql`에 Story 발생 정책·추가 조건·동적 역할 hard exclusion이 있다. Main `seed_dialogue_content.py`는 CH01~CH32 `MS01~MS06` 시퀀스와 **40 choices / 102 effects**, NPC `seed_npc_story.py`는 GUIDE/WORK/LULU 3체인·12이벤트의 **24 choices / 64 effects / 384 sequences / 768 options**를 생성한다. Location은 **13 choices / 39 effects**와 CH01~CH32 실제 대사를 사용하며 `seed_location_story_master.py`가 **192 sequences / 416 options / 3616 nodes**로 컴파일한다. 온실 role은 CH12·CH19에서 하젤, 나머지 30명에서 요한 reaction으로 검증한다. 사용자가 `seed_story_choice_rewards.py --bootstrap-missing`을 성공 실행해 Story 선택 보상 **77 choices / 205 effects**를 실제 SQLite에서 검증했고, **2026-10-18 Location 32인 dialogue seed도 실제 로컬 DB 실행 결과 정상 확인됐다.** FastAPI의 Dialogue compiler·완료 트랜잭션과 활동 후 Story 후보 연결은 오프라인 구현돼 있다. Phase 8에서는 Dialogue COMPLETE 시 선택에 실제 사용된 Hidden 태그의 **발생 횟수**를 계정 `behaviorTagCounts`에 누적하고, NPC Story 완료/스킵은 조우 횟수 및 4단계 체인 완료 횟수를 갱신한 뒤 배지·퍼즐·펫·캐릭터 pending 규칙을 같은 transaction에서 평가하도록 연결했다. Hidden score 자체는 payload나 결과 UI에 노출하지 않는다. Phase 8 회귀 테스트의 실제 재실행, Engine provider 연결·실제 Firebase 검증은 아직 미완료다.
 
 ```text
 정규화된 대화 콘텐츠 DB
@@ -87,9 +87,11 @@ completeDialogue({dialogueToken,completionMode,selectedChoices,requestId,expecte
 
 HTTP URL, ID Token, timeout, retry, 서버 오류 코드는 provider/adapter가 처리한다.
 
+Phase 11 구현에서는 이 경계를 `globalThis.lumiaEngineServices`의 운영 provider로 실제 연결한다. Main/NPC/Location은 같은 Dialogue 세션을 사용하고 완료 응답의 `activeRun`을 먼저 적용한 뒤 다음 일정으로 이동한다. 슬롯·일정·활동·주간·마이룸·엔딩 mutation은 `serverRevision + requestId` 경계를 공유하며, 실패한 변경은 다음 진행을 막고 같은 requestId로 명시적으로 재시도한다. 정식 수업 6종은 엔진이 입력 로그만 생성해 서버 replay API로 보내며 결과 판정·성장량은 엔진에서 다시 계산하지 않는다. 서버 provider가 완전하지 않으면 부분 운영 모드로 들어가지 않고 기존 로컬 미리보기 경계를 유지한다.
+
 ### 엔진이 계산하면 안 되는 것
 
-- Main +2/+8, NPC/Location +1/+3 등의 선택 보상
+- Main `Visible +2 / Primary Hidden +8 / 일부 Secondary +3`, NPC/Location `Visible +1 / Primary Hidden +5 / 일부 Secondary +2` 등의 선택 보상
 - hidden stat 변화
 - story/event flag 결과
 - unlock
@@ -97,7 +99,7 @@ HTTP URL, ID Token, timeout, retry, 서버 오류 코드는 provider/adapter가 
 - 이벤트 발생 조건/가중치
 - 스킵 가능 여부
 
-완료 응답의 서버 `activeRun`을 적용한다.
+완료 응답의 서버 저장 결과를 적용한다. 결과 화면에는 서버가 상한 clamp 후 계산한 **실제 Visible Stat delta의 이벤트 합계만** 사용하고 Hidden delta는 엔진 UI에 노출하지 않는다. 선택 버튼에도 보상 수치를 표시하지 않는다.
 
 ## 스킵
 

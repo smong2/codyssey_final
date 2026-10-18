@@ -112,4 +112,4 @@
 - `ART-L02 → ART-L03`는 같은 화분·같은 시점의 상태 변화다.
 - 물 부족과 빛 부족의 두 단서를 함께 보여 주어 어느 선택도 정답처럼 보이지 않게 한다.
 - `LOC_GREENHOUSE_STUDENT`는 주인공과 `MAIN_GREENHOUSE_STUDENT`를 피하는 별도 회차 캐스팅을 사용한다.
-- 선택 결과는 Production 기준 `WATER = 솜씨 +1 / 책임 +3`, `MOVE_AND_WATCH = 지식 +1 / 신중함 +3`이다.
+- 선택 결과는 Production 기준 `WATER = 솜씨 +1 / 책임 +5 / 용기 +2`, `MOVE_AND_WATCH = 지식 +1 / 신중함 +5 / 책임 +2`다.

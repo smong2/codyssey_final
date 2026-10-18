@@ -10,6 +10,14 @@ export const ROOM_BUTTON_ART=Object.freeze({
  menu:'BT03_menu_green.png'
 });
 
+export const BAG_BUTTON_ART=Object.freeze({default:'BT04_blank_pale_ivory_short.png',selected:'BT04_blank_pale_green_short.png'});
+export function createBagButton({el,btn,label,onClick,selected}){
+ const control=btn(label,onClick,'bag-ui-button'+(selected?' is-selected':''));
+ control.style.backgroundImage=`url("./design-assets/ui/${BAG_BUTTON_ART[selected?'selected':'default']}")`;
+ if(typeof selected==='boolean')control.setAttribute('aria-pressed',String(selected));
+ return control;
+}
+
 export function createImageButton({el,btn,src,label,caption=null,onClick,className='image-button'}){
  const control=btn('',onClick,className);
  control.setAttribute('aria-label',label);

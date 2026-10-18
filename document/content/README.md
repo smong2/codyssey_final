@@ -9,6 +9,7 @@
    - [01_STATS_SYSTEM.md](02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md) — 보이는 스탯, 보이지 않는 스탯, 기본값과 증감 원칙
    - [02_EVENTS.md](02_STATS_EVENTS_ENDINGS/02_EVENTS.md) — NPC·공간 이벤트 발생 규칙
    - [03_ENDINGS.md](02_STATS_EVENTS_ENDINGS/03_ENDINGS.md) — 미래 직업 엔딩 판정 구조
+   - [04_STORY_CHOICE_REWARDS.md](02_STATS_EVENTS_ENDINGS/04_STORY_CHOICE_REWARDS.md) — Story 선택 보상 계층, Hidden 편향 보정, 이벤트 종료 결과 공개·DB 규칙
 3. [03_COLLECTION_UNLOCKS/README.md](03_COLLECTION_UNLOCKS/README.md) — 수집 배지, 캐릭터·펫·배경 해금
    - [01_BADGE_COLLECTION_DESIGN.md](03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md) — 가방 수집 배지 200개의 분류·조립형 디자인 기준
    - [02_CHARACTER_UNLOCK_TIMING.md](03_COLLECTION_UNLOCKS/02_CHARACTER_UNLOCK_TIMING.md) — 추가 플레이 가능 캐릭터의 조건 달성·해금·사용 가능 시점
@@ -25,6 +26,7 @@
 11. [11_FEATURE_FRAME.md](11_FEATURE_FRAME.md) — WBS 4.3 가방·배지·마이룸 퍼즐·대화 인수·엔딩 화면 계약
 12. [12_USER_UCS.md](12_USER_UCS.md) — WBS 4.2 가입·이어 하기·주간 진행·장소 이야기·가방·엔딩·계정의 완결된 사용자 상호작용 순서
 13. [13_DIALOGUE_SEQUENCE.md](13_DIALOGUE_SEQUENCE.md) — Main/NPC/Location 공통 대화의 캐릭터별 원고, DB 식별자, 이미지·선택·완료/스킵 저장 계약. 엔진 DTO는 [대화 시스템 문서](../dialogue/README.md)를 함께 확인
+14. [14_ADVENTURE_ITEM_IMAGES.md](14_ADVENTURE_ITEM_IMAGES.md) — 모험맵별 목표 아이템 15종의 단서 이미지 제작 목록과 연결 ID. 배치·방향·랜덤 선택 규칙은 [공통 엔진 프레임](10_COMMON_ENGINE_FRAME.md#7-숨겨진-아이템-배치)을 참고
 
 독립 상위 개념은 `01_`, `02_`처럼 파일로 유지하고, 상세 문서가 여러 개 생기는 도메인은 `03_COLLECTION_UNLOCKS/`처럼 폴더로 분리합니다. 폴더 안에서는 `README.md`를 상위 개요로 두고 상세 문서는 `01_`, `02_` 순번을 사용합니다.
 
