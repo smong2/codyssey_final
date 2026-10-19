@@ -74,10 +74,10 @@ export function createFirebaseAccountService({auth, sdk, apiBaseUrl, fetchImpl =
       storage?.removeItem?.('lumia.engine.dev.v1:account:' + encodeURIComponent(user.uid));
       await sdk.signOut(auth);
     },
-    async getIdToken() {
+    async getIdToken({forceRefresh = false} = {}) {
       const user = current();
       if (!user.emailVerified) throw Object.assign(new Error('Email verification required'), {code: 'FORBIDDEN'});
-      return sdk.getIdToken(user);
+      return sdk.getIdToken(user, forceRefresh === true);
     },
   };
 }

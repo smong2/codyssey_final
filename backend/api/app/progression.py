@@ -12,7 +12,7 @@ from .models import AccountSettings, GlobalMetaProgress, GlobalStatistics, SaveS
 from .progression_rules import (ProgressionError, choose_ending, evaluate_progression,
                                 record_daily_unlocks)
 from .repositories import MutationPlan, SaveSlotRepository, UserDocPath
-from .save_slots import MutationRequest, get_slot_repository, _error as slot_error
+from .save_slots import MutationRequest, get_slot_repository, mutation_response, _error as slot_error
 
 
 router = APIRouter(tags=["progression"])
@@ -35,10 +35,11 @@ def _error(error: Exception) -> HTTPException:
 @router.get("/v1/collection")
 def get_collection(repository: SaveSlotRepository = Depends(get_slot_repository)) -> dict:
     try:
-        meta_raw = repository.get_user_document(META)
-        statistics_raw = repository.get_user_document(STATISTICS)
-        unlock_raw = repository.get_user_document(UNLOCK)
-        settings_raw = repository.get_user_document(SETTINGS)
+        documents = repository.get_user_documents((META, STATISTICS, UNLOCK, SETTINGS))
+        meta_raw = documents[META]
+        statistics_raw = documents[STATISTICS]
+        unlock_raw = documents[UNLOCK]
+        settings_raw = documents[SETTINGS]
         if meta_raw is None or statistics_raw is None or unlock_raw is None or settings_raw is None:
             raise ProgressionRejected("Account progression is unavailable")
         meta = GlobalMetaProgress.model_validate(meta_raw)
@@ -120,8 +121,7 @@ def record_my_room_open(
             operation="recordMyRoomOpen", command={},
             read_paths=(META, STATISTICS, UNLOCK, day_path), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _error(error) from None
 
@@ -162,7 +162,6 @@ def decide_ending(
             expected_server_revision=body.expectedServerRevision,
             operation="decideEnding", command={}, read_paths=(META,), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _error(error) from None

@@ -27,7 +27,7 @@ from .progression_rules import (ProgressionError, evaluate_progression,
                                 record_daily_unlocks)
 from .growth_rules import BalanceSettingsError, applied_growth, balance_snapshot
 from .repositories import MutationPlan, SaveSlotRepository, SystemReadPath, UserDocPath
-from .save_slots import MutationRequest, get_slot_repository, _error as slot_error
+from .save_slots import MutationRequest, get_slot_repository, mutation_response, _error as slot_error
 from .story_candidates import ActivityContext, StoryCandidates, StorySelectionError
 
 
@@ -307,8 +307,7 @@ def confirm_schedule(
             operation="confirmSchedule", command={"activityIds": body.activityIds},
             read_paths=(), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _report_error(error) from None
 
@@ -455,8 +454,7 @@ def start_activity(
             expected_server_revision=body.expectedServerRevision,
             operation="startActivity", command={}, read_paths=(SETTINGS, META), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _report_error(error) from None
 
@@ -545,8 +543,7 @@ def complete_special(
             expected_server_revision=body.expectedServerRevision,
             operation="completeSpecial", command=command, read_paths=(day_path,), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _report_error(error) from None
 
@@ -692,8 +689,7 @@ def complete_class_quit(
             read_paths=(BALANCE, META, STATISTICS, UNLOCK, day_path),
             mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _report_error(error) from None
 
@@ -894,8 +890,7 @@ def complete_class_replay(
             operation="completeClassReplay", command={"inputLogDigest": log_digest},
             read_paths=(BALANCE, META, STATISTICS, UNLOCK, day_path), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _report_error(error) from None
 
@@ -1006,8 +1001,7 @@ def close_week(
             expected_server_revision=body.expectedServerRevision,
             operation="closeWeek", command={}, read_paths=(), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _report_error(error) from None
 
@@ -1042,8 +1036,7 @@ def acknowledge_week_summary(
             expected_server_revision=body.expectedServerRevision,
             operation="ackWeekSummary", command={}, read_paths=(), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _report_error(error) from None
 
@@ -1141,8 +1134,7 @@ def complete_forced_rest(
             expected_server_revision=body.expectedServerRevision,
             operation="completeForcedRest", command={}, read_paths=(day_path,), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _report_error(error) from None
 
@@ -1253,8 +1245,7 @@ def complete_rest(
             read_paths=(STATISTICS, day_path),
             mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _report_error(error) from None
 
@@ -1422,8 +1413,7 @@ def complete_adventure(
             operation="completeAdventure", command=body.model_dump(mode="json"),
             read_paths=(STATISTICS, BALANCE, META, UNLOCK, day_path), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision,
-                "replayed": result.replayed, **result.result_data}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _report_error(error) from None
 

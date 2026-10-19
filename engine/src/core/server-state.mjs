@@ -187,11 +187,33 @@ export function projectServerCollection(collection){
 
 export function createServerProfile(slots,collection=null){
  if(!Array.isArray(slots)||slots.length!==5)throw new Error('서버 저장 슬롯 5개가 필요합니다.');
- const profile=createProfile();profile.meta=projectServerCollection(collection);profile.settings=projectServerSettings(collection);profile.slots=slots.map(projectServerSlot);profile.serverBacked=true;return profile;
+ const profile=createProfile();profile.meta=projectServerCollection(collection);profile.settings=projectServerSettings(collection);profile.slots=slots.map(projectServerSlot);profile.serverCollectionRaw=clone(collection);profile.serverBacked=true;return profile;
 }
 
 export function applyServerCollection(profile,collection){
- if(!profile)throw new Error('서버 프로필이 없습니다.');profile.meta=projectServerCollection(collection);profile.settings=projectServerSettings(collection);return profile;
+ if(!profile)throw new Error('서버 프로필이 없습니다.');profile.meta=projectServerCollection(collection);profile.settings=projectServerSettings(collection);profile.serverCollectionRaw=clone(collection);return profile;
+}
+
+export function applyServerCollectionPatch(profile,patch){
+ if(!profile||!profile.serverCollectionRaw)throw new Error('서버 수집 원본 상태가 없습니다.');
+ if(!patch||typeof patch!=='object'||Array.isArray(patch))throw new Error('서버 수집 변경 정보가 올바르지 않습니다.');
+ const allowed=new Set(['meta','statistics','pendingCharacterUnlockIds','settings']);
+ if(Object.keys(patch).some(key=>!allowed.has(key)))throw new Error('서버 수집 변경 정보가 올바르지 않습니다.');
+ return applyServerCollection(profile,{...clone(profile.serverCollectionRaw),...clone(patch)});
+}
+
+function preserveDialogueTexts(projected,previous){
+ const oldRows=previous?.activeRun?.dialogueHistory,newRows=projected?.activeRun?.dialogueHistory;
+ if(!Array.isArray(oldRows)||!Array.isArray(newRows))return projected;
+ const texts=new Map();
+ for(const record of oldRows)for(const choice of record.selectedChoices??[])if(typeof choice.text==='string'&&choice.text.trim())texts.set(`${record.eventId}\u0000${choice.choiceNodeId}\u0000${choice.choiceId}`,choice.text);
+ for(const record of newRows)for(const choice of record.selectedChoices??[])if(choice.text===undefined){const text=texts.get(`${record.eventId}\u0000${choice.choiceNodeId}\u0000${choice.choiceId}`);if(text)choice.text=text;}
+ return projected;
+}
+
+export function applyServerSlot(profile,received){
+ if(!profile)throw new Error('서버 프로필이 없습니다.');
+ const projected=projectServerSlot(received),index=profile.slots.findIndex(item=>item.slotId===projected.slotId);if(index<0)throw new Error('새로 받은 서버 슬롯을 적용할 수 없습니다.');preserveDialogueTexts(projected,profile.slots[index]);profile.slots[index]=projected;return projected;
 }
 
 export function applyServerActiveRun(profile,slotId,activeRun,serverRevision){

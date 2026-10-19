@@ -88,7 +88,11 @@ def test_first_empty_slot_run_is_server_generated_and_retry_safe(content_db):
 
         response = start(client, character="CH16")
         assert response.status_code == 200, response.text
-        assert response.json() == {"slotId": 1, "serverRevision": 1, "replayed": False}
+        payload = response.json()
+        assert {key: payload[key] for key in ("slotId", "serverRevision", "replayed")} == {
+            "slotId": 1, "serverRevision": 1, "replayed": False,
+        }
+        assert payload["slot"]["serverRevision"] == 1
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["stats"] == {stat: 50 for stat in ("knowledge", "expression", "skill", "exploration", "magic")}
         assert run["storyCast"]["NPC_GUIDE_ACTOR"] == "CH15"

@@ -32,6 +32,28 @@ from backend.api.app.repositories import (
 from backend.api.tests.test_phase3_account import Database, Snapshot
 
 
+class BatchSnapshot(Snapshot):
+    def __init__(self, data, reference):
+        super().__init__(data)
+        self.reference = reference
+
+
+class BatchDatabase(Database):
+    def __init__(self):
+        super().__init__()
+        self.get_all_calls = 0
+
+    def get_all(self, references):
+        self.get_all_calls += 1
+        return [BatchSnapshot(deepcopy(self.data.get(reference.path)), reference) for reference in references]
+
+
+class TransactionSnapshot(Snapshot):
+    def __init__(self, data, reference):
+        super().__init__(data)
+        self.reference = reference
+
+
 class FakeTransaction:
     def __init__(self, database):
         self.database = database
@@ -39,6 +61,12 @@ class FakeTransaction:
 
     def get_snapshot(self, path):
         return Snapshot(deepcopy(self.database.data.get(path)))
+
+    def get_all(self, references):
+        return [
+            TransactionSnapshot(deepcopy(self.database.data.get(reference.path)), reference)
+            for reference in references
+        ]
 
     def set(self, reference, data):
         self.writes.append(("set", reference.path, deepcopy(data)))
@@ -68,6 +96,26 @@ def setup_repo(uid="owner"):
         full_path = f"users/{uid}" + (f"/{path}" if path else "")
         database.data[full_path] = deepcopy(data)
     return database, SaveSlotRepository(database, uid, transaction_runner=offline_runner)
+
+
+def test_multi_document_reads_use_firestore_batch_get_when_available():
+    database = BatchDatabase()
+    now = datetime.now(timezone.utc)
+    for path, data in _initial_documents(now, now).items():
+        database.data["users/owner" + (f"/{path}" if path else "")] = deepcopy(data)
+    repository = SaveSlotRepository(database, "owner", transaction_runner=offline_runner)
+    slots = repository.list_slots()
+    documents = repository.get_user_documents((
+        UserDocPath("meta", "progress"), UserDocPath("statistics", "global"),
+        UserDocPath("unlockState", "global"), UserDocPath("settings", "account"),
+    ))
+    slot, slot_documents = repository.get_slot_and_user_documents(
+        1, (UserDocPath("meta", "progress"),)
+    )
+    assert len(slots) == 5 and all(slot is not None for slot in slots)
+    assert all(value is not None for value in documents.values())
+    assert slot.slotId == 1 and slot_documents[UserDocPath("meta", "progress")] is not None
+    assert database.get_all_calls == 3
 
 
 def test_bootstrap_documents_match_typed_models_and_initial_revision():
@@ -120,6 +168,8 @@ def test_same_request_is_replayed_without_running_mutator_again():
     )
     assert first.server_revision == replay.server_revision == 1
     assert first.replayed is False and replay.replayed is True
+    assert first.slot is not None and first.slot.serverRevision == 1
+    assert replay.slot is not None and replay.slot.serverRevision == 1
     assert calls == []
     assert repository.get(1).serverRevision == 1
     receipt_id = sha256(b"run-creation-1").hexdigest()

@@ -45,6 +45,15 @@ def _user_root(database: Any, uid: str) -> Any:
     return database.collection("users").document(uid)
 
 
+def _account_from_snapshot(snapshot: Any) -> AccountProfile:
+    if snapshot is None or not snapshot.exists:
+        raise AccountNotFound
+    profile = AccountProfile.model_validate(snapshot.to_dict())
+    if profile.deletionPending:
+        raise DeletionPending
+    return profile
+
+
 class UserRepository:
     """Owns account reads, atomic bootstrap, and descendant deletion."""
 
@@ -83,13 +92,7 @@ class UserRepository:
         return True
 
     def get(self, uid: str) -> AccountProfile:
-        snapshot = _user_root(self.database, uid).get()
-        if not snapshot.exists:
-            raise AccountNotFound
-        profile = AccountProfile.model_validate(snapshot.to_dict())
-        if profile.deletionPending:
-            raise DeletionPending
-        return profile
+        return _account_from_snapshot(_user_root(self.database, uid).get())
 
     def get_settings(self, uid: str) -> AccountSettings:
         self.get(uid)
@@ -207,6 +210,8 @@ class MutationResult:
     server_revision: int
     replayed: bool
     result_data: Mapping[str, Any] = field(default_factory=dict)
+    slot: SaveSlot | None = None
+    documents: Mapping[UserDocPath, Mapping[str, Any]] = field(default_factory=dict)
 
 
 def _run_firestore_transaction(database: Any, body: Callable[[Any], MutationResult]) -> MutationResult:
@@ -236,21 +241,55 @@ class SaveSlotRepository:
         self.uid = uid
         self.transaction_runner = transaction_runner
 
+    def _batch_snapshots(self, references: Sequence[Any]) -> list[Any | None]:
+        if not callable(getattr(self.database, "get_all", None)):
+            return [reference.get() for reference in references]
+        snapshots_by_path = {
+            snapshot.reference.path: snapshot
+            for snapshot in self.database.get_all(list(references))
+            if getattr(snapshot, "reference", None) is not None
+        }
+        return [
+            snapshots_by_path[reference.path]
+            if reference.path in snapshots_by_path else reference.get()
+            for reference in references
+        ]
+
     def get(self, slot_id: int) -> SaveSlot:
-        UserRepository(self.database).get(self.uid)
+        slot, _ = self.get_slot_and_user_documents(slot_id, ())
+        return slot
+
+    def get_slot_and_user_documents(
+        self, slot_id: int, paths: Sequence[UserDocPath],
+    ) -> tuple[SaveSlot, dict[UserDocPath, dict[str, Any] | None]]:
+        requested = tuple(paths)
+        if len(set(requested)) != len(requested) or any(not isinstance(path, UserDocPath) for path in requested):
+            raise ValueError("User document paths must be unique")
+        root = _user_root(self.database, self.uid)
         slot_ref = self._slot_reference(slot_id)
-        snapshot = slot_ref.get()
-        if not snapshot.exists:
+        references = [root, slot_ref, *(path.reference(root) for path in requested)]
+        root_snapshot, slot_snapshot, *snapshots = self._batch_snapshots(references)
+        _account_from_snapshot(root_snapshot)
+        if slot_snapshot is None or not slot_snapshot.exists:
             raise SlotNotFound
-        return SaveSlot.model_validate(snapshot.to_dict())
+        slot = SaveSlot.model_validate(slot_snapshot.to_dict())
+        if slot.slotId != slot_id:
+            raise SlotNotFound
+        documents = {
+            path: deepcopy(snapshot.to_dict()) if snapshot is not None and snapshot.exists else None
+            for path, snapshot in zip(requested, snapshots, strict=True)
+        }
+        return slot, documents
 
     def list_slots(self) -> list[SaveSlot | None]:
         """Return five positions; None means missing/corrupt, never EMPTY."""
-        UserRepository(self.database).get(self.uid)
+        root = _user_root(self.database, self.uid)
+        references = [root, *(self._slot_reference(slot_id) for slot_id in range(1, 6))]
+        root_snapshot, *snapshots = self._batch_snapshots(references)
+        _account_from_snapshot(root_snapshot)
         result: list[SaveSlot | None] = []
-        for slot_id in range(1, 6):
-            snapshot = self._slot_reference(slot_id).get()
-            if not snapshot.exists:
+        for slot_id, snapshot in enumerate(snapshots, 1):
+            if snapshot is None or not snapshot.exists:
                 result.append(None)
                 continue
             try:
@@ -261,9 +300,27 @@ class SaveSlotRepository:
         return result
 
     def get_user_document(self, path: UserDocPath) -> dict[str, Any] | None:
-        UserRepository(self.database).get(self.uid)
-        snapshot = path.reference(_user_root(self.database, self.uid)).get()
-        return deepcopy(snapshot.to_dict()) if snapshot.exists else None
+        return self.get_user_documents((path,))[path]
+
+    def get_user_documents(
+        self, paths: Sequence[UserDocPath],
+    ) -> dict[UserDocPath, dict[str, Any] | None]:
+        """Read several user documents after one account-root validation.
+
+        Production Firestore uses one batch-get RPC. Lightweight test doubles
+        that do not implement get_all retain the previous sequential behavior.
+        """
+        requested = tuple(paths)
+        if len(set(requested)) != len(requested) or any(not isinstance(path, UserDocPath) for path in requested):
+            raise ValueError("User document paths must be unique")
+        root = _user_root(self.database, self.uid)
+        references = [root, *(path.reference(root) for path in requested)]
+        root_snapshot, *snapshots = self._batch_snapshots(references)
+        _account_from_snapshot(root_snapshot)
+        return {
+            path: deepcopy(snapshot.to_dict()) if snapshot is not None and snapshot.exists else None
+            for path, snapshot in zip(requested, snapshots, strict=True)
+        }
 
     def _slot_reference(self, slot_id: int) -> Any:
         if not isinstance(slot_id, int) or isinstance(slot_id, bool) or not 1 <= slot_id <= 5:
@@ -311,17 +368,44 @@ class SaveSlotRepository:
             raise ValueError("read_paths must not contain duplicates")
         if any(not isinstance(path, (UserDocPath, SystemReadPath)) for path in requested_paths):
             raise ValueError("Unsupported read path")
+        requested_references = {
+            path: path.reference(root if isinstance(path, UserDocPath) else self.database)
+            for path in requested_paths
+        }
 
         def body(transaction: Any) -> MutationResult:
             # Firestore forbids reads after the first write in a transaction.
-            root_snapshot = root.get(transaction=transaction)
-            receipt_snapshot = receipt_ref.get(transaction=transaction)
-            slot_snapshot = slot_ref.get(transaction=transaction)
-            snapshots = {
-                path: path.reference(root if isinstance(path, UserDocPath) else self.database).get(
-                    transaction=transaction)
-                for path in requested_paths
-            }
+            base_references = (root, receipt_ref, slot_ref)
+            all_references = (*base_references, *requested_references.values())
+            if callable(getattr(transaction, "get_all", None)):
+                received = list(transaction.get_all(list(all_references)))
+                by_path = {
+                    snapshot.reference.path: snapshot
+                    for snapshot in received
+                    if getattr(snapshot, "reference", None) is not None
+                }
+                # Some Firestore-compatible test doubles omit references for
+                # missing documents. Fill only those gaps before any write.
+                resolved = {
+                    reference.path: by_path[reference.path]
+                    if reference.path in by_path else reference.get(transaction=transaction)
+                    for reference in all_references
+                }
+                root_snapshot = resolved[root.path]
+                receipt_snapshot = resolved[receipt_ref.path]
+                slot_snapshot = resolved[slot_ref.path]
+                snapshots = {
+                    path: resolved[reference.path]
+                    for path, reference in requested_references.items()
+                }
+            else:
+                root_snapshot = root.get(transaction=transaction)
+                receipt_snapshot = receipt_ref.get(transaction=transaction)
+                slot_snapshot = slot_ref.get(transaction=transaction)
+                snapshots = {
+                    path: reference.get(transaction=transaction)
+                    for path, reference in requested_references.items()
+                }
             if not root_snapshot.exists:
                 raise AccountNotFound
             if root_snapshot.to_dict().get("deletionPending") is True:
@@ -330,8 +414,24 @@ class SaveSlotRepository:
                 receipt = RequestReceipt.model_validate(receipt_snapshot.to_dict())
                 if receipt.commandHash != command_hash or receipt.requestIdHash != request_id_hash:
                     raise RequestIdReused
-                return MutationResult(server_revision=receipt.serverRevision, replayed=True,
-                                      result_data=deepcopy(receipt.resultData))
+                replay_slot = None
+                replay_documents: dict[UserDocPath, Mapping[str, Any]] = {}
+                if slot_snapshot.exists:
+                    candidate = SaveSlot.model_validate(slot_snapshot.to_dict())
+                    if candidate.slotId == slot_id and candidate.serverRevision == receipt.serverRevision:
+                        replay_slot = candidate
+                        replay_documents = {
+                            path: deepcopy(snapshot.to_dict())
+                            for path, snapshot in snapshots.items()
+                            if isinstance(path, UserDocPath) and snapshot.exists
+                        }
+                return MutationResult(
+                    server_revision=receipt.serverRevision,
+                    replayed=True,
+                    result_data=deepcopy(receipt.resultData),
+                    slot=replay_slot,
+                    documents=replay_documents,
+                )
             if not slot_snapshot.exists:
                 raise SlotNotFound
 
@@ -382,8 +482,13 @@ class SaveSlotRepository:
                     resultData=deepcopy(dict(plan.result_data)),
                 ).model_dump(mode="python"),
             )
-            return MutationResult(server_revision=updated.serverRevision, replayed=False,
-                                  result_data=deepcopy(dict(plan.result_data)))
+            return MutationResult(
+                server_revision=updated.serverRevision,
+                replayed=False,
+                result_data=deepcopy(dict(plan.result_data)),
+                slot=updated.model_copy(deep=True),
+                documents={path: deepcopy(dict(document)) for path, document in plan.documents.items()},
+            )
 
         return self.transaction_runner(self.database, body)
 
@@ -413,7 +518,8 @@ class SaveSlotRepository:
                 if current is not None:
                     if (current.slotId == slot_id and current.status == "EMPTY"
                             and current.serverRevision == 0):
-                        return MutationResult(server_revision=0, replayed=True)
+                        return MutationResult(server_revision=0, replayed=True,
+                                              slot=current.model_copy(deep=True))
                     raise InvalidMutation("Slot is readable; refresh before deleting")
             empty = SaveSlot(
                 slotId=slot_id, status="EMPTY", completedRunCount=0,
@@ -422,6 +528,7 @@ class SaveSlotRepository:
                 gameDataVersion=game_data_version, activeRun=None, serverRevision=0,
             )
             transaction.set(slot_ref, empty.model_dump(mode="python"))
-            return MutationResult(server_revision=0, replayed=False)
+            return MutationResult(server_revision=0, replayed=False,
+                                  slot=empty.model_copy(deep=True))
 
         return self.transaction_runner(self.database, body)

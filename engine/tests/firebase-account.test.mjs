@@ -35,6 +35,8 @@ test('Firebase account adapter keeps unverified users out of protected API and r
   f.user.emailVerified = true;
   assert.equal((await f.service.checkVerification()).emailVerified, true);
   assert.equal(await f.service.getIdToken(), 'id-token');
+  assert.equal(await f.service.getIdToken({forceRefresh: true}), 'id-token');
+  assert.equal(f.calls.at(-1), 'token-refresh');
   assert.equal((await f.service.getSession()).uid, 'player-1');
 });
 

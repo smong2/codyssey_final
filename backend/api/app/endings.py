@@ -19,7 +19,7 @@ from .models import EndingRecord, GlobalMetaProgress, GlobalStatistics, SaveSlot
 from .progression_rules import (ProgressionError, evaluate_progression,
                                 promote_pending_characters, record_daily_unlocks)
 from .repositories import MutationPlan, RevisionConflict, SaveSlotRepository, UserDocPath
-from .save_slots import MutationRequest, get_slot_repository, _error as slot_error
+from .save_slots import MutationRequest, get_slot_repository, mutation_response, _error as slot_error
 from pydantic import Field
 
 
@@ -188,7 +188,7 @@ def prepare_ending(
             read_paths=(),
             mutator=mutate,
         )
-        saved = repository.get(slot_id)
+        saved = result.slot or repository.get(slot_id)
         return _public_prepared(slot_id, saved.serverRevision, saved.activeRun, replayed=result.replayed)
     except Exception as error:
         raise _error(error) from None
@@ -411,10 +411,7 @@ def finish_ending(
             read_paths=(META, STATISTICS, UNLOCK, day_path, record_path),
             mutator=mutate,
         )
-        return {
-            "slotId": slot_id, "serverRevision": result.server_revision,
-            "replayed": result.replayed, **result.result_data,
-        }
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _error(error) from None
 

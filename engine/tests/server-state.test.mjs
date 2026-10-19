@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {CLASSES} from '../src/core/classes.mjs';
 import {storyDiaryRecords} from '../src/core/activity-history.mjs';
-import {canRecordServerRoomVisit,createServerProfile,projectServerRun,serverClassStartData,serverRoomBackgroundId,serverRoomVisitKey,serverScheduleActivityIds} from '../src/core/server-state.mjs';
+import {applyServerSlot,canRecordServerRoomVisit,createServerProfile,projectServerRun,serverClassStartData,serverRoomBackgroundId,serverRoomVisitKey,serverScheduleActivityIds} from '../src/core/server-state.mjs';
 
 const run={runId:'run-1',runNumber:1,characterId:'CH01',week:2,day:'TUESDAY',phase:'ACTIVITY_STORY_PENDING',storyCast:{GUIDE:'CH16'},pendingStoryEvent:{eventId:'NPC_GUIDE_01',eventType:'NPC'},stats:{knowledge:60,expression:61,skill:62,exploration:63,magic:64},stamina:{current:75,max:100},hiddenStats:{empathy:99},forcedRest:{active:false,remainingWeekdays:0},minigameFailStreaks:{'rune-circuit':2},runStatistics:{classCounts:{knowledge:1,expression:0,skill:0,exploration:0,magic:0}},weeklySchedule:{MONDAY:{type:'CLASS',contentId:'rune-circuit',status:'COMPLETED',resolution:'SUCCESS',staminaBefore:100,staminaCost:10,growthApplied:5},TUESDAY:{type:'ADVENTURE',contentId:'ADV_LIBRARY',status:'IN_PROGRESS',staminaBefore:90,staminaCost:15,adventureDifficulty:2,objectiveCount:3,durationSeconds:120,adventureSeed:'seed',missionId:'mission'},WEDNESDAY:{type:'REST',contentId:'REST_DEFAULT',status:'PLANNED'},THURSDAY:{type:'SPECIAL',contentId:'fairy-trade',status:'PLANNED'},FRIDAY:{type:'CLASS',contentId:'sealed-shelves',status:'PLANNED'}}};
 
@@ -60,6 +60,16 @@ test('server profile consumes account collection unlocks and maps skill permanen
  const profile=createServerProfile([1,2,3,4,5].map(empty),{meta:{unlockedCharacterIds:['CH01','CH02'],unlockedPetIds:['PET01'],permanentBonuses:{knowledge:1,expression:2,skill:3,exploration:4,magic:5},seenEndingIds:['E1'],acquiredBadgeIds:['B1'],acquiredPuzzlePieceIds:pieces,unlockedRoomBackgroundIds:['ROOM_DEFAULT','ROOM_01'],playedCharacterIds:['CH01']},statistics:{totalMinigamePlayCount:8,totalClassCount:6,totalAdventureCount:2,endingViewCounts:{E1:1}},pendingCharacterUnlockIds:['CH03'],settings:{activePetId:'PET01',activeRoomBackgroundId:'ROOM_01'}});
  assert.equal(profile.serverBacked,true);assert.deepEqual(profile.meta.unlockedCharacters,['CH01','CH02']);assert.equal(profile.meta.permanentBonuses.dexterity,3);assert.equal(profile.meta.counters.minigames,8);assert.deepEqual(profile.meta.serverCollection.pendingCharacterUnlockIds,['CH03']);assert.equal(profile.settings.activeRoomBackgroundId,'room-1');assert.deepEqual(profile.meta.collectionView.rooms[0].pieces,Array.from({length:12},(_,index)=>index));assert.equal(profile.meta.collectionView.rooms[0].unlocked,true);
  assert.throws(()=>createServerProfile([1,2,3,4,5].map(empty),{meta:{unlockedCharacterIds:['CH01'],unlockedPetIds:['PET01'],permanentBonuses:{knowledge:0,expression:0,skill:0,exploration:0,magic:0},seenEndingIds:[],acquiredBadgeIds:[],acquiredPuzzlePieceIds:['PUZZLE_ROOM_01_01'],unlockedRoomBackgroundIds:['ROOM_DEFAULT','ROOM_01'],playedCharacterIds:[]},statistics:{},pendingCharacterUnlockIds:[],settings:{activePetId:'PET01',activeRoomBackgroundId:'ROOM_01'}}),/마이룸 수집/);
+});
+
+test('slot mutation envelopes preserve dialogue text enriched during the initial GET',()=>{
+ const empty=id=>({slotId:id,status:'EMPTY',completedRunCount:0,lastCompletedCharacterId:null,lastEndingId:null,createdAt:null,lastSavedAt:null,saveVersion:1,gameDataVersion:'v1',activeRun:null,serverRevision:0});
+ const raw={...run,pendingStoryEvent:null,dialogueHistory:[{eventId:'MS01',storyId:'MS01',title:'입학',week:1,day:0,completionMode:'COMPLETE',selectedChoices:[{choiceNodeId:'C1',choiceId:'A',text:'기존 선택 문구'}],effect:{growth:{knowledge:1}}}]};
+ const slot={...empty(1),status:'PLAYING',activeRun:raw,serverRevision:3};
+ const profile=createServerProfile([slot,...[2,3,4,5].map(empty)],{meta:{unlockedCharacterIds:['CH01'],unlockedPetIds:['PET01'],permanentBonuses:{knowledge:0,expression:0,skill:0,exploration:0,magic:0},seenEndingIds:[],acquiredBadgeIds:[],acquiredPuzzlePieceIds:[],unlockedRoomBackgroundIds:['ROOM_DEFAULT'],playedCharacterIds:[]},statistics:{},pendingCharacterUnlockIds:[],settings:{activePetId:'PET01',activeRoomBackgroundId:'ROOM_DEFAULT'}});
+ const withoutText=structuredClone(slot);delete withoutText.activeRun.dialogueHistory[0].selectedChoices[0].text;withoutText.serverRevision=4;
+ applyServerSlot(profile,withoutText);
+ assert.equal(profile.slots[0].activeRun.dialogueHistory[0].selectedChoices[0].text,'기존 선택 문구');
 });
 
 test('engine weekly choices map to backend activity ids and forced-rest weekdays become null',()=>{

@@ -51,6 +51,19 @@ test('schedule confirmation reuses returned revision and activity start skips un
  assert.equal(game.slot(1).serverRevision,5);assert.equal(slotReads,1);assert.equal(collectionReads,1);
 });
 
+test('new mutation envelope applies slot and collection patch without follow-up GETs',async()=>{
+ let current=playing(),slotReads=0,collectionReads=0;
+ const nextStatistics={...collection.statistics,totalRestCount:1};
+ const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),
+  getCollection:async()=>{collectionReads++;return collection;},getSaveSlot:async()=>{slotReads++;return current;},
+  completeRest:async()=>{current=playing(4,{...current.activeRun,phase:'STORY_COMPLETE',pendingStoryEvent:null});return {serverRevision:4,slot:structuredClone(current),collectionPatch:{statistics:structuredClone(nextStatistics)}};}};
+ const game=createServerGameSession({services,requestIdFactory:()=> 'single-round-trip'});await game.load();
+ assert.equal(collectionReads,1);assert.equal(slotReads,0);
+ await game.completeRest(1,{restChoice:'HOME'});
+ assert.equal(game.slot(1).serverRevision,4);assert.equal(slotReads,0);assert.equal(collectionReads,1);
+ assert.equal(game.profile().serverCollectionRaw.statistics.totalRestCount,1);
+});
+
 test('dialogue session applies authoritative activeRun before continuation and never exposes hidden stats',async()=>{
  let current=playing(),continued=0;const rendered=[];const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>collection,getSaveSlot:async()=>current,
   loadDialogue:async({eventId})=>({schemaVersion:1,dialogueId:'D1',storyId:'S1',eventId,title:'메인',dialogueToken:'token',canSkip:false,speakers:{},sequence:[{type:'END'}]}),

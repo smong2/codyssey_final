@@ -360,7 +360,6 @@ async function retryServerMutation() {
 	const continuation = serverRetryContinuation;
 	serverRetryContinuation = null;
 	document.querySelector("dialog.server-save-error[open]")?.close();
-	message("서버 저장 완료.");
 	continuation?.(result);
 	return true;
 }
@@ -399,7 +398,6 @@ async function performServerMutation(work, continuation = null) {
 		return false;
 	}
 	serverRetryContinuation = null;
-	message("서버 저장 완료.");
 	continuation?.(result);
 	return true;
 }
@@ -1081,14 +1079,8 @@ if (serverMode)
 			return (
 			dialogueUI.render({
 				payload,
-				onComplete: (result) => {
-					renderBusy("이야기 진행을 저장하고 있어요.");
-					handlers.onComplete(result);
-				},
-				onSkip: (result) => {
-					renderBusy("이야기 진행을 저장하고 있어요.");
-					handlers.onSkip(result);
-				},
+				onComplete: (result) => handlers.onComplete(result),
+				onSkip: (result) => handlers.onSkip(result),
 			}));
 		},
 		onContinue: (response) => {
@@ -1151,7 +1143,7 @@ function renderRestChoice(checkpoint) {
 	for (const option of Object.values(REST_CHOICES)) {
 		const choose = btn(option.title, () => {
 			if (serverMode) {
-				renderBusy("휴식 결과를 저장하고 있어요.", "activity-transition-page");
+				renderBusy("휴식 결과를 정리하고 있어요.", "activity-transition-page");
 				void completeServerActivity(checkpoint, { restChoice: option.id });
 			} else completeActivity(checkpoint.token, { restChoice: option.id });
 		}, "rest-choice-card");
@@ -1288,18 +1280,17 @@ async function renderServerRoom(run) {
 		return;
 	}
 	serverRoomVisitInFlight.add(key);
-	renderBusy("이번 주 마이룸 방문을 기록하고 있어요.", "room-page");
+	roomUI.room();
 	const ok = await performServerMutation(
 		() => serverGame.openMyRoom(slotId),
 		() => {
 			serverRoomVisits.add(key);
 			serverRoomVisitInFlight.delete(key);
-			roomUI.room();
 		},
 	);
 	if (!ok) {
 		serverRoomVisitInFlight.delete(key);
-		roomUI.room();
+		if (view === "room-page") roomUI.room();
 	}
 }
 function showPendingBadgeNotices(next) {
@@ -1625,7 +1616,7 @@ const roomUI = createMyroomUI({
 					message(error.message);
 					return;
 				}
-				renderBusy("이번 주 일정을 저장하고 첫 활동을 준비하고 있어요.", "activity-transition-page");
+				renderBusy("이번 주 일정과 첫 활동을 준비하고 있어요.", "activity-transition-page");
 				performServerMutation(() => serverGame.confirmSchedule(slotId, activityIds), beginServerActivity);
 				return;
 			}

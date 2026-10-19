@@ -67,6 +67,25 @@ test('provider maps API failures without exposing the bearer token',async()=>{
  });
 });
 
+test('provider force-refreshes the Firebase token once after an HTTP 401',async()=>{
+ const tokenCalls=[],headers=[];let requests=0;
+ const provider=createLumiaApiProvider({baseUrl:'https://api.example',maxAttempts:1,
+  getIdToken:async options=>{tokenCalls.push(options);return options?.forceRefresh?'fresh-token':'cached-token';},
+  fetchImpl:async(_url,init)=>{headers.push(init.headers.Authorization);return ++requests===1?response(401,{detail:'Firebase ID token required'}):response(200,{slots:[]});}});
+ const result=await provider.listSaveSlots();
+ assert.deepEqual(result,{slots:[]});
+ assert.deepEqual(tokenCalls,[{forceRefresh:false},{forceRefresh:true}]);
+ assert.deepEqual(headers,['Bearer cached-token','Bearer fresh-token']);
+ assert.equal(requests,2);
+});
+
+test('provider stops after one forced token refresh when 401 persists',async()=>{
+ let requests=0;
+ const provider=createLumiaApiProvider({baseUrl:'https://api.example',maxAttempts:3,getIdToken:async()=> 'token',fetchImpl:async()=>{requests++;return response(401,{detail:'Invalid Firebase ID token'});}});
+ await assert.rejects(()=>provider.listSaveSlots(),error=>error.code==='AUTH_REQUIRED'&&error.status===401);
+ assert.equal(requests,2);
+});
+
 test('dialogue load encodes the event id and GET can retry a transient network failure',async()=>{
  const urls=[];let count=0;const provider=createLumiaApiProvider({baseUrl:'https://api.example',getIdToken:async()=>'token',maxAttempts:2,fetchImpl:async url=>{urls.push(url);if(++count===1)throw new TypeError('offline');return response(200,{eventId:'NPC A/1'});}});
  const value=await provider.loadDialogue({slotId:4,eventId:'NPC A/1'});

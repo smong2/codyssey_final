@@ -166,6 +166,8 @@ def test_first_adventure_commits_badges_puzzle_piece_and_daily_unlocks(activity_
         )
         assert completed.status_code == 200, completed.text
         progression = completed.json()["progression"]
+        assert completed.json()["slot"]["serverRevision"] == 4
+        assert set(completed.json()["collectionPatch"]) >= {"meta", "statistics", "pendingCharacterUnlockIds"}
         assert "BADGE_FOREST_COMPASS_01" in progression["badges"]
         assert "BADGE_WORKSHOP_PUZZLE_01" in progression["badges"]
         assert len(progression["puzzlePieces"]) == 1

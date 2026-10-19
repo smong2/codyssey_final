@@ -18,8 +18,8 @@ from .dialogue_master import DialogueMaster, DialogueMasterError
 from .firebase import FirebaseServices, get_firebase_services
 from .models import GlobalMetaProgress, SaveSlot
 from .repositories import (
-    AccountNotFound, DeletionPending, InvalidMutation, MutationPlan, RequestIdReused,
-    RevisionConflict, SaveSlotRepository, SlotNotFound, UserDocPath,
+    AccountNotFound, DeletionPending, InvalidMutation, MutationPlan, MutationResult,
+    RequestIdReused, RevisionConflict, SaveSlotRepository, SlotNotFound, UserDocPath,
 )
 
 
@@ -99,6 +99,34 @@ def _slot_payload(slot: SaveSlot, dialogue_master: DialogueMaster | None = None)
                 ))
                 if text:
                     choice["text"] = text
+    return payload
+
+
+def mutation_response(result: MutationResult, slot_id: int, **extra: object) -> dict:
+    """Return post-commit state without immediately re-reading Firestore."""
+    payload: dict = {
+        "slotId": slot_id,
+        "serverRevision": result.server_revision,
+        "replayed": result.replayed,
+        **deepcopy(dict(result.result_data)),
+        **extra,
+    }
+    if result.slot is not None:
+        payload["slot"] = result.slot.model_dump(mode="json")
+    collection_patch: dict = {}
+    for path, document in result.documents.items():
+        if path.collection == "meta" and path.document_id == "progress":
+            collection_patch["meta"] = deepcopy(dict(document))
+        elif path.collection == "statistics" and path.document_id == "global":
+            collection_patch["statistics"] = deepcopy(dict(document))
+        elif path.collection == "unlockState" and path.document_id == "global":
+            collection_patch["pendingCharacterUnlockIds"] = deepcopy(
+                document.get("pendingCharacterUnlockIds", [])
+            )
+        elif path.collection == "settings" and path.document_id == "account":
+            collection_patch["settings"] = deepcopy(dict(document))
+    if collection_patch:
+        payload["collectionPatch"] = collection_patch
     return payload
 
 
@@ -256,7 +284,7 @@ def start_run(
             operation="startRun", command={"characterId": body.characterId},
             read_paths=read_paths, mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision, "replayed": result.replayed}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _error(error) from None
 
@@ -275,8 +303,7 @@ def delete_save_slot(
                 slot_id=slot_id, request_id=body.requestId,
                 game_data_version=GAME_DATA_VERSION,
             )
-            return {"slotId": slot_id, "serverRevision": result.server_revision,
-                    "replayed": result.replayed}
+            return mutation_response(result, slot_id)
         except Exception as error:
             raise _error(error) from None
     if body.expectedServerRevision is None:
@@ -300,7 +327,7 @@ def delete_save_slot(
             operation="deleteSlot", command={"confirm": True},
             read_paths=(), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision, "replayed": result.replayed}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _error(error) from None
 
@@ -376,6 +403,6 @@ def recover_interrupted_activity(
             operation="recoverInterruptedActivity", command={},
             read_paths=(), mutator=mutate,
         )
-        return {"slotId": slot_id, "serverRevision": result.server_revision, "replayed": result.replayed}
+        return mutation_response(result, slot_id)
     except Exception as error:
         raise _error(error) from None

@@ -19,7 +19,7 @@ from .models import GlobalMetaProgress, GlobalStatistics, SaveSlot, UnlockState
 from .progression_rules import (ProgressionError, evaluate_progression,
                                 record_daily_unlocks)
 from .repositories import MutationPlan, SaveSlotRepository, UserDocPath
-from .save_slots import get_slot_repository, _error as slot_error
+from .save_slots import get_slot_repository, mutation_response, _error as slot_error
 
 
 router = APIRouter(tags=["dialogue"])
@@ -103,11 +103,11 @@ def load_dialogue(
 ) -> dict:
     secret = _secret(request)
     try:
-        slot = repository.get(slot_id)
+        slot, documents = repository.get_slot_and_user_documents(slot_id, (META,))
         if not _is_pending(slot, event_id):
             raise DialogueRejected("Event is not pending for this run")
         run = slot.activeRun
-        meta_raw = repository.get_user_document(META)
+        meta_raw = documents[META]
         if meta_raw is None:
             raise DialogueRejected("Global progress is unavailable")
         meta = GlobalMetaProgress.model_validate(meta_raw)
@@ -382,11 +382,16 @@ def complete_dialogue(
                      "selectedChoices": [choice.model_dump() for choice in body.selectedChoices]},
             read_paths=(META, STATISTICS, UNLOCK, day_path), mutator=mutate,
         )
-        current = repository.get(slot_id)
-        return {"success": True, "completionMode": result.result_data["completionMode"],
-                "serverRevision": current.serverRevision, "appliedRevision": result.server_revision,
-                "replayed": result.replayed, "activeRun": current.activeRun,
-                "appliedSummary": result.result_data["appliedSummary"],
-                "progression": result.result_data["progression"]}
+        current = result.slot or repository.get(slot_id)
+        return mutation_response(
+            result, slot_id,
+            success=True,
+            completionMode=result.result_data["completionMode"],
+            serverRevision=current.serverRevision,
+            appliedRevision=result.server_revision,
+            activeRun=current.activeRun,
+            appliedSummary=result.result_data["appliedSummary"],
+            progression=result.result_data["progression"],
+        )
     except Exception as error:
         raise _http_error(error) from None

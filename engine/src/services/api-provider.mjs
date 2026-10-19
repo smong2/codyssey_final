@@ -28,24 +28,25 @@ export function createLumiaApiProvider({baseUrl,getIdToken,fetchImpl=globalThis.
  const root=baseUrl.replace(/\/+$/,'');
  const request=async(path,{method='GET',body,retryable=method==='GET',retryStatuses=RETRYABLE_STATUS,requestTimeoutMs=timeoutMs}={})=>{
   const bodyText=body===undefined?undefined:JSON.stringify(body);
-  let lastError;
-  for(let attempt=1;attempt<=maxAttempts;attempt++){
+  let lastError,attempt=1,forceRefresh=false,authRetried=false;
+  while(attempt<=maxAttempts){
    let token;
-   try{token=await getIdToken();}catch{throw new LumiaApiError('로그인 인증 정보를 확인하지 못했습니다.',{code:'AUTH_REQUIRED'});}
+   try{token=await getIdToken({forceRefresh});forceRefresh=false;}catch{throw new LumiaApiError('로그인 인증 정보를 확인하지 못했습니다.',{code:'AUTH_REQUIRED'});}
    if(typeof token!=='string'||!token.trim())throw new LumiaApiError('로그인 인증 정보가 없습니다.',{code:'AUTH_REQUIRED'});
    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),requestTimeoutMs);
    try{
     const response=await fetchImpl(root+path,{method,headers:{Authorization:`Bearer ${token}`,...(bodyText===undefined?{}:{'Content-Type':'application/json'})},body:bodyText,signal:controller.signal});
     let data=null;try{data=await response.json();}catch{}
     if(response.ok)return data;
+    if(response.status===401&&!authRetried){authRetried=true;forceRefresh=true;continue;}
     const canRetry=retryable&&retryStatuses.has(response.status)&&attempt<maxAttempts;
     const error=new LumiaApiError(safeDetail(data)??`API 요청에 실패했습니다. (${response.status})`,{code:errorCode(response.status),status:response.status,retryable:canRetry||RETRYABLE_STATUS.has(response.status)});
-    if(canRetry){lastError=error;continue;}throw error;
+    if(canRetry){lastError=error;attempt++;continue;}throw error;
    }catch(error){
     if(error instanceof LumiaApiError)throw error;
     const timeout=error?.name==='AbortError',canRetry=retryable&&attempt<maxAttempts;
     const mapped=new LumiaApiError(timeout?'API 응답 시간이 초과되었습니다.':'API에 연결하지 못했습니다.',{code:timeout?'TIMEOUT':'NETWORK',retryable:true});
-    if(canRetry){lastError=mapped;continue;}throw mapped;
+    if(canRetry){lastError=mapped;attempt++;continue;}throw mapped;
    }finally{clearTimeout(timer);}
   }
   throw lastError??new LumiaApiError('API 요청을 완료하지 못했습니다.');

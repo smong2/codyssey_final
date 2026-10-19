@@ -153,6 +153,8 @@ def test_load_complete_and_idempotent_replay(content_db):
         assert completed.status_code == 200, completed.text
         result = completed.json()
         assert result["serverRevision"] == 2
+        assert result["slot"]["serverRevision"] == 2
+        assert set(result["collectionPatch"]) >= {"meta", "statistics", "pendingCharacterUnlockIds"}
         assert result["activeRun"]["pendingStoryEvent"] is None
         assert result["activeRun"]["eventFlags"]["MS01"] is True
         assert result["activeRun"]["storyProgress"]["MS01"]["status"] == "COMPLETED"

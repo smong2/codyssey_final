@@ -119,6 +119,7 @@ def test_schedule_and_activity_start_are_retry_safe(activity_db):
         confirmed = _schedule(client, ids)
         assert confirmed.status_code == 200, confirmed.text
         assert confirmed.json()["serverRevision"] == 2
+        assert confirmed.json()["slot"]["activeRun"]["weeklySchedule"]["MONDAY"]["status"] == "PLANNED"
         assert _schedule(client, ids).json()["replayed"] is True
         assert len(raw["activeRun"]["weeklySchedule"]) == 0  # repository replaces document
         checked = database.data["users/owner/saveSlots/1"]
@@ -130,6 +131,7 @@ def test_schedule_and_activity_start_are_retry_safe(activity_db):
         assert begun.json()["staminaAfterStart"] == 90
         assert begun.json()["rewardDifficulty"] == "EASY"
         assert begun.json()["assistLevel"] == 0
+        assert begun.json()["slot"]["activeRun"]["weeklySchedule"]["MONDAY"]["status"] == "IN_PROGRESS"
         assert _start(client).json()["replayed"] is True
         saved = database.data["users/owner/saveSlots/1"]
         assert saved["activeRun"]["stamina"]["current"] == 90
@@ -410,6 +412,8 @@ def test_rest_completion_commits_slot_global_and_kst_day_once(activity_db):
         assert payload["restChoice"] == "HOME"
         assert payload["recoveryRoll"] in (60, 70, 80)
         assert payload["staminaRecovered"] == 0  # began at full stamina
+        assert payload["slot"]["serverRevision"] == 4
+        assert payload["collectionPatch"]["statistics"]["totalRestCount"] == 1
         assert _complete_rest(client).json()["replayed"] is True
         slot = database.data["users/owner/saveSlots/1"]
         assert slot["activeRun"]["weeklySchedule"]["MONDAY"]["resolution"] == "SUCCESS"
