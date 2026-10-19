@@ -457,6 +457,7 @@ button:active:not(:disabled){scale:.97}
 .ending-page{background:linear-gradient(#142021a6,#142021b3),var(--room-bg,url('./world-assets/BG11_myroom2_day_1920x1080_023.png')) center/cover!important}
 .ending-page>.preview-label{display:none}
 .ending-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);gap:18px;height:calc(100dvh - 64px);max-width:1120px;margin:auto;color:var(--ink)}
+.ending-career-art{background:url('./design-assets/item/IT_focus_END_career_letter_card_01.png') center/100% 100% no-repeat;padding:3.7% 4.5%}
 .ending-summary,.ending-letter{padding:24px;min-height:0;overflow:auto}
 .ending-summary h1{font-size:25px;letter-spacing:1px}
 .ending-summary .actions{flex-direction:column}

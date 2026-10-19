@@ -178,15 +178,19 @@
         1254,
         1254
       ],
-      "sha256": "d45ce67f14387549a3b196dcedfb2504f9ac91e55f0c178b81b5b22609fab522",
+      "sha256": "c16af5771f753885cdeb2a1cd2770ee8d24136119f13b8552e156117924431a6",
       "bytes": 14312,
       "bounds": {
         "left": 64,
-        "top": 54,
+        "top": 64,
         "width": 72,
         "height": 82,
         "transparent": 36125
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        10
+      ]
     },
     {
       "index": 6,
@@ -201,15 +205,19 @@
         1254,
         1254
       ],
-      "sha256": "6562af37905252a98df4ab3e7fc62c3f5c70d69c03a91d5d7af8e495f86efa40",
-      "bytes": 16276,
+      "sha256": "2b07176f463009177edfb14255efa0cb7e8b14ed702804e043d162ca364d3b32",
+      "bytes": 16277,
       "bounds": {
         "left": 63,
-        "top": 60,
+        "top": 71,
         "width": 79,
         "height": 77,
         "transparent": 35533
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        11
+      ]
     },
     {
       "index": 7,
@@ -224,15 +232,19 @@
         1254,
         1254
       ],
-      "sha256": "717b14ba0533a331771625e423b4a90e3ddc3d9774ec20c4bef32cdcaf7557dd",
-      "bytes": 17021,
+      "sha256": "b89de4f423be34d705367b47aa64fcca7540cd8e52c8b451fdf922280f750704",
+      "bytes": 17044,
       "bounds": {
         "left": 61,
-        "top": 58,
+        "top": 65,
         "width": 78,
         "height": 80,
         "transparent": 35392
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        7
+      ]
     },
     {
       "index": 8,
@@ -247,15 +259,19 @@
         1254,
         1254
       ],
-      "sha256": "0f06c8569f789c17f6cfb146ce09fad2edbb7039c2f10f81965f32df4c76929c",
+      "sha256": "cb79fe188422a7d614daea0694b9774cf9c415a577feaf4094ae7af638674720",
       "bytes": 14088,
       "bounds": {
         "left": 65,
-        "top": 55,
+        "top": 67,
         "width": 75,
         "height": 80,
         "transparent": 36196
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        12
+      ]
     },
     {
       "index": 9,
@@ -270,15 +286,19 @@
         1254,
         1254
       ],
-      "sha256": "27174cf193115c2a61323205b6e940ec506bd0835bbbe0a048a27c994596d65d",
-      "bytes": 14295,
+      "sha256": "a8b2d7dbcb85f7c7f8bffc51495faae441ca75e434e91296d53cc3b34134f349",
+      "bytes": 14296,
       "bounds": {
         "left": 60,
-        "top": 61,
+        "top": 72,
         "width": 82,
         "height": 72,
         "transparent": 36047
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        11
+      ]
     },
     {
       "index": 10,
@@ -293,15 +313,19 @@
         1254,
         1254
       ],
-      "sha256": "691fd98e00c9162eac6e0a4693baa220d0fc3ee2c9f445d9b2b26cb93dbe3a91",
-      "bytes": 11343,
+      "sha256": "c97ded911563c266ced9b64ba124a1e5ac9dc8c0cb5d07cc0bbddd11a124d7de",
+      "bytes": 11341,
       "bounds": {
         "left": 84,
-        "top": 54,
+        "top": 59,
         "width": 61,
         "height": 80,
         "transparent": 36875
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        5
+      ]
     },
     {
       "index": 11,
@@ -316,15 +340,19 @@
         1254,
         1254
       ],
-      "sha256": "b9f3e0627dbdfe337f672ed85d5ab5869f9e792cf09e2ef298d344973ee8a650",
-      "bytes": 8957,
+      "sha256": "e52cae4718bd48d45678e2d6b86bd309c194ea9b67f2671bca7093b4185f0ce3",
+      "bytes": 8958,
       "bounds": {
         "left": 84,
-        "top": 68,
+        "top": 72,
         "width": 65,
         "height": 54,
         "transparent": 37500
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        4
+      ]
     },
     {
       "index": 12,
@@ -339,15 +367,19 @@
         1254,
         1254
       ],
-      "sha256": "26ef64e14c16b04a8fe2a03d15af7b148a2efba9d8a38b14583bd4017d050f22",
+      "sha256": "c43a193e66eb34e132ea6a8787b8d0958735e0687a705ed546260937a5d4e59a",
       "bytes": 11472,
       "bounds": {
         "left": 77,
-        "top": 66,
+        "top": 70,
         "width": 76,
         "height": 58,
         "transparent": 36818
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        4
+      ]
     },
     {
       "index": 13,
@@ -362,15 +394,19 @@
         1254,
         1254
       ],
-      "sha256": "2ed543b86d1120352a433df188a93335ab77b986ef3265cbf5869d112d838603",
-      "bytes": 5963,
+      "sha256": "46740797cc5e61c476818669e95b2e1a7229c010a5a3e0ec6bdb0bb6400248e8",
+      "bytes": 5964,
       "bounds": {
         "left": 94,
-        "top": 56,
+        "top": 62,
         "width": 42,
         "height": 76,
         "transparent": 38459
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        6
+      ]
     },
     {
       "index": 14,
@@ -385,15 +421,19 @@
         1254,
         1254
       ],
-      "sha256": "7ec8e0347585d13e66e3824cb348e3e1e39935c456ba97377f38b0ba468d8bfd",
-      "bytes": 10854,
+      "sha256": "ababb3c343f02c24a3aaf503ce6dc485b89a4e773122c6933857eec6b29be117",
+      "bytes": 10853,
       "bounds": {
         "left": 85,
-        "top": 58,
+        "top": 63,
         "width": 65,
         "height": 71,
         "transparent": 37124
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        5
+      ]
     },
     {
       "index": 15,
@@ -408,15 +448,19 @@
         1254,
         1254
       ],
-      "sha256": "84562e97ae6a44f3b274bb26923c3ee74868db947495499e85d53b0353577927",
+      "sha256": "4d8305ac98fa618c1a457598892cb0f82454ad15bef63053e4b1eec719fd275e",
       "bytes": 10124,
       "bounds": {
         "left": 63,
-        "top": 62,
+        "top": 70,
         "width": 78,
         "height": 70,
         "transparent": 37303
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        8
+      ]
     },
     {
       "index": 16,
@@ -431,15 +475,19 @@
         1254,
         1254
       ],
-      "sha256": "116d0a50db0aba3884f0d3022e6688e75f79741a12db40cb0900c86917e0bf07",
-      "bytes": 12797,
+      "sha256": "dc04588af47659996dc9548f43284f37a9621383381d38ecf5c8e9f7d63c5b68",
+      "bytes": 12799,
       "bounds": {
         "left": 59,
-        "top": 63,
+        "top": 67,
         "width": 80,
         "height": 74,
         "transparent": 36470
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        4
+      ]
     },
     {
       "index": 17,
@@ -454,15 +502,19 @@
         1254,
         1254
       ],
-      "sha256": "f442b17ebc1148f5334b327ad4e9c7e2887ed06e41612fb1b80ce25c9aaefe12",
+      "sha256": "5d6bbb1240a2aded68344864ce0eb131fcf0475300cdd6a24812675dfb7bf131",
       "bytes": 12849,
       "bounds": {
         "left": 65,
-        "top": 60,
+        "top": 66,
         "width": 73,
         "height": 77,
         "transparent": 36525
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        6
+      ]
     },
     {
       "index": 18,
@@ -477,15 +529,19 @@
         1254,
         1254
       ],
-      "sha256": "e9a73e3b1cb9822df6d4bdbcb18e03ff6141d7f3fb3b42cd11311f0e8ce2b0b3",
-      "bytes": 15874,
+      "sha256": "d9512148ef5ac6663cade287763f856013503ffbd22450405d0b493c716d4ce7",
+      "bytes": 15876,
       "bounds": {
         "left": 60,
-        "top": 59,
+        "top": 67,
         "width": 84,
         "height": 78,
         "transparent": 35649
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        8
+      ]
     },
     {
       "index": 19,
@@ -500,15 +556,19 @@
         1254,
         1254
       ],
-      "sha256": "7f97fd3390371cb1166b79bc01d651aa82626d82ca410df53680fbce3b8da697",
-      "bytes": 10801,
+      "sha256": "dbde735ee0399e35b5ad90c430e90aa35cbf943f406858342bcf7dbf688f1ebe",
+      "bytes": 10802,
       "bounds": {
         "left": 61,
-        "top": 63,
+        "top": 70,
         "width": 79,
         "height": 69,
         "transparent": 36992
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        7
+      ]
     },
     {
       "index": 20,
@@ -523,15 +583,19 @@
         1254,
         1254
       ],
-      "sha256": "5f3f52b688cab744053a1314bc19ad6ba6a26ae5f3d9469b8a85121fdb78c1b1",
-      "bytes": 12201,
+      "sha256": "688b155b2e7e223a92a0377af0ccbbdb227768c5b5b4665360d30a3079f95647",
+      "bytes": 12199,
       "bounds": {
-        "left": 57,
+        "left": 63,
         "top": 73,
         "width": 86,
         "height": 56,
         "transparent": 36596
-      }
+      },
+      "placementOffsetPx": [
+        6,
+        0
+      ]
     },
     {
       "index": 21,
@@ -546,15 +610,19 @@
         1254,
         1254
       ],
-      "sha256": "0fe6da4f7411ae215ae04219f5831ff68d37761dfb2a05ad026e8565b711cb16",
-      "bytes": 12174,
+      "sha256": "ea9f7f3e7fc50db77a6bd42fe905f4dbd9b012ec4034270202a937087e6068df",
+      "bytes": 12175,
       "bounds": {
-        "left": 64,
+        "left": 72,
         "top": 64,
         "width": 75,
         "height": 70,
         "transparent": 36654
-      }
+      },
+      "placementOffsetPx": [
+        8,
+        0
+      ]
     },
     {
       "index": 22,
@@ -569,15 +637,19 @@
         1254,
         1254
       ],
-      "sha256": "cd6115ab000eff9d248ae58cd0a8d6e1dbc2354478c0a77e82f53380d20bd44c",
-      "bytes": 12294,
+      "sha256": "134dc4431afd00b3b0225f48d4ed96de3566e4cb4042661575adc5c301bc8699",
+      "bytes": 12295,
       "bounds": {
-        "left": 63,
+        "left": 68,
         "top": 66,
         "width": 76,
         "height": 65,
         "transparent": 36690
-      }
+      },
+      "placementOffsetPx": [
+        5,
+        0
+      ]
     },
     {
       "index": 23,
@@ -592,15 +664,19 @@
         1254,
         1254
       ],
-      "sha256": "68d82cd840bd99ecc48337072d186eb228a3a6aca6513d0f8b10e246b2fe74da",
-      "bytes": 12408,
+      "sha256": "195a29b373c64ed5c9f314c8cc6af9aeabf709a6c0fcd649484d4dcfd0ff74ba",
+      "bytes": 12406,
       "bounds": {
-        "left": 60,
+        "left": 65,
         "top": 69,
         "width": 82,
         "height": 62,
         "transparent": 36465
-      }
+      },
+      "placementOffsetPx": [
+        5,
+        0
+      ]
     },
     {
       "index": 24,
@@ -623,7 +699,11 @@
         "width": 75,
         "height": 81,
         "transparent": 36797
-      }
+      },
+      "placementOffsetPx": [
+        0,
+        0
+      ]
     },
     {
       "index": 25,
@@ -638,15 +718,19 @@
         1254,
         1254
       ],
-      "sha256": "1e062ec639e622149fb40d430de1b34a3ce9a2257bbc6f9a34806ba3902d542c",
-      "bytes": 11319,
+      "sha256": "d2e2639becf7901d0bbd60fb6a31b7a383ac714b0d336e4516d4ea85b1403907",
+      "bytes": 11318,
       "bounds": {
-        "left": 71,
-        "top": 54,
+        "left": 67,
+        "top": 57,
         "width": 61,
         "height": 86,
         "transparent": 36879
-      }
+      },
+      "placementOffsetPx": [
+        -4,
+        3
+      ]
     },
     {
       "index": 26,
@@ -661,15 +745,19 @@
         1254,
         1254
       ],
-      "sha256": "a79dcf8ae3778bba1f5bdaf9ed2fa84bb991f29a6bf1709a47d67f116c352e90",
-      "bytes": 13443,
+      "sha256": "5ac7a42e2c1b937f551629d9b208d4e0bc8f458aa01b15a8184b527baa7fbe06",
+      "bytes": 13442,
       "bounds": {
-        "left": 62,
+        "left": 59,
         "top": 65,
         "width": 78,
         "height": 67,
         "transparent": 36347
-      }
+      },
+      "placementOffsetPx": [
+        -3,
+        0
+      ]
     },
     {
       "index": 27,
@@ -684,15 +772,19 @@
         1254,
         1254
       ],
-      "sha256": "97a8d0805fd6a462122f4820ce20d5565c3b8099e0b247bf016ba24b68a376ce",
-      "bytes": 13728,
+      "sha256": "a062a36e067beb45b7c89145df10141bce30bf48437ac005baad74dfec559f19",
+      "bytes": 13727,
       "bounds": {
-        "left": 66,
-        "top": 54,
+        "left": 64,
+        "top": 59,
         "width": 69,
         "height": 84,
         "transparent": 36150
-      }
+      },
+      "placementOffsetPx": [
+        -2,
+        5
+      ]
     },
     {
       "index": 28,
@@ -707,15 +799,19 @@
         1254,
         1254
       ],
-      "sha256": "3e2083c922bc5d3eaff197040b310be259e4ab94cb2fb04dd06654ed3f78a952",
+      "sha256": "0d74fd35cc4b8b70b7122c5abb4b1677bdcb9b54f91f2b5e1f1e568624ec4e80",
       "bytes": 13557,
       "bounds": {
-        "left": 60,
+        "left": 59,
         "top": 71,
         "width": 81,
         "height": 58,
         "transparent": 36262
-      }
+      },
+      "placementOffsetPx": [
+        -1,
+        0
+      ]
     },
     {
       "index": 29,
@@ -730,15 +826,19 @@
         1254,
         1254
       ],
-      "sha256": "525c6eda5387b24853be774fbdccd0fc89ebbda3c616dde3e8465779d18e8841",
-      "bytes": 14277,
+      "sha256": "95cf00a4c2c8dcb0b7678a7f39b2d884af9fa8244c5b51b37a5a00f9912790fb",
+      "bytes": 14276,
       "bounds": {
-        "left": 56,
-        "top": 57,
+        "left": 55,
+        "top": 61,
         "width": 88,
         "height": 77,
         "transparent": 35875
-      }
+      },
+      "placementOffsetPx": [
+        -1,
+        4
+      ]
     },
     {
       "index": 30,
@@ -993,5 +1093,6 @@
         "transparent": 26235
       }
     }
-  ]
+  ],
+  "alignmentRevision": "2026-10-19 user-approved optical alignment"
 }

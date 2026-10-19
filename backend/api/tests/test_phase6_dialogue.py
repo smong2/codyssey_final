@@ -6,7 +6,7 @@ from copy import deepcopy
 import sqlite3
 
 from backend.api.app.content_master import ContentMaster
-from backend.api.app.dialogue_master import DialogueMaster
+from backend.api.app.dialogue_master import DialogueMaster, DELIVERED_FOCUS_ASSETS
 from backend.api.app.story_candidates import ActivityContext, StoryCandidates
 from backend.api.tests.test_phase3_account import headers
 from backend.api.tests.test_phase5_save_slots import content_db, phase5_client, start
@@ -80,34 +80,38 @@ def test_approved_focus_asset_is_delivered(content_db):
         assert image.headers["content-type"] == "image/png"
 
 
-def test_loc_gh_01_runs_without_undelivered_optional_focus_art(content_db):
+def test_every_story_focus_id_resolves_to_a_served_image(content_db):
+    with sqlite3.connect(content_db) as connection:
+        expected_ids = {row[0] for row in connection.execute(
+            "SELECT DISTINCT image_asset_ref FROM dialogue_nodes "
+            "WHERE version='dev-dialogue-v1' AND image_asset_ref LIKE 'ART-%'"
+        )}
+        events = [row[0] for row in connection.execute(
+            "SELECT DISTINCT event_id FROM dialogue_sequences WHERE version='dev-dialogue-v1'"
+        )]
+    assert expected_ids == set(DELIVERED_FOCUS_ASSETS)
     master = DialogueMaster(content_db, asset_root="asset")
     cast = ContentMaster(content_db).character_and_cast(
         version="dev-dialogue-v1", character_id="CH01"
     )[1]
-    payload = master.compile(version="dev-dialogue-v1", event_id="LOC_GH_01",
-                             character_id="CH01", cast=cast)
-    assert payload["sequence"][-1] == {"type": "END"}
-    focus_commands = [
-        item for item in payload["sequence"]
-        if item.get("type") == "IMAGE" and item.get("target") == "FOCUS"
-    ]
-    assert focus_commands
-    assert all(item["action"] == "HIDE" and "src" not in item for item in focus_commands)
-    assert any(item.get("src", "").startswith("/world-assets/")
-               for item in payload["sequence"])
-
-    client, database = phase5_client(content_db, dialogue_secret=SECRET)
+    delivered_paths = {
+        item["src"]
+        for event_id in events
+        for item in master.compile(
+            version="dev-dialogue-v1", event_id=event_id,
+            character_id="CH01", cast=cast
+        )["sequence"]
+        if item.get("src", "").startswith("/item-assets/")
+    }
+    assert delivered_paths == {
+        f"/item-assets/{filename}" for filename in DELIVERED_FOCUS_ASSETS.values()
+    }
+    client, _ = phase5_client(content_db, dialogue_secret=SECRET)
     with client:
-        assert start(client).status_code == 200
-        run = database.data["users/owner/saveSlots/1"]["activeRun"]
-        run["pendingStoryEvent"] = {"eventId": "LOC_GH_01"}
-        loaded = client.get("/v1/save-slots/1/dialogue/LOC_GH_01", headers=headers())
-        assert loaded.status_code == 200, loaded.text
-        sequence = loaded.json()["sequence"]
-        assert any(item.get("type") == "CHOICE" for item in sequence)
-        assert all("ART-L02" not in item.get("src", "") and
-                   "ART-L03" not in item.get("src", "") for item in sequence)
+        for path in delivered_paths:
+            response = client.get(path)
+            assert response.status_code == 200, path
+            assert response.headers["content-type"] == "image/png", path
 
 
 def test_all_reviewed_graphs_compile_without_asset_delivery_assumption(content_db):
@@ -223,17 +227,13 @@ def test_ms05_important_memory_and_clamped_visible_delta(content_db):
         assert all(value <= 1 for value in result.json()["appliedSummary"]["visibleStatDelta"].values())
 
 
-def test_tampered_token_and_unavailable_art_fail_closed(content_db):
+def test_tampered_token_fails_closed(content_db):
     client, database = phase5_client(content_db, dialogue_secret=SECRET)
     with client:
         assert start(client).status_code == 200
         payload = client.get("/v1/save-slots/1/dialogue/MS01", headers=headers()).json()
         payload["dialogueToken"] += "x"
         assert _complete(client, payload, _selected(payload)).status_code == 409
-        database.data["users/owner/saveSlots/1"]["activeRun"]["pendingStoryEvent"] = {"eventId": "MS02"}
-        response = client.get("/v1/save-slots/1/dialogue/MS02", headers=headers())
-        assert response.status_code == 503
-        assert "asset" in response.json()["detail"].lower()
 
 
 def test_story_candidates_respect_location_progress_and_pending(content_db):

@@ -1,19 +1,19 @@
 # 게임용 아이템
 
-이 폴더에는 스토리에서 채택한 FOCUS 3장, 채택 전 프레임 카드 3장, 배치 후보 소품·가구 25장, 승인된 모험 목표 15장, 총 **46장**이 있습니다. 마이룸·일지의 UI 재료 5장은 용도에 맞춰 [`asset/ui/`](../ui/README.md)로 옮겼습니다.
+이 폴더에는 스토리에서 채택한 FOCUS·엔딩 카드 17장, 채택 전 프레임 카드 3장, 배치 후보 소품·가구 25장, 승인된 모험 목표 15장, 총 **60장**이 있습니다. 마이룸·일지의 UI 재료 5장은 용도에 맞춰 [`asset/ui/`](../ui/README.md)로 옮겼습니다.
 
 ## 빠른 탐색
 
 | 순서 | 찾을 내용 | 이 폴더에서 확인할 곳 |
 |---|---|---|
-| 1 | `NPC_GUIDE_01`, `NPC_LULU_02`, `LOC_OBS_01`의 채택 FOCUS | [스토리 FOCUS 연결 상태](#스토리-focus-연결-상태) → [채택한 스토리 FOCUS](#채택한-스토리-focus--3장) |
-| 2 | 온실 화분·대서고 고서의 카드 후보 | [스토리 FOCUS 연결 상태](#스토리-focus-연결-상태) → [기존 프레임형 조사 이미지](#기존-프레임형-조사-이미지--3장) |
+| 1 | `MS*`, `NPC_*`, `LOC_*`, `END`의 확정 FOCUS·엔딩 카드 | [확정 스토리 FOCUS·엔딩 카드](#확정-스토리-focus와-엔딩-카드--17장) |
+| 2 | 온실 화분·대서고 고서의 카드 후보 | [확정 스토리 FOCUS·엔딩 카드](#확정-스토리-focus와-엔딩-카드--17장) → [기존 프레임형 조사 이미지](#기존-프레임형-조사-이미지--3장) |
 | 3 | 마이룸 가구·일반 소품 후보 | [일반 아이템 아트](#일반-아이템-아트--25장) |
 | 4 | 모험 목표 아이템 15종 · `ADV_GH/LIB/OBS_*` | [모험 목표 아이템](#모험-목표-아이템--15장) → [전용 목록·미리보기](adventure/README.md) |
 
-일반 소품·가구·스토리 FOCUS 파일명은 `IT_<역할>_<장면 또는 후보 영역>_<대상>_<번호>.png`입니다. `adventure/`의 모험 목표는 엔진 목표 ID를 그대로 쓰는 `ADV_<장소>_<번호>.png`입니다. `focus`의 `NPC_*`·`LOC_*`는 **최초 등장 장면**이고 재사용 회차는 아래 사용처에 적었습니다. `card`·`prop`·`furniture`의 `candidate`는 **배치 제안**이므로 확정 스토리 이미지로 사용하지 않습니다. 원래 제작 ID `ART-N01`·`ART-N06`·`ART-L01`은 파일명 대신 아래 표와 [에셋 전체 장면표](../README.md)에 계속 기록합니다. 소유·해금·획득 조건은 이미지 파일명만으로 확정되지 않습니다.
+일반 소품·가구·스토리 FOCUS 파일명은 `IT_<역할>_<장면 또는 후보 영역>_<대상>_<번호>.png`입니다. `adventure/`의 모험 목표는 엔진 목표 ID를 그대로 쓰는 `ADV_<장소>_<번호>.png`입니다. `focus`의 `NPC_*`·`LOC_*`는 **최초 등장 장면**이고 재사용 회차는 아래 사용처에 적었습니다. `card`·`prop`·`furniture`의 `candidate`는 **배치 제안**이므로 확정 스토리 이미지로 사용하지 않습니다. 제작 ID `ART-M*`·`ART-N*`·`ART-L*`·`ART-E01`은 파일명 대신 아래 표와 [에셋 전체 장면표](../README.md)에 계속 기록합니다. 소유·해금·획득 조건은 이미지 파일명만으로 확정되지 않습니다.
 
-이미지의 경로가 등록된 것과 게임 화면에 표시되는 것은 별도입니다. 엔진의 아트 미리보기 목록과 에셋 경로 테스트는 새 `IT` 이름으로 동기화했습니다. 일부 `document/`·`document_for_ai/` 문서는 옛 파일명 예시를 유지하므로, 에셋 밖 문서 정리 시 새 경로로 교체해야 합니다.
+이미지의 경로가 등록된 것과 게임 화면에 표시되는 것은 별도입니다. 대화 API는 확정 FOCUS 16장을 `ART-*`와 연결하며, 엔딩 카드는 엔딩 UI의 공용 받침으로 연결했습니다. 일부 `document/`·`document_for_ai/` 문서는 옛 파일명 예시를 유지하므로, 에셋 밖 문서 정리 시 새 경로로 교체해야 합니다.
 
 ## 모험 목표 아이템 · 15장
 
@@ -25,43 +25,39 @@
 | 대서고 | `ADV_LIB_01`–`ADV_LIB_05` | <img src="adventure/ADV_LIB_01.png" width="105" alt="책갈피 룬 조각"> [5종 파일명·미리보기](adventure/README.md#대서고) |
 | 별빛 천문대 | `ADV_OBS_01`–`ADV_OBS_05` | <img src="adventure/ADV_OBS_01.png" width="105" alt="별빛 렌즈 조각"> [5종 파일명·미리보기](adventure/README.md#별빛-천문대) |
 
-## 스토리 FOCUS 연결 상태
+## 확정 스토리 FOCUS와 엔딩 카드 · 17장
 
-아래 그림은 보유 이미지입니다. `ART-*`는 최신 제작 문서의 **필요 그림 ID**이며, 이름이나 장소가 비슷하다는 이유로 자동 확정하지 않습니다. [전체 장면 연결표](../README.md)에서 배경·화자와 함께 확인하세요.
+제작 ID와 최초 장면은 [대화 이미지 대장](../../story/ASSET_DIALOGUE_LEDGER.md) 및 [`document/dialogue/`](../../document/dialogue/README.md)에 맞췄습니다. **정확한 파일 경로는 표의 링크**이며, 백엔드 대화 `ART-*` 16개는 `/item-assets/<파일명>`으로 제공합니다. `ART-E01`은 엔딩 화면의 공용 받침으로 표시하며 직업명·편지는 화면의 실시간 텍스트입니다. `NPC_*`·`LOC_*` 파일명은 최초 등장 회차를 나타내고 재사용 범위는 아래에 따로 적었습니다. 새 아이보리 선택지 프레임은 [UI 목록](../ui/README.md)에 있습니다.
 
-| 이야기·필요 그림 | 현재 보유 이미지 · 미리보기 | 판단 |
-|---|---|---|
-| `LOC_OBS_01–04` · `ART-L01` 펼친 관측 일기 | [먼지·거미줄이 쌓인 펼친 관측 일기](./IT_focus_LOC_OBS_01_observation_diary_03.png)<br>큰 미리보기는 아래 `ART-L01` 항목 참조 | **이미지 채택**: 네 회차가 이 한 장을 재사용. 엔진 표시 검수는 별도 |
-| `LOC_GH_01-R1` · `ART-L02` 시든 허브 화분 | [시든 화분 카드](./IT_card_candidate_GH_wilted_plant_01.png)<br><img src="./IT_card_candidate_GH_wilted_plant_01.png" width="200" alt="시든 화분 카드"> | **채택 후보**: 프레임을 포함한 3840×2161 카드. 온실 배경 위 FOCUS 표시 방식 검수 필요 |
-| `LOC_GH_01-R2` · `ART-L03` 같은 화분의 회복 상태 | [회복 화분 카드](./IT_card_candidate_GH_restored_plant_02.png)<br><img src="./IT_card_candidate_GH_restored_plant_02.png" width="200" alt="회복 화분 카드"> | **채택 후보**: L02와 한 쌍. 상태 전환·규격 검수 필요 |
-| `LOC_LIB_01-R1` · `ART-L04` 책장 위 평범한 책 | [장식 있는 고서 카드](./IT_card_candidate_LIB_ancient_book_03.png)<br><img src="./IT_card_candidate_LIB_ancient_book_03.png" width="200" alt="장식 있는 고서 카드"> | **불일치 후보**: 보유 그림은 장식 있는 고서 카드. 평범한 책이 책장 위에 가로로 놓인 구도가 아님 |
+| 제작 ID | 사용 장면 | 파일 · 미리보기 | 내용 · 실제 크기 |
+|---|---|---|---|
+| `ART-M01` | `MS02-S1` | [IT_focus_MS02_blocked_vines_01.png](./IT_focus_MS02_blocked_vines_01.png)<br><img src="./IT_focus_MS02_blocked_vines_01.png" width="180" alt="출입구를 막은 덩굴"> | 출입구를 막은 덩굴 · 1672×941 |
+| `ART-M02` | `MS02-S3–S4` | [IT_focus_MS02_glowing_bud_vines_02.png](./IT_focus_MS02_glowing_bud_vines_02.png)<br><img src="./IT_focus_MS02_glowing_bud_vines_02.png" width="180" alt="커진 덩굴과 빛나는 꽃봉오리"> | 커진 덩굴과 빛나는 꽃봉오리 · 1672×941 |
+| `ART-M03` | `MS03-S1–S4` | [IT_focus_MS03_wrong_clock_rune_01.png](./IT_focus_MS03_wrong_clock_rune_01.png)<br><img src="./IT_focus_MS03_wrong_clock_rune_01.png" width="180" alt="틀린 시각의 시계판과 흐릿한 룬"> | 틀린 시각의 시계판과 흐릿한 룬 · 1672×941 |
+| `ART-M04` | `MS04-S1–S2·S5` | [IT_focus_MS04_detached_shadow_01.png](./IT_focus_MS04_detached_shadow_01.png)<br><img src="./IT_focus_MS04_detached_shadow_01.png" width="180" alt="떨어져 나온 그림자"> | 떨어져 나온 그림자 · 1672×941 |
+| `ART-M05` | `MS04-S3–S4` | [IT_focus_MS04_shadow_shield_02.png](./IT_focus_MS04_shadow_shield_02.png)<br><img src="./IT_focus_MS04_shadow_shield_02.png" width="180" alt="그림자가 비치는 방패"> | 그림자가 비치는 방패 · 1672×941 |
+| `ART-M06` | `MS06-S1–S5` | [IT_focus_MS06_winter_games_decor_01.png](./IT_focus_MS06_winter_games_decor_01.png)<br><img src="./IT_focus_MS06_winter_games_decor_01.png" width="180" alt="겨울 놀이회 장식"> | 겨울 놀이회 장식 · 1672×941 |
+| `ART-N01` | `NPC_GUIDE_01–02·04` | [IT_focus_NPC_GUIDE_01_meeting_notices_01.png](./IT_focus_NPC_GUIDE_01_meeting_notices_01.png)<br><img src="./IT_focus_NPC_GUIDE_01_meeting_notices_01.png" width="180" alt="바람에 흩어진 모임 안내지"> | 바람에 흩어진 모임 안내지 · 1672×941 |
+| `ART-N02` | `NPC_GUIDE_03–04` | [IT_focus_NPC_GUIDE_03_two_ribbons_01.png](./IT_focus_NPC_GUIDE_03_two_ribbons_01.png)<br><img src="./IT_focus_NPC_GUIDE_03_two_ribbons_01.png" width="180" alt="서로 다른 장식 리본 두 개"> | 서로 다른 장식 리본 두 개 · 1536×1024 |
+| `ART-N03` | `NPC_WORK_01–02` | [IT_focus_NPC_WORK_01_workshop_parts_01.png](./IT_focus_NPC_WORK_01_workshop_parts_01.png)<br><img src="./IT_focus_NPC_WORK_01_workshop_parts_01.png" width="180" alt="서로 다른 공방 부품"> | 서로 다른 공방 부품 · 1536×1024 |
+| `ART-N04` | `NPC_WORK_03–04` | [IT_focus_NPC_WORK_03_tidy_workbench_02.png](./IT_focus_NPC_WORK_03_tidy_workbench_02.png)<br><img src="./IT_focus_NPC_WORK_03_tidy_workbench_02.png" width="180" alt="정돈된 작업대"> | 정돈된 작업대 · 1536×1024 |
+| `ART-N05` | `NPC_LULU_01–02` | [IT_focus_NPC_LULU_01_patterned_button_01.png](./IT_focus_NPC_LULU_01_patterned_button_01.png)<br><img src="./IT_focus_NPC_LULU_01_patterned_button_01.png" width="180" alt="루루가 발견한 무늬 단추"> | 루루가 발견한 무늬 단추 · 1536×1024 |
+| `ART-N06` | `NPC_LULU_02–04` | [IT_focus_NPC_LULU_02_treasure_chest_02.png](./IT_focus_NPC_LULU_02_treasure_chest_02.png)<br><img src="./IT_focus_NPC_LULU_02_treasure_chest_02.png" width="180" alt="루루의 열린 보물상자"> | 루루의 열린 보물상자 · 1672×941 |
+| `ART-L01` | `LOC_OBS_01–04` | [IT_focus_LOC_OBS_01_observation_diary_03.png](./IT_focus_LOC_OBS_01_observation_diary_03.png)<br><img src="./IT_focus_LOC_OBS_01_observation_diary_03.png" width="180" alt="먼지 쌓인 펼친 관측 일기"> | 먼지 쌓인 펼친 관측 일기 · 1672×941 |
+| `ART-L02` | `LOC_GH_01-R1` | [IT_focus_LOC_GH_01_wilted_pot_01.png](./IT_focus_LOC_GH_01_wilted_pot_01.png)<br><img src="./IT_focus_LOC_GH_01_wilted_pot_01.png" width="180" alt="시든 화분"> | 시든 화분 · 1536×1024 |
+| `ART-L03` | `LOC_GH_01-R2` | [IT_focus_LOC_GH_01_restored_pot_02.png](./IT_focus_LOC_GH_01_restored_pot_02.png)<br><img src="./IT_focus_LOC_GH_01_restored_pot_02.png" width="180" alt="회복한 화분"> | 회복한 화분 · 1536×1024 |
+| `ART-L04` | `LOC_LIB_01-R1` | [IT_focus_LOC_LIB_01_plain_book_01.png](./IT_focus_LOC_LIB_01_plain_book_01.png)<br><img src="./IT_focus_LOC_LIB_01_plain_book_01.png" width="180" alt="책장 위 평범한 책"> | 책장 위 평범한 책 · 1536×1024 |
+| `ART-E01` | `END 직업 결과·편지` | [IT_focus_END_career_letter_card_01.png](./IT_focus_END_career_letter_card_01.png)<br><img src="./IT_focus_END_career_letter_card_01.png" width="180" alt="글자 없는 공용 직업 카드·편지 받침"> | 글자 없는 공용 직업 카드·편지 받침 · 1672×941 |
 
-`MS02`의 마법 덩굴은 `ART-M01/M02`로 별도 제작 지시가 있습니다. 여기의 일상 시든·회복 화분이나 `LOC_GH_01` 카드를 MS02에 자동 연결하지 않습니다. `ART-N01` 안내지와 `ART-N06` 루루 보물상자는 아래의 전용 FOCUS를 사용합니다. 그 밖의 `ART-N02–N05`, `ART-M01–M06`, `ART-E01`은 이름이 비슷한 일반 아이템을 대신 연결하지 않습니다.
+### 재사용과 상태 전환
 
-## 채택한 스토리 FOCUS · 3장
+- `ART-N01`: `NPC_GUIDE_01–02·04`에서 사용. `NPC_GUIDE_03–04`는 `ART-N02` 리본도 사용합니다.
+- `ART-N03`: `NPC_WORK_01–02`, `ART-N04`: `NPC_WORK_03–04`에서 사용합니다.
+- `ART-N05`: `NPC_LULU_01`의 단추, `NPC_LULU_02` 회상에도 사용. `ART-N06`: `NPC_LULU_02–04`의 보물상자입니다.
+- `ART-L01`: `LOC_OBS_01–04`가 한 장을 재사용합니다. `ART-L02`·`ART-L03`은 `LOC_GH_01`의 시든 상태(R1)와 회복 상태(R2)이며, `ART-L04`는 `LOC_LIB_01` 첫 조사(R1)입니다.
+- `ART-M06`은 `MS06` 겨울 놀이회 장식으로, `MS05` 별빛 축제의 켜짐/꺼짐 배경과 다릅니다.
 
-다음 세 장은 사용자 승인에 따라 같은 밝은 아이보리 바탕·얇은 장식 프레임으로 교체했습니다. 미리보기는 좁은 표에서 줄어들지 않도록 각각 따로 배치하고 모두 폭 280px로 맞췄습니다. 프레임 밖은 투명합니다. 아래 규격은 파일의 실제 픽셀 수입니다. **이미지 경로 확정과 엔진 화면 연결 완료는 별개**이며, 게임 화면의 표시·크기 검수는 남아 있습니다.
-
-### `ART-N01` · 바람에 흩어진 모임 안내지
-
-<img src="./IT_focus_NPC_GUIDE_01_meeting_notices_01.png" width="280" alt="밝은 아이보리 프레임 속 바람에 흩어진 작은 모임 안내지 여러 장">
-
-- 파일: [IT_focus_NPC_GUIDE_01_meeting_notices_01.png](./IT_focus_NPC_GUIDE_01_meeting_notices_01.png) · 1672×941 투명 PNG
-- 사용처: `NPC_GUIDE_01` 시계탑 광장에서 처음 표시. `NPC_GUIDE_02`, `NPC_GUIDE_04`에서 같은 그림 재사용. 읽히는 글자 대신 단순 문양 사용.
-
-### `ART-N06` · 루루의 열린 보물상자
-
-<img src="./IT_focus_NPC_LULU_02_treasure_chest_02.png" width="280" alt="밝은 아이보리 프레임 속 수집품이 보이는 루루의 열린 보물상자">
-
-- 파일: [IT_focus_NPC_LULU_02_treasure_chest_02.png](./IT_focus_NPC_LULU_02_treasure_chest_02.png) · 1672×941 투명 PNG
-- 사용처: `NPC_LULU_02` 온실 또는 약초원에서 처음 표시. `NPC_LULU_03–04`에서 같은 그림 재사용. 이후 새 발견물은 대사로 설명.
-
-### `ART-L01` · 펼쳐진 관측 일기
-
-<img src="./IT_focus_LOC_OBS_01_observation_diary_03.png" width="280" alt="밝은 아이보리 프레임 속 먼지와 거미줄이 수북한 펼친 관측 일기">
-
-- 파일: [IT_focus_LOC_OBS_01_observation_diary_03.png](./IT_focus_LOC_OBS_01_observation_diary_03.png) · 1672×941 투명 PNG
-- 사용처: `LOC_OBS_01` 별빛 천문대에서 처음 표시. `LOC_OBS_02–04`에서 같은 그림 재사용. 회차별 기록 내용은 대화창 텍스트로 표시.
+`IT_card_candidate_*` 3장은 아래에 별도 보관한 이전 비교용 카드입니다. `ART-L02–L04` 대신 자동으로 선택하지 마세요. 파일 등록과 로컬 경로 검증은 완료했으며, 운영 배포 검증은 별도입니다.
 
 ## 기존 프레임형 조사 이미지 · 3장
 
@@ -101,8 +97,8 @@
 | [IT_prop_candidate_RUNE_heart_rune_18.png](./IT_prop_candidate_RUNE_heart_rune_18.png) | 마음의 룬 | 룬 수집·조사 소품 후보; 스토리 배정 미확인 | 1024×1024 | <img src="./IT_prop_candidate_RUNE_heart_rune_18.png" width="140" alt="IT_prop_candidate_RUNE_heart_rune_18.png"> |
 | [IT_prop_candidate_RUNE_shadow_rune_19.png](./IT_prop_candidate_RUNE_shadow_rune_19.png) | 그림자 룬 | 룬 수집·조사 소품 후보. `ART-M04/M05` 그림자 장면 아님 | 1024×1024 | <img src="./IT_prop_candidate_RUNE_shadow_rune_19.png" width="140" alt="IT_prop_candidate_RUNE_shadow_rune_19.png"> |
 | [IT_prop_candidate_RUNE_purified_rune_20.png](./IT_prop_candidate_RUNE_purified_rune_20.png) | 정화된 룬 | 룬 수집·조사 소품 후보; 스토리 배정 미확인 | 1024×1024 | <img src="./IT_prop_candidate_RUNE_purified_rune_20.png" width="140" alt="IT_prop_candidate_RUNE_purified_rune_20.png"> |
-| [IT_prop_candidate_GH_wilted_plant_21.png](./IT_prop_candidate_GH_wilted_plant_21.png) | 시든 식물: 회복 전 | 온실 상태 소품 후보. `ART-L02` 프레임 카드는 위 별도 파일 | 512×512 | <img src="./IT_prop_candidate_GH_wilted_plant_21.png" width="140" alt="IT_prop_candidate_GH_wilted_plant_21.png"> |
-| [IT_prop_candidate_GH_restored_plant_22.png](./IT_prop_candidate_GH_restored_plant_22.png) | 회복된 식물: 승인 v2 | 온실 상태 소품 후보. `ART-L03` 프레임 카드는 위 별도 파일 | 512×512 | <img src="./IT_prop_candidate_GH_restored_plant_22.png" width="140" alt="IT_prop_candidate_GH_restored_plant_22.png"> |
+| [IT_prop_candidate_GH_wilted_plant_21.png](./IT_prop_candidate_GH_wilted_plant_21.png) | 시든 식물: 회복 전 | 온실 상태 소품 후보. `ART-L02` 확정 FOCUS는 위 별도 파일 | 512×512 | <img src="./IT_prop_candidate_GH_wilted_plant_21.png" width="140" alt="IT_prop_candidate_GH_wilted_plant_21.png"> |
+| [IT_prop_candidate_GH_restored_plant_22.png](./IT_prop_candidate_GH_restored_plant_22.png) | 회복된 식물: 승인 v2 | 온실 상태 소품 후보. `ART-L03` 확정 FOCUS는 위 별도 파일 | 512×512 | <img src="./IT_prop_candidate_GH_restored_plant_22.png" width="140" alt="IT_prop_candidate_GH_restored_plant_22.png"> |
 | [IT_prop_candidate_GH_moonlight_herb_23.png](./IT_prop_candidate_GH_moonlight_herb_23.png) | 달빛 약초: 조사 소품 | 약초원 조사 소품 후보; 획득 조건·장면 배정 미확인 | 256×256 | <img src="./IT_prop_candidate_GH_moonlight_herb_23.png" width="140" alt="IT_prop_candidate_GH_moonlight_herb_23.png"> |
 | [IT_prop_candidate_EVENT_rune_inactive_24.png](./IT_prop_candidate_EVENT_rune_inactive_24.png) | 이벤트 룬: 비활성 | 이벤트 룬 비활성 상태 후보; 장면 배정 미확인 | 512×512 | <img src="./IT_prop_candidate_EVENT_rune_inactive_24.png" width="140" alt="IT_prop_candidate_EVENT_rune_inactive_24.png"> |
 | [IT_prop_candidate_EVENT_rune_active_25.png](./IT_prop_candidate_EVENT_rune_active_25.png) | 이벤트 룬: 활성 | 이벤트 룬 활성 상태 후보; 장면 배정 미확인 | 512×512 | <img src="./IT_prop_candidate_EVENT_rune_active_25.png" width="140" alt="IT_prop_candidate_EVENT_rune_active_25.png"> |

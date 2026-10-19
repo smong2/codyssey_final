@@ -22,6 +22,19 @@ class DialogueAssetMissing(DialogueMasterError):
 
 
 DELIVERED_FOCUS_ASSETS = {
+    "ART-L04": "IT_focus_LOC_LIB_01_plain_book_01.png",
+    "ART-L03": "IT_focus_LOC_GH_01_restored_pot_02.png",
+    "ART-L02": "IT_focus_LOC_GH_01_wilted_pot_01.png",
+    "ART-N05": "IT_focus_NPC_LULU_01_patterned_button_01.png",
+    "ART-N04": "IT_focus_NPC_WORK_03_tidy_workbench_02.png",
+    "ART-N03": "IT_focus_NPC_WORK_01_workshop_parts_01.png",
+    "ART-N02": "IT_focus_NPC_GUIDE_03_two_ribbons_01.png",
+    "ART-M06": "IT_focus_MS06_winter_games_decor_01.png",
+    "ART-M05": "IT_focus_MS04_shadow_shield_02.png",
+    "ART-M04": "IT_focus_MS04_detached_shadow_01.png",
+    "ART-M03": "IT_focus_MS03_wrong_clock_rune_01.png",
+    "ART-M02": "IT_focus_MS02_glowing_bud_vines_02.png",
+    "ART-M01": "IT_focus_MS02_blocked_vines_01.png",
     "ART-N01": "IT_focus_NPC_GUIDE_01_meeting_notices_01.png",
     "ART-N06": "IT_focus_NPC_LULU_02_treasure_chest_02.png",
     "ART-L01": "IT_focus_LOC_OBS_01_observation_diary_03.png",

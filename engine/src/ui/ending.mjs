@@ -17,7 +17,7 @@ export function createEndingUI({el,btn,shell,heading,current,character,slotId,on
    };
    const paint=()=>{
     const active=++generation;heading('아르카디아에서 그려 본 미래','ending-page');
-    const layout=el('div',null,'ending-layout'),summary=el('aside',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
+    const layout=el('div',null,'ending-layout ending-career-art'),summary=el('aside',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
     summary.append(shell.querySelector('h1'),el('h2',snapshot.character.name),el('p',snapshot.runNumber+'회차 · 52주차'));
     if(stage===0){letter.append(el('p','최종 질문','ending-label'),el('h2','무엇을 지켰니?'),el('p','이 질문은 정답을 요구하지 않습니다.','ending-placeholder'));}
     else if(stage===1){letter.append(el('p','너의 미래는','ending-label'),el('h2',record?.careerName??'진로 결과 준비 대기'));
@@ -38,7 +38,7 @@ export function createEndingUI({el,btn,shell,heading,current,character,slotId,on
    };paint();if(record.type==='PENDING'&&loadEnding)fetchLetter();return;
   }
   heading('아르카디아에서 그려 본 미래','ending-page');
-  const layout=el('div',null,'ending-layout'),summary=el('aside',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
+  const layout=el('div',null,'ending-layout ending-career-art'),summary=el('aside',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
   summary.append(shell.querySelector('h1'),el('h2',snapshot.character.name),el('p',snapshot.runNumber+'회차 · '+snapshot.week+'주차'),el('h3','현재 회차 실제 기록'));
   if(snapshot.hasHistory){for(const [label,key]of [['수업','classes'],['모험','adventures'],['휴식','rests']])summary.append(el('p',label+' '+snapshot.counts[key]+'회'));}
   else summary.append(el('p','활동 기록 미등록'));
@@ -68,7 +68,7 @@ export function createEndingUI({el,btn,shell,heading,current,character,slotId,on
  }
  function history(records=[],selected=0){
   generation++;heading('지난 엔딩 편지','ending-history-page');
-  const layout=el('div',null,'ending-layout'),list=el('nav',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
+  const layout=el('div',null,'ending-layout ending-career-art'),list=el('nav',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
   for(const [index,record]of records.entries())list.append(btn(record.runNumber+'회차 · '+(record.careerName??'지난 여행'),()=>history(records,index),index===selected?'selected':'quiet'));
   const record=records[selected];
   if(record?.letter?.status==='ready'&&['future','reflection','encouragement'].every(key=>typeof record.letter.sections?.[key]==='string')){
