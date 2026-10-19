@@ -3,16 +3,10 @@ import { readFile, stat, open } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { assetReference } from "./src/core/asset-paths.mjs";
+import { AUDIO_TRACK_FILES } from "./src/core/title-audio.mjs";
 const root = path.dirname(fileURLToPath(import.meta.url));
 const types = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".mjs": "text/javascript; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".png": "image/png", ".webp": "image/webp", ".svg": "image/svg+xml", ".woff2": "font/woff2", ".mp4": "video/mp4", ".mp3": "audio/mpeg" };
-const audioAssets = new Map([
-	["/audio-assets/bgm_title_intro.mp3", "bgm_title_intro.mp3"],
-	["/audio-assets/bgm_title_main.mp3", "bgm_title_main.mp3"],
-	["/audio-assets/bgm_admission_invitation.mp3", "bgm_admission_invitation.mp3"],
-	["/audio-assets/bgm_myroom.mp3", "bgm_myroom.mp3"],
-	["/audio-assets/sfx_button_click.mp3", "sfx_button_click.mp3"],
-	["/audio-assets/sfx_diary_open.mp3", "sfx_diary_open.mp3"],
-]);
+const audioAssets = new Map(Object.values(AUDIO_TRACK_FILES).map((filename) => ["/audio-assets/" + filename, filename]));
 export function resolveAudioAssetFilename(pathname) {
 	return audioAssets.get(pathname) ?? null;
 }
@@ -32,6 +26,7 @@ export function createEngineServer() {
 			else if (/^\/(?:minigame-demo\/)?world-assets\/[\w.-]+\.png$/.test(pathname)) file = path.join(root, "../asset/background", assetReference("background", path.basename(pathname)).file);
 			else if (/^\/character-assets\/[\w.-]+\.png$/.test(pathname)) file = path.join(root, "../asset/character", path.basename(pathname));
 			else if (/^\/item-assets\/[\w.-]+\.png$/.test(pathname)) file = path.join(root, "../asset/item", path.basename(pathname));
+			else if (/^\/design-assets\/item\/adventure\/ADV_(GH|LIB|OBS)_0[1-5]\.png$/.test(pathname)) file = path.join(root, "../asset/item/adventure", path.basename(pathname));
 			else if (/^\/design-assets\/(ui|effect|bern|pet|map|font_files|item|badge|sd_character|puzzle)\/[\p{L}\p{N}_.-]+\.(png|webp|svg|woff2)$/u.test(pathname)) {
 				const [, category, name] = pathname.slice("/design-assets/".length).match(/^([^/]+)\/(.+)$/),
 					resolved = assetReference(category, name);
