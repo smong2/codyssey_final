@@ -16,7 +16,7 @@
 | [pet/](pet/README.md) | 펫·루루 의상/표정 · 이미지 28장 | `PT / NPC_LULU` | 루루 회차와 의상 번호를 구별해 검색 |
 | [sd_character/](sd_character/README.md) | SD 캐릭터 · 이미지 48장 | `기존 캐릭터별 SD 계열` | Adventure용 작은 캐릭터; 전신 대화 화자와 구분 |
 | [puzzle/](puzzle/README.md) | 방 배경 12조각 퍼즐 · 이미지 48장 | `PZ + 방·조각 번호` | 우주방·공주방·식물방 완성본과 개별 조각 |
-| [badge/](badge/README.md) | 배지 프레임·심볼·상태 · 이미지 41장 | `기존 badge 계열` | 배지 조합과 잠금/해금 상태; 실행 호환 이름 유지 |
+| [badge/](badge/README.md) | 가방 수집 배지 5분류·25소분류 · 프레임/심볼/장식/상태 이미지 41장 | `badge_frame_*` · `badge_symbol_*` · `badge_ornament_*` · `badge_state_*` | 배지명→파일 빠른 색인·획득 조건·미리보기·3레이어 조합법은 폴더 README 참조 |
 | [effect/](effect/README.md) | 게임 효과·로고 광휘 · 이미지 3장 | `FX 및 실행 호환 이름` | 효과 레이어; 로고 본체는 ui에서 검색 |
 | [font_files/](font_files/README.md) | 서체·타이포그래피 이미지 · 이미지 18장 | `기존 서체별 이름` | 글꼴 비교 이미지; 메인 호환 웹폰트 2개와 라이선스도 보관 |
 | [Full screen/](Full%20screen/README.md) | 전체화면 검토 시안 · 이미지 21장 | `FS*` | 구성 확인용 합성 화면; 분리 UI와 구별 |

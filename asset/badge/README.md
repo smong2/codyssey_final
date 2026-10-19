@@ -4,13 +4,45 @@
 
 | 사용처·장면 | 파일명 기준 | 현재 상태 | 파일 목록·미리보기 |
 |---|---|---|---|
-| 배지 프레임·심볼·상태; 배지 조합과 잠금/해금 상태; 실행 호환 이름 유지 | `기존 badge 계열` | 이 폴더 이미지 41장. 개별 파일의 채택·후보·검수 상태는 아래 설명을 따름 | 아래 파일 표와 미리보기, [에셋 전체 장면표](../README.md) 참조 |
+| 가방 수집 배지 5분류·25소분류·8단계; 획득/잠금/완성 | `badge_frame_*` / `badge_symbol_*` / `badge_ornament_*` / `badge_state_*` | 게임 화면에서 프레임+심볼+장식을 같은 200×200 캔버스에 겹침 | 아래 빠른 색인과 파일 표·미리보기, [에셋 전체 안내](../README.md) |
+
+## 배지명으로 바로 찾기
+
+게임 가방의 배지 소분류명으로 검색하면 해당 심볼 파일을 찾을 수 있습니다. 프레임은 아래 카테고리별 표, 1~8단계 장식은 공용 장식 표를 사용합니다. 획득 조건은 현재 [엔진 배지 정의](../../engine/src/core/collection-view.mjs)의 표시 문구입니다.
+
+| 게임 분류 | 배지명 | 중심 심볼 파일 | 획득 조건의 기준 |
+|---|---|---|---|
+| 탐험과 발견 | 오늘도 탐험! | [badge_symbol_forest_compass_005.png](./badge_symbol_forest_compass_005.png) | 모험 누적 횟수 |
+| 탐험과 발견 | 보물 찾았다! | [badge_symbol_forest_treasure_006.png](./badge_symbol_forest_treasure_006.png) | 특별 발견 누적 횟수 |
+| 탐험과 발견 | 여기 뭐가 있지? | [badge_symbol_forest_door_007.png](./badge_symbol_forest_door_007.png) | 장소·조사 포인트 발견 |
+| 탐험과 발견 | 궁금한 건 못 참아 | [badge_symbol_forest_curiosity_008.png](./badge_symbol_forest_curiosity_008.png) | 호기심 태그 행동·선택 |
+| 탐험과 발견 | 펫과 함께 | [badge_symbol_forest_pet_009.png](./badge_symbol_forest_pet_009.png) | 해금한 펫 수 |
+| 배움과 성장 | 과학은 재미있어! | [badge_symbol_star_science_010.png](./badge_symbol_star_science_010.png) | 지식 계열 수업 |
+| 배움과 성장 | 말이 술술 | [badge_symbol_star_speech_011.png](./badge_symbol_star_speech_011.png) | 표현력 계열 수업 |
+| 배움과 성장 | 차근차근 생각해 | [badge_symbol_star_thinking_012.png](./badge_symbol_star_thinking_012.png) | 신중함 태그 행동·선택 |
+| 배움과 성장 | 혼자서도 척척 | [badge_symbol_star_independence_013.png](./badge_symbol_star_independence_013.png) | 독립성 태그 행동·선택 |
+| 배움과 성장 | 다시 도전! | [badge_symbol_star_retry_014.png](./badge_symbol_star_retry_014.png) | 실패 후 다른 일정에서 같은 게임 재도전 |
+| 활동과 성취 | 몸이 먼저! | [badge_symbol_workshop_activity_015.png](./badge_symbol_workshop_activity_015.png) | 솜씨 계열 수업 |
+| 활동과 성취 | 미니게임 챔피언 | [badge_symbol_workshop_champion_016.png](./badge_symbol_workshop_champion_016.png) | 미니게임 클리어 |
+| 활동과 성취 | 퍼즐 조각 착착 | [badge_symbol_workshop_puzzle_017.png](./badge_symbol_workshop_puzzle_017.png) | 보유 마이룸 퍼즐 조각 |
+| 활동과 성취 | 마이룸이 좋아 | [badge_symbol_workshop_room_018.png](./badge_symbol_workshop_room_018.png) | 마이룸을 연 주의 누적 수 |
+| 활동과 성취 | 약속은 지켜야지 | [badge_symbol_workshop_promise_019.png](./badge_symbol_workshop_promise_019.png) | 책임 태그 행동·선택 |
+| 관계와 공감 | 친구가 생겼어 | [badge_symbol_friendship_friends_020.png](./badge_symbol_friendship_friends_020.png) | NPC 누적 만남 |
+| 관계와 공감 | 끝까지 들어볼게 | [badge_symbol_friendship_listening_021.png](./badge_symbol_friendship_listening_021.png) | 완료한 NPC 개별 스토리 |
+| 관계와 공감 | 마음을 알아줘 | [badge_symbol_friendship_empathy_022.png](./badge_symbol_friendship_empathy_022.png) | 공감 태그 행동·선택 |
+| 관계와 공감 | 같이 하면 쉬워 | [badge_symbol_friendship_cooperation_023.png](./badge_symbol_friendship_cooperation_023.png) | 협력 태그 행동·선택 |
+| 관계와 공감 | 솔직하게 말해봐 | [badge_symbol_friendship_honesty_024.png](./badge_symbol_friendship_honesty_024.png) | 솔직함 태그 행동·선택 |
+| 각성과 선택 | 룬이 반짝! | [badge_symbol_rune_awaken_025.png](./badge_symbol_rune_awaken_025.png) | 마법 계열 수업 |
+| 각성과 선택 | 선택의 순간 | [badge_symbol_rune_choice_026.png](./badge_symbol_rune_choice_026.png) | 중요 선택 |
+| 각성과 선택 | 용기 한 스푼 | [badge_symbol_rune_courage_027.png](./badge_symbol_rune_courage_027.png) | 용기 태그 행동·선택 |
+| 각성과 선택 | 새로운 얼굴! | [badge_symbol_rune_character_028.png](./badge_symbol_rune_character_028.png) | 해금한 플레이 가능 캐릭터 |
+| 각성과 선택 | 또 다른 미래 | [badge_symbol_rune_future_029.png](./badge_symbol_rune_future_029.png) | 서로 다른 정규 직업 엔딩 |
 
 ## 상태와 기준
 
 - 제작·정규화: 2026-10-11. 사용자 승인 시안을 바탕으로 저장한 아트 자원이다.
 - 현재 정리 기준: **smong2/codyssey_final** 저장소의 **dev-jw / asset/badge/**. 병합 후에도 실제 파일 경로 `asset/badge/`는 같습니다.
-- **아트 디자인 승인 및 파일 규격 검증 완료 / 게임 연결·실제 화면 검수 미완료.** 이미지 존재를 기능 구현 완료로 해석하지 않는다.
+- **아트 디자인과 200×200 파일 규격 확정 / 엔진의 파일 경로 연결 확인 / 실제 게임 화면·모바일 축소 검수는 별도.** 이미지 존재만으로 획득 판정이나 사용자 화면 검수가 끝난 것은 아닙니다.
 - 기준: [가방 수집 배지 디자인](../../document/content/03_COLLECTION_UNLOCKS/01_BADGE_COLLECTION_DESIGN.md), [수집·해금 기획](../../document/content/03_COLLECTION_UNLOCKS/README.md), 사용자의 최신 프레임 선택과 골드 완성 상태 선택.
 - 프레임 선택: 숲 B / 별 A / 공방 C / 우정 B / 룬 C. 반짝이는 보석·에나멜 재질은 이번 배지에 대해 승인된 방향이며 게임 전체 UI 재질을 변경하는 결정은 아니다.
 - 프레임 5종과 심볼 25종의 묶음은 **최종 게임 분류로 채택**되었다. 게임 표시 대분류명은 `탐험과 발견 / 배움과 성장 / 활동과 성취 / 관계와 공감 / 각성과 선택`이며, 기존 `forest / star / workshop / friendship / rune` ID는 자원·세이브 호환을 위해 유지한다. `다시 도전!`을 포함한 25개 심볼을 모두 본편 소분류로 사용한다. 실제 200개 획득 조건과 `2/5/8` 단계 보상은 기획 문서를 따른다.
@@ -37,8 +69,8 @@
 | 포맷 | 8비트 RGBA PNG, sRGB 색공간, 투명 알파 유지 |
 | 원본 | 41종 모두 1254×1254px, 로컬 원본 보존 |
 | 프레임 그림 영역 | 최대 180×180px, 중심 (100,100) |
-| 일반 심볼 그림 영역 | 최대 90×88px, 중심 (100,98) |
-| 별 계열 심볼 그림 영역 | 최대 78×82px, 중심 (115,94); 초승달 내부 공간에 맞춤 |
+| 일반 심볼 그림 영역 | 최대 90×88px; 최종 위치는 각 파일과 `catalog.json`의 `bounds`·`placementOffsetPx` 확인 |
+| 별 계열 심볼 그림 영역 | 최대 78×82px; 초승달의 비대칭 빈 공간에 맞춰 개별 위치 조정 |
 | 공용 장식 그림 영역 | 최대 38×30px, 중심 (100,164) |
 | 잠금·획득·완성 표식 그림 영역 | 최대 180×180px, 중심 (100,100) |
 | 바깥 안전 여백 | 모든 파일 비투명 픽셀 기준 최소 10px |
@@ -47,6 +79,18 @@
 | 파일 메타데이터 | [catalog.json](./catalog.json): ID, 분류, 명칭, 의미, 크기, 실제 그림 영역, 용량, SHA-256 |
 
 각 그림은 작은 부품이어도 **200×200 투명 캔버스**에 정렬되어 있다. 자동 trim, object-fit cover, 불투명 사각 배경, 파일별 별도 확대를 적용하면 조합 위치가 깨진다. 프레임의 중앙 아이보리 면은 의도된 채움이며 구멍이 아니다. README 표의 미리보기는 투명 캔버스 전체를 200px로 표시하므로 장식이 작게 보이는 것이 정상이다. 링크를 열면 개별 파일을 확인할 수 있다.
+
+## 승인된 심볼 위치
+
+2026-10-19 사용자 확인 시안을 200×200 게임 캔버스에 반영했습니다. 아래는 이전 게임 PNG에서 움직인 **픽셀 수**입니다. 프레임·장식·상태 이미지는 그대로이고, 심볼 그림의 크기·색·모양도 그대로입니다. 새 위치는 PNG 내부에 반영되어 있으므로 엔진에서 추가 CSS 이동을 적용하지 않습니다.
+
+| 분류 | 심볼별 이동 (파일 끝 번호: 오른쪽 x / 아래 y, px) |
+|---|---|
+| 탐험과 발견 | 005: 0/+10 · 006: 0/+11 · 007: 0/+7 · 008: 0/+12 · 009: 0/+11 |
+| 배움과 성장 | 010: 0/+5 · 011: 0/+4 · 012: 0/+4 · 013: 0/+6 · 014: 0/+5 |
+| 활동과 성취 | 015: 0/+8 · 016: 0/+4 · 017: 0/+6 · 018: 0/+8 · 019: 0/+7 |
+| 관계와 공감 | 020: +6/0 · 021: +8/0 · 022: +5/0 · 023: +5/0 · 024: 0/0 (유지) |
+| 각성과 선택 | 025: -4/+3 · 026: -3/0 · 027: -2/+5 · 028: -1/0 · 029: -1/+4 |
 
 ## 조합 방법
 
@@ -62,68 +106,68 @@ PC·모바일 모두 같은 세 레이어를 동일 비율로 축소한다. 200p
 
 ### 숲 (forest) · 탐험과 발견
 
-선택 프레임 **숲 B**: 물방울 형태의 연녹색 결정. 심볼 5개에 공용 장식 8개를 적용하는 관리상 40개 묶음이다. 명칭·획득 조건은 기획 확정 전이다.
+선택 프레임 **숲 B**: 물방울 형태의 연녹색 결정. 심볼 5개에 공용 장식 8개를 적용하는 관리상 40개 묶음이다. 현재 게임 표시명·획득 조건은 위 빠른 색인 및 엔진 배지 정의를 따른다.
 
 | 미리보기 (200×200) | 명칭·모티프·용도 | 파일·실제 그림 영역 |
 |---|---|---|
 | <img src="./badge_frame_forest_dewdrop_000.png" alt="이슬 결정" width="200" height="200"> | **이슬 결정**<br>물방울 형태의 연녹색 결정<br>새로운 발견과 생명의 가능성<br>레이어: frame | [badge_frame_forest_dewdrop_000.png](./badge_frame_forest_dewdrop_000.png)<br>그림 154×173px<br>좌상단 (20, 12)<br>41.7 KiB |
-| <img src="./badge_symbol_forest_compass_005.png" alt="오늘도 탐험!" width="200" height="200"> | **오늘도 탐험!**<br>나침반<br>모험 참여와 탐험의 발걸음<br>레이어: symbol | [badge_symbol_forest_compass_005.png](./badge_symbol_forest_compass_005.png)<br>그림 72×82px<br>좌상단 (64, 54)<br>14.0 KiB |
-| <img src="./badge_symbol_forest_treasure_006.png" alt="보물 찾았다!" width="200" height="200"> | **보물 찾았다!**<br>보물상자<br>숨겨진 획득물을 발견한 기쁨<br>레이어: symbol | [badge_symbol_forest_treasure_006.png](./badge_symbol_forest_treasure_006.png)<br>그림 79×77px<br>좌상단 (63, 60)<br>15.9 KiB |
-| <img src="./badge_symbol_forest_door_007.png" alt="여기 뭐가 있지?" width="200" height="200"> | **여기 뭐가 있지?**<br>돌 아치 문<br>새로운 장소와 조사 지점 발견<br>레이어: symbol | [badge_symbol_forest_door_007.png](./badge_symbol_forest_door_007.png)<br>그림 78×80px<br>좌상단 (61, 58)<br>16.6 KiB |
-| <img src="./badge_symbol_forest_curiosity_008.png" alt="궁금한 건 못 참아" width="200" height="200"> | **궁금한 건 못 참아**<br>잎과 돋보기<br>관찰과 질문으로 새 정보를 발견<br>레이어: symbol | [badge_symbol_forest_curiosity_008.png](./badge_symbol_forest_curiosity_008.png)<br>그림 75×80px<br>좌상단 (65, 55)<br>13.8 KiB |
-| <img src="./badge_symbol_forest_pet_009.png" alt="펫과 함께" width="200" height="200"> | **펫과 함께**<br>호박빛 발자국<br>펫과의 동행과 만남<br>레이어: symbol | [badge_symbol_forest_pet_009.png](./badge_symbol_forest_pet_009.png)<br>그림 82×72px<br>좌상단 (60, 61)<br>14.0 KiB |
+| <img src="./badge_symbol_forest_compass_005.png" alt="오늘도 탐험!" width="200" height="200"> | **오늘도 탐험!**<br>나침반<br>모험 참여와 탐험의 발걸음<br>레이어: symbol | [badge_symbol_forest_compass_005.png](./badge_symbol_forest_compass_005.png)<br>그림 72×82px<br>좌상단 (64, 64)<br>14.0 KiB |
+| <img src="./badge_symbol_forest_treasure_006.png" alt="보물 찾았다!" width="200" height="200"> | **보물 찾았다!**<br>보물상자<br>숨겨진 획득물을 발견한 기쁨<br>레이어: symbol | [badge_symbol_forest_treasure_006.png](./badge_symbol_forest_treasure_006.png)<br>그림 79×77px<br>좌상단 (63, 71)<br>15.9 KiB |
+| <img src="./badge_symbol_forest_door_007.png" alt="여기 뭐가 있지?" width="200" height="200"> | **여기 뭐가 있지?**<br>돌 아치 문<br>새로운 장소와 조사 지점 발견<br>레이어: symbol | [badge_symbol_forest_door_007.png](./badge_symbol_forest_door_007.png)<br>그림 78×80px<br>좌상단 (61, 65)<br>16.6 KiB |
+| <img src="./badge_symbol_forest_curiosity_008.png" alt="궁금한 건 못 참아" width="200" height="200"> | **궁금한 건 못 참아**<br>잎과 돋보기<br>관찰과 질문으로 새 정보를 발견<br>레이어: symbol | [badge_symbol_forest_curiosity_008.png](./badge_symbol_forest_curiosity_008.png)<br>그림 75×80px<br>좌상단 (65, 67)<br>13.8 KiB |
+| <img src="./badge_symbol_forest_pet_009.png" alt="펫과 함께" width="200" height="200"> | **펫과 함께**<br>호박빛 발자국<br>펫과의 동행과 만남<br>레이어: symbol | [badge_symbol_forest_pet_009.png](./badge_symbol_forest_pet_009.png)<br>그림 82×72px<br>좌상단 (60, 72)<br>14.0 KiB |
 
 ### 별 (star) · 배움과 성장
 
-선택 프레임 **별 A**: 남보라 초승달과 은빛 장식. 심볼 5개에 공용 장식 8개를 적용하는 관리상 40개 묶음이다. 명칭·획득 조건은 기획 확정 전이다.
+선택 프레임 **별 A**: 남보라 초승달과 은빛 장식. 심볼 5개에 공용 장식 8개를 적용하는 관리상 40개 묶음이다. 현재 게임 표시명·획득 조건은 위 빠른 색인 및 엔진 배지 정의를 따른다.
 
 | 미리보기 (200×200) | 명칭·모티프·용도 | 파일·실제 그림 영역 |
 |---|---|---|
 | <img src="./badge_frame_star_crescent_001.png" alt="별빛 초승달" width="200" height="200"> | **별빛 초승달**<br>남보라 초승달과 은빛 장식<br>지식과 상상이 넓어지는 순간<br>레이어: frame | [badge_frame_star_crescent_001.png](./badge_frame_star_crescent_001.png)<br>그림 152×158px<br>좌상단 (24, 21)<br>48.7 KiB |
-| <img src="./badge_symbol_star_science_010.png" alt="과학은 재미있어!" width="200" height="200"> | **과학은 재미있어!**<br>푸른 플라스크<br>수업과 탐구를 통한 발견<br>레이어: symbol | [badge_symbol_star_science_010.png](./badge_symbol_star_science_010.png)<br>그림 61×80px<br>좌상단 (84, 54)<br>11.1 KiB |
-| <img src="./badge_symbol_star_speech_011.png" alt="말이 술술" width="200" height="200"> | **말이 술술**<br>진주 말풍선<br>대화와 표현의 경험<br>레이어: symbol | [badge_symbol_star_speech_011.png](./badge_symbol_star_speech_011.png)<br>그림 65×54px<br>좌상단 (84, 68)<br>8.7 KiB |
-| <img src="./badge_symbol_star_thinking_012.png" alt="차근차근 생각해" width="200" height="200"> | **차근차근 생각해**<br>책과 돋보기<br>신중한 관찰과 판단<br>레이어: symbol | [badge_symbol_star_thinking_012.png](./badge_symbol_star_thinking_012.png)<br>그림 76×58px<br>좌상단 (77, 66)<br>11.2 KiB |
-| <img src="./badge_symbol_star_independence_013.png" alt="혼자서도 척척" width="200" height="200"> | **혼자서도 척척**<br>황금 열쇠<br>스스로 방법을 찾아 해결<br>레이어: symbol | [badge_symbol_star_independence_013.png](./badge_symbol_star_independence_013.png)<br>그림 42×76px<br>좌상단 (94, 56)<br>5.8 KiB |
-| <img src="./badge_symbol_star_retry_014.png" alt="다시 도전!" width="200" height="200"> | **다시 도전!**<br>순환 화살표와 새싹<br>실패 뒤 다시 시도하며 성장; 추가 소분류 후보<br>레이어: symbol | [badge_symbol_star_retry_014.png](./badge_symbol_star_retry_014.png)<br>그림 65×71px<br>좌상단 (85, 58)<br>10.6 KiB |
+| <img src="./badge_symbol_star_science_010.png" alt="과학은 재미있어!" width="200" height="200"> | **과학은 재미있어!**<br>푸른 플라스크<br>수업과 탐구를 통한 발견<br>레이어: symbol | [badge_symbol_star_science_010.png](./badge_symbol_star_science_010.png)<br>그림 61×80px<br>좌상단 (84, 59)<br>11.1 KiB |
+| <img src="./badge_symbol_star_speech_011.png" alt="말이 술술" width="200" height="200"> | **말이 술술**<br>진주 말풍선<br>대화와 표현의 경험<br>레이어: symbol | [badge_symbol_star_speech_011.png](./badge_symbol_star_speech_011.png)<br>그림 65×54px<br>좌상단 (84, 72)<br>8.7 KiB |
+| <img src="./badge_symbol_star_thinking_012.png" alt="차근차근 생각해" width="200" height="200"> | **차근차근 생각해**<br>책과 돋보기<br>신중한 관찰과 판단<br>레이어: symbol | [badge_symbol_star_thinking_012.png](./badge_symbol_star_thinking_012.png)<br>그림 76×58px<br>좌상단 (77, 70)<br>11.2 KiB |
+| <img src="./badge_symbol_star_independence_013.png" alt="혼자서도 척척" width="200" height="200"> | **혼자서도 척척**<br>황금 열쇠<br>스스로 방법을 찾아 해결<br>레이어: symbol | [badge_symbol_star_independence_013.png](./badge_symbol_star_independence_013.png)<br>그림 42×76px<br>좌상단 (94, 62)<br>5.8 KiB |
+| <img src="./badge_symbol_star_retry_014.png" alt="다시 도전!" width="200" height="200"> | **다시 도전!**<br>순환 화살표와 새싹<br>실패 뒤 다시 시도하며 성장<br>레이어: symbol | [badge_symbol_star_retry_014.png](./badge_symbol_star_retry_014.png)<br>그림 65×71px<br>좌상단 (85, 63)<br>10.6 KiB |
 
 ### 공방 (workshop) · 활동과 성취
 
-선택 프레임 **공방 C**: 코발트 결정과 은빛 사각 테두리. 심볼 5개에 공용 장식 8개를 적용하는 관리상 40개 묶음이다. 명칭·획득 조건은 기획 확정 전이다.
+선택 프레임 **공방 C**: 코발트 결정과 은빛 사각 테두리. 심볼 5개에 공용 장식 8개를 적용하는 관리상 40개 묶음이다. 현재 게임 표시명·획득 조건은 위 빠른 색인 및 엔진 배지 정의를 따른다.
 
 | 미리보기 (200×200) | 명칭·모티프·용도 | 파일·실제 그림 영역 |
 |---|---|---|
 | <img src="./badge_frame_workshop_cobalt_002.png" alt="코발트 공방" width="200" height="200"> | **코발트 공방**<br>코발트 결정과 은빛 사각 테두리<br>직접 시도하고 완성하는 즐거움<br>레이어: frame | [badge_frame_workshop_cobalt_002.png](./badge_frame_workshop_cobalt_002.png)<br>그림 163×162px<br>좌상단 (20, 21)<br>53.6 KiB |
-| <img src="./badge_symbol_workshop_activity_015.png" alt="몸이 먼저!" width="200" height="200"> | **몸이 먼저!**<br>날개 부츠<br>몸으로 익히는 활동과 훈련<br>레이어: symbol | [badge_symbol_workshop_activity_015.png](./badge_symbol_workshop_activity_015.png)<br>그림 78×70px<br>좌상단 (63, 62)<br>9.9 KiB |
-| <img src="./badge_symbol_workshop_champion_016.png" alt="미니게임 챔피언" width="200" height="200"> | **미니게임 챔피언**<br>트로피<br>미니게임 참여와 기록 달성<br>레이어: symbol | [badge_symbol_workshop_champion_016.png](./badge_symbol_workshop_champion_016.png)<br>그림 80×74px<br>좌상단 (59, 63)<br>12.5 KiB |
-| <img src="./badge_symbol_workshop_puzzle_017.png" alt="퍼즐 조각 착착" width="200" height="200"> | **퍼즐 조각 착착**<br>보라 퍼즐 조각<br>배경 퍼즐 조각을 모으는 즐거움<br>레이어: symbol | [badge_symbol_workshop_puzzle_017.png](./badge_symbol_workshop_puzzle_017.png)<br>그림 73×77px<br>좌상단 (65, 60)<br>12.5 KiB |
-| <img src="./badge_symbol_workshop_room_018.png" alt="마이룸이 좋아" width="200" height="200"> | **마이룸이 좋아**<br>불빛이 켜진 집<br>마이룸과 꾸미기 해금<br>레이어: symbol | [badge_symbol_workshop_room_018.png](./badge_symbol_workshop_room_018.png)<br>그림 84×78px<br>좌상단 (60, 59)<br>15.5 KiB |
-| <img src="./badge_symbol_workshop_promise_019.png" alt="약속은 지켜야지" width="200" height="200"> | **약속은 지켜야지**<br>리본 두루마리<br>맡은 일과 약속을 마무리<br>레이어: symbol | [badge_symbol_workshop_promise_019.png](./badge_symbol_workshop_promise_019.png)<br>그림 79×69px<br>좌상단 (61, 63)<br>10.5 KiB |
+| <img src="./badge_symbol_workshop_activity_015.png" alt="몸이 먼저!" width="200" height="200"> | **몸이 먼저!**<br>날개 부츠<br>몸으로 익히는 활동과 훈련<br>레이어: symbol | [badge_symbol_workshop_activity_015.png](./badge_symbol_workshop_activity_015.png)<br>그림 78×70px<br>좌상단 (63, 70)<br>9.9 KiB |
+| <img src="./badge_symbol_workshop_champion_016.png" alt="미니게임 챔피언" width="200" height="200"> | **미니게임 챔피언**<br>트로피<br>미니게임 참여와 기록 달성<br>레이어: symbol | [badge_symbol_workshop_champion_016.png](./badge_symbol_workshop_champion_016.png)<br>그림 80×74px<br>좌상단 (59, 67)<br>12.5 KiB |
+| <img src="./badge_symbol_workshop_puzzle_017.png" alt="퍼즐 조각 착착" width="200" height="200"> | **퍼즐 조각 착착**<br>보라 퍼즐 조각<br>배경 퍼즐 조각을 모으는 즐거움<br>레이어: symbol | [badge_symbol_workshop_puzzle_017.png](./badge_symbol_workshop_puzzle_017.png)<br>그림 73×77px<br>좌상단 (65, 66)<br>12.5 KiB |
+| <img src="./badge_symbol_workshop_room_018.png" alt="마이룸이 좋아" width="200" height="200"> | **마이룸이 좋아**<br>불빛이 켜진 집<br>마이룸과 꾸미기 해금<br>레이어: symbol | [badge_symbol_workshop_room_018.png](./badge_symbol_workshop_room_018.png)<br>그림 84×78px<br>좌상단 (60, 67)<br>15.5 KiB |
+| <img src="./badge_symbol_workshop_promise_019.png" alt="약속은 지켜야지" width="200" height="200"> | **약속은 지켜야지**<br>리본 두루마리<br>맡은 일과 약속을 마무리<br>레이어: symbol | [badge_symbol_workshop_promise_019.png](./badge_symbol_workshop_promise_019.png)<br>그림 79×69px<br>좌상단 (61, 70)<br>10.5 KiB |
 
 ### 우정 (friendship) · 관계와 공감
 
-선택 프레임 **우정 B**: 진주빛 타원과 로즈골드. 심볼 5개에 공용 장식 8개를 적용하는 관리상 40개 묶음이다. 명칭·획득 조건은 기획 확정 전이다.
+선택 프레임 **우정 B**: 진주빛 타원과 로즈골드. 심볼 5개에 공용 장식 8개를 적용하는 관리상 40개 묶음이다. 현재 게임 표시명·획득 조건은 위 빠른 색인 및 엔진 배지 정의를 따른다.
 
 | 미리보기 (200×200) | 명칭·모티프·용도 | 파일·실제 그림 영역 |
 |---|---|---|
 | <img src="./badge_frame_friendship_pearl_003.png" alt="진주빛 연결" width="200" height="200"> | **진주빛 연결**<br>진주빛 타원과 로즈골드<br>서로 다른 마음을 잇는 관계<br>레이어: frame | [badge_frame_friendship_pearl_003.png](./badge_frame_friendship_pearl_003.png)<br>그림 147×176px<br>좌상단 (34, 10)<br>41.9 KiB |
-| <img src="./badge_symbol_friendship_friends_020.png" alt="친구가 생겼어" width="200" height="200"> | **친구가 생겼어**<br>맞잡은 손<br>NPC와 만남 및 관계의 시작<br>레이어: symbol | [badge_symbol_friendship_friends_020.png](./badge_symbol_friendship_friends_020.png)<br>그림 86×56px<br>좌상단 (57, 73)<br>11.9 KiB |
-| <img src="./badge_symbol_friendship_listening_021.png" alt="끝까지 들어볼게" width="200" height="200"> | **끝까지 들어볼게**<br>귀와 소리 파동<br>상대의 이야기를 끝까지 경청<br>레이어: symbol | [badge_symbol_friendship_listening_021.png](./badge_symbol_friendship_listening_021.png)<br>그림 75×70px<br>좌상단 (64, 64)<br>11.9 KiB |
-| <img src="./badge_symbol_friendship_empathy_022.png" alt="마음을 알아줘" width="200" height="200"> | **마음을 알아줘**<br>손에 담은 하트<br>상대의 마음을 이해하는 행동<br>레이어: symbol | [badge_symbol_friendship_empathy_022.png](./badge_symbol_friendship_empathy_022.png)<br>그림 76×65px<br>좌상단 (63, 66)<br>12.0 KiB |
-| <img src="./badge_symbol_friendship_cooperation_023.png" alt="같이 하면 쉬워" width="200" height="200"> | **같이 하면 쉬워**<br>맞물린 두 조각<br>서로 힘을 보태 함께 해결<br>레이어: symbol | [badge_symbol_friendship_cooperation_023.png](./badge_symbol_friendship_cooperation_023.png)<br>그림 82×62px<br>좌상단 (60, 69)<br>12.1 KiB |
+| <img src="./badge_symbol_friendship_friends_020.png" alt="친구가 생겼어" width="200" height="200"> | **친구가 생겼어**<br>맞잡은 손<br>NPC와 만남 및 관계의 시작<br>레이어: symbol | [badge_symbol_friendship_friends_020.png](./badge_symbol_friendship_friends_020.png)<br>그림 86×56px<br>좌상단 (63, 73)<br>11.9 KiB |
+| <img src="./badge_symbol_friendship_listening_021.png" alt="끝까지 들어볼게" width="200" height="200"> | **끝까지 들어볼게**<br>귀와 소리 파동<br>상대의 이야기를 끝까지 경청<br>레이어: symbol | [badge_symbol_friendship_listening_021.png](./badge_symbol_friendship_listening_021.png)<br>그림 75×70px<br>좌상단 (72, 64)<br>11.9 KiB |
+| <img src="./badge_symbol_friendship_empathy_022.png" alt="마음을 알아줘" width="200" height="200"> | **마음을 알아줘**<br>손에 담은 하트<br>상대의 마음을 이해하는 행동<br>레이어: symbol | [badge_symbol_friendship_empathy_022.png](./badge_symbol_friendship_empathy_022.png)<br>그림 76×65px<br>좌상단 (68, 66)<br>12.0 KiB |
+| <img src="./badge_symbol_friendship_cooperation_023.png" alt="같이 하면 쉬워" width="200" height="200"> | **같이 하면 쉬워**<br>맞물린 두 조각<br>서로 힘을 보태 함께 해결<br>레이어: symbol | [badge_symbol_friendship_cooperation_023.png](./badge_symbol_friendship_cooperation_023.png)<br>그림 82×62px<br>좌상단 (65, 69)<br>12.1 KiB |
 | <img src="./badge_symbol_friendship_honesty_024.png" alt="솔직하게 말해봐" width="200" height="200"> | **솔직하게 말해봐**<br>깃펜과 맑은 물방울<br>진솔한 표현과 대화 선택<br>레이어: symbol | [badge_symbol_friendship_honesty_024.png](./badge_symbol_friendship_honesty_024.png)<br>그림 75×81px<br>좌상단 (67, 56)<br>11.7 KiB |
 
 ### 룬 (rune) · 각성과 선택
 
-선택 프레임 **룬 C**: 흑요석 다각형과 금색·청록 연결부. 심볼 5개에 공용 장식 8개를 적용하는 관리상 40개 묶음이다. 명칭·획득 조건은 기획 확정 전이다.
+선택 프레임 **룬 C**: 흑요석 다각형과 금색·청록 연결부. 심볼 5개에 공용 장식 8개를 적용하는 관리상 40개 묶음이다. 현재 게임 표시명·획득 조건은 위 빠른 색인 및 엔진 배지 정의를 따른다.
 
 | 미리보기 (200×200) | 명칭·모티프·용도 | 파일·실제 그림 영역 |
 |---|---|---|
 | <img src="./badge_frame_rune_obsidian_004.png" alt="흑요석 룬" width="200" height="200"> | **흑요석 룬**<br>흑요석 다각형과 금색·청록 연결부<br>선택을 통해 드러나는 마음의 빛<br>레이어: frame | [badge_frame_rune_obsidian_004.png](./badge_frame_rune_obsidian_004.png)<br>그림 161×176px<br>좌상단 (19, 10)<br>54.2 KiB |
-| <img src="./badge_symbol_rune_awaken_025.png" alt="룬이 반짝!" width="200" height="200"> | **룬이 반짝!**<br>빛나는 룬 결정<br>룬과 마법의 발견<br>레이어: symbol | [badge_symbol_rune_awaken_025.png](./badge_symbol_rune_awaken_025.png)<br>그림 61×86px<br>좌상단 (71, 54)<br>11.1 KiB |
-| <img src="./badge_symbol_rune_choice_026.png" alt="선택의 순간" width="200" height="200"> | **선택의 순간**<br>갈라지는 길<br>중요한 선택과 분기 경험<br>레이어: symbol | [badge_symbol_rune_choice_026.png](./badge_symbol_rune_choice_026.png)<br>그림 78×67px<br>좌상단 (62, 65)<br>13.1 KiB |
-| <img src="./badge_symbol_rune_courage_027.png" alt="용기 한 스푼" width="200" height="200"> | **용기 한 스푼**<br>불꽃 방패<br>두려움 속에서도 시도하는 용기<br>레이어: symbol | [badge_symbol_rune_courage_027.png](./badge_symbol_rune_courage_027.png)<br>그림 69×84px<br>좌상단 (66, 54)<br>13.4 KiB |
-| <img src="./badge_symbol_rune_character_028.png" alt="새로운 얼굴!" width="200" height="200"> | **새로운 얼굴!**<br>두 인물의 카메오<br>새로운 플레이 캐릭터 해금<br>레이어: symbol | [badge_symbol_rune_character_028.png](./badge_symbol_rune_character_028.png)<br>그림 81×58px<br>좌상단 (60, 71)<br>13.2 KiB |
-| <img src="./badge_symbol_rune_future_029.png" alt="또 다른 미래" width="200" height="200"> | **또 다른 미래**<br>책과 떠오르는 해<br>새로운 직업 엔딩과 미래 발견<br>레이어: symbol | [badge_symbol_rune_future_029.png](./badge_symbol_rune_future_029.png)<br>그림 88×77px<br>좌상단 (56, 57)<br>13.9 KiB |
+| <img src="./badge_symbol_rune_awaken_025.png" alt="룬이 반짝!" width="200" height="200"> | **룬이 반짝!**<br>빛나는 룬 결정<br>룬과 마법의 발견<br>레이어: symbol | [badge_symbol_rune_awaken_025.png](./badge_symbol_rune_awaken_025.png)<br>그림 61×86px<br>좌상단 (67, 57)<br>11.1 KiB |
+| <img src="./badge_symbol_rune_choice_026.png" alt="선택의 순간" width="200" height="200"> | **선택의 순간**<br>갈라지는 길<br>중요한 선택과 분기 경험<br>레이어: symbol | [badge_symbol_rune_choice_026.png](./badge_symbol_rune_choice_026.png)<br>그림 78×67px<br>좌상단 (59, 65)<br>13.1 KiB |
+| <img src="./badge_symbol_rune_courage_027.png" alt="용기 한 스푼" width="200" height="200"> | **용기 한 스푼**<br>불꽃 방패<br>두려움 속에서도 시도하는 용기<br>레이어: symbol | [badge_symbol_rune_courage_027.png](./badge_symbol_rune_courage_027.png)<br>그림 69×84px<br>좌상단 (64, 59)<br>13.4 KiB |
+| <img src="./badge_symbol_rune_character_028.png" alt="새로운 얼굴!" width="200" height="200"> | **새로운 얼굴!**<br>두 인물의 카메오<br>새로운 플레이 캐릭터 해금<br>레이어: symbol | [badge_symbol_rune_character_028.png](./badge_symbol_rune_character_028.png)<br>그림 81×58px<br>좌상단 (59, 71)<br>13.2 KiB |
+| <img src="./badge_symbol_rune_future_029.png" alt="또 다른 미래" width="200" height="200"> | **또 다른 미래**<br>책과 떠오르는 해<br>새로운 직업 엔딩과 미래 발견<br>레이어: symbol | [badge_symbol_rune_future_029.png](./badge_symbol_rune_future_029.png)<br>그림 88×77px<br>좌상단 (55, 61)<br>13.9 KiB |
 
 ## 공용 장식 8종
 
@@ -165,9 +209,9 @@ PC·모바일 모두 같은 세 레이어를 동일 비율로 축소한다. 200p
 | 크기·알파·여백 | 41/41 파일 200×200 RGBA, 비어 있지 않음, 투명 가장자리와 최소 10px 여백 |
 | 중복·파일명 | 서로 다른 SHA-256 41개, 끝 번호 000~040 연속 |
 | 원본 보존 | 1254×1254 원본 41개 별도 보관, 원본 SHA-256 대응표 로컬 기록 |
-| 조합 검사 | 200개 조합을 20개씩 10장으로 합성해 로컬 검수; 별 심볼의 좌표 보정 반영 |
+| 조합 검사 | 200개 가능한 조합의 레이어 파일을 확인하고, 수정된 심볼을 프레임·장식 위에 합성해 중심과 가림을 검수 |
 | README | 게임용 41개 전부 파일 링크·미리보기·명칭·의미·크기·용도 기재 |
-| 게임 구현 | 미수행; 엔진 연결·실제 가방 화면·모바일 축소·상태 전환·접근성·아동 사용성 검수 대기 |
+| 게임 구현 | `engine/src/core/collection-view.mjs`와 `engine/src/ui/collection-panels.mjs`에서 배지 경로·레이어 조합 확인; 실제 브라우저 화면·모바일 축소·접근성·사용성 검수는 별도 |
 
 ### 저장소 전체 검사와 구분
 
@@ -176,5 +220,5 @@ PC·모바일 모두 같은 세 레이어를 동일 비율로 축소한다. 200p
 ### 구현·화면 단계 잔여
 
 - 완성 마크의 실제 화면 위치·표시 크기, 작은 화면에서의 장식 식별성.
-- 세이브 데이터·획득 알림·필터·페이지네이션·소분류 완성 판정 구현.
+- 세이브 데이터·획득 알림·필터·페이지네이션·소분류 완성 판정의 실제 게임 흐름 검증.
 - 200개 조건의 실제 플레이 속도 밸런스 테스트와 필요 시 수치 조정.
