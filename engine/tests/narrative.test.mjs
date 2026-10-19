@@ -8,8 +8,8 @@ test('the authored catalogue has exactly three four-stage NPC chains and sixteen
  const guide=NARRATIVE_SCENES.find(s=>s.id==='NPC_GUIDE_01');assert.equal(narrativeActor(guide,'CH16').id,'CH15');
  const work=NARRATIVE_SCENES.find(s=>s.id==='NPC_WORK_01');assert.equal(narrativeActor(work,'CH25').id,'CH26');
 });
-test('a class visit can expose WORK only after its start week and prior encounter; missing text cannot complete it',()=>{
- const r=run(),activity=r.actionHistory[0];assert.ok(narrativeCandidates(r,activity).some(s=>s.id==='NPC_WORK_01'));
+test('a class visit can expose WORK without a prior encounter after its start week; missing text cannot complete it',()=>{
+ const r=run(),activity=r.actionHistory[0];r.storyState.encounters={};assert.ok(narrativeCandidates(r,activity).some(s=>s.id==='NPC_WORK_01'));
  assert.equal(narrativeCandidates(r,{...activity,week:7}).some(s=>s.id==='NPC_WORK_01'),false);
  const pending=queueNarrative(r,activity,{eventId:'NPC_WORK_01',activityToken:'1:8:0'});assert.equal(pending.content,null);assert.equal(finishNarrative(r),false);assert.equal(r.narrativeState.history.length,0);
 });

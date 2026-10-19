@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 import sqlite3
+import pytest
 
 from backend.api.app.content_master import ContentMaster
 from backend.api.app.dialogue_master import DialogueMaster, DELIVERED_FOCUS_ASSETS
@@ -13,6 +14,21 @@ from backend.api.tests.test_phase5_save_slots import content_db, phase5_client, 
 
 
 SECRET = "dialogue-test-secret-with-more-than-32-characters"
+
+
+@pytest.mark.parametrize("event_id", ["MS01", "MS02", "MS03", "MS04", "MS05", "MS06"])
+def test_main_payload_preserves_authored_scene_boundaries(content_db, event_id):
+    master = DialogueMaster(content_db, asset_root="asset")
+    cast = ContentMaster(content_db).character_and_cast(version="dev-dialogue-v1", character_id="CH01")[1]
+    payload = master.compile(version="dev-dialogue-v1", event_id=event_id, character_id="CH01", cast=cast)
+    scenes = []
+    for command in payload["sequence"]:
+        if command["type"] == "END":
+            continue
+        scene = command.get("sceneId")
+        if not scenes or scene != scenes[-1]:
+            scenes.append(scene)
+    assert scenes == ["S1", "S2", "S3", "S4", "S5"]
 
 
 def _selected(payload):
@@ -269,22 +285,41 @@ def test_story_candidates_respect_location_progress_and_pending(content_db):
     assert selector.fixed_main(version="dev-dialogue-v1", run=run, month=3, day=5)["eventId"] == "MS02"
 
 
-def test_npc_candidate_needs_encounter_and_previous_step(content_db):
+@pytest.mark.parametrize("character_id", ["CH01", "CH16", "CH25"])
+@pytest.mark.parametrize("chain,location,kind,first_week,next_week", [
+    ("GUIDE", "CLK", "CLASS", 4, 15),
+    ("WORK", "WRK", "CLASS", 8, 20),
+    ("LULU", "GH", "ADVENTURE", 12, 25),
+])
+def test_npc_starts_without_encounter_and_keeps_other_gates(
+    content_db, character_id, chain, location, kind, first_week, next_week,
+):
     selector = StoryCandidates(content_db)
     cast = ContentMaster(content_db).character_and_cast(
-        version="dev-dialogue-v1", character_id="CH01"
+        version="dev-dialogue-v1", character_id=character_id
     )[1]
     run = {
-        "runId": "npc-run", "week": 4, "day": "TUESDAY", "storyCast": cast,
-        "pendingStoryEvent": None, "storyEventWindow": {"week": 4, "sideStoryCount": 0,
+        "runId": "npc-run", "week": first_week, "day": "TUESDAY", "storyCast": cast,
+        "pendingStoryEvent": None, "storyEventWindow": {"week": first_week, "sideStoryCount": 0,
                                                 "lastResultStoryDay": None},
         "eventFlags": {}, "storyProgress": {}, "npcProgress": {},
     }
-    activity = ActivityContext("clock-class", "CLASS", "CLK")
+    activity = ActivityContext("npc-activity", kind, location)
+    first_event, second_event = f"NPC_{chain}_01", f"NPC_{chain}_02"
+    assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity)["eventId"] == first_event
+    run["week"] = first_week - 1
     assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
-    run["npcProgress"][cast["NPC_GUIDE_ACTOR"]] = {"encounterCount": 1, "lastEncounterWeek": 2}
-    assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity)["eventId"] == "NPC_GUIDE_01"
-    run["eventFlags"]["NPC_GUIDE_01"] = True
-    run["storyProgress"]["NPC_GUIDE"] = {"step": 1, "status": "IN_PROGRESS", "lastAdvancedWeek": 4}
-    run["week"] = 15
-    assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity)["eventId"] == "NPC_GUIDE_02"
+    run["week"] = first_week
+    assert selector.after_activity(version="dev-dialogue-v1", run=run,
+                                    activity=ActivityContext("other", kind, "OTHER")) is None
+    if chain == "WORK":
+        assert selector.after_activity(version="dev-dialogue-v1", run=run,
+                                        activity=ActivityContext("other", "ADVENTURE", location)) is None
+    run["storyEventWindow"]["sideStoryCount"] = 2
+    assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
+    run["storyEventWindow"]["sideStoryCount"] = 0
+    run["storyProgress"][f"NPC_{chain}"] = {"step": 1, "status": "IN_PROGRESS", "lastAdvancedWeek": first_week}
+    run["week"] = next_week
+    assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
+    run["eventFlags"][first_event] = True
+    assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity)["eventId"] == second_event

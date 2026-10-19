@@ -42,6 +42,18 @@ const payload={schemaVersion:1,dialogueId:'D1',storyId:'S1',eventId:'E1',title:'
   {type:'END'}
  ]};
 
+test('scene boundaries survive image commands and choice reactions before the next scene',()=>{
+ const playback=createDialoguePlayback({...payload,sequence:[
+  {type:'IMAGE',target:'BACKGROUND',action:'SHOW',assetType:'SCENE',src:'/scene.png',sceneId:'S1'},
+  {type:'LINE',speaker:'GUIDE',text:'첫 장면'},
+  {type:'CHOICE',choiceNodeId:'C',options:[{choiceId:'A',text:'응',reaction:[{speaker:'GUIDE',text:'반응'}]}]},
+  {type:'LINE',speaker:'GUIDE',text:'둘째 장면',sceneId:'S2'},
+  {type:'END'}
+ ]});
+ assert.equal(playback.snapshot().sceneId,'S1');playback.next();playback.choose('C','A');
+ assert.equal(playback.snapshot().sceneId,'S1');playback.next();assert.equal(playback.snapshot().sceneId,'S2');
+});
+
 test('plays ordered lines, applies image slots, and resumes common sequence after two choice reactions',()=>{
  const playback=createDialoguePlayback(payload);
  assert.deepEqual(playback.snapshot().background,{src:'/scene-replaced.png',alt:'바뀐 광장',assetType:'SCENE'});

@@ -39,6 +39,15 @@ const payload=(canSkip=false)=>({schemaVersion:1,dialogueId:'UI',storyId:'UI',ev
   {type:'LINE',lineMode:'THOUGHT',speaker:'PLAYER',text:'좋은 만남이다.',visualMode:'NONE'},
   {type:'END'}]});
 
+test('scene callback follows actual scene changes without replaying on choice reactions',()=>{
+ const data=payload(),seen=[];data.storyId='MS05';data.eventId='MS05';
+ data.sequence[0].sceneId='S2';data.sequence[3].sceneId='S3';data.sequence[4].sceneId='S4';
+ const view=setup(data,{onSceneChange:scene=>seen.push(scene)});
+ view.surfaceClick();view.surfaceClick();view.click('응');
+ assert.deepEqual(seen,[{storyId:'MS05',eventId:'MS05',sceneId:'S2'},{storyId:'MS05',eventId:'MS05',sceneId:'S3'}]);
+ view.surfaceClick();assert.equal(seen.at(-1).sceneId,'S4');
+});
+
 test('renders shared dialogue controls, imagery, choice reactions, history, and automatic END completion',async()=>{
  const view=setup(payload());
  assert.match(view.shell.textContent,/저녁 바람이 분다/);

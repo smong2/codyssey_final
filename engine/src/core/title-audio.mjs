@@ -15,7 +15,16 @@ export const AUDIO_TRACK_FILES=Object.freeze({
 const MUSIC_KEYS=Object.keys(AUDIO_TRACK_FILES).filter(key=>!['click','diary'].includes(key));
 const TRACK_URLS=Object.fromEntries(Object.entries(AUDIO_TRACK_FILES).map(([key,file])=>[key,'./audio-assets/'+file]));
 
-export function dialogueMusicKey({storyId,eventId}={}){
+export function dialogueMusicKey({storyId,eventId,sceneId}={}){
+ const scenes={
+  MS01:['admission','daily','mysteryLight','room','daily'],
+  MS02:['mysteryDetective','mysteryDetective','mysteryDetective','resolution','resolution'],
+  MS03:['mysteryDetective','mysteryDetective','mysteryDetective','resolution','resolution'],
+  MS04:['playful','playful','playful','calm','calm'],
+  MS05:['playful','playful','mysteryDark','restoration','playful'],
+  MS06:['winter','winter','winter','winter','winter']
+ };
+ if(Object.hasOwn(scenes,storyId)&&/^S[1-5]$/.test(sceneId))return scenes[storyId][Number(sceneId.slice(1))-1];
  const main={MS01:'admission',MS02:'mysteryDetective',MS03:'mysteryDetective',MS04:'playful',MS05:'playful',MS06:'winter'};
  if(Object.hasOwn(main,storyId))return main[storyId];
  const id=eventId??storyId??'';
@@ -43,10 +52,11 @@ export function createTitleAudioController({
  const tracks=Object.fromEntries(Object.entries(TRACK_URLS).map(([key,url])=>[key,createAudio(url)]));
  for(const key of MUSIC_KEYS){tracks[key].loop=!['intro','admission'].includes(key);tracks[key].preload=['intro','title','admission','room'].includes(key)?'auto':'none';tracks[key].volume=0;tracks[key].muted=false;}
  for(const key of ['click','diary']){tracks[key].loop=false;tracks[key].preload='auto';tracks[key].volume=1;tracks[key].muted=false;}
- let mix=Object.fromEntries(MUSIC_KEYS.map(key=>[key,0])),bgmMuted=false,sfxMuted=false,blocked=false,frame=0,timer=0,introTransitionStarted=false,activeMusicKey=null,pending=Object.fromEntries(Object.keys(TRACK_URLS).map(key=>[key,false]));
+ let mix=Object.fromEntries(MUSIC_KEYS.map(key=>[key,0])),bgmMuted=false,sfxMuted=false,blocked=false,frame=0,timer=0,introTransitionStarted=false,activeMusicKey=null,admissionFinished=false,admissionFollowup=null,pending=Object.fromEntries(Object.keys(TRACK_URLS).map(key=>[key,false]));
 
  function play(key,gesture=false){
   const track=tracks[key];
+  if(key==='admission'&&admissionFinished)return;
   if(blocked&&!gesture||pending[key]||!track.paused)return;
   pending[key]=true;
   try{
@@ -64,7 +74,7 @@ export function createTitleAudioController({
   }
   tracks.click.muted=sfxMuted;tracks.diary.muted=sfxMuted;
  }
- function cancelPending(){if(timer){clearTimer(timer);timer=0;}if(frame){cancelFrame(frame);frame=0;}}
+ function cancelPending(){admissionFollowup=null;if(timer){clearTimer(timer);timer=0;}if(frame){cancelFrame(frame);frame=0;}}
  function transitionTo(target,durationSeconds,gesture=false,onComplete=()=>{}){
   if(frame){cancelFrame(frame);frame=0;}
   const from={...mix},normalized=Object.fromEntries(MUSIC_KEYS.map(key=>[key,Math.max(0,Math.min(1,target[key]??0))])),duration=Math.max(0,durationSeconds)*1000,start=now();
@@ -92,6 +102,10 @@ export function createTitleAudioController({
  }
  tracks.intro.addEventListener?.('timeupdate',onIntroTime);
  tracks.intro.addEventListener?.('ended',()=>beginTitleTransition(TITLE_BGM_TIMING.skipCrossfadeSeconds));
+ tracks.admission.addEventListener?.('ended',()=>{
+  admissionFinished=true;
+  if(activeMusicKey==='admission'&&admissionFollowup)playMusic(admissionFollowup);
+ });
 
  function startIntro(positionSeconds=0){
   cancelPending();introTransitionStarted=false;activeMusicKey='intro';blocked=false;
@@ -109,11 +123,18 @@ export function createTitleAudioController({
  }
  function playMusic(key,durationSeconds=TITLE_BGM_TIMING.sceneCrossfadeSeconds,{restart=false}={}){
   if(!MUSIC_KEYS.includes(key))throw new Error('등록되지 않은 음악 트랙입니다.');
+  admissionFollowup=null;
+  if(key==='admission'&&(restart||activeMusicKey!==key))admissionFinished=false;
   if(activeMusicKey===key){if(restart){try{tracks[key].currentTime=0;}catch{}}return false;}
   cancelPending();introTransitionStarted=true;activeMusicKey=key;
   if(restart)try{tracks[key].currentTime=0;}catch{}
   transitionTo({[key]:1},durationSeconds,true);
   return true;
+ }
+ function playDialogueMusic(context){
+  const key=dialogueMusicKey(context);if(!key)return false;
+  if(context?.storyId==='MS01'&&context.sceneId==='S2'&&activeMusicKey==='admission'&&!admissionFinished){admissionFollowup='daily';return false;}
+  return playMusic(key);
  }
  function playClick(kind='button'){
   if(sfxMuted)return false;
@@ -133,5 +154,5 @@ export function createTitleAudioController({
  function resume(){blocked=false;if(!bgmMuted)for(const key of MUSIC_KEYS)if(mix[key]>.001)play(key,true);}
  function isBlocked(){return blocked;}
  function stop(durationSeconds=.25){cancelPending();introTransitionStarted=false;activeMusicKey=null;transitionTo({},durationSeconds);}
- return {startIntro,startTitle,skipToTitle,syncIntroPosition,playMusic,playClick,setBgmMuted,toggleBgmMute,isBgmMuted,setSfxMuted,toggleSfxMute,isSfxMuted,setMuted,toggleMute,isMuted,resume,isBlocked,stop};
+ return {startIntro,startTitle,skipToTitle,syncIntroPosition,playMusic,playDialogueMusic,playClick,setBgmMuted,toggleBgmMute,isBgmMuted,setSfxMuted,toggleSfxMute,isSfxMuted,setMuted,toggleMute,isMuted,resume,isBlocked,stop};
 }

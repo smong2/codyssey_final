@@ -391,7 +391,7 @@ Main/NPC/Location 이벤트별 후보 선정 정책을 공통으로 저장한다
 - `MAIN_PROGRESS`
 - `CUSTOM`
 
-조건값은 `value_json`에 유효 JSON으로 저장하고 `operator`는 `EQ / NE / GTE / LTE / IN / NOT_IN`을 사용한다. 현재 NPC는 각 체인 1단계의 `NPC_ENCOUNTER_GTE`, 2~4단계의 `PREVIOUS_EVENT_COMPLETE`, WORK 4단계의 `ACTIVITY_TYPE=CLASS`를 합쳐 **16행**을 사용한다. 천문대는 `LOC_OBS_02→OBS_01`, `OBS_03→OBS_02`, `OBS_04→OBS_03`의 완료 조건 3행을 갖는다.
+조건값은 `value_json`에 유효 JSON으로 저장하고 `operator`는 `EQ / NE / GTE / LTE / IN / NOT_IN`을 사용한다. 현재 NPC는 2~4단계의 `PREVIOUS_EVENT_COMPLETE` 9행과 WORK 1~4단계의 `ACTIVITY_TYPE=CLASS` 4행을 합쳐 **13행**을 사용한다. 첫 단계 선행 조우 조건은 2026-10-20 승인으로 제거했다. 천문대는 `LOC_OBS_02→OBS_01`, `OBS_03→OBS_02`, `OBS_04→OBS_03`의 완료 조건 3행을 갖는다.
 
 ## UID별 로컬 테이블 (4개)
 
@@ -456,7 +456,7 @@ PK: `(uid, local_event_id)`. 최근 활동 화면을 위한 로컬 표시 기록
 - 새 DB는 `001_initial.sql → 002_dialogue_sequences.sql → 003_dialogue_runtime_content.sql → 004_story_event_rules.sql` 순서로 적용한다. `seed_dialogue_content.py --migrate`, `seed_npc_story.py --migrate`, `seed_location_story_master.py --migrate`는 v4까지 자동 적용한다.
 - 저장소 루트에서 Main Story 데이터 적재 예: `python3 backend/database/sqlite/seed_dialogue_content.py --migrate --version dev-dialogue-v1`. 성공하면 **`backend/database/sqlite/lumia-content.sqlite3`**가 생성된다. 다른 DB를 사용할 때만 `--db <경로>`를 지정한다. 전체 마스터 버전이 준비되기 전에는 `--activate`를 생략하고, NPC/Location 등 같은 버전 데이터까지 검증된 뒤 활성화한다.
 - Main v3의 이전 선택 보상 규칙에서는 `192 sequences / 40 choices / 80 effects` 결과를 사용자가 실제 로컬 DB에서 확인했다. **현재 Primary/Secondary Hidden 규칙으로 다시 seed하면 Main 기대값은 102 effects**다. 새 보상 규칙에 대한 실제 SQLite 재검증은 아직 전이다.
-- NPC 적재 예: `python3 backend/database/sqlite/seed_npc_story.py --migrate --version dev-dialogue-v1`. 현재 구현 기대값은 `NPC stories=3 / events=12 / event conditions=16 / canonical choices=24 / choice effects=64 / dialogue sequences=384 / dialogue options=768`이다. 상세는 [NPC Story DB 명세](../NPC_STORY_DB_SPEC.md)와 `validate_npc_story.sql`을 따른다.
+- NPC 적재 예: `python3 backend/database/sqlite/seed_npc_story.py --migrate --version dev-dialogue-v1`. 현재 구현 기대값은 `NPC stories=3 / events=12 / event conditions=13 / canonical choices=24 / choice effects=64 / dialogue sequences=384 / dialogue options=768`이다. 상세는 [NPC Story DB 명세](../NPC_STORY_DB_SPEC.md)와 `validate_npc_story.sql`을 따른다.
 - Location 전체 적재 예: `python3 backend/database/sqlite/seed_location_story_master.py --migrate --version dev-dialogue-v1`. 검증 기준은 `user_version=4 / Location stories=6 / events=6 / canonical choices=13 / choice effects=39 / dialogue_sequences=192 / dialogue_options=416 / dialogue_nodes=3616`이며, **2026-10-18 사용자가 실제 로컬 SQLite 실행 결과를 정상 확인했다.**
 - 세 Story 유형의 선택 보상만 통합 검증하려면 `validate_story_choice_rewards.sql`을 실행하며 기대값은 **77 choices / 205 effects**다.
 - Location DB 상세 설계·Firestore 경계·검증 SQL은 [Location Story DB 명세](../LOCATION_STORY_DB_SPEC.md)를 따른다.

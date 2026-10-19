@@ -72,6 +72,8 @@ API는 `ROLE:<roleId>`를 엔진에 그대로 넘기지 않는 것을 기본으�
 
 ### sequence 타입
 
+메인 스토리의 LINE/IMAGE/CHOICE에는 선택적 `sceneId: "S1" | "S2" | "S3" | "S4" | "S5"`를 전달할 수 있다. 서버는 검수된 원고 노드 ID의 씬 경계를 보존하며, 엔진은 마지막 sceneId를 선택 reaction 동안 유지하고 실제 씬 변경 시 음악 매칭에 사용한다. `stepNo`는 이벤트 단계이지 씬 번호가 아니다. 기존 payload의 sceneId 생략은 허용하며 명령 종류·선택 보상·진행 저장 계약은 바꾸지 않는다.
+
 #### LINE
 
 ```text
