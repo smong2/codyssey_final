@@ -29,6 +29,8 @@ npm run dev
 
 현재 게임 Vercel 프로젝트는 **저장소 루트**의 `vercel.json`이 `web-dist` 정적 빌드를 지정합니다. 그 프로젝트의 기존 주소에 이 Next.js 앱이 자동으로 나타나지 않습니다. 게임 주소와 분리한다는 관리자 요구사항에 맞게 **같은 Git 저장소를 연결한 별도 Vercel 프로젝트**를 만들고 Root Directory를 `manage_lumia`로 지정합니다. Framework Preset은 Next.js로 둡니다. 루트 `vercel.json`은 관리자 프로젝트에 적용하지 않습니다.
 
+`manage_lumia/vercel.json`은 이 프로젝트의 프레임워크를 Next.js, 빌드 명령을 `npm run build`, 출력 디렉터리를 `.next`로 명시합니다. 기존 게임 프로젝트에서 복사한 Vercel 설정에 `npm run build:web` 또는 `web-dist`가 남아 있으면 관리자 프로젝트의 Settings → Build & Deployment에서도 이 값들을 제거하거나 관리자 값으로 맞춥니다. Root Directory가 `manage_lumia`인지 반드시 확인합니다.
+
 관리자 Vercel 프로젝트에는 아래 공개 환경변수만 설정합니다.
 
 | 환경변수 | 값 |
