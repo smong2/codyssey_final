@@ -439,28 +439,42 @@ export function createMyroomUI(ctx) {
 		actor.style.setProperty("--actor-drop", adjustment[1] + "vh");
 		actors.append(actor);
 		actors.dataset.character = c.id;
-		const chosenPet = ctx.activePet(),
-			pet = btn("", () => {
-				if (pet.dataset.dragged) return;
-				bubble.hidden = false;
-				bubble.replaceChildren(el("span", "잠깐만, 이야기할게!"), el("small", "펫 변경: 가방 → 펫"));
-				void Promise.resolve(ctx.petDialogues?.(chosenPet.id)).then(lines => {
-					if (!pet.isConnected) return;
-					if (!Array.isArray(lines) || !lines.length) throw new Error("대사를 불러올 수 없습니다.");
-					let index = Math.floor(Math.random() * lines.length);
-					if (lines.length > 1 && index === lastPetLine) index = (index + 1) % lines.length;
-					lastPetLine = index;
-					bubble.replaceChildren(el("span", lines[index]), el("small", "펫 변경: 가방 → 펫"));
-				}).catch(() => {
-					if (pet.isConnected) bubble.replaceChildren(el("span", "지금은 이야기할 수 없어. 잠시 뒤 다시 눌러 줘."), el("small", "펫 변경: 가방 → 펫"));
-				});
-			}, "room-pet"),
-			bubble = el("span", null, "room-pet-bubble");
-		bubble.hidden = true;
-		pet.setAttribute("aria-label", chosenPet.name + " 대화하기");
+		const chosenPet = ctx.activePet();
+		let petLines = null, retryDelay = 3000;
+		const pet = btn("", () => {
+			if (pet.dataset.dragged || !petLines) return;
+			let index = Math.floor(Math.random() * petLines.length);
+			if (petLines.length > 1 && index === lastPetLine) index = (index + 1) % petLines.length;
+			lastPetLine = index;
+			bubble.textContent = petLines[index];
+			bubble.classList.toggle("room-pet-bubble--greeting", false);
+		}, "room-pet"),
+			bubble = el("span", "zzz", "room-pet-bubble room-pet-bubble--sleeping");
+		bubble.setAttribute("role", "status");
+		bubble.setAttribute("aria-live", "polite");
+		pet.setAttribute("aria-label", chosenPet.name + " 자는 중 · 대화 준비 중");
+		pet.setAttribute("aria-disabled", "true");
 		pet.append(img("pet", chosenPet.image, chosenPet.name, "room-bern"), el("span", chosenPet.name));
 		pet.append(bubble);
 		actors.append(pet);
+		function loadPetDialogues() {
+			if (typeof ctx.petDialogues !== "function") return;
+			void Promise.resolve().then(() => ctx.petDialogues(chosenPet.id)).then(lines => {
+				if (pet.isConnected === false) return;
+				if (!Array.isArray(lines) || !lines.length) throw new Error("대사를 불러올 수 없습니다.");
+				petLines = lines;
+				bubble.textContent = "안녕?";
+				bubble.classList.toggle("room-pet-bubble--sleeping", false);
+				bubble.classList.toggle("room-pet-bubble--greeting", true);
+				pet.setAttribute("aria-label", chosenPet.name + " 대화하기");
+				pet.setAttribute("aria-disabled", "false");
+			}).catch(() => {
+				if (pet.isConnected === false) return;
+				setTimeout(() => { if (pet.isConnected !== false) loadPetDialogues(); }, retryDelay);
+				retryDelay = Math.min(retryDelay * 2, 30000);
+			});
+		}
+		loadPetDialogues();
 		const positions = ctx.actorPositions?.() ?? {};
 		positionActor(actor, positions.player);
 		positionActor(pet, positions.pet);

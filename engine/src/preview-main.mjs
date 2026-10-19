@@ -138,7 +138,7 @@ document.addEventListener(
 	"click",
 	(event) => {
 		const button = event.target instanceof Element ? event.target.closest("button") : null;
-		if (button && !button.disabled) {
+		if (button && !button.disabled && button.getAttribute("aria-disabled") !== "true") {
 			if (titleAudio.isBlocked() && !button.classList.contains("audio-toggle")) titleAudio.resume();
 			titleAudio.playClick(button.dataset.sfx);
 		}
@@ -315,10 +315,16 @@ async function petDialogues(petId) {
 	if (!serverMode) return PET_DIALOGUES[petId] ?? [];
 	if (petDialogueCache.has(petId)) return petDialogueCache.get(petId);
 	if (typeof engineServices.getPetDialogues !== "function") throw new Error("펫 대사 API가 없습니다.");
-	const response = await engineServices.getPetDialogues(petId);
-	if (response?.petId !== petId || !Array.isArray(response.lines) || response.lines.length !== 20) throw new Error("펫 대사 응답이 올바르지 않습니다.");
-	petDialogueCache.set(petId, response.lines);
-	return response.lines;
+	const pending = engineServices.getPetDialogues(petId).then(response => {
+		if (response?.petId !== petId || !Array.isArray(response.lines) || response.lines.length !== 20) throw new Error("펫 대사 응답이 올바르지 않습니다.");
+		petDialogueCache.set(petId, response.lines);
+		return response.lines;
+	}).catch(error => {
+		petDialogueCache.delete(petId);
+		throw error;
+	});
+	petDialogueCache.set(petId, pending);
+	return pending;
 }
 const activityStoryFlow = createPostActivityStoryFlow({ current, save: (next) => save(false, slotId, next), receive: (token) => selectActivityEvent(engineServices.storyEvents ?? profile.meta.narrativeEvents, { slotId, activityToken: token, uid: clientUid }), queue: typeof engineServices.loadDialogue === "function" || typeof engineServices.completeDialogue === "function" ? queueServiceDialogue : undefined, onStory: renderPendingStory, onContinue: continueSchedule });
 async function selectPet(id) {

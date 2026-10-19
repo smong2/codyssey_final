@@ -10,12 +10,13 @@ function fakeNode(tag,text='',className=''){
   setAttribute(name,value){this.attributes[name]=value;},
   querySelector(selector){return selector==='h1'?this.children.find(child=>child.tag==='h1')??null:null;},
   get childElementCount(){return this.children.length;},
+  set textContent(value){this.text=String(value);this.children=[];},
   get textContent(){return [this.text,...this.children.map(child=>child.textContent)].filter(Boolean).join(' ');}
  };
  return node;
 }
 
-function renderRoom({phase='ACTING',schedule=['rest','rune-circuit','rest','rest','rest'],week=1,day=2}={}){
+function renderRoom({phase='ACTING',schedule=['rest','rune-circuit','rest','rest','rest'],week=1,day=2,petDialogues}={}){
  const shell=fakeNode('main');let headingTitle='';
  const run={characterId:'CH01',week,day,phase,schedule,stamina:80,stats:{},forcedRestDays:0,flags:{},actionHistory:[{week:1,day:1,action:'rune-circuit'}]};
  const ui=createMyroomUI({
@@ -24,7 +25,7 @@ function renderRoom({phase='ACTING',schedule=['rest','rune-circuit','rest','rest
   img:fakeNode,shell,heading(title){headingTitle=title;shell.children=[];shell.append(fakeNode('h1',title));},current:()=>run,
   characters:[{id:'CH01',name:'카엘',fullbody:'kael0_fullbody.png'}],
   emptyFrame(){},message(){},menu(){},onAdventure(){},onAction(){},onCommit(){},onFinish(){},onEnding(){},onRetry(){},
-  isSaveFailed:()=>false,onDiary(){},onBag(){},onAdmission(){},onPet(){},activePet:()=>({name:'베른',image:'PT01_owl.png',modifiers:{}}),meta:()=>({}),decorateRoom(){}
+  isSaveFailed:()=>false,onDiary(){},onBag(){},onAdmission(){},onPet(){},petDialogues,activePet:()=>({name:'베른',image:'PT01_owl.png',modifiers:{}}),meta:()=>({}),decorateRoom(){}
  });
  ui.room();return {shell,ui,run,get headingTitle(){return headingTitle;}};
 }
@@ -102,6 +103,25 @@ test('schedule calls its class category 수업',()=>{
  const {ui,shell}=renderRoom({phase:'PLANNING'});ui.schedule();
  assert.ok(findAll(shell,node=>node.tag==='button'&&node.text==='수업').length>0);
  assert.equal(findAll(shell,node=>node.tag==='button'&&node.text==='교육').length,0);
+});
+
+test('pet sleeps until dialogues are ready, then greets before the first click',async()=>{
+ let finishLoading;
+ const loading=new Promise(resolve=>{finishLoading=resolve;});
+ const {shell}=renderRoom({petDialogues:()=>loading});
+ const pet=findAll(shell,node=>node.className==='room-pet')[0];
+ const bubble=findAll(pet,node=>node.className.includes('room-pet-bubble'))[0];
+ assert.equal(bubble.textContent,'zzz');
+ assert.equal(bubble.attributes['aria-live'],'polite');
+ assert.equal(pet.attributes['aria-disabled'],'true');
+ pet.onclick();assert.equal(bubble.textContent,'zzz');
+ finishLoading(['오늘도 같이 책을 읽자.']);
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(bubble.textContent,'안녕?');
+ assert.equal(pet.attributes['aria-disabled'],'false');
+ pet.onclick();
+ assert.equal(bubble.textContent,'오늘도 같이 책을 읽자.');
+ assert.doesNotMatch(pet.textContent,/펫 변경/);
 });
 
 test('calendar image arrows preserve accessible month navigation in both directions',()=>{

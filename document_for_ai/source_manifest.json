@@ -675,7 +675,7 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md",
-      "sha256": "0cc7339ca84986db1c9487560e73671e6dbcdffb473c09b3cb9eef60382ec23a"
+      "sha256": "81e1ca4a44762d0d26179e0cf160f84f8489c08eb8aa166746e4ee8d362eb011"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
@@ -711,11 +711,11 @@
     },
     {
       "path": "document/content/10_COMMON_ENGINE_FRAME.md",
-      "sha256": "13686ea3cfb636e9f4ef0da098a0e8862e1e46c84360e49618cddbef9cc08abe"
+      "sha256": "877328b8446a98d45d487ecec0432d18e761f4998cb0d71dc78a24d2115900a4"
     },
     {
       "path": "document/content/11_FEATURE_FRAME.md",
-      "sha256": "10f36cfcb2565eb09b0742e82140b8b5374dd9cc8f93aa52f4c9690ff39de276"
+      "sha256": "38414aeb41a140e82be10fa71ac7f5d64fdf224d0769e9225d41216ea2549a02"
     },
     {
       "path": "document/content/12_USER_UCS.md",
@@ -743,7 +743,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "d71ac7d54002e5ae2c14bcf3d4deb3b9624749422ef1730e2f739e41756c7565"
+      "sha256": "04a2c61aae35aa858f52fe21c46f64785d2964726a34cec2abd3cd59fe8c33e3"
     },
     {
       "path": "lumia/README.md",
