@@ -33,7 +33,7 @@ import { createRoomLight } from "./core/room-light.mjs";
 import { appendCharacterInfo } from "./ui/character-info.mjs";
 import { createEndingUI } from "./ui/ending.mjs";
 import { activePet } from "./core/pets.mjs";
-import { createTitleAudioController, dialogueMusicKey } from "./core/title-audio.mjs";
+import { createTitleAudioController } from "./core/title-audio.mjs";
 import { createAdventureResultUI } from "./ui/adventure-result.mjs";
 import { createActivityResultUI } from "./ui/activity-result.mjs";
 import { createBadgeResultUI } from "./ui/badge-result.mjs";
@@ -1028,8 +1028,7 @@ const dialogueUI = createDialogueUI({ el, btn, shell, heading, modal,
 	getRoomBackground: () => './world-assets/' + activeRoom(profile, roomLight.time).image,
 });
 function playDialogueMusic(payload) {
-	const key = dialogueMusicKey(payload);
-	if (key) titleAudio.playMusic(key);
+	titleAudio.playDialogueMusic(payload);
 }
 const usesServerDialogue = () => serverMode;
 function showDialogueError(error, retry) {
@@ -1060,6 +1059,7 @@ const dialogueRuntime = createDialogueRuntime({
 		return (
 		dialogueUI.render({
 			payload,
+			onSceneChange: playDialogueMusic,
 			onComplete: (result) => {
 				renderBusy("이야기 진행을 저장하고 있어요.");
 				handlers.onComplete(result);
@@ -1082,6 +1082,7 @@ if (serverMode)
 			return (
 			dialogueUI.render({
 				payload,
+				onSceneChange: playDialogueMusic,
 				onComplete: (result) => handlers.onComplete(result),
 				onSkip: (result) => handlers.onSkip(result),
 			}));

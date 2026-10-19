@@ -30,6 +30,7 @@ function validatePayload(payload){
  if(!isRecord(payload)||!isRecord(payload.speakers)||!Array.isArray(payload.sequence)||payload.sequence.length===0||payload.sequence.at(-1)?.type!=='END'||payload.sequence.filter(node=>node?.type==='END').length!==1)throw new Error('대화 sequence는 마지막 END를 포함해야 합니다.');
  for(const node of payload.sequence){
   if(!isRecord(node))throw new Error('대화 sequence 항목이 올바르지 않습니다.');
+  if(node.sceneId!==undefined&&(typeof node.sceneId!=='string'||!/^S[1-5]$/.test(node.sceneId)))throw new Error('대화 씬 정보가 올바르지 않습니다.');
   if(node.type==='LINE')validateLine(node,payload.speakers);
   else if(node.type==='IMAGE')validateImage(node);
   else if(node.type==='CHOICE')validateChoice(node,payload.speakers);
@@ -40,7 +41,7 @@ function validatePayload(payload){
 export function createDialoguePlayback(payload){
  validatePayload(payload);
  const sequence=payload.sequence,speakers=payload.speakers,selectedChoices=[];
- let sequenceIndex=0,reactionLines=null,reactionIndex=0,node=null,focus=null,background=null,ended=false;
+ let sequenceIndex=0,reactionLines=null,reactionIndex=0,node=null,focus=null,background=null,sceneId=null,ended=false;
  const copy=value=>value===null?null:structuredClone(value);
  const normalizeLine=line=>{const mode=line.lineMode??'DIALOGUE';return {...line,type:'LINE',lineMode:mode,visualMode:line.visualMode??(mode==='DIALOGUE'?'SPEAKER':'KEEP')};};
  const applyLine=line=>{
@@ -53,7 +54,7 @@ export function createDialoguePlayback(payload){
    focus=speaker?.kind==='PLAYER'||!speaker?.portraitSrc?null:{src:toFullbodyCharacterSrc(speaker.portraitSrc),alt:speaker.name??'',assetType:'CHARACTER'};
   }
  };
- const snapshot=()=>({node:copy(node),focus:copy(focus),background:copy(background),selectedChoices:copy(selectedChoices),ended});
+ const snapshot=()=>({node:copy(node),focus:copy(focus),background:copy(background),sceneId,selectedChoices:copy(selectedChoices),ended});
  const advanceToDisplay=()=>{
   if(reactionLines){
    if(reactionIndex<reactionLines.length){node=normalizeLine(reactionLines[reactionIndex]);applyLine(node);return snapshot();}
@@ -61,6 +62,7 @@ export function createDialoguePlayback(payload){
   }
   while(sequenceIndex<sequence.length){
    const current=sequence[sequenceIndex];
+   if(current.sceneId)sceneId=current.sceneId;
    if(current.type==='IMAGE'){
     const value=current.action==='HIDE'?null:{src:current.assetType==='CHARACTER'?toFullbodyCharacterSrc(current.src):current.src,alt:current.alt??'',assetType:current.assetType};
     if(current.target==='FOCUS')focus=value;else background=value;

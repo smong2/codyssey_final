@@ -65,7 +65,7 @@ EXPECTED_CHOICE_EFFECTS = EXPECTED_CANONICAL_CHOICES * 2 + EXPECTED_SECONDARY_HI
 EXPECTED_DIALOGUE_SEQUENCES = 12 * 32
 EXPECTED_DIALOGUE_OPTIONS = 24 * 32
 EXPECTED_EVENT_EFFECTS = 12
-EXPECTED_EVENT_CONDITIONS = 16  # 3 encounter + 9 previous + 4 WORK class
+EXPECTED_EVENT_CONDITIONS = 13  # 9 previous + 4 WORK class
 EXPECTED_NPC_ROLES = 2
 EXPECTED_NPC_ROLE_CANDIDATES = 4
 
@@ -759,18 +759,7 @@ def seed_story_structure(conn: sqlite3.Connection, version: str, masters: dict[s
             )
 
             condition_order = 1
-            if step_no == 1:
-                conn.execute(
-                    """
-                    INSERT INTO story_event_conditions(
-                        version, event_id, condition_order, condition_type,
-                        subject_ref, operator, value_json
-                    ) VALUES (?, ?, ?, 'NPC_ENCOUNTER_GTE', ?, 'GTE', '1')
-                    """,
-                    (version, event_id, condition_order, story["npc_ref"]),
-                )
-                condition_order += 1
-            else:
+            if step_no > 1:
                 if previous_event_id is None:
                     raise AssertionError(f"{event_id}: missing previous event")
                 conn.execute(

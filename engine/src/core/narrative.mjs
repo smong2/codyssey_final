@@ -20,7 +20,6 @@ export function narrativeCandidates(run,activity){
   if(scene.startWeek>activity.week||scene.locationId!==activityPlace(activity))return false;
   const previous=history.filter(h=>h.chain===scene.chain),last=previous.at(-1);if(scene.step!==(last?.step??0)+1)return false;
   if(scene.kind==='npc'){
-   const actor=narrativeActor(scene,run.characterId);if(!(run.storyState?.encounters?.[actor.id]?.encounterCount>0))return false;
    if(last&&last.week>=activity.week-1)return false;
    if(scene.chain==='WORK'&&classOf(activity.action)?.stat!=='magic')return false;
   }

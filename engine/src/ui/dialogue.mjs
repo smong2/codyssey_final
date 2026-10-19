@@ -22,10 +22,10 @@ export function createStoryResultUI({el,btn}){
 
 export function createDialogueUI({el,btn,shell,heading,modal,getRoomBackground=()=>null}){
  let clearCurrent=()=>{};
- return {render({payload,onComplete=()=>{},onSkip=()=>{},extraControls=[],pageClassName='dialogue-preview-page'}){
+ return {render({payload,onComplete=()=>{},onSkip=()=>{},onSceneChange=()=>{},extraControls=[],pageClassName='dialogue-preview-page'}){
   clearCurrent();
   const playback=createDialoguePlayback(payload),log=[];
-  let completed=false,disposed=false,backgroundImage=null,focusImage=null,focusAnimation=null,nameplateVisible=false,nameplateAnimation=null,lastLine=null,loggedBackground=null,sceneCount=0;
+  let completed=false,disposed=false,backgroundImage=null,focusImage=null,focusAnimation=null,nameplateVisible=false,nameplateAnimation=null,lastLine=null,loggedBackground=null,sceneCount=0,lastSceneId=null;
   const animations=new Set(),backgroundLayers=new Set();
   const animate=(target,keyframes,options,done=()=>{})=>{
    if(disposed)return null;
@@ -164,6 +164,9 @@ export function createDialogueUI({el,btn,shell,heading,modal,getRoomBackground=(
   const paint=()=>{
    if(disposed)return;
    const state=playback.snapshot(),current=state.node;
+   if(!state.ended&&state.sceneId&&state.sceneId!==lastSceneId){
+    lastSceneId=state.sceneId;onSceneChange({storyId:payload.storyId,eventId:payload.eventId,sceneId:state.sceneId});
+   }
    if(current.type==='LINE'||current.type==='CHOICE'){
     const background=state.background?.src??null;
     if(sceneCount===0||background!==loggedBackground){

@@ -271,7 +271,7 @@
     },
     {
       "path": "asset/audio/README.md",
-      "sha256": "35997cb40d2d00b46673fc2e7f3fa2e752da830de7d05e5077e76546eba03875"
+      "sha256": "2cc17795ced826d9f6abb47fad42a5295b1812aa449ad9b384e35819d0668786"
     },
     {
       "path": "asset/background/README.md",
@@ -359,7 +359,7 @@
     },
     {
       "path": "backend/database/NPC_STORY_DB_SPEC.md",
-      "sha256": "faf195f51bc131edf462e3ee3584073341f6715543bcb4c8c61284f4ce5d68bd"
+      "sha256": "943f54c3e51f0b37525fcd5583b6d1d79369ef912b9f22586a70a1c856eaf2f6"
     },
     {
       "path": "backend/README.md",
@@ -419,7 +419,7 @@
     },
     {
       "path": "document/dialogue/01_ENGINE_API_CONTRACT.md",
-      "sha256": "c4ee2098a594907165e7551abdc8662d3a7f48fd09a08d776a0df80b6b49c00f"
+      "sha256": "da65eaae094aa03ccebe0f6bd170d364d2042f9da48906cf6956df517ec7827b"
     },
     {
       "path": "document/dialogue/02_DIALOGUE_WRITING_GUIDE.md",
@@ -627,7 +627,7 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
-      "sha256": "479eda83cb23bfa788cde8814dde0891e4c350abd931cc226456c90cbce92309"
+      "sha256": "7661b2f940225d98a172c3f6ebcf09afee53374d82881f6c8ac486ef627da696"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
@@ -727,7 +727,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "0cceda2b2cb5d4f70daf86869d7c53f2ec1c2b189ff5a36bc1f2a53fbdc903bf"
+      "sha256": "ff66145d1d6051495e7486302edad209330959bb09c0521ba073a93ee45f2452"
     },
     {
       "path": "lumia/README.md",

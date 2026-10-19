@@ -79,13 +79,7 @@ is_active = 1
 
 ### 추가 조건
 
-1단계:
-
-```text
-NPC_ENCOUNTER_GTE >= 1
-```
-
-즉 같은 체인의 상대 NPC를 일반 조우로 최소 1회 만난 뒤 시작할 수 있다.
+1단계에는 선행 일반 조우 조건을 두지 않는다. 2026-10-20 사용자 승인으로 세 체인의 `NPC_ENCOUNTER_GTE >= 1` 조건을 제거했다. 시작 주차·장소·WORK 수업 조건은 유지한다.
 
 2~4단계:
 
@@ -101,9 +95,8 @@ ACTIVITY_TYPE = CLASS
 
 을 요구한다. Story 자체의 `location_id=WRK`와 결합해 현재 본편의 `마도 공방 + 마법훈련` 조건을 표현한다. 현재 `WRK`의 본편 수업은 마법훈련 `룬 회로` 한 종류이므로 별도 미니게임 ID 조건을 추가하지 않는다.
 
-예상 `story_event_conditions` 총수는 **16행**이다.
+예상 `story_event_conditions` 총수는 **13행**이다.
 
-- 1단계 선행 일반 조우: 3
 - 2~4단계 이전 이벤트 완료: 9
 - WORK CLASS 조건: 4
 
@@ -273,7 +266,7 @@ NPC seed는 같은 3개 NPC Story를 삭제 후 재생성하므로 동일 `gameD
 | NPC stories | 3 |
 | NPC events / steps | 12 / 12 |
 | NPC event rules | 12 |
-| NPC event conditions | 16 |
+| NPC event conditions | 13 |
 | NPC roles / role candidates | 2 / 4 |
 | LULU speaker | 1 |
 | canonical choices | 24 |

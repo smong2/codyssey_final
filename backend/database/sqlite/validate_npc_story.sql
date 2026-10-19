@@ -37,7 +37,7 @@ FROM story_event_rules
 WHERE version='dev-dialogue-v1'
   AND event_id LIKE 'NPC_%';
 
-SELECT 'npc_event_conditions' AS metric, COUNT(*) AS actual, 16 AS expected
+SELECT 'npc_event_conditions' AS metric, COUNT(*) AS actual, 13 AS expected
 FROM story_event_conditions
 WHERE version='dev-dialogue-v1'
   AND event_id IN (

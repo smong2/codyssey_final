@@ -27,6 +27,8 @@
 → 최신 activeRun 반환
 ```
 
+2026-10-20: Main compiler는 LINE/IMAGE/CHOICE의 선택적 sceneId(S1~S5)로 원고 씬 경계를 전달하며 공통 DialoguePlayer가 음악을 전환한다. stepNo는 씬 번호가 아니다. 같은 곡은 유지하고 다른 곡은 0.8초 교차 페이드한다. NPC 세 체인 첫 단계는 선행 조우 없이 주차·장소·WORK 수업 조건으로 후보가 되며, 후속 단계 선행 완료와 빈도 제한은 유지한다. 실제 브라우저 청음 검수는 별도다.
+
 ### API payload 명령은 4종만 사용
 
 - `LINE`

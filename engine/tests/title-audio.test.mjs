@@ -44,6 +44,21 @@ test('dialogue music uses actual story identities without inventing inner-scene 
  assert.equal(dialogueMusicKey({storyId:'UNKNOWN',eventId:'other'}),null);
 });
 
+test('main scene music follows the approved crisis, restoration and resolution cues',()=>{
+ for(const [storyId,sceneId,key] of [['MS01','S2','daily'],['MS01','S3','mysteryLight'],['MS01','S4','room'],['MS01','S5','daily'],['MS02','S4','resolution'],['MS03','S5','resolution'],['MS04','S4','calm'],['MS05','S3','mysteryDark'],['MS05','S4','restoration'],['MS05','S5','playful']])assert.equal(dialogueMusicKey({storyId,sceneId}),key);
+});
+
+test('admission finishes before S2 music and a later scene cancels its queued follow-up',async()=>{
+ const {audio,tracks,frames,setTime}=fakeAudioHarness(),admission=tracks[2],daily=tracks.find(track=>track.source.endsWith('bgm_daily_bright_01.mp3'));
+ audio.playMusic('admission',0,{restart:true});admission.currentTime=10;
+ await new Promise(resolve=>setImmediate(resolve));
+ audio.playDialogueMusic({storyId:'MS01',sceneId:'S2'});assert.equal(daily.playCount,0);
+ admission.paused=true;admission.fire('ended');assert.equal(daily.playCount,1);
+ setTime(400);frames.at(-1).callback();assert.equal(admission.playCount,1,'finished admission must not restart during its outgoing fade');
+ audio.playMusic('admission',0,{restart:true});audio.playDialogueMusic({storyId:'MS01',sceneId:'S2'});
+ audio.playDialogueMusic({storyId:'MS01',sceneId:'S3'});admission.fire('ended');assert.equal(daily.playCount,1);
+});
+
 test('intro music is one-shot and title music loops',()=>{
  const {tracks}=fakeAudioHarness();
  assert.equal(tracks[0].loop,false);

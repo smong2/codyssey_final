@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from contextlib import closing
 import json
+import re
 from pathlib import Path
 import sqlite3
 from urllib.parse import quote
@@ -246,6 +247,9 @@ class DialogueMaster:
             visited.add(current)
             row = nodes[current]
             kind = row["node_kind"]
+            # Reviewed Main node IDs carry the author's S1..S5 boundary.
+            # step_no is the event's DB step, not an in-story scene number.
+            scene = re.fullmatch(r"MS0[1-6]_(S[1-5])_.+", current)
             if kind == "LINE":
                 commands.append(line(row))
                 current = row["next_node_id"]
@@ -297,6 +301,8 @@ class DialogueMaster:
                 current = None
             else:
                 raise DialogueMasterError("Unsupported dialogue node")
+            if scene and kind != "END":
+                commands[-1]["sceneId"] = scene.group(1)
         if not commands or commands[-1]["type"] != "END" or visited != set(nodes):
             raise DialogueMasterError("Dialogue graph is incomplete or has unreachable nodes")
         return {
