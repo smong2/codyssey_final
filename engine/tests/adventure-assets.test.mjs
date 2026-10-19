@@ -2,19 +2,23 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createEngineServer} from '../server.mjs';
 import {sdCharacterStrip} from '../src/core/sd-characters.mjs';
-test('runtime WebP world, foreground and reduced collision are served without exposing asset docs or removed engine assets',async t=>{
+test('registered adventure map layers are served and removed MP01/MP02 files are absent',async t=>{
  const server=createEngineServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>server.close(r)));
  const base='http://127.0.0.1:'+server.address().port;
  for(const [file,type]of [
-  ['MP01_greenhouse_world_3840x2160.webp','image/webp'],['MP01_greenhouse_foreground_3840x2160.webp','image/webp'],['MP01_greenhouse_collision_mask_1920x1080.png','image/png'],
-  ['MP02_grand_library_world_3840x2160.webp','image/webp'],['MP02_grand_library_world_1920x1080.webp','image/webp'],['MP02_grand_library_foreground_3840x2160.webp','image/webp'],['MP02_grand_library_collision_mask_1920x1080.png','image/png'],
+  ['MP01_greenhouse_master_3840x2160.png','image/png'],['MP01_greenhouse_foreground_3840x2160-1.png','image/png'],['MP01_greenhouse_collision_mask_3840x2160.png','image/png'],
+  ['MP02_grand_library_3840x2160.png','image/png'],['MP02_grand_library_foreground_3840x2160.png','image/png'],['MP02_grand_library_collision_mask_3840x2160.png','image/png'],
   ['MP03_starlight_observatory_world_3840x2160.webp','image/webp'],['MP03_starlight_observatory_world_1920x1080.webp','image/webp'],['MP03_starlight_observatory_foreground_3840x2160.webp','image/webp'],['MP03_starlight_observatory_collision_mask_1920x1080.png','image/png']
  ]){
-  const response=await fetch(base+'/design-assets/map/'+file);assert.equal(response.status,200);assert.equal(response.headers.get('content-type'),type);
+  const response=await fetch(base+'/design-assets/map/'+file);assert.equal(response.status,200,file);assert.equal(response.headers.get('content-type'),type);
+ }
+ for(const file of ['MP01_greenhouse_world_3840x2160.webp','MP02_grand_library_world_3840x2160.webp','MP01_greenhouse_collision_mask_1920x1080.png','MP02_grand_library_collision_mask_1920x1080.png']){
+  assert.equal((await fetch(base+'/design-assets/map/'+file)).status,404,file);
  }
  assert.equal((await fetch(base+'/adventure-assets/collision-mask.png')).status,404);
  assert.equal((await fetch(base+'/design-assets/map/README.md')).status,404);
 });
+
 test('all six character walking sets can be served without exposing SD documentation',async t=>{
  const server=createEngineServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>server.close(r)));
  const base='http://127.0.0.1:'+server.address().port;
