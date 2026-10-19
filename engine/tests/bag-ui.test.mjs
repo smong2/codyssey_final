@@ -16,6 +16,7 @@ function node(tag,text='',className=''){
  return item;
 }
 function all(item,predicate){return [...(predicate(item)?[item]:[]),...item.children.flatMap(child=>all(child,predicate))];}
+function hasClass(item,name){return String(item.className??'').split(/\s+/).includes(name);}
 function setup(meta={unlockedCharacters:['CH01','CH02','CH08','CH15','CH16','CH31'],unlockedPetIds:['PET01']},run={actionHistory:[],characterId:'CH01'},options={}){
  const shell=node('main'),modals=[];let headingNode,selectedPetId=null,activePetId='PET01',returnCalls=0;shell.querySelector=selector=>selector==='h1'?headingNode:null;
  const ui=createJournalUI({
@@ -41,6 +42,34 @@ test('story diary shows the saved choice text instead of an implementation place
  const {ui,shell}=setup(undefined,run);ui.diary();
  all(shell,n=>n.tag==='button'&&n.text==='이야기')[0].onclick();
  assert.match(shell.textContent,/내가 고른 선택/);assert.match(shell.textContent,/천천히 둘러보고 싶어/);assert.match(shell.textContent,/친구와 함께하고 싶어/);assert.doesNotMatch(shell.textContent,/상세 문구 연결 대기/);
+});
+
+test('diary keeps the left page scroll position when only the selected detail changes',()=>{
+ const run={characterId:'CH01',actionHistory:[
+  {week:1,day:0,action:'rest',status:'COMPLETED',effect:{outcome:'complete',staminaChange:40,staminaAfter:100,forcedRest:false,forcedRestDays:0,growth:{},restRecovery:40}},
+  {week:2,day:0,action:'rest',status:'COMPLETED',effect:{outcome:'complete',staminaChange:40,staminaAfter:100,forcedRest:false,forcedRestDays:0,growth:{},restRecovery:40}},
+ ]};
+ const {ui,shell}=setup(undefined,run);ui.diary();
+ let left=all(shell,n=>n.className.includes('book-left'))[0];left.scrollTop=137;
+ const cards=all(left,n=>n.tag==='button'&&hasClass(n,'scrap-card'));assert.equal(cards.length,2);cards[1].onclick();
+ left=all(shell,n=>n.className.includes('book-left'))[0];assert.equal(left.scrollTop,137);
+});
+
+test('story diary cards show type-specific images and main, NPC, location labels',()=>{
+ const run={characterId:'CH01',storyCast:{NPC_GUIDE_ACTOR:'CH15'},actionHistory:[],dialogueHistory:[
+  {eventId:'MS02',storyId:'MS02',title:'덩굴에 막힌 길',week:10,day:0,completionMode:'COMPLETE',selectedChoices:[],effect:{growth:{}}},
+  {eventId:'NPC_GUIDE_01',storyId:'NPC_GUIDE',title:'안내지 줍기',week:9,day:0,completionMode:'COMPLETE',selectedChoices:[],effect:{growth:{}}},
+  {eventId:'LOC_OBS_01',storyId:'LOC_OBS',title:'틀린 별자리',week:8,day:0,completionMode:'COMPLETE',selectedChoices:[],effect:{growth:{}}},
+  {eventId:'NPC_LULU_01',storyId:'NPC_LULU',title:'단추 발견',week:7,day:0,completionMode:'COMPLETE',selectedChoices:[],effect:{growth:{}}},
+ ]};
+ const {ui,shell}=setup(undefined,run);ui.diary();all(shell,n=>n.tag==='button'&&n.text==='이야기')[0].onclick();
+ const cards=all(shell,n=>n.tag==='button'&&hasClass(n,'scrap-card'));
+ const main=cards.find(card=>/메인/.test(card.textContent)),npc=cards.find(card=>/안내지 줍기/.test(card.textContent)),lulu=cards.find(card=>/단추 발견/.test(card.textContent)),location=cards.find(card=>/장소/.test(card.textContent));
+ assert.ok(main&&npc&&lulu&&location);
+ assert.equal(all(main,n=>n.tag==='img'&&n.className.includes('diary-record-cover'))[0].src,'./design-assets/item/IT_focus_MS02_blocked_vines_01.png');
+ assert.equal(all(npc,n=>n.tag==='img'&&n.className.includes('diary-record-cover'))[0].src,'./character-assets/robin0_fullbody.png');
+ assert.equal(all(lulu,n=>n.tag==='img'&&n.className.includes('diary-record-cover'))[0].src,'./design-assets/pet/NPC_LULU_01_front.png');
+ assert.equal(all(location,n=>n.tag==='img'&&n.className.includes('diary-record-cover'))[0].src,'./world-assets/BG05_starlight_observatory_1920x1080_015.png');
 });
 
 test('bag opens on badges with the approved tab order and omits item previews',()=>{

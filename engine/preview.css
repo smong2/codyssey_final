@@ -33,7 +33,7 @@ button.room-date{cursor:pointer;text-align:left}
 .room-actors{position:absolute;inset:0;pointer-events:none}
 .room-main-character{position:absolute;height:96vh;height:96dvh;max-width:80vw;object-fit:contain;left:50%;bottom:-12vh;transform:translateX(-50%);filter:drop-shadow(0 9px 8px #251b2c44)}
 .room-pet{position:absolute;left:22%;bottom:7%;width:23%;height:40%;padding:0;background:transparent;border:0;box-shadow:none;pointer-events:auto;filter:drop-shadow(0 5px 5px #22153044);display:flex;flex-direction:column;align-items:center}
-.room-pet:hover{background:transparent}.room-bern{width:100%;height:calc(100% - 25px);object-fit:contain}.room-pet>span{color:#fff7db;background:#332820bb;border-radius:10px;padding:3px 12px;font-size:12px}
+.room-pet:hover{background:transparent}.room-bern{width:100%;height:100%;object-fit:contain}
 .room-current-action{position:absolute;right:18px;bottom:85px;z-index:4;display:flex;align-items:center;gap:12px;padding:12px 16px;max-width:calc(100% - 36px)}.room-current-action span{font-size:14px}
 .menu-popover{position:absolute;right:18px;top:92px;width:min(270px,calc(100% - 36px));z-index:10;padding:10px;display:grid;gap:5px;max-height:calc(100dvh - 120px);overflow:auto}
 .menu-popover button{text-align:left;font-size:14px;padding:8px 12px;min-height:38px}.menu-popover small{line-height:1.5;padding:6px}
@@ -515,6 +515,7 @@ button:active:not(:disabled){scale:.97}
 .diary-page .scrap-card.selected{border-color:#83935f;background:#e8ebd7}
 .diary-page .scrap-card:before{display:none}
 .diary-page .scrap-card img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:3px}
+.diary-page .scrap-card img.diary-record-cover--npc{object-fit:contain;object-position:center top;background:#e8dec8}
 .diary-page .scrap-card strong{font-size:clamp(10px,1.2vw,15px);font-weight:400}
 .diary-page .scrap-card small{font-size:clamp(8px,.9vw,11px);line-height:1.4}
 .diary-page .book-footer{position:absolute;z-index:2;left:10%;right:10%;bottom:10%;height:7%;flex-wrap:nowrap;justify-content:space-between;pointer-events:none}
@@ -916,9 +917,9 @@ dialog.paper-modal.room-puzzle-modal{box-sizing:border-box;width:min(920px,88vw)
 .room-actor-draggable:active{cursor:grabbing}
 #shell .room-actors .room-main-character.room-actor-positioned,#shell .room-actors .room-pet.room-actor-positioned{left:var(--room-x)!important;right:auto!important;top:var(--room-y)!important;bottom:auto!important;transform:translate(-50%,-50%)!important}
 #shell .room-actors .room-pet{z-index:3}
-.room-pet>.room-pet-bubble{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);width:min(250px,52vw);padding:11px 13px;border:2px solid #a98b61;border-radius:16px;background:#fff9e8;color:#374333;box-shadow:0 6px 18px #22153044;text-align:center;white-space:normal;line-height:1.45;pointer-events:none;z-index:5}
+.room-pet>.room-pet-bubble{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);width:min(250px,52vw);padding:11px 13px;border:2px solid #a98b61;border-radius:16px;background:#fff9e8;color:#374333;box-shadow:0 6px 18px #22153044;text-align:center;white-space:normal;line-height:1.45;font-size:14px;pointer-events:none;z-index:5}
 .room-pet>.room-pet-bubble--sleeping{width:72px;letter-spacing:2px;color:#776c58}
-.room-pet>.room-pet-bubble--greeting{width:110px}
+.room-pet>.room-pet-bubble--greeting{width:min(180px,52vw)}
 .room-pet-bubble[hidden]{display:none}
 @media(max-width:600px){.ending-history-page .ending-layout{grid-template-columns:1fr}.ending-history-page .ending-summary{max-height:22dvh}.ending-history-page .ending-letter{max-height:65dvh}}
 

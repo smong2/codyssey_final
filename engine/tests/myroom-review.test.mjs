@@ -120,8 +120,9 @@ test('pet sleeps until dialogues are ready, then greets before the first click',
  pet.onclick();assert.equal(bubble.textContent,'zzz');
  finishLoading(['오늘도 같이 책을 읽자.']);
  await new Promise(resolve=>setImmediate(resolve));
- assert.equal(bubble.textContent,'안녕?');
+ assert.equal(bubble.textContent,'안녕? 달력을 눌러봐');
  assert.equal(pet.attributes['aria-disabled'],'false');
+ assert.equal(pet.children.filter(node=>node.tag==='span'&&node.text==='베른').length,0);
  pet.onclick();
  assert.equal(bubble.textContent,'오늘도 같이 책을 읽자.');
  assert.doesNotMatch(pet.textContent,/펫 변경/);

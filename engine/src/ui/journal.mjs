@@ -6,25 +6,77 @@ import { weeklyActivityRecords, storyDiaryRecords } from "../core/activity-histo
 import { activityResultText } from "../core/activity-rules.mjs";
 import { ADVENTURE_LOCATIONS, getAdventureMap } from "../core/adventure-mission.mjs";
 import { storyContent } from "../core/story-events.mjs";
-import { NARRATIVE_SCENES } from "../core/narrative.mjs";
+import { NARRATIVE_SCENES, narrativeActor } from "../core/narrative.mjs";
+import { STUDENTS } from "../core/catalogue.mjs";
 import { unreadRoomIds } from "../core/collection-notices.mjs";
 import { createCloseButton } from "./button-art.mjs";
 const diaryStory = (record) => (record.formal || record.kind === "main" || NARRATIVE_SCENES.some((scene) => scene.id === record.id) ? { title: record.title ?? NARRATIVE_SCENES.find((scene) => scene.id === record.id)?.title ?? "완료한 이야기", choices: record.selectedChoices ?? [{ id: record.choiceId, label: record.choiceLabel }], closing: record.closing, formal: true } : storyContent(record));
 const ACTIVITY_PLACES = { "rune-circuit": "BG08_magic_workshop_1920x1080_018.png", excavation: "BG01_arcadia_entrance_and_lake_1920x1080_010.png", "rune-link": "BG04_grand_library_1920x1080_014.png", "training-guardian": "BG09_rune_training_ground_1920x1080_019.png", "rune-merge": "BG06_glass_greenhouse_1920x1080_016.png", "mirror-magic": "BG05_starlight_observatory_1920x1080_015.png", "seal-dismantle": "BG02_clocktower_plaza_1920x1080_011.png", "observatory-mirror": "BG05_starlight_observatory_1920x1080_015.png", "starlight-stage": "BG02_clocktower_plaza_1920x1080_011.png", "spirit-pot-sort": "BG06_glass_greenhouse_1920x1080_016.png", "sealed-shelves": "BG04_grand_library_1920x1080_014.png", "rune-pin-training": "BG09_rune_training_ground_1920x1080_019.png" };
+const STORY_LOCATION_ART = {
+	observatory: "./world-assets/BG05_starlight_observatory_1920x1080_015.png",
+	plaza: "./world-assets/BG02_clocktower_plaza_1920x1080_011.png",
+	greenhouse: "./world-assets/BG06_glass_greenhouse_1920x1080_016.png",
+	dormitory: "./world-assets/BG03_academy_dormitory_1920x1080_013.png",
+	library: "./world-assets/BG04_grand_library_1920x1080_014.png",
+	workshop: "./world-assets/BG08_magic_workshop_1920x1080_018.png",
+	training: "./world-assets/BG09_rune_training_ground_1920x1080_019.png",
+};
+const MAIN_STORY_ART = {
+	MS01: "./world-assets/BG02_clocktower_plaza_1920x1080_011.png",
+	MS02: "./design-assets/item/IT_focus_MS02_blocked_vines_01.png",
+	MS03: "./design-assets/item/IT_focus_MS03_wrong_clock_rune_01.png",
+	MS04: "./design-assets/item/IT_focus_MS04_detached_shadow_01.png",
+	MS05: "./world-assets/BG02_clocktower_plaza_starlight_festival_lit_3840x2161.png",
+	MS06: "./design-assets/item/IT_focus_MS06_winter_games_decor_01.png",
+};
+const STORY_KIND_LABELS = { main: "메인", npc: "NPC", location: "장소", dialogue: "이야기", story: "이야기" };
 export const activityArt = (a, locationId = "greenhouse") => (a === "adventure" ? getAdventureMap((ADVENTURE_LOCATIONS.find((place) => place.id === locationId) ?? ADVENTURE_LOCATIONS[0]).mapId).thumbnail : a === "rest" ? "./world-assets/BG11_myroom2_day_1920x1080_023.png" : a === "fairy-trade" ? "./character-assets/CH_DRM_fairy_trade_upperbody_01.png" : ACTIVITY_PLACES[classOf(a)?.id] ? "./world-assets/" + ACTIVITY_PLACES[classOf(a).id] : null);
 export const activityLabel = (a, locationId = "greenhouse") => (a === "adventure" ? (ADVENTURE_LOCATIONS.find((place) => place.id === locationId)?.title ?? "모험") + " 모험" : a === "fairy-trade" ? "요정의 거래" : (classOf(a)?.title ?? "휴식"));
-function diaryCoverArt(record) {
-	if (!record.activities) return record.formal || record.kind === "main" ? null : activityArt("adventure", record.locationId);
+function storyKind(record) {
+	const id = record.eventId ?? record.id ?? record.storyId ?? "";
+	if (record.kind === "main" || id.startsWith("MS")) return "main";
+	if (record.kind === "npc" || id.startsWith("NPC_")) return "npc";
+	if (record.kind === "location" || id.startsWith("LOC_")) return "location";
+	return record.kind ?? "story";
+}
+function storyCoverArt(record, run) {
+	const kind = storyKind(record), id = record.eventId ?? record.id ?? record.storyId ?? "";
+	if (kind === "npc") {
+		const scene = NARRATIVE_SCENES.find((item) => item.id === id);
+		if (!scene) return null;
+		const role = scene.chain === "GUIDE" ? "NPC_GUIDE_ACTOR" : scene.chain === "WORK" ? "NPC_WORK_ACTOR" : null,
+			castId = role ? (run.storyCast?.[role] ?? run.storyCast?.[scene.chain]) : null,
+			castActor = castId ? STUDENTS.find((student) => student.id === castId) : null,
+			actor = castActor ? { image: castActor.fullbody } : narrativeActor(scene, run.characterId);
+		if (actor.image) return { src: "./character-assets/" + actor.image, type: "npc" };
+		if (scene.chain === "LULU") return { src: "./design-assets/pet/NPC_LULU_01_front.png", type: "npc" };
+		return null;
+	}
+	if (kind === "location") {
+		const scene = NARRATIVE_SCENES.find((item) => item.id === id), src = STORY_LOCATION_ART[scene?.locationId ?? record.locationId];
+		return src ? { src, type: "location" } : null;
+	}
+	if (kind === "main") {
+		const mainId = String(record.storyId ?? id).match(/^MS\d{2}/)?.[0], src = MAIN_STORY_ART[mainId];
+		return src ? { src, type: "main" } : null;
+	}
+	const src = STORY_LOCATION_ART[record.locationId];
+	return src ? { src, type: "location" } : null;
+}
+function diaryCoverArt(record, run) {
+	if (!record.activities) return storyCoverArt(record, run);
 	// A presentation-only highlight from saved activities; ties use the later day.
 	const rank = (activity) => (({ greatSuccess: 4, success: 3, complete: 2 })[activity.effect?.outcome] ?? 1) + (activity.action === "adventure" ? 0.25 : activity.action === "rest" ? -1 : 0);
 	const highlight = record.activities.filter((activity) => activityArt(activity.action, activity.locationId)).reduce((best, activity) => (!best || rank(activity) > rank(best) || (rank(activity) === rank(best) && activity.day > best.day) ? activity : best), null);
-	return highlight ? activityArt(highlight.action, highlight.locationId) : null;
+	return highlight ? { src: activityArt(highlight.action, highlight.locationId), type: "activity" } : null;
 }
 export function createJournalUI(ctx) {
 	const { el, btn, shell, heading, current, meta, onReturn, turnPage } = ctx;
 	let diaryTab = "활동 기록",
 		page = 0,
-		selected = 0;
+		selected = 0,
+		diaryLeftPage = null;
+	const diaryScrollTop = { "활동 기록": 0, 이야기: 0 };
 	const turns = createPageTurnGate();
 	const close = (diary = false, host = shell) => {
 		const x = createCloseButton({el,btn,onClick:onReturn,label:"마이룸으로 닫기"});
@@ -39,10 +91,14 @@ export function createJournalUI(ctx) {
 		const layout = el("div", null, "book-layout"),
 			tabs = el("nav", null, "book-tabs");
 		layout.setAttribute("aria-label", "다이어리 펼친 책");
-		const change = (fn) => {
+		const change = (fn, resetScroll = false) => {
+			const sourceTab = diaryTab,
+				sourceScroll = Number.isFinite(diaryLeftPage?.scrollTop) ? diaryLeftPage.scrollTop : 0;
 			const done = turns.begin(() => {
 				if (!layout.isConnected) return;
+				diaryScrollTop[sourceTab] = sourceScroll;
 				fn();
+				if (resetScroll) diaryScrollTop[diaryTab] = 0;
 				diary();
 			});
 			if (done) turnPage(layout, done);
@@ -56,7 +112,7 @@ export function createJournalUI(ctx) {
 						diaryTab = tab;
 						page = 0;
 						selected = 0;
-					}),
+					}, true),
 				diaryTab === tab ? "selected" : "quiet",
 			);
 			bookmark.setAttribute("aria-pressed", String(diaryTab === tab));
@@ -77,15 +133,15 @@ export function createJournalUI(ctx) {
 						}),
 					"scrap-card" + (selected === absolute ? " selected" : ""),
 				);
-			const art = diaryCoverArt(record);
+			const art = diaryCoverArt(record, current());
 			if (art) {
-				const image = el("img", null, "diary-record-cover");
-				image.src = art;
+				const image = el("img", null, "diary-record-cover diary-record-cover--" + art.type);
+				image.src = art.src;
 				image.alt = "";
 				card.append(image);
 			}
 			card.setAttribute("aria-pressed", String(absolute === selected));
-			card.append(el("strong", record.activities ? record.week + "주차" : diaryStory(record).title), el("small", record.activities ? "실제 활동 " + record.activities.length + " / 5회" : record.week + "주차 · " + (diaryStory(record).formal ? "이야기" : "기존 임시 이야기")));
+			card.append(el("strong", record.activities ? record.week + "주차" : diaryStory(record).title), el("small", record.activities ? "실제 활동 " + record.activities.length + " / 5회" : record.week + "주차 · " + (diaryStory(record).formal ? (STORY_KIND_LABELS[storyKind(record)] ?? "이야기") : "기존 임시 이야기")));
 			grid.append(card);
 		}
 		left.append(grid);
@@ -101,8 +157,9 @@ export function createJournalUI(ctx) {
 			right.append(el("small", "완료한 활동만 표시합니다. 활동 결과 저장 후 유지됩니다."));
 		} else if (record) {
 			const content = diaryStory(record),
-				choices = record.selectedChoices ?? content.choices.filter((c) => c.id === record.choiceId);
-			right.append(el("p", record.week + "주차" + (Number.isInteger(record.day) ? " · " + ["월", "화", "수", "목", "금"][record.day] + "요일" : "")));
+				choices = record.selectedChoices ?? content.choices.filter((c) => c.id === record.choiceId),
+				kindLabel = content.formal ? (STORY_KIND_LABELS[storyKind(record)] ?? "이야기") : "기존 임시 이야기";
+			right.append(el("p", record.week + "주차" + (Number.isInteger(record.day) ? " · " + ["월", "화", "수", "목", "금"][record.day] + "요일" : "") + " · " + kindLabel));
 			if (choices.length) {
 				const choiceList = el("section", null, "story-choice-records");
 				choiceList.append(el("h3", "내가 고른 선택"));
@@ -118,6 +175,8 @@ export function createJournalUI(ctx) {
 		spine.setAttribute("aria-hidden", "true");
 		layout.append(tabs, left, spine, right);
 		shell.append(layout);
+		diaryLeftPage = left;
+		left.scrollTop = diaryScrollTop[diaryTab] ?? 0;
 		const footer = el("nav", null, "book-footer");
 		const previous = btn(
 				"이전 페이지",
@@ -125,7 +184,7 @@ export function createJournalUI(ctx) {
 					change(() => {
 						page--;
 						selected = page * 6;
-					}),
+					}, true),
 				"quiet",
 			),
 			next = btn(
@@ -134,7 +193,7 @@ export function createJournalUI(ctx) {
 					change(() => {
 						page++;
 						selected = page * 6;
-					}),
+					}, true),
 				"quiet",
 			);
 		previous.disabled = page === 0;

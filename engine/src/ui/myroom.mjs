@@ -458,7 +458,7 @@ export function createMyroomUI(ctx) {
 		bubble.setAttribute("aria-live", "polite");
 		pet.setAttribute("aria-label", chosenPet.name + " 자는 중 · 대화 준비 중");
 		pet.setAttribute("aria-disabled", "true");
-		pet.append(img("pet", chosenPet.image, chosenPet.name, "room-bern"), el("span", chosenPet.name));
+		pet.append(img("pet", chosenPet.image, chosenPet.name, "room-bern"));
 		pet.append(bubble);
 		actors.append(pet);
 		function loadPetDialogues() {
@@ -467,7 +467,7 @@ export function createMyroomUI(ctx) {
 				if (pet.isConnected === false) return;
 				if (!Array.isArray(lines) || !lines.length) throw new Error("대사를 불러올 수 없습니다.");
 				petLines = lines;
-				bubble.textContent = "안녕?";
+				bubble.textContent = "안녕? 달력을 눌러봐";
 				bubble.classList.toggle("room-pet-bubble--sleeping", false);
 				bubble.classList.toggle("room-pet-bubble--greeting", true);
 				pet.setAttribute("aria-label", chosenPet.name + " 대화하기");

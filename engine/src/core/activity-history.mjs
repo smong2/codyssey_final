@@ -3,8 +3,8 @@ import {MAIN_STORIES} from './main-story.mjs';
 
 export function storyDiaryRecords(run){
  const main=(run.mainStory?.history??[]).map(record=>({...structuredClone(record),kind:'main',title:record.title??MAIN_STORIES.find(story=>story.id===record.id)?.title??'완료한 이야기'}));
- const supplied=structuredClone(run.dialogueHistory??[]).map(record=>({...record,id:record.eventId,formal:true,kind:record.eventId.startsWith('MS')?'main':'dialogue'}));
- const seen=new Set();return [...supplied,...main,...structuredClone(run.storyState?.history??[]),...structuredClone(run.narrativeState?.history??[])].filter(record=>{const key=record.eventId??record.id;if(seen.has(key))return false;seen.add(key);return true;}).sort((a,b)=>b.week-a.week||(b.day??0)-(a.day??0));
+ const supplied=structuredClone(run.dialogueHistory??[]).map(record=>{const id=record.eventId??record.storyId??'';return {...record,id:record.eventId??record.id??record.storyId,formal:true,kind:id.startsWith('MS')?'main':id.startsWith('NPC_')?'npc':id.startsWith('LOC_')?'location':'dialogue'};});
+ const seen=new Set();return [...supplied,...main,...structuredClone(run.storyState?.history??[]),...structuredClone(run.narrativeState?.history??[])].filter(record=>{const key=record.eventId??record.id??record.storyId;if(seen.has(key))return false;seen.add(key);return true;}).sort((a,b)=>b.week-a.week||(b.day??0)-(a.day??0));
 }
 
 export function weeklyActivityRecords(history=[]){
