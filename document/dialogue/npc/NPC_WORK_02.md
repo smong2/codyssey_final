@@ -15,6 +15,15 @@
 - `홈이 두 개인 쪽이 더 맞아 보인다 / 둘을 다시 나란히 비교한다`를 정답/오답이 아닌 두 관찰 방식으로 만든다.
 - 어느 선택에서도 마지막 규격 확인은 상대가 한다.
 
+## 이미지
+
+| 용도 | 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG08_magic_workshop_1920x1080_018.png`](../../../asset/background/BG08_magic_workshop_1920x1080_018.png) | 실제 파일·API 연결 가능 | <img src="../../../asset/background/BG08_magic_workshop_1920x1080_018.png" width="240" alt="마도 공방"> |
+| `ART-N03` 재사용 | 예약 파일 `IT_focus_NPC_WORK_01_workshop_parts_01.png` | **예약·미납** | 미리보기 없음 |
+
+화자는 기본 [`렌`](../../../asset/character/ren0_fullbody.png) <img src="../../../asset/character/ren0_fullbody.png" width="72" alt="렌 전신">, CH25 주인공일 때 [`다나`](../../../asset/character/dana0_fullbody.png) <img src="../../../asset/character/dana0_fullbody.png" width="72" alt="다나 전신">로 대체된다.
+
 ## Sequence
 
 ### S1 · 지난번 정리 덕분

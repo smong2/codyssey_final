@@ -87,6 +87,12 @@ class CompleteAdventureRequest(MutationRequest):
         return self
 
 
+class CompleteRestRequest(MutationRequest):
+    model_config = ConfigDict(extra="forbid")
+
+    restChoice: Literal["HOME", "FRIENDS", "HOBBY"] = "HOME"
+
+
 class ActivityRejected(Exception):
     pass
 
@@ -151,6 +157,59 @@ def _increase_counter(container: dict, key: str) -> None:
     if type(value) is not int or value < 0:
         raise ActivityRejected(f"Stored counter {key} is invalid")
     container[key] = value + 1
+
+
+def _record_activity_history(run: dict, *, day: str, entry: dict) -> None:
+    """Append one compact, client-safe completed activity record to the active run."""
+    week = run.get("week")
+    if type(week) is not int or not 1 <= week <= 52 or day not in WEEKDAYS:
+        raise ActivityRejected("Activity history position is invalid")
+    history = run.setdefault("activityHistory", [])
+    if not isinstance(history, list) or len(history) >= 260:
+        raise ActivityRejected("Stored activity history is invalid")
+    if any(not isinstance(item, dict)
+           or type(item.get("week")) is not int or not 1 <= item["week"] <= 52
+           or type(item.get("day")) is not int or not 0 <= item["day"] < len(WEEKDAYS)
+           for item in history):
+        raise ActivityRejected("Stored activity history is invalid")
+    day_index = WEEKDAYS.index(day)
+    if any(isinstance(item, dict) and item.get("week") == week and item.get("day") == day_index
+           for item in history):
+        raise ActivityRejected("Activity history already contains this weekday")
+    record = {
+        "week": week, "day": day_index, "type": entry.get("type"),
+        "contentId": entry.get("contentId"), "status": "COMPLETED",
+        "resolution": entry.get("resolution"),
+    }
+    for key in ("staminaBefore", "staminaCost", "staminaRecovered", "growthApplied",
+                "growthAwarded", "targetStat", "restChoice", "result", "foundCount", "targetCount"):
+        if key in entry:
+            record[key] = deepcopy(entry[key])
+    if entry.get("type") == "FORCED_REST":
+        remaining = run.get("forcedRest", {}).get("remainingWeekdays")
+        if type(remaining) is not int or not 0 <= remaining <= 3:
+            raise ActivityRejected("Forced-rest history state is invalid")
+        record["forcedRestDays"] = remaining
+    history.append(record)
+    history.sort(key=lambda item: (item["week"], item["day"]))
+
+
+def _backfill_completed_week_history(run: dict) -> None:
+    """Migrate current-week completions from pre-history saves before the week is cleared."""
+    schedule = run.get("weeklySchedule")
+    history = run.setdefault("activityHistory", [])
+    if not isinstance(schedule, dict) or set(schedule) != set(WEEKDAYS) or not isinstance(history, list):
+        raise ActivityRejected("Completed week activity history is unavailable")
+    week = run.get("week")
+    existing = {
+        (item.get("week"), item.get("day"))
+        for item in history if isinstance(item, dict)
+    }
+    for day_index, day in enumerate(WEEKDAYS):
+        entry = schedule[day]
+        if isinstance(entry, dict) and entry.get("status") == "COMPLETED" and (week, day_index) not in existing:
+            _record_activity_history(run, day=day, entry=entry)
+            existing.add((week, day_index))
 
 
 def _apply_account_progression(
@@ -260,8 +319,9 @@ def start_activity(
     body: MutationRequest,
     repository: SaveSlotRepository = Depends(get_slot_repository),
     master: ActivityMaster = Depends(get_activity_master),
+    candidates: StoryCandidates = Depends(get_story_candidates),
 ) -> dict:
-    """Charge stamina and save IN_PROGRESS before a client can start content."""
+    """Charge stamina, checkpoint IN_PROGRESS, then queue eligible Location Story before client content."""
     now = datetime.now(timezone.utc)
     challenge_seed = token_urlsafe(24)  # fixed outside retryable Firestore transaction
 
@@ -374,6 +434,18 @@ def start_activity(
                 response.update(replayVersion=REPLAY_VERSION, seed=challenge_seed,
                                 maxDurationMs=duration_ms,
                                 replaySupported=definition.game_id in SUPPORTED_REPLAY_GAMES)
+        if definition is not None:
+            pending = candidates.before_activity(
+                version=slot.gameDataVersion,
+                run=run,
+                activity=ActivityContext(
+                    definition.activity_id, definition.activity_type, definition.location_id,
+                ),
+            )
+            if pending is not None:
+                run["pendingStoryEvent"] = pending
+                run["phase"] = "ACTIVITY_PRE_STORY_PENDING"
+                response["pendingStoryEvent"] = pending
         slot.activeRun = run
         return MutationPlan(slot=slot, result_data=response)
 
@@ -441,6 +513,7 @@ def complete_special(
         entry["resolution"] = "SKIPPED" if body.skip else "TRANSFERRED"
         entry["completedAt"] = now
         entry["result"] = command
+        _record_activity_history(run, day=day, entry=entry)
         run["completedWeekdayCount"] += 1
         pending = candidates.after_activity(
             version=slot.gameDataVersion, run=run,
@@ -560,6 +633,7 @@ def complete_class_quit(
         stats[definition.target_stat] = current + growth
         entry.update(status="COMPLETED", resolution="FAIL", endReason="QUIT",
                      completedAt=now, growthApplied=growth, balanceVersion=balance.version)
+        _record_activity_history(run, day=day, entry=entry)
         run["completedWeekdayCount"] += 1
         pending = candidates.after_activity(
             version=slot.gameDataVersion, run=run,
@@ -759,6 +833,7 @@ def complete_class_replay(
                      completedAt=now, growthApplied=growth, balanceVersion=balance.version,
                      inputLogDigest=log_digest, replayVersion=REPLAY_VERSION,
                      replayedMoves=result.moves, durationMs=result.duration_ms)
+        _record_activity_history(run, day=day, entry=entry)
         run["completedWeekdayCount"] += 1
         pending = candidates.after_activity(
             version=slot.gameDataVersion, run=run,
@@ -899,6 +974,7 @@ def close_week(
         if type(week) is not int or not 1 <= week <= 52:
             raise ActivityRejected("Run week is invalid")
         candidates.require_no_weekend_rules(version=slot.gameDataVersion)
+        _backfill_completed_week_history(run)
         summary = _completed_week_summary(run, now=now)
         run["lastWeekSummary"] = summary
         if week == 52:
@@ -911,7 +987,8 @@ def close_week(
             run["completedWeekdayCount"] = 0
             run["weekStartSnapshot"] = None
             run["storyEventWindow"] = {
-                "week": run["week"], "sideStoryCount": 0, "lastResultStoryDay": None,
+                "week": run["week"], "sideStoryCount": 0,
+                "locationStoryCount": 0, "lastResultStoryDay": None,
             }
             pending = candidates.next_week_main(version=slot.gameDataVersion, run=run)
             run["pendingStoryEvent"] = pending
@@ -1012,17 +1089,35 @@ def complete_forced_rest(
             raise ActivityRejected("Stored stamina is invalid")
         if remaining == 1 and maximum != 100:
             raise ActivityRejected("Forced-rest recovery maximum must be 100")
-        recovered = 100 - current if remaining == 1 else 0
-        if recovered:
-            stamina["current"] = 100
-        forced["remainingWeekdays"] = remaining - 1
-        forced["active"] = remaining > 1
-        entry["status"] = "COMPLETED"
-        entry["resolution"] = "SUCCESS"
-        entry["staminaRecovered"] = recovered
-        entry["completedAt"] = now
-        run["completedWeekdayCount"] += 1
-        _advance_completed_day(run)
+        available = len(WEEKDAYS) - WEEKDAYS.index(day)
+        rest_days = min(remaining, available)
+        recovered = 0
+        for offset in range(rest_days):
+            rest_day = WEEKDAYS[WEEKDAYS.index(day) + offset]
+            rest_entry = schedule[rest_day]
+            if offset:
+                if not isinstance(rest_entry, dict) or rest_entry.get("status") != "PLANNED":
+                    raise ActivityRejected("A later forced-rest weekday is unavailable")
+                rest_entry["replacedContentId"] = rest_entry.get("contentId")
+                rest_entry["replacedType"] = rest_entry.get("type")
+                rest_entry.update(type="FORCED_REST", contentId="FORCED_REST", locked=True,
+                                  status="IN_PROGRESS", startedAt=now, staminaBefore=current,
+                                  staminaCost=0)
+            remaining_after = remaining - offset - 1
+            day_recovery = 100 - current if remaining_after == 0 else 0
+            if day_recovery:
+                stamina["current"] = 100
+                recovered += day_recovery
+            forced["remainingWeekdays"] = remaining_after
+            forced["active"] = remaining_after > 0
+            rest_entry["status"] = "COMPLETED"
+            rest_entry["resolution"] = "SUCCESS"
+            rest_entry["staminaRecovered"] = day_recovery
+            rest_entry["completedAt"] = now
+            run["day"] = rest_day
+            _record_activity_history(run, day=rest_day, entry=rest_entry)
+            run["completedWeekdayCount"] += 1
+            _advance_completed_day(run)
         run["updatedAt"] = now
         slot.activeRun = run
         summary = _daily_summary(documents[day_path], uid=repository.uid,
@@ -1030,10 +1125,11 @@ def complete_forced_rest(
         daily_count = summary["activityCounts"].get("forcedRest", 0)
         if type(daily_count) is not int or daily_count < 0:
             raise ActivityRejected("Daily forced-rest count is invalid")
-        summary["activityCounts"]["forcedRest"] = daily_count + 1
+        summary["activityCounts"]["forcedRest"] = daily_count + rest_days
         return MutationPlan(
             slot=slot, documents={day_path: summary},
             result_data={"remainingWeekdays": forced["remainingWeekdays"],
+                         "restDaysCompleted": rest_days,
                          "staminaRecovered": recovered, "staminaCurrent": stamina["current"],
                          "nextDay": run["day"],
                          "weekComplete": run["completedWeekdayCount"] == len(WEEKDAYS)},
@@ -1054,7 +1150,7 @@ def complete_forced_rest(
 @router.post("/{slot_id}/activities/complete-rest")
 def complete_rest(
     slot_id: int,
-    body: MutationRequest,
+    body: CompleteRestRequest,
     repository: SaveSlotRepository = Depends(get_slot_repository),
     master: ActivityMaster = Depends(get_activity_master),
 ) -> dict:
@@ -1064,7 +1160,14 @@ def complete_rest(
     day_path = UserDocPath("activityDays", kst_date)
     # Pick once before entering a retryable Firestore transaction. A replayed
     # request returns its stored receipt, not this unused fresh roll.
-    roll = choice(REST_RECOVERIES)
+    rest_rules = {
+        "HOME": ((60, 70, 80), 0),
+        "FRIENDS": ((40, 50, 60), 1),
+        "HOBBY": ((30, 40, 50), 2),
+    }
+    recoveries, stat_growth = rest_rules[body.restChoice]
+    roll = choice(recoveries)
+    target_stat = choice(tuple(sorted(STATS))) if stat_growth else None
 
     def mutate(slot: SaveSlot, documents: dict) -> MutationPlan:
         run = _active_run(slot)
@@ -1091,10 +1194,25 @@ def complete_rest(
             raise ActivityRejected("Run week is invalid")
         recovered = min(roll, maximum - current)
         stamina["current"] = current + recovered
+        stats = run.get("stats")
+        if not isinstance(stats, dict) or set(stats) != STATS:
+            raise ActivityRejected("Stored growth stats are invalid")
+        growth_applied = 0
+        if target_stat is not None:
+            current_stat = stats.get(target_stat)
+            if type(current_stat) is not int or not 0 <= current_stat <= 500:
+                raise ActivityRejected("Stored growth stat is invalid")
+            growth_applied = min(stat_growth, 500 - current_stat)
+            stats[target_stat] = current_stat + growth_applied
         entry["status"] = "COMPLETED"
         entry["resolution"] = "SUCCESS"
         entry["completedAt"] = now
         entry["staminaRecovered"] = recovered
+        entry["restChoice"] = body.restChoice
+        if target_stat is not None:
+            entry["targetStat"] = target_stat
+            entry["growthApplied"] = growth_applied
+        _record_activity_history(run, day=day, entry=entry)
         run_stats = run.get("runStatistics")
         if (not isinstance(run_stats, dict) or type(run_stats.get("restCount")) is not int
                 or run_stats["restCount"] < 0):
@@ -1120,7 +1238,9 @@ def complete_rest(
         return MutationPlan(
             slot=slot,
             documents={STATISTICS: statistics.model_dump(mode="python"), day_path: summary},
-            result_data={"recoveryRoll": roll, "staminaRecovered": recovered,
+            result_data={"restChoice": body.restChoice, "recoveryRoll": roll,
+                         "staminaRecovered": recovered, "targetStat": target_stat,
+                         "growthApplied": growth_applied,
                          "staminaCurrent": stamina["current"], "nextDay": run["day"],
                          "weekComplete": week_complete},
         )
@@ -1129,7 +1249,8 @@ def complete_rest(
         result = repository.apply(
             slot_id=slot_id, request_id=body.requestId,
             expected_server_revision=body.expectedServerRevision,
-            operation="completeRest", command={}, read_paths=(STATISTICS, day_path),
+            operation="completeRest", command={"restChoice": body.restChoice},
+            read_paths=(STATISTICS, day_path),
             mutator=mutate,
         )
         return {"slotId": slot_id, "serverRevision": result.server_revision,
@@ -1232,6 +1353,7 @@ def complete_adventure(
         entry["foundCount"] = body.foundCount
         entry["targetCount"] = body.targetCount
         entry["growthAwarded"] = {"exploration": growth}
+        _record_activity_history(run, day=day, entry=entry)
 
         run_stats = run.get("runStatistics")
         if not isinstance(run_stats, dict):

@@ -1,14 +1,13 @@
 import { CHARACTERS, startRun, setSchedule, actionToken, beginAction, applyAction, recoverInterruptedAction, stopAdventure, finishWeek, acknowledgeWeekSummary, deleteSlot, completeMainStory, prepareEnding, acceptEndingResult, completeRun } from "./core/state.mjs";
 import { classOf } from "./core/classes.mjs";
 import { createMinigameStartData } from "./core/minigame-contract.mjs";
-import { activityResultText } from "./core/activity-rules.mjs";
+import { activityResultText, activityResultView, REST_CHOICES } from "./core/activity-rules.mjs";
 import { titleModel } from "./core/preview.mjs";
 import { createLocalRepository, createBoundaryWriter, prepareEngineStateUpdate } from "./core/storage.mjs";
-import { previewScenes } from "./scenes/PreviewScenes.mjs";
 import { curriculumScenes } from "./scenes/CurriculumScenes.mjs";
 import { curriculumStart, DIFFICULTY_NAMES } from "./core/curriculum.mjs";
 import { activeRoom } from "./core/collection-view.mjs";
-import { SPACES } from "../minigame-demo/src/ui/theme.js";
+import { SPACES } from "./core/spaces.mjs";
 import { createMyroomUI, DESCRIPTIONS } from "./ui/myroom.mjs";
 import { createJournalUI } from "./ui/journal.mjs";
 import { firstEmptySlot, recentSlot, createNotifier, invitationLines, ADMISSION_SCENES } from "./core/ui-flow.mjs";
@@ -36,6 +35,7 @@ import { createEndingUI } from "./ui/ending.mjs";
 import { activePet } from "./core/pets.mjs";
 import { createTitleAudioController } from "./core/title-audio.mjs";
 import { createAdventureResultUI } from "./ui/adventure-result.mjs";
+import { createActivityResultUI } from "./ui/activity-result.mjs";
 import { createBadgeResultUI } from "./ui/badge-result.mjs";
 import { createImageButton, TITLE_BUTTON_ART } from "./ui/button-art.mjs";
 import { dueMainStory, ensureMainStoryState, MAIN_STORIES } from "./core/main-story.mjs";
@@ -45,7 +45,7 @@ import { PRIVACY_CONSENT_VERSION } from "./services/api-provider.mjs";
 import { createServerEndingUI } from "./ui/server-ending.mjs";
 const roomLight = createRoomLight(),
 	engineServices = globalThis.lumiaEngineServices ?? {};
-const SERVER_GAME_METHODS = ["bootstrapAccount", "updateAccountSettings", "listSaveSlots", "getSaveSlot", "startRun", "deleteSaveSlot", "recoverSaveSlot", "confirmSchedule", "startActivity", "completeSpecial", "completeClassQuit", "completeClassReplay", "completeForcedRest", "completeRest", "completeAdventure", "closeWeek", "acknowledgeWeekSummary", "loadDialogue", "completeDialogue", "getCollection", "openMyRoom", "decideEnding", "prepareEnding", "getEnding", "finishEnding"];
+const SERVER_GAME_METHODS = ["bootstrapAccount", "updateAccountSettings", "listSaveSlots", "getSaveSlot", "startRun", "deleteSaveSlot", "deleteUnreadableSaveSlot", "recoverSaveSlot", "confirmSchedule", "startActivity", "completeSpecial", "completeClassQuit", "completeClassReplay", "completeForcedRest", "completeRest", "completeAdventure", "closeWeek", "acknowledgeWeekSummary", "loadDialogue", "completeDialogue", "getCollection", "openMyRoom", "decideEnding", "prepareEnding", "getEnding", "finishEnding"];
 const serverMode = Boolean(engineServices.account && SERVER_GAME_METHODS.every((name) => typeof engineServices[name] === "function"));
 let previousRoomBackground = null;
 function decorateRoom() {
@@ -101,6 +101,7 @@ function el(tag, text, cls) {
 }
 const notify = createNotifier(notice);
 const adventureResultUI = createAdventureResultUI({ el }),
+	activityResultUI = createActivityResultUI({ el, btn }),
 	badgeResultUI = createBadgeResultUI({ el }),
 	storyResultUI = createStoryResultUI({ el, btn });
 function message(text) {
@@ -202,6 +203,7 @@ function current() {
 }
 function heading(title, cls = "page") {
 	adventureResultUI.clear();
+	activityResultUI.clear();
 	badgeResultUI.clear();
 	storyResultUI.clear();
 	shell.onclick = null;
@@ -220,6 +222,16 @@ function heading(title, cls = "page") {
 	shell.replaceChildren(el("h1", title));
 	shell.scrollTop = 0;
 	shell.append(el("p", "실행형 화면 시안 · 서비스 제공 여부에 따라 연결", "preview-label"));
+}
+function renderBusy(text, cls = "dialogue-service-page") {
+	heading("", cls);
+	const status = el("div", null, "service-busy");
+	status.setAttribute("role", "status");
+	status.setAttribute("aria-live", "polite");
+	const spinner = el("span", null, "service-spinner");
+	spinner.setAttribute("aria-hidden", "true");
+	status.append(spinner, el("p", text));
+	shell.append(status);
 }
 function npcStage(image) {
 	const stage = el("div", null, "npc-portrait-stage");
@@ -350,12 +362,29 @@ async function retryServerMutation() {
 	continuation?.(result);
 	return true;
 }
+async function recoverServerConflict() {
+	if (!serverMode || !serverGame?.pending()) return false;
+	try {
+		renderBusy("최신 저장 상태를 불러오고 있어요.", "room-page");
+		await serverGame.resolveConflict();
+	} catch (error) {
+		showServerMutationError(error, null);
+		return false;
+	}
+	serverRetryContinuation = null;
+	document.querySelector("dialog.server-save-error[open]")?.close();
+	message("최신 서버 저장 상태를 불러왔습니다.");
+	if (current()) resumeToRoom();
+	else renderSlots();
+	return true;
+}
 function showServerMutationError(error, continuation = null) {
 	serverRetryContinuation = continuation;
 	document.querySelector("dialog.server-save-error[open]")?.close();
 	const body = el("div", null, "empty-frame");
-	body.append(el("p", "서버 저장을 완료하지 못했습니다."), el("small", error?.message ?? "잠시 후 다시 시도해 주세요."));
-	const actions = serverGame?.pending() ? [btn("저장 다시 시도", retryServerMutation)] : [];
+	const conflict = error?.status === 409 || error?.code === "CONFLICT";
+	body.append(el("p", conflict ? "다른 저장이 먼저 반영되어 현재 상태가 달라졌습니다." : "서버 저장을 완료하지 못했습니다."), el("small", conflict ? "같은 요청을 반복하지 않고 최신 상태를 다시 불러옵니다." : (error?.message ?? "잠시 후 다시 시도해 주세요.")));
+	const actions = serverGame?.pending() ? [btn(conflict ? "최신 상태 불러오기" : "저장 다시 시도", conflict ? recoverServerConflict : retryServerMutation)] : [];
 	const d = modal("서버 저장 확인", body, actions);
 	d.classList.add("server-save-error");
 }
@@ -720,13 +749,39 @@ function renderSlots() {
 		} else renderCharacters(s.slotId, false);
 	};
 	let dialog;
+	const savedAtText = (value) => {
+		if (!value) return "저장 시각 없음";
+		const date = new Date(value);
+		return Number.isNaN(date.getTime()) ? "저장 시각 확인 불가" : "최근 저장 " + new Intl.DateTimeFormat("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(date);
+	};
+	const confirmSlotDelete = (s, unreadable = false) => {
+		modal(
+			unreadable ? "문제가 있는 저장 기록을 삭제할까요?" : "슬롯을 삭제할까요?",
+			el("p", unreadable ? "이 슬롯의 기록은 이어서 할 수 없어요. 삭제해도 캐릭터와 펫 등 모은 보상은 그대로 남아요." : "이 슬롯의 게임 기록만 지울게요. 캐릭터와 펫 등 모은 보상은 그대로 남아요."),
+			[btn("삭제", async () => {
+				if (serverMode) {
+					await performServerMutation(
+						() => unreadable ? serverGame.deleteUnreadableSaveSlot(s.slotId) : serverGame.deleteSaveSlot(s.slotId),
+						() => {
+							document.querySelector("dialog:not(.slot-dialog)")?.close();
+							renderSlots();
+						},
+					);
+					return;
+				}
+				deleteSlot(profile, s.slotId);
+				save(false, null);
+				document.querySelector("dialog:not(.slot-dialog)")?.close();
+				renderSlots();
+			}, "danger")],
+		);
+	};
 	const cardFor = (s, recent = false) => {
 		if (s.status === "LOAD_ERROR") {
 			if (!serverMode) return slotRecoveryUI.card(s.slotId, { canDelete: slotSnapshot.canDelete });
 			const card = el("article", null, "slot-row slot-recovery-error");
-			card.append(
-				el("h3", "슬롯 " + s.slotId),
-				el("p", "서버 저장을 불러오지 못했습니다. 원본을 빈 슬롯으로 취급하지 않습니다."),
+			const actions = el("nav", null, "slot-actions");
+			actions.append(
 				btn("다시 불러오기", async () => {
 					try {
 						await serverGame.refreshSlot(s.slotId);
@@ -735,6 +790,13 @@ function renderSlots() {
 						message("슬롯 다시 불러오기 실패: " + error.message);
 					}
 				}),
+				btn("삭제", () => confirmSlotDelete(s, true), "danger slot-delete"),
+			);
+			card.append(
+				el("h3", "슬롯 " + s.slotId),
+				el("strong", "이 저장 기록은 이어서 할 수 없어요.", "slot-warning-title"),
+				el("p", "다시 불러오거나, 계속 문제가 생기면 이 슬롯만 삭제해 주세요."),
+				actions,
 			);
 			return card;
 		}
@@ -742,43 +804,25 @@ function renderSlots() {
 		card.append(el("h3", (recent ? "최근 저장 · " : "") + "슬롯 " + s.slotId));
 		if (s.status === "EMPTY") card.append(el("p", "저장 기록 없음"));
 		else {
-			const c = CHARACTERS.find((c) => c.id === s.activeRun?.characterId);
-			card.append(el("p", s.status === "PLAYING" ? (c?.name ?? "학생") + " · " + s.activeRun.runNumber + "회차 · " + s.activeRun.week + "주차" : s.completedRunCount + "회차 완료"));
+			const characterId = s.status === "PLAYING" ? s.activeRun?.characterId : s.lastCompletedCharacterId;
+			const c = CHARACTERS.find((c) => c.id === characterId);
+			const facts = el("div", null, "slot-facts");
+			facts.append(
+				el("p", "현재 캐릭터 · " + (c?.name ?? "확인 불가")),
+				el("p", s.status === "PLAYING" ? s.activeRun.runNumber + "회차 · " + s.activeRun.week + "주차" : s.completedRunCount + "회차 완료"),
+				el("small", savedAtText(s.lastSavedAt)),
+			);
+			card.append(facts);
+			const actions = el("nav", null, "slot-actions");
 			const open = btn(s.status === "PLAYING" ? "이어서 하기" : s.completedRunCount + 1 + "회차 시작", () => resume(s, dialog));
 			open.disabled = !profile || saveFailed;
-			card.append(open);
+			actions.append(open);
 			if (!recent && profile) {
-				const remove = btn(
-					"슬롯 삭제",
-					() => {
-						modal("슬롯을 삭제할까요?", el("p", "이 슬롯의 회차만 삭제합니다. 공용 메타는 유지됩니다."), [
-							btn(
-								"삭제",
-								async () => {
-									if (serverMode) {
-										await performServerMutation(
-											() => serverGame.deleteSaveSlot(s.slotId),
-											() => {
-												document.querySelector("dialog:not(.slot-dialog)")?.close();
-												renderSlots();
-											},
-										);
-										return;
-									}
-									deleteSlot(profile, s.slotId);
-									save(false, null);
-									document.querySelector("dialog:not(.slot-dialog)")?.close();
-									renderSlots();
-								},
-								"danger",
-							),
-						]);
-					},
-					"text-button",
-				);
+				const remove = btn("삭제", () => confirmSlotDelete(s), "danger slot-delete");
 				remove.disabled = saveFailed;
-				card.append(remove);
+				actions.append(remove);
 			}
+			card.append(actions);
 		}
 		return card;
 	};
@@ -845,12 +889,13 @@ function renderCharacters(id, isNew, gender = "male", selectedId = null) {
 	for (const c of available) {
 		const card = el("article", null, "select-character-card" + (selected.id === c.id ? " selected" : ""));
 		const choose = btn("", () => renderCharacters(id, isNew, gender, c.id), "character-card-select");
-		choose.setAttribute("aria-label", c.name + " 선택");
+		choose.setAttribute("aria-label", c.selectable ? c.name + " 선택" : "미해금 캐릭터");
 		choose.setAttribute("aria-pressed", String(selected.id === c.id));
 		const art = el("img");
 		art.src = "./character-assets/" + c.fullbody;
 		art.alt = c.name;
-		choose.append(art, el("strong", c.name));
+		choose.append(art);
+		if (c.selectable) choose.append(el("strong", c.name));
 		choose.disabled = !c.selectable;
 		card.classList.toggle("locked-card", !c.selectable);
 		if (!c.selectable) {
@@ -866,11 +911,9 @@ function renderCharacters(id, isNew, gender = "male", selectedId = null) {
 	}
 	list.append(grid);
 	const detail = el("aside", null, "character-detail-panel paper");
-	const full = el("img", null, "selected-character-full");
-	full.src = "./character-assets/" + selected.fullbody;
-	full.alt = selected.name + " 전신";
-	appendCharacterInfo(detail, selected, el);
-	detail.append(el("small", "체력 100 · 초기 성장 스탯에 캐릭터 보정과 영구 보너스 적용"));
+	const detailCopy = el("div", null, "character-detail-copy");
+	appendCharacterInfo(detailCopy, selected, el);
+	detailCopy.append(el("small", "체력 100 · 초기 성장 스탯에 캐릭터 보정과 영구 보너스 적용"));
 	const start = btn("시작하기", async () => {
 		start.disabled = true;
 		slotId = id;
@@ -897,7 +940,7 @@ function renderCharacters(id, isNew, gender = "male", selectedId = null) {
 		blackDissolve(renderAdmission);
 	});
 	start.disabled = saveFailed;
-	detail.append(start);
+	detail.append(detailCopy, start);
 	layout.append(list, detail);
 	shell.append(layout, btn("뒤로가기", isNew ? () => renderTitle(false, null, "preserve") : renderSlots, "text-button character-select-back"));
 }
@@ -991,7 +1034,7 @@ function showDialogueError(error, retry) {
 	frame.append(
 		el("p", "이야기를 불러오거나 저장하지 못했어요. 다음 일정은 잠시 기다립니다."),
 		btn("다시 시도", () => {
-			heading("이야기를 확인하고 있어요.", "dialogue-service-page");
+			renderBusy("이야기를 확인하고 있어요.");
 			retry();
 		}),
 	);
@@ -1011,11 +1054,11 @@ const dialogueRuntime = createDialogueRuntime({
 		dialogueUI.render({
 			payload,
 			onComplete: (result) => {
-				heading("이야기를 저장하고 있어요.", "dialogue-service-page");
+				renderBusy("이야기 진행을 저장하고 있어요.");
 				handlers.onComplete(result);
 			},
 			onSkip: (result) => {
-				heading("이야기를 저장하고 있어요.", "dialogue-service-page");
+				renderBusy("이야기 진행을 저장하고 있어요.");
 				handlers.onSkip(result);
 			},
 		}),
@@ -1030,11 +1073,11 @@ if (serverMode)
 			dialogueUI.render({
 				payload,
 				onComplete: (result) => {
-					heading("이야기를 저장하고 있어요.", "dialogue-service-page");
+					renderBusy("이야기 진행을 저장하고 있어요.");
 					handlers.onComplete(result);
 				},
 				onSkip: (result) => {
-					heading("이야기를 저장하고 있어요.", "dialogue-service-page");
+					renderBusy("이야기 진행을 저장하고 있어요.");
 					handlers.onSkip(result);
 				},
 			}),
@@ -1049,16 +1092,63 @@ function renderServiceDialogue(eventId, next) {
 	if (serverMode) {
 		if (serverDialogue.hasPendingCompletion()) return;
 		serverDialogueContinuation = next;
-		heading("이야기를 준비하고 있어요.", "dialogue-service-page");
+		renderBusy("이야기를 준비하고 있어요.");
 		serverDialogue.start({ slotId, eventId });
 		return;
 	}
 	if (dialogueRuntime.isActive()) return;
-	heading("이야기를 준비하고 있어요.", "dialogue-service-page");
+	renderBusy("이야기를 준비하고 있어요.");
 	dialogueRuntime.start(eventId, (response) => {
 		if (response.messages?.length) message(response.messages.join("\n"));
 		storyResultUI.show(shell, response, () => showPendingBadgeNotices(next));
 	});
+}
+function showForcedRestNotice(checkpoint, next) {
+	if (!checkpoint?.forcedRest || checkpoint.forcedRestDaysBefore !== 3) {
+		next();
+		return;
+	}
+	activityResultUI.show(shell, {
+		title: "강제 휴식",
+		message: "몸이 너무 지쳐서 지금은 집중하기 어려워. 푹 쉬고 다시 시작하자.",
+		details: ["오늘 예정된 일정은 취소되고, 가능한 휴식일을 한 번에 보냅니다.", "사흘을 모두 쉬면 체력이 100으로 회복됩니다."],
+		buttonLabel: "휴식 시작",
+		symbol: "☾",
+	}, next);
+}
+function completeRestCheckpoint(checkpoint) {
+	const complete = () => {
+		if (serverMode) {
+			renderBusy("사흘 동안 푹 쉬고 있어요.", "activity-transition-page");
+			void completeServerActivity(checkpoint);
+		} else {
+			let currentCheckpoint = checkpoint, days = 0;
+			while (currentCheckpoint?.forcedRest) {
+				applyAction(profile, slotId, currentCheckpoint.token);days++;
+				const run = current();
+				if (run.phase !== "ACTING" || !forcedRestRemaining(run)) break;
+				currentCheckpoint = beginAction(profile, slotId, actionToken(run));
+			}
+			save(false, slotId, () => activityResultUI.show(shell, { title: "푹 쉬었어요", message: days + "일을 한 번에 쉬었어요.", details: [forcedRestRemaining(current()) ? "남은 휴식은 다음 주에 이어져요." : "체력이 100으로 회복됐어요."], buttonLabel: "다음 일정으로", symbol: "☾" }, continueSchedule));
+		}
+	};
+	showForcedRestNotice(checkpoint, complete);
+}
+function renderRestChoice(checkpoint) {
+	heading("휴식", "rest-choice-page");
+	const frame = el("section", null, "paper rest-choice-panel"), choices = el("div", null, "rest-choice-cards");
+	frame.append(el("h2", "뭐 하면서 쉴까?"), el("p", "오늘은 마이룸에서 천천히 쉬어 가요."));
+	for (const option of Object.values(REST_CHOICES)) {
+		const choose = btn(option.title, () => {
+			if (serverMode) {
+				renderBusy("휴식 결과를 저장하고 있어요.", "activity-transition-page");
+				void completeServerActivity(checkpoint, { restChoice: option.id });
+			} else completeActivity(checkpoint.token, { restChoice: option.id });
+		}, "rest-choice-card");
+		choose.append(el("small", option.description));
+		choices.append(choose);
+	}
+	frame.append(choices);shell.append(frame);
 }
 function dispatchActivity(checkpoint) {
 	const run = current(),
@@ -1066,8 +1156,9 @@ function dispatchActivity(checkpoint) {
 		lesson = classOf(action);
 	roomLight.event("start");
 	if (action === "adventure") renderAdventure(checkpoint);
-	else if (serverMode && action === "rest") void completeServerActivity(checkpoint);
-	else if (serverMode && action === "fairy-trade") openFairyTrade(checkpoint);
+	else if (action === "rest" && checkpoint.forcedRest) completeRestCheckpoint(checkpoint);
+	else if (action === "rest") renderRestChoice(checkpoint);
+	else if (action === "fairy-trade") renderFairyTrade(checkpoint);
 	else if (lesson) {
 		pending = { slotId, token: checkpoint.token, server: serverMode, checkpoint: structuredClone(checkpoint) };
 		shell.hidden = true;
@@ -1076,6 +1167,13 @@ function dispatchActivity(checkpoint) {
 		const startData = serverMode ? serverClassStartData(checkpoint, lesson) : lesson.curriculum ? curriculumStart(input) : createMinigameStartData(input);
 		game.scene.start(lesson.sceneKey ?? lesson.id, startData);
 	} else renderRoom();
+}
+function beginServerActivity() {
+	renderBusy("다음 일정을 준비하고 있어요.", "activity-transition-page");
+	return performServerMutation(
+		() => serverGame.startActivity(slotId),
+		() => current().pendingStoryEvent ? renderPendingStory() : dispatchActivity(current().inProgressActivity),
+	);
 }
 async function startScheduledActivity() {
 	if (saveFailed) {
@@ -1096,10 +1194,7 @@ async function startScheduledActivity() {
 			dispatchActivity(run.inProgressActivity);
 			return true;
 		}
-		return performServerMutation(
-			() => serverGame.startActivity(slotId),
-			() => dispatchActivity(current().inProgressActivity),
-		);
+		return beginServerActivity();
 	}
 	if (current().pendingActivityStory) {
 		const saved = activityStoryFlow.resume();
@@ -1146,7 +1241,7 @@ function resumeToRoom() {
 	else if (current().phase === "WEEK_COMPLETE") setTimeout(finishWeekFlow, 180);
 	else renderRoom();
 }
-function finishWeekFlow() {
+function finishWeekFlow(afterTransition = false) {
 	if (saveFailed) {
 		renderRoom();
 		return false;
@@ -1154,6 +1249,10 @@ function finishWeekFlow() {
 	if (current().phase !== "WEEK_COMPLETE") {
 		renderRoom();
 		return false;
+	}
+	if (!afterTransition) {
+		blackDissolve(() => finishWeekFlow(true), 280);
+		return true;
 	}
 	roomLight.event("next-day");
 	if (serverMode) return performServerMutation(() => serverGame.closeWeek(slotId), renderRoom);
@@ -1178,8 +1277,7 @@ async function renderServerRoom(run) {
 		return;
 	}
 	serverRoomVisitInFlight.add(key);
-	heading("마이룸 기록 중", "room-page");
-	shell.append(el("p", "이번 주 마이룸 방문을 서버에 기록하고 있습니다.", "ending-placeholder"));
+	renderBusy("이번 주 마이룸 방문을 기록하고 있어요.", "room-page");
 	const ok = await performServerMutation(
 		() => serverGame.openMyRoom(slotId),
 		() => {
@@ -1304,8 +1402,7 @@ function completeActivity(token, result) {
 				if (receiptMessages.length) message(receiptMessages.join("\n"));
 				adventureResultUI.show(shell, { ...result, feedback: resultText }, continueWithBadges);
 			} else {
-				message([resultText, ...receiptMessages].filter(Boolean).join("\n"));
-				continueWithBadges();
+				activityResultUI.show(shell, {title: "활동 결과", result: activityResultView(completed), details: receiptMessages}, continueWithBadges);
 			}
 		});
 		if (saveFailed) renderRoom();
@@ -1332,13 +1429,13 @@ async function completeServerActivity(checkpoint, result = {}, afterComplete = n
 		}
 	} else if (checkpoint.action === "rest") {
 		operation = checkpoint.forcedRest ? "completeForcedRest" : "completeRest";
-		command = {};
+		command = checkpoint.forcedRest ? {} : result;
 	} else if (checkpoint.action === "fairy-trade") {
 		operation = "completeSpecial";
 		command = result;
 	} else throw new Error("서버에서 완료할 수 없는 활동입니다.");
 
-	const complete = () => {
+	const complete = (response) => {
 		const completed = current().actionHistory.at(-1);
 		roomLight.event("complete");
 		const resultText = completed ? activityResultText(completed) : "활동을 마쳤어요.";
@@ -1349,8 +1446,8 @@ async function completeServerActivity(checkpoint, result = {}, afterComplete = n
 		if (checkpoint.action === "adventure" && ["MISSION_COMPLETE", "TIMEOUT"].includes(result.outcome)) {
 			adventureResultUI.show(shell, { outcome: result.outcome, foundCount: result.foundCount, objectiveCount: checkpoint.serverStart.targetCount, feedback: resultText }, advance);
 		} else {
-			message(resultText);
-			advance();
+			const restDays = checkpoint.forcedRest ? response?.result?.restDaysCompleted : 0;
+			activityResultUI.show(shell, {title: checkpoint.forcedRest ? "푹 쉬었어요" : "활동 결과", message: restDays ? restDays + "일을 한 번에 쉬었어요." : "", result: activityResultView(completed)}, advance);
 		}
 	};
 	return performServerMutation(
@@ -1358,29 +1455,58 @@ async function completeServerActivity(checkpoint, result = {}, afterComplete = n
 		complete,
 	);
 }
-function openFairyTrade(checkpoint) {
+function renderFairyTrade(checkpoint) {
 	const run = current(),
 		stats = ["knowledge", "expression", "dexterity", "exploration", "magic"],
-		names = { knowledge: "지식", expression: "표현력", dexterity: "솜씨", exploration: "탐험", magic: "마법" },
+		names = { knowledge: "지식", expression: "표현력", dexterity: "솜씨", exploration: "탐험", magic: "마법" };
+	heading("요정의 거래", "fairy-trade-page");
+	const stage = el("section", null, "fairy-trade-stage"),
+		fairy = el("img", null, "fairy-trade-character"),
+		panel = el("section", null, "paper fairy-trade-panel"),
 		body = el("div", null, "fairy-trade-form"),
 		from = el("select"),
 		to = el("select"),
 		amount = el("select");
+	fairy.src = "./character-assets/CH_DRM_fairy_trade_upperbody_01.png";
+	fairy.alt = "요정의 거래 요정";
 	for (const key of stats) {
 		from.append(new Option(names[key] + " · " + run.stats[key], key));
 		to.append(new Option(names[key] + " · " + run.stats[key], key));
 	}
+	to.selectedIndex = Math.min(1, to.options.length - 1);
 	for (let n = 1; n <= 5; n++) amount.append(new Option(String(n) + "포인트", String(n)));
-	body.append(el("p", "성장 스탯을 1~5포인트, 같은 양으로 교환합니다. 주 1회 · 체력 소모 없음."), el("label", "보낼 스탯"), from, el("label", "받을 스탯"), to, el("label", "포인트"), amount);
-	let tradeDialog;
-	const finish = (value) => completeServerActivity(checkpoint, value, () => {
-		tradeDialog.close();
-		continueSchedule();
-	});
-	tradeDialog = modal("요정의 거래", body, [
-		btn("교환하기", () => finish({ transfer: { fromStat: from.value, toStat: to.value, amount: Number(amount.value) } })),
-		btn("건너뛰기", () => finish({ skip: true }), "quiet"),
-	]);
+	body.append(el("p", "안녕! 네가 가진 힘을 다른 힘으로 옮겨 줄게. 보내고 싶은 힘과 받고 싶은 힘을 골라 봐.", "fairy-trade-dialogue"), el("p", "1~5포인트를 같은 양으로 옮겨요. 전체 스탯의 합은 달라지지 않아요."), el("label", "보낼 스탯"), from, el("label", "받을 스탯"), to, el("label", "포인트"), amount);
+	const actions = el("nav", null, "actions fairy-trade-actions"),
+		serverStat = (key) => key === "dexterity" ? "skill" : key;
+	let submitting = false;
+	const submit = async (value) => {
+		if (submitting) return false;
+		submitting = true;
+		for (const button of actions.children) button.disabled = true;
+		let saved;
+		if (serverMode) saved = await completeServerActivity(checkpoint, value);
+		else {
+			completeActivity(checkpoint.token, value);
+			saved = true;
+		}
+		if (saved === false) {
+			submitting = false;
+			for (const button of actions.children) button.disabled = false;
+		}
+		return saved;
+	};
+	actions.append(
+		btn("거래하기", () => {
+			if (from.value === to.value) {
+				message("서로 다른 스탯을 선택해 주세요.");
+				return false;
+			}
+			return submit(serverMode ? { transfer: { fromStat: serverStat(from.value), toStat: serverStat(to.value), amount: Number(amount.value) } } : { transfer: { from: from.value, to: to.value, amount: Number(amount.value) } });
+		}),
+		btn("거래하지 않기", () => submit({ skip: true }), "quiet"),
+	);
+	panel.append(el("h2", "요정의 거래"), body, actions);
+	stage.append(fairy, panel);shell.append(stage);
 }
 function receiveEnding(value) {
 	const record = current().endingRecord;
@@ -1478,21 +1604,24 @@ const roomUI = createMyroomUI({
 	},
 	onAdventure: renderAdventure,
 	onCommit: (schedule, locations) => {
-		roomLight.event("start");
-		if (serverMode) {
-			let activityIds;
-			try {
-				activityIds = serverScheduleActivityIds(current(), schedule, locations);
-			} catch (error) {
-				message(error.message);
+		blackDissolve(() => {
+			roomLight.event("start");
+			if (serverMode) {
+				let activityIds;
+				try {
+					activityIds = serverScheduleActivityIds(current(), schedule, locations);
+				} catch (error) {
+					message(error.message);
+					return;
+				}
+				renderBusy("이번 주 일정을 저장하고 첫 활동을 준비하고 있어요.", "activity-transition-page");
+				performServerMutation(() => serverGame.confirmSchedule(slotId, activityIds), beginServerActivity);
 				return;
 			}
-			performServerMutation(() => serverGame.confirmSchedule(slotId, activityIds), () => startScheduledActivity());
-			return;
-		}
-		setSchedule(profile, slotId, schedule, locations);
-		save(false, slotId, () => startScheduledActivity());
-		if (saveFailed) renderRoom();
+			setSchedule(profile, slotId, schedule, locations);
+			save(false, slotId, () => startScheduledActivity());
+			if (saveFailed) renderRoom();
+		}, 280);
 	},
 	onRetry: retrySave,
 	onFinish: finishWeekFlow,
@@ -1513,42 +1642,11 @@ const roomUI = createMyroomUI({
 		const run = current(),
 			checkpoint = run.inProgressActivity;
 		if (checkpoint?.action === "rest") {
-			completeActivity(checkpoint.token);
+			checkpoint.forcedRest ? completeRestCheckpoint(checkpoint) : renderRestChoice(checkpoint);
 			return;
 		}
 		if (checkpoint?.action === "fairy-trade") {
-			const stats = ["knowledge", "expression", "dexterity", "exploration", "magic"],
-				names = { knowledge: "지식", expression: "표현력", dexterity: "솜씨", exploration: "탐험", magic: "마법" },
-				body = el("div", null, "fairy-trade-form");
-			const from = el("select"),
-				to = el("select"),
-				amount = el("select");
-			for (const key of stats) {
-				from.append(new Option(names[key] + " · " + run.stats[key], key));
-				to.append(new Option(names[key] + " · " + run.stats[key], key));
-			}
-			for (let n = 1; n <= 5; n++) amount.append(new Option(String(n) + "포인트", String(n)));
-			body.append(el("p", "성장 스탯을 1~5포인트, 같은 양으로 교환합니다. 주 1회 · 체력 소모 없음."), el("label", "보낼 스탯"), from, el("label", "받을 스탯"), to, el("label", "포인트"), amount);
-			let tradeDialog;
-			tradeDialog = modal("요정의 거래", body, [
-				btn("교환하기", async () => {
-					try {
-						const value = { transfer: { from: from.value, to: to.value, amount: Number(amount.value) } },
-							saved = serverMode ? await completeServerActivity(checkpoint, value) : (completeActivity(checkpoint.token, value), true);
-						if (saved !== false) tradeDialog.close();
-					} catch (e) {
-						message(e.message);
-					}
-				}),
-				btn(
-					"건너뛰기",
-					async () => {
-						const saved = serverMode ? await completeServerActivity(checkpoint, { skip: true }) : (completeActivity(checkpoint.token, { skip: true }), true);
-						if (saved !== false) tradeDialog.close();
-					},
-					"quiet",
-				),
-			]);
+			renderFairyTrade(checkpoint);
 			return;
 		}
 		startScheduledActivity();
@@ -1666,7 +1764,9 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 		started = false,
 		finished = false,
 		lastState = null,
-		briefing = null;
+		briefing = null,
+		discoveryOpen = false,
+		pendingAdventureFinish = null;
 	let errorPanel = null;
 	const paintState = (state) => {
 		if (!state) return;
@@ -1706,10 +1806,16 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 			hintLine.hidden = false;
 			message("조사 결과 · " + state.hint);
 		}
-		if (started && !finished && state.foundId && state.foundIds.length < state.objectives.length) {
+		if (started && !finished && state.foundId) {
 			adventureView?.pause(true);
+			discoveryOpen = true;
 			adventureResultUI.showFound(shell, { foundCount: state.foundIds.length, objectiveCount: state.objectives.length }, () => {
-				if (!finished) adventureView?.pause(Boolean(briefing));
+				discoveryOpen = false;
+				if (pendingAdventureFinish) {
+					const [outcome, foundCount] = pendingAdventureFinish;
+					pendingAdventureFinish = null;
+					finishMission(outcome, foundCount);
+				} else if (!finished) adventureView?.pause(Boolean(briefing));
 			});
 		}
 	};
@@ -1807,6 +1913,10 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 	}
 	const finishMission = (outcome, foundCount) => {
 		if (finished) return;
+		if (discoveryOpen) {
+			pendingAdventureFinish = [outcome, foundCount];
+			return;
+		}
 		finished = true;
 		briefing?.remove();
 		if (serverMode) {
@@ -1849,13 +1959,14 @@ class HomeScene extends Phaser.Scene {
 	}
 	create() {}
 }
-const game = new Phaser.Game({ type: Phaser.AUTO, parent: "game", width: 1280, height: 720, backgroundColor: "#142a37", scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, scene: [HomeScene, ...previewScenes, ...curriculumScenes] });
+const game = new Phaser.Game({ type: Phaser.AUTO, parent: "game", width: 1280, height: 720, backgroundColor: "#142a37", scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, scene: [HomeScene, ...curriculumScenes] });
 function receive(result) {
 	if (!pending) return;
 	const item = pending;
 	pending = null;
 	slotId = item.slotId;
 	try {
+		renderBusy("활동 결과를 정리하고 있어요.", "activity-transition-page");
 		if (item.server) {
 			completeServerActivity(item.checkpoint, result).catch((e) => {
 				renderRoom();

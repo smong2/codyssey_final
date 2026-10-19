@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 
 import pytest
 
-from backend.api.app.activity_rules import (ActivityMaster, ActivityMasterError, REST_RECOVERIES,
+from backend.api.app.activity_rules import (ActivityMaster, ActivityMasterError,
                                             adventure_duration_seconds,
                                             adventure_objective_count, difficulty)
 from backend.api.tests.test_phase3_account import headers
@@ -63,10 +63,11 @@ def _start(client, *, request="activity-start-1", revision=2):
     )
 
 
-def _complete_rest(client, *, request="rest-complete-1", revision=3):
+def _complete_rest(client, *, request="rest-complete-1", revision=3, choice="HOME"):
     return client.post(
         "/v1/save-slots/1/activities/complete-rest", headers=headers(),
-        json={"requestId": request, "expectedServerRevision": revision},
+        json={"requestId": request, "expectedServerRevision": revision,
+              "restChoice": choice},
     )
 
 
@@ -177,24 +178,29 @@ def test_locked_forced_rest_uses_three_weekdays_then_recovers_to_100(activity_db
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["weeklySchedule"]["MONDAY"]["locked"] is True
         assert run["forcedRest"] == {"active": True, "remainingWeekdays": 3}
-        for index in range(3):
-            begun = _start(client, request=f"forced-start-{index}", revision=2 + 2 * index)
-            assert begun.status_code == 200, begun.text
-            assert begun.json()["activityType"] == "FORCED_REST"
-            assert begun.json()["staminaCost"] == 0
-            result = _complete_forced_rest(client, request=f"forced-end-{index}", revision=3 + 2 * index)
-            assert result.status_code == 200, result.text
-            assert result.json()["remainingWeekdays"] == 2 - index
-            assert result.json()["staminaCurrent"] == (100 if index == 2 else 9)
+        begun = _start(client, request="forced-start", revision=2)
+        assert begun.status_code == 200, begun.text
+        assert begun.json()["activityType"] == "FORCED_REST"
+        assert begun.json()["staminaCost"] == 0
+        result = _complete_forced_rest(client, request="forced-end", revision=3)
+        assert result.status_code == 200, result.text
+        assert result.json()["restDaysCompleted"] == 3
+        assert result.json()["remainingWeekdays"] == 0
+        assert result.json()["staminaCurrent"] == 100
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["day"] == "THURSDAY"
         assert run["forcedRest"] == {"active": False, "remainingWeekdays": 0}
+        assert [(item["week"], item["day"], item["type"], item["forcedRestDays"])
+                for item in run["activityHistory"]] == [
+                    (1, 0, "FORCED_REST", 2), (1, 1, "FORCED_REST", 1),
+                    (1, 2, "FORCED_REST", 0),
+                ]
         assert run["runStatistics"]["restCount"] == 0
         assert database.data["users/owner/statistics/global"]["totalRestCount"] == 0
         summary = next(value for path, value in database.data.items() if "/activityDays/" in path)
         assert summary["activityCounts"]["forcedRest"] == 3
         assert summary["activityCounts"]["rest"] == 0
-        normal = _start(client, request="thursday-start", revision=8)
+        normal = _start(client, request="thursday-start", revision=4)
         assert normal.status_code == 200 and normal.json()["activityType"] == "REST"
 
 
@@ -247,16 +253,22 @@ def test_forced_rest_carries_across_week_and_locks_next_schedule(activity_db):
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["week"] == 2 and run["day"] == "MONDAY"
         assert run["forcedRest"]["remainingWeekdays"] == 2
+        assert [(item["week"], item["day"]) for item in run["activityHistory"]] == [
+            (1, 0), (1, 1), (1, 2), (1, 3), (1, 4),
+        ]
+        assert run["activityHistory"][-1]["week"] == 1
+        assert run["activityHistory"][-1]["day"] == 4
+        assert run["activityHistory"][-1]["type"] == "FORCED_REST"
         assert _schedule(client, [None, None, "REST_TEST", "REST_TEST", "REST_TEST"],
                          request="week2-schedule", revision=5).status_code == 409
         acknowledged = _ack_summary(client)
         assert acknowledged.status_code == 200 and acknowledged.json()["phase"] == "SCHEDULE_READY"
         assert _schedule(client, [None, None, "REST_TEST", "REST_TEST", "REST_TEST"],
                          request="week2-schedule", revision=6).status_code == 200
-        for index in range(2):
-            assert _start(client, request=f"week2-forced-start-{index}", revision=7 + 2 * index).status_code == 200
-            done = _complete_forced_rest(client, request=f"week2-forced-end-{index}", revision=8 + 2 * index)
-            assert done.status_code == 200, done.text
+        assert _start(client, request="week2-forced-start", revision=7).status_code == 200
+        done = _complete_forced_rest(client, request="week2-forced-end", revision=8)
+        assert done.status_code == 200, done.text
+        assert done.json()["restDaysCompleted"] == 2
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["day"] == "WEDNESDAY" and run["stamina"]["current"] == 100
         assert run["forcedRest"] == {"active": False, "remainingWeekdays": 0}
@@ -281,6 +293,9 @@ def test_week_close_prepares_fixed_main_story_before_next_schedule(activity_db):
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["week"] == 10 and run["phase"] == "WEEK_SUMMARY_PENDING"
         assert run["pendingStoryEvent"]["eventId"] == "MS02"
+        assert [(item["week"], item["day"], item["type"]) for item in run["activityHistory"]] == [
+            (9, 0, "REST"), (9, 1, "REST"), (9, 2, "REST"), (9, 3, "REST"), (9, 4, "REST"),
+        ]
         assert _schedule(client, ["REST_TEST"] * 5, request="week10-schedule", revision=3).status_code == 409
         acknowledged = _ack_summary(client, revision=3)
         assert acknowledged.status_code == 200 and acknowledged.json()["phase"] == "MAIN_STORY_PENDING"
@@ -392,7 +407,8 @@ def test_rest_completion_commits_slot_global_and_kst_day_once(activity_db):
         assert payload["serverRevision"] == 4
         assert payload["nextDay"] == "TUESDAY"
         assert payload["weekComplete"] is False
-        assert payload["recoveryRoll"] in REST_RECOVERIES
+        assert payload["restChoice"] == "HOME"
+        assert payload["recoveryRoll"] in (60, 70, 80)
         assert payload["staminaRecovered"] == 0  # began at full stamina
         assert _complete_rest(client).json()["replayed"] is True
         slot = database.data["users/owner/saveSlots/1"]
@@ -489,12 +505,15 @@ def test_special_invalid_transfer_does_not_commit(activity_db):
 
 def test_special_pending_story_stays_on_activity_day_until_dialogue(activity_db):
     class ForcedCandidate:
-        def after_activity(self, *, version, run, activity):
+        def before_activity(self, *, version, run, activity):
             assert activity.activity_type == "SPECIAL"
             assert activity.location_id == "LOC_TEST"
             return {"storyId": "TEST_STORY", "eventId": "TEST_EVENT", "storyType": "LOCATION",
                     "sourceLocationId": activity.location_id, "selectedWeek": run["week"],
                     "selectedDay": run["day"]}
+
+        def after_activity(self, *, version, run, activity):
+            return None
 
     client, database = phase5_client(activity_db)
     client.app.dependency_overrides[get_story_candidates] = lambda: ForcedCandidate()
@@ -502,24 +521,30 @@ def test_special_pending_story_stays_on_activity_day_until_dialogue(activity_db)
         assert start(client).status_code == 200
         database.data["users/owner/saveSlots/1"]["activeRun"]["pendingStoryEvent"] = None
         assert _schedule(client, ["fairy-trade", "REST_TEST", "REST_TEST", "REST_TEST", "REST_TEST"]).status_code == 200
-        assert _start(client).status_code == 200
-        result = _complete_special(client, skip=True)
-        assert result.status_code == 200, result.text
+        begun = _start(client)
+        assert begun.status_code == 200, begun.text
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
-        assert run["day"] == "MONDAY" and run["phase"] == "ACTIVITY_STORY_PENDING"
-        assert run["completedWeekdayCount"] == 1
+        assert run["day"] == "MONDAY" and run["phase"] == "ACTIVITY_PRE_STORY_PENDING"
+        assert run["completedWeekdayCount"] == 0
         assert run["pendingStoryEvent"]["eventId"] == "TEST_EVENT"
+        run["storyEventWindow"].pop("locationStoryCount")
         updated, _ = _apply_effects(
             run, {"choice": [], "event": [], "important": []}, mode="COMPLETE",
-            event_id="TEST_EVENT", story_type="LOCATION", step_no=1,
-            choice_ids=[], now=datetime.now(timezone.utc),
+            event_id="TEST_EVENT", story_id="TEST_STORY", title="테스트 이야기",
+            story_type="LOCATION", step_no=1, selected_choices=[], choice_ids=[],
+            now=datetime.now(timezone.utc),
         )
-        assert updated["day"] == "TUESDAY" and updated["phase"] == "ACTIVITY_READY"
+        assert updated["day"] == "MONDAY" and updated["phase"] == "ACTIVITY_IN_PROGRESS"
+        assert updated["completedWeekdayCount"] == 0
+        assert updated["storyEventWindow"]["locationStoryCount"] == 1
         assert updated["pendingStoryEvent"] is None
 
 
 def test_special_story_rule_failure_rolls_back_transfer_and_summary(activity_db):
     class MissingRules:
+        def before_activity(self, *, version, run, activity):
+            return None
+
         def after_activity(self, *, version, run, activity):
             raise StorySelectionError("Story rules unavailable")
 

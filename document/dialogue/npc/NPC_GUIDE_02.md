@@ -14,6 +14,15 @@
 - 안내지를 어디에 두면 보기 좋은지 두 기준을 비교한다.
 - 선택은 `사람이 많이 지나는 곳 / 편하게 볼 수 있는 눈높이`의 서로 다른 관점이다.
 
+## 이미지
+
+| 용도 | 실제 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG02_clocktower_plaza_1920x1080_011.png`](../../../asset/background/BG02_clocktower_plaza_1920x1080_011.png) | 실제 파일·API 연결 가능 | <img src="../../../asset/background/BG02_clocktower_plaza_1920x1080_011.png" width="240" alt="시계탑 광장"> |
+| `ART-N01` 재사용 | [`IT_focus_NPC_GUIDE_01_meeting_notices_01.png`](../../../asset/item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png) | **채택·API 연결** | <img src="../../../asset/item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png" width="220" alt="모임 안내지"> |
+
+화자는 기본 [`티아`](../../../asset/character/tia0_fullbody.png) <img src="../../../asset/character/tia0_fullbody.png" width="72" alt="티아 전신">, CH16 주인공일 때 [`로빈`](../../../asset/character/robin0_fullbody.png) <img src="../../../asset/character/robin0_fullbody.png" width="72" alt="로빈 전신">으로 대체된다.
+
 ## Sequence
 
 ### S1 · 먼저 알아보는 얼굴

@@ -2,7 +2,7 @@
 
 Final Project의 Admin은 **LUMIA를 제작·운영하는 팀이 게임 운영을 위해 사용하는 별도 관리자 콘솔**입니다. 일반 사용자용 기록 조회 화면이 아니며, 운영자가 로그인해 회원·플레이 기록과 집계 통계를 확인하고 일부 전역 밸런스 값을 조정합니다.
 
-> 구현 상태 (2026-10-18): FastAPI Phase 10에 관리자 Custom Claim 권한 검사, 로그인 감사로그, UID/이메일 사용자 조회, `activityDays → analyticsDays` 일/주/월 집계, 전역 `rewardMultiplier` 조회·변경과 balance audit가 구현되어 있으며 오프라인 회귀 테스트를 작성했다. **로컬 pytest 재검증, 실제 Firebase Custom Claim/Firestore, 관리자 웹 콘솔 통합 검증은 아직 완료되지 않았다.** 사용자별 데이터 수정, 콘텐츠 CRUD, Gemini Key 관리 UI는 아래 확정 범위대로 구현하지 않는다.
+> 구현 상태 (2026-10-18): FastAPI Phase 10에 관리자 Custom Claim 권한 검사, 로그인 감사로그, UID/이메일 사용자 조회, `activityDays → analyticsDays` 일/주/월 집계, 전역 `rewardMultiplier` 조회·변경과 balance audit가 구현되어 있다. 로컬 pytest와 운영 Firebase Custom Claim·Firestore를 사용한 로그인/사용자 검색/월간 통계/balance 조회를 검증했다. **별도 관리자 웹 콘솔 통합과 운영 balance 변경은 아직 검증하지 않았다.** 사용자별 데이터 수정, 콘텐츠 CRUD, Gemini Key 관리 UI는 아래 확정 범위대로 구현하지 않는다.
 
 ## 1. 관리자 정의와 접근
 

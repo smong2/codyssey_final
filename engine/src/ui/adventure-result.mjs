@@ -8,9 +8,9 @@ export function createAdventureResultUI({el}){
   const panel=el('section',null,'adventure-result paper success');
   panel.setAttribute('aria-live','polite');panel.setAttribute('aria-atomic','true');
   const symbol=el('div','✦','adventure-result-symbol');symbol.setAttribute('aria-hidden','true');
-  const next=el('button','계속 탐색하기','adventure-result-next');next.type='button';
+  const complete=progress.foundCount>=progress.objectiveCount,next=el('button',complete?'결과 확인하기':'계속 탐색하기','adventure-result-next');next.type='button';
   next.onclick=()=>{if(overlay!==active)return;next.disabled=true;clear();onContinue();};
-  panel.append(symbol,el('h2','단서를 찾았어요!'),el('p',`찾은 단서 ${progress.foundCount} / ${progress.objectiveCount}`,'adventure-result-count'),next);
+  panel.append(symbol,el('h2',complete?'목표를 모두 찾았어요!':'단서를 찾았어요!'),el('p',`찾은 단서 ${progress.foundCount} / ${progress.objectiveCount}`,'adventure-result-count'),next);
   overlay.append(panel);host.append(overlay);overlay.showModal();next.focus?.();
  },show(host,result,onContinue){
   clear();const success=result.outcome==='MISSION_COMPLETE';

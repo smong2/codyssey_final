@@ -21,6 +21,12 @@ test('API provider sends the Firebase token and exact mutation body',async()=>{
  assert.equal(calls[0].init.method,'POST');
 });
 
+test('unreadable slot deletion is the only mutation that does not guess a revision',async()=>{
+ const calls=[];const provider=createLumiaApiProvider({baseUrl:'https://api.example',getIdToken:async()=>'token',maxAttempts:1,fetchImpl:async(url,init)=>{calls.push({url,init});return response(200,{serverRevision:0});}});
+ const body={requestId:'delete-broken',confirm:true,resetUnreadable:true};await provider.deleteUnreadableSaveSlot(3,body);
+ assert.equal(calls[0].init.method,'DELETE');assert.deepEqual(JSON.parse(calls[0].init.body),body);
+});
+
 test('account bootstrap sends the reviewed privacy consent version before slot usage',async()=>{
  const calls=[];const provider=createLumiaApiProvider({baseUrl:'https://api.example',getIdToken:async()=>'token',maxAttempts:1,fetchImpl:async(url,init)=>{calls.push({url,init});return response(200,{created:false});}});
  await provider.bootstrapAccount({privacyConsentAccepted:true,privacyConsentVersion:'2026-10-15'});
@@ -65,4 +71,10 @@ test('dialogue load encodes the event id and GET can retry a transient network f
  const urls=[];let count=0;const provider=createLumiaApiProvider({baseUrl:'https://api.example',getIdToken:async()=>'token',maxAttempts:2,fetchImpl:async url=>{urls.push(url);if(++count===1)throw new TypeError('offline');return response(200,{eventId:'NPC A/1'});}});
  const value=await provider.loadDialogue({slotId:4,eventId:'NPC A/1'});
  assert.equal(value.eventId,'NPC A/1');assert.equal(urls.length,2);assert.match(urls[0],/NPC%20A%2F1$/);
+});
+
+test('dialogue load does not automatically repeat an HTTP 503',async()=>{
+ let calls=0;const provider=createLumiaApiProvider({baseUrl:'https://api.example',getIdToken:async()=>'token',maxAttempts:3,fetchImpl:async()=>{calls++;return response(503,{detail:'Image asset is not delivered'});}});
+ await assert.rejects(()=>provider.loadDialogue({slotId:1,eventId:'LOC_GH_01'}),error=>error.status===503);
+ assert.equal(calls,1);
 });

@@ -202,9 +202,9 @@ def test_adventure_retry_is_idempotent_and_conflict_is_409(activity_db):
         assert conflict.status_code == 409
 
 
-def test_adventure_story_candidate_uses_existing_after_activity_contract(activity_db):
+def test_location_story_is_queued_before_adventure_content(activity_db):
     class ForcedCandidate:
-        def after_activity(self, *, version, run, activity):
+        def before_activity(self, *, version, run, activity):
             assert version == "dev-dialogue-v1"
             assert activity.activity_type == "ADVENTURE"
             assert activity.location_id == "LOC_TEST"
@@ -214,19 +214,18 @@ def test_adventure_story_candidate_uses_existing_after_activity_contract(activit
                 "selectedDay": run["day"],
             }
 
+        def after_activity(self, *, version, run, activity):
+            return None
+
     client, database = phase5_client(activity_db)
     client.app.dependency_overrides[get_story_candidates] = lambda: ForcedCandidate()
     with client:
         begun = _prepare(client, database, request_prefix="story")
-        target = begun.json()["targetCount"]
-        completed = _complete_adventure(
-            client, resolution="MISSION_COMPLETE", found_count=target, target_count=target,
-            request="story-complete", revision=3,
-        )
-        assert completed.status_code == 200, completed.text
+        assert begun.json()["pendingStoryEvent"]["eventId"] == "TEST_EVENT"
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         assert run["day"] == "MONDAY"
-        assert run["phase"] == "ACTIVITY_STORY_PENDING"
+        assert run["phase"] == "ACTIVITY_PRE_STORY_PENDING"
+        assert run["weeklySchedule"]["MONDAY"]["status"] == "IN_PROGRESS"
         assert run["pendingStoryEvent"]["eventId"] == "TEST_EVENT"
 
 

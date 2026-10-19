@@ -101,9 +101,23 @@ class StoryCandidates:
         except (sqlite3.Error, OSError):
             raise StorySelectionError("Story rule master is unavailable") from None
 
+    def before_activity(self, *, version: str, run: dict,
+                        activity: ActivityContext) -> dict | None:
+        """Select a Location Story after the activity checkpoint but before client content starts."""
+        return self._activity_candidate(
+            version=version, run=run, activity=activity, story_type="LOCATION",
+        )
+
     def after_activity(self, *, version: str, run: dict,
                        activity: ActivityContext) -> dict | None:
-        """Deterministic selection; caller commits pending with activity result."""
+        """Select an NPC Story after the activity result has been committed."""
+        return self._activity_candidate(
+            version=version, run=run, activity=activity, story_type="NPC",
+        )
+
+    def _activity_candidate(self, *, version: str, run: dict,
+                            activity: ActivityContext, story_type: str) -> dict | None:
+        """Deterministic side-Story selection at a trusted activity boundary."""
         if run.get("pendingStoryEvent") is not None:
             return run["pendingStoryEvent"]
         week, day = run["week"], run["day"]
@@ -111,7 +125,20 @@ class StoryCandidates:
         used = window.get("sideStoryCount", 0) if window.get("week") == week else 0
         if used >= 2 or window.get("lastResultStoryDay") == f"{week}:{day}":
             return None
+        location_used = window.get("locationStoryCount") if window.get("week") == week else 0
+        if location_used is None:
+            location_used = sum(
+                1 for story_id, progress in run.get("storyProgress", {}).items()
+                if story_id.startswith("LOC_")
+                and isinstance(progress, dict)
+                and progress.get("status") == "COMPLETED"
+                and progress.get("lastAdvancedWeek") == week
+            )
+        if story_type == "LOCATION" and location_used >= 1:
+            return None
         if not activity.activity_id or not activity.location_id:
+            if story_type == "LOCATION":
+                return None
             raise StorySelectionError("Activity context is incomplete")
         try:
             with closing(_connect(self.path)) as connection:
@@ -123,8 +150,9 @@ class StoryCandidates:
                        JOIN story_steps st ON st.version=r.version AND st.event_id=r.event_id
                        JOIN stories s ON s.version=st.version AND s.story_id=st.story_id
                        WHERE r.version=? AND r.is_active=1 AND r.trigger_phase='AFTER_ACTIVITY'
+                         AND s.story_type=?
                        ORDER BY st.display_order,st.event_id""",
-                    (version,),
+                    (version, story_type),
                 ).fetchall()
                 candidates = []
                 for row in rows:

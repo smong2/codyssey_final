@@ -98,42 +98,42 @@ STORY_DEFINITIONS = (
         "display_name": "틀린 별자리",
         "location_id": "OBS",
         "sort_order": 1,
-        "events": ((1, "LOC_OBS_01", "틀린 별자리", 1),),
+        "events": ((1, "LOC_OBS_01", "틀린 별자리", 3),),
     },
     {
         "story_id": "LOC_OBS_02",
         "display_name": "늦은 관측",
         "location_id": "OBS",
         "sort_order": 2,
-        "events": ((1, "LOC_OBS_02", "늦은 관측", 1),),
+        "events": ((1, "LOC_OBS_02", "늦은 관측", 22),),
     },
     {
         "story_id": "LOC_OBS_03",
         "display_name": "자리 맡아 주기",
         "location_id": "OBS",
         "sort_order": 3,
-        "events": ((1, "LOC_OBS_03", "자리 맡아 주기", 1),),
+        "events": ((1, "LOC_OBS_03", "자리 맡아 주기", 33),),
     },
     {
         "story_id": "LOC_OBS_04",
         "display_name": "빈 관측 칸",
         "location_id": "OBS",
         "sort_order": 4,
-        "events": ((1, "LOC_OBS_04", "빈 관측 칸", 1),),
+        "events": ((1, "LOC_OBS_04", "빈 관측 칸", 46),),
     },
     {
         "story_id": "LOC_GH_01",
         "display_name": "시든 화분 돌보기",
         "location_id": "GH",
         "sort_order": 5,
-        "events": ((1, "LOC_GH_01", "시든 화분 돌보기", 1),),
+        "events": ((1, "LOC_GH_01", "시든 화분 돌보기", 7),),
     },
     {
         "story_id": "LOC_LIB_01",
         "display_name": "책 한 권 제자리 찾기",
         "location_id": "LIB",
         "sort_order": 6,
-        "events": ((1, "LOC_LIB_01", "책 한 권 제자리 찾기", 1),),
+        "events": ((1, "LOC_LIB_01", "책 한 권 제자리 찾기", 13),),
     },
 )
 
@@ -1357,12 +1357,12 @@ def validate_location_master(
         (version,),
     ).fetchall()
     expected_steps = [
-        ("LOC_OBS_01", 1, "LOC_OBS_01", 1),
-        ("LOC_OBS_02", 1, "LOC_OBS_02", 1),
-        ("LOC_OBS_03", 1, "LOC_OBS_03", 1),
-        ("LOC_OBS_04", 1, "LOC_OBS_04", 1),
-        ("LOC_GH_01", 1, "LOC_GH_01", 1),
-        ("LOC_LIB_01", 1, "LOC_LIB_01", 1),
+        ("LOC_OBS_01", 1, "LOC_OBS_01", 3),
+        ("LOC_OBS_02", 1, "LOC_OBS_02", 22),
+        ("LOC_OBS_03", 1, "LOC_OBS_03", 33),
+        ("LOC_OBS_04", 1, "LOC_OBS_04", 46),
+        ("LOC_GH_01", 1, "LOC_GH_01", 7),
+        ("LOC_LIB_01", 1, "LOC_LIB_01", 13),
     ]
     if location_steps != expected_steps:
         raise ValueError(f"Location master validation failed: steps {location_steps}")

@@ -132,10 +132,21 @@ def test_missing_slot_is_load_error_and_recovery_read_is_non_mutating(content_db
         slots = client.get("/v1/save-slots", headers=headers()).json()["slots"]
         assert slots[2] == {"slotId": 3, "status": "LOAD_ERROR"}
         assert client.get("/v1/save-slots/3", headers=headers()).status_code == 503
+        global_before = deepcopy(database.data["users/owner/meta/progress"])
+        deleted = client.request(
+            "DELETE", "/v1/save-slots/3", headers=headers(),
+            json={"confirm": True, "resetUnreadable": True,
+                  "requestId": "delete-broken-3"},
+        )
+        assert deleted.status_code == 200, deleted.text
+        assert database.data["users/owner/saveSlots/3"]["status"] == "EMPTY"
+        assert database.data["users/owner/meta/progress"] == global_before
         assert start(client).status_code == 200
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         run["weeklySchedule"] = {
-            day: {"status": "IN_PROGRESS" if index == 0 else "PLANNED"}
+            day: {"status": "IN_PROGRESS" if index == 0 else "PLANNED",
+                  "type": "REST", "contentId": "REST_DEFAULT",
+                  "staminaBefore": 100, "staminaCost": 0}
             for index, day in enumerate(("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"))
         }
         before = deepcopy(database.data)
@@ -151,6 +162,11 @@ def test_missing_slot_is_load_error_and_recovery_read_is_non_mutating(content_db
         assert restored["weeklySchedule"]["MONDAY"]["status"] == "COMPLETED"
         assert restored["completedWeekdayCount"] == 1
         assert restored["day"] == "TUESDAY"
+        assert restored["activityHistory"] == [{
+            "week": 1, "day": 0, "type": "REST", "contentId": "REST_DEFAULT",
+            "status": "COMPLETED", "resolution": "INTERRUPTED",
+            "staminaBefore": 100, "staminaCost": 0,
+        }]
         assert restored["stamina"] == before["users/owner/saveSlots/1"]["activeRun"]["stamina"]
         assert restored["stats"] == before["users/owner/saveSlots/1"]["activeRun"]["stats"]
         assert client.get("/v1/save-slots/1", headers=headers()).json()["recoveryRequired"] is False

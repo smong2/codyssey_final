@@ -53,7 +53,16 @@ Production 신규 이미지 요청:
 - `ART-L03` — 같은 화분의 건강한 상태
 - `ART-L04` — 책장 위에 가로로 놓인 책 한 권
 
-`ART-L01~L04`는 제작 식별자다. 실제 asset 파일이 확인되기 전까지 임의 파일명을 만들지 않는다.
+현재 실제 연결 상태:
+
+| 제작 ID | 실제 파일 | 상태 | 미리보기 |
+|---|---|---|---|
+| `ART-L01` | [`IT_focus_LOC_OBS_01_observation_diary_03.png`](../../../asset/item/IT_focus_LOC_OBS_01_observation_diary_03.png) | **채택·API 연결**, OBS 01~04 공용 | <img src="../../../asset/item/IT_focus_LOC_OBS_01_observation_diary_03.png" width="220" alt="오래된 관측 일기"> |
+| `ART-L02` | `IT_focus_LOC_GH_01_wilted_pot_01.png` | 예약·미납; 기존 시든 화분 카드는 후보 | 미리보기 없음 |
+| `ART-L03` | `IT_focus_LOC_GH_01_restored_pot_02.png` | 예약·미납; 기존 회복 화분 카드는 후보 | 미리보기 없음 |
+| `ART-L04` | `IT_focus_LOC_LIB_01_plain_book_01.png` | 예약·미납; 기존 고서 카드는 내용 불일치 | 미리보기 없음 |
+
+`ART-L02/L03`은 현재 `LOC_GH_01` 런타임에서 미납 FOCUS로 명시적으로 숨겨 대화를 진행한다. `IT_card_candidate_GH_*`를 승인본으로 대신 연결하지 않는다. `ART-L04` 역시 장식 있는 고서 후보가 Production의 “평범한 책 한 권”과 다르므로 연결하지 않는다.
 
 ## 파일
 

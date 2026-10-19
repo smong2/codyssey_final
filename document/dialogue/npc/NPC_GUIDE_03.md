@@ -14,6 +14,15 @@
 - 모임 장식에 쓸 두 리본 분위기 중 하나를 고른다.
 - 선택한 색을 다음 GUIDE04에서 `지난번 네가 골라 준 리본`으로 기억한다.
 
+## 이미지
+
+| 용도 | 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG02_clocktower_plaza_1920x1080_011.png`](../../../asset/background/BG02_clocktower_plaza_1920x1080_011.png) | 실제 파일·API 연결 가능 | <img src="../../../asset/background/BG02_clocktower_plaza_1920x1080_011.png" width="240" alt="시계탑 광장"> |
+| `ART-N02` · 색이 다른 리본 2개 | 예약 파일 `IT_focus_NPC_GUIDE_03_two_ribbons_01.png` | **예약·미납** | 미리보기 없음 |
+
+화자는 기본 [`티아`](../../../asset/character/tia0_fullbody.png) <img src="../../../asset/character/tia0_fullbody.png" width="72" alt="티아 전신">, CH16 주인공일 때 [`로빈`](../../../asset/character/robin0_fullbody.png) <img src="../../../asset/character/robin0_fullbody.png" width="72" alt="로빈 전신">으로 대체된다. `ART-N02`와 비슷한 장식 후보가 있더라도 승인 FOCUS로 임의 연결하지 않는다.
+
 ## Sequence
 
 ### S1 · 안내를 보고 온 사람

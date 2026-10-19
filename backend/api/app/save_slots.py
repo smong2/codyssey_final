@@ -4,15 +4,17 @@ from __future__ import annotations
 
 from copy import deepcopy
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Literal
 from uuid import NAMESPACE_URL, uuid5
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from .account import _STATS, _TAGS
+from .account import GAME_DATA_VERSION, _STATS, _TAGS
 from .authentication import AuthenticatedUser, require_verified_user
 from .content_master import ContentMaster, ContentMasterError, UnknownCharacter
+from .dialogue_master import DialogueMaster, DialogueMasterError
 from .firebase import FirebaseServices, get_firebase_services
 from .models import GlobalMetaProgress, SaveSlot
 from .repositories import (
@@ -34,8 +36,11 @@ class StartRunRequest(MutationRequest):
     characterId: str = Field(pattern=r"^CH\d{2}$")
 
 
-class DeleteSlotRequest(MutationRequest):
+class DeleteSlotRequest(BaseModel):
+    requestId: str = Field(min_length=1, max_length=256)
+    expectedServerRevision: int | None = Field(default=None, ge=0)
     confirm: Literal[True]
+    resetUnreadable: bool = False
 
 
 class StartRunRejected(Exception):
@@ -53,7 +58,14 @@ def get_content_master(request: Request) -> ContentMaster:
     return ContentMaster(request.app.state.settings.content_sqlite_path)
 
 
-def _slot_payload(slot: SaveSlot) -> dict:
+def get_diary_dialogue_master(request: Request) -> DialogueMaster:
+    return DialogueMaster(
+        request.app.state.settings.content_sqlite_path,
+        asset_root=Path(__file__).resolve().parents[3] / "asset",
+    )
+
+
+def _slot_payload(slot: SaveSlot, dialogue_master: DialogueMaster | None = None) -> dict:
     payload = slot.model_dump(mode="json")
     active_run = slot.activeRun or {}
     schedule = active_run.get("weeklySchedule") or {}
@@ -61,6 +73,32 @@ def _slot_payload(slot: SaveSlot) -> dict:
         isinstance(entry, dict) and entry.get("status") == "IN_PROGRESS"
         for entry in schedule.values()
     )
+    if dialogue_master is not None and isinstance(payload.get("activeRun"), dict):
+        run = payload["activeRun"]
+        character_id = run.get("characterId")
+        records = run.get("dialogueHistory") or []
+        event_ids = {
+            record.get("eventId") for record in records
+            if isinstance(record, dict) and isinstance(record.get("eventId"), str)
+        }
+        try:
+            texts = dialogue_master.choice_texts(
+                version=slot.gameDataVersion, event_ids=event_ids,
+                character_id=character_id,
+            ) if isinstance(character_id, str) else {}
+        except DialogueMasterError:
+            texts = {}
+        for record in records:
+            if not isinstance(record, dict):
+                continue
+            for choice in record.get("selectedChoices") or []:
+                if not isinstance(choice, dict) or choice.get("text"):
+                    continue
+                text = texts.get((
+                    record.get("eventId"), choice.get("choiceNodeId"), choice.get("choiceId"),
+                ))
+                if text:
+                    choice["text"] = text
     return payload
 
 
@@ -85,24 +123,31 @@ def _error(error: Exception) -> HTTPException:
 
 
 @router.get("")
-def list_save_slots(repository: SaveSlotRepository = Depends(get_slot_repository)) -> dict:
+def list_save_slots(
+    repository: SaveSlotRepository = Depends(get_slot_repository),
+    dialogue_master: DialogueMaster = Depends(get_diary_dialogue_master),
+) -> dict:
     try:
         slots = repository.list_slots()
     except Exception as error:
         raise _error(error) from None
     return {"slots": [
-        _slot_payload(slot) if slot is not None else {"slotId": index, "status": "LOAD_ERROR"}
+        _slot_payload(slot, dialogue_master) if slot is not None else {"slotId": index, "status": "LOAD_ERROR"}
         for index, slot in enumerate(slots, 1)
     ]}
 
 
 @router.get("/{slot_id}")
-def get_save_slot(slot_id: int, repository: SaveSlotRepository = Depends(get_slot_repository)) -> dict:
+def get_save_slot(
+    slot_id: int,
+    repository: SaveSlotRepository = Depends(get_slot_repository),
+    dialogue_master: DialogueMaster = Depends(get_diary_dialogue_master),
+) -> dict:
     try:
         slot = repository.get(slot_id)
         if slot.slotId != slot_id:
             raise SlotNotFound
-        return _slot_payload(slot)
+        return _slot_payload(slot, dialogue_master)
     except Exception as error:
         raise _error(error) from None
 
@@ -120,7 +165,12 @@ def _new_active_run(*, run_id: str, run_number: int, character_id: str,
         "phase": "MAIN_STORY_PENDING",
         "storyCast": cast,
         "pendingStoryEvent": {"eventId": "MS01", "eventType": "MAIN_STORY"},
-        "storyEventWindow": {"week": 1, "sideStoryCount": 0, "lastResultStoryDay": None},
+        "storyEventWindow": {
+            "week": 1,
+            "sideStoryCount": 0,
+            "locationStoryCount": 0,
+            "lastResultStoryDay": None,
+        },
         "startedAt": now,
         "updatedAt": now,
         "stats": stats,
@@ -130,8 +180,10 @@ def _new_active_run(*, run_id: str, run_number: int, character_id: str,
         "storyProgress": {},
         "eventFlags": {},
         "representativeChoices": [],
+        "dialogueHistory": [],
         "minigameFailStreaks": {},
         "weeklySchedule": {},
+        "activityHistory": [],
         "completedWeekdayCount": 0,
         "forcedRest": {"active": False, "remainingWeekdays": 0},
         "runStatistics": {
@@ -215,6 +267,21 @@ def delete_save_slot(
     body: DeleteSlotRequest,
     repository: SaveSlotRepository = Depends(get_slot_repository),
 ) -> dict:
+    if body.resetUnreadable:
+        if body.expectedServerRevision is not None:
+            raise HTTPException(422, "Unreadable slot reset must not guess a server revision")
+        try:
+            result = repository.reset_unreadable(
+                slot_id=slot_id, request_id=body.requestId,
+                game_data_version=GAME_DATA_VERSION,
+            )
+            return {"slotId": slot_id, "serverRevision": result.server_revision,
+                    "replayed": result.replayed}
+        except Exception as error:
+            raise _error(error) from None
+    if body.expectedServerRevision is None:
+        raise HTTPException(422, "expectedServerRevision is required")
+
     def mutate(slot: SaveSlot, documents: dict) -> MutationPlan:
         if slot.status == "EMPTY":
             raise StartRunRejected("Slot is already empty")
@@ -267,6 +334,33 @@ def recover_interrupted_activity(
         entry["status"] = "COMPLETED"
         entry["resolution"] = "INTERRUPTED"
         entry["completedAt"] = now
+        history = run.setdefault("activityHistory", [])
+        week = run.get("week")
+        if (not isinstance(history, list) or len(history) >= 260
+                or type(week) is not int or not 1 <= week <= 52
+                or not isinstance(entry.get("type"), str) or not entry["type"]
+                or not isinstance(entry.get("contentId"), str) or not entry["contentId"]):
+            raise StartRunRejected("Stored activity history is invalid")
+        if any(not isinstance(item, dict)
+               or type(item.get("week")) is not int or not 1 <= item["week"] <= 52
+               or type(item.get("day")) is not int or not 0 <= item["day"] < len(weekdays)
+               for item in history):
+            raise StartRunRejected("Stored activity history is invalid")
+        day_index = weekdays.index(day)
+        if any(isinstance(item, dict) and item.get("week") == week
+               and item.get("day") == day_index for item in history):
+            raise StartRunRejected("Activity history already contains this weekday")
+        record = {
+            "week": week, "day": day_index, "type": entry["type"],
+            "contentId": entry["contentId"], "status": "COMPLETED",
+            "resolution": "INTERRUPTED",
+        }
+        for key in ("staminaBefore", "staminaCost", "staminaRecovered", "growthApplied",
+                    "growthAwarded", "result", "foundCount", "targetCount"):
+            if key in entry:
+                record[key] = deepcopy(entry[key])
+        history.append(record)
+        history.sort(key=lambda item: (item["week"], item["day"]))
         run["completedWeekdayCount"] = completed_count + 1
         if run["completedWeekdayCount"] < len(weekdays):
             run["day"] = weekdays[run["completedWeekdayCount"]]

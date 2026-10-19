@@ -1,24 +1,136 @@
 import {CLASSES} from '../core/classes.mjs';
 import {curriculumResult} from '../core/curriculum.mjs';
 import {circuitStage,mirrorStage,potStage,pourPot,potsSolved,shelfStage,moveShelf,shelvesSolved,rhythmPattern,pinRotation,firePin} from '../core/curriculum-puzzles.mjs';
-import {rotate,connections} from '../../minigame-demo/src/minigames/rune-circuit/logic.js';
-import {traceBeam} from '../../minigame-demo/src/minigames/mirror-magic/logic.js';
+import {rotate,connections} from '../core/circuit-logic.mjs';
+import {traceBeam} from '../core/mirror-logic.mjs';
+import {SPACES} from '../core/spaces.mjs';
 
-const ART={observatory:'BG06_starlight_observatory_1920x1080_015.png',plaza:'BG02_clocktower_plaza_1920x1080_011.png',greenhouse:'BG07_glass_greenhouse_1920x1080_016.png',library:'BG05_grand_library_1920x1080_014.png',workshop:'BG09_magic_workshop_1920x1080_018.png',training:'BG10_rune_training_ground_1920x1080_019.png'};
+const ART={observatory:'BG05_starlight_observatory_1920x1080_015.png',plaza:'BG02_clocktower_plaza_1920x1080_011.png',greenhouse:'BG06_glass_greenhouse_1920x1080_016.png',library:'BG04_grand_library_1920x1080_014.png',workshop:'BG08_magic_workshop_1920x1080_018.png',training:'BG09_rune_training_ground_1920x1080_019.png'};
 const COLORS=['#de8b82','#8ca97f','#8da8c0','#c5a15f','#aa90bd','#81b7ac'];
+const GUIDES={
+ 'observatory-mirror':['거울을 눌러 별빛의 방향을 바꿔요.','별빛이 모든 관측 룬에 닿으면 다음 단계로 넘어가요.'],
+ 'starlight-stage':['별빛이 아래 선에 닿을 때 같은 레인을 눌러요.','길게 이어진 별빛은 끝날 때까지 누르고 있어요.'],
+ 'spirit-pot-sort':['화분 두 개를 차례로 골라 꽃빛을 옮겨요.','각 화분에 같은 꽃빛만 모으면 성공이에요.'],
+ 'sealed-shelves':['옮길 책 묶음을 고른 뒤 화살표를 눌러요.','별이 표시된 고서 A를 오른쪽 출구로 보내요.'],
+ 'rune-circuit':['회로 조각을 눌러 방향을 돌려요.','마력 발생점부터 모든 목표까지 길을 이어요.'],
+ 'rune-pin-training':['원판의 빈 곳을 보고 룬 핀을 보내요.','다른 핀과 보호 구역을 피해서 세 라운드를 마쳐요.']
+};
+const guideKey=id=>'lumia:minigame-guide:'+id;
+const hasSeenGuide=id=>{try{return globalThis.localStorage?.getItem(guideKey(id))==='1';}catch{return false;}};
+const rememberGuide=id=>{try{globalThis.localStorage?.setItem(guideKey(id),'1');}catch{}};
 function el(tag,text,cls){const node=document.createElement(tag);if(text!==undefined&&text!==null)node.textContent=text;if(cls)node.className=cls;return node;}
+function svgNode(tag,attrs={}){
+ const node=typeof document.createElementNS==='function'?document.createElementNS('http://www.w3.org/2000/svg',tag):document.createElement(tag);
+ for(const [k,v] of Object.entries(attrs)){
+  if(k==='textContent')node.textContent=v;
+  else if(k==='class'&&!node.setAttribute)node.className=v;
+  else if(typeof node.setAttribute==='function')node.setAttribute(k,v);
+ }
+ return node;
+}
+function pipeSvg(mask,isLit,{isStart,isGoal,isMandatory,isFixed}={}){
+ const svg=svgNode('svg',{viewBox:'0 0 256 256',class:'pipe-svg'});
+ const gOuter=svgNode('g',{fill:'none',stroke:'#b39762','stroke-width':'24','stroke-linecap':'round','stroke-linejoin':'round'});
+ const gInner=svgNode('g',{fill:'none',stroke:isLit?'#418d89':'#756859','stroke-width':'14','stroke-linecap':'round','stroke-linejoin':'round'});
+ let d='';
+ if(mask===3)d='M 128 0 V 64 Q 128 128 192 128 H 256';
+ else if(mask===6)d='M 256 128 H 192 Q 128 128 128 192 V 256';
+ else if(mask===12)d='M 128 256 V 192 Q 128 128 64 128 H 0';
+ else if(mask===9)d='M 0 128 H 64 Q 128 128 128 64 V 0';
+ else if(mask===5)d='M 128 0 V 256';
+ else if(mask===10)d='M 0 128 H 256';
+ else{
+  if(mask&1)d+='M 128 128 V 0 ';
+  if(mask&2)d+='M 128 128 H 256 ';
+  if(mask&4)d+='M 128 128 V 256 ';
+  if(mask&8)d+='M 128 128 H 0 ';
+ }
+ if(d){
+  gOuter.append(svgNode('path',{d:d.trim()}));
+  gInner.append(svgNode('path',{d:d.trim()}));
+  svg.append(gOuter,gInner);
+  if(isLit){
+   const gGlow=svgNode('g',{fill:'none',stroke:'#9efff4','stroke-width':'4','stroke-linecap':'round','stroke-linejoin':'round'});
+   gGlow.append(svgNode('path',{d:d.trim()}));
+   svg.append(gGlow);
+  }
+ }
+ if(isStart){
+  svg.append(
+   svgNode('circle',{cx:'128',cy:'128',r:'28',fill:isLit?'#418d89':'#756859',stroke:'#b39762','stroke-width':'6'}),
+   svgNode('circle',{cx:'128',cy:'128',r:'14',fill:isLit?'#a6fff5':'#c3b5a1'})
+  );
+ }else if(isGoal){
+  svg.append(
+   svgNode('path',{d:'M 128 94 L 162 128 L 128 162 L 94 128 Z',fill:isLit?'#418d89':'#756859',stroke:'#b39762','stroke-width':'6'}),
+   svgNode('path',{d:'M 128 108 L 148 128 L 128 148 L 108 128 Z',fill:isLit?'#a6fff5':'#c3b5a1'})
+  );
+ }else if(isMandatory){
+  svg.append(
+   svgNode('path',{d:'M 128 98 L 137 119 L 160 119 L 141 133 L 148 155 L 128 141 L 108 155 L 115 133 L 96 119 L 119 119 Z',fill:isLit?'#ffd483':'#9d885a',stroke:'#b39762','stroke-width':'4'})
+  );
+ }else if(mask!==3&&mask!==6&&mask!==12&&mask!==9&&mask!==5&&mask!==10&&mask>0){
+  svg.append(svgNode('circle',{cx:'128',cy:'128',r:'14',fill:isLit?'#418d89':'#756859',stroke:'#b39762','stroke-width':'4'}));
+ }
+ if(isFixed){
+  for(const [fx,fy] of [[28,28],[228,28],[28,228],[228,228]]){
+   svg.append(svgNode('circle',{cx:String(fx),cy:String(fy),r:'6',fill:'#6d6255',stroke:'#b39762','stroke-width':'2'}));
+  }
+ }
+ return svg;
+}
+function mirrorSvg(cellType,orientation,isLit){
+ const svg=svgNode('svg',{viewBox:'0 0 256 256',class:'mirror-svg'});
+ if(cellType==='mirror'){
+  const d=orientation==='/'?'M 40 216 L 216 40':'M 40 40 L 216 216';
+  svg.append(
+   svgNode('path',{d,fill:'none',stroke:'#b39762','stroke-width':'20','stroke-linecap':'round'}),
+   svgNode('path',{d,fill:'none',stroke:isLit?'#80d8ff':'#cfd8dc','stroke-width':'10','stroke-linecap':'round'})
+  );
+  if(isLit)svg.append(svgNode('path',{d,fill:'none',stroke:'#ffffff','stroke-width':'3','stroke-linecap':'round'}));
+ }else if(cellType==='source'){
+  svg.append(
+   svgNode('circle',{cx:'128',cy:'128',r:'32',fill:'#ffd54f',stroke:'#b39762','stroke-width':'6'}),
+   svgNode('circle',{cx:'128',cy:'128',r:'14',fill:'#fff9c4'})
+  );
+ }else if(cellType==='block'){
+  svg.append(svgNode('rect',{x:'44',y:'44',width:'168',height:'168',rx:'16',fill:'#546e7a',stroke:'#37474f','stroke-width':'6'}));
+ }else if(cellType==='goal'){
+  svg.append(
+   svgNode('circle',{cx:'128',cy:'128',r:'36',fill:'none',stroke:isLit?'#4dd0e1':'#b39762','stroke-width':'8'}),
+   svgNode('circle',{cx:'128',cy:'128',r:'16',fill:isLit?'#80deea':'#756859'})
+  );
+ }else if(cellType==='rune'){
+  svg.append(
+   svgNode('path',{d:'M 128 72 L 184 128 L 128 184 L 72 128 Z',fill:isLit?'#ba68c8':'#756859',stroke:'#b39762','stroke-width':'6'}),
+   svgNode('path',{d:'M 128 96 L 160 128 L 128 160 L 96 128 Z',fill:isLit?'#e1bee7':'#9e9e9e'})
+  );
+ }else if(cellType==='prism'){
+  svg.append(svgNode('polygon',{points:'128,68 188,172 68,172',fill:isLit?'#80deea':'#78909c',stroke:'#b39762','stroke-width':'6'}));
+ }
+ return svg;
+}
 function button(text,action){const node=el('button',text);node.type='button';node.onclick=action;return node;}
 export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
  constructor(){super(lesson.sceneKey);this.gameId=lesson.id;}
  init(data){this.startData=data;this.round=0;this.moves=0;this.mistakes=0;this.hits=0;this.extras=0;this.greatLimit=0;this.done=false;this.pausedMs=0;this.selected=null;this.history=[];this.inputLog=[];this.pattern=null;this.disc=null;this.solved=false;this.roundStarted=0;}
  create(){
-  this.startedAt=performance.now();this.root=el('section',null,'curriculum-game');this.root.style.backgroundImage=`linear-gradient(#203126bb,#203126bb),url('./world-assets/${ART[lesson.locationId]}')`;
-  const header=el('header',null,'paper curriculum-header');this.timer=el('span','');header.append(el('h1',lesson.title),this.timer,button('포기하기',()=>this.quit()));
+  this.startedAt=performance.now();this.root=el('section',null,'curriculum-game');
+  const bg=SPACES[lesson.locationId]?.image??ART[lesson.locationId];
+  this.root.style.backgroundImage=`linear-gradient(#203126bb,#203126bb),url('./world-assets/${bg}')`;
+  const header=el('header',null,'paper curriculum-header');this.timer=el('span','');header.append(el('h1',lesson.title),this.timer,button('게임 방법 보기',()=>this.showGuide()),button('포기하기',()=>this.quit()));
   this.instruction=el('p','', 'curriculum-instruction');this.board=el('div',null,'paper curriculum-board');this.status=el('p','', 'curriculum-status');
   this.root.append(header,this.instruction,this.board,this.status);document.querySelector('#game').append(this.root);
   this.events.once('shutdown',()=>{this.done=true;this.root?.remove();});
   if(this.startData.assistLevel)this.status.textContent='조금 더 쉬운 연습으로 준비했어.';
-  this.loadRound();
+  this.loadRound();if(!hasSeenGuide(this.gameId))this.showGuide(true);
+ }
+ showGuide(first=false){
+  if(this.guideOverlay||this.done)return;
+  const openedAt=performance.now(),overlay=el('div',null,'curriculum-guide-overlay'),panel=el('section',null,'paper curriculum-guide');
+  panel.append(el('small',first?'처음 한 번만 자동으로 보여 줘요.':'게임 방법'),el('h2',lesson.title+' 방법'));
+  const list=el('ol');for(const line of GUIDES[this.gameId]??[])list.append(el('li',line));panel.append(list);
+  const close=button('알겠어!',()=>{this.pausedMs+=performance.now()-openedAt;rememberGuide(this.gameId);overlay.remove();this.guideOverlay=null;});panel.append(close);overlay.append(panel);this.root.append(overlay);this.guideOverlay=overlay;close.focus?.();
  }
  elapsed(){return Math.max(0,performance.now()-this.startedAt-this.pausedMs);}
  logInput(action,data={},at=this.elapsed()){
@@ -64,13 +176,35 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
   const grid=el('div',null,'course-grid');grid.style.setProperty('--columns',width);
   const light=mirror?traceBeam(p.level,p.orientations):connections(p),path=mirror?new Set(light.paths.flat().map(([x,y])=>x+','+y)):light.reached;
   for(let y=0;y<height;y++)for(let x=0;x<width;x++){
-   let text='',disabled=false,index=y*width+x;
-   if(mirror){index=p.level.mirrors.findIndex(([mx,my])=>mx===x&&my===y);text=index>=0?p.orientations[index]:p.level.source[0]===x&&p.level.source[1]===y?'✦':p.level.blocks.some(([bx,by])=>bx===x&&by===y)?'■':[[...(p.level.goal??[])],[...(p.level.secondaryGoal??[])]].some(([gx,gy])=>gx===x&&gy===y)?'◎':p.level.rune?.[0]===x&&p.level.rune?.[1]===y?'◆':'·';disabled=index<0;}
-   else{text=['·','╵','╶','└','╷','│','┌','├','╴','┘','─','┴','┐','┤','┬','┼'][p.tiles[index]];disabled=[p.start,p.goal,p.branchGoal,...p.fixed].filter(Boolean).some(([px,py])=>px===x&&py===y);}
-   const b=button(text,()=>{if(this.done)return;if(mirror){p.orientations[index]=p.orientations[index]==='/'?'\\':'/';this.logInput('TOGGLE',{mirrorIndex:index});}else{p.tiles[index]=rotate(p.tiles[index]);this.logInput('ROTATE',{cellIndex:index});}this.moves++;const won=mirror?traceBeam(p.level,p.orientations).success:connections(p).won;if(won)this.completeRound();else this.drawPuzzle();});b.disabled=disabled;b.classList.toggle('lit',path.has(mirror?x+','+y:index));
+   let disabled=false,index=y*width+x;
    const point=coord=>coord?.[0]===x&&coord?.[1]===y;
-   const marker=mirror?(point(p.level.prism)?'분기':point(p.level.rune)?'필수 룬':point(p.level.source)?'광원':point(p.level.goal)||point(p.level.secondaryGoal)?'목표':null):(point(p.start)?'광원':point(p.goal)||point(p.branchGoal)?'목표':point(p.mandatory)?'필수 룬':null);
-   if(marker){b.append(el('small',marker,'course-cell-label'));b.setAttribute('aria-label',marker+' · '+text);}grid.append(b);
+   const isLit=path.has(mirror?x+','+y:index);
+   let marker=null,aria='',b;
+   if(mirror){
+    index=p.level.mirrors.findIndex(([mx,my])=>mx===x&&my===y);
+    disabled=index<0;
+    const isSource=point(p.level.source),isBlock=p.level.blocks.some(([bx,by])=>bx===x&&by===y),isGoal=point(p.level.goal)||point(p.level.secondaryGoal),isRune=point(p.level.rune),isPrism=point(p.level.prism);
+    marker=isPrism?'분기':isRune?'필수 룬':isSource?'광원':isGoal?'목표':null;
+    const cellType=index>=0?'mirror':isSource?'source':isBlock?'block':isGoal?'goal':isRune?'rune':isPrism?'prism':'empty';
+    const orient=index>=0?p.orientations[index]:null;
+    aria=(marker?marker+' · ':'')+(index>=0?'거울 ('+orient+')':'빈 칸');
+    b=button('',()=>{if(this.done)return;p.orientations[index]=p.orientations[index]==='/'?'\\':'/';this.logInput('TOGGLE',{mirrorIndex:index});this.moves++;if(traceBeam(p.level,p.orientations).success)this.completeRound();else this.drawPuzzle();});
+    b.className='mirror-cell';
+    b.append(mirrorSvg(cellType,orient,isLit));
+   }else{
+    const isStart=point(p.start),isGoal=point(p.goal)||point(p.branchGoal),isMandatory=point(p.mandatory);
+    const isFixed=p.fixed?.some(([fx,fy])=>fx===x&&fy===y);
+    disabled=[p.start,p.goal,p.branchGoal,...p.fixed].filter(Boolean).some(([px,py])=>px===x&&py===y);
+    marker=isStart?'광원':isGoal?'목표':isMandatory?'필수 룬':isFixed?'고정':null;
+    aria=(marker?marker+' · ':'')+(isFixed?'고정 회로 · ':'')+`회로 (${x+1},${y+1})`;
+    b=button('',()=>{if(this.done)return;p.tiles[index]=rotate(p.tiles[index]);this.logInput('ROTATE',{cellIndex:index});this.moves++;if(connections(p).won)this.completeRound();else this.drawPuzzle();});
+    b.className='pipe-cell';
+    if(isFixed)b.classList.add('fixed-cell');
+    b.append(pipeSvg(p.tiles[index],isLit,{isStart,isGoal,isMandatory,isFixed}));
+   }
+   b.disabled=disabled;b.classList.toggle('lit',isLit);
+   if(marker)b.append(el('small',marker,'course-cell-label'));
+   b.setAttribute('aria-label',aria);grid.append(b);
   }
   this.board.append(grid);this.status.textContent=`${this.round+1} / 3 단계 · 조작 ${this.moves}회`;
  }

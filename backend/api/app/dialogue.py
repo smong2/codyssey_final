@@ -143,8 +143,22 @@ def _validated_choices(groups: list[dict], selected: list[SelectedChoice], mode:
     return choice_ids
 
 
+def _choice_records(compiled: dict, selected: list[SelectedChoice]) -> list[dict]:
+    texts = {
+        (command["choiceNodeId"], option["choiceId"]): option["text"]
+        for command in compiled["sequence"] if command["type"] == "CHOICE"
+        for option in command["options"]
+    }
+    return [
+        {**choice.model_dump(), "text": texts[(choice.choiceNodeId, choice.choiceId)]}
+        for choice in selected
+    ]
+
+
 def _apply_effects(run: dict, bundle: dict, *, mode: str, event_id: str,
-                   story_type: str, step_no: int, choice_ids: list[str], now: datetime) -> tuple[dict, dict]:
+                   story_id: str, title: str, story_type: str, step_no: int,
+                   selected_choices: list[dict], choice_ids: list[str],
+                   now: datetime) -> tuple[dict, dict]:
     result = deepcopy(run)
     visible_delta: dict[str, int] = {}
     if mode == "COMPLETE":
@@ -187,12 +201,51 @@ def _apply_effects(run: dict, bundle: dict, *, mode: str, event_id: str,
             candidate = {"eventId": event_id, "choiceId": choice_id, "week": result["week"]}
             if candidate not in result["representativeChoices"]:
                 result["representativeChoices"].append(candidate)
+    history = result.setdefault("dialogueHistory", [])
+    if (not isinstance(history, list) or len(history) >= 300
+            or any(not isinstance(item, dict) or not isinstance(item.get("eventId"), str)
+                   for item in history)):
+        raise DialogueRejected("Stored dialogue history is invalid")
+    if not any(item.get("eventId") == event_id for item in history):
+        day = result.get("day")
+        day_index = {"MONDAY": 0, "TUESDAY": 1, "WEDNESDAY": 2,
+                     "THURSDAY": 3, "FRIDAY": 4}.get(day)
+        if day_index is None:
+            raise DialogueRejected("Dialogue history day is invalid")
+        history.append({
+            "eventId": event_id,
+            "storyId": story_id,
+            "title": title,
+            "week": result["week"],
+            "day": day_index,
+            "completionMode": mode,
+            "selectedChoices": deepcopy(selected_choices),
+            "effect": {"growth": deepcopy(visible_delta)},
+        })
     if story_type in {"NPC", "LOCATION"}:
         window = result["storyEventWindow"]
         if window.get("week") != result["week"]:
-            window.update({"week": result["week"], "sideStoryCount": 0, "lastResultStoryDay": None})
+            window.update({
+                "week": result["week"], "sideStoryCount": 0,
+                "locationStoryCount": 0, "lastResultStoryDay": None,
+            })
         if window["sideStoryCount"] >= 2 or window.get("lastResultStoryDay") == f"{result['week']}:{result['day']}":
             raise DialogueRejected("Side-story occurrence limit is exceeded")
+        location_count = window.get("locationStoryCount")
+        if location_count is None:
+            location_count = sum(
+                1 for story_id, progress in run.get("storyProgress", {}).items()
+                if story_id.startswith("LOC_")
+                and isinstance(progress, dict)
+                and progress.get("status") == "COMPLETED"
+                and progress.get("lastAdvancedWeek") == result["week"]
+            )
+        if type(location_count) is not int or location_count < 0:
+            raise DialogueRejected("Location Story occurrence counter is invalid")
+        if story_type == "LOCATION":
+            if location_count >= 1:
+                raise DialogueRejected("Location Story weekly limit is exceeded")
+            window["locationStoryCount"] = location_count + 1
         window["sideStoryCount"] += 1
         window["lastResultStoryDay"] = f"{result['week']}:{result['day']}"
     if story_type == "NPC":
@@ -209,8 +262,12 @@ def _apply_effects(run: dict, bundle: dict, *, mode: str, event_id: str,
                 raise DialogueRejected("Completed NPC Story count is invalid")
             run_stats["completedNpcStoryCount"] = completed + 1
     result["pendingStoryEvent"] = None
-    result["phase"] = "STORY_COMPLETE"
-    if run.get("phase") == "ACTIVITY_STORY_PENDING":
+    origin_phase = run.get("phase")
+    if origin_phase == "ACTIVITY_PRE_STORY_PENDING":
+        result["phase"] = "ACTIVITY_IN_PROGRESS"
+    else:
+        result["phase"] = "STORY_COMPLETE"
+    if origin_phase == "ACTIVITY_STORY_PENDING":
         try:
             _advance_completed_day(result)
         except ActivityRejected:
@@ -258,12 +315,17 @@ def complete_dialogue(
                 character_id=run["characterId"], cast=run["storyCast"],
             )
             _check_pending_metadata(run, compiled)
-            choice_ids = _validated_choices(compiled["choiceGroups"], body.selectedChoices, body.completionMode)
+            choice_ids = _validated_choices(
+                compiled["choiceGroups"], body.selectedChoices, body.completionMode,
+            )
+            choice_records = _choice_records(compiled, body.selectedChoices)
             bundle = master.effects(version=slot.gameDataVersion, event_id=claims["eventId"],
                                     choice_ids=choice_ids)
             updated_run, summary = _apply_effects(
                 run, bundle, mode=body.completionMode, event_id=claims["eventId"],
+                story_id=compiled["storyId"], title=compiled["title"],
                 story_type=compiled["storyType"], step_no=compiled["stepNo"],
+                selected_choices=choice_records,
                 choice_ids=choice_ids, now=now,
             )
             if body.completionMode == "COMPLETE":

@@ -40,6 +40,15 @@ DELIVERED_FOCUS_ASSETS = {
     "ART-L01": "IT_focus_LOC_OBS_01_observation_diary_03.png",
 }
 
+# LOC_GH_01 has reviewed dialogue and approved scene/background/character assets,
+# but its two optional prop focus images are still reserved and undelivered.
+# Keep that location story playable by explicitly hiding FOCUS at those beats.
+# Other missing assets remain fail-closed.
+OPTIONAL_MISSING_FOCUS_ASSETS = {
+    ("LOC_GH_01", "ART-L02"),
+    ("LOC_GH_01", "ART-L03"),
+}
+
 
 def _database(path: Path):
     connection = sqlite3.connect(f"{path.resolve().as_uri()}?mode=ro", uri=True)
@@ -77,6 +86,37 @@ class DialogueMaster:
             raise DialogueAssetMissing(f"Image asset is not delivered: {reference}")
         base = {"character": "character-assets", "background": "world-assets", "item": "item-assets"}[category]
         return f"/{base}/{quote(filename)}"
+
+    def choice_texts(
+        self, *, version: str, event_ids: set[str], character_id: str,
+    ) -> dict[tuple[str, str, str], str]:
+        """Return display text for saved choice IDs without compiling images or effects."""
+        if not event_ids:
+            return {}
+        try:
+            with closing(_database(self.path)) as connection:
+                placeholders = ",".join("?" for _ in event_ids)
+                rows = connection.execute(
+                    f"""SELECT events.event_id,options.choice_node_id,
+                               options.choice_id,options.choice_text
+                        FROM (
+                          SELECT DISTINCT event_id,story_id,step_no
+                          FROM dialogue_sequences
+                          WHERE version=? AND character_id=?
+                            AND event_id IN ({placeholders})
+                        ) AS events
+                        JOIN dialogue_options AS options
+                          ON options.version=? AND options.character_id=?
+                         AND options.story_id=events.story_id
+                         AND options.step_no=events.step_no""",
+                    (version, character_id, *sorted(event_ids), version, character_id),
+                ).fetchall()
+                return {
+                    (row["event_id"], row["choice_node_id"], row["choice_id"]): row["choice_text"]
+                    for row in rows
+                }
+        except (sqlite3.Error, OSError):
+            raise DialogueMasterError("Dialogue choice text is unavailable") from None
 
     def _speaker(self, connection, version: str, reference: str, cast: dict[str, str]) -> tuple[str, dict]:
         if reference.startswith("ROLE:"):
@@ -214,7 +254,17 @@ class DialogueMaster:
                          "action": row["image_action"], "assetType": row["image_asset_type"],
                          "alt": row["image_alt"] or ""}
                 if row["image_action"] != "HIDE":
-                    image["src"] = self._image_src(row["image_asset_ref"])
+                    try:
+                        image["src"] = self._image_src(row["image_asset_ref"])
+                    except DialogueAssetMissing:
+                        optional_focus = (
+                            row["image_target"] == "FOCUS"
+                            and (event_id, row["image_asset_ref"])
+                            in OPTIONAL_MISSING_FOCUS_ASSETS
+                        )
+                        if not optional_focus:
+                            raise
+                        image["action"] = "HIDE"
                 commands.append(image)
                 current = row["next_node_id"]
             elif kind == "CHOICE":

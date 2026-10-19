@@ -3,7 +3,7 @@
 실제 확인 결과는 [Phase 12 검증 기록](PHASE12_VALIDATION.md)에 남긴다.
 아직 납품되지 않은 정식 FOCUS 그림의 파일명·운영 URL은 [FOCUS ID별 예약표](FOCUS_ASSET_LINKS.md)에 고정했다. 예약 상태는 실제 API 연결이나 그림 채택을 뜻하지 않는다.
 
-현재 상태: Firebase Auth·Firestore Emulator SDK 테스트와 로컬 브라우저 흐름은 통과했다. `codyssey-final`에 웹 앱 `lumia-web`과 Email/Password 공급자를 설정했고 Firestore 기본 DB를 `asia-northeast3`에 프로덕션 모드로 생성했다. `activityDays.kstDate` 컬렉션 그룹 오름차순 색인은 Console에서 준비 상태를 확인했다. Vercel 프론트는 `https://lumia-web-six.vercel.app/`에, Render API는 `https://lumia-api-pcxd.onrender.com/`에 배포했다. 실제 사용자 가입·이메일 인증·회차 시작·MS01 완료·1주차 일정/활동·`LOC_OBS_01` 완료·재접속 후 주간 요약까지 확인했다. 남은 운영 E2E 결과는 검증 기록을 따른다. 전체 시나리오 확인 전 `backend/FIREBASE_API_IMPLEMENTATION_PLAN.md`의 Phase 12를 완료로 표시하지 않는다.
+현재 상태: Firebase Auth·Firestore Emulator SDK 테스트와 로컬 브라우저 흐름은 통과했다. `codyssey-final`에 웹 앱 `lumia-web`과 Email/Password 공급자를 설정했고 Firestore 기본 DB를 `asia-northeast3`에 프로덕션 모드로 생성했다. `activityDays.kstDate` 컬렉션 그룹 오름차순 색인은 Console에서 준비 상태를 확인했다. Vercel 프론트는 `https://lumia-web-six.vercel.app/`에, Render API는 `https://lumia-api-pcxd.onrender.com/`에 배포했다. 실제 사용자 가입·이메일 인증·회차 시작·MS01 완료·1주차 일정/활동·`LOC_OBS_01` 완료·재접속 후 주간 요약, 운영 Gemini 단독 호출, 관리자 API, 일회용 계정 탈퇴까지 확인했다. 남은 운영 E2E 결과는 검증 기록을 따른다. 전체 시나리오 확인 전 `backend/FIREBASE_API_IMPLEMENTATION_PLAN.md`의 Phase 12를 완료로 표시하지 않는다.
 
 ## 1. Firebase 프로젝트 준비
 
@@ -79,7 +79,7 @@ python -m pytest backend/api/tests/test_phase12_emulator.py -q
 11. 새로고침·재로그인 후 상태 복구
 12. 52주 또는 테스트용 엔딩 트리거(운영 데이터 우회 금지)
 13. Ending Record 및 Gemini/fallback 편지, 재접속 시 같은 편지
-14. 별도 관리자 계정의 Custom Claim으로 사용자·통계 확인, 일반 계정의 403 확인
+14. 승인된 관리자 계정의 Custom Claim으로 사용자·통계 확인, 권한 없는 계정의 403 확인
 15. 테스트 계정 탈퇴와 Auth/Firestore 정리 확인
 
-실제 Gemini 키, 관리자 Claim, 52주 진행 방법이 준비되지 않았다면 해당 항목을 미검증으로 남긴다. `/health`나 Emulator 통과만으로 이 목록을 통과 처리하지 않는다.
+52주 엔딩 진행 방법과 승인 자산이 준비되지 않은 항목은 미검증으로 남긴다. Gemini 단독 생성 성공은 Ending Record 통합 검증과 구분한다. `/health`나 Emulator 통과만으로 이 목록을 통과 처리하지 않는다.

@@ -15,6 +15,15 @@
 - `도구를 닦기부터 / 자리를 정하기부터`를 작업 순서 차이로만 다룬다.
 - 실제 정리는 대화와 이미지 전환으로 표현하고 플레이어 직접 조작을 요구하지 않는다.
 
+## 이미지
+
+| 용도 | 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG08_magic_workshop_1920x1080_018.png`](../../../asset/background/BG08_magic_workshop_1920x1080_018.png) | 실제 파일·API 연결 가능 | <img src="../../../asset/background/BG08_magic_workshop_1920x1080_018.png" width="240" alt="마도 공방"> |
+| `ART-N04` · 천·도구·정돈된 작업대 | 예약 파일 `IT_focus_NPC_WORK_03_tidy_workbench_02.png` | **예약·미납** | 미리보기 없음 |
+
+화자는 기본 [`렌`](../../../asset/character/ren0_fullbody.png) <img src="../../../asset/character/ren0_fullbody.png" width="72" alt="렌 전신">, CH25 주인공일 때 [`다나`](../../../asset/character/dana0_fullbody.png) <img src="../../../asset/character/dana0_fullbody.png" width="72" alt="다나 전신">로 대체된다.
+
 ## Sequence
 
 ### S1 · 작업 뒤의 책상

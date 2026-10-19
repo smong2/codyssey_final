@@ -351,7 +351,7 @@
     },
     {
       "path": "backend/admin/README.md",
-      "sha256": "c194a585351633deb682d7f52f71dc2b737881f4d655c65943bcea3248969c4f"
+      "sha256": "bd5b53a991c935bdf006caf9a1f0c2771687def7927db14ab2ce907624ddcec8"
     },
     {
       "path": "backend/api/README.md",
@@ -359,7 +359,7 @@
     },
     {
       "path": "backend/api/deploy/README.md",
-      "sha256": "27e323efb93f6953f5efd2ced2da224ca6f8956984e7aa41c393f57e3f88d6c2"
+      "sha256": "26d36fabb93f6a5e4aec336c2afad3fcf4bc1c21017a69d60263ae40ad536646"
     },
     {
       "path": "backend/database/README.md",
@@ -431,7 +431,7 @@
     },
     {
       "path": "document/dialogue/01_ENGINE_API_CONTRACT.md",
-      "sha256": "09b2cb40434f2be8c4c8c7944bcbbaa8fed5ff6c0696fa2cbc1181690aea840c"
+      "sha256": "c4ee2098a594907165e7551abdc8662d3a7f48fd09a08d776a0df80b6b49c00f"
     },
     {
       "path": "document/dialogue/02_DIALOGUE_WRITING_GUIDE.md",
@@ -631,7 +631,7 @@
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "1a6b698a5e27a36487868cb5f3b56a252e2b88d13d35d413ac69f8f0a84263ed"
+      "sha256": "59ba3121110313f75b6dd356f5a78b7e14d5ae518d3cdc5a48e983b66e4c4389"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
@@ -679,7 +679,7 @@
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "7c377efedbdde0b38b4cf8ba20a413b08feefaaf28039144971b126a22eb20b7"
+      "sha256": "9ee800fcb2dec9b936cc820d0933fdb292b9181c020523e431445df16916d8fd"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
@@ -687,11 +687,11 @@
     },
     {
       "path": "document/content/06_01_LOCATION_ACTIVITIES.md",
-      "sha256": "a3308c0f84e90437abfdd5621d3e8e7bcc4f9ade3fe9e2512afb8b718c92737a"
+      "sha256": "b6d4c7ee18406ab4725b66c1fb7d85d331f52fb461ccd60aaad984723ebb767c"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
-      "sha256": "1657b35c4e74983d8f3fc2b5549f499e077e38717bca1fb33a9bcd0f38ef7867"
+      "sha256": "579f06bdf247eb390f48c9db6f226e8a02b0b6c8e56dff8fdf87a52b96c6c9ad"
     },
     {
       "path": "document/content/07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md",
@@ -707,7 +707,7 @@
     },
     {
       "path": "document/content/10_COMMON_ENGINE_FRAME.md",
-      "sha256": "98771c37d22b0ce64202156de7e769af80ab319d2bcc6d618f7c29404450323a"
+      "sha256": "4d772801615dd999732e3140ff456e0e8c9b78b09b6bc156e32650500f4af57c"
     },
     {
       "path": "document/content/11_FEATURE_FRAME.md",
@@ -715,7 +715,7 @@
     },
     {
       "path": "document/content/12_USER_UCS.md",
-      "sha256": "9737b100e66d3fcb12c2078d1a603a58d7c3fd6fd5bf97e93355ab18f4994db7"
+      "sha256": "4c1884e6fec404d9d1190c9aa33a3e3bc55b43e09b20c19094bfd64956e4b6d6"
     },
     {
       "path": "document/content/13_DIALOGUE_SEQUENCE.md",

@@ -52,7 +52,7 @@ export function mountAdventure(host,{startData,map,characterId='CH01',onReady,on
   investigate(){
    if(!this.active||this.paused||!this.player)return false;
    this.investigating=true;this.paused=true;this.pad={x:0,y:0};this.target=null;this.investigationCount++;this.player.anims.stop();onState(this.snapshot());
-   const delay=1000+Math.random()*1000;
+   const delay=1000+Math.floor(Math.random()*1001);
    setTimeout(()=>{
     if(this.destroyed)return;
     const result=investigateObjective({x:this.player.x,y:this.player.y},this.objectives,this.foundIds,ADVENTURE_GEOMETRY.investigationRadius,this.trackedId);

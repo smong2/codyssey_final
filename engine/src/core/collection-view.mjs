@@ -30,7 +30,7 @@ export function badgeProgress(meta,group,subgroup){
  if(data?.awardedMilestones!==undefined&&(!Array.isArray(data.awardedMilestones)||new Set(data.awardedMilestones).size!==data.awardedMilestones.length||data.awardedMilestones.some(tier=>![2,5,8].includes(tier))))throw new Error('배지 보상 정보를 읽지 못했습니다.');
  return {current,earned:earned??(meta.badges?.length?null:[]),awardedMilestones:data?.awardedMilestones??[]};
 }
-const DEFAULT_IMAGES={day:'BG03_myroom2_day_1920x1080_023.png',sunset:'BG03_myroom2_sunset_1920x1080_024.png',night:'BG03_myroom2_night_1920x1080_025.png'};
+const DEFAULT_IMAGES={day:'BG11_myroom2_day_1920x1080_023.png',sunset:'BG11_myroom2_sunset_1920x1080_024.png',night:'BG11_myroom2_night_1920x1080_025.png'};
 // PZ01/02/03 map to cosmos/princess/botanical in asset/puzzle/README.md.
 export const ROOM_BACKGROUNDS=[{id:'default',title:'기본 기숙사방',images:DEFAULT_IMAGES},...[
  ['4_cosmos','우주방','PZ01_우주방'],['5_princess','공주방','PZ02_공주방'],['6_botanical','식물방','PZ03_식물방']

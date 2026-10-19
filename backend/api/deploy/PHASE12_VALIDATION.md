@@ -1,8 +1,8 @@
 # Phase 12 실환경 검증 기록
 
 기준일: 2026-10-18 (KST)
-기준 브랜치: GitHub `main`, `bf50013`
-판정: **진행 중**. 실제 가입부터 1주차 종료까지 검증했으며, 52주 엔딩·관리자·탈퇴 시나리오는 남았다.
+기준 브랜치: GitHub `main` (검증 코드 정리 `ca5cf58`)
+판정: **진행 중**. 실제 가입부터 1주차 종료, 운영 관리자 API, Gemini 단독 호출, 일회용 계정 탈퇴까지 검증했다. 52주 엔딩 통합 흐름은 남았다.
 
 ## 환경 및 배포
 
@@ -38,8 +38,8 @@
 | 10 | 선택 후 COMPLETE·재전송 멱등성 | `LOC_OBS_01` 선택·완료 저장 확인. 동일 요청 재전송은 Emulator SDK 테스트에서만 확인, 운영 재전송은 미검증 |
 | 11 | 재접속·재로그인 복구 | 새로고침과 ‘이어서 하기’로 pending Story 복구 확인. 별도 재로그인은 미검증 |
 | 12–13 | 52주/엔딩, Ending Record, Gemini 또는 fallback 편지 | 미검증 |
-| 14 | 운영 관리자 사용자·통계 확인과 일반 사용자 403 | 미검증 |
-| 15 | 테스트 계정 탈퇴 및 Auth/Firestore 정리 | 미검증. 남은 운영 검증에 사용할 계정 유지 중 |
+| 14 | 운영 관리자 사용자·통계 확인과 일반 사용자 403 | `smong2@gmail.com`에 승인된 `admin: true` Custom Claim 부여. 부여 전 동일 계정의 `/admin/balance` 403, 부여 후 새 토큰으로 `/admin/session`, 사용자 검색, 월간 통계, balance 조회 모두 200. 관리자 웹 콘솔 통합은 별도 미검증 |
+| 15 | 테스트 계정 탈퇴 및 Auth/Firestore 정리 | 일회용 일반 계정을 Admin SDK로 만들고 `email_verified`를 설정한 뒤 운영 API bootstrap 200·탈퇴 200 확인. 이후 해당 UID의 Firestore 사용자 문서와 Firebase Auth 계정이 모두 없음 확인. 주 계정은 유지 |
 
 ## 운영에서 발견해 수정한 문제
 
@@ -47,4 +47,10 @@
 - 대화 로드 실패 화면의 재시도 함수가 전달되지 않았다. `c3d08e4`에서 동일 pending 이벤트를 다시 로드하도록 고쳤다.
 - 1주차를 닫으면 서버는 `weeklySchedule`을 비우고 `lastWeekSummary`를 보존하지만, 웹은 비워진 일정에서 요약을 만들고 있었다. `bf50013`에서 서버의 주간 요약 수치를 우선 표시하도록 고쳤다. Vercel 운영 화면 재접속 후 5/5일과 성장·수업·체력 수치가 표시됨을 확인했다.
 
-`GEMINI_API_KEY`와 별도 관리자 Custom Claim은 아직 설정하지 않았다. Gemini 실제 호출과 관리자 허용 경로는 준비 전까지 미검증으로 남긴다. `ART-M01/M02` 등 미납 FOCUS 그림은 [ID별 파일·공개 경로 예약표](FOCUS_ASSET_LINKS.md)에 향후 주소만 정했으며 실제 대화에는 연결하지 않았다. 따라서 52주 전체 진행에는 승인 자산 준비가 필요하다. 자동 문서 동기화 검사는 작업 공간에 없는 세 원본 README 때문에 `UNAVAILABLE`에서 멈췄다: `asset/environment/README.md`, `asset/font_files/originals/README.md`, `asset/font_files/typography/README.md`.
+## 운영 Gemini·관리자·탈퇴 추가 검증
+
+- Render에 비밀 환경변수 `GEMINI_API_KEY`가 설정·재배포된 뒤, 허구의 플레이 문맥을 사용한 임시 관리자 전용 점검 경로에서 실제 Gemini 생성과 편지 규칙 검증이 첫 시도에 성공했다 (`provider=gemini`, `validated=true`, `attempts=1`). 이 경로는 검증 후 `ca5cf58`에서 제거했다. 52주 종료 시 실제 Ending Record 저장·재접속 흐름은 검증하지 않았다.
+- 운영 관리자 조회는 서버에서 부여한 Firebase Custom Claim으로만 허용되는 것을 확인했다. 같은 계정의 게임 데이터는 보존했다. 일반 사용자 403은 Claim 부여 전 계정에서 확인했으며, 일회용 일반 계정의 관리자 거부는 별도로 재시험하지 않았다.
+- 탈퇴 시험의 일회용 계정은 실제 메일 인증 링크를 거치지 않고 Admin SDK에서 검증 상태로 만들었다. 실제 메일 수신·링크 검증은 앞서 사용자 소유 계정으로 확인했다. 탈퇴 시험에는 일회용 계정만 사용했다.
+
+`ART-M01/M02` 등 미납 FOCUS 그림은 [ID별 파일·공개 경로 예약표](FOCUS_ASSET_LINKS.md)에 향후 주소만 정했으며 실제 대화에는 연결하지 않았다. 따라서 52주 전체 진행에는 승인 자산 준비가 필요하다. 자동 문서 동기화 검사는 작업 공간에 없는 세 원본 README 때문에 `UNAVAILABLE`에서 멈췄다: `asset/environment/README.md`, `asset/font_files/originals/README.md`, `asset/font_files/typography/README.md`.

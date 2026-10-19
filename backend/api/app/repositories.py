@@ -386,3 +386,42 @@ class SaveSlotRepository:
                                   result_data=deepcopy(dict(plan.result_data)))
 
         return self.transaction_runner(self.database, body)
+
+    def reset_unreadable(
+        self, *, slot_id: int, request_id: str, game_data_version: str,
+    ) -> MutationResult:
+        """Replace only a missing or invalid slot document with a fresh EMPTY slot."""
+        if not isinstance(request_id, str) or not request_id.strip() or len(request_id) > 256:
+            raise ValueError("request_id must be 1..256 characters")
+        if not isinstance(game_data_version, str) or not game_data_version:
+            raise ValueError("game_data_version is required")
+        slot_ref = self._slot_reference(slot_id)
+        root = _user_root(self.database, self.uid)
+
+        def body(transaction: Any) -> MutationResult:
+            root_snapshot = root.get(transaction=transaction)
+            slot_snapshot = slot_ref.get(transaction=transaction)
+            if not root_snapshot.exists:
+                raise AccountNotFound
+            if root_snapshot.to_dict().get("deletionPending") is True:
+                raise DeletionPending
+            if slot_snapshot.exists:
+                try:
+                    current = SaveSlot.model_validate(slot_snapshot.to_dict())
+                except ValueError:
+                    current = None
+                if current is not None:
+                    if (current.slotId == slot_id and current.status == "EMPTY"
+                            and current.serverRevision == 0):
+                        return MutationResult(server_revision=0, replayed=True)
+                    raise InvalidMutation("Slot is readable; refresh before deleting")
+            empty = SaveSlot(
+                slotId=slot_id, status="EMPTY", completedRunCount=0,
+                lastCompletedCharacterId=None, lastEndingId=None,
+                createdAt=None, lastSavedAt=None, saveVersion=1,
+                gameDataVersion=game_data_version, activeRun=None, serverRevision=0,
+            )
+            transaction.set(slot_ref, empty.model_dump(mode="python"))
+            return MutationResult(server_revision=0, replayed=False)
+
+        return self.transaction_runner(self.database, body)

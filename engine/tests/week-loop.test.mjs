@@ -23,6 +23,16 @@ test('rest applies one of three recovery results once and records the actual cap
  }
 });
 
+test('chosen rest gives one random visible stat at most and keeps home rest stamina-only',()=>{
+ const home=createProfile(),homeRun=startRun(home,1,'CH01');homeRun.stamina=10;setSchedule(home,1,Array(5).fill('rest'));
+ applyAction(home,1,'1:1:0',{restChoice:'HOME'},()=>0);
+ assert.equal(homeRun.stamina,70);assert.deepEqual(homeRun.actionHistory[0].effect.growth,{});
+ const hobby=createProfile(),hobbyRun=startRun(hobby,1,'CH01');hobbyRun.stamina=10;setSchedule(hobby,1,Array(5).fill('rest'));
+ const rolls=[0,0.42];applyAction(hobby,1,'1:1:0',{restChoice:'HOBBY'},()=>rolls.shift());
+ assert.equal(hobbyRun.stamina,40);assert.deepEqual(hobbyRun.actionHistory[0].effect.growth,{dexterity:2});
+ assert.equal(Object.keys(hobbyRun.actionHistory[0].effect.growth).length,1);
+});
+
 test('adventure completion charges 15 once without growth or rewards',()=>{
  const p=createProfile(),r=startRun(p,1,'CH01');setSchedule(p,1,['adventure','rest','rest','rest','rest']);
  const before=structuredClone(p);

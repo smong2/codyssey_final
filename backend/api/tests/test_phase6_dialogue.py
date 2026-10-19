@@ -22,6 +22,18 @@ def _selected(payload):
     ]
 
 
+def _selected_with_text(payload):
+    texts = {
+        (item["choiceNodeId"], option["choiceId"]): option["text"]
+        for item in payload["sequence"] if item["type"] == "CHOICE"
+        for option in item["options"]
+    }
+    return [
+        {**choice, "text": texts[(choice["choiceNodeId"], choice["choiceId"])]}
+        for choice in _selected(payload)
+    ]
+
+
 def _complete(client, payload, choices, *, request_id="complete-ms01", mode="COMPLETE"):
     return client.post(
         "/v1/dialogue/complete", headers=headers(),
@@ -41,6 +53,10 @@ def test_compiler_resolves_cast_and_keeps_rewards_server_only(content_db):
     assert payload["sequence"][-1] == {"type": "END"}
     assert len(payload["choiceGroups"]) == 4
     assert payload["speakers"]["PLAYER"]["portraitSrc"] is None
+    assert payload["speakers"]["VALENTINUS"]["portraitSrc"] == (
+        "/character-assets/NPC02_%EB%B0%9C%EB%A0%8C%ED%8B%B0%EB%88%84%EC%8A%A4_"
+        "%EC%9E%84%EC%8B%9C.png"
+    )
     assert payload["speakers"][cast["MAIN_GUIDE_STUDENT"]]["kind"] == "CHARACTER"
     assert all("nextNodeId" not in item and "hiddenDelta" not in item for item in payload["sequence"])
     assert any(item.get("src", "").startswith("/world-assets/") for item in payload["sequence"])
@@ -145,6 +161,20 @@ def test_load_complete_and_idempotent_replay(content_db):
         assert result["activeRun"]["eventFlags"]["MS01"] is True
         assert result["activeRun"]["storyProgress"]["MS01"]["status"] == "COMPLETED"
         assert sum(result["appliedSummary"]["visibleStatDelta"].values()) > 0
+        record = result["activeRun"]["dialogueHistory"][0]
+        assert record["eventId"] == "MS01"
+        assert record["storyId"] == "MS01"
+        assert record["title"]
+        assert record["week"] == 1 and record["day"] == 0
+        assert record["completionMode"] == "COMPLETE"
+        assert record["selectedChoices"] == _selected_with_text(payload)
+        assert record["effect"]["growth"] == result["appliedSummary"]["visibleStatDelta"]
+        stored_choices = database.data["users/owner/saveSlots/1"]["activeRun"]["dialogueHistory"][0]["selectedChoices"]
+        for choice in stored_choices:
+            choice.pop("text")
+        loaded = client.get("/v1/save-slots/1", headers=headers()).json()
+        assert loaded["activeRun"]["dialogueHistory"][0]["selectedChoices"] == _selected_with_text(payload)
+        assert all("text" not in choice for choice in stored_choices)
         snapshot = deepcopy(database.data)
         replay = _complete(client, payload, choices).json()
         assert replay["replayed"] is True
@@ -168,6 +198,11 @@ def test_skip_requires_prior_ending_and_applies_no_choice_reward(content_db):
         assert result.json()["appliedSummary"]["visibleStatDelta"] == {}
         assert all(value == 50 for value in active["stats"].values())
         assert active["storyProgress"]["MS01"]["status"] == "COMPLETED"
+        assert active["dialogueHistory"] == [{
+            "eventId": "MS01", "storyId": "MS01", "title": active["dialogueHistory"][0]["title"],
+            "week": 1, "day": 0, "completionMode": "SKIP", "selectedChoices": [],
+            "effect": {"growth": {}},
+        }]
 
 
 def test_ms05_important_memory_and_clamped_visible_delta(content_db):
@@ -205,19 +240,29 @@ def test_story_candidates_respect_location_progress_and_pending(content_db):
         version="dev-dialogue-v1", character_id="CH01"
     )[1]
     run = {
-        "runId": "candidate-run", "week": 1, "day": "MONDAY", "storyCast": cast,
-        "pendingStoryEvent": None, "storyEventWindow": {"week": 1, "sideStoryCount": 0,
+        "runId": "candidate-run", "week": 7, "day": "MONDAY", "storyCast": cast,
+        "pendingStoryEvent": None, "storyEventWindow": {"week": 7, "sideStoryCount": 0,
+                                                "locationStoryCount": 0,
                                                 "lastResultStoryDay": None},
         "eventFlags": {}, "storyProgress": {}, "npcProgress": {},
     }
     activity = ActivityContext("gh-activity", "ADVENTURE", "GH")
-    chosen = selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity)
+    chosen = selector.before_activity(version="dev-dialogue-v1", run=run, activity=activity)
     assert chosen["eventId"] == "LOC_GH_01"
     run["pendingStoryEvent"] = chosen
-    assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity) == chosen
+    assert selector.before_activity(version="dev-dialogue-v1", run=run, activity=activity) == chosen
     run["pendingStoryEvent"] = None
-    run["storyEventWindow"]["sideStoryCount"] = 2
-    assert selector.after_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
+    run["storyEventWindow"]["locationStoryCount"] = 1
+    assert selector.before_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
+    run["storyEventWindow"].pop("locationStoryCount")
+    run["storyProgress"]["LOC_OBS_01"] = {
+        "step": 1, "status": "COMPLETED", "lastAdvancedWeek": 7,
+    }
+    assert selector.before_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
+    run["storyProgress"].clear()
+    run["storyEventWindow"]["locationStoryCount"] = 0
+    run["week"] = 6
+    assert selector.before_activity(version="dev-dialogue-v1", run=run, activity=activity) is None
     run["week"] = 10
     assert selector.fixed_main(version="dev-dialogue-v1", run=run, month=3, day=5)["eventId"] == "MS02"
 

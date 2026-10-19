@@ -20,14 +20,14 @@
 
 | storyId = eventId | 장소 | earliestWeek | 선택 수 |
 |---|---|---:|---:|
-| `LOC_OBS_01` | OBS 별빛 천문대 | 1 | 2 |
-| `LOC_OBS_02` | OBS 별빛 천문대 | 1 | 2 |
-| `LOC_OBS_03` | OBS 별빛 천문대 | 1 | 2 |
-| `LOC_OBS_04` | OBS 별빛 천문대 | 1 | 3 |
-| `LOC_GH_01` | GH 유리 온실·약초원 | 1 | 2 |
-| `LOC_LIB_01` | LIB 대서고 | 1 | 2 |
+| `LOC_OBS_01` | OBS 별빛 천문대 | 3 | 2 |
+| `LOC_OBS_02` | OBS 별빛 천문대 | 22 | 2 |
+| `LOC_OBS_03` | OBS 별빛 천문대 | 33 | 2 |
+| `LOC_OBS_04` | OBS 별빛 천문대 | 46 | 3 |
+| `LOC_GH_01` | GH 유리 온실·약초원 | 7 | 2 |
+| `LOC_LIB_01` | LIB 대서고 | 13 | 2 |
 
-최신 공통 이벤트 기준은 Location Story의 기본 `startWeek=1`이다. `LOCATION_STORY_PRODUCTION.md`도 현재 활성 6장면의 최종 노출일을 확정하지 않았으므로, 과거 feedback 문서의 날짜를 DB 확정값으로 옮기지 않는다. 향후 특정 장면의 시작 주차가 명시적으로 확정되면 그때 `story_steps.earliest_week`만 변경한다. 천문대의 실제 순서는 시작 주차가 아니라 선행 완료 condition으로 보장한다.
+기존 기간 분배 기준 `1/15, 2/12, 3/26, 5/28, 8/13, 11/12`를 최초 후보 주차 `3, 7, 13, 22, 33, 46`으로 사용한다. 천문대의 실제 순서는 이 시작 주차와 선행 완료 condition을 함께 만족해야 한다.
 
 제외된 `LOC_GH_02`, `LOC_LIB_02`, `LOC_WRK_01~02`, `LOC_TRN_01~02`, `LOC_CLK_01~02`, `LOC_DRM_01~02`는 `story_event_rules.is_active=1` 행을 만들지 않는다.
 
@@ -111,7 +111,7 @@ Location Story도 Main/NPC와 동일한 대화 테이블을 사용한다. `locat
 | 필드 | Location 값 | 의미 |
 |---|---|---|
 | `event_id` | `LOC_*` | canonical 이벤트 ID |
-| `trigger_phase` | `AFTER_ACTIVITY` | 활동 결과 저장 후 별도 장면 판정 |
+| `trigger_phase` | `AFTER_ACTIVITY` | SQLite v4 호환 분류값. 서버 런타임에서 Location은 활동 시작 체크포인트 직후·플레이 화면 직전에 평가 |
 | `selection_policy` | `UNSEEN_FIRST` | 현재 장소에서 아직 완료하지 않은 이벤트 우선 |
 | `repeat_policy` | `ONCE_PER_RUN` | 같은 회차 재발생 금지 |
 | `requires_location_match` | `1` | 현재 방문 장소와 `stories.location_id` 일치 필요 |
@@ -122,6 +122,7 @@ Location Story도 Main/NPC와 동일한 대화 테이블을 사용한다. `locat
 `SIDE_STORY`의 현재 서버 공통 제한:
 
 - NPC + Location 합계 주당 최대 2회
+- Location 자체 주당 최대 1회
 - 결과를 가지는 Story 하루 최대 1회
 - Main Story는 이 제한에 포함하지 않음
 
@@ -291,7 +292,7 @@ Location 진행도는 **회차 단위 `activeRun` 데이터**다. 새 회차에�
 
 ### `pendingStoryEvent`
 
-활동 결과 저장 후 이벤트가 선정되었지만 아직 `END/SKIP` 완료 저장 전인 상태를 보존한다.
+활동 시작 체크포인트 저장 후 Location 이벤트가 선정되었지만 아직 `END/SKIP` 완료 저장 전인 상태를 보존한다. NPC Story는 기존처럼 활동 결과 저장 후 선정한다.
 
 ```json
 {
@@ -318,11 +319,13 @@ NPC/Location 공통 주간·일일 제한을 위한 최소 회차 상태:
 {
   "week": 9,
   "sideStoryCount": 1,
+  "locationStoryCount": 1,
   "lastResultStoryDay": "WED"
 }
 ```
 
 - `sideStoryCount`: 해당 주의 NPC + Location Story 완료/스킵 수
+- `locationStoryCount`: 해당 주의 Location Story 완료/스킵 수, 최대 1
 - `lastResultStoryDay`: 결과를 가진 Story가 마지막으로 완료된 게임 내 요일
 - 새 주가 시작되면 `week`를 갱신하고 카운터를 초기화
 
@@ -335,9 +338,9 @@ NPC/Location 공통 주간·일일 제한을 위한 최소 회차 상태:
 현재 Location Story 후보 판정은 고정 확률을 사용하지 않는다.
 
 ```text
-활동 결과 저장 성공
+활동 시작 체크포인트 저장 성공
 → pendingStoryEvent 있으면 새 후보 판정 금지
-→ storyEventWindow 주간/일일 제한 확인
+→ storyEventWindow 주간/일일 제한 + Location 주 1회 제한 확인
 → 방금 활동 장소와 stories.location_id가 같은 활성 Location Story 조회
 → earliestWeek 이하인지 확인
 → PREVIOUS_EVENT_COMPLETE 등 conditions 확인
@@ -345,6 +348,8 @@ NPC/Location 공통 주간·일일 제한을 위한 최소 회차 상태:
 → 아직 보지 않은 eligible Location Story 우선
 → event 선정 및 pendingStoryEvent 저장
 → DialoguePayload 로드
+→ END/SKIP 저장 성공 후 phase를 ACTIVITY_IN_PROGRESS로 복귀
+→ 원래 미니게임/모험/특수 활동 화면 시작
 ```
 
 천문대에서는 선행 조건 때문에 항상 다음 한 장면만 eligible이 된다.
