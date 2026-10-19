@@ -4,6 +4,26 @@ import {createProfile,startRun,setSchedule} from '../src/core/state.mjs';
 import {runAction as applyAction} from './activity-helpers.mjs';
 import {createMinigameResult} from '../src/core/minigame-contract.mjs';
 import {validateProfile} from '../src/core/storage.mjs';
+
+test('source checker ignores platform newlines but still detects document and binary changes',async t=>{
+ const {mkdtemp,mkdir,writeFile,copyFile,rm}=await import('node:fs/promises');
+ const {tmpdir}=await import('node:os'),{join}=await import('node:path'),{createHash}=await import('node:crypto');
+ const {execFile}=await import('node:child_process'),{promisify}=await import('node:util');
+ const root=await mkdtemp(join(tmpdir(),'lumia-source-check-'));t.after(()=>rm(root,{recursive:true,force:true}));
+ await mkdir(join(root,'document_for_ai'));await mkdir(join(root,'asset','sample'),{recursive:true});
+ await copyFile(new URL('../../document_for_ai/check_sources.mjs',import.meta.url),join(root,'document_for_ai','check_sources.mjs'));
+ const source='# Original\n',svg='<svg>\n</svg>\n',license='License\n',binary=Buffer.from([13,10,0,255]),hash=value=>createHash('sha256').update(value).digest('hex');
+ const inventory=createHash('sha256');for(const [name,bytes] of [['sample/art.svg',svg],['sample/license.txt',license],['sample/sample.bin',binary]])inventory.update(name).update('\0').update(hash(bytes)).update('\n');
+ const manifest={schemaVersion:2,discovery:{fixedFiles:['source.md'],markdownTrees:[],readmeTrees:[]},routes:[{extension:'.md',ai:['summary.md']}],trackedFiles:[{path:'source.md',sha256:hash(source)}],assetInventory:{path:'asset',sha256:inventory.digest('hex'),ai:['summary.md']}};
+ await writeFile(join(root,'document_for_ai','source_manifest.json'),JSON.stringify(manifest));await writeFile(join(root,'summary.md'),'Summary\n');
+ await writeFile(join(root,'source.md'),'# Original\r\n');await writeFile(join(root,'asset','sample','README.md'),'art.svg license.txt sample.bin\n');
+ await writeFile(join(root,'asset','sample','art.svg'),'<svg>\r\n</svg>\r\n');await writeFile(join(root,'asset','sample','license.txt'),'License\r\n');await writeFile(join(root,'asset','sample','sample.bin'),binary);
+ const execute=promisify(execFile),run=()=>execute(process.execPath,[join(root,'document_for_ai','check_sources.mjs')],{cwd:root});
+ assert.match((await run()).stdout,/SYNC OK/);
+ await writeFile(join(root,'source.md'),'# Changed\r\n');await assert.rejects(run(),error=>error.code===1&&/CHANGED source\.md/.test(error.stdout));
+ await writeFile(join(root,'source.md'),source);await writeFile(join(root,'asset','sample','sample.bin'),Buffer.from([10,0,255]));
+ await assert.rejects(run(),error=>error.code===1&&/CHANGED asset/.test(error.stdout));
+});
 test('new class registry accepts seven games and applies only their designated stat',()=>{
  const p=createProfile();startRun(p,1,'CH01');
  setSchedule(p,1,['rune-link','excavation','training-guardian','rune-merge','mirror-magic']);

@@ -9,6 +9,28 @@ import {validateProfile} from '../src/core/storage.mjs';
 import {createAdventureResult,createAdventureStartData} from '../src/core/adventure-contract.mjs';
 import {ADVENTURE_LOCATIONS,createPreviewObjectives,reachableSafeCandidates,investigateObjective,clueForPoint} from '../src/core/adventure-mission.mjs';
 import * as missions from '../src/core/adventure-mission.mjs';
+test('clock clues use all 24 half-hour directions around the supplied map center',()=>{
+ const origin={x:500,y:500},labels=new Set();
+ for(let index=0;index<24;index++){
+  const angle=index*Math.PI/12-Math.PI/2,target={x:500+300*Math.cos(angle),y:500+300*Math.sin(angle)};
+  const hour=Math.floor(index/2)||12,expected=`맵 중심에서 ${hour}시${index%2?' 30분':''} 방향`;
+  assert.equal(clueForPoint(origin,target),expected);labels.add(expected);
+ }
+ assert.equal(labels.size,24);
+});
+test('adventure samples the official five-item pool and disperses safe targets around the map center',()=>{
+ const width=64,pixels=new Uint8ClampedArray(width*width*4);pixels.fill(255);
+ const mask={width,height:width,pixels,worldWidth:3200,worldHeight:3200},spawn={x:1600,y:3000},seen=new Set();
+ for(const locationId of ['greenhouse','library','observatory']){
+  const prefix={greenhouse:'ADV_GH_',library:'ADV_LIB_',observatory:'ADV_OBS_'}[locationId];
+  for(let seed=0;seed<20;seed++){
+   const targets=createPreviewObjectives({mask,spawn,count:3,seed,locationId,placement:{gridStep:3}});
+   assert.equal(new Set(targets.map(t=>t.id)).size,3);assert.equal(new Set(targets.map(t=>t.clue)).size,3);
+   for(const target of targets){assert.ok(target.id.startsWith(prefix));assert.equal(target.imageSrc,'./design-assets/item/adventure/'+target.id+'.png');assert.equal(target.clue,clueForPoint({x:1600,y:1600},target));assert.notEqual(target.clue,'맵 중심에서 6시 방향');assert.ok(Math.hypot(target.x-1600,target.y-1600)>88);seen.add(target.id);}
+  }
+ }
+ assert.equal(seen.size,15);
+});
 test('white-only foot samples normalize world coordinates and block invalid pixels',()=>{
  const pixels=new Uint8ClampedArray([255,255,255,255,0,0,0,255,128,128,128,255,255,255,255,0]);
  assert.equal(typeof collision.canWalk,'function');

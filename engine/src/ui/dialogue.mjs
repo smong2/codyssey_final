@@ -85,7 +85,8 @@ export function createDialogueUI({el,btn,shell,heading,modal}){
     const text=displayText(mode,current.text);
     frame.append(el('p',text,'dialogue-text'));
     log.push((speaker?.name? speaker.name+' · ':'')+text);
-    const indicator=el('span','↓','dialogue-advance-indicator');indicator.setAttribute('aria-hidden','true');
+    const indicator=el('span',null,'dialogue-advance-indicator');indicator.setAttribute('aria-hidden','true');
+    const arrow=el('img');arrow.src='./design-assets/ui/UI24_journal_arrow_down.png';arrow.alt='';indicator.append(arrow);
     frame.append(indicator);
    }else if(current.type==='CHOICE'){
     if(current.prompt)frame.append(el('p',current.prompt,'dialogue-text dialogue-choice-question'));

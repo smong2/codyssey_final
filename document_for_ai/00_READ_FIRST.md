@@ -40,3 +40,5 @@ Final Project의 범위·산출물·완료 조건을 계획하거나 구현할 �
 - 문서 간 충돌이나 최종 선택이 필요한 미정 사항은 스스로 확정하지 않고 사용자에게 확인합니다.
 
 `source_manifest.json`과 `check_sources.mjs`는 변경·누락·자원 문서 불일치뿐 아니라 manifest 자체의 기본 무결성도 검사하는 검증 장치입니다. manifest의 주요 구분은 `discovery`(자동 발견 범위), `routes`(AI 문서 연결), `trackedFiles`(기준 해시), `assetInventory`(asset 전체 상태)입니다. 실제 의미 판단과 요약 수정은 문서를 읽은 AI 또는 팀원이 수행해야 합니다.
+
+해시 비교에서는 Markdown·SVG·TXT의 CRLF를 LF로 통일해 운영체제별 줄바꿈만으로 변경을 오인하지 않습니다. 이미지·폰트·오디오의 바이너리는 바이트 그대로 비교합니다. `assetInventory`는 로컬 미커밋 파일도 감지하므로, 공유하지 않을 파일이 있는 상태에서 전체 `--record`를 실행해 팀의 기준으로 승인하지 않습니다. 검토한 문서 기준과 공유할 애셋 기준만 갱신하고 미커밋 애셋의 `CHANGED asset` 알림은 별도로 남깁니다.

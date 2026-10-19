@@ -2,6 +2,7 @@ import {build} from 'vite';
 import {cp, copyFile, mkdir, readFile, readdir, rm, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {AUDIO_TRACK_FILES} from '../../../engine/src/core/title-audio.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const output = path.join(root, 'web-dist');
@@ -64,6 +65,11 @@ await copyAssetCategory('background', 'world-assets', ['.png']);
 await copyAssetCategory('character', 'character-assets', ['.png']);
 for (const category of ['ui', 'effect', 'pet', 'map', 'font_files', 'item', 'badge', 'sd_character', 'puzzle'])
   await copyAssetCategory(category, `design-assets/${category}`, ['.png', '.webp', '.svg', '.woff2']);
+await mkdir(path.join(output, 'design-assets/item/adventure'), {recursive: true});
+for (const area of ['GH', 'LIB', 'OBS']) for (let i = 1; i <= 5; i++) {
+  const file = `ADV_${area}_0${i}.png`;
+  await copyFile(path.join(root, 'asset/item/adventure', file), path.join(output, 'design-assets/item/adventure', file));
+}
 await mkdir(path.join(output, 'sd-assets'), {recursive: true});
 for (const item of await readdir(path.join(root, 'prototype/assets'))) {
   if (/^SD03_(?:S|SW|W|NW|N|NE|E|SE)_strip\.png$/.test(item))
@@ -71,8 +77,7 @@ for (const item of await readdir(path.join(root, 'prototype/assets'))) {
 }
 await copyFile(path.join(root, 'prototype/assets/intro.mp4'), path.join(output, 'intro.mp4'));
 await mkdir(path.join(output, 'audio-assets'), {recursive: true});
-for (const file of ['bgm_title_intro.mp3', 'bgm_title_main.mp3', 'bgm_admission_invitation.mp3',
-  'bgm_myroom.mp3', 'sfx_button_click.mp3', 'sfx_diary_open.mp3']) {
+for (const file of Object.values(AUDIO_TRACK_FILES)) {
   const folder = file.startsWith('bgm_') ? 'bgm' : 'sfx';
   await copyFile(path.join(root, 'asset/audio', folder, file), path.join(output, 'audio-assets', file));
 }

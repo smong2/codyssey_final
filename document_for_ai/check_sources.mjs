@@ -20,6 +20,11 @@ const manifestIssues = [];
 
 async function sha256File(filePath) {
   const hash = createHash('sha256');
+  // Git checks these text assets out as LF or CRLF depending on the platform.
+  // Normalize only known text formats; image/font/audio bytes stay exact.
+  if (['.md', '.svg', '.txt'].includes(path.extname(filePath).toLowerCase())) {
+    return hash.update((await readFile(filePath, 'utf8')).replace(/\r\n/g, '\n')).digest('hex');
+  }
   for await (const chunk of createReadStream(filePath)) hash.update(chunk);
   return hash.digest('hex');
 }

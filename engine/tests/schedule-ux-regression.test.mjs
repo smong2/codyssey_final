@@ -18,7 +18,5 @@ test('forced rest explains the cancelled schedule and three-day recovery before 
  assert.match(source,/사흘을 모두 쉬면 체력이 100으로 회복됩니다\./);
 });
 
-test('adventure investigation waits a random one to two seconds before reporting a find',()=>{
- const source=readFileSync(new URL('../src/scenes/AdventureScene.mjs',import.meta.url),'utf8');
- assert.match(source,/const delay=1000\+Math\.floor\(Math\.random\(\)\*1001\)/);
-});
+// Investigation timing and overlapping pauses are covered by the fake-clock
+// behavior tests in adventure-scene.test.mjs (approved duration: 1–2 seconds).

@@ -8,6 +8,21 @@ function node(tag,text='',className=''){
  return item;
 }
 
+test('shared close artwork keeps each accessible label and close callback',async()=>{
+ const {createCloseButton}=await import('../src/ui/button-art.mjs');
+ assert.equal(typeof createCloseButton,'function');
+ for(const label of ['닫기','메뉴 닫기','마이룸으로 닫기']){
+  let calls=0;
+  const control=createCloseButton({el:node,btn:(text,onclick,className)=>Object.assign(node('button',text,className),{onclick}),label,onClick:()=>calls++});
+  assert.equal(control.className,'close-x');assert.equal(control.text,'');
+  assert.equal(control.attributes['aria-label'],label);
+  assert.equal(control.children.length,1);
+  assert.equal(control.children[0].src,'./design-assets/ui/UI25_journal_close_x.png');
+  assert.equal(control.children[0].attributes['aria-hidden'],'true');
+  control.onclick();assert.equal(calls,1);
+ }
+});
+
 test('maps title and room controls to the approved button artwork',()=>{
  assert.deepEqual(TITLE_BUTTON_ART,{start:'BT04_blank_pale_green.png',newGame:'BT04_blank_pale_green.png',continue:'BT04_blank_pale_green.png'});
  assert.deepEqual(ROOM_BUTTON_ART,{diary:'BT01_diary_green.png',bag:'BT02_backpack_green.png',menu:'BT03_menu_green.png'});

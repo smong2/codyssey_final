@@ -1,5 +1,6 @@
 import {endingSnapshot,validateEndingView,exampleEnding,displayedEndingRecords,ENDING_RECORD_LABELS} from '../core/ending-frame.mjs';
 import {ENDING_SUBTITLES} from '../core/ending-system.mjs';
+import {createCloseButton} from './button-art.mjs';
 
 export function createEndingUI({el,btn,shell,heading,current,character,slotId,onReturn,onComplete=()=>{},loadEnding=null,onReceive=()=>false,isSaveFailed=()=>false}){
  let generation=0;
@@ -55,7 +56,7 @@ export function createEndingUI({el,btn,shell,heading,current,character,slotId,on
    for(const title of ['이번 이야기의 미래','이야기 돌아보기','미래 모습과 응원']){const section=el('section',null,'ending-empty-section');section.append(el('h3',title),el('p','내용 연결 대기'));letter.append(section);}
   }
   if(error)letter.append(el('small',error));
-  layout.append(summary,letter);shell.append(layout);const close=btn('X',onReturn,'close-x');close.setAttribute('aria-label','마이룸으로 닫기');shell.append(close);
+  layout.append(summary,letter);shell.append(layout);shell.append(createCloseButton({el,btn,onClick:onReturn,label:'마이룸으로 닫기'}));
   async function refresh(){
    if(!loadEnding)return;
    const key={slotId:slotId(),runNumber:run.runNumber};render({loading:true});const requestGeneration=generation;

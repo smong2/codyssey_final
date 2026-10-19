@@ -44,15 +44,16 @@ export function mountAdventure(host,{startData,map,characterId='CH01',onReady,on
    this.lines=this.add.graphics().setDepth(30);this.coords=this.add.text(12,68,'',{fontFamily:'Gowun Batang',fontSize:'14px',color:'#ffffff',backgroundColor:'#000000cc',padding:{x:6,y:4}}).setScrollFactor(0).setDepth(40);
    onReady(this.snapshot());
   }
-  snapshot(hint=null,foundId=null){return{objectives:this.objectives??[],durationSeconds:startData.durationSeconds,remainingMs:this.remainingMs,foundIds:[...this.foundIds],foundId,trackedId:this.trackedId,investigationCount:this.investigationCount,investigating:this.investigating,hint,active:this.active,paused:this.paused};}
+  snapshot(hint=null,foundId=null){return{objectives:this.objectives??[],durationSeconds:startData.durationSeconds,remainingMs:this.remainingMs,foundIds:[...this.foundIds],foundId,trackedId:this.trackedId,investigationCount:this.investigationCount,investigating:this.investigating,investigationDurationMs:this.investigationDurationMs??0,hint,active:this.active,paused:this.paused};}
   start(){if(!this.objectives||this.active)return false;this.active=true;this.paused=false;this.lastPublishedSecond=Math.ceil(this.remainingMs/1000);onState(this.snapshot());return true;}
   pause(value){if(!this.active)return;this.overlayPaused=Boolean(value);this.paused=this.overlayPaused||this.investigating;this.pad={x:0,y:0};if(this.paused){this.target=null;this.player?.anims.stop();}onState(this.snapshot());}
   track(id){if(this.objectives?.some(item=>item.id===id&&!this.foundIds.includes(id)))this.trackedId=id;onState(this.snapshot());}
   direction(x,y){this.pad={x,y};}
   investigate(){
    if(!this.active||this.paused||!this.player)return false;
+   this.investigationDurationMs=1000+Math.random()*1000;
    this.investigating=true;this.paused=true;this.pad={x:0,y:0};this.target=null;this.investigationCount++;this.player.anims.stop();onState(this.snapshot());
-   const delay=1000+Math.floor(Math.random()*1001);
+   const delay=this.investigationDurationMs;
    setTimeout(()=>{
     if(this.destroyed)return;
     const result=investigateObjective({x:this.player.x,y:this.player.y},this.objectives,this.foundIds,ADVENTURE_GEOMETRY.investigationRadius,this.trackedId);

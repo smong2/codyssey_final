@@ -17,18 +17,25 @@ function node(tag,text='',className=''){
 }
 function all(item,predicate){return [...(predicate(item)?[item]:[]),...item.children.flatMap(child=>all(child,predicate))];}
 function setup(meta={unlockedCharacters:['CH01','CH02','CH08','CH15','CH16','CH31'],unlockedPetIds:['PET01']},run={actionHistory:[]}){
- const shell=node('main'),modals=[];let headingNode,selectedPetId=null;shell.querySelector=selector=>selector==='h1'?headingNode:null;
+ const shell=node('main'),modals=[];let headingNode,selectedPetId=null,returnCalls=0;shell.querySelector=selector=>selector==='h1'?headingNode:null;
  const ui=createJournalUI({
   el:node,
   btn(text,action,className=''){const button=node('button',text,className);button.onclick=action;return button;},
   shell,heading(title){headingNode=node('h1',title);shell.replaceChildren(headingNode);},
   current:()=>run,meta:()=>meta,activePet:()=>({id:'PET01'}),
-  onSelectPet:id=>{selectedPetId=id;return true;},isSaveFailed:()=>false,onReturn(){},turnPage:(_layout,done)=>done(),
+  onSelectPet:id=>{selectedPetId=id;return true;},isSaveFailed:()=>false,onReturn(){returnCalls++;},turnPage:(_layout,done)=>done(),
   modal(title,body,actions=[]){const entry={title,body,actions};modals.push(entry);return entry;}
  });
- return {ui,shell,modals,get headingNode(){return headingNode;},get selectedPetId(){return selectedPetId;}};
+ return {ui,shell,modals,get headingNode(){return headingNode;},get selectedPetId(){return selectedPetId;},get returnCalls(){return returnCalls;}};
 }
 
+test('diary close control moves with the book and still returns to the room',()=>{
+ const view=setup();view.ui.diary();
+ const book=all(view.shell,n=>n.className==='book-layout')[0];
+ const close=book.children.find(n=>n.attributes['aria-label']==='마이룸으로 닫기');
+ assert.ok(close,'close control must be anchored to the book');
+ close.onclick();assert.equal(view.returnCalls,1);
+});
 test('story diary shows the saved choice text instead of an implementation placeholder',()=>{
  const run={actionHistory:[],dialogueHistory:[{eventId:'MS01',storyId:'MS01',title:'각자의 이유로 아카데미에',week:1,day:0,completionMode:'COMPLETE',selectedChoices:[{choiceNodeId:'C1',choiceId:'A',text:'천천히 둘러보고 싶어.'},{choiceNodeId:'C2',choiceId:'B',text:'친구와 함께하고 싶어.'}],effect:{growth:{}}}]};
  const {ui,shell}=setup(undefined,run);ui.diary();
@@ -41,6 +48,16 @@ test('bag opens on badges with the approved tab order and omits item previews',(
  const labels=all(shell,n=>n.tag==='button').map(n=>n.text).filter(text=>['아이템','배지','펫','캐릭터','마이룸'].includes(text));
  assert.deepEqual(labels,['배지','펫','캐릭터','마이룸']);
  assert.doesNotMatch(shell.textContent,/아이템/);
+});
+
+test('every bag tab anchors its close control inside the frame',()=>{
+ const {ui,shell}=setup();
+ for(const tab of ['배지','펫','캐릭터','마이룸']){
+  ui.bag(tab);
+  const frame=all(shell,n=>n.className.includes('bag-frame'))[0];
+  assert.ok(frame.children.some(n=>n.className==='close-x'),tab);
+  assert.ok(!shell.children.some(n=>n.className==='close-x'),tab);
+ }
 });
 
 test('bag uses asset-free capsule navigation without a visible title and keeps selected states on tab changes',()=>{

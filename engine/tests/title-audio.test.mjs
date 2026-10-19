@@ -25,7 +25,24 @@ function fakeAudioHarness({denyPlayback=false}={}){
  return {audio,tracks,frames,soundErrors,setTime(value){time=value;},allowPlayback(){denied=false;}};
 }
 
-const {createTitleAudioController,TITLE_BGM_TIMING,crossfadeGains}=await import('../src/core/title-audio.mjs');
+const {createTitleAudioController,TITLE_BGM_TIMING,crossfadeGains,dialogueMusicKey}=await import('../src/core/title-audio.mjs');
+
+test('adventure and minigame music loop, preserve the same track position and respect separate mute settings',()=>{
+ const {audio,tracks}=fakeAudioHarness();
+ audio.playMusic('map',0);
+ const map=tracks.find(t=>t.source.endsWith('bgm_map.mp3'));
+ assert.equal(map.loop,true);assert.equal(map.paused,false);map.currentTime=23;
+ assert.equal(audio.playMusic('map',0),false);assert.equal(map.currentTime,23);
+ audio.setBgmMuted(true);assert.equal(map.muted,true);
+ audio.playMusic('minigame',0);
+ const minigame=tracks.find(t=>t.source.endsWith('bgm_minigame.mp3'));
+ assert.equal(minigame.loop,true);assert.equal(minigame.muted,true);assert.equal(map.paused,true);
+ audio.setBgmMuted(false);assert.equal(minigame.muted,false);assert.equal(audio.isSfxMuted(),false);
+});
+test('dialogue music uses actual story identities without inventing inner-scene transitions',()=>{
+ for(const [storyId,eventId,key] of [['MS01','MS01','admission'],['MS02','MS02','mysteryDetective'],['MS05','MS05','playful'],['MS06','MS06','winter'],['NPC_GUIDE','NPC_GUIDE_03','daily'],['NPC_WORK','NPC_WORK_02','calm'],['NPC_LULU','NPC_LULU_04','playful'],['LOC_OBS','LOC_OBS_02','observatory'],['LOC_GH','LOC_GH_01','calm'],['LOC_LIB','LOC_LIB_01','calm']])assert.equal(dialogueMusicKey({storyId,eventId}),key);
+ assert.equal(dialogueMusicKey({storyId:'UNKNOWN',eventId:'other'}),null);
+});
 
 test('intro music is one-shot and title music loops',()=>{
  const {tracks}=fakeAudioHarness();
@@ -51,7 +68,7 @@ test('admission music stays active through the admission sequence and room entry
 
 test('button click sound plays unless the shared mute control is active',async()=>{
  const {audio,tracks}=fakeAudioHarness();
- const click=tracks.find(track=>track.source.endsWith('sfx_button_click.mp3'));
+ const click=tracks.find(track=>track.source.endsWith('sfx_button_press.mp3'));
  audio.playClick();
  await new Promise(resolve=>setImmediate(resolve));
  assert.equal(click.playCount,1);
@@ -67,7 +84,7 @@ test('button click sound plays unless the shared mute control is active',async()
 
 test('BGM and sound effects have independent mute controls',async()=>{
  const {audio,tracks}=fakeAudioHarness();
- const click=tracks.find(track=>track.source.endsWith('sfx_button_click.mp3'));
+ const click=tracks.find(track=>track.source.endsWith('sfx_button_press.mp3'));
  audio.startTitle(0);
  audio.setBgmMuted(true);
  audio.playClick();
@@ -84,7 +101,7 @@ test('BGM and sound effects have independent mute controls',async()=>{
 
 test('diary entry uses its dedicated click sound',async()=>{
  const {audio,tracks}=fakeAudioHarness();
- const click=tracks.find(track=>track.source.endsWith('sfx_button_click.mp3'));
+ const click=tracks.find(track=>track.source.endsWith('sfx_button_press.mp3'));
  const diary=tracks.find(track=>track.source.endsWith('sfx_diary_open.mp3'));
  audio.playClick('diary');
  await new Promise(resolve=>setImmediate(resolve));
