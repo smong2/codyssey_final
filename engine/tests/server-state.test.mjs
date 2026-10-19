@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {CLASSES} from '../src/core/classes.mjs';
 import {storyDiaryRecords} from '../src/core/activity-history.mjs';
-import {applyServerSlot,canRecordServerRoomVisit,createServerProfile,projectServerRun,serverClassStartData,serverRoomBackgroundId,serverRoomVisitKey,serverScheduleActivityIds} from '../src/core/server-state.mjs';
+import {applyServerSlot,canRecordServerRoomVisit,createServerProfile,isServerEndingPhase,projectServerRun,serverClassStartData,serverRoomBackgroundId,serverRoomVisitKey,serverScheduleActivityIds} from '../src/core/server-state.mjs';
 
 const run={runId:'run-1',runNumber:1,characterId:'CH01',week:2,day:'TUESDAY',phase:'ACTIVITY_STORY_PENDING',storyCast:{GUIDE:'CH16'},pendingStoryEvent:{eventId:'NPC_GUIDE_01',eventType:'NPC'},stats:{knowledge:60,expression:61,skill:62,exploration:63,magic:64},stamina:{current:75,max:100},hiddenStats:{empathy:99},forcedRest:{active:false,remainingWeekdays:0},minigameFailStreaks:{'rune-circuit':2},runStatistics:{classCounts:{knowledge:1,expression:0,skill:0,exploration:0,magic:0}},weeklySchedule:{MONDAY:{type:'CLASS',contentId:'rune-circuit',status:'COMPLETED',resolution:'SUCCESS',staminaBefore:100,staminaCost:10,growthApplied:5},TUESDAY:{type:'ADVENTURE',contentId:'ADV_LIBRARY',status:'IN_PROGRESS',staminaBefore:90,staminaCost:15,adventureDifficulty:2,objectiveCount:3,durationSeconds:120,adventureSeed:'seed',missionId:'mission'},WEDNESDAY:{type:'REST',contentId:'REST_DEFAULT',status:'PLANNED'},THURSDAY:{type:'SPECIAL',contentId:'fairy-trade',status:'PLANNED'},FRIDAY:{type:'CLASS',contentId:'sealed-shelves',status:'PLANNED'}}};
 
@@ -101,4 +101,12 @@ test('engine room ids map to stable backend room ids',()=>{
 test('My Room weekly accounting only opens in server phases where the room is actually usable',()=>{
  const ready=projectServerRun({...run,week:4,day:'MONDAY',phase:'SCHEDULE_READY',pendingStoryEvent:null,weeklySchedule:{}});assert.equal(serverRoomVisitKey(ready),'run-1:4');assert.equal(canRecordServerRoomVisit(ready),true);
  assert.equal(canRecordServerRoomVisit({...ready,serverPhase:'ACTIVITY_IN_PROGRESS'}),false);assert.equal(canRecordServerRoomVisit({...ready,pendingStoryEvent:{eventId:'MS02'}}),false);
+});
+
+test('all resumable server ending phases route back to the ending UI',()=>{
+ assert.equal(isServerEndingPhase('ENDING_PENDING'),true);
+ assert.equal(isServerEndingPhase('ENDING_DECIDED'),true);
+ assert.equal(isServerEndingPhase('ENDING_READY'),true);
+ assert.equal(isServerEndingPhase('FINAL_SUMMARY_PENDING'),false);
+ assert.equal(isServerEndingPhase('SCHEDULE_READY'),false);
 });

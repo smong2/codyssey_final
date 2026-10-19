@@ -411,11 +411,11 @@
     },
     {
       "path": "document/11_PROJECT_PLAN.md",
-      "sha256": "3b299d47c96dc4ae2154df8dfd26b41a0e5f7b7fd10e8673ba8fe660e6d0827f"
+      "sha256": "43d0d97668c5a3a58ad29b2b85e2c82823048841092196a921338a0b80916c9a"
     },
     {
       "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
-      "sha256": "3735625061e0fcfa92675188320485a089a056a04814210361b6d2c046bd1f6e"
+      "sha256": "aee906990c953b3ece4b60c3edab37ed6ee673cabe8450b4292b011e7ec880e1"
     },
     {
       "path": "document/dialogue/01_ENGINE_API_CONTRACT.md",
@@ -699,7 +699,7 @@
     },
     {
       "path": "document/content/11_FEATURE_FRAME.md",
-      "sha256": "c75217fb028e07d97975be5b037cf24797befa02322a39570f8fa19fa6bfc631"
+      "sha256": "9504bb98955d6d49436e6b9984cae394f7f32e8f47f1c4e4b3ba19816585c326"
     },
     {
       "path": "document/content/12_USER_UCS.md",

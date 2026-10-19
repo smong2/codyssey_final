@@ -40,7 +40,7 @@ import { createBadgeResultUI } from "./ui/badge-result.mjs";
 import { createImageButton, createCloseButton, createBagButton, TITLE_BUTTON_ART } from "./ui/button-art.mjs";
 import { dueMainStory, ensureMainStoryState, MAIN_STORIES } from "./core/main-story.mjs";
 import { createServerDialogueSession, createServerGameSession } from "./core/server-game-session.mjs";
-import { canRecordServerRoomVisit, serverAdventureStartData, serverClassStartData, serverRoomBackgroundId, serverRoomVisitKey, serverScheduleActivityIds } from "./core/server-state.mjs";
+import { canRecordServerRoomVisit, isServerEndingPhase, serverAdventureStartData, serverClassStartData, serverRoomBackgroundId, serverRoomVisitKey, serverScheduleActivityIds } from "./core/server-state.mjs";
 import { PRIVACY_CONSENT_VERSION } from "./services/api-provider.mjs";
 import { createServerEndingUI } from "./ui/server-ending.mjs";
 const roomLight = createRoomLight(),
@@ -1680,7 +1680,7 @@ function renderRoom() {
 			else renderPendingStory();
 			return;
 		}
-		if (run.serverPhase === "ENDING_DECIDED" || run.serverPhase === "ENDING_READY") {
+		if (isServerEndingPhase(run.serverPhase)) {
 			serverEndingUI.render();
 			return;
 		}

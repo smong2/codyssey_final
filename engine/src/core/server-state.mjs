@@ -10,6 +10,7 @@ const SERVER_ADVENTURE_IDS=Object.fromEntries(Object.entries(ADVENTURE_LOCATIONS
 const SERVER_ROOMS={ROOM_DEFAULT:'default',ROOM_01:'room-1',ROOM_02:'room-2',ROOM_03:'room-3'};
 const ENGINE_ROOMS=Object.fromEntries(Object.entries(SERVER_ROOMS).map(([server,engine])=>[engine,server]));
 const SERVER_ROOM_VISIT_FORBIDDEN=new Set(['MAIN_STORY_PENDING','ACTIVITY_IN_PROGRESS','ACTIVITY_PRE_STORY_PENDING','ACTIVITY_STORY_PENDING','ENDING_PENDING','ENDING_DECIDED','ENDING_READY','FINAL_SUMMARY_PENDING','WEEK_SUMMARY_PENDING']);
+const SERVER_ENDING_PHASES=new Set(['ENDING_PENDING','ENDING_DECIDED','ENDING_READY']);
 const clone=value=>value===undefined?undefined:structuredClone(value);
 const statKey=key=>key==='skill'?'dexterity':key;
 const projectStats=stats=>Object.fromEntries(Object.entries(stats??{}).filter(([key])=>['knowledge','expression','skill','exploration','magic'].includes(key)).map(([key,value])=>[statKey(key),value]));
@@ -117,6 +118,8 @@ export function serverScheduleActivityIds(run,actions,locations=[]){
 export function serverRoomBackgroundId(engineId){
  const id=ENGINE_ROOMS[engineId];if(!id)throw new Error('서버에 등록되지 않은 마이룸 배경입니다.');return id;
 }
+
+export const isServerEndingPhase=phase=>SERVER_ENDING_PHASES.has(phase);
 
 export function serverClassStartData(checkpoint,lesson){
  const data=checkpoint?.serverStart,names=['EASY','NORMAL','HARD','VERY_HARD'];
