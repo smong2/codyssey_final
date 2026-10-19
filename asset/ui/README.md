@@ -45,9 +45,9 @@
 | [BT02_backpack_ivory.png](./BT02_backpack_ivory.png) | 백팩 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT02_backpack_ivory.png" width="150" alt="백팩 버튼 · 아이보리 시안"> |
 | [BT03_menu_green.png](./BT03_menu_green.png) | 메뉴 버튼 · 녹색 시안 | 1254×1254 | <img src="./BT03_menu_green.png" width="150" alt="메뉴 버튼 · 녹색 시안"> |
 | [BT03_menu_ivory.png](./BT03_menu_ivory.png) | 메뉴 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT03_menu_ivory.png" width="150" alt="메뉴 버튼 · 아이보리 시안"> |
-| [BT04_blank_pale_green.png](./BT04_blank_pale_green.png) | 텍스트 없는 가로 버튼 · 연그린 시안 | 2098×750 | <img src="./BT04_blank_pale_green.png" width="220" alt="텍스트 없는 가로 버튼 · 연그린 시안"> |
-| [BT04_blank_pale_green_short.png](./BT04_blank_pale_green_short.png) | 텍스트 없는 짧은 가로 버튼 · 연그린 | 1362×311 | <img src="./BT04_blank_pale_green_short.png" width="220" alt="텍스트 없는 짧은 가로 버튼 · 연그린"> |
-| [BT04_blank_pale_ivory_short.png](./BT04_blank_pale_ivory_short.png) | 텍스트 없는 짧은 가로 버튼 · 아이보리 | 1362×311 | <img src="./BT04_blank_pale_ivory_short.png" width="220" alt="텍스트 없는 짧은 가로 버튼 · 아이보리"> |
+| [BT04_blank_pale_green.png](./BT04_blank_pale_green.png) | 텍스트 없는 가로 버튼 · 연그린 | 1940×311 | <img src="./BT04_blank_pale_green.png" width="220" alt="텍스트 없는 가로 버튼 · 연그린"> |
+| [BT04_blank_pale_green_short.png](./BT04_blank_pale_green_short.png) | 가방 내부 선택 상태용 짧은 가로 버튼 · 연그린, 원본 비율 유지 | 1362×311 | <img src="./BT04_blank_pale_green_short.png" width="220" alt="가방 선택 버튼 · 연그린"> |
+| [BT04_blank_pale_ivory_short.png](./BT04_blank_pale_ivory_short.png) | 가방 내부 기본 상태용 짧은 가로 버튼 · 아이보리, 원본 비율 유지 | 1362×311 | <img src="./BT04_blank_pale_ivory_short.png" width="220" alt="가방 기본 버튼 · 아이보리"> |
 | [BT04_choice_blank_pale_green.png](./BT04_choice_blank_pale_green.png) | 공통 선택지용 긴 빈 버튼 프레임 · `MS05_S4_SHARE_ROLES` 폭 기준 | 2400×311 | <img src="./BT04_choice_blank_pale_green.png" width="220" alt="긴 선택지용 녹색 빈 버튼 프레임"> |
 
 ## 기본 재료·프레임

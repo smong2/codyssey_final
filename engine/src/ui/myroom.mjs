@@ -5,7 +5,7 @@ import { activityArt } from "./journal.mjs";
 import { studentCards } from "../core/catalogue.mjs";
 import { appendCharacterInfo } from "./character-info.mjs";
 import { effectiveStats } from "../core/pets.mjs";
-import { createImageButton, ROOM_BUTTON_ART } from "./button-art.mjs";
+import { createImageButton, createCloseButton, ROOM_BUTTON_ART } from "./button-art.mjs";
 import { currentAction, forcedRestRemaining, isForcedRestDay, lowStamina } from "../core/activity-rules.mjs";
 import { ADVENTURE_LOCATIONS } from "../core/adventure-mission.mjs";
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
@@ -30,8 +30,7 @@ export function createMyroomUI(ctx) {
 	};
 	const character = () => characters.find((c) => c.id === current().characterId);
 	const close = (target = shell) => {
-		const x = btn("X", room, "close-x");
-		x.setAttribute("aria-label", "마이룸으로 닫기");
+		const x = createCloseButton({el,btn,onClick:room,label:"마이룸으로 닫기"});
 		target.append(x);
 	};
 	function prepareDraft() {
@@ -52,13 +51,15 @@ export function createMyroomUI(ctx) {
 			c = character();
 		heading("프로필", "profile-page");
 		const layout = el("div", null, "profile-layout"),
-			stats = el("section", null, "paper profile-stats");
-		stats.append(shell.querySelector("h1"), el("h2", c.name), el("p", "체력 " + r.stamina + " / 100"));
+			stats = el("section", null, "paper profile-stats"),
+			identity = el("section", null, "profile-identity");
+		identity.append(el("h2", c.name), el("p", "체력 " + r.stamina + " / 100"));
 		const stamina = el("progress");
 		stamina.max = 100;
 		stamina.value = r.stamina;
 		stamina.setAttribute("aria-label", "체력");
-		stats.append(stamina);
+		identity.append(stamina);
+		stats.append(identity);
 		const pet = ctx.activePet(),
 			effective = effectiveStats(r.stats, pet, r.stamina);
 		if (forcedRestRemaining(r)) stats.append(el("p", "강제 휴식 · 평일 " + forcedRestRemaining(r) + "일 후 체력 100 회복"));
@@ -75,13 +76,14 @@ export function createMyroomUI(ctx) {
 			row.append(bar);
 			stats.append(row);
 		}
-		const info = el("section", null, "paper profile-info");
-		info.append(el("h2", "캐릭터 정보"));
-		appendCharacterInfo(info, studentCards(ctx.meta(), "bag").find((s) => s.id === c.id) ?? c, el);
-		info.append(el("p", r.runNumber + "회차 · " + r.week + "주차"), el("p", "나이 · 생일 · 관계: 데이터 미등록"), el("h3", "최근 이야기"), el("p", "시나리오 데이터 연결 예정"), el("h3", "함께하는 펫"), el("p", pet.name), el("p", pet.description));
+		const info = el("section", null, "paper profile-info"),
+			body = el("div", null, "profile-info-body");
+		close(info);
+		appendCharacterInfo(body, studentCards(ctx.meta(), "bag").find((s) => s.id === c.id) ?? c, el);
+		body.append(el("p", r.runNumber + "회차 · " + r.week + "주차"), el("h3", "최근 이야기"), el("p", "시나리오 데이터 연결 예정"), el("h3", "함께하는 펫"), el("p", pet.name), el("p", pet.description));
+		info.append(body);
 		layout.append(stats, portrait(c, "profile-character"), info);
-		shell.append(layout);
-		close();
+		shell.replaceChildren(layout);
 	}
 	function collection(tab = "카테고리 보상") {
 		heading("컬렉션", "collection-page");
@@ -132,23 +134,15 @@ export function createMyroomUI(ctx) {
 			calendar = el("section", null, "paper calendar"),
 			top = el("div", null, "calendar-heading");
 		top.append(
-			btn(
-				"이전 달",
-				() => {
+			createImageButton({el,btn,src:"./design-assets/ui/UI23_journal_arrow_right.png",label:"이전 달",className:"month-button month-arrow previous-month",onClick:() => {
 					monthOffset--;
 					schedule();
-				},
-				"month-button",
-			),
+				}}),
 			el("h2", "아르카디아력 " + m.arcadiaYear + "년 · " + m.month + "월"),
-			btn(
-				"다음 달",
-				() => {
+			createImageButton({el,btn,src:"./design-assets/ui/UI23_journal_arrow_right.png",label:"다음 달",className:"month-button month-arrow next-month",onClick:() => {
 					monthOffset++;
 					schedule();
-				},
-				"month-button",
-			),
+				}}),
 		);
 		calendar.append(top);
 		const grid = el("div", null, "calendar-grid");
@@ -433,7 +427,18 @@ export function createMyroomUI(ctx) {
 		staminaBar.max = 100;
 		staminaBar.value = r.stamina;
 		staminaBar.setAttribute("aria-label", "체력");
-		profileCopy.append(staminaBar);
+		const stamina = Math.max(0, Math.min(100, r.stamina)),
+			track = el("span", null, "mini-profile-stamina-track"),
+			fill = el("img", null, "mini-profile-stamina-art"),
+			value = el("span", stamina + " / 100", "mini-profile-stamina-value");
+		track.setAttribute("aria-hidden", "true");
+		fill.src = "./design-assets/ui/UI21_myroom_profile_frame_green_bar.png";
+		fill.alt = "";
+		fill.setAttribute("aria-hidden", "true");
+		fill.style.clipPath = "inset(0 " + (80 - stamina * .6) + "% 0 0)";
+		value.setAttribute("aria-hidden", "true");
+		profileUI.append(track, fill);
+		profileCopy.append(staminaBar, value);
 		profileUI.append(profileCopy);
 		dateStack.append(profileUI, date);
 		if (action.childElementCount) dateStack.append(action);

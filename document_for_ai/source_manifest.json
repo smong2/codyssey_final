@@ -271,11 +271,11 @@
     },
     {
       "path": "asset/audio/README.md",
-      "sha256": "5a01e7340924dbdcb88350ab6c9b3b8d6e0d0faae8a9320a5fc77db4eac308b6"
+      "sha256": "35997cb40d2d00b46673fc2e7f3fa2e752da830de7d05e5077e76546eba03875"
     },
     {
       "path": "asset/background/README.md",
-      "sha256": "dd2c048c7ff561eb9aeea518f1cb0e4465ea7a399a6e3aa911401b2cc2191035"
+      "sha256": "0c27e1b6ad17ba1edccbe7f1952758837913fc40b85e0f0c557d0050687b11c6"
     },
     {
       "path": "asset/badge/README.md",
@@ -287,31 +287,19 @@
     },
     {
       "path": "asset/effect/README.md",
-      "sha256": "f9326bc28b328340edc3c3e84f693ed171ac1c2788afb8035f7db6ea19569641"
-    },
-    {
-      "path": "asset/environment/README.md",
-      "sha256": "2a6d563e04d6b8efc0a408615c973feacb5356d2ae8d69c79fcc95443478b78a"
+      "sha256": "fc05fb8d85d3963f1bf696c05147bcf21c33cd82292ff6e53635556d7f9471c8"
     },
     {
       "path": "asset/font_files/licenses/README.md",
       "sha256": "c145651ad95bc47b9e89eb46b342ae4fbae886b4680a534edcd6ff17c17a5a1c"
     },
     {
-      "path": "asset/font_files/originals/README.md",
-      "sha256": "546cf96754ef502ecc0c3bcb74eb9505764f63300d69e7849c31e6a350fe7a9a"
-    },
-    {
       "path": "asset/font_files/README.md",
-      "sha256": "2c4031c8f26d3d0dc904524525d3d6eb1b73309b5ea8a53d8c1ae62c23c420f6"
-    },
-    {
-      "path": "asset/font_files/typography/README.md",
-      "sha256": "e13c57722b559968302ea18b42ae7d4b971f28db35326e13b03f44040e4c2f29"
+      "sha256": "1d09dc08909ef0f81c9c7943ccc2e6f8323841dd36f8d746482d8d051f6a8a7c"
     },
     {
       "path": "asset/Full screen/README.md",
-      "sha256": "0176ff0a660ada5c47d13eb6c05dc991f1d6f01fb4a95cd40cd99b752f3e7216"
+      "sha256": "47443601e21589f4efdb23edaf271ab104d21841aa8515078c7cf797a864fff9"
     },
     {
       "path": "asset/Full screen/screen/README.md",
@@ -319,11 +307,11 @@
     },
     {
       "path": "asset/item/README.md",
-      "sha256": "c920000d13d1fc2a41da4046e6980de2cc7f2cb702dc549bdd40f82fe3ce4fa4"
+      "sha256": "f9ef8b49af5369d976d5e948b275e7b4421f915f8bda3c67c2641729e4dc49d8"
     },
     {
       "path": "asset/map/README.md",
-      "sha256": "6e4336258c0c1689a823c0f030b71a2bbf2c4fa356827e777606cce8c67c3ffe"
+      "sha256": "7eaf6703f6cb56abffa48538bdc814636165ad3227468bdf70367fa9a915e600"
     },
     {
       "path": "asset/pet/README.md",
@@ -331,11 +319,11 @@
     },
     {
       "path": "asset/puzzle/README.md",
-      "sha256": "ff80b7142a2de75dce4e3f12a60ed28af723dc9a24e85e7a0d939242b095e228"
+      "sha256": "8bf99387cfefb43b57aa7795527940f2388998bf2b8377727f5f5779d4770555"
     },
     {
       "path": "asset/README.md",
-      "sha256": "32219ab7b07cc9e230584970425fb24e920292f2d9bc56686cf4d0622b00d3eb"
+      "sha256": "d8460991e3e8493f08064bb81e5e755ee2ef271d0ee0f15d93fe1e8f298e54ea"
     },
     {
       "path": "asset/sd_character/README.md",
@@ -347,7 +335,7 @@
     },
     {
       "path": "asset/ui/README.md",
-      "sha256": "ca38c294475edabbb47a69825154b7da312eb879fb14faeaf81104a07d438f05"
+      "sha256": "e62e2194c4ea90d68d1c322d333303fc8aeed0febe6d1ef91f354a029b0fe3d0"
     },
     {
       "path": "backend/admin/README.md",
@@ -391,11 +379,11 @@
     },
     {
       "path": "document/03_CHARACTERS.md",
-      "sha256": "aadd6670dbccfa66e6f3e0dad9f1466754eac630f78f13f0abe4504bcb0bf024"
+      "sha256": "cb0455221579eb1823d481214c84b4e51db66269115dfc21f54c5d265fa9dad2"
     },
     {
       "path": "document/04_ASSETS.md",
-      "sha256": "248aef6996ebca7621bc2b691814f2daa4ce18f388dc7d7c393c87bfc0b9f9e6"
+      "sha256": "c4eab5d267f71e6ceb769538629d3a7d30b62c21113a49d01a93da75ee376c8b"
     },
     {
       "path": "document/05_TEAM_ROLES.md",
@@ -667,7 +655,7 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/04_ROOM_BACKGROUND_PUZZLE.md",
-      "sha256": "c96d05031d4829376d2f93517d970df6a81cf5642af17afd7f7d86a95329d66a"
+      "sha256": "98416f7d3ae0cccee30599c502479c56eabe2566b8e564caca2837b4bc14e738"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md",
@@ -703,7 +691,7 @@
     },
     {
       "path": "document/content/09_TITLE_ACCOUNT_UI.md",
-      "sha256": "bd74ec6679da13b428ab8ed8c1d91d15d9331d746fc6995990499e9bf83c91f8"
+      "sha256": "cbe4b7b7b973bf3dd2fb8324898e59ae46b8d100d11cb66adb977f1296d3b9ad"
     },
     {
       "path": "document/content/10_COMMON_ENGINE_FRAME.md",
@@ -711,7 +699,7 @@
     },
     {
       "path": "document/content/11_FEATURE_FRAME.md",
-      "sha256": "053a4a911f238e4299c99d21b3db49244823daba7fe5330495c86a45fe73c0ad"
+      "sha256": "c75217fb028e07d97975be5b037cf24797befa02322a39570f8fa19fa6bfc631"
     },
     {
       "path": "document/content/12_USER_UCS.md",
@@ -739,7 +727,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "6c0d733eb9ea0666d9385a9863bcaf835cbb6ac0138c35107fdd0799517a3239"
+      "sha256": "0cceda2b2cb5d4f70daf86869d7c53f2ec1c2b189ff5a36bc1f2a53fbdc903bf"
     },
     {
       "path": "lumia/README.md",
@@ -800,7 +788,7 @@
   ],
   "assetInventory": {
     "path": "asset",
-    "sha256": "cd9c3dad66ca9ac9a94f0ee12eb14fdd7a4123287e97352eed802bedd037ed57",
+    "sha256": "45afb43234fef0bbbc1fcafdedd57bba62999677750e26cb9c2f5eb02958f527",
     "ai": [
       "document_for_ai/04_ASSETS.md"
     ]

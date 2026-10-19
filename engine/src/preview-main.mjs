@@ -10,7 +10,7 @@ import { activeRoom } from "./core/collection-view.mjs";
 import { SPACES } from "./core/spaces.mjs";
 import { createMyroomUI, DESCRIPTIONS } from "./ui/myroom.mjs";
 import { createJournalUI } from "./ui/journal.mjs";
-import { firstEmptySlot, recentSlot, createNotifier, invitationLines, ADMISSION_SCENES } from "./core/ui-flow.mjs";
+import { firstEmptySlot, recentSlot, createNotifier, createJoystickInput, invitationLines, ADMISSION_SCENES } from "./core/ui-flow.mjs";
 import { introFrame } from "./core/intro.mjs";
 import { mountAdventure } from "./scenes/AdventureScene.mjs";
 import { ADVENTURE_LOCATIONS, getAdventureMap } from "./core/adventure-mission.mjs";
@@ -37,7 +37,7 @@ import { createTitleAudioController, dialogueMusicKey } from "./core/title-audio
 import { createAdventureResultUI } from "./ui/adventure-result.mjs";
 import { createActivityResultUI } from "./ui/activity-result.mjs";
 import { createBadgeResultUI } from "./ui/badge-result.mjs";
-import { createImageButton, TITLE_BUTTON_ART } from "./ui/button-art.mjs";
+import { createImageButton, createCloseButton, createBagButton, TITLE_BUTTON_ART } from "./ui/button-art.mjs";
 import { dueMainStory, ensureMainStoryState, MAIN_STORIES } from "./core/main-story.mjs";
 import { createServerDialogueSession, createServerGameSession } from "./core/server-game-session.mjs";
 import { canRecordServerRoomVisit, serverAdventureStartData, serverClassStartData, serverRoomBackgroundId, serverRoomVisitKey, serverScheduleActivityIds } from "./core/server-state.mjs";
@@ -57,6 +57,7 @@ function decorateRoom() {
 	previousRoomBackground = bg;
 }
 let adventureView = null;
+let adventureInput = null;
 let portraitObserver = null;
 const shell = document.querySelector("#shell"),
 	notice = document.querySelector("#notice");
@@ -202,6 +203,8 @@ function current() {
 	return profile?.slots?.[slotId - 1]?.activeRun ?? null;
 }
 function heading(title, cls = "page") {
+	adventureInput?.destroy();
+	adventureInput = null;
 	adventureResultUI.clear();
 	activityResultUI.clear();
 	badgeResultUI.clear();
@@ -338,8 +341,7 @@ function modal(title, body, actions = []) {
 	d.append(el("h2", title), body);
 	const a = el("div", null, "actions");
 	for (const b of actions) a.append(b);
-	const close = btn("X", () => d.close(), "close-x");
-	close.setAttribute("aria-label", "닫기");
+	const close = createCloseButton({el,btn,onClick:()=>d.close(),label:"닫기"});
 	d.append(close, a);
 	d.addEventListener("close", () => d.remove());
 	document.body.append(d);
@@ -502,10 +504,10 @@ function menu() {
 		shell.querySelector('[aria-label="메뉴"]')?.focus({ preventScroll: true });
 	};
 	const entry = (label, action) =>
-		btn(label, () => {
+		createImageButton({el,btn,src:"./design-assets/ui/BT04_blank_pale_green.png",label,caption:label,className:"menu-art-button",onClick:() => {
 			close();
 			action();
-		});
+		}});
 	pop.append(entry("소리 설정", soundSettings));
 	pop.append(entry("지난 엔딩 편지", () => endingUI.history(profile.meta.endingRecords ?? [])));
 	pop.append(
@@ -525,8 +527,7 @@ function menu() {
 	if (!canLeave()) pop.append(el("small", "이번 주 일정과 주말 저장 후 타이틀로 돌아갈 수 있습니다."));
 	shell.append(pop);
 	shell.classList.add("menu-open");
-	const x = btn("X", close, "close-x");
-	x.setAttribute("aria-label", "메뉴 닫기");
+	const x = createCloseButton({el,btn,onClick:close,label:"메뉴 닫기"});
 	pop.prepend(el("h2", "메뉴"), x);
 	for (const child of shell.children) if (child !== pop) child.inert = true;
 	pop.querySelector("button").focus({ preventScroll: true });
@@ -852,14 +853,13 @@ function renderCharacters(id, isNew, gender = "male", selectedId = null) {
 		selected = available.find((c) => c.id === selectedId && c.selectable) ?? available.find((c) => c.selectable);
 	const layout = el("div", null, "character-catalogue"),
 		list = el("section", null, "character-list-panel paper"),
-		tabs = el("nav", null, "actions");
+		tabs = el("nav", null, "actions character-gender-tabs");
 	list.append(el("h2", "어떤 친구로 모험을 시작할까요?", "character-selection-title"));
 	for (const [value, label] of [
 		["male", "남성"],
 		["female", "여성"],
 	]) {
-		const b = btn(label, () => renderCharacters(id, isNew, value), value === gender ? "selected" : "quiet");
-		b.setAttribute("aria-pressed", String(value === gender));
+		const b = createBagButton({el,btn,label,onClick:()=>renderCharacters(id,isNew,value),selected:value===gender});
 		tabs.append(b);
 	}
 	list.append(tabs);
@@ -895,10 +895,7 @@ function renderCharacters(id, isNew, gender = "male", selectedId = null) {
 	}
 	list.append(grid);
 	const detail = el("aside", null, "character-detail-panel paper");
-	const full = el("img", null, "selected-character-full");
-	full.src = "./character-assets/" + selected.fullbody;
-	full.alt = selected.name + " 전신";
-	appendCharacterInfo(detail, selected, el);
+	appendCharacterInfo(detail, selected, el, {compact:true});
 	detail.append(el("small", "체력 100 · 초기 성장 스탯에 캐릭터 보정과 영구 보너스 적용"));
 	const start = btn("시작하기", async () => {
 		start.disabled = true;
@@ -1725,28 +1722,13 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 	const hintLine = el("p", null, "adventure-hint");
 	hintLine.hidden = true;
 	shell.append(hintLine);
-	const pad = el("nav", null, "adventure-pad");
-	pad.setAttribute("aria-label", "모험 방향 조작");
-	for (const [label, x, y] of [
-		["↑", 0, -1],
-		["←", -1, 0],
-		["↓", 0, 1],
-		["→", 1, 0],
-	]) {
-		const b = btn(label, () => {});
-		b.setAttribute("aria-label", "이동 " + label);
-		b.onpointerdown = (e) => {
-			e.preventDefault();
-			b.setPointerCapture(e.pointerId);
-			adventureView?.direction(x, y);
-		};
-		const stop = () => adventureView?.direction(0, 0);
-		b.onpointerup = stop;
-		b.onpointercancel = stop;
-		b.onlostpointercapture = stop;
-		pad.append(b);
-	}
+	const pad = el("div", null, "adventure-joystick"),knob=el("span",null,"adventure-stick-knob");
+	pad.setAttribute("role", "group");
+	pad.setAttribute("aria-label", "모험 이동 조이스틱");
+	knob.setAttribute("aria-hidden", "true");
+	pad.append(knob,el("span","이동","adventure-stick-label"));
 	shell.append(pad);
+	shell.append(el("p","방향키 / WASD로 이동","adventure-keyboard-help"));
 	const investigate = btn(
 		"조사하기",
 		() => {
@@ -1758,6 +1740,10 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 	investigate.setAttribute("aria-live", "polite");
 	investigate.disabled = true;
 	shell.append(investigate);
+	const investigateHelp=el("p","단서 근처로 이동한 뒤 ‘조사하기’를 눌러보세요.","adventure-investigate-help");
+	investigateHelp.id="adventure-investigate-help";
+	investigate.setAttribute("aria-describedby",investigateHelp.id);
+	shell.append(investigateHelp);
 	let missionReady = false,
 		started = false,
 		finished = false,
@@ -1767,8 +1753,11 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 		lastState = null,
 		briefing = null;
 	let errorPanel = null;
+	adventureInput=createJoystickInput({pad,knob,onDirection:(x,y)=>adventureView?.direction(x,y),isEnabled:()=>started&&!finished&&!lastState?.paused&&!briefing&&!investigationOpen});
 	const paintState = (state) => {
 		if (!state) return;
+		if(state.paused||state.error||!started||finished)adventureInput?.reset();
+		pad.setAttribute("aria-disabled",String(Boolean(state.paused||state.error||!started||finished)));
 		if (state.error) {
 			missionReady = false;
 			investigate.disabled = true;
@@ -1835,7 +1824,9 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 		briefing?.remove();
 		briefing = el("section", null, "adventure-briefing paper");
 		briefing.setAttribute("aria-label", "모험 단서");
+		briefing.setAttribute("data-clue-count",String(lastState.objectives.length));
 		briefing.append(el("h2", initial ? "이번 모험에서 찾아야 할 것" : "모험 단서"), el("p", initial ? `숨은 목표 ${startData.objectiveCount}개 · 제한시간 ${Math.floor(startData.durationSeconds / 60)}분 ${startData.durationSeconds % 60}초` : "단서를 읽는 동안 이동과 시간이 멈춥니다."));
+		if(initial)briefing.append(el("p","단서가 가리키는 곳으로 이동한 뒤 ‘조사하기’를 눌러보세요. 찾지 못하면 방향과 거리 힌트가 나와요.","adventure-investigate-instruction"));
 		const list = el("div", null, "adventure-clue-list");
 		for (const item of lastState.objectives) {
 			const found = lastState.foundIds.includes(item.id),

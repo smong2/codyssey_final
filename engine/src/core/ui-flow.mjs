@@ -5,6 +5,26 @@ export function createPageTurnGate(){
   return ()=>{if(active!==generation||!busy)return;busy=false;commit();};
  }};
 }
+export function createJoystickInput({pad,knob,onDirection,isEnabled=()=>true}){
+ let pointerId=null;
+ const environment=pad.ownerDocument?.defaultView,document=pad.ownerDocument;
+ const reset=()=>{const previous=pointerId;pointerId=null;knob.style.transform='';onDirection(0,0);if(previous!==null&&pad.hasPointerCapture?.(previous))pad.releasePointerCapture(previous);};
+ const move=event=>{
+  if(event.pointerId!==pointerId)return;
+  if(!pad.isConnected||!isEnabled()){reset();return;}
+  const rect=pad.getBoundingClientRect(),size=Math.min(rect.width,rect.height),radius=size*.4;
+  if(radius<=0){reset();return;}
+  const dx=event.clientX-rect.left-rect.width/2,dy=event.clientY-rect.top-rect.height/2,length=Math.hypot(dx,dy),scale=Math.max(radius,length);
+  const x=length<radius*.12?0:dx/scale,y=length<radius*.12?0:dy/scale;
+  knob.style.transform=`translate(${x*size*.28}px,${y*size*.28}px)`;onDirection(x,y);
+ };
+ pad.onpointerdown=event=>{if(pointerId!==null||!pad.isConnected||!isEnabled()||(event.button!==undefined&&event.button!==0))return;event.preventDefault();event.stopPropagation?.();pointerId=event.pointerId;pad.setPointerCapture(pointerId);move(event);};
+ pad.onpointermove=move;
+ const finish=event=>{if(event.pointerId===pointerId)reset();};
+ pad.onpointerup=finish;pad.onpointercancel=finish;pad.onlostpointercapture=finish;
+ environment?.addEventListener('blur',reset);document?.addEventListener('visibilitychange',reset);
+ return {reset,destroy(){reset();pad.onpointerdown=pad.onpointermove=pad.onpointerup=pad.onpointercancel=pad.onlostpointercapture=null;environment?.removeEventListener('blur',reset);document?.removeEventListener('visibilitychange',reset);}};
+}
 export const firstEmptySlot=profile=>profile.slots.find(s=>s.status==='EMPTY')??null;
 export function recentSlot(profile){
  const recorded=profile.slots.find(s=>s.slotId===profile.meta.lastSavedSlotId&&s.status!=='EMPTY');

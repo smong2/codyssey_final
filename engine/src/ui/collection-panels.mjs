@@ -114,7 +114,9 @@ export function renderBadgePanel(panel, { el, btn, meta }) {
 				mark.className = "badge-complete-mark";
 				toggle.append(mark);
 			}
-			const arrow = el("span", open ? "⌃" : "⌄", "badge-chevron");
+			const arrow = el("img", null, "badge-chevron");
+			arrow.src = "./design-assets/ui/" + (open ? "UI24_journal_arrow_down.png" : "UI23_journal_arrow_right.png");
+			arrow.alt = "";
 			arrow.setAttribute("aria-hidden", "true");
 			toggle.append(arrow);
 			row.append(toggle);

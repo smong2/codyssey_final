@@ -9,7 +9,7 @@ import { ADVENTURE_LOCATIONS, getAdventureMap } from "../core/adventure-mission.
 import { storyContent } from "../core/story-events.mjs";
 import { NARRATIVE_SCENES } from "../core/narrative.mjs";
 import { unreadRoomIds } from "../core/collection-notices.mjs";
-import { createBagButton } from "./button-art.mjs";
+import { createBagButton, createCloseButton } from "./button-art.mjs";
 const diaryStory = (record) => (record.formal || record.kind === "main" || NARRATIVE_SCENES.some((scene) => scene.id === record.id) ? { title: record.title ?? NARRATIVE_SCENES.find((scene) => scene.id === record.id)?.title ?? "완료한 이야기", choices: record.selectedChoices ?? [{ id: record.choiceId, label: record.choiceLabel }], closing: record.closing, formal: true } : storyContent(record));
 const ACTIVITY_PLACES = { "rune-circuit": "BG08_magic_workshop_1920x1080_018.png", excavation: "BG01_arcadia_entrance_and_lake_1920x1080_010.png", "rune-link": "BG04_grand_library_1920x1080_014.png", "training-guardian": "BG09_rune_training_ground_1920x1080_019.png", "rune-merge": "BG06_glass_greenhouse_1920x1080_016.png", "mirror-magic": "BG05_starlight_observatory_1920x1080_015.png", "seal-dismantle": "BG02_clocktower_plaza_1920x1080_011.png", "observatory-mirror": "BG05_starlight_observatory_1920x1080_015.png", "starlight-stage": "BG02_clocktower_plaza_1920x1080_011.png", "spirit-pot-sort": "BG06_glass_greenhouse_1920x1080_016.png", "sealed-shelves": "BG04_grand_library_1920x1080_014.png", "rune-pin-training": "BG09_rune_training_ground_1920x1080_019.png" };
 export const activityArt = (a, locationId = "greenhouse") => (a === "adventure" ? getAdventureMap((ADVENTURE_LOCATIONS.find((place) => place.id === locationId) ?? ADVENTURE_LOCATIONS[0]).mapId).thumbnail : a === "rest" ? "./world-assets/BG11_myroom2_day_1920x1080_023.png" : a === "fairy-trade" ? "./character-assets/CH_DRM_fairy_trade_upperbody_01.png" : ACTIVITY_PLACES[classOf(a)?.id] ? "./world-assets/" + ACTIVITY_PLACES[classOf(a).id] : null);
@@ -27,16 +27,9 @@ export function createJournalUI(ctx) {
 		page = 0,
 		selected = 0;
 	const turns = createPageTurnGate();
-	const close = (diary = false) => {
-		const x = btn(diary ? "" : "X", onReturn, "close-x");
-		if (diary) {
-			const art = el("img", null, "journal-close-art");
-			art.src = "./design-assets/ui/UI25_journal_close_x.png";
-			art.alt = "";
-			x.append(art);
-		}
-		x.setAttribute("aria-label", "마이룸으로 닫기");
-		shell.append(x);
+	const close = (diary = false, host = shell) => {
+		const x = createCloseButton({el,btn,onClick:onReturn,label:"마이룸으로 닫기"});
+		host.append(x);
 	};
 	function diary() {
 		turns.reset();
@@ -153,11 +146,11 @@ export function createJournalUI(ctx) {
 		}
 		footer.append(previous, el("span", page + 1 + " / " + pages), next);
 		layout.append(footer);
-		close(true);
+		close(true, layout);
 	}
 	function bag(tab = "배지") {
 		heading("가방", "bag-page");
-		const panel = el("section", null, "paper bag-frame"),
+		const panel = el("section", null, "paper bag-frame" + (tab === "마이룸" ? " room-bag-frame" : "")),
 			tabs = el("nav", null, "actions bag-tabs"),
 			hasUnread = unreadRoomIds(meta()).length > 0;
 		let roomNotice;
@@ -174,7 +167,7 @@ export function createJournalUI(ctx) {
 		}
 		panel.append(tabs);
 		shell.replaceChildren(panel);
-		close();
+		close(false, panel);
 		if (tab === "배지") {
 			renderBadgePanel(panel, ctx);
 			return;

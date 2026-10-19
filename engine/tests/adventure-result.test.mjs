@@ -26,6 +26,16 @@ test('investigation fills its bar and waits for a completed result and confirmat
  advance(60000);assert.equal(overlay.removed,false);button.onclick();button.onclick();
  assert.equal(continued,1);assert.equal(overlay.removed,true);
 });
+
+test('found clue shows the exact received image and name and still waits for confirmation',t=>{
+ animationClock(t);const host=node('main'),ui=createAdventureResultUI({el:node});let continued=0;
+ ui.showInvestigation(host,{durationMs:1500},()=>continued++);
+ ui.finishInvestigation({foundId:'ADV_GH_04',item:{name:'꽃잎 표본 카드',imageSrc:'./design-assets/item/adventure/ADV_GH_04.png'},foundCount:1,objectiveCount:2});
+ const panel=host.children[0].children[0],art=panel.children.find(child=>child.className==='adventure-found-art');
+ assert.equal(panel.attributes['data-has-clue'],'true');assert.equal(art.hidden,false);
+ assert.equal(art.src,'./design-assets/item/adventure/ADV_GH_04.png');assert.equal(art.alt,'꽃잎 표본 카드');
+ assert.equal(continued,0);findButton(host).onclick();assert.equal(continued,1);
+});
 test('investigation displays a missed-object hint and screen cleanup cannot advance it',t=>{
  const advance=animationClock(t),host=node('main'),ui=createAdventureResultUI({el:node});let continued=0;
  ui.showInvestigation(host,{durationMs:1000},()=>continued++);

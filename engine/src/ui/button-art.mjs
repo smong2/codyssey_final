@@ -11,6 +11,9 @@ export const ROOM_BUTTON_ART=Object.freeze({
 });
 
 export const BAG_BUTTON_ART=Object.freeze({default:'BT04_blank_pale_ivory_short.png',selected:'BT04_blank_pale_green_short.png'});
+export function createCloseButton({el,btn,onClick,label='닫기'}){
+ return createImageButton({el,btn,onClick,label,src:'./design-assets/ui/UI25_journal_close_x.png',className:'close-x'});
+}
 export function createBagButton({el,btn,label,onClick,selected}){
  const control=btn(label,onClick,'bag-ui-button'+(selected?' is-selected':''));
  control.style.backgroundImage=`url("./design-assets/ui/${BAG_BUTTON_ART[selected?'selected':'default']}")`;
