@@ -1,6 +1,6 @@
 import { calendarModel, calendarActivity, scheduleSession, scheduleReady, assignScheduleActivity } from "../core/preview.mjs";
 import { createWeeklySummary, projectServerWeeklySummary, storyDiaryRecords } from "../core/activity-history.mjs";
-import { CLASSES, classOf } from "../core/classes.mjs";
+import { AVAILABLE_CLASSES, classOf } from "../core/classes.mjs";
 import { activityArt } from "./journal.mjs";
 import { studentCards } from "../core/catalogue.mjs";
 import { appendCharacterInfo } from "./character-info.mjs";
@@ -249,7 +249,7 @@ export function createMyroomUI(ctx) {
 		}
 		activities.append(tabs);
 		const cards = el("div", null, "activity-cards");
-		const list = category === "교육" ? CLASSES : category === "휴식" ? [{ id: "rest", title: "휴식" }] : category === "특별" ? [{ id: "fairy-trade", title: "요정의 거래" }] : ADVENTURE_LOCATIONS;
+		const list = category === "교육" ? AVAILABLE_CLASSES : category === "휴식" ? [{ id: "rest", title: "휴식" }] : category === "특별" ? [{ id: "fairy-trade", title: "요정의 거래" }] : ADVENTURE_LOCATIONS;
 		for (const a of list) {
 			const isAdventure = category === "모험",
 				actionId = isAdventure ? "adventure" : a.id,

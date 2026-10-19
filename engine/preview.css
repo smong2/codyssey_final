@@ -174,6 +174,7 @@ button.room-date{cursor:pointer;text-align:left}
 .date-number{position:relative;z-index:2;align-self:flex-start;font-size:25px;font-weight:bold;line-height:1;background:#fff5dfdc;border-radius:4px;padding:3px;color:#354b4b;text-shadow:0 1px #fff}
 .weekend .date-number{color:#a34e3e}
 .calendar-activity-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.87;pointer-events:none}
+.calendar-activity-image[src$='CH_DRM_fairy_trade_upperbody_01.png'],.activity-image-slot img[src$='CH_DRM_fairy_trade_upperbody_01.png']{object-fit:contain;object-position:center center}
 .date-add{font-size:23px!important;color:#92825c;align-self:center}
 .diary-page,.bag-page{background:linear-gradient(#20333455,#20333480),url('./world-assets/BG10_myroom1_day_1920x1080_012.png') center/cover!important;color:#fff2d6}
 .diary-page>h1,.bag-page>h1{text-align:center}.diary-page>.preview-label,.bag-page>.preview-label{display:none}

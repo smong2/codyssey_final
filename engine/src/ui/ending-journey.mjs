@@ -59,7 +59,7 @@ export function createEndingJourney({el,btn,shell,heading,current,onWelcome,onPr
   card.append(el('p','너의 빛은 이런 모습으로 자라났어요.','ending-letter-kicker'),el('h2','너는 ‘'+result.careerName+'’가 될 거야!'));
   if(result.subtitle)card.append(el('p','《'+result.subtitle+'》','ending-letter-subtitle'));
   body.setAttribute('tabindex','0');body.setAttribute('aria-label','엔딩 편지');body.append(el('p',result.content,'ending-letter-content'));card.append(body);
-  card.append(el('small',result.source==='fallback'?'아르카디아의 기본 편지':'AI가 작성한 개인화 편지','ending-letter-source'),button('다음 이야기로',()=>{
+  card.append(button('다음 이야기로',()=>{
    if(busy)return;const unlocks=getUnlocks();if(unlocks?.length)unlocksPage(unlocks);else return finish();
   }));surface.append(card);
  }

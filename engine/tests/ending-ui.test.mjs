@@ -5,7 +5,7 @@ import {endingNode as node,endingNodes as all,settleEnding} from './helpers/endi
 test('past ending letters are read without loading, completing a run, or changing the original record',()=>{
  const s=setup(),record={runNumber:2,careerName:'룬 연구자',letter:{status:'ready',source:'ai',sections:{future:'과거 미래',reflection:'과거 기억',encouragement:'과거 응원'}}},before=structuredClone(record);
  assert.equal(typeof s.ui.history,'function');s.ui.history([record]);
- assert.match(s.shell.textContent,/과거 기억/);assert.match(s.shell.textContent,/AI가 작성한 개인화 편지/);
+ assert.match(s.shell.textContent,/과거 기억/);assert.doesNotMatch(s.shell.textContent,/AI가 작성한/);
  assert.equal(s.calls.finished,0);assert.equal(s.calls.received,0);assert.deepEqual(record,before);
 });
 function setup({ready=false,newUnlocks=[],loadEnding=null,save=true}={}){

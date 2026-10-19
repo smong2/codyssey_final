@@ -113,7 +113,7 @@ function mirrorSvg(cellType,orientation,isLit){
 function button(text,action){const node=el('button',text);node.type='button';node.onclick=action;return node;}
 export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
  constructor(){super(lesson.sceneKey);this.gameId=lesson.id;}
- init(data){this.startData=data;this.round=0;this.moves=0;this.mistakes=0;this.hits=0;this.extras=0;this.greatLimit=0;this.done=false;this.pausedMs=0;this.selected=null;this.history=[];this.inputLog=[];this.pattern=null;this.disc=null;this.solved=false;this.roundStarted=0;}
+ init(data){this.startData=data;this.round=0;this.moves=0;this.mistakes=0;this.hits=0;this.extras=0;this.greatLimit=0;this.done=false;this.pausedMs=0;this.pauseStartedAt=null;this.selected=null;this.history=[];this.inputLog=[];this.pattern=null;this.disc=null;this.solved=false;this.roundStarted=0;}
  create(){
   this.startedAt=performance.now();this.root=el('section',null,'curriculum-game');
   const bg=SPACES[lesson.locationId]?.image??ART[lesson.locationId];
@@ -127,17 +127,25 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
  }
  showGuide(first=false){
   if(this.guideOverlay||this.done)return;
-  const openedAt=performance.now(),overlay=el('div',null,'curriculum-guide-overlay'),panel=el('section',null,'paper curriculum-guide');
+  const openedAt=performance.now(),overlay=el('div',null,'curriculum-guide-overlay'),panel=el('section',null,'paper curriculum-guide');this.pauseStartedAt=openedAt;
   panel.append(el('small',first?'처음 한 번만 자동으로 보여 줘요.':'게임 방법'),el('h2',lesson.title+' 방법'));
   const list=el('ol');for(const line of GUIDES[this.gameId]??[])list.append(el('li',line));panel.append(list);
-  const close=button('알겠어!',()=>{this.pausedMs+=performance.now()-openedAt;rememberGuide(this.gameId);overlay.remove();this.guideOverlay=null;});panel.append(close);overlay.append(panel);this.root.append(overlay);this.guideOverlay=overlay;close.focus?.();
+  const close=button('알겠어!',()=>{this.pausedMs+=performance.now()-openedAt;this.pauseStartedAt=null;rememberGuide(this.gameId);overlay.remove();this.guideOverlay=null;});panel.append(close);overlay.append(panel);this.root.append(overlay);this.guideOverlay=overlay;close.focus?.();
  }
- elapsed(){return Math.max(0,performance.now()-this.startedAt-this.pausedMs);}
+ elapsed(){return Math.max(0,performance.now()-this.startedAt-this.pausedMs-(this.pauseStartedAt===null?0:performance.now()-this.pauseStartedAt));}
  logInput(action,data={},at=this.elapsed()){
   const limit=Math.max(0,Math.floor(this.startData.maxDurationMs)-1),atMs=Math.max(0,Math.min(limit,Math.floor(at)));
   const event={atMs,action,...data};this.inputLog.push(event);return event;
  }
- quit(){if(this.done)return;const before=performance.now(),accepted=window.confirm('이 수업을 포기할까요? 사용한 체력과 일정은 돌아오지 않아요.');this.pausedMs+=performance.now()-before;if(accepted)this.finish('QUIT');}
+ quit(){
+  if(this.done||this.guideOverlay||this.quitOverlay)return;
+  const openedAt=performance.now(),overlay=el('div',null,'curriculum-guide-overlay curriculum-quit-overlay'),panel=el('section',null,'paper curriculum-guide');
+  this.pauseStartedAt=openedAt;overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','수업 포기 확인');
+  panel.append(el('h2','이 수업을 포기할까요?'),el('p','사용한 체력과 오늘의 일정은 돌아오지 않아요.'));
+  const close=()=>{this.pausedMs+=performance.now()-openedAt;this.pauseStartedAt=null;overlay.remove();this.quitOverlay=null;};
+  const actions=el('nav',null,'actions');actions.append(button('계속하기',close),button('포기하기',()=>{close();this.finish('QUIT');}));
+  panel.append(actions);overlay.append(panel);this.root.append(overlay);this.quitOverlay=overlay;actions.querySelector?.('button')?.focus?.();
+ }
  finish(endReason='COMPLETE'){
   if(this.done)return;this.done=true;const elapsed=this.elapsed(),remainingMs=Math.max(0,this.startData.maxDurationMs-elapsed);
   const metrics={roundsCleared:this.round,moves:this.moves,greatMoveLimit:this.greatLimit,mistakes:this.mistakes,solved:this.solved??false,hits:this.hits,total:this.pattern?this.pattern.notes.length+this.extras:0};

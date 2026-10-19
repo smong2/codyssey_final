@@ -38,10 +38,9 @@ export function createEndingUI({el,btn,shell,heading,current,character,slotId,on
   const actions=el('div',null,'actions');actions.append(btn(example?'실제 연결 프레임 보기':'예시 편지 보기',()=>render({example:!example})));
   const retry=btn('결과 다시 확인',()=>refresh());retry.disabled=example||loading||!loadEnding;actions.append(retry);summary.append(actions);
   const value=example?exampleEnding(snapshot.character.name):response;
-  letter.append(el('p',example?'예시 · 실제 판정/AI 생성 결과 아님':'엔딩 편지','ending-label'),el('h2',value?.career?.name??'미래 직업 결과를 기다리고 있어요'));
+  letter.append(el('p',example?'예시 · 실제 결과 아님':'엔딩 편지','ending-label'),el('h2',value?.career?.name??'미래 직업 결과를 기다리고 있어요'));
   if(example)letter.append(el('small','정식 직업·대사 미확정 · 저장/해금에 반영되지 않습니다.'));
   if(value?.letter?.status==='ready'){
-   if(!example)letter.append(el('small',value.letter.source==='fallback'?'기본 편지':'AI가 작성한 개인화 편지'));
    for(const [title,key]of [['이번 이야기의 미래','future'],['이야기 돌아보기','reflection'],['미래 모습과 응원','encouragement']]){const section=el('section');section.append(el('h3',title),el('p',value.letter.sections[key]));letter.append(section);}
   }else{
    letter.append(el('p',error?'결과를 불러오지 못했습니다. 다시 확인할 수 있어요.':loading?'편지를 확인하고 있어요.':value?.letter?.status==='failed'?'편지를 아직 받지 못했어요. 직업 결과는 유지됩니다.':'편지가 도착할 자리를 준비해 두었어요.'));
@@ -64,7 +63,7 @@ export function createEndingUI({el,btn,shell,heading,current,character,slotId,on
   for(const [index,record]of records.entries())list.append(btn(record.runNumber+'회차 · '+(record.careerName??'지난 여행'),()=>history(records,index),index===selected?'selected':'quiet'));
   const record=records[selected];
   if(record?.letter?.status==='ready'&&['future','reflection','encouragement'].every(key=>typeof record.letter.sections?.[key]==='string')){
-   letter.append(el('h2',record.careerName??'지난 여행'),el('small',record.letter.source==='ai'?'AI가 작성한 개인화 편지':'아르카디아의 기본 편지'));
+   letter.append(el('h2',record.careerName??'지난 여행'));
    for(const key of ['future','reflection','encouragement'])letter.append(el('p',record.letter.sections[key]));
    const metrics=displayedEndingRecords(record);if(metrics.length)letter.append(el('h3','아르카디아에서의 기록'));
    for(const metric of metrics)letter.append(el('p',ENDING_RECORD_LABELS[metric.key]+' · '+metric.value+'회'));

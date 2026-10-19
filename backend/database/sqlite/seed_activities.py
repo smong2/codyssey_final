@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Add the reviewed Phase 7 activity catalog to an existing LUMIA v4 master.
 
-Activity IDs are stable API schedule values. Six class IDs match the current
-engine action IDs; three adventure IDs distinguish the selected destination.
-Existing rows are never overwritten: a conflicting row aborts the transaction.
+Activity IDs are stable API schedule values. Five classes are available for new
+schedules; the retired sixth class remains for existing saves. Three adventure
+IDs distinguish the selected destination. Only the greenhouse growth target is
+migrated; other conflicting rows abort the transaction.
 """
 
 from __future__ import annotations
@@ -31,7 +32,7 @@ LOCATIONS = (
 ACTIVITIES = (
     ("observatory-mirror", "CLASS", "거울 마법", "OBS", 10, "exploration", "observatory-mirror"),
     ("starlight-stage", "CLASS", "별빛 무대", "CLK", 10, "expression", "starlight-stage"),
-    ("spirit-pot-sort", "CLASS", "정령 화분 정리", "GH", 10, "knowledge", "spirit-pot-sort"),
+    ("spirit-pot-sort", "CLASS", "정령 화분 정리", "GH", 10, "skill", "spirit-pot-sort"),
     ("sealed-shelves", "CLASS", "봉인 서가", "LIB", 10, "knowledge", "sealed-shelves"),
     ("rune-circuit", "CLASS", "룬 회로", "WRK", 10, "magic", "rune-circuit"),
     ("rune-pin-training", "CLASS", "룬 핀 훈련", "TRN", 10, "skill", "rune-pin-training"),
@@ -69,6 +70,13 @@ def seed_activities(connection: sqlite3.Connection, version: str) -> None:
 
     connection.execute("BEGIN IMMEDIATE")
     try:
+        # Existing installs keep the same activity IDs and all saved results.
+        # Only the new growth target for the greenhouse class changes.
+        for table, id_column in (("activities", "activity_id"), ("minigames", "game_id")):
+            connection.execute(
+                f"UPDATE {table} SET target_stat='skill' WHERE version=? AND {id_column}=? AND target_stat='knowledge'",
+                (version, "spirit-pot-sort"),
+            )
         for sort_order, (location_id, name) in enumerate(LOCATIONS, 1):
             connection.execute(
                 """INSERT OR IGNORE INTO locations(version,location_id,display_name,sort_order)

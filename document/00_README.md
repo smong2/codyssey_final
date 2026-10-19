@@ -18,6 +18,8 @@
 13. [사용자 테스트·피드백 보고서](13_USER_TEST_REPORT.md) — 실제 사용자 5명의 수행 결과, 관찰 문제, 긍정 결과와 개선 우선순위
 14. [대화 시스템](dialogue/README.md) — Main/NPC/Location 공통 대화 제작, 이미지·선택·스킵, DB→API→엔진 연결 기준
 15. [AI 기술 명세서](14_AI_TECH_SPECIFICATION.md) — 자동화 워크플로우와 Long-term Memory 하이브리드 아키텍처 및 구현 증빙
+16. [Final Project 발표자료 원고](15_PRESENTATION.md) — 문제 정의부터 AI 설계·배포·사용자 테스트·개선 결과까지 발표 슬라이드 구성안
+17. [Final Project 최종 제출 체크리스트](16_SUBMISSION_CHECKLIST.md) — 필수 조건·산출물·운영 URL·검증 근거와 제출 직전 수동 확인 목록
 
 ## 기준과 변경 방법
 

@@ -278,6 +278,8 @@ def confirm_schedule(
                 continue
             if activity_id is None:
                 raise ActivityRejected("An unlocked weekday requires an activity ID")
+            if activity_id == "rune-pin-training":
+                raise ActivityRejected("Rune pin training is no longer available for new schedules")
             definition = master.get(version=slot.gameDataVersion, activity_id=activity_id)
             if definition.activity_type == "SPECIAL":
                 special_count += 1

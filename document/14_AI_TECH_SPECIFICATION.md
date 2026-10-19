@@ -9,7 +9,7 @@
 ## 1. 개요 및 과제 요구사항 대조
 
 LUMIA는 아동(9~11세) 대상의 힐링 육성 시뮬레이션 게임으로, 5개월간의 AI 네이티브 과정을 증명하는 최종 캡스톤 프로젝트입니다.  
-본 프로젝트는 **생성형 AI를 서비스의 핵심 기능(Core Feature)으로 내재화**하고, Final Project 필수 기술 요구조건을 100% 충족하도록 설계·구현되었습니다.
+본 프로젝트는 **생성형 AI를 서비스의 핵심 기능(Core Feature)으로 내재화**하고, Final Project의 필수 AI 기술 요구조건을 충족하도록 설계·구현했습니다.
 
 ### 1.1 Final Project AI 필수 요구조건 대조표
 
@@ -18,7 +18,7 @@ LUMIA는 아동(9~11세) 대상의 힐링 육성 시뮬레이션 게임으로, 5
 | **핵심 기능성** | 단순 API 호출이 아닌 서비스의 핵심 가치 창출 | 52주 플레이 기록 기반 **「개인화 엔딩 편지」** 생성 | **충족** |
 | **필수 기술 요소** | 5대 기술 요소 중 **최소 2개 이상** 필수 포함 | **자동화 워크플로우** + **Long-term Memory** (2종 채택) | **충족 (2/5)** |
 | **외부 배포** | 외부 접근 가능한 실환경 배포 필수 | **Render (FastAPI 백엔드) + Vercel (웹 프론트엔드)** 배포 완료 | **충족** |
-| **안전성·윤리** | AI 생성물 고지, 아동 대상 안전성 확보 | AI 생성 표시, 12대 금지어 필터링, Fail-Safe Fallback 보장 | **충족** |
+| **안전성·윤리** | AI 생성물 고지, 아동 대상 안전성 확보 | AI 생성 표시, 금지 표현·형식 검증, Fail-Safe Fallback 보장 | **충족** |
 
 ---
 
@@ -40,7 +40,7 @@ LUMIA는 아동(9~11세) 대상의 힐링 육성 시뮬레이션 게임으로, 5
 ## 3. 핵심 기술 요소 1: 자동화 워크플로우 (Automated Workflow)
 
 ### 3.1 워크플로우 정의
-엔딩 시점에 단 한 번의 클라이언트 요청으로 **규칙 기반 직업 판정, 장기 기억 추출, 프롬프트 조립, Gemini API 호출, 3단계 안전성 검증, Fail-Safe 폴백 전환, Firestore 영구 저장**까지 이어지는 7단계 엔드투엔드 파이프라인입니다.
+엔딩 시점의 클라이언트 요청 흐름에서 **규칙 기반 직업 판정, 장기 기억 추출, 프롬프트 조립, Gemini API 호출, 서버 안전성·형식 검증, Fail-Safe 폴백 전환, Firestore 영구 저장**까지 이어지는 엔드투엔드 파이프라인입니다.
 
 ### 3.2 워크플로우 전체 흐름도 (Flowchart)
 
@@ -118,30 +118,27 @@ sequenceDiagram
 ### 4.1 하이브리드 장기 기억 아키텍처 (Hybrid Architecture)
 LUMIA의 Long-term Memory는 **무분별한 LLM 자동 요약을 지양하고, "규칙 기반 정밀 선별 + AI 맥락 소비" 방식을 결합한 하이브리드 아키텍처**로 구현되었습니다.
 
-```
-[ 52주간 플레이 진행 ] ──▶ [ Firestore ActiveRun 영구 누적 ]
-                              ├─ runStatistics (활동 카운터)
-                              ├─ hiddenStats (8대 성향 누적치)
-                              └─ representativeChoices (중요 분기 결정)
-                                       │
-                                       ▼ (엔딩 시점: Python 규칙 엔진)
-[ 지능적 선별 및 압축 ] ──▶ 1. 직업별 우선 활동 4~6개 선별 (select_play_records)
-                          2. SQLite 중요 선택지 사실 요약 매핑 (memory_content)
-                          3. 상위 3대 성향 하이라이트 추출 (hidden_highlights)
-                                       │
-                                       ▼ (100% 팩트 데이터 완성)
-[ AI Memory Context ]  ──▶ Gemini 3.8 Flash의 Task Context로 주입
-                                       │
-                                       ▼ (결과물 창작)
-[ 개인화 엔딩 편지 ]   ──▶ "46번의 모험을 떠났던 카엘아, 49주차 축제에서 솔직함을 택했던 네 용기가..."
+```text
+52주간 플레이 진행
+→ Firestore ActiveRun에 회차 기록 누적
+  - runStatistics: 활동 카운터
+  - hiddenStats: 보이지 않는 성장 성향
+  - representativeChoices: 중요 선택 식별자
+→ 엔딩 시점에 Python 규칙으로 기록 선별
+  - 직업별 우선 활동 4~6개
+  - SQLite에서 작가가 작성한 중요 선택 요약 매핑
+  - 상위 성향 하이라이트 추출
+→ 검증 가능한 플레이 팩트 데이터로 AI Memory Context 구성
+→ Gemini 3.8 Flash Task Context로 주입
+→ 개인화 엔딩 편지 생성
 ```
 
 ### 4.2 왜 AI 요약 대신 규칙 기반 선별을 택했는가? (설계 타당성)
-1. **환각(Hallucination) 0% 달성:**
-   * 52주의 방대한 로그를 LLM에게 요약시키면 플레이어가 하지도 않은 선택을 지어내는 거짓 기억(환각)이 발생합니다.
-   * LUMIA는 백엔드가 실제로 일어난 팩트(Fact) 데이터만 추출해 건네므로, AI가 거짓말을 할 수 없는 안전한 환경을 보장합니다.
+1. **환각(Hallucination) 가능성 축소:**
+   * 52주의 방대한 로그를 LLM에게 자유 요약시키면 플레이어가 하지 않은 선택이나 관계를 사실처럼 덧붙일 위험이 있습니다.
+   * LUMIA는 백엔드가 실제 저장된 카운터와 작가가 작성한 중요 선택 요약만 선별해 전달하고, 생성 결과도 금지 표현·필수 식별자·길이·원시 스탯 노출 여부를 다시 검증합니다. 이 구조는 AI가 사실을 새로 만들 여지를 줄이기 위한 안전장치입니다.
 2. **비용 및 지연 시간 최적화:**
-   * 매 주차마다 요약 프롬프트를 호출하거나 방대한 전체 세이브를 전송하는 대신, 엔딩 시점에 0.01초 만에 최적의 4~6개 기록으로 압축하여 토큰 비용과 대기 시간을 극소화했습니다.
+   * 매 주차마다 요약 프롬프트를 호출하거나 전체 세이브를 전송하지 않고, 엔딩 시점에 규칙으로 대표 기록 4~6개와 중요 선택 최대 2개만 선별합니다. 이를 통해 Gemini에 전달하는 입력량과 호출 횟수를 줄였습니다.
 
 ### 4.3 장기 기억 데이터 주입 규격 (`AI Memory Context`)
 
@@ -198,23 +195,23 @@ LUMIA의 Long-term Memory는 **무분별한 LLM 자동 요약을 지양하고, "
 
 | 기능 분류 | 주요 파일 경로 | 핵심 함수 및 역할 |
 |---|---|---|
-| **API 라우터** | [`backend/api/app/endings.py`](backend/api/app/endings.py) | `prepare_ending()`, `finish_ending()`, `_generate_letter()` |
-| **워크플로우 & 메모리** | [`backend/api/app/ending_workflow.py`](backend/api/app/ending_workflow.py) | `build_memory_context()`, `select_play_records()`, `validate_letter()`, `fallback_letter()` |
-| **Gemini 통신** | [`backend/api/app/gemini.py`](backend/api/app/gemini.py) | `GeminiEndingLetterGenerator.generate()` (Google GenAI API 통신) |
-| **직업 룰 엔진** | [`backend/api/app/progression_rules.py`](backend/api/app/progression_rules.py) | `choose_ending()` (10종 직업 조건 판정) |
-| **클라이언트 연동** | [`engine/src/core/server-ending.mjs`](engine/src/core/server-ending.mjs) | `createEndingFlowManager()` (엔딩 상태머신 제어) |
-| **자동화 테스트** | [`backend/api/tests/test_phase9_endings.py`](backend/api/tests/test_phase9_endings.py) | Phase 9 단위/통합 테스트 (6개 케이스 100% 통과) |
+| **API 라우터** | [`backend/api/app/endings.py`](../backend/api/app/endings.py) | `prepare_ending()`, `finish_ending()`, `_generate_letter()` |
+| **워크플로우 & 메모리** | [`backend/api/app/ending_workflow.py`](../backend/api/app/ending_workflow.py) | `build_memory_context()`, `select_play_records()`, `validate_letter()`, `fallback_letter()` |
+| **Gemini 통신** | [`backend/api/app/gemini.py`](../backend/api/app/gemini.py) | `GeminiEndingLetterGenerator.generate()` (Google GenAI API 통신) |
+| **직업 룰 엔진** | [`backend/api/app/progression_rules.py`](../backend/api/app/progression_rules.py) | `choose_ending()` (10종 직업 조건 판정) |
+| **클라이언트 연동** | [`engine/src/core/server-ending.mjs`](../engine/src/core/server-ending.mjs) | `createEndingFlowManager()` (엔딩 상태머신 제어) |
+| **자동화 테스트** | [`backend/api/tests/test_phase9_endings.py`](../backend/api/tests/test_phase9_endings.py) | 엔딩 규칙·메모리·Gemini/fallback 흐름의 단위·통합 검증 |
 
 ---
 
 ## 6. 실환경 검증 결과 (Live Validation)
 
 * **배포 인프라:** Render Web Service (`https://lumia-api-pcxd.onrender.com`)
-* **검증 기록 문서:** [`backend/api/deploy/PHASE12_VALIDATION.md`](backend/api/deploy/PHASE12_VALIDATION.md)
+* **검증 기록 문서:** [`backend/api/deploy/PHASE12_VALIDATION.md`](../backend/api/deploy/PHASE12_VALIDATION.md)
 * **검증 결과 요약:**
   * Render 환경변수(`GEMINI_API_KEY`) 주입 후 실환경 라이브 호출 검증 완료.
-  * 실제 Gemini 생성 및 3단계 안전성 검증 통과 확인 (`provider=gemini`, `validated=true`, `attempts=1`).
-  * Python 단위 테스트 153건 및 엔진 테스트 338건 전원 통과 상태 확인.
+  * 실제 Gemini 생성 및 서버 안전성·형식 검증 통과 확인 (`provider=gemini`, `validated=true`, `attempts=1`).
+  * 2026-10-18 검증 기록 기준 Python API 회귀 `153 passed, 1 skipped`, 엔진 `328 passed`, 미니게임 데모 `13 passed`를 확인했습니다. 이후 52주 엔딩 운영 E2E도 추가로 성공 확인했습니다.
 
 ---
 
@@ -225,4 +222,4 @@ LUMIA의 Long-term Memory는 **무분별한 LLM 자동 요약을 지양하고, "
 > 
 > **답변 전략 (엔지니어링 가치 강조):**  
 > "저희는 화려하지만 불안정한 기술보다 **실제 서비스의 안정성과 데이터 무결성을 최우선**으로 고려했습니다. 52주의 방대한 기록을 LLM에게 요약시키면 플레이어가 하지도 않은 선택을 지어내는 **환각(Hallucination)**이 발생하여 어린이 사용자의 몰입감을 해칩니다.  
-> 따라서 Firestore에 1년간의 플레이 이력을 영구 누적하고, 백엔드의 결정론적 규칙 엔진으로 **100% 검증된 팩트(Fact)만 정제하여 Gemini에 맥락으로 주입하는 '하이브리드 장기기억 아키텍처'**를 구축했습니다. 이를 통해 환각 0%를 달성하면서도 완벽하게 개인화된 감동적인 엔딩 편지를 생성할 수 있었습니다."
+> 따라서 Firestore에 한 회차의 플레이 이력을 누적하고, 백엔드의 결정론적 규칙으로 **실제 저장 기록과 작가가 작성한 선택 요약만 선별해 Gemini의 맥락으로 주입하는 하이브리드 장기기억 구조**를 구축했습니다. 생성 모델의 표현 자유도는 유지하면서도 존재하지 않은 플레이 사실을 만들어 낼 가능성을 구조적으로 줄이고, 실패 시에는 검수된 fallback 편지로 엔딩을 완료하도록 했습니다."

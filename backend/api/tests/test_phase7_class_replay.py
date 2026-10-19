@@ -401,7 +401,7 @@ def test_shelves_timeout_is_server_verified_and_committed_as_fail(activity_db):
 
 
 def test_spirit_pot_result_uses_server_seed_not_browser_metrics(activity_db):
-    _seed_replay_class(activity_db, "spirit-pot-sort")
+    _seed_replay_class(activity_db, "spirit-pot-sort", "skill")
     client, database = phase5_client(activity_db)
     with client:
         assert start(client).status_code == 200
@@ -414,7 +414,8 @@ def test_spirit_pot_result_uses_server_seed_not_browser_metrics(activity_db):
         result = _complete(client, pot_solution_log(1, challenge_seed))
         assert result.status_code == 200, result.text
         assert result.json()["resolution"] == "GREAT"
-        assert database.data["users/owner/saveSlots/1"]["activeRun"]["stats"]["knowledge"] == 60
+        stats = database.data["users/owner/saveSlots/1"]["activeRun"]["stats"]
+        assert stats["skill"] == 60 and stats["knowledge"] == 50
 
 
 def test_rune_pin_failure_counts_without_a_client_result_claim(activity_db):
@@ -423,7 +424,10 @@ def test_rune_pin_failure_counts_without_a_client_result_claim(activity_db):
     with client:
         assert start(client).status_code == 200
         database.data["users/owner/saveSlots/1"]["activeRun"]["pendingStoryEvent"] = None
-        assert _schedule(client, ["rune-pin-training"] * 5).status_code == 200
+        assert _schedule(client, ["rune-pin-training"] * 5).status_code == 409
+        assert _schedule(client, ["CLASS_TEST"] * 5, request="legacy-schedule").status_code == 200
+        # A previously confirmed calendar still holds the retired activity ID.
+        database.data["users/owner/saveSlots/1"]["activeRun"]["weeklySchedule"]["MONDAY"]["contentId"] = "rune-pin-training"
         begun = _start(client)
         assert begun.status_code == 200 and begun.json()["replaySupported"] is True
         result = _complete(client, [ClassInput(atMs=0, action="FIRE") for _ in range(4)])

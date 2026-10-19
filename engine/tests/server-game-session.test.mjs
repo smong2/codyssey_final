@@ -39,6 +39,18 @@ test('revision conflict can discard the stale mutation and refresh authoritative
  assert.equal(game.slot(1).activeRun.serverPhase,'MY_ROOM_RECOVERY');
 });
 
+test('failed server-state refresh keeps the same pending request available for retry',async()=>{
+ let current=playing(),reads=0,calls=0;
+ const services={bootstrapAccount:async()=>({}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>collection,
+  getSaveSlot:async()=>{if(++reads===1)throw new Error('still offline');return current;},
+  completeRest:async(_slotId,input)=>{calls++;if(calls===1)throw new Error('response lost');current=playing(4,{...current.activeRun,phase:'STORY_COMPLETE',pendingStoryEvent:null});return {serverRevision:4};}};
+ const game=createServerGameSession({services,requestIdFactory:()=> 'rest-request'});await game.load();
+ await assert.rejects(()=>game.completeRest(1,{restChoice:'HOME'}),/response lost/);
+ await assert.rejects(()=>game.resolveConflict(),/still offline/);
+ assert.equal(game.pending().input.requestId,'rest-request');
+ await game.retry();assert.equal(calls,2);assert.equal(game.pending(),null);assert.equal(game.slot(1).serverRevision,4);
+});
+
 test('schedule confirmation reuses returned revision and activity start skips unrelated collection refresh',async()=>{
  let current=playing(),slotReads=0,collectionReads=0;
  const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>{collectionReads++;return collection;},getSaveSlot:async()=>{slotReads++;return current;},

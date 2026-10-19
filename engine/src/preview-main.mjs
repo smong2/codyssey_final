@@ -90,7 +90,8 @@ let serverGame = serverMode
 		: null,
 	serverDialogue = null,
 	serverDialogueContinuation = null,
-	serverRetryContinuation = null;
+	serverRetryContinuation = null,
+	serverRecoveryBusy = false;
 const serverRoomVisits = new Set(),
 	serverRoomVisitInFlight = new Set();
 const asset = (category, file) => "./design-assets/" + category + "/" + file;
@@ -337,43 +338,60 @@ async function selectRoom(id) {
 		return false;
 	}
 }
-function modal(title, body, actions = []) {
+function modal(title, body, actions = [], { closable = true } = {}) {
 	const d = el("dialog", null, "paper-modal");
 	d.setAttribute("aria-label", title);
 	d.append(el("h2", title), body);
 	const a = el("div", null, "actions");
 	for (const b of actions) a.append(b);
-	const close = createCloseButton({el,btn,onClick:()=>d.close(),label:"닫기"});
-	d.append(close, a);
+	if (closable) d.append(createCloseButton({el,btn,onClick:()=>d.close(),label:"닫기"}));
+	else d.addEventListener("cancel", (event) => event.preventDefault());
+	d.append(a);
 	d.addEventListener("close", () => d.remove());
 	document.body.append(d);
 	d.showModal();
 	return d;
 }
+function setServerRecoveryBusy(label) {
+	serverRecoveryBusy = true;
+	const dialog = document.querySelector("dialog.server-save-error[open]");
+	if (!dialog) return;
+	const status = dialog.querySelector(".server-save-status");
+	if (status) status.textContent = label;
+	for (const button of dialog.querySelectorAll("button")) button.disabled = true;
+}
 async function retryServerMutation() {
-	if (!serverMode || !serverGame?.pending()) return false;
+	if (!serverMode || serverRecoveryBusy) return false;
+	if (!serverGame?.pending()) return recoverServerConflict();
+	setServerRecoveryBusy("같은 저장 요청을 다시 확인하고 있어요.");
 	let result;
 	try {
 		result = await serverGame.retry();
 	} catch (error) {
+		serverRecoveryBusy = false;
 		showServerMutationError(error, serverRetryContinuation);
 		return false;
 	}
+	serverRecoveryBusy = false;
 	const continuation = serverRetryContinuation;
 	serverRetryContinuation = null;
 	document.querySelector("dialog.server-save-error[open]")?.close();
-	continuation?.(result);
+	try { continuation?.(result); }
+	catch (error) { message("저장 후 화면을 이어가지 못했습니다. 서버 상태를 다시 확인합니다. " + error.message); resumeToRoom(); }
 	return true;
 }
 async function recoverServerConflict() {
-	if (!serverMode || !serverGame?.pending()) return false;
+	if (!serverMode || serverRecoveryBusy) return false;
+	setServerRecoveryBusy("서버에 저장된 상태를 다시 읽고 있어요.");
 	try {
-		renderBusy("최신 저장 상태를 불러오고 있어요.", "room-page");
-		await serverGame.resolveConflict();
+		if (serverGame?.pending()) await serverGame.resolveConflict();
+		else await serverGame.refreshSlot(slotId);
 	} catch (error) {
-		showServerMutationError(error, null);
+		serverRecoveryBusy = false;
+		showServerMutationError(error, serverRetryContinuation);
 		return false;
 	}
+	serverRecoveryBusy = false;
 	serverRetryContinuation = null;
 	document.querySelector("dialog.server-save-error[open]")?.close();
 	message("최신 서버 저장 상태를 불러왔습니다.");
@@ -386,9 +404,19 @@ function showServerMutationError(error, continuation = null) {
 	document.querySelector("dialog.server-save-error[open]")?.close();
 	const body = el("div", null, "empty-frame");
 	const conflict = error?.status === 409 || error?.code === "CONFLICT";
-	body.append(el("p", conflict ? "다른 저장이 먼저 반영되어 현재 상태가 달라졌습니다." : "서버 저장을 완료하지 못했습니다."), el("small", conflict ? "같은 요청을 반복하지 않고 최신 상태를 다시 불러옵니다." : (error?.message ?? "잠시 후 다시 시도해 주세요.")));
-	const actions = serverGame?.pending() ? [btn(conflict ? "최신 상태 불러오기" : "저장 다시 시도", conflict ? recoverServerConflict : retryServerMutation)] : [];
-	const d = modal("서버 저장 확인", body, actions);
+	body.append(el("p", conflict ? "다른 저장이 먼저 반영되어 현재 상태가 달라졌습니다." : "서버 저장을 완료하지 못했습니다."), el("small", "저장 여부를 확인하기 전에는 다음 일정으로 넘어가지 않습니다."));
+	const status = el("p", error?.message ?? "잠시 후 다시 시도해 주세요.", "server-save-status");
+	status.setAttribute("role", "status");
+	body.append(status, el("small", "연결이 계속 불안정하면 게임을 다시 불러와 마지막 서버 저장 상태에서 이어갈 수 있어요."));
+	const actions = [];
+	if (!conflict && serverGame?.pending()) actions.push(btn("저장 다시 시도", retryServerMutation));
+	actions.push(btn("서버 상태 확인", recoverServerConflict));
+	actions.push(btn("게임 다시 불러오기", () => {
+		document.querySelector("dialog.server-save-error[open]")?.close();
+		serverRetryContinuation = null;
+		void loadServerProfile();
+	}));
+	const d = modal("서버 저장 확인", body, actions, { closable: false });
 	d.classList.add("server-save-error");
 }
 async function performServerMutation(work, continuation = null) {
@@ -400,7 +428,8 @@ async function performServerMutation(work, continuation = null) {
 		return false;
 	}
 	serverRetryContinuation = null;
-	continuation?.(result);
+	try { continuation?.(result); }
+	catch (error) { message("저장 후 화면을 이어가지 못했습니다. 서버 상태를 다시 확인합니다. " + error.message); resumeToRoom(); }
 	return true;
 }
 function renderServerLoadError(error) {

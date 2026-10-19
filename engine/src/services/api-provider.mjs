@@ -30,8 +30,17 @@ export function createLumiaApiProvider({baseUrl,getIdToken,fetchImpl=globalThis.
   const bodyText=body===undefined?undefined:JSON.stringify(body);
   let lastError,attempt=1,forceRefresh=false,authRetried=false;
   while(attempt<=maxAttempts){
-   let token;
-   try{token=await getIdToken({forceRefresh});forceRefresh=false;}catch{throw new LumiaApiError('로그인 인증 정보를 확인하지 못했습니다.',{code:'AUTH_REQUIRED'});}
+   let token,tokenTimer;
+   try{
+    token=await Promise.race([
+     Promise.resolve().then(()=>getIdToken({forceRefresh})),
+     new Promise((_,reject)=>{tokenTimer=setTimeout(()=>reject(new LumiaApiError('로그인 인증 확인 시간이 초과되었습니다.',{code:'TIMEOUT',retryable:true})),requestTimeoutMs);}),
+    ]);
+    forceRefresh=false;
+   }catch(error){
+    if(error instanceof LumiaApiError)throw error;
+    throw new LumiaApiError('로그인 인증 정보를 확인하지 못했습니다.',{code:'AUTH_REQUIRED'});
+   }finally{clearTimeout(tokenTimer);}
    if(typeof token!=='string'||!token.trim())throw new LumiaApiError('로그인 인증 정보가 없습니다.',{code:'AUTH_REQUIRED'});
    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),requestTimeoutMs);
    try{

@@ -2,11 +2,13 @@
 export const CLASSES=[
  {id:'observatory-mirror',title:'거울 마법',stat:'exploration',locationId:'observatory',locationCode:'OBS',durationMs:120000},
  {id:'starlight-stage',title:'별빛 무대',stat:'expression',locationId:'plaza',locationCode:'CLK',durationMs:75000},
- {id:'spirit-pot-sort',title:'정령 화분 정리',stat:'knowledge',locationId:'greenhouse',locationCode:'GH',durationMs:120000},
+ {id:'spirit-pot-sort',title:'정령 화분 정리',stat:'dexterity',locationId:'greenhouse',locationCode:'GH',durationMs:120000},
  {id:'sealed-shelves',title:'봉인 서가',stat:'knowledge',locationId:'library',locationCode:'LIB',durationMs:120000},
  {id:'rune-circuit',title:'룬 회로',stat:'magic',locationId:'workshop',locationCode:'WRK',durationMs:120000},
  {id:'rune-pin-training',title:'룬 핀 훈련',stat:'dexterity',locationId:'training',locationCode:'TRN',durationMs:90000}
 ].map(lesson=>({...lesson,curriculum:true,sceneKey:'course-'+lesson.id}));
+// Keep retired content playable for already confirmed schedules and saved runs.
+export const AVAILABLE_CLASSES=CLASSES.filter(lesson=>lesson.id!=='rune-pin-training');
 // Read old schedules/results without rewriting their action IDs or stat mappings.
 export const LEGACY_CLASSES=[
  {id:'rune-circuit',title:'룬 회로',stat:'magic',locationId:'workshop'},

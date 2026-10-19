@@ -307,6 +307,8 @@ Final Project 제출판 이후에는 다음 항목을 확장할 계획입니다.
 | [기술 스택](document/10_TECH_STACK.md) | 기술 선택 근거와 환경변수 기준 |
 | [사용자 테스트 보고서](document/13_USER_TEST_REPORT.md) | 실제 사용자 5명 테스트, 피드백, 개선 반영 |
 | [실행·배포 방법](document/실행방법.md) | 로컬 실행, 환경변수, Vercel·Render 배포 기준 |
+| [발표자료 원고](document/15_PRESENTATION.md) | 문제 정의·AI 활용·기술 결정·사용자 피드백·개선 결과 발표 구성안 |
+| [최종 제출 체크리스트](document/16_SUBMISSION_CHECKLIST.md) | 필수 산출물·운영 URL·검증 근거와 제출 직전 확인 목록 |
 
 ---
 
@@ -332,4 +334,4 @@ prototype/         기존 기준물 보존 영역
 - **GitHub:** https://github.com/smong2/codyssey_final
 - **관리자 콘솔:** https://codyssey-final-ujhz.vercel.app/
 
-발표 자료는 README 내용을 그대로 반복하지 않고, 프로젝트의 문제 정의·AI 활용·기술적 의사결정·사용자 피드백과 개선 결과를 발표 흐름에 맞게 별도로 구성합니다.
+발표 자료는 README 내용을 그대로 반복하지 않고, [발표자료 원고](document/15_PRESENTATION.md)를 기준으로 프로젝트의 문제 정의·AI 활용·기술적 의사결정·사용자 피드백과 개선 결과를 발표 흐름에 맞게 별도로 구성합니다. **공용 저장소에는 실제 발표본의 민감한 화면·운영 정보가 포함되지 않도록 공개용 대체(fake) 자료만 올리고, 실제 발표에서는 별도로 관리하는 real PPT를 사용합니다.**

@@ -1,6 +1,7 @@
 import {accountErrorMessage, displayCreatedAt, isVerifiedAccountSession} from '../core/account.mjs';
 
 const CONSENT = '수집 항목: 이메일 주소\n이용 목적: 계정 인증, 로그인, 비밀번호 재설정, 게임 저장 데이터 연결\n보관 기간: 회원 탈퇴 시까지';
+const AI_NOTICE = '52주 플레이 기록을 바탕으로 AI가 개인화 엔딩 편지를 만들어요. 생성이 어려우면 미리 작성된 편지를 보여 줍니다.';
 const validEmail=value=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 
 export function createAccountUI({el,btn,shell,heading,modal,service,onAuthenticated=()=>{},onSignedOut=()=>{},onReturn=()=>{}}) {
@@ -26,13 +27,13 @@ export function createAccountUI({el,btn,shell,heading,modal,service,onAuthentica
   }
   function renderLogin(){frame='login';const e=emailForVerification;paint('로그인',panel=>{
     const email=input('이메일','email','email',e),password=input('비밀번호','password','current-password');
-    panel.append(email.wrap,password.wrap,control('로그인',()=>performLogin(email.field.value,password.field.value),false,'login'));
+    panel.append(message(AI_NOTICE),email.wrap,password.wrap,control('로그인',()=>performLogin(email.field.value,password.field.value),false,'login'));
     panel.append(control('비밀번호를 잊으셨나요?',()=>renderReset(email.field.value)),control('회원가입',renderSignup));
     if(!hasService)panel.append(control('돌아가기',()=>{clearPasswords();onReturn();}));
   });}
   function renderSignup(){frame='signup';paint('회원가입',panel=>{
     const email=input('이메일','email','email'),password=input('비밀번호','password','new-password'),confirm=input('비밀번호 확인','password','new-password'),consent=checkbox('[필수] 개인정보 수집·이용 동의');
-    panel.append(email.wrap,password.wrap,confirm.wrap,el('p',CONSENT,'account-policy'),consent.wrap,
+    panel.append(message(AI_NOTICE),email.wrap,password.wrap,confirm.wrap,el('p',CONSENT,'account-policy'),consent.wrap,
       control('회원가입',()=>performSignup(email.field.value,password.field.value,confirm.field.value,consent.field.checked),false,'signup'),control('로그인',renderLogin));
   });}
   function renderVerify(){frame='verify';paint('이메일 인증 대기',panel=>{

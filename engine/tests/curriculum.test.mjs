@@ -1,10 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {CLASSES,classOf} from '../src/core/classes.mjs';
+import {AVAILABLE_CLASSES,CLASSES,classOf} from '../src/core/classes.mjs';
 import {curriculumStart,curriculumOutcome,curriculumResult,normalizeCurriculumResult} from '../src/core/curriculum.mjs';
 test('the six authored subjects cover their exact places and stats while old schedules remain readable',()=>{
- assert.deepEqual(CLASSES.map(c=>[c.locationCode,c.stat]),[['OBS','exploration'],['CLK','expression'],['GH','knowledge'],['LIB','knowledge'],['WRK','magic'],['TRN','dexterity']]);
- assert.equal(classOf('mirror-magic').stat,'magic');assert.equal(classOf('excavation').stat,'exploration');
+ assert.deepEqual(CLASSES.map(c=>[c.locationCode,c.stat]),[['OBS','exploration'],['CLK','expression'],['GH','dexterity'],['LIB','knowledge'],['WRK','magic'],['TRN','dexterity']]);
+ assert.deepEqual(AVAILABLE_CLASSES.map(c=>c.id),['observatory-mirror','starlight-stage','spirit-pot-sort','sealed-shelves','rune-circuit']);
+ assert.equal(classOf('rune-pin-training').stat,'dexterity');assert.equal(classOf('mirror-magic').stat,'magic');assert.equal(classOf('excavation').stat,'exploration');
 });
 test('all six courses retain reward difficulty while reporting explicit outcome and end reason',()=>{
  for(const lesson of CLASSES){const start=curriculumStart({gameId:lesson.id,statValue:250,seed:'same',consecutiveFailures:2});

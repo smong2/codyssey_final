@@ -67,6 +67,11 @@ test('provider maps API failures without exposing the bearer token',async()=>{
  });
 });
 
+test('a stalled Firebase token check times out before the game becomes unresponsive',async()=>{
+ const provider=createLumiaApiProvider({baseUrl:'https://api.example',getIdToken:()=>new Promise(()=>{}),timeoutMs:10,endingTimeoutMs:100,maxAttempts:1,fetchImpl:async()=>response(200,{})});
+ await assert.rejects(()=>provider.completeRest(1,{requestId:'rest-timeout',expectedServerRevision:2,restChoice:'HOME'}),error=>error.code==='TIMEOUT'&&error.retryable===true);
+});
+
 test('provider force-refreshes the Firebase token once after an HTTP 401',async()=>{
  const tokenCalls=[],headers=[];let requests=0;
  const provider=createLumiaApiProvider({baseUrl:'https://api.example',maxAttempts:1,

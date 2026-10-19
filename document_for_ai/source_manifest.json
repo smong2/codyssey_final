@@ -351,7 +351,7 @@
     },
     {
       "path": "backend/database/README.md",
-      "sha256": "23c0f02b4addfccab6d4465be5ae191a577185a5699ac532218564a4dfec18d9"
+      "sha256": "e1a46b8e739c58b6df0e38dc62f354c6596e0eb15104d6d984162a519b7e8ce4"
     },
     {
       "path": "backend/database/LOCATION_STORY_DB_SPEC.md",
@@ -367,7 +367,7 @@
     },
     {
       "path": "document/00_README.md",
-      "sha256": "101cddbb2db290bbc19e4ec57d1f4b307cbc1f5f89eaa1aa7fa361ee852d621c"
+      "sha256": "89afd5c1598947cae8476a6afa888f6272320403749aa7763c66ffda90eb38be"
     },
     {
       "path": "document/01_PROJECT_OVERVIEW.md",
@@ -391,7 +391,7 @@
     },
     {
       "path": "document/06_GAME_CONTENT.md",
-      "sha256": "7a46aeba5b4232b4d4786eb8b9b10c1d5ff0a6cba582f0aa3c8fb1bea04cf69c"
+      "sha256": "9b814f10bcd2a26a0e4129565bb0bd0958fabccb2846456adf01c9733f132833"
     },
     {
       "path": "document/07_AI_WORK_GUIDE.md",
@@ -411,15 +411,27 @@
     },
     {
       "path": "document/11_PROJECT_PLAN.md",
-      "sha256": "43d0d97668c5a3a58ad29b2b85e2c82823048841092196a921338a0b80916c9a"
+      "sha256": "58d0ddf464ef67270e417e67df65a32796cc9dd12112a594932e1609391343f3"
     },
     {
       "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
-      "sha256": "3ab6438b55200193e964fb66f25210d9ee952bc8014addf9b7480a760b264d54"
+      "sha256": "12c4c01a21ab0ab4ff666446bfa4f909ac3eecd725793f858b5a717237e96ee9"
     },
     {
       "path": "document/13_USER_TEST_REPORT.md",
       "sha256": "47dcb254daee1c59ce16ab72ea83531f481a122c488198c0fbcee8420526cf74"
+    },
+    {
+      "path": "document/14_AI_TECH_SPECIFICATION.md",
+      "sha256": "2933263d229d6751cad0b8c0fe8d34a966ec8cd45e6a5fdf2c9ec397e7c9e20a"
+    },
+    {
+      "path": "document/15_PRESENTATION.md",
+      "sha256": "36cc5089e3ff38f1599353916523406bfe34a6e3373b1dd04fa4cc8353be77c6"
+    },
+    {
+      "path": "document/16_SUBMISSION_CHECKLIST.md",
+      "sha256": "552e644671644572196c79525bf617cf2c691030f3cd55e3dbb95ab0cf071ad0"
     },
     {
       "path": "document/dialogue/01_ENGINE_API_CONTRACT.md",
@@ -623,11 +635,11 @@
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "59ba3121110313f75b6dd356f5a78b7e14d5ae518d3cdc5a48e983b66e4c4389"
+      "sha256": "5d42627dcefa8aeeffe96d5129317ff2c9119dcb63a3aea23ee7893772aaba4f"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "f09d4237230fb4b9eb2f1d15c8c2a63ca4d97a5991933e4f5dfaf1d0f5c8e6e4"
+      "sha256": "a43cad20f3bab6315f339f88d6de04db93e6d6420bde76ea8c807af9fb2e7998"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
@@ -679,11 +691,11 @@
     },
     {
       "path": "document/content/06_01_LOCATION_ACTIVITIES.md",
-      "sha256": "b6d4c7ee18406ab4725b66c1fb7d85d331f52fb461ccd60aaad984723ebb767c"
+      "sha256": "a8fb292919f6f5cdbdf669d2c9349623ef8a263ddda1ef88f125aa2eb1aaba37"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
-      "sha256": "579f06bdf247eb390f48c9db6f226e8a02b0b6c8e56dff8fdf87a52b96c6c9ad"
+      "sha256": "2d38c3fb0fc245a3f685761ff2a69145a12588c186e1afee95ed0897742078d2"
     },
     {
       "path": "document/content/07_MINIGAME_DEMO_IMPLEMENTATION_SPEC.md",
@@ -695,15 +707,15 @@
     },
     {
       "path": "document/content/09_TITLE_ACCOUNT_UI.md",
-      "sha256": "cbe4b7b7b973bf3dd2fb8324898e59ae46b8d100d11cb66adb977f1296d3b9ad"
+      "sha256": "fe5432f7a1503e7e8b732e6195f8d260bc4f210d2190aecf806b77ed8fd1b9f8"
     },
     {
       "path": "document/content/10_COMMON_ENGINE_FRAME.md",
-      "sha256": "4d772801615dd999732e3140ff456e0e8c9b78b09b6bc156e32650500f4af57c"
+      "sha256": "945c2e65404949e52c6cbd23ba6f47991aff1689516df5ee6a8a5d29cfd36c57"
     },
     {
       "path": "document/content/11_FEATURE_FRAME.md",
-      "sha256": "9504bb98955d6d49436e6b9984cae394f7f32e8f47f1c4e4b3ba19816585c326"
+      "sha256": "a04ceb19b530a2e164cff1ec5338a8617d3a8d495282b80ff94f86298d90a466"
     },
     {
       "path": "document/content/12_USER_UCS.md",
@@ -719,7 +731,7 @@
     },
     {
       "path": "document/content/README.md",
-      "sha256": "5aa220707316cb466cc33e47cb5fd66714bb33222b4a31a5fe4944ee3033bdd7"
+      "sha256": "6937cb602944888ab654ab55a1954f8c41c5b4d31934e84ac5d98fa4120bb6df"
     },
     {
       "path": "document/실행방법.md",
@@ -731,7 +743,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "ff66145d1d6051495e7486302edad209330959bb09c0521ba073a93ee45f2452"
+      "sha256": "0824fe4c893cef5b53b92daaf14199f760be417d060bc8f727ab140629482aed"
     },
     {
       "path": "lumia/README.md",
@@ -739,7 +751,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "3eee942cac53ac0f5fb35f194c1ab056021ad84eb95e741905d768c9a48fea25"
+      "sha256": "8f82dca44b6f9669f3ff4425c76045dc3eeea2488cf785c7ce1db04ab521226b"
     },
     {
       "path": "story/ending/README.md",

@@ -53,7 +53,10 @@ export function createServerGameSession({services,requestIdFactory=defaultId,onC
   retry(){return submit();},
   async resolveConflict(){
    if(!pendingMutation)return false;
-   const slotId=pendingMutation.slotId;pendingMutation=null;return refreshSlot(slotId);
+   const job=pendingMutation;
+   const refreshed=await refreshSlot(job.slotId);
+   if(pendingMutation===job)pendingMutation=null;
+   return refreshed;
   },
   refreshSlot,
   async updateSettings(command){
