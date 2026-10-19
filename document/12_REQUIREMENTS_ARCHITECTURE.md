@@ -51,7 +51,7 @@ LUMIA의 제출 범위는 다음 네 영역으로 구분합니다.
 
 ## 3. 운영 관리자 콘솔
 
-관리자 콘솔은 **LUMIA 제작·운영팀을 위한 운영 화면**입니다. 일반 사용자 게임과 다른 주소로 배포하며, 실제 URL은 배포 단계에서 확정합니다.
+관리자 콘솔은 **LUMIA 제작·운영팀을 위한 운영 화면**입니다. 게임 클라이언트와 분리된 **Next.js + Tailwind CSS** 기반 웹 애플리케이션으로 구성하고, 일반 사용자 게임과 다른 **별도 Vercel 프로젝트/주소**로 배포합니다. 실제 URL은 배포 단계에서 확정합니다.
 
 ### 3.1 인증·권한
 
@@ -145,20 +145,61 @@ Final Project의 필수 감사로그는 다음 두 범위로 제한합니다.
 
 | 구성 요소 | 위치·기술 | 책임과 연결 |
 |---|---|---|
-| 게임 클라이언트 | 사용자 브라우저 · Phaser 3 / Vercel | 게임 화면·입력과 로컬 SQLite의 마스터·화면 캐시를 사용하고, 확정할 결과는 FastAPI에 요청 |
+| 게임 클라이언트 | 사용자 브라우저 · Phaser 3 + JavaScript/Vite / Vercel | 2D 게임 Scene·입력·미니게임·대화 UI를 실행하고 로컬 SQLite의 마스터·화면 캐시를 사용한다. 확정할 결과는 FastAPI에 요청 |
 | 인증 | Firebase Authentication | Email/Password와 이메일 인증을 처리하고, 게임·관리자 API에 전달할 ID Token 발급 |
 | 게임·관리자 API | FastAPI / Render | 토큰·권한을 검증하고 저장·보상·직업 판정·AI 엔딩·`/admin/*` 요청을 처리 |
 | 중앙 저장소 | Cloud Firestore | 계정 메타, 5개 세이브 슬롯, 현재 회차 기록, Global Meta, 엔딩 편지, 관리자 통계·설정·감사로그 저장 |
 | 생성형 AI | Gemini API | FastAPI가 전달한 확정 직업과 선별된 현재 회차 기록으로 개인화 편지 생성 |
-| 관리자 콘솔 | 별도 웹 주소 · 운영자 브라우저 | 승인된 운영자만 Firebase 인증과 서버의 `admin` 권한 검증을 거쳐 조회·설정 기능 사용 |
+| 관리자 콘솔 | 운영자 브라우저 · Next.js + Tailwind CSS / 별도 Vercel 프로젝트 | 승인된 운영자만 Firebase 인증과 서버의 `admin` 권한 검증을 거쳐 회원·플레이 조회, 통계, 제한된 밸런스 설정 기능 사용 |
+
+### 5.1 전체 연결 구조
+
+```text
+일반 사용자 브라우저
+  ↓
+Vercel — Phaser 3 + JavaScript/Vite 게임 클라이언트
+  ├─ SQLite WASM/OPFS: 마스터·화면 캐시·임시 상태
+  └─ Firebase Authentication: Email/Password + 이메일 인증
+        ↓ Firebase ID Token
+Render — FastAPI
+  ├─ 게임 저장·보상·해금·엔딩 판정
+  ├─ Cloud Firestore: 계정·세이브·Long-term Play Memory·Ending Record
+  └─ Gemini API: 개인화 엔딩 편지
+
+운영자 브라우저
+  ↓
+별도 Vercel — Next.js + Tailwind CSS 관리자 콘솔
+  └─ Firebase Authentication
+        ↓ Firebase ID Token + 서버 측 admin 권한 검증
+Render — FastAPI `/admin/*`
+  ├─ 회원·플레이 조회
+  ├─ 일/주/월 운영 통계
+  ├─ 전역 rewardMultiplier 설정
+  └─ 감사로그
+```
+
+게임과 관리자 프론트는 같은 Firebase 인증과 FastAPI API 계층을 공유하지만 UI 실행 환경과 배포 단위를 분리합니다. 게임은 Canvas 기반 2D 상호작용에 최적화된 Phaser를 사용하고, 관리자는 표·검색·통계·설정 Form 중심의 DOM 업무 UI이므로 Next.js와 Tailwind CSS를 사용합니다. 관리자 권한과 데이터 접근 여부는 프론트 화면 표시가 아니라 FastAPI의 서버 측 권한 검증으로 확정합니다.
+
+### 5.2 AI 엔딩 처리 구조
 
 엔딩에서는 **FastAPI가 직업을 규칙으로 확정 → Firestore의 현재 회차 Long-term Play Memory를 읽어 대표 기록·중요 선택 선별 → Gemini에 편지 요청 → 응답 검증·재시도 또는 안전한 fallback → 편지 준비 결과 저장 → 게임 화면 표시와 회차 완료** 순서로 처리합니다. 게임 클라이언트는 Gemini나 Firestore에 직접 쓰지 않습니다.
+
+이 구조에서 규칙 엔진과 생성형 AI의 책임은 분리합니다. 직업·해금·회차 완료처럼 재현 가능해야 하는 게임 결과는 서버 규칙이 결정하고, Gemini는 이미 확정된 직업과 실제 플레이 기록을 자연어 편지로 표현하는 역할만 담당합니다. 따라서 AI 호출이 실패해도 규칙 기반 엔딩 결과가 바뀌지 않으며, 재시도 후에도 실패하면 사전 작성된 fallback 편지로 같은 엔딩 흐름을 완료합니다.
 
 게임 클라이언트의 로컬 SQLite는 마스터·화면 조회와 미확정 상태에 사용합니다. 확정 세이브·보상·엔딩은 FastAPI가 검증해 Firestore에 저장합니다. 관리자 콘솔은 플레이어 기기의 SQLite에 접근하지 않고 중앙 Firestore의 사용자 기록·기간 집계·설정·감사로그를 권한 검증 후 조회합니다. [저장 경계·테이블 목록](../backend/database/STORAGE_DESIGN.md)을 상세 기준으로 사용합니다.
 
 ## 6. 기술 선택 이유
 
-세부 선정 이유는 `document/10_TECH_STACK.md`를 기준으로 합니다. 요약하면 Phaser 3는 기존 웹 게임/미니게임 자산을 이어 쓰기 위해, FastAPI는 서버 규칙·Firebase Admin·Gemini 연동을 분리하기 위해, Firebase Auth/Firestore는 계정 인증과 계정별 문서형 상태·관리자 중앙 조회를 위해 사용합니다. 플레이어 로컬 SQLite는 반복 조회와 임시 상태를 기기에서 처리해 불필요한 서버 요청을 줄이기 위해 사용합니다. Vercel과 Render는 프론트/API 배포 책임을 분리하며, Gemini는 52주 실제 기록을 고정 문구가 아닌 개인화된 서사 보상으로 표현하기 위해 사용합니다.
+세부 선정 이유는 `document/10_TECH_STACK.md`를 기준으로 합니다.
+
+- **Phaser 3** — LUMIA가 브라우저에서 바로 실행되는 2D 게임이므로 웹 접근성, 가벼운 실행·배포 구조, WebGL/Canvas 기반 2D 렌더링, JavaScript 생태계와의 직접 결합을 우선했습니다. Scene·입력·Asset Loader·애니메이션·오디오·카메라·충돌 등 필요한 게임 기능을 제공하면서 Unity/Godot 같은 범용 2D/3D 엔진보다 웹 2D 프로젝트의 기술 경계를 단순하게 유지할 수 있습니다. 기존 데모 코드 재사용은 부가 이점이지 핵심 선정 이유가 아닙니다.
+- **JavaScript + Vite + Vercel** — Phaser 게임 코드, Firebase Web Auth, REST API 호출을 같은 웹 기술 생태계에서 연결하고 정적 웹 빌드·배포 흐름을 단순하게 유지하기 위해 사용합니다.
+- **Next.js + Tailwind CSS** — 관리자 콘솔은 실시간 게임 렌더링보다 회원 검색, 표, 통계, 필터, 설정 Form이 중심이므로 React 기반 페이지·Layout·컴포넌트 구조와 utility 기반 UI 구성이 더 적합합니다. 게임 클라이언트와 별도 Vercel 프로젝트로 배포해 운영 UI와 Canvas 게임 UI의 책임을 분리합니다.
+- **Python + FastAPI** — 저장 검증, 게임 규칙, Firebase Admin, 관리자 권한, Gemini 호출처럼 클라이언트가 신뢰해서는 안 되는 서버 책임을 하나의 API 계층에 모으기 위해 사용합니다.
+- **Firebase Authentication + Cloud Firestore** — 직접 인증 체계를 구현하지 않고 Email/Password·이메일 인증을 사용하며, 사용자별 세이브·전역 메타·Long-term Play Memory·엔딩 기록과 관리자 중앙 통계·설정을 문서형 데이터로 관리합니다.
+- **플레이어 로컬 SQLite** — 마스터·화면 데이터 반복 조회와 미확정 UI 상태를 기기에서 처리하되, 보상·해금·엔딩의 확정 원본은 서버와 Firestore에 유지해 로컬 캐시와 권위 데이터를 분리합니다.
+- **Gemini API** — 같은 직업 엔딩이라도 실제 52주 기록과 중요 선택에 따라 다른 회고와 미래 모습을 제공하는 개인화된 서사 보상을 만들기 위해 사용합니다. AI가 직업을 결정하지 않도록 규칙 엔진 뒤에 배치해 결과 재현성과 어린이 대상 안전성을 유지합니다.
+- **Vercel + Render** — 게임/관리자 웹 프론트와 Python API 서버의 배포·운영 책임을 분리하고 GitHub 기반 배포 구조를 유지합니다.
 
 ## 7. 범위 밖 항목
 

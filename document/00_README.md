@@ -15,8 +15,9 @@
 10. [기술 스택](10_TECH_STACK.md) — Phaser·FastAPI·Firebase·Vercel·Render·Gemini의 확정 구조와 선정 이유
 11. [Final Project 기획서](11_PROJECT_PLAN.md) — 문제 정의, 대상 사용자, AI 활용, 일정, R&R 제출 요약
 12. [기능·비기능 요구 명세·아키텍처](12_REQUIREMENTS_ARCHITECTURE.md) — 게임·계정·AI·운영 관리자 콘솔 요구사항과 시스템 구조
-13. [대화 시스템](dialogue/README.md) — Main/NPC/Location 공통 대화 제작, 이미지·선택·스킵, DB→API→엔진 연결 기준
-14. [AI 기술 명세서](14_AI_TECH_SPECIFICATION.md) — 자동화 워크플로우와 Long-term Memory 하이브리드 아키텍처 및 구현 증빙
+13. [사용자 테스트·피드백 보고서](13_USER_TEST_REPORT.md) — 실제 사용자 5명의 수행 결과, 관찰 문제, 긍정 결과와 개선 우선순위
+14. [대화 시스템](dialogue/README.md) — Main/NPC/Location 공통 대화 제작, 이미지·선택·스킵, DB→API→엔진 연결 기준
+15. [AI 기술 명세서](14_AI_TECH_SPECIFICATION.md) — 자동화 워크플로우와 Long-term Memory 하이브리드 아키텍처 및 구현 증빙
 
 ## 기준과 변경 방법
 

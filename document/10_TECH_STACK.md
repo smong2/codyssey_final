@@ -13,7 +13,8 @@
 | 데이터베이스 | **Cloud Firestore + 플레이어 로컬 SQLite** | Firestore: 계정별 확정 상태·엔딩·관리자 통계·운영 설정·감사로그. SQLite: 플레이어 브라우저의 마스터·화면 캐시와 임시 상태 |
 | 생성형 AI | **Gemini API** | 52주 종료 후 개인화 엔딩 편지 생성 |
 | AI 기본 모델 | **`gemini-3.8-flash`** | 엔딩 편지 생성 기본 모델. 환경변수로 교체 가능 |
-| 관리자 콘솔 | **별도 웹 프론트 + Firebase Auth + FastAPI** | 운영팀 전용 회원·플레이 조회, 통계, 밸런스 설정 |
+| 관리자 콘솔 | **Next.js + Tailwind CSS + Firebase Auth + FastAPI** | 운영팀 전용 회원·플레이 조회, 통계, 밸런스 설정 |
+| 관리자 프론트 배포 | **Vercel 별도 프로젝트** | 게임 URL과 분리된 관리자 웹 콘솔 배포 |
 | 버전 관리 | **GitHub / Git** | 소스·문서·협업 기록 관리 |
 
 ## 2. 전체 구조
@@ -37,8 +38,8 @@ Python + FastAPI
         └─ 개인화 엔딩 편지 생성
 
 운영자 브라우저
-    ↓ 별도 Admin URL
-관리자 웹 프론트
+    ↓ 별도 Admin URL / Vercel 프로젝트
+Next.js + Tailwind CSS 관리자 웹 프론트
     ↓ Firebase Authentication + admin 권한
 Render / FastAPI `/admin/*`
     ├─ 회원·플레이 조회
@@ -53,9 +54,36 @@ Render / FastAPI `/admin/*`
 
 ### Phaser 3 + JavaScript/Node.js/Vite
 
-- 현재 독립 미니게임 데모가 Phaser 3와 JavaScript로 구현되어 있어 기존 결과물을 이어서 사용할 수 있습니다.
-- LUMIA가 웹 기반 2D 게임이므로 별도 네이티브 앱 배포 없이 브라우저에서 실행할 수 있습니다.
-- Node.js와 Vite는 개발 서버·번들링·Vercel 배포 흐름을 단순하게 유지합니다.
+- LUMIA는 설치형 네이티브 게임보다 **브라우저에서 바로 실행되는 2D 웹 게임**을 목표로 한다. 따라서 엔진 선정에서 3D 범용 기능보다 웹 접근성, 초기 로딩과 실행 구조의 단순성, 2D 렌더링 성능, JavaScript 생태계와의 결합을 우선했다.
+- Phaser는 처음부터 웹 브라우저를 주 실행 환경으로 설계된 HTML5 2D 게임 프레임워크다. JavaScript 라이브러리 형태로 페이지에 직접 포함하거나 npm/Vite로 번들링할 수 있어, 별도의 네이티브 플레이어나 전용 런타임으로 변환하는 과정 없이 현재 웹 애플리케이션 구조에 바로 결합할 수 있다.
+- 렌더러는 WebGL을 활용해 다수의 2D Sprite를 GPU에서 처리하고, 필요한 경우 Canvas 렌더링 경로도 제공한다. LUMIA처럼 배경·캐릭터·SD 이동·퍼즐·UI가 중심인 2D 게임에서는 3D 엔진의 렌더링 기능을 가져오지 않고 필요한 범위에 집중할 수 있다.
+- Scene, 입력, Asset Loader, 애니메이션/Tween, 오디오, 카메라, 충돌·간단한 물리 등 게임에 필요한 기본 기능을 이미 제공한다. 순수 DOM/Canvas로 직접 구현할 때 필요한 게임 루프·Scene 전환·입력 상태·자원 로딩 계층을 자체 제작하지 않아도 되므로 구현량을 줄이면서 게임 구조는 유지할 수 있다.
+- 게임 코드가 JavaScript로 동작하므로 Firebase Web Auth, FastAPI REST API 호출, 브라우저 저장소, Vite 빌드와 같은 일반 웹 기술과 경계가 단순하다. Node.js/Vite 기반 개발 서버와 번들링 결과를 Vercel에 정적 웹 애플리케이션 형태로 배포하는 현재 운영 구조와도 직접 맞는다.
+
+#### 웹 2D 게임 엔진 비교
+
+| 선택지 | 장점 | LUMIA에서의 판단 |
+|---|---|---|
+| **Phaser 3** | 브라우저 우선 설계, JavaScript 직접 실행, WebGL/Canvas 2D 렌더링, Scene·입력·Asset·오디오 등 게임 기능 제공 | **채택.** 웹 2D 게임에 필요한 기능과 성능을 확보하면서 빌드·배포 구조를 가볍게 유지할 수 있다. |
+| **Unity Web** | 강력한 에디터, 2D/3D 통합 기능, 방대한 생태계와 툴링 | Web 대상도 지원하지만 WebAssembly/WebGL용 빌드·런타임 계층이 추가되고, LUMIA에는 필요하지 않은 3D·범용 엔진 기능까지 포함한다. 브라우저 우선 2D 프로젝트에는 개발·빌드 복잡도가 상대적으로 크다고 판단했다. |
+| **Godot Web** | 오픈소스, Scene/Node 구조, 2D·3D 기능과 편리한 에디터 | Web export가 가능하지만 WebAssembly와 WebGL 기반 Compatibility 렌더러를 사용하는 범용 엔진이다. LUMIA는 브라우저 JavaScript 생태계와 직접 결합하는 것이 더 중요해 Phaser를 선택했다. |
+| **순수 DOM/Canvas/WebGL 직접 구현** | 런타임과 구조를 완전히 제어할 수 있고 필요한 코드만 구성 가능 | 렌더링 외에 Scene, 입력, Asset 로딩, 애니메이션, 오디오, 충돌 등을 직접 구축해야 해 일정 대비 구현·검증 비용이 크다. |
+
+즉 Phaser 3는 "기존 데모가 Phaser였기 때문"이 아니라, **웹에서 즉시 실행되는 2D 게임을 가볍게 배포하면서도 게임 엔진 수준의 Scene·입력·렌더링 기능과 충분한 2D 성능을 확보하기 위한 선택**이다. 기존 코드 재사용은 이 결정의 부가 이점이지 핵심 선정 이유가 아니다.
+
+참고: [Phaser — Why Phaser](https://phaser.io/why-phaser), [Phaser 3 Getting Started](https://phaser.io/tutorials/getting-started-phaser3), [Unity Web 소개](https://docs.unity3d.com/kr/current/Manual/webgl-intro.html), [Godot Web export JavaScript reference](https://docs.godotengine.org/en/latest/tutorials/platform/web/html5_shell_classref.html)
+
+### Next.js + Tailwind CSS — 관리자 콘솔
+
+- 관리자 화면은 게임처럼 실시간 Sprite 렌더링이 필요한 영역이 아니라 **회원·플레이 기록 조회, 검색, 표, 기간별 통계, 설정 폼**이 중심인 업무용 웹 애플리케이션이다. 따라서 게임 엔진과 분리해 일반 웹 UI에 적합한 Next.js를 사용한다.
+- Next.js는 React 기반의 페이지·Layout·컴포넌트 구조와 Routing을 제공하므로 대시보드, 사용자 상세, 통계, 밸런스 설정처럼 화면이 늘어나는 관리자 기능을 공통 Layout과 재사용 가능한 컴포넌트로 관리하기 쉽다. 번들러와 빌드 구성을 프레임워크가 제공하고 Vercel 배포와도 자연스럽게 연결된다.
+- 관리자 인증은 별도 비밀번호 체계를 만들지 않고 Firebase Authentication을 재사용한다. Next.js 클라이언트가 Firebase ID Token을 받고, 실제 데이터 조회·변경은 FastAPI `/admin/*`가 토큰과 `admin` 권한을 다시 검증한 뒤 수행한다. 관리자 권한 판정과 데이터 접근 권한은 프론트 코드에 맡기지 않는다.
+- Tailwind CSS는 utility class를 조합해 표, 카드, 필터, 상태 Badge, Form, 반응형 Grid 같은 관리자 UI를 빠르게 일관된 규칙으로 구성할 수 있다. 별도 CSS 파일에 화면별 스타일을 계속 추가하는 방식보다 간격·크기·상태 표현을 공통 규칙으로 유지하기 쉽고, breakpoint utility를 사용해 노트북과 작은 화면에서도 같은 컴포넌트를 조정할 수 있다.
+- Phaser 게임 클라이언트와 관리자 콘솔을 기술적으로 분리하면 게임 Canvas의 Scene/UI 코드와 운영용 DOM UI가 섞이지 않는다. 두 프론트는 Firebase Auth와 FastAPI API 계약만 공유하고 독립적으로 빌드·배포할 수 있다.
+
+관리자 웹 콘솔은 **Next.js + Tailwind CSS**로 구현했으며 게임 프론트와 분리된 Vercel 프로젝트 `https://codyssey-final-ujhz.vercel.app/`에 배포했다. Firebase Authentication 로그인 뒤 FastAPI `/admin/*`가 서버 측 `admin` 권한을 검증하는 구조를 유지한다.
+
+참고: [Next.js Documentation](https://nextjs.org/docs), [Tailwind CSS Utility Classes](https://tailwindcss.com/docs/styling-with-utility-classes), [Tailwind CSS Responsive Design](https://tailwindcss.com/docs/responsive-design)
 
 ### Python + FastAPI
 
@@ -68,7 +96,7 @@ Render / FastAPI `/admin/*`
 - 사용자는 Vercel의 하나의 웹 주소로 게임에 접속합니다.
 - 정적/프론트 배포와 Python API 서버 운영 책임을 분리합니다.
 - 별도 보유 서버 없이 GitHub 기반 배포가 가능합니다.
-- 실제 Vercel·Render URL은 배포 완료 후 기록합니다.
+- 운영 게임 URL은 `https://lumia-web-six.vercel.app/`, 관리자 URL은 `https://codyssey-final-ujhz.vercel.app/`, Render API는 `https://lumia-api-pcxd.onrender.com/`을 사용합니다.
 
 ### Firebase Authentication
 
@@ -150,16 +178,15 @@ Firebase 프로젝트 설정에 따라 `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIR
 
 필요하면 운영 단계에서 `LOG_LEVEL`, 요청 timeout, AI 재시도 횟수 등을 추가합니다. 환경변수 이름은 구현 시 코드와 함께 최종 검증합니다.
 
-## 6. 아직 배포 후 확정할 값
+## 6. 운영 배포와 남은 검증 항목
 
-- 실제 Vercel 서비스 URL
-- 실제 관리자 콘솔 URL
-- 실제 Render API URL
-- Firebase 프로젝트 ID와 Web App 설정값
-- Vercel 허용 Origin
-- Gemini API 키
-- 사용자 테스트를 통해 결정할 Gemini 모델·thinking level 최종값
-- 브라우저별 SQLite WASM/OPFS 지원·대체 경로와 로컬 캐시 동기화 방식
+- 게임 프론트: `https://lumia-web-six.vercel.app/`
+- 관리자 콘솔: `https://codyssey-final-ujhz.vercel.app/`
+- Render API: `https://lumia-api-pcxd.onrender.com/`
+- Firebase 프로젝트: `codyssey-final`
+- 52주 엔딩 운영 E2E: 성공 확인
+- 비밀값인 Firebase Admin 자격 증명과 Gemini API Key는 배포 환경에서만 관리하고 문서나 Git에 기록하지 않음
+- 브라우저별 SQLite WASM/OPFS 지원·대체 경로와 로컬 캐시 동기화 방식은 계속 검증·개선 대상
 
-이 문서는 **기술 선택 기준**이며, 위 서비스가 이미 구현·배포 완료됐다는 의미는 아닙니다.
+이 문서는 **기술 선택 기준과 현재 운영 배포 구성을 함께 기록**하며, 향후 URL이나 실행 환경이 바뀌면 실제 배포 설정을 기준으로 갱신합니다.
 

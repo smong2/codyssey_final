@@ -367,7 +367,7 @@
     },
     {
       "path": "document/00_README.md",
-      "sha256": "7c5e36a76932f884ccf5cb3dcdd93b49c471707b546e3431f5e2510637cf19e6"
+      "sha256": "101cddbb2db290bbc19e4ec57d1f4b307cbc1f5f89eaa1aa7fa361ee852d621c"
     },
     {
       "path": "document/01_PROJECT_OVERVIEW.md",
@@ -407,7 +407,7 @@
     },
     {
       "path": "document/10_TECH_STACK.md",
-      "sha256": "d199ff99c602c491bd2ea1695057861f342a05b252ebe7e3d3278f7d20d24872"
+      "sha256": "a374648c67833320ea083d9055351893af56a09f0cc5988886c024130a1d0270"
     },
     {
       "path": "document/11_PROJECT_PLAN.md",
@@ -415,7 +415,11 @@
     },
     {
       "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
-      "sha256": "aee906990c953b3ece4b60c3edab37ed6ee673cabe8450b4292b011e7ec880e1"
+      "sha256": "3ab6438b55200193e964fb66f25210d9ee952bc8014addf9b7480a760b264d54"
+    },
+    {
+      "path": "document/13_USER_TEST_REPORT.md",
+      "sha256": "47dcb254daee1c59ce16ab72ea83531f481a122c488198c0fbcee8420526cf74"
     },
     {
       "path": "document/dialogue/01_ENGINE_API_CONTRACT.md",
@@ -719,7 +723,7 @@
     },
     {
       "path": "document/실행방법.md",
-      "sha256": "a73fb5154f3cd51012ea0fa09505ad60540fafaa58efa63ef4c0d45e9a376bbf"
+      "sha256": "c47f40ca6a62e024c8b60b63e07e89a2e87697d341a4eb76e905d642734f85c0"
     },
     {
       "path": "engine/minigame-demo/README.md",
@@ -735,7 +739,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "66aad1ab186891c396212e80799fb7e8053d43531c49fed9b1c02ba4b495286c"
+      "sha256": "3eee942cac53ac0f5fb35f194c1ab056021ad84eb95e741905d768c9a48fea25"
     },
     {
       "path": "story/ending/README.md",
