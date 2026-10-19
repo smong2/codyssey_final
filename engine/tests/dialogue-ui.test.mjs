@@ -289,10 +289,37 @@ test('does not replay the partner entrance when only the scene or speaker change
   {type:'END'}
  ]},{animated:true});
  const partner=all(view.shell).find(item=>item.tag==='img'&&item.src==='/guide.png');
+ partner.onload?.();
  const initialAnimations=partner.animations.length;
  view.surfaceClick();view.surfaceClick();
  assert.equal(all(view.shell).find(item=>item.tag==='img'&&item.src==='/guide.png'),partner);
  assert.equal(partner.animations.length,initialAnimations);
+});
+
+test('hides the previous focus bitmap until a replacement item has loaded',()=>{
+ const view=setup({...payload(),sequence:[
+  {type:'IMAGE',target:'FOCUS',action:'SHOW',assetType:'CHARACTER',src:'/guide.png',alt:'안내 학생'},
+  {type:'LINE',speaker:'GUIDE',text:'이걸 봐.'},
+  {type:'IMAGE',target:'FOCUS',action:'REPLACE',assetType:'ITEM',src:'/item.png',alt:'이벤트 아이템'},
+  {type:'LINE',speaker:'GUIDE',text:'이 물건이야.',visualMode:'KEEP'},{type:'END'}
+ ]});
+ const focus=all(view.shell).find(item=>item.tag==='img'&&item.src==='/guide.png');
+ assert.ok(focus);focus.onload?.();assert.equal(focus.style.opacity,'1');
+ view.surfaceClick();
+ assert.equal(focus.src,'/item.png');assert.equal(focus.style.opacity,'0','old character bitmap stays hidden while the item loads');
+ assert.match(focus.className,/dialogue-focus-object/);
+ focus.onload?.();assert.equal(focus.style.opacity,'1');
+});
+
+test('dialogue typography and focus layout keep choices readable without covering item art',()=>{
+ const css=readFileSync(new URL('../preview.css',import.meta.url),'utf8');
+ const textRule=css.match(/\.dialogue-layout \.life-dialogue \.dialogue-text\{([^}]*)\}/)?.[1]??'';
+ assert.match(textRule,/font-size:clamp\(22px,2\.45vw,27px\)/);
+ const choiceRules=[...css.matchAll(/\.dialogue-layout \.dialogue-choice-panel-right \.dialogue-choice-nameplate\{([^}]*)\}/g)].map(match=>match[1]);
+ assert.ok(choiceRules.some(rule=>/font-size:clamp\(16px,1\.35vw,21px\)/.test(rule)));
+ const objectChoice=css.match(/\.dialogue-layout \.dialogue-stage \.dialogue-focus\.dialogue-focus-object\.dialogue-focus-choice\{([^}]*)\}/)?.[1]??'';
+ assert.match(objectChoice,/left:calc\(50% - var\(--dialogue-width\) \* \.28\)/);
+ assert.match(css,/bottom:clamp\(34px,5\.5dvh,62px\)/);
 });
 
 test('holds the outgoing background until its replacement has loaded and dissolved in',()=>{

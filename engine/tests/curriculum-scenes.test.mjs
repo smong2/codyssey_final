@@ -51,12 +51,13 @@ test('rhythm reports timing grades and does not accept input behind instructions
  try{
   const {curriculumScenes}=await import('../src/scenes/CurriculumScenes.mjs');const scene=new curriculumScenes[1]();
   scene.events={once(){}};scene.scene={start(){}};scene.game={events:{emit(){}}};scene.init(curriculumStart({gameId:'starlight-stage',statValue:50,seed:'timing'}));scene.create();
+  assert.ok(scene.lanes.every(lane=>!lane.children.some(child=>child.className==='course-lane-label')),'lane labels stay accessible by aria-label but are not drawn below the judgement line');
   if(!scene.guideOverlay)scene.showGuide();scene.hitLane(0,false);assert.equal(scene.inputLog.length,0);
   scene.guideOverlay.children[0].children.at(-1).onclick();
   for(const [offset,grade] of [[0,'Excellent'],[80,'Great'],[150,'Good']]){
    const note=scene.pattern.notes.find(n=>!n.hit&&!n.missed);now=note.at+offset;scene.hitLane(note.lane,false);assert.equal(note.hit,true);assert.match(scene.feedback.textContent,new RegExp(grade));
   }
-  const note=scene.pattern.notes.find(n=>!n.hit&&!n.missed);now=note.at+161;scene.update();assert.equal(note.missed,true);assert.match(scene.feedback.textContent,/Miss/);
+  const note=scene.pattern.notes.find(n=>!n.hit&&!n.missed);now=note.at+161;scene.update();assert.equal(note.missed,true);assert.match(scene.feedback.textContent,/Miss/);assert.equal(scene.status.textContent,'');
  }finally{Object.assign(globalThis,previous);}
 });
 

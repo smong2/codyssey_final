@@ -148,7 +148,7 @@ export function createDialogueUI({el,btn,shell,heading,modal,getRoomBackground=(
   const syncFocus=entry=>{
    if(!entry){
     if(focusAnimation){focusAnimation.onfinish=null;focusAnimation.cancel();animations.delete(focusAnimation);focusAnimation=null;}
-    focusImage?.remove();focusImage=null;return;
+    if(focusImage){focusImage.onload=null;focusImage.onerror=null;focusImage.remove();focusImage=null;}return;
    }
    if(!focusImage){focusImage=el('img',null,'dialogue-focus dialogue-focus-centered');stage.append(focusImage);}
    const image=focusImage;
@@ -156,8 +156,18 @@ export function createDialogueUI({el,btn,shell,heading,modal,getRoomBackground=(
    image.classList?.toggle('dialogue-focus-object',entry.assetType!=='CHARACTER');
    if(image._dialogueSource!==entry.src){
     if(focusAnimation){focusAnimation.onfinish=null;focusAnimation.cancel();animations.delete(focusAnimation);}
-    image.src=entry.src;image._dialogueSource=entry.src;
-    focusAnimation=animate(image,[{opacity:0,transform:'translateX(calc(-50% - 28px))'},{opacity:1,transform:'translateX(-50%)'}],{duration:340,easing:'ease-out'});
+    image.onload=null;image.onerror=null;image.style.opacity='0';image._dialogueSource=entry.src;
+    const source=entry.src;
+    image.onload=()=>{
+     if(disposed||focusImage!==image||image._dialogueSource!==source)return;
+     image.onload=null;image.onerror=null;
+     focusAnimation=animate(image,[{opacity:0,transform:'translateX(calc(-50% - 28px))'},{opacity:1,transform:'translateX(-50%)'}],{duration:340,easing:'ease-out'},()=>{if(focusImage===image&&image._dialogueSource===source)image.style.opacity='1';});
+    };
+    image.onerror=()=>{
+     if(focusImage!==image||image._dialogueSource!==source)return;
+     image.onload=null;image.onerror=null;image.style.opacity='0';
+    };
+    image.src=source;
    }
    image.alt=entry.alt??'';
   };

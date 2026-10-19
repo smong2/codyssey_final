@@ -668,7 +668,7 @@ button:active:not(:disabled){scale:.97}
 .course-rhythm-lane{border-color:#6c95a5;background:linear-gradient(90deg,#17313e,#294b59,#17313e);color:#fff6dd;padding:0;isolation:isolate}.course-rhythm-lane:hover{background:linear-gradient(90deg,#214653,#345c66,#214653)}
 .course-rhythm-lane::after{bottom:var(--rhythm-hit-line);border-top:3px solid #fff0a0;box-shadow:0 0 12px 3px #f9d75b99;z-index:2;pointer-events:none}
 .course-hit-zone{position:absolute;z-index:0;bottom:calc(var(--rhythm-hit-line) - var(--rhythm-window)/2);height:var(--rhythm-window);left:0;right:0;background:#d3f1e52e;border-top:1px solid #d6ffebaa;border-bottom:1px solid #d6ffebaa;pointer-events:none}
-.course-hit-center{position:absolute;top:50%;translate:0 -50%;height:var(--rhythm-exact);left:0;right:0;background:#fff1a438}.course-lane-label{position:absolute;bottom:10px;font-size:clamp(12px,2dvh,18px);pointer-events:none}
+.course-hit-center{position:absolute;top:50%;translate:0 -50%;height:var(--rhythm-exact);left:0;right:0;background:#fff1a438}
 .course-note{z-index:1;left:calc(50% - 18px);width:36px;min-height:20px;background:transparent;border:0;overflow:visible;pointer-events:none}
 .course-note-hold{background:linear-gradient(90deg,transparent 28%,#9de9dc 30% 70%,transparent 72%);border-radius:12px}.course-note-head{position:absolute;bottom:0;left:50%;translate:-50% 0;width:36px;height:20px;display:grid;place-content:center;color:#fff6be;font-size:30px;line-height:20px;text-shadow:0 0 12px #ffe47e}
 .course-note.holding{filter:drop-shadow(0 0 10px #a5fff5)}.course-judgement{position:absolute;z-index:5;left:50%;top:25%;transform:translateX(-50%);padding:8px 20px;border-radius:30px;background:#183b49dc;color:#fff0a3;text-shadow:0 2px 4px #0008;font:bold clamp(22px,4dvh,36px) 'Lumia Gothic',sans-serif;white-space:nowrap;pointer-events:none}.course-judgement[data-grade='great']{color:#a9f1e5}.course-judgement[data-grade='good']{color:#c8e1ff}.course-judgement[data-grade='miss']{color:#ffb6aa}.course-judgement[hidden],.course-judgement:empty{display:none}
@@ -1073,7 +1073,7 @@ dialog.paper-modal.room-puzzle-modal{box-sizing:border-box;width:min(920px,88vw)
 #shell.dialogue-layout>.life-dialogue[hidden]{display:none}
 .dialogue-layout .life-dialogue .dialogue-text{
  min-height:0;max-height:100%;margin:0;overflow:auto;overscroll-behavior:contain;
- font-size:30px;font-weight:700;line-height:1.6;color:#263d32;
+ font-size:clamp(22px,2.45vw,27px);font-weight:700;line-height:1.58;color:#263d32;
  white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty;
  scrollbar-width:none;
 }
@@ -1089,7 +1089,7 @@ dialog.paper-modal.room-puzzle-modal{box-sizing:border-box;width:min(920px,88vw)
 .dialogue-layout .dialogue-stage .dialogue-focus,
 .dialogue-layout .dialogue-stage .dialogue-focus.dialogue-focus-centered,
 .dialogue-layout .dialogue-stage .dialogue-focus.dialogue-focus-choice{
- left:calc(50% - var(--dialogue-width) * .2);right:auto;top:auto;bottom:0;
+ left:calc(50% - var(--dialogue-width) * .2);right:auto;top:auto;bottom:clamp(34px,5.5dvh,62px);
  width:min(calc(var(--dialogue-width) * .48),560px);max-width:none;
  height:calc((100% + clamp(80px,16dvh,170px)) * .8);
  transform:translateX(-50%);object-fit:contain;object-position:center bottom;animation:none;
@@ -1098,6 +1098,10 @@ dialog.paper-modal.room-puzzle-modal{box-sizing:border-box;width:min(920px,88vw)
  left:50%;
  bottom:calc(var(--dialogue-bottom) + var(--dialogue-height) + 24px);
  width:min(32vw,400px);height:42%;object-position:center;
+}
+.dialogue-layout .dialogue-stage .dialogue-focus.dialogue-focus-object.dialogue-focus-choice{
+ left:calc(50% - var(--dialogue-width) * .28);
+ width:min(28vw,360px);
 }
 .dialogue-layout .dialogue-background{pointer-events:none;will-change:opacity}
 /* Match myroom's overscan and tint before its controls replace the dialogue. */
@@ -1137,7 +1141,7 @@ dialog.paper-modal.room-puzzle-modal{box-sizing:border-box;width:min(920px,88vw)
 .dialogue-layout .dialogue-choice-panel-right .dialogue-choice-nameplate{
  width:100%;min-width:0;max-width:100%;height:clamp(70px,8.5dvh,88px);aspect-ratio:auto;min-height:0;box-sizing:border-box;
  padding:8px 8%;background-size:100% 100%;box-shadow:none;color:#263d32;text-shadow:none;
- font-family:'Gowun Batang','Malgun Gothic',serif;font-size:clamp(14px,1.15vw,18px);
+ font-family:'Gowun Batang','Malgun Gothic',serif;font-size:clamp(16px,1.35vw,21px);
  line-height:1.4;font-weight:700;text-align:center;white-space:normal;word-break:keep-all;overflow-wrap:anywhere;
 }
 @media(max-width:700px){
@@ -1156,7 +1160,7 @@ dialog.paper-modal.room-puzzle-modal{box-sizing:border-box;width:min(920px,88vw)
 @media(max-width:700px), (orientation:landscape) and (max-height:500px){
  .dialogue-layout .dialogue-choice-panel-right .dialogue-choice-nameplate{
   height:auto;aspect-ratio:2400/311;min-height:0;padding:2px 8%;
-  font-size:clamp(8px,1.35vw,11px);line-height:1.2;background-size:contain;
+  font-size:clamp(10px,1.65vw,13px);line-height:1.2;background-size:contain;
  }
 }
 @media(prefers-reduced-motion:reduce){

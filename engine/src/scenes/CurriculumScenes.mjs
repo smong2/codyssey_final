@@ -241,7 +241,7 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
   this.pattern=rhythmPattern(this.startData.difficulty,this.startData.seed,this.startData.maxDurationMs);this.board.replaceChildren();this.board.className='paper curriculum-board course-rhythm';this.instruction.textContent='별 중심이 빛나는 판정선에 닿을 때 누르세요. 긴 별빛은 끝까지 누른 뒤 놓아 주세요.';
   this.feedback=el('div','','course-judgement');this.feedback.setAttribute('role','status');this.feedback.setAttribute('aria-live','polite');this.root.append(this.feedback);
   this.lanes=[];for(let lane=0;lane<this.pattern.lanes;lane++){
-   const b=button('',()=>{});b.className='course-rhythm-lane';b.setAttribute('aria-label',['표정','몸짓','마법 연출'][lane]+' 레인');b.append(el('span',['표정','몸짓','마법 연출'][lane],'course-lane-label'));
+   const b=button('',()=>{});b.className='course-rhythm-lane';b.setAttribute('aria-label',['표정','몸짓','마법 연출'][lane]+' 레인');
    const zone=el('span',null,'course-hit-zone');zone.setAttribute('aria-hidden','true');zone.append(el('i',null,'course-hit-center'));b.append(zone);
    b.onpointerdown=event=>{event.preventDefault();b.setPointerCapture?.(event.pointerId);this.hitLane(lane,false);};const release=()=>this.hitLane(lane,true);b.onpointerup=release;b.onpointercancel=release;b.onlostpointercapture=release;
    b.onkeydown=event=>{if([' ','Enter'].includes(event.key)){event.preventDefault();if(!event.repeat)this.hitLane(lane,false);}};b.onkeyup=event=>{if([' ','Enter'].includes(event.key)){event.preventDefault();release();}};this.lanes.push(b);this.board.append(b);
@@ -278,7 +278,7 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
  update(){
   if(this.done||!this.root)return;const elapsed=this.elapsed(),left=Math.max(0,this.startData.maxDurationMs-elapsed);this.timer.textContent=`남은 시간 ${Math.ceil(left/1000)}초`;
   if(this.roundTransition&&elapsed>=this.roundTransition.until&&this.pauseStartedAt===null){this.roundTransition.notice.remove();this.roundTransition=null;this.board.inert=false;this.selected=null;this.history=[];this.loadRound();}
-  if(this.pattern){for(const note of this.pattern.notes){if(!note.hit&&!note.missed&&(!note.pressed&&elapsed>note.at+160||note.pressed&&elapsed>note.at+note.hold+500)){note.missed=true;note.pressed=false;this.judge('Miss',note.lane);}}this.drawRhythm(elapsed);this.hits=this.pattern.notes.filter(n=>n.hit).length;this.status.textContent=`맞춘 별빛 ${this.hits} / ${this.pattern.notes.length} · 판정선 가운데에 가까울수록 더 정확해요`;if(this.feedback&&elapsed>this.feedbackUntil)this.feedback.hidden=true;}
+  if(this.pattern){for(const note of this.pattern.notes){if(!note.hit&&!note.missed&&(!note.pressed&&elapsed>note.at+160||note.pressed&&elapsed>note.at+note.hold+500)){note.missed=true;note.pressed=false;this.judge('Miss',note.lane);}}this.drawRhythm(elapsed);this.hits=this.pattern.notes.filter(n=>n.hit).length;this.status.textContent='';if(this.feedback&&elapsed>this.feedbackUntil)this.feedback.hidden=true;}
   if(this.disc){this.disc.style.transform=`rotate(${pinRotation(this.startData.difficulty,elapsed-this.roundStarted)}rad)`;this.status.textContent=`${this.round+1} / 3 라운드 · 핀 ${this.pins.length} / ${this.pinTarget} · 실수 ${this.mistakes} / 3`;}
   if(left===0)this.finish(this.pattern?'COMPLETE':'TIMEOUT');
  }
