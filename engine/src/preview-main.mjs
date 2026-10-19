@@ -143,9 +143,11 @@ document.addEventListener(
 );
 function blackDissolve(action, duration = 900) {
 	const cover = el("div", null, "black-dissolve");
+	cover.style.transitionDuration = duration + "ms";
+	cover.style.pointerEvents = "auto";
 	cover.setAttribute("aria-hidden", "true");
 	document.body.append(cover);
-	requestAnimationFrame(() => {
+	requestAnimationFrame(() => requestAnimationFrame(() => {
 		cover.classList.add("black-dissolve-active");
 		setTimeout(() => {
 			action();
@@ -154,7 +156,7 @@ function blackDissolve(action, duration = 900) {
 				setTimeout(() => cover.remove(), duration);
 			});
 		}, duration);
-	});
+	}));
 }
 function audioToggle() {
 	const toggle = el("button", null, "audio-toggle");
@@ -509,8 +511,6 @@ function menu() {
 	pop.append(entry("소리 설정", soundSettings));
 	pop.append(entry("지난 엔딩 편지", () => endingUI.history(profile.meta.endingRecords ?? [])));
 	pop.append(
-		entry("계속하기", () => {}),
-		entry("관계", () => emptyFrame("관계", "NPC 관계 데이터 연결 예정")),
 		entry("계정", () => {
 			if (saveFailed) {
 				message("저장 오류를 해결한 뒤 계정 화면을 열어 주세요.");
@@ -754,7 +754,7 @@ function renderSlots() {
 		return Number.isNaN(date.getTime()) ? "저장 시각 확인 불가" : "최근 저장 " + new Intl.DateTimeFormat("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(date);
 	};
 	const confirmSlotDelete = (s, unreadable = false) => {
-		modal(
+		const confirmation = modal(
 			unreadable ? "문제가 있는 저장 기록을 삭제할까요?" : "슬롯을 삭제할까요?",
 			el("p", unreadable ? "이 슬롯의 기록은 이어서 할 수 없어요. 삭제해도 캐릭터와 펫 등 모은 보상은 그대로 남아요." : "이 슬롯의 게임 기록만 지울게요. 캐릭터와 펫 등 모은 보상은 그대로 남아요."),
 			[btn("삭제", async () => {
@@ -772,8 +772,9 @@ function renderSlots() {
 				save(false, null);
 				document.querySelector("dialog:not(.slot-dialog)")?.close();
 				renderSlots();
-			}, "danger")],
+			}, "danger slot-delete")],
 		);
+		confirmation.classList.add("slot-delete-confirm");
 	};
 	const cardFor = (s, recent = false) => {
 		if (s.status === "LOAD_ERROR") {
@@ -1023,7 +1024,9 @@ function readRoomNotices(id) {
 	}
 }
 const journalUI = createJournalUI({ el, btn, shell, heading, current, meta: () => profile.meta, settings: () => profile.settings, activePet: () => activePet(profile), onSelectPet: selectPet, onSelectRoom: selectRoom, onReadRoomNotices: readRoomNotices, isSaveFailed: () => saveFailed, onReturn: renderRoom, turnPage: (_layout, done) => done(), modal });
-const dialogueUI = createDialogueUI({ el, btn, shell, heading, modal });
+const dialogueUI = createDialogueUI({ el, btn, shell, heading, modal,
+	getRoomBackground: () => './world-assets/' + activeRoom(profile, roomLight.time).image,
+});
 function playDialogueMusic(payload) {
 	const key = dialogueMusicKey(payload);
 	if (key) titleAudio.playMusic(key);
@@ -1091,9 +1094,12 @@ if (serverMode)
 		onError: showDialogueError,
 	});
 function renderServiceDialogue(eventId, next) {
+	const continueStory = /^MS0[1-6]$/.test(eventId) || next === renderRoom
+		? () => blackDissolve(next, 320)
+		: next;
 	if (serverMode) {
 		if (serverDialogue.hasPendingCompletion()) return;
-		serverDialogueContinuation = next;
+		serverDialogueContinuation = continueStory;
 		renderBusy("이야기를 준비하고 있어요.");
 		serverDialogue.start({ slotId, eventId });
 		return;
@@ -1102,7 +1108,7 @@ function renderServiceDialogue(eventId, next) {
 	renderBusy("이야기를 준비하고 있어요.");
 	dialogueRuntime.start(eventId, (response) => {
 		if (response.messages?.length) message(response.messages.join("\n"));
-		storyResultUI.show(shell, response, () => showPendingBadgeNotices(next));
+		storyResultUI.show(shell, response, () => showPendingBadgeNotices(continueStory));
 	});
 }
 function showForcedRestNotice(checkpoint, next) {

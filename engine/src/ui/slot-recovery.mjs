@@ -5,7 +5,7 @@ export function createSlotRecoveryUI({el,btn,modal,onRetry=()=>{},onDelete=()=>{
   const actions=el('div',null,'slot-card-actions');
   const retryState={busy:false,error:null};
   const retry=btn('다시 시도',()=>{void retryInspection(slotId,root,retry,retryState);},'primary-button');actions.append(retry);
-  if(canDelete)actions.append(btn('삭제',()=>confirmDelete(slotId),'danger-button'));
+  if(canDelete)actions.append(btn('삭제',()=>confirmDelete(slotId),'danger-button slot-delete'));
   root.append(actions);return root;
  }
  async function retryInspection(slotId,root,button,state){
@@ -25,7 +25,7 @@ export function createSlotRecoveryUI({el,btn,modal,onRetry=()=>{},onDelete=()=>{
   let dialog;
   let errorMessage=null,retryDelete=null,reload=null;
   const cancel=btn('취소',()=>dialog?.close?.(),'text-button');
-  const confirm=btn('삭제',()=>remove(),'danger-button'),buttons=[cancel,confirm];
+  const confirm=btn('삭제',()=>remove(),'danger-button slot-delete'),buttons=[cancel,confirm];
   async function remove(){
    if(busy)return;busy=true;confirm.disabled=true;cancel.disabled=true;
    if(retryDelete)retryDelete.disabled=true;if(reload)reload.disabled=true;
@@ -43,6 +43,7 @@ export function createSlotRecoveryUI({el,btn,modal,onRetry=()=>{},onDelete=()=>{
    }
   }
   dialog=modal('이 저장 기록을 삭제할까요?',body,buttons);
+  dialog?.classList?.toggle('slot-delete-confirm',true);
   return dialog;
  }
  return {card};

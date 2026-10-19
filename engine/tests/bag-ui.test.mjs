@@ -8,7 +8,7 @@ test('pending character conditions are shown without enabling that character ear
  assert.equal(card.pendingUnlock,true);assert.equal(card.selectable,false);
  const view=setup(meta);view.ui.bag('캐릭터');
  const cards=all(view.shell,item=>item.tag==='button'&&item.className.includes('collection-item-card'));
- cards[2].onclick();assert.match(view.modals.at(-1).body.textContent,/조건 달성 완료/);
+ cards[2].onclick();assert.match(view.shell.textContent,/조건 달성 완료/);assert.equal(view.modals.length,0);
 });
 
 function node(tag,text='',className=''){
@@ -16,14 +16,14 @@ function node(tag,text='',className=''){
  return item;
 }
 function all(item,predicate){return [...(predicate(item)?[item]:[]),...item.children.flatMap(child=>all(child,predicate))];}
-function setup(meta={unlockedCharacters:['CH01','CH02','CH08','CH15','CH16','CH31'],unlockedPetIds:['PET01']},run={actionHistory:[]}){
- const shell=node('main'),modals=[];let headingNode,selectedPetId=null,returnCalls=0;shell.querySelector=selector=>selector==='h1'?headingNode:null;
+function setup(meta={unlockedCharacters:['CH01','CH02','CH08','CH15','CH16','CH31'],unlockedPetIds:['PET01']},run={actionHistory:[],characterId:'CH01'},options={}){
+ const shell=node('main'),modals=[];let headingNode,selectedPetId=null,activePetId='PET01',returnCalls=0;shell.querySelector=selector=>selector==='h1'?headingNode:null;
  const ui=createJournalUI({
   el:node,
   btn(text,action,className=''){const button=node('button',text,className);button.onclick=action;return button;},
   shell,heading(title){headingNode=node('h1',title);shell.replaceChildren(headingNode);},
-  current:()=>run,meta:()=>meta,activePet:()=>({id:'PET01'}),
-  onSelectPet:id=>{selectedPetId=id;return true;},isSaveFailed:()=>false,onReturn(){returnCalls++;},turnPage:(_layout,done)=>done(),
+  current:()=>run,meta:()=>meta,activePet:()=>({id:activePetId}),
+  onSelectPet:async id=>{const saved=options.onSelectPet?await options.onSelectPet(id):true;if(saved){selectedPetId=id;activePetId=id;}return saved;},isSaveFailed:()=>false,onReturn(){returnCalls++;},turnPage:(_layout,done)=>done(),
   modal(title,body,actions=[]){const entry={title,body,actions};modals.push(entry);return entry;}
  });
  return {ui,shell,modals,get headingNode(){return headingNode;},get selectedPetId(){return selectedPetId;},get returnCalls(){return returnCalls;}};
@@ -73,14 +73,16 @@ test('bag uses asset-free capsule navigation without a visible title and keeps s
  }
 });
 
-test('character collection cards hide names and open full information for unlocked silhouettes',()=>{
+test('character cards keep names off the list and show full information in the right panel',()=>{
  const {ui,shell,modals}=setup();ui.bag('캐릭터');
- assert.doesNotMatch(shell.textContent,/카엘/);
  const card=all(shell,n=>n.className.includes('collection-card-trigger')&&n.attributes['aria-label']==='해금된 캐릭터 정보 보기')[0];
  assert.ok(card);
+ assert.doesNotMatch(card.textContent,/카엘/);
  card.onclick();
- assert.match(modals.at(-1).title,/캐릭터 정보/);
- assert.match(modals.at(-1).body.textContent,/카엘/);
+ assert.equal(modals.length,0);
+ const detail=all(shell,n=>n.className==='collection-detail-panel')[0];
+ assert.match(detail.textContent,/카엘/);
+ assert.ok(all(detail,n=>n.tag==='button'&&n.text==='플레이 중'&&n.disabled).length);
 });
 
 test('locked character silhouette opens its real unlock requirement without revealing its name',()=>{
@@ -89,31 +91,67 @@ test('locked character silhouette opens its real unlock requirement without reve
  const card=all(shell,n=>n.className.includes('collection-card-trigger')&&n.attributes['aria-label']==='미해금 캐릭터 해금 방법 보기')[0];
  assert.ok(card);
  card.onclick();
- assert.match(modals.at(-1).title,/해금 안내/);
- assert.match(modals.at(-1).body.textContent,/궁금한 건 못 참아/);
- assert.match(modals.at(-1).body.textContent,/5\/8/);
- assert.doesNotMatch(modals.at(-1).body.textContent,/시온/);
+ assert.equal(modals.length,0);
+ assert.match(shell.textContent,/해금 안내/);
+ assert.match(shell.textContent,/궁금한 건 못 참아/);
+ assert.match(shell.textContent,/5\/8/);
+ assert.doesNotMatch(shell.textContent,/시온/);
 });
 
 test('pet silhouettes use the same name-free cards and show the real pet unlock requirement',()=>{
  const {ui,shell,modals}=setup();ui.bag('펫');
- assert.doesNotMatch(shell.textContent,/에든|루엔/);
  const locked=all(shell,n=>n.className.includes('collection-card-trigger')&&n.attributes['aria-label']==='미해금 펫 해금 방법 보기')[0];
  assert.ok(locked);
  locked.onclick();
- assert.match(modals.at(-1).body.textContent,/첫 엔딩 열람 완료/);
- assert.doesNotMatch(modals.at(-1).body.textContent,/루엔/);
+ assert.equal(modals.length,0);
+ assert.match(shell.textContent,/첫 엔딩 열람 완료/);
+ assert.doesNotMatch(shell.textContent,/루엔/);
  const unlocked=all(shell,n=>n.className.includes('collection-card-trigger')&&n.attributes['aria-label']==='해금된 펫 정보 보기')[0];
  unlocked.onclick();
- assert.match(modals.at(-1).title,/펫 정보/);
- assert.match(modals.at(-1).body.textContent,/에든/);
+ assert.equal(modals.length,0);
+ assert.match(shell.textContent,/에든/);
 });
 
-test('unlocked pet selection remains available from its information dialog',()=>{
+test('pet selection saves from the right footer and updates the companion without opening a dialog',async()=>{
  const state=setup({unlockedCharacters:['CH01','CH02','CH08','CH15','CH16','CH31'],unlockedPetIds:['PET01','PET02']}),{ui,shell,modals}=state;ui.bag('펫');
  const unlocked=all(shell,n=>n.className.includes('collection-card-trigger')&&n.attributes['aria-label']==='해금된 펫 정보 보기')[1];
  unlocked.onclick();
- assert.equal(modals.at(-1).actions[0].text,'함께하기');
- modals.at(-1).actions[0].onclick();
+ assert.equal(modals.length,0);
+ const footer=all(shell,n=>n.className==='collection-detail-footer')[0];
+ const choose=all(footer,n=>n.tag==='button'&&n.text==='함께하기')[0];
+ assert.ok(choose);await choose.onclick();
  assert.equal(state.selectedPetId,'PET02');
+ assert.ok(all(shell,n=>n.tag==='button'&&n.text==='동행 중'&&n.disabled).length);
+});
+
+test('a failed pet save keeps the prior companion and offers another selection attempt',async()=>{
+ const view=setup({unlockedCharacters:['CH01'],unlockedPetIds:['PET01','PET02']},undefined,{onSelectPet:async()=>false});
+ view.ui.bag('펫');
+ all(view.shell,n=>n.className.includes('collection-card-trigger')&&n.attributes['aria-label']==='해금된 펫 정보 보기')[1].onclick();
+ await all(view.shell,n=>n.tag==='button'&&n.text==='함께하기')[0].onclick();
+ assert.equal(view.selectedPetId,null);
+ assert.match(view.shell.textContent,/변경하지 못/);
+ assert.ok(all(view.shell,n=>n.tag==='button'&&n.text==='함께하기'&&!n.disabled).length);
+});
+
+test('pet selection waits for saving and blocks duplicate selections',async()=>{
+ let finish,calls=0;
+ const view=setup({unlockedCharacters:['CH01'],unlockedPetIds:['PET01','PET02']},undefined,{onSelectPet:()=>{calls++;return new Promise(resolve=>{finish=resolve;});}});
+ view.ui.bag('펫');
+ all(view.shell,n=>n.className.includes('collection-card-trigger')&&n.attributes['aria-label']==='해금된 펫 정보 보기')[1].onclick();
+ const choose=all(view.shell,n=>n.tag==='button'&&n.text==='함께하기')[0];
+ const saving=choose.onclick();await choose.onclick();
+ assert.equal(calls,1);assert.equal(view.selectedPetId,null);
+ assert.ok(all(view.shell,n=>n.tag==='button'&&n.text==='저장 중…'&&n.disabled).length);
+ finish(true);await saving;
+ assert.equal(view.selectedPetId,'PET02');
+ assert.ok(all(view.shell,n=>n.tag==='button'&&n.text==='동행 중'&&n.disabled).length);
+});
+
+test('viewing another unlocked character does not replace the current run character',()=>{
+ const run={characterId:'CH01',actionHistory:[]},view=setup(undefined,run);
+ view.ui.bag('캐릭터');
+ all(view.shell,n=>n.className.includes('collection-card-trigger')&&n.attributes['aria-label']==='해금된 캐릭터 정보 보기')[1].onclick();
+ assert.equal(run.characterId,'CH01');
+ assert.ok(all(view.shell,n=>n.tag==='button'&&n.text==='새 회차에서 선택'&&n.disabled).length);
 });

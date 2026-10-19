@@ -90,3 +90,18 @@ test('uses documented LINE defaults and never displays the PLAYER portrait',()=>
 test('rejects an invalid sequence before it can be played',()=>{
  assert.throws(()=>createDialoguePlayback({...payload,sequence:[{type:'CHOICE',choiceNodeId:'C',options:[]}]}),/END/);
 });
+
+test('keeps the partner during player dialogue and thought but obeys an explicit focus hide',()=>{
+ const playback=createDialoguePlayback({...payload,sequence:[
+  {type:'LINE',speaker:'GUIDE',text:'어서 와.'},
+  {type:'LINE',speaker:'PLAYER',text:'반가워.'},
+  {type:'LINE',lineMode:'THOUGHT',speaker:'PLAYER',text:'친절한 친구다.',visualMode:'NONE'},
+  {type:'IMAGE',target:'FOCUS',action:'HIDE',assetType:'CHARACTER'},
+  {type:'LINE',speaker:'PLAYER',text:'이제 혼자구나.'},
+  {type:'END'}
+ ]});
+ assert.equal(playback.snapshot().focus.src,'/guide.png');
+ playback.next();assert.equal(playback.snapshot().focus?.src,'/guide.png');
+ playback.next();assert.equal(playback.snapshot().focus?.src,'/guide.png');
+ playback.next();assert.equal(playback.snapshot().focus,null);
+});

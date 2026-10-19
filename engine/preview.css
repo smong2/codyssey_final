@@ -112,6 +112,10 @@ button.room-date{cursor:pointer;text-align:left}
 .slot-list{display:grid;grid-template-columns:1fr;gap:12px;max-height:60dvh;overflow:auto;padding:5px}
 .slot-row{padding:14px 18px;background:#fffaf0c9;border:1px solid #b99c67;border-radius:10px}
 .slot-row h3{margin:0 0 7px}.slot-row p{margin:4px 0}.slot-facts{display:grid;gap:2px;margin-bottom:11px}.slot-facts small{color:#6f695c}.slot-actions{display:flex;align-items:center;gap:8px;margin-top:11px}.slot-actions button{margin:0}.slot-actions .slot-delete{margin-left:auto}.slot-recovery-error{border:2px solid #a9463d;background:#f7d9d3}.slot-warning-title{display:block;color:#8d2e28}.slot-recovery-error p{color:#6f302c}
+.slot-card-actions{display:flex;align-items:center;gap:8px;margin-top:11px}
+.slot-card-actions>.slot-delete{margin-left:auto}
+.slot-delete-confirm>.actions{justify-content:flex-end}
+.slot-delete-confirm>.actions>.slot-delete{margin-left:auto;order:1}
 .recent-slot{background:#e6eacccc;border:2px solid #8e9c62}
 .character-select-page,.admission-page{background:linear-gradient(#20333455,#20333466),url('./world-assets/BG01_arcadia_entrance_and_lake_1920x1080_010.png') center/cover!important;color:#fff8e5}
 .character-select-page>h1{text-align:center}.character-select-page>.preview-label{display:none}
@@ -644,7 +648,7 @@ button:active:not(:disabled){scale:.97}
 .ending-continue{display:block;margin:18px auto 0;min-width:150px}
 .ending-placeholder{max-width:60ch;margin-inline:auto;line-height:1.8}
 @media(max-width:650px){.schedule-layout .activity-panel>.chosen-activity{font-size:11px;padding:5px 7px}}
-/* Bag character/pet cards are equal, square silhouettes; identity appears only in the detail dialog. */
+/* Bag character/pet cards are equal, square silhouettes; identity appears in the detail panel. */
 .silhouette-card-grid{grid-template-columns:repeat(auto-fill,minmax(min(42vw,150px),1fr));gap:clamp(8px,1.2vw,16px);max-width:1180px;margin:16px auto;align-content:start}
 .silhouette-collection-card{position:relative;display:block;width:100%;min-width:0;min-height:0;aspect-ratio:1;padding:0;overflow:hidden;border:2px solid #b49456;border-radius:18px;background:#f0e7d4;cursor:pointer;transform:none;transition:border-color .16s,box-shadow .16s}
 .silhouette-collection-card .bag-portrait{display:block;width:100%;height:100%;aspect-ratio:1;object-fit:cover;object-position:center top}
@@ -656,6 +660,68 @@ button:active:not(:disabled){scale:.97}
 .collection-unlock-info,.collection-character-info,.collection-pet-info{max-height:min(65dvh,520px);overflow:auto;line-height:1.75}
 .collection-character-info .selection-profile{grid-template-columns:1fr}
 .collection-pet-info h2,.collection-character-info h2{margin-top:0}
+.bag-frame>.collection-split{
+ display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(12px,2vw,28px);
+ height:100%;min-height:0;box-sizing:border-box;padding-top:36px;
+}
+.collection-list-panel{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bag-frame .collection-list-panel>.bag-card-grid{
+ flex:1;min-height:0;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));
+ grid-auto-rows:max-content;align-items:start;align-content:start;
+ gap:clamp(8px,1vw,14px);margin:0;padding:4px;max-height:none;overflow:auto;
+}
+.bag-frame .collection-split .silhouette-collection-card{padding:0;min-height:0;height:auto;aspect-ratio:1;align-self:start}
+.bag-frame .collection-split .silhouette-collection-card .bag-portrait{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.bag-frame .collection-split .silhouette-collection-card.is-inspected{border-color:#49634c;box-shadow:0 0 0 2px #49634c}
+.collection-detail-panel{
+ display:flex;flex-direction:column;min-width:0;min-height:0;padding:clamp(12px,1.8vw,24px);
+ border:1px solid #b79555;border-radius:12px;background:#fff9eb70;
+ box-shadow:inset 1px 1px 0 #fff9e8,inset -1px -1px 0 #aa8b4c55;
+}
+.collection-detail-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding-right:6px}
+.collection-detail-art{height:clamp(110px,26dvh,260px);width:100%;margin:0 0 16px}
+.collection-detail-art img{display:block;width:100%;height:100%;object-fit:contain}
+.collection-detail-art.is-locked img{filter:brightness(0) saturate(100%) invert(27%) sepia(18%) saturate(900%) hue-rotate(348deg) brightness(90%) contrast(90%)}
+.collection-detail-body .collection-character-info,
+.collection-detail-body .collection-pet-info,
+.collection-detail-body .collection-unlock-info{max-height:none;overflow:visible;font-size:15px;line-height:1.7}
+.collection-detail-body h2{margin:0 0 10px;font-size:clamp(21px,2vw,28px)}
+.collection-detail-body h3{margin:18px 0 8px;font-size:17px}
+.collection-detail-body p{margin:8px 0;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere}
+.collection-detail-body .character-info-heading,
+.collection-detail-body .character-info-details,
+.collection-detail-body .character-info-quote{display:block;margin:0 0 16px}
+.collection-detail-body .selection-profile dd{font-size:15px;line-height:1.7}
+.collection-detail-body blockquote{margin:8px 0;font-size:15px;line-height:1.7}
+.collection-detail-footer{
+ display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0;
+ margin-top:14px;padding-top:14px;border-top:1px solid #b7955566;text-align:center;
+}
+.collection-detail-footer>small{font-size:12px;line-height:1.5;word-break:keep-all}
+.collection-detail-footer>.bag-ui-button{width:min(260px,100%);min-height:40px;margin:0;background-size:contain;font-size:clamp(12px,1.3vw,18px)}
+.collection-detail-footer>.bag-ui-button.is-selected:disabled{opacity:1;cursor:default}
+.collection-selection-error{color:#913e32;font-size:13px;margin:0}
+@media(max-width:700px){
+ .bag-frame>.collection-split{gap:10px}
+ .bag-frame .collection-list-panel>.bag-card-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,105px),1fr));gap:8px}
+ .collection-split .collection-lock{width:20px;height:20px;right:4px;top:4px;font-size:12px}
+}
+@media(max-width:500px), (orientation:landscape) and (max-height:500px){
+ .bag-frame>.collection-split{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);padding-top:24px;gap:8px}
+ .bag-frame .collection-list-panel>.bag-card-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,105px),1fr))}
+ .collection-detail-panel{padding:10px;border-radius:9px}
+ .collection-detail-art{height:84px;margin-bottom:10px}
+ .collection-detail-body .collection-character-info,
+ .collection-detail-body .collection-pet-info,
+ .collection-detail-body .collection-unlock-info,
+ .collection-detail-body .selection-profile dd,
+ .collection-detail-body blockquote{font-size:13px;line-height:1.65}
+ .collection-detail-body h2{font-size:18px}
+ .collection-detail-body h3{font-size:14px;margin:12px 0 6px}
+ .collection-detail-footer{gap:6px;margin-top:8px;padding-top:8px}
+ .collection-detail-footer>small{font-size:11px}
+ .collection-detail-footer>.bag-ui-button{font-size:12px}
+}
 #shell.account-page{position:fixed;inset:0;min-height:0!important;height:100dvh;display:flex;align-items:center;justify-content:center;padding:clamp(10px,3dvh,32px)!important;overflow:auto!important;background:linear-gradient(#172623a6,#172623a6),url('./world-assets/BG01_arcadia_entrance_and_lake_1920x1080_010.png') center/cover!important}
 .account-page>h1{display:none}.account-page>.preview-label{display:none}
 .account-panel{width:min(540px,100%);max-height:calc(100dvh - 28px);overflow:auto;display:flex;flex-direction:column;gap:10px;padding:clamp(14px,3dvh,28px);border:1px solid #b6a17a;border-radius:16px;background:#f6edd8;color:var(--ink);box-shadow:0 8px 30px #17262330}
@@ -942,3 +1008,169 @@ dialog.paper-modal.room-puzzle-modal{box-sizing:border-box;width:min(920px,88vw)
 .character-select-page .character-detail-panel blockquote{margin:0;font-size:14px;line-height:1.7}
 .character-list-panel>.character-gender-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:min(340px,100%);margin:12px auto}
 .character-gender-tabs .bag-ui-button{width:100%;font-size:clamp(12px,1.4vw,18px);aspect-ratio:1362/311}
+
+/* Shared story presentation. State and rewards remain owned by the dialogue player. */
+#shell.dialogue-layout,#shell.dialogue-service-page{background:#142a37!important}
+#shell.dialogue-layout{
+ --dialogue-edge:clamp(12px,2vw,32px);
+ --dialogue-width:calc((100% - 2 * var(--dialogue-edge)) * .6);
+ --dialogue-height:clamp(230px,29dvh,320px);
+ --dialogue-bottom:clamp(16px,3dvh,32px);
+ --dialogue-inset:clamp(24px,3vw,48px);
+ --dialogue-face-width:clamp(100px,11vw,156px);
+ --dialogue-face-gap:clamp(12px,1.4vw,24px);
+}
+#shell.dialogue-layout>.life-dialogue{
+ left:calc((100% - var(--dialogue-width)) / 2);right:auto;bottom:var(--dialogue-bottom);
+ width:var(--dialogue-width);height:var(--dialogue-height);max-height:none;
+ padding:clamp(32px,4.5dvh,48px) var(--dialogue-inset) 48px;
+ display:flex;flex-direction:column;justify-content:center;overflow:visible;
+ border:1px solid #b79555;border-radius:20px;
+}
+#shell.dialogue-layout>.life-dialogue.dialogue-has-player{
+ padding-right:calc(var(--dialogue-face-gap) + var(--dialogue-face-width) + 18px);
+}
+#shell.dialogue-layout>.life-dialogue[hidden]{display:none}
+.dialogue-layout .life-dialogue .dialogue-text{
+ min-height:0;max-height:100%;margin:0;overflow:auto;overscroll-behavior:contain;
+ font-size:30px;font-weight:700;line-height:1.6;color:#263d32;
+ white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty;
+ scrollbar-width:none;
+}
+.dialogue-layout .life-dialogue .dialogue-text::-webkit-scrollbar{display:none;width:0;height:0}
+.dialogue-layout .life-dialogue .dialogue-choice-question{text-align:left}
+.dialogue-layout>.dialogue-speaker-nameplate{
+ left:calc((100% - var(--dialogue-width)) / 2 + var(--dialogue-inset) - 4px);
+ top:calc(100% - var(--dialogue-bottom) - var(--dialogue-height));
+ width:clamp(180px,19vw,280px);aspect-ratio:1362/311;height:auto;
+ color:#fff7df;font-size:clamp(17px,1.6vw,24px);background-size:contain;text-shadow:0 1px 2px #15261fcc;
+ transform:translateY(-50%);will-change:transform,opacity;
+}
+.dialogue-layout .dialogue-stage .dialogue-focus,
+.dialogue-layout .dialogue-stage .dialogue-focus.dialogue-focus-centered,
+.dialogue-layout .dialogue-stage .dialogue-focus.dialogue-focus-choice{
+ left:calc(50% - var(--dialogue-width) * .2);right:auto;top:auto;bottom:0;
+ width:min(calc(var(--dialogue-width) * .48),560px);max-width:none;
+ height:calc((100% + clamp(80px,16dvh,170px)) * .8);
+ transform:translateX(-50%);object-fit:contain;object-position:center bottom;animation:none;
+}
+.dialogue-layout .dialogue-stage .dialogue-focus.dialogue-focus-object{
+ left:50%;
+ bottom:calc(var(--dialogue-bottom) + var(--dialogue-height) + 24px);
+ width:min(32vw,400px);height:42%;object-position:center;
+}
+.dialogue-layout .dialogue-background{pointer-events:none;will-change:opacity}
+/* Match myroom's overscan and tint before its controls replace the dialogue. */
+.dialogue-layout .dialogue-background.dialogue-background-room{
+ inset:0 -130px;width:calc(100% + 260px);height:100%;
+}
+.dialogue-layout .dialogue-stage.dialogue-room-background::after{
+ content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+ background:linear-gradient(#f9efda11,#d2d2b911);
+}
+.dialogue-layout .dialogue-player-portrait{
+ position:absolute;right:var(--dialogue-face-gap);top:50%;transform:translateY(-50%);
+ width:var(--dialogue-face-width);height:min(calc(var(--dialogue-face-width) * 4 / 3),calc(100% - 24px));
+ box-sizing:border-box;margin:0;padding:4px;pointer-events:none;isolation:isolate;
+ border:2px solid #b79555;border-radius:12px;background:#f1e6c9;
+ box-shadow:inset 1px 1px 0 #fff9e8,inset -2px -2px 0 #8e6f38,0 1px 3px #44341544;
+}
+.dialogue-layout .dialogue-player-portrait-crop{
+ position:absolute;inset:4px;overflow:hidden;border-radius:6px;
+ background:#e8e4cc;
+}
+.dialogue-layout .dialogue-player-portrait::before,
+.dialogue-layout .dialogue-player-portrait::after{content:none;background:none}
+.dialogue-layout .dialogue-player-portrait-crop img{
+ position:absolute;left:50%;top:-5%;width:220%;height:auto;max-width:none;
+ transform:translateX(-50%);
+}
+.dialogue-layout>.dialogue-choice-layer{
+ left:auto;right:calc((100% - var(--dialogue-width)) / 2);top:18%;
+ bottom:calc(var(--dialogue-bottom) + var(--dialogue-height) + clamp(18px,4.5dvh,42px));
+ width:calc(var(--dialogue-width) * .52);min-width:0;box-sizing:border-box;padding:3px 0;
+ overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;align-items:safe end;
+}
+.dialogue-layout .dialogue-choice-panel-right{
+ min-width:0;max-width:100%;flex:0 1 100%;grid-template-columns:minmax(0,1fr);gap:clamp(12px,3.2dvh,30px);
+}
+.dialogue-layout .dialogue-choice-panel-right .dialogue-choice-nameplate{
+ width:100%;min-width:0;max-width:100%;height:clamp(70px,8.5dvh,88px);aspect-ratio:auto;min-height:0;box-sizing:border-box;
+ padding:8px 8%;background-size:100% 100%;box-shadow:none;color:#263d32;text-shadow:none;
+ font-family:'Gowun Batang','Malgun Gothic',serif;font-size:clamp(14px,1.15vw,18px);
+ line-height:1.4;font-weight:700;text-align:center;white-space:normal;word-break:keep-all;overflow-wrap:anywhere;
+}
+@media(max-width:700px){
+ #shell.dialogue-layout{--dialogue-width:calc((100% - 24px) * .92);--dialogue-inset:20px;--dialogue-face-width:92px;--dialogue-height:clamp(190px,29dvh,260px)}
+ .dialogue-layout .life-dialogue .dialogue-text{font-size:clamp(16px,3.8vw,22px);line-height:1.45}
+ .dialogue-layout>.dialogue-choice-layer{top:12%}
+}
+@media(orientation:landscape) and (max-height:500px){
+ #shell.dialogue-layout{--dialogue-width:calc((100% - 24px) * .8);--dialogue-height:clamp(126px,36dvh,164px);--dialogue-bottom:10px;--dialogue-inset:20px;--dialogue-face-width:84px}
+ #shell.dialogue-layout>.life-dialogue{padding-top:24px;padding-bottom:26px;border-radius:14px}
+ .dialogue-layout .life-dialogue .dialogue-text{font-size:clamp(14px,4.1dvh,18px);line-height:1.4}
+ .dialogue-layout>.dialogue-speaker-nameplate{width:clamp(145px,20vw,205px);font-size:16px}
+ .dialogue-layout>.dialogue-choice-layer{top:12%;bottom:calc(var(--dialogue-bottom) + var(--dialogue-height) + 8px)}
+ .dialogue-layout .dialogue-choice-panel-right{gap:8px}
+}
+@media(max-width:700px), (orientation:landscape) and (max-height:500px){
+ .dialogue-layout .dialogue-choice-panel-right .dialogue-choice-nameplate{
+  height:auto;aspect-ratio:2400/311;min-height:0;padding:2px 8%;
+  font-size:clamp(8px,1.35vw,11px);line-height:1.2;background-size:contain;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .dialogue-layout .dialogue-background,.dialogue-layout>.dialogue-speaker-nameplate{will-change:auto}
+}
+
+dialog.paper-modal.dialogue-history-modal{
+ width:min(960px,92vw);max-width:92vw;max-height:90dvh;
+ padding:clamp(16px,2.5vw,28px);overflow:hidden;
+}
+.dialogue-history-modal>h2{margin:0 40px 16px 0;font-size:clamp(22px,2vw,28px)}
+.dialogue-history{
+ max-height:calc(90dvh - 140px);overflow:auto;overscroll-behavior:contain;
+ padding-right:clamp(6px,1vw,16px);scrollbar-width:thin;scrollbar-color:#b79555 transparent;
+}
+.dialogue-history-scene+.dialogue-history-scene{margin-top:24px;padding-top:20px;border-top:1px solid #b79555}
+.dialogue-history-entry{display:grid;grid-template-columns:90px minmax(0,1fr);gap:16px;align-items:start;margin:0 0 18px}
+.dialogue-history-entry:last-child{margin-bottom:0}
+.dialogue-history-speaker{
+ display:block;padding:5px 8px;border-radius:6px;background:#dfdfc7;
+ color:#263d32;font-size:16px;font-weight:700;line-height:1.6;text-align:center;
+ word-break:keep-all;overflow-wrap:anywhere;
+}
+.dialogue-history-text{
+ margin:0;padding-top:3px;color:#263d32;font-size:clamp(16px,1.35vw,20px);font-weight:500;line-height:1.8;
+ white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;
+}
+.dialogue-history-entry--narration .dialogue-history-speaker,
+.dialogue-history-entry--context .dialogue-history-speaker{background:#e9e0cb;color:#725d3c}
+.dialogue-history-entry--choice .dialogue-history-speaker{background:#49634c;color:#fff7df}
+.dialogue-history-entry--choice .dialogue-history-text{font-weight:700}
+@media(max-width:500px), (orientation:landscape) and (max-height:500px){
+ dialog.paper-modal.dialogue-history-modal{padding:14px 18px}
+ .dialogue-history-modal>h2{font-size:22px;margin-bottom:12px}
+ .dialogue-history{max-height:calc(90dvh - 108px)}
+ .dialogue-history-entry{grid-template-columns:70px minmax(0,1fr);gap:10px;margin-bottom:16px}
+ .dialogue-history-speaker{font-size:14px;padding:4px}
+ .dialogue-history-text{font-size:16px;line-height:1.7}
+}
+
+/* Room HUD artwork shares the tool-button scale, including its transparent margins.
+   UI21's visible height is 688/764; BT01's is 1052/1254. Keep both gold edges aligned. */
+.room-page{
+ --room-tool-size:clamp(39.6px,7.92vw,100.8px);
+ --room-hud-edge:clamp(8px,1.5vw,18px);
+ --room-hud-width:calc(var(--room-tool-size) * 2.51);
+}
+.room-page>.room-iconbar{top:var(--room-hud-edge);right:var(--room-hud-edge)}
+.room-page .room-icon.room-image-button{width:var(--room-tool-size);height:var(--room-tool-size)}
+.room-page>.room-date-stack{
+ top:calc(var(--room-hud-edge) + var(--room-tool-size) * .036);
+ left:var(--room-hud-edge);width:var(--room-hud-width);max-width:none;gap:0;
+}
+.room-page .room-profile-card,.room-page .room-date{width:100%;height:auto;min-height:0}
+.room-page .room-profile-card{aspect-ratio:2058/764}
+.room-page .room-date{aspect-ratio:2058/854;margin-top:calc(var(--room-tool-size) * -.05)}
+.room-page>.room-date-stack>.room-current-action{margin-top:6px}
