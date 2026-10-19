@@ -1,6 +1,6 @@
 # UI 이미지 목록 (`asset/ui/`)
 
-이미지 **60개**(PNG 58개, JPG 2개)와 이 README를 정리했습니다. 신규 정리 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·환경 재료·검토 시안)·`LG`(로고)로 시작합니다. `UI20_environment_`는 기존 `asset/environment/`의 게임 규격 이미지 15장을 내용 변경 없이 통합한 묶음입니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
+이미지 **62개**(PNG 60개, JPG 2개)와 이 README를 정리했습니다. 신규 정리 이미지 파일명은 용도에 따라 `BT`(버튼)·`UI`(화면 요소·환경 재료·검토 시안)·`LG`(로고)로 시작합니다. `UI20_environment_`는 기존 `asset/environment/`의 게임 규격 이미지 15장을 내용 변경 없이 통합한 묶음입니다. 각 미리보기는 같은 폴더의 이미지 파일을 직접 참조합니다.
 
 파일이 존재한다는 사실만으로 게임 적용·최종 승인·동작 검수가 끝난 것은 아닙니다. 이름에 `final`이 있는 기존 파일의 상태도 별도 기획·검수 기준을 따릅니다.
 
@@ -8,7 +8,7 @@
 
 | 사용처·장면 | 파일명 기준 | 현재 상태 | 파일 목록·미리보기 |
 |---|---|---|---|
-| 버튼·프레임·로고·환경 UI; 마이룸 프로필·날짜, 일지 화살표·닫기, 대화·버튼 | `BT / UI / LG 및 실행 호환 이름` | 이 폴더 이미지 60장. 개별 파일의 채택·후보·검수 상태는 아래 설명을 따름 | 아래 파일 표와 미리보기, [에셋 전체 장면표](../README.md) 참조 |
+| 버튼·프레임·로고·환경 UI; 마이룸 프로필·날짜, 일지 화살표·닫기, 대화·버튼 | `BT / UI / LG 및 실행 호환 이름` | 이 폴더 이미지 62장. 개별 파일의 채택·후보·검수 상태는 아래 설명을 따름 | 아래 파일 표와 미리보기, [에셋 전체 장면표](../README.md) 참조 |
 
 ## 이야기에서 사용하는 UI 재료
 
@@ -37,6 +37,8 @@
 
 ## 버튼
 
+두 아이보리판은 기존 녹색판의 폭·높이를 각각 유지한 바탕색 변형입니다. 텍스트는 포함하지 않습니다. 현재 엔진은 녹색판을 사용하므로 아이보리판을 화면에 적용하려면 해당 UI 경로를 명시적으로 선택해야 합니다.
+
 | 파일 | 설명 | 원본 크기 | 미리보기 |
 |---|---|---:|---|
 | [BT01_diary_green.png](./BT01_diary_green.png) | 다이어리 버튼 · 녹색 시안 | 1254×1254 | <img src="./BT01_diary_green.png" width="150" alt="다이어리 버튼 · 녹색 시안"> |
@@ -45,9 +47,11 @@
 | [BT02_backpack_ivory.png](./BT02_backpack_ivory.png) | 백팩 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT02_backpack_ivory.png" width="150" alt="백팩 버튼 · 아이보리 시안"> |
 | [BT03_menu_green.png](./BT03_menu_green.png) | 메뉴 버튼 · 녹색 시안 | 1254×1254 | <img src="./BT03_menu_green.png" width="150" alt="메뉴 버튼 · 녹색 시안"> |
 | [BT03_menu_ivory.png](./BT03_menu_ivory.png) | 메뉴 버튼 · 아이보리 시안 | 1254×1254 | <img src="./BT03_menu_ivory.png" width="150" alt="메뉴 버튼 · 아이보리 시안"> |
-| [BT04_blank_pale_green.png](./BT04_blank_pale_green.png) | 텍스트 없는 가로 버튼 · 연그린 시안 | 2098×750 | <img src="./BT04_blank_pale_green.png" width="220" alt="텍스트 없는 가로 버튼 · 연그린 시안"> |
+| [BT04_blank_pale_green.png](./BT04_blank_pale_green.png) | 텍스트 없는 가로 버튼 · 연그린 시안 | 1940×311 | <img src="./BT04_blank_pale_green.png" width="220" alt="텍스트 없는 가로 버튼 · 연그린 시안"> |
+| [BT04_blank_pale_ivory.png](./BT04_blank_pale_ivory.png) | 공통 대화/선택지용 아이보리 양피지 빈 프레임 · 기존 녹색판과 동일 폭 | 1940×311 | <img src="./BT04_blank_pale_ivory.png" width="220" alt="양피지 아이보리 기본 선택지 프레임"> |
 | [BT04_blank_pale_green_short.png](./BT04_blank_pale_green_short.png) | 텍스트 없는 짧은 가로 버튼 · 연그린 | 1362×311 | <img src="./BT04_blank_pale_green_short.png" width="220" alt="텍스트 없는 짧은 가로 버튼 · 연그린"> |
 | [BT04_blank_pale_ivory_short.png](./BT04_blank_pale_ivory_short.png) | 텍스트 없는 짧은 가로 버튼 · 아이보리 | 1362×311 | <img src="./BT04_blank_pale_ivory_short.png" width="220" alt="텍스트 없는 짧은 가로 버튼 · 아이보리"> |
+| [BT04_choice_blank_pale_ivory.png](./BT04_choice_blank_pale_ivory.png) | `MS05_S4_SHARE_ROLES` 등 긴 선택지용 아이보리 양피지 빈 프레임 | 2400×311 | <img src="./BT04_choice_blank_pale_ivory.png" width="220" alt="양피지 아이보리 긴 선택지 프레임"> |
 | [BT04_choice_blank_pale_green.png](./BT04_choice_blank_pale_green.png) | 공통 선택지용 긴 빈 버튼 프레임 · `MS05_S4_SHARE_ROLES` 폭 기준 | 2400×311 | <img src="./BT04_choice_blank_pale_green.png" width="220" alt="긴 선택지용 녹색 빈 버튼 프레임"> |
 
 ## 기본 재료·프레임

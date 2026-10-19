@@ -26,6 +26,7 @@ export function createEngineServer(){
    else if(/^\/minigame-demo\/(src\/.+\.js|vendor\/phaser.min.js)$/.test(pathname))file=path.join(root,pathname);
    else if(/^\/world-assets\/[\w.-]+\.png$/.test(pathname))file=path.join(root,'../asset/background',assetReference('background',path.basename(pathname)).file);
    else if(/^\/character-assets\/[\w.-]+\.png$/.test(pathname))file=path.join(root,'../asset/character',path.basename(pathname));
+   else if(/^\/item-assets\/[\w.-]+\.png$/.test(pathname))file=path.join(root,'../asset/item',path.basename(pathname));
    else if(/^\/design-assets\/(ui|effect|bern|pet|map|font_files|item|badge|sd_character|puzzle)\/[\p{L}\p{N}_.-]+\.(png|webp|svg|woff2)$/u.test(pathname)){const [,category,name]=pathname.slice('/design-assets/'.length).match(/^([^/]+)\/(.+)$/),resolved=assetReference(category,name);file=path.join(root,'../asset',resolved.category,resolved.file);}
    else if(/^\/sd-assets\/SD03_(S|SW|W|NW|N|NE|E|SE)_strip\.png$/.test(pathname))file=path.join(root,'../prototype/assets',path.basename(pathname));
    else if(pathname==='/intro.mp4')file=path.join(root,'../prototype/assets/intro.mp4');

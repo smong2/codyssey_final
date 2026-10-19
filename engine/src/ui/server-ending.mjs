@@ -12,7 +12,7 @@ export function createServerEndingUI({el,btn,shell,heading,current,slotId,game,s
  };
  function paint(){
   const id=++generation,run=current();heading('아르카디아에서 그려 본 미래','ending-page');
-  const layout=el('div',null,'ending-layout'),side=summary(run),letter=el('article',null,'paper ending-letter');
+  const layout=el('div',null,'ending-layout ending-career-art'),side=summary(run),letter=el('article',null,'paper ending-letter');
   if(stage===0){
    letter.append(el('p','최종 질문','ending-label'),el('h2','무엇을 지켰니?'),el('p','이 질문은 정답을 요구하지 않습니다.','ending-placeholder'));
    const next=btn('계속',async()=>{if(busy)return;if(run?.serverPhase!=='ENDING_PENDING'){stage=1;paint();return;}busy=true;next.disabled=true;const ok=await mutate(()=>game.decideEnding(slotId()),()=>{stage=1;busy=false;paint();});if(!ok){busy=false;next.disabled=false;}} ,'ending-continue');shell.append(layout);layout.append(side,letter);shell.append(next);return;

@@ -4,7 +4,7 @@ test('server serves only engine and approved assets',async t=>{
  const {createEngineServer}=await import('../server.mjs');
  const server=createEngineServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>server.close(r)));
  const base='http://127.0.0.1:'+server.address().port;
- for(const path of ['/', '/src/core/state.mjs','/minigame-demo/vendor/phaser.min.js','/world-assets/BG10_myroom1_day_1920x1080_012.png','/character-assets/kael0_fullbody.png']){
+ for(const path of ['/', '/src/core/state.mjs','/minigame-demo/vendor/phaser.min.js','/world-assets/BG10_myroom1_day_1920x1080_012.png','/character-assets/kael0_fullbody.png','/item-assets/IT_focus_MS02_blocked_vines_01.png','/design-assets/item/IT_focus_END_career_letter_card_01.png','/design-assets/ui/BT04_choice_blank_pale_ivory.png']){
   assert.equal((await fetch(base+path)).status,200,path);
  }
  for(const path of ['/.git/config','/document/03_CHARACTERS.md','/src/%2e%2e%2f%2e%2e%2fAGENTS.md','/not-found']){
