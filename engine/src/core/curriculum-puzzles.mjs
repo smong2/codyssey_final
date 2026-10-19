@@ -12,12 +12,18 @@ export function mirrorStage(difficulty,seed,round=0){
  const level=structuredClone(LEVELS[difficulty<=2?difficulty-1:2]);
  if(difficulty===1)level.blocks=[];
  if(difficulty===3){level.prism=null;level.secondaryGoal=null;}
- let solution=null;
- for(let mask=0;mask<2**level.mirrors.length;mask++){const values=level.mirrors.map((_,i)=>mask&(1<<i)?'/':'\\');if(traceBeam(level,values).success){solution=values;break;}}
- if(!solution)throw new Error('거울 해답 검증 실패');
- const rng=makeRng(seed+':mirror:'+round),orientations=solution.map(value=>rng()<.5?value:value==='/'?'\\':'/');
- if(traceBeam(level,orientations).success)orientations[0]=orientations[0]==='/'?'\\':'/';
- return {level,orientations,solution};
+ const states=[],solutions=[];
+ for(let mask=0;mask<2**level.mirrors.length;mask++){
+  const values=level.mirrors.map((_,i)=>mask&(1<<i)?'/':'\\');states.push(values);if(traceBeam(level,values).success)solutions.push(values);
+ }
+ if(!solutions.length)throw new Error('거울 해답 검증 실패');
+ // 다른 유효 해답으로 한 번에 끝나는 우회도 막기 위해 모든 해답과의 최단 거리를 본다.
+ const minimumToggles=difficulty<=2?2:3,
+  distance=(a,b)=>a.reduce((sum,value,index)=>sum+(value===b[index]?0:1),0),
+  candidates=states.filter(values=>!traceBeam(level,values).success&&Math.min(...solutions.map(solution=>distance(values,solution)))>=minimumToggles);
+ if(!candidates.length)throw new Error('거울 시작 난이도 검증 실패');
+ const rng=makeRng(seed+':mirror:'+round),orientations=structuredClone(candidates[Math.floor(rng()*candidates.length)]),solution=structuredClone(solutions[0]);
+ return {level,orientations,solution,minimumToggles};
 }
 export const potsSolved=pots=>pots.every(pot=>!pot.length||pot.length===4&&pot.every(color=>color===pot[0]));
 export function pourPot(pots,from,to){

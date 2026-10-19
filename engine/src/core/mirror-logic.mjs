@@ -1,5 +1,5 @@
 export const LEVELS = [
-  { width:7,height:6,source:[0,2],direction:[1,0],goal:[3,0],mirrors:[[3,2,'/']],blocks:[[5,2]] },
+  { width:7,height:6,source:[0,4],direction:[1,0],goal:[5,4],mirrors:[[2,4,'/'],[2,1,'/'],[5,1,'\\']],blocks:[] },
   { width:7,height:6,source:[0,4],direction:[1,0],goal:[6,1],mirrors:[[2,4,'/'],[2,1,'/'],[5,4,'\\']],blocks:[[4,4],[4,2]] },
   { width:7,height:6,source:[0,5],direction:[1,0],goal:[5,4],rune:[2,3],prism:[2,3],secondaryGoal:[4,0],mirrors:[[2,5,'/'],[2,1,'/'],[5,1,'\\'],[4,3,'/']],blocks:[[4,5],[6,2]] },
 ];

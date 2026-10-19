@@ -9,7 +9,7 @@ const ART={observatory:'BG05_starlight_observatory_1920x1080_015.png',plaza:'BG0
 const COLORS=['#de8b82','#8ca97f','#8da8c0','#c5a15f','#aa90bd','#81b7ac'];
 const SHELF_TONES=[['#6289b5','푸른색'],['#b87a69','산호색'],['#7e9d72','초록색'],['#a587b1','보라색'],['#59a59b','청록색'],['#bf925c','갈색']];
 const GUIDES={
- 'observatory-mirror':['거울을 눌러 별빛의 방향을 바꿔요.','별빛이 모든 관측 룬에 닿으면 다음 단계로 넘어가요.'],
+ 'observatory-mirror':['여러 거울을 눌러 별빛의 방향을 차례로 바꿔요.','별빛이 모든 관측 룬에 닿으면 다음 단계로 넘어가요.'],
  'starlight-stage':['별빛이 아래 선에 닿을 때 같은 레인을 눌러요.','길게 이어진 별빛은 끝날 때까지 누르고 있어요.'],
  'spirit-pot-sort':['화분 두 개를 차례로 골라 반짝이는 맨 위 꽃빛을 옮겨요.','각 화분에 같은 꽃빛만 모으면 성공이에요.'],
  'sealed-shelves':['같은 색으로 묶인 책을 고른 뒤 화살표를 눌러요.','금빛 별 고서를 오른쪽 출구 화살표로 보내요.'],
@@ -199,7 +199,7 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
    controls.append(button('되돌리기',()=>{if(!this.history.length||this.done||this.roundTransition)return;this.puzzle.pieces=this.history.pop();this.logInput('UNDO');this.moves++;this.drawPuzzle();}),button('현재 판 초기화',()=>{if(this.done||this.roundTransition)return;this.history.push(structuredClone(this.puzzle.pieces));this.puzzle.pieces=structuredClone(this.originalPieces);this.logInput('RESET');this.moves++;this.drawPuzzle();}));this.board.append(stage,controls);this.status.textContent=`${this.round+1} / 3 서가 · 이동 ${this.moves}회`;return;
   }
   const mirror=this.gameId==='observatory-mirror',p=this.puzzle,width=mirror?p.level.width:p.size,height=mirror?p.level.height:p.size;
-  this.instruction.textContent=mirror?'거울을 눌러 별빛을 돌리세요. 관측 룬을 모두 밝혀 주세요.':'회로를 눌러 돌리세요. 고정 회로는 움직이지 않아요. 모든 목표까지 연결하세요.';
+  this.instruction.textContent=mirror?'여러 거울을 눌러 별빛 경로를 맞추세요. 관측 룬을 모두 밝혀 주세요.':'회로를 눌러 돌리세요. 고정 회로는 움직이지 않아요. 모든 목표까지 연결하세요.';
   const grid=el('div',null,'course-grid');grid.style.setProperty('--columns',width);
   const light=mirror?traceBeam(p.level,p.orientations):connections(p),path=mirror?new Set(light.paths.flat().map(([x,y])=>x+','+y)):light.reached;
   for(let y=0;y<height;y++)for(let x=0;x<width;x++){

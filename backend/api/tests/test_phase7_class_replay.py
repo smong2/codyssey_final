@@ -230,10 +230,10 @@ def test_circuit_rejects_rotating_fixed_cell():
 
 
 ENGINE_MIRROR_ORIENTATIONS = {
-    1: ["\\"],
-    2: ["/", "\\", "/"],
-    3: ["/", "\\", "/", "\\"],
-    4: ["/", "\\", "/", "/"],
+    1: ["\\", "\\", "/"],
+    2: ["\\", "\\", "\\"],
+    3: ["\\", "\\", "/", "\\"],
+    4: ["\\", "\\", "/", "\\"],
 }
 
 
@@ -255,6 +255,16 @@ def mirror_solution_log(difficulty: int, seed: str) -> list[ClassInput]:
 @pytest.mark.parametrize("difficulty", [1, 2, 3, 4])
 def test_mirror_seed_matches_engine_and_replays_beam_path(difficulty):
     assert _mirror_stage(difficulty, "replay-seed", 0)[1] == ENGINE_MIRROR_ORIENTATIONS[difficulty]
+    minimum = 2 if difficulty <= 2 else 3
+    for round_index in range(3):
+        level, orientations, _ = _mirror_stage(difficulty, "replay-seed", round_index)
+        distances = []
+        for mask in range(1 << len(level["mirrors"])):
+            candidate = ["/" if mask & (1 << index) else "\\"
+                         for index in range(len(level["mirrors"]))]
+            if _mirror_success(level, candidate):
+                distances.append(sum(a != b for a, b in zip(orientations, candidate, strict=True)))
+        assert min(distances) >= minimum
     result = replay_observatory_mirror(
         difficulty=difficulty, seed="replay-seed", max_duration_ms=120_000,
         events=mirror_solution_log(difficulty, "replay-seed"))
@@ -265,7 +275,7 @@ def test_mirror_rejects_nonexistent_mirror_index():
     with pytest.raises(ReplayRejected, match="nonexistent"):
         replay_observatory_mirror(
             difficulty=1, seed="replay-seed", max_duration_ms=120_000,
-            events=[ClassInput(atMs=0, action="TOGGLE", mirrorIndex=1)])
+            events=[ClassInput(atMs=0, action="TOGGLE", mirrorIndex=3)])
 
 
 ENGINE_RHYTHM_FIRST_LANES = {

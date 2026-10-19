@@ -456,7 +456,7 @@ def replay_rune_circuit(*, difficulty: int, seed: str, max_duration_ms: int,
 
 
 _MIRROR_LEVELS = (
-    {"source": (0, 2), "goal": (3, 0), "mirrors": ((3, 2),), "blocks": ((5, 2),)},
+    {"source": (0, 4), "goal": (5, 4), "mirrors": ((2, 4), (2, 1), (5, 1)), "blocks": ()},
     {"source": (0, 4), "goal": (6, 1), "mirrors": ((2, 4), (2, 1), (5, 4)),
      "blocks": ((4, 4), (4, 2))},
     {"source": (0, 5), "goal": (5, 4),
@@ -513,21 +513,27 @@ def _mirror_stage(difficulty: int, seed: str, round_index: int) -> tuple[dict, l
     if difficulty == 3:
         level["prism"] = None
         level["secondaryGoal"] = None
-    solution = None
+    states = []
+    solutions = []
     for mask in range(1 << len(level["mirrors"])):
         candidate = ["/" if mask & (1 << index) else "\\"
                      for index in range(len(level["mirrors"]))]
+        states.append(candidate)
         if _mirror_success(level, candidate):
-            solution = candidate
-            break
-    if solution is None:
+            solutions.append(candidate)
+    if not solutions:
         raise ReplayRejected("Server mirror master has no verified solution")
+    # Match the engine: an alternate valid solution must not make the stage one-touch solvable.
+    minimum_toggles = 2 if difficulty <= 2 else 3
+    candidates = [candidate for candidate in states
+                  if not _mirror_success(level, candidate)
+                  and min(sum(a != b for a, b in zip(candidate, solution, strict=True))
+                          for solution in solutions) >= minimum_toggles]
+    if not candidates:
+        raise ReplayRejected("Server mirror master cannot satisfy minimum input difficulty")
     random = _pot_rng(f"{seed}:mirror:{round_index}")
-    orientations = [value if next(random) < 0.5 else ("\\" if value == "/" else "/")
-                    for value in solution]
-    if _mirror_success(level, orientations):
-        orientations[0] = "\\" if orientations[0] == "/" else "/"
-    return level, orientations, solution
+    orientations = deepcopy(candidates[int(next(random) * len(candidates))])
+    return level, orientations, deepcopy(solutions[0])
 
 
 def replay_observatory_mirror(*, difficulty: int, seed: str, max_duration_ms: int,

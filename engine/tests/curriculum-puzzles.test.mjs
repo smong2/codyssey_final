@@ -6,7 +6,10 @@ import {circuitStage,mirrorStage,potStage,pourPot,potsSolved,shelfStage,moveShel
 test('every difficulty and stage has a replayable verified circuit, mirror, pot and shelf solution',()=>{
  for(let d=1;d<=4;d++)for(let stage=0;stage<3;stage++){
   const c=circuitStage(d,'test',stage);assert.equal(connections({...c,tiles:c.solved}).won,true);
-  const m=mirrorStage(d,'test',stage);assert.equal(traceBeam(m.level,m.solution).success,true);
+  const m=mirrorStage(d,'test',stage);assert.equal(traceBeam(m.level,m.solution).success,true);assert.equal(traceBeam(m.level,m.orientations).success,false);
+  const solutions=[];for(let mask=0;mask<2**m.level.mirrors.length;mask++){const values=m.level.mirrors.map((_,i)=>mask&(1<<i)?'/':'\\');if(traceBeam(m.level,values).success)solutions.push(values);}
+  const nearest=Math.min(...solutions.map(solution=>solution.reduce((sum,value,index)=>sum+(value===m.orientations[index]?0:1),0)));
+  assert.ok(nearest>=m.minimumToggles,`mirror difficulty ${d} stage ${stage} starts only ${nearest} toggle(s) from a solution`);
   const p=potStage(d,'test-'+stage);for(const [a,b]of p.solution)assert.ok(pourPot(p.pots,a,b));assert.equal(potsSolved(p.pots),true);
   const s=shelfStage(d,stage);for(const [id,delta]of s.solution)assert.ok(moveShelf(s.pieces,id,delta));assert.equal(shelvesSolved(s.pieces),true);
  }

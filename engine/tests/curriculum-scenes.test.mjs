@@ -35,8 +35,12 @@ test('a solved mirror stays visibly rotated until the next round transition comp
   const {curriculumScenes}=await import('../src/scenes/CurriculumScenes.mjs');const scene=new curriculumScenes[0]();
   scene.events={once(){}};scene.scene={start(){}};scene.game={events:{emit(){}}};scene.init(curriculumStart({gameId:'observatory-mirror',statValue:50,seed:'rotation'}));scene.create();
   if(scene.guideOverlay)scene.guideOverlay.children[0].children.at(-1).onclick();
-  const puzzle=scene.puzzle,[x,y]=puzzle.level.mirrors[0];scene.board.children[0].children[y*puzzle.level.width+x].onclick();
-  assert.equal(scene.round,1);assert.equal(scene.puzzle,puzzle,'keep the solved board visible');assert.equal(scene.puzzle.orientations[0],'/');
+  const puzzle=scene.puzzle,mismatches=puzzle.solution.map((value,index)=>value===puzzle.orientations[index]?null:index).filter(index=>index!==null);assert.ok(mismatches.length>=2);
+  for(const [step,index] of mismatches.entries()){
+   const [x,y]=puzzle.level.mirrors[index];scene.board.children[0].children[y*puzzle.level.width+x].onclick();
+   if(step===0)assert.equal(scene.round,0,'first touch must not solve the opening mirror stage');
+  }
+  assert.equal(scene.round,1);assert.equal(scene.puzzle,puzzle,'keep the solved board visible');assert.deepEqual(scene.puzzle.orientations,puzzle.solution);
   assert.ok(scene.roundTransition);now=1200;scene.update();assert.notEqual(scene.puzzle,puzzle);assert.equal(scene.roundTransition,null);
  }finally{Object.assign(globalThis,previous);}
 });

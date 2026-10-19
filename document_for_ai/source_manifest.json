@@ -691,7 +691,7 @@
     },
     {
       "path": "document/content/06_01_LOCATION_ACTIVITIES.md",
-      "sha256": "70c53ae8c9d6e88753020544ab80e826cb2c51a038b47f22f946f30fbe850b7f"
+      "sha256": "5507aafd17d76b9b6ed0eabf68315fc7da06cf4939ee2478d6aa7a9886699435"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
@@ -743,7 +743,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "8d35ddf7661416c200ea2da4cda391d0e71777643c04d6a9811707d97f75bf71"
+      "sha256": "bc0757decd601ee0f424751339a1be350eb8e46bbf4e11da8b404e9a7e1a542c"
     },
     {
       "path": "lumia/README.md",
