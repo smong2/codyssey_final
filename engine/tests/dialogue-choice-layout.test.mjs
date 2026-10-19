@@ -25,7 +25,7 @@ test('choice question remains in the bottom dialogue frame while choice buttons 
  assert.ok(frame&&layer&&panel);assert.equal(layer.hidden,false);
  assert.match(frame.textContent,/어떤 길을 고를까/);assert.equal(frame.children.includes(panel),false);assert.equal(layer.children.includes(panel),true);
  const buttons=panel.children.filter(item=>item.tag==='button');assert.equal(buttons.length,2);
- assert.ok(buttons.every(item=>item.style.backgroundImage==='url("./design-assets/ui/BT04_choice_blank_pale_green.png")'));
+ assert.ok(buttons.every(item=>item.style.backgroundImage==='url("./design-assets/ui/BT04_choice_blank_pale_ivory.png")'));
  const css=readFileSync(new URL('../preview.css',import.meta.url),'utf8'),rule=css.match(/\.dialogue-choice-layer\{([^}]*)\}/)?.[1]??'';
  assert.match(rule,/position:absolute/);assert.match(rule,/right:/);assert.match(rule,/width:min\(42vw,620px\)/);
 });

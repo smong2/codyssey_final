@@ -45,6 +45,8 @@ export function createDialoguePlayback(payload){
  const normalizeLine=line=>{const mode=line.lineMode??'DIALOGUE';return {...line,type:'LINE',lineMode:mode,visualMode:line.visualMode??(mode==='DIALOGUE'?'SPEAKER':'KEEP')};};
  const applyLine=line=>{
   const visual=line.visualMode;
+  // The player speaks from the panel; the partner remains on the stage.
+  if(speakers[line.speaker]?.kind==='PLAYER'&&focus?.assetType==='CHARACTER')return;
   if(visual==='NONE')focus=null;
   else if(visual==='SPEAKER'){
    const speaker=speakers[line.speaker];
