@@ -11,18 +11,18 @@ export const isAdventureLocation=id=>ADVENTURE_LOCATIONS.some(place=>place.id===
 export const ADVENTURE_GEOMETRY=Object.freeze({footRadius:24,investigationRadius:88,spawnRadius:220,spacing:200});
 export const ADVENTURE_MAPS=Object.freeze({
  greenhouse:Object.freeze({
-  world:'./design-assets/map/MP01_greenhouse_world_3840x2160.webp',
-  thumbnail:'./design-assets/map/MP01_greenhouse_world_1920x1080.webp',
-  mask:'./design-assets/map/MP01_greenhouse_collision_mask_1920x1080.png',
-  foreground:'./design-assets/map/MP01_greenhouse_foreground_3840x2160.webp',
+  world:'./design-assets/map/MP01_greenhouse_master_3840x2160.png',
+  thumbnail:'./design-assets/map/MP01_greenhouse_master_3840x2160.png',
+  mask:'./design-assets/map/MP01_greenhouse_collision_mask_3840x2160.png',
+  foreground:'./design-assets/map/MP01_greenhouse_foreground_3840x2160-1.png',
   spawn:Object.freeze({x:1920,y:2000}),zoom:0.7,
   placement:Object.freeze({wallClearance:ADVENTURE_GEOMETRY.footRadius,forbiddenZones:Object.freeze([])})
  }),
  library:Object.freeze({
-  world:'./design-assets/map/MP02_grand_library_world_3840x2160.webp',
-  thumbnail:'./design-assets/map/MP02_grand_library_world_1920x1080.webp',
-  mask:'./design-assets/map/MP02_grand_library_collision_mask_1920x1080.png',
-  foreground:'./design-assets/map/MP02_grand_library_foreground_3840x2160.webp',
+  world:'./design-assets/map/MP02_grand_library_3840x2160.png',
+  thumbnail:'./design-assets/map/MP02_grand_library_3840x2160.png',
+  mask:'./design-assets/map/MP02_grand_library_collision_mask_3840x2160.png',
+  foreground:'./design-assets/map/MP02_grand_library_foreground_3840x2160.png',
   spawn:Object.freeze({x:1920,y:2100}),zoom:0.7,
   placement:Object.freeze({wallClearance:ADVENTURE_GEOMETRY.footRadius,forbiddenZones:Object.freeze([])})
  }),
