@@ -45,7 +45,7 @@ import { PRIVACY_CONSENT_VERSION } from "./services/api-provider.mjs";
 import { createServerEndingUI } from "./ui/server-ending.mjs";
 const roomLight = createRoomLight(),
 	engineServices = globalThis.lumiaEngineServices ?? {};
-const SERVER_GAME_METHODS = ["bootstrapAccount", "updateAccountSettings", "listSaveSlots", "getSaveSlot", "startRun", "deleteSaveSlot", "recoverSaveSlot", "confirmSchedule", "startActivity", "completeSpecial", "completeClassQuit", "completeClassReplay", "completeForcedRest", "completeRest", "completeAdventure", "closeWeek", "acknowledgeWeekSummary", "loadDialogue", "completeDialogue", "getCollection", "openMyRoom", "decideEnding", "prepareEnding", "getEnding", "finishEnding"];
+const SERVER_GAME_METHODS = ["bootstrapAccount", "updateAccountSettings", "listSaveSlots", "getSaveSlot", "startRun", "deleteSaveSlot", "deleteUnreadableSaveSlot", "recoverSaveSlot", "confirmSchedule", "startActivity", "completeSpecial", "completeClassQuit", "completeClassReplay", "completeForcedRest", "completeRest", "completeAdventure", "closeWeek", "acknowledgeWeekSummary", "loadDialogue", "completeDialogue", "getCollection", "openMyRoom", "decideEnding", "prepareEnding", "getEnding", "finishEnding"];
 const serverMode = Boolean(engineServices.account && SERVER_GAME_METHODS.every((name) => typeof engineServices[name] === "function"));
 let previousRoomBackground = null;
 function decorateRoom() {
@@ -749,13 +749,39 @@ function renderSlots() {
 		} else renderCharacters(s.slotId, false);
 	};
 	let dialog;
+	const savedAtText = (value) => {
+		if (!value) return "저장 시각 없음";
+		const date = new Date(value);
+		return Number.isNaN(date.getTime()) ? "저장 시각 확인 불가" : "최근 저장 " + new Intl.DateTimeFormat("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(date);
+	};
+	const confirmSlotDelete = (s, unreadable = false) => {
+		modal(
+			unreadable ? "문제가 있는 저장 기록을 삭제할까요?" : "슬롯을 삭제할까요?",
+			el("p", unreadable ? "이 슬롯의 기록은 이어서 할 수 없어요. 삭제해도 캐릭터와 펫 등 모은 보상은 그대로 남아요." : "이 슬롯의 게임 기록만 지울게요. 캐릭터와 펫 등 모은 보상은 그대로 남아요."),
+			[btn("삭제", async () => {
+				if (serverMode) {
+					await performServerMutation(
+						() => unreadable ? serverGame.deleteUnreadableSaveSlot(s.slotId) : serverGame.deleteSaveSlot(s.slotId),
+						() => {
+							document.querySelector("dialog:not(.slot-dialog)")?.close();
+							renderSlots();
+						},
+					);
+					return;
+				}
+				deleteSlot(profile, s.slotId);
+				save(false, null);
+				document.querySelector("dialog:not(.slot-dialog)")?.close();
+				renderSlots();
+			}, "danger")],
+		);
+	};
 	const cardFor = (s, recent = false) => {
 		if (s.status === "LOAD_ERROR") {
 			if (!serverMode) return slotRecoveryUI.card(s.slotId, { canDelete: slotSnapshot.canDelete });
 			const card = el("article", null, "slot-row slot-recovery-error");
-			card.append(
-				el("h3", "슬롯 " + s.slotId),
-				el("p", "서버 저장을 불러오지 못했습니다. 원본을 빈 슬롯으로 취급하지 않습니다."),
+			const actions = el("nav", null, "slot-actions");
+			actions.append(
 				btn("다시 불러오기", async () => {
 					try {
 						await serverGame.refreshSlot(s.slotId);
@@ -764,6 +790,13 @@ function renderSlots() {
 						message("슬롯 다시 불러오기 실패: " + error.message);
 					}
 				}),
+				btn("삭제", () => confirmSlotDelete(s, true), "danger slot-delete"),
+			);
+			card.append(
+				el("h3", "슬롯 " + s.slotId),
+				el("strong", "이 저장 기록은 이어서 할 수 없어요.", "slot-warning-title"),
+				el("p", "다시 불러오거나, 계속 문제가 생기면 이 슬롯만 삭제해 주세요."),
+				actions,
 			);
 			return card;
 		}
@@ -771,43 +804,25 @@ function renderSlots() {
 		card.append(el("h3", (recent ? "최근 저장 · " : "") + "슬롯 " + s.slotId));
 		if (s.status === "EMPTY") card.append(el("p", "저장 기록 없음"));
 		else {
-			const c = CHARACTERS.find((c) => c.id === s.activeRun?.characterId);
-			card.append(el("p", s.status === "PLAYING" ? (c?.name ?? "학생") + " · " + s.activeRun.runNumber + "회차 · " + s.activeRun.week + "주차" : s.completedRunCount + "회차 완료"));
+			const characterId = s.status === "PLAYING" ? s.activeRun?.characterId : s.lastCompletedCharacterId;
+			const c = CHARACTERS.find((c) => c.id === characterId);
+			const facts = el("div", null, "slot-facts");
+			facts.append(
+				el("p", "현재 캐릭터 · " + (c?.name ?? "확인 불가")),
+				el("p", s.status === "PLAYING" ? s.activeRun.runNumber + "회차 · " + s.activeRun.week + "주차" : s.completedRunCount + "회차 완료"),
+				el("small", savedAtText(s.lastSavedAt)),
+			);
+			card.append(facts);
+			const actions = el("nav", null, "slot-actions");
 			const open = btn(s.status === "PLAYING" ? "이어서 하기" : s.completedRunCount + 1 + "회차 시작", () => resume(s, dialog));
 			open.disabled = !profile || saveFailed;
-			card.append(open);
+			actions.append(open);
 			if (!recent && profile) {
-				const remove = btn(
-					"슬롯 삭제",
-					() => {
-						modal("슬롯을 삭제할까요?", el("p", "이 슬롯의 게임 기록만 지울게요. 캐릭터와 펫 등 모은 보상은 그대로 남아요."), [
-							btn(
-								"삭제",
-								async () => {
-									if (serverMode) {
-										await performServerMutation(
-											() => serverGame.deleteSaveSlot(s.slotId),
-											() => {
-												document.querySelector("dialog:not(.slot-dialog)")?.close();
-												renderSlots();
-											},
-										);
-										return;
-									}
-									deleteSlot(profile, s.slotId);
-									save(false, null);
-									document.querySelector("dialog:not(.slot-dialog)")?.close();
-									renderSlots();
-								},
-								"danger",
-							),
-						]);
-					},
-					"text-button",
-				);
+				const remove = btn("삭제", () => confirmSlotDelete(s), "danger slot-delete");
 				remove.disabled = saveFailed;
-				card.append(remove);
+				actions.append(remove);
 			}
+			card.append(actions);
 		}
 		return card;
 	};
@@ -874,12 +889,13 @@ function renderCharacters(id, isNew, gender = "male", selectedId = null) {
 	for (const c of available) {
 		const card = el("article", null, "select-character-card" + (selected.id === c.id ? " selected" : ""));
 		const choose = btn("", () => renderCharacters(id, isNew, gender, c.id), "character-card-select");
-		choose.setAttribute("aria-label", c.name + " 선택");
+		choose.setAttribute("aria-label", c.selectable ? c.name + " 선택" : "미해금 캐릭터");
 		choose.setAttribute("aria-pressed", String(selected.id === c.id));
 		const art = el("img");
 		art.src = "./character-assets/" + c.fullbody;
 		art.alt = c.name;
-		choose.append(art, el("strong", c.name));
+		choose.append(art);
+		if (c.selectable) choose.append(el("strong", c.name));
 		choose.disabled = !c.selectable;
 		card.classList.toggle("locked-card", !c.selectable);
 		if (!c.selectable) {
@@ -898,8 +914,9 @@ function renderCharacters(id, isNew, gender = "male", selectedId = null) {
 	const full = el("img", null, "selected-character-full");
 	full.src = "./character-assets/" + selected.fullbody;
 	full.alt = selected.name + " 전신";
-	appendCharacterInfo(detail, selected, el);
-	detail.append(el("small", "체력 100 · 초기 성장 스탯에 캐릭터 보정과 영구 보너스 적용"));
+	const detailCopy = el("div", null, "character-detail-copy");
+	appendCharacterInfo(detailCopy, selected, el);
+	detailCopy.append(el("small", "체력 100 · 초기 성장 스탯에 캐릭터 보정과 영구 보너스 적용"));
 	const start = btn("시작하기", async () => {
 		start.disabled = true;
 		slotId = id;
@@ -926,7 +943,7 @@ function renderCharacters(id, isNew, gender = "male", selectedId = null) {
 		blackDissolve(renderAdmission);
 	});
 	start.disabled = saveFailed;
-	detail.append(start);
+	detail.append(full, detailCopy, start);
 	layout.append(list, detail);
 	shell.append(layout, btn("뒤로가기", isNew ? () => renderTitle(false, null, "preserve") : renderSlots, "text-button character-select-back"));
 }

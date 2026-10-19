@@ -182,6 +182,7 @@ test('anchors the speaker nameplate at BT04 native ratio and outlines the dialog
  assert.match(frameRule,/border:1px solid #b79555/);
  const choiceRule=css.match(/\.dialogue-choice-panel-right \.dialogue-choice-nameplate\{([^}]*)\}/)?.[1]??'';
  assert.match(choiceRule,/background-size:contain/);
+ assert.match(choiceRule,/box-shadow:inset 0 0 0 999px #fff8e9bf/);
 });
 
 test('keeps the dialogue panel visible and hides the stale NPC nameplate on choices',()=>{

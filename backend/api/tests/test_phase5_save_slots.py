@@ -132,6 +132,15 @@ def test_missing_slot_is_load_error_and_recovery_read_is_non_mutating(content_db
         slots = client.get("/v1/save-slots", headers=headers()).json()["slots"]
         assert slots[2] == {"slotId": 3, "status": "LOAD_ERROR"}
         assert client.get("/v1/save-slots/3", headers=headers()).status_code == 503
+        global_before = deepcopy(database.data["users/owner/meta/progress"])
+        deleted = client.request(
+            "DELETE", "/v1/save-slots/3", headers=headers(),
+            json={"confirm": True, "resetUnreadable": True,
+                  "requestId": "delete-broken-3"},
+        )
+        assert deleted.status_code == 200, deleted.text
+        assert database.data["users/owner/saveSlots/3"]["status"] == "EMPTY"
+        assert database.data["users/owner/meta/progress"] == global_before
         assert start(client).status_code == 200
         run = database.data["users/owner/saveSlots/1"]["activeRun"]
         run["weeklySchedule"] = {

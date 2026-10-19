@@ -41,6 +41,10 @@ def test_compiler_resolves_cast_and_keeps_rewards_server_only(content_db):
     assert payload["sequence"][-1] == {"type": "END"}
     assert len(payload["choiceGroups"]) == 4
     assert payload["speakers"]["PLAYER"]["portraitSrc"] is None
+    assert payload["speakers"]["VALENTINUS"]["portraitSrc"] == (
+        "/character-assets/NPC02_%EB%B0%9C%EB%A0%8C%ED%8B%B0%EB%88%84%EC%8A%A4_"
+        "%EC%9E%84%EC%8B%9C.png"
+    )
     assert payload["speakers"][cast["MAIN_GUIDE_STUDENT"]]["kind"] == "CHARACTER"
     assert all("nextNodeId" not in item and "hiddenDelta" not in item for item in payload["sequence"])
     assert any(item.get("src", "").startswith("/world-assets/") for item in payload["sequence"])

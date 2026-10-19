@@ -10,7 +10,7 @@ from uuid import NAMESPACE_URL, uuid5
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from .account import _STATS, _TAGS
+from .account import GAME_DATA_VERSION, _STATS, _TAGS
 from .authentication import AuthenticatedUser, require_verified_user
 from .content_master import ContentMaster, ContentMasterError, UnknownCharacter
 from .firebase import FirebaseServices, get_firebase_services
@@ -34,8 +34,11 @@ class StartRunRequest(MutationRequest):
     characterId: str = Field(pattern=r"^CH\d{2}$")
 
 
-class DeleteSlotRequest(MutationRequest):
+class DeleteSlotRequest(BaseModel):
+    requestId: str = Field(min_length=1, max_length=256)
+    expectedServerRevision: int | None = Field(default=None, ge=0)
     confirm: Literal[True]
+    resetUnreadable: bool = False
 
 
 class StartRunRejected(Exception):
@@ -222,6 +225,21 @@ def delete_save_slot(
     body: DeleteSlotRequest,
     repository: SaveSlotRepository = Depends(get_slot_repository),
 ) -> dict:
+    if body.resetUnreadable:
+        if body.expectedServerRevision is not None:
+            raise HTTPException(422, "Unreadable slot reset must not guess a server revision")
+        try:
+            result = repository.reset_unreadable(
+                slot_id=slot_id, request_id=body.requestId,
+                game_data_version=GAME_DATA_VERSION,
+            )
+            return {"slotId": slot_id, "serverRevision": result.server_revision,
+                    "replayed": result.replayed}
+        except Exception as error:
+            raise _error(error) from None
+    if body.expectedServerRevision is None:
+        raise HTTPException(422, "expectedServerRevision is required")
+
     def mutate(slot: SaveSlot, documents: dict) -> MutationPlan:
         if slot.status == "EMPTY":
             raise StartRunRejected("Slot is already empty")

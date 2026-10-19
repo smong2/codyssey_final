@@ -17,6 +17,13 @@ test('server mutation uses current revision and retains the identical request fo
  await game.retry();assert.deepEqual(calls[1],calls[0]);assert.equal(game.slot(1).serverRevision,4);assert.equal(game.pending(),null);
 });
 
+test('unreadable slot deletion does not invent a server revision and refreshes the reset slot',async()=>{
+ let broken={slotId:2,status:'LOAD_ERROR'},input;
+ const services={bootstrapAccount:async()=>({created:false}),listSaveSlots:async()=>({slots:[empty(1),broken,...[3,4,5].map(empty)]}),getCollection:async()=>collection,getSaveSlot:async()=>empty(2),deleteUnreadableSaveSlot:async(_slotId,body)=>{input=structuredClone(body);broken=empty(2);return {serverRevision:0};}};
+ const game=createServerGameSession({services,requestIdFactory:()=> 'delete-broken'});await game.load();await game.deleteUnreadableSaveSlot(2);
+ assert.deepEqual(input,{confirm:true,resetUnreadable:true,requestId:'delete-broken'});assert.equal(game.slot(2).status,'EMPTY');assert.equal(game.slot(2).serverRevision,0);
+});
+
 test('revision conflict can discard the stale mutation and refresh authoritative slot state',async()=>{
  let current=playing(),calls=0;
  const conflict=Object.assign(new Error('revision conflict'),{status:409,code:'CONFLICT'});
