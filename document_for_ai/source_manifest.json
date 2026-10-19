@@ -283,7 +283,7 @@
     },
     {
       "path": "asset/character/README.md",
-      "sha256": "c77cd18cee1556baa475d6b6f1bd8e1d90e36fbb5e43f4f65d22fcbd399799c1"
+      "sha256": "4496c0765a9ae1ee97a3473bb7156bfdb4ab6e6162345c79cd2b5ae6d3b9dcb9"
     },
     {
       "path": "asset/effect/README.md",
@@ -323,7 +323,7 @@
     },
     {
       "path": "asset/README.md",
-      "sha256": "d8460991e3e8493f08064bb81e5e755ee2ef271d0ee0f15d93fe1e8f298e54ea"
+      "sha256": "e9ab62ae78e30e086592ffa4dd7949912772dedfc153425f239d6452fce049fd"
     },
     {
       "path": "asset/sd_character/README.md",
@@ -379,11 +379,11 @@
     },
     {
       "path": "document/03_CHARACTERS.md",
-      "sha256": "cb0455221579eb1823d481214c84b4e51db66269115dfc21f54c5d265fa9dad2"
+      "sha256": "b350757e2ab9ac1bf757708908f92d2b4651b35c3ea4bceff8a8d416ff1ae6bf"
     },
     {
       "path": "document/04_ASSETS.md",
-      "sha256": "c4eab5d267f71e6ceb769538629d3a7d30b62c21113a49d01a93da75ee376c8b"
+      "sha256": "f34009af037d239c0d5aee6f52773604f4e81d8641594b5dca8f70d94347cdd2"
     },
     {
       "path": "document/05_TEAM_ROLES.md",
@@ -788,7 +788,7 @@
   ],
   "assetInventory": {
     "path": "asset",
-    "sha256": "45afb43234fef0bbbc1fcafdedd57bba62999677750e26cb9c2f5eb02958f527",
+    "sha256": "37170f70e6305bf93301162038921d3571744bfec69b9758238f8f185f16b336",
     "ai": [
       "document_for_ai/04_ASSETS.md"
     ]
