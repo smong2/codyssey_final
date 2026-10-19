@@ -20,8 +20,13 @@
 
 ## 이미지
 
-- 기존 `BG04_grand_library_1920x1080_014.png`
-- `ART-L04` — 책장 위에 가로로 놓인 책 한 권
+| 용도 | 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG04_grand_library_1920x1080_014.png`](../../../asset/background/BG04_grand_library_1920x1080_014.png) | 실제 파일·API 연결 가능 | <img src="../../../asset/background/BG04_grand_library_1920x1080_014.png" width="240" alt="대서고"> |
+| `ART-L04` · 책장 위 평범한 책 한 권 | 예약 파일 `IT_focus_LOC_LIB_01_plain_book_01.png` | **예약·미납** | 미리보기 없음 |
+| `NPC:SERIN` | 전용 초상 없음 | **텍스트 화자 의도** | — |
+
+기존 `IT_card_candidate_LIB_ancient_book_03.png`는 장식 있는 고서 카드라 Production의 “책장 위에 가로로 놓인 평범한 책”과 맞지 않는다. 따라서 `ART-L04` 대체 이미지로 연결하지 않는다.
 
 ## Sequence
 

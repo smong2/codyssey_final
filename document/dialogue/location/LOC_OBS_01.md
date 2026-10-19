@@ -19,8 +19,10 @@
 
 ## 이미지
 
-- 기존 `BG05_starlight_observatory_1920x1080_015.png`
-- `ART-L01` — 오래된 관측 일기. 이후 OBS 02~04에서도 같은 이미지 재사용
+| 용도 | 실제 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG05_starlight_observatory_1920x1080_015.png`](../../../asset/background/BG05_starlight_observatory_1920x1080_015.png) | 실제 파일·API 연결 가능 | <img src="../../../asset/background/BG05_starlight_observatory_1920x1080_015.png" width="240" alt="별빛 천문대"> |
+| `ART-L01` · 오래된 관측 일기 | [`IT_focus_LOC_OBS_01_observation_diary_03.png`](../../../asset/item/IT_focus_LOC_OBS_01_observation_diary_03.png) | **채택·API 연결**, OBS 01~04 공용 | <img src="../../../asset/item/IT_focus_LOC_OBS_01_observation_diary_03.png" width="220" alt="오래된 관측 일기"> |
 
 ## Sequence
 

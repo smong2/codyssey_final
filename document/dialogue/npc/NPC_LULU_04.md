@@ -14,6 +14,16 @@
 - 깃털과 단풍 씨앗은 대사로만 소개하고 새 소품 이미지를 만들지 않는다.
 - 관계 마무리는 `친구가 됐다`고 설명하지 않고 서로 발견을 보여 주는 게 자연스러워진 모습으로 끝낸다.
 
+## 이미지
+
+| 용도 | 실제 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG06_glass_greenhouse_1920x1080_016.png`](../../../asset/background/BG06_glass_greenhouse_1920x1080_016.png) | 현재 NPC Story DB의 `GH` 배경 | <img src="../../../asset/background/BG06_glass_greenhouse_1920x1080_016.png" width="240" alt="유리 온실"> |
+| `ART-N06` 재사용 | [`IT_focus_NPC_LULU_02_treasure_chest_02.png`](../../../asset/item/IT_focus_NPC_LULU_02_treasure_chest_02.png) | **채택·API 연결** | <img src="../../../asset/item/IT_focus_NPC_LULU_02_treasure_chest_02.png" width="220" alt="루루의 열린 보물상자"> |
+| 루루 화자 초상 | `NPC:LULU portrait_asset_ref=NULL` | **현재 런타임 미연결** | 미리보기 없음 |
+
+깃털·단풍 씨앗은 새 FOCUS를 만들지 않는 Production 범위이므로 `ART-N06` 보물상자만 재사용한다.
+
 ## Sequence
 
 ### S1 · 오늘도 먼저 보여 주기

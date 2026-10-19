@@ -293,13 +293,13 @@ Main Story, NPC Story, Location Story 모두 같은 방식으로 작성한다.
       "type": "LINE",
       "lineMode": "NARRATION",
       "visualMode": "NONE",
-      "text": "해가 진 뒤의 시계탑 광장은 낮보다 훨씬 조용하다."
+      "text": "시계탑 광장 한쪽에 작은 모임 안내지가 몇 장 흩어져 있다."
     },
     {
       "type": "LINE",
       "lineMode": "CONTEXT",
       "visualMode": "NONE",
-      "text": "광장 한쪽의 작은 룬 조각은 어제부터 그 자리에 있었다. 몇몇 학생이 살펴봤지만 정체는 아직 알려지지 않았다."
+      "text": "이 안내지는 광장에서 작은 모임을 알리기 위해 준비한 것이다."
     },
     {
       "type": "IMAGE",
