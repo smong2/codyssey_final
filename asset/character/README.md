@@ -75,7 +75,7 @@
 | [`MS01_S3_ASK`](../../document/dialogue/main/MS01.md) · 문제 확인·관찰 | [CH_MS01_S3_ASK_valentinus_observing_upperbody_01.png](./CH_MS01_S3_ASK_valentinus_observing_upperbody_01.png)<br><img src="./CH_MS01_S3_ASK_valentinus_observing_upperbody_01.png" width="150" alt="발렌티누스 교수 문제 확인·관찰 상반신"> | 시계탑의 빛을 살피며 안경을 짚는 선택지 반응 화자 상반신 | 에셋 등록 완료 · 대화 화면 연결 미확인 |
 | [`MS03_S3_L04`](../../document/dialogue/main/MS03.md) · 실패에서 단서 발견 | [CH_MS03_S3_L04_valentinus_insight_upperbody_01.png](./CH_MS03_S3_L04_valentinus_insight_upperbody_01.png)<br><img src="./CH_MS03_S3_L04_valentinus_insight_upperbody_01.png" width="150" alt="발렌티누스 교수 실패에서 단서 발견 상반신"> | 시계탑 룬의 실패에서 정보를 얻고 손가락을 들어 설명하는 화자 상반신 | 에셋 등록 완료 · 대화 화면 연결 미확인 |
 
-**선택 기준:** `MS01_S3_L01`은 처음 인사하는 대사, `MS01_S3_ASK`는 ‘무슨 문제가 있는 건가요?’ 선택 후 관찰 반응, `MS03_S3_L04`는 실패를 단서로 해석하는 대사입니다. 그 밖의 교수 대사에 임의로 적용하지 않습니다. 3장 모두 1254×1254 투명 PNG이며 위·좌·우의 인물 잘림이 없도록 구성했습니다.
+**선택 기준:** `MS01_S3_L01`은 처음 인사하는 대사, `MS01_S3_ASK`는 ‘무슨 문제가 있는 건가요?’ 선택 후 관찰 반응, `MS03_S3_L04`는 실패를 단서로 해석하는 대사입니다. 그 밖의 교수 대사에 임의로 적용하지 않습니다. 3장 모두 1254×1254 투명 PNG이며 위·좌·우에서 인물이 잘리지는 않습니다. 다만 `MS03_S3_L04`의 오른쪽 여백은 약 6px로 좁으므로 대화 프레임에서는 `contain`으로 표시하고 `cover` 크롭을 피해야 합니다.
 
 ## 학생 상반신 표정 160장
 
