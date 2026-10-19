@@ -1496,7 +1496,7 @@ function completeActivity(token, result) {
 async function completeServerActivity(checkpoint, result = {}, afterComplete = null) {
 	let operation, command;
 	if (checkpoint.action === "adventure") {
-		if (!["MISSION_COMPLETE", "TIMEOUT"].includes(result.outcome)) throw new Error("서버 모험 완료 API가 이 결과를 지원하지 않습니다.");
+		if (!["MISSION_COMPLETE", "TIMEOUT", "QUIT"].includes(result.outcome)) throw new Error("서버 모험 완료 API가 이 결과를 지원하지 않습니다.");
 		operation = "completeAdventure";
 		command = { resolution: result.outcome, foundCount: result.foundCount, targetCount: checkpoint.serverStart?.targetCount };
 	} else if (classOf(checkpoint.action)) {
@@ -1524,7 +1524,7 @@ async function completeServerActivity(checkpoint, result = {}, afterComplete = n
 			if (afterComplete) afterComplete();
 			else continueSchedule();
 		});
-		if (checkpoint.action === "adventure" && ["MISSION_COMPLETE", "TIMEOUT"].includes(result.outcome)) {
+		if (checkpoint.action === "adventure" && ["MISSION_COMPLETE", "TIMEOUT", "QUIT"].includes(result.outcome)) {
 			adventureResultUI.show(shell, { outcome: result.outcome, foundCount: result.foundCount, objectiveCount: checkpoint.serverStart.targetCount, feedback: resultText }, advance);
 		} else {
 			const restDays = checkpoint.forcedRest ? response?.result?.restDaysCompleted : 0;
@@ -1981,15 +1981,17 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 	function requestAdventureStop() {
 		if (!started || finished || saveFailed) return;
 		adventureView?.pause(true);
-		const body = el("p", "이미 사용한 체력은 돌려받지 않고 오늘 일정은 진행 처리됩니다. 성장·보상은 없습니다.");
+		const body = el("p", "이미 사용한 체력은 돌려받지 않고 오늘 일정은 진행 처리됩니다. 탐험 성장과 목표 보상은 없습니다.");
 		const dialog = modal("모험을 중단할까요?", body, [
 			btn("계속 탐험", () => dialog.close(), "quiet"),
 			btn("중단하고 다음으로", async () => {
 				if (finished) return;
 				if (serverMode) {
+					finished = true;
 					dialog.close();
-					message("서버에서 모험 중단 결과를 처리할 API가 아직 없어 중단을 저장할 수 없습니다. 계속 탐험해 주세요.");
-					adventureView?.pause(Boolean(briefing));
+					briefing?.remove();
+					briefing = null;
+					void completeServerActivity(checkpoint, { outcome: "QUIT", foundCount: Array.isArray(lastState?.foundIds) ? lastState.foundIds.length : 0 });
 					return;
 				}
 				if (!stopAdventure(profile, slotId, token)) {
@@ -2003,7 +2005,7 @@ function renderAdventure(checkpoint = current().inProgressActivity) {
 				briefing?.remove();
 				briefing = null;
 				save(false, slotId, () => {
-					message("모험을 중단했습니다. 오늘 일정은 진행 처리됩니다.");
+					message("모험을 중단해 실패로 처리했습니다. 오늘 일정은 진행 처리됩니다.");
 					continueSchedule();
 				});
 				if (saveFailed) renderRoom();

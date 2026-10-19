@@ -274,7 +274,7 @@
 - 정상 진행에서 활동마다 마이룸에 돌아가지 않습니다.
 - 휴식만 마이룸 자체가 활동 화면입니다.
 - 수업 `포기하기`는 `FAIL`입니다.
-- 모험은 `MISSION_COMPLETE / TIMEOUT`, 비정상 종료는 `INTERRUPTED`입니다.
+- 모험은 `MISSION_COMPLETE / TIMEOUT / QUIT`이며, `중단하기`를 확정한 `QUIT`은 탐험 성장·목표 보상이 없는 실패입니다. 모험 시도 횟수 같은 누적 활동 기록은 남으며, 비정상 종료만 `INTERRUPTED`로 복구합니다.
 
 ## UCS-W03 금요일 종료·다음 주
 
@@ -368,7 +368,7 @@
 활동별 결과는 기존 계약을 사용합니다.
 
 - 수업: `FAIL / SUCCESS / GREAT`
-- 모험: `MISSION_COMPLETE / TIMEOUT`
+- 모험: `MISSION_COMPLETE / TIMEOUT / QUIT`
 - 요정의 거래: `TRANSFERRED / SKIPPED`
 
 ## UCS-L02 활동 전 Location Story / 활동 후 NPC Story

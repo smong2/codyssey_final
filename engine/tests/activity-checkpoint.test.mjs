@@ -48,7 +48,7 @@ test('reloading an in-progress activity resolves it once as interrupted without 
  assert.doesNotThrow(()=>validateProfile(loaded));
 });
 
-test('manual adventure stop preserves spent stamina, advances one day, and grants no growth',()=>{
+test('manual adventure stop is a completed failure that preserves spent stamina and grants no growth',()=>{
  const profile=createProfile(),run=startRun(profile,1,'CH01');
  setSchedule(profile,1,['adventure','rest','rest','rest','rest']);
  const checkpoint=beginAction(profile,1,'1:1:0'),growthBefore=structuredClone(run.stats);
@@ -58,8 +58,10 @@ test('manual adventure stop preserves spent stamina, advances one day, and grant
  assert.equal(run.day,1);
  assert.equal(run.stamina,85);
  assert.deepEqual(run.stats,growthBefore);
- assert.equal(run.actionHistory[0].status,'INTERRUPTED');
- assert.equal(run.actionHistory[0].effect.outcome,'interrupted');
+ assert.equal(run.actionHistory[0].status,'COMPLETED');
+ assert.equal(run.actionHistory[0].effect.outcome,'failure');
+ assert.equal(profile.meta.counters.adventures,1);
+ assert.match(activityResultText(run.actionHistory[0]),/실패/);
  assert.equal(stopAdventure(profile,1,checkpoint.token),false);
  assert.doesNotThrow(()=>validateProfile(profile));
 });

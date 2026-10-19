@@ -165,6 +165,27 @@ def test_adventure_timeout_zero_found_awards_zero_growth(activity_db):
         assert database.data["users/owner/saveSlots/1"]["activeRun"]["stats"]["exploration"] == 150
 
 
+def test_adventure_quit_uses_existing_completion_api_as_zero_growth_failure(activity_db):
+    client, database = phase5_client(activity_db)
+    with client:
+        begun = _prepare(client, database, exploration=150, request_prefix="quit")
+        target = begun.json()["targetCount"]
+        completed = _complete_adventure(
+            client, resolution="QUIT", found_count=1, target_count=target,
+            request="quit-complete", revision=3,
+        )
+        assert completed.status_code == 200, completed.text
+        payload = completed.json()
+        assert payload["resolution"] == "QUIT"
+        assert payload["growthAwarded"] == {"exploration": 0}
+        run = database.data["users/owner/saveSlots/1"]["activeRun"]
+        assert run["stats"]["exploration"] == 150
+        assert run["completedWeekdayCount"] == 1
+        assert run["runStatistics"]["adventureCount"] == 1
+        assert run["activityHistory"][-1]["resolution"] == "QUIT"
+        assert database.data["users/owner/statistics/global"]["totalAdventureCount"] == 1
+
+
 def test_adventure_rejects_client_target_count_forgery_without_partial_commit(activity_db):
     client, database = phase5_client(activity_db)
     with client:
@@ -237,6 +258,9 @@ def test_adventure_rejects_inconsistent_counts_and_wrong_activity_type(activity_
         ).status_code == 422
         assert _complete_adventure(
             client, resolution="TIMEOUT", found_count=1, target_count=1,
+        ).status_code == 422
+        assert _complete_adventure(
+            client, resolution="QUIT", found_count=1, target_count=1,
         ).status_code == 422
         assert _complete_adventure(
             client, resolution="TIMEOUT", found_count=5, target_count=3,

@@ -27,6 +27,12 @@ test('server activity history survives a week rollover for calendar and diary pr
  assert.equal(value.actionHistory[1].locationId,'library');assert.equal(value.actionHistory[1].effect.growth.exploration,6);
 });
 
+test('server adventure QUIT projects as a completed failure, not an interruption',()=>{
+ const history=[{week:1,day:0,type:'ADVENTURE',contentId:'ADV_LIBRARY',status:'COMPLETED',resolution:'QUIT',staminaBefore:100,staminaCost:15,foundCount:1,targetCount:2,growthAwarded:{exploration:0}}];
+ const value=projectServerRun({...run,week:2,day:'MONDAY',phase:'SCHEDULE_READY',pendingStoryEvent:null,weeklySchedule:{},activityHistory:history});
+ assert.equal(value.actionHistory[0].status,'COMPLETED');assert.equal(value.actionHistory[0].effect.outcome,'failure');assert.equal(value.actionHistory[0].effect.growth.exploration,0);assert.equal(value.actionHistory[0].effect.staminaAfter,85);
+});
+
 test('server dialogue history projects durable story records and normalizes skill growth',()=>{
  const value=projectServerRun({...run,pendingStoryEvent:null,dialogueHistory:[{
   eventId:'MS01',storyId:'MS01',title:'각자의 이유로 아카데미에',week:1,day:0,completionMode:'COMPLETE',

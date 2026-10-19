@@ -40,16 +40,16 @@ export function createAdventureResultUI({el}){
   panel.append(symbol,el('h2',complete?'목표를 모두 찾았어요!':'단서를 찾았어요!'),el('p',`찾은 단서 ${progress.foundCount} / ${progress.objectiveCount}`,'adventure-result-count'),next);
   overlay.append(panel);host.append(overlay);overlay.showModal();next.focus?.();
  },show(host,result,onContinue){
-  clear();const success=result.outcome==='MISSION_COMPLETE';
+  clear();const success=result.outcome==='MISSION_COMPLETE',quit=result.outcome==='QUIT';
   overlay=el('dialog',null,'adventure-result-overlay');const active=overlay;
-  overlay.setAttribute('aria-label',success?'모험 성공 결과':'모험 시간 종료 결과');
+  overlay.setAttribute('aria-label',success?'모험 성공 결과':quit?'모험 실패 결과':'모험 시간 종료 결과');
   overlay.addEventListener('cancel',event=>event.preventDefault());
   const panel=el('section',null,'adventure-result paper'+(success?' success':' timeout'));
   panel.setAttribute('aria-live','polite');panel.setAttribute('aria-atomic','true');
-  const symbol=el('div',success?'✦':'⌛','adventure-result-symbol');symbol.setAttribute('aria-hidden','true');
+  const symbol=el('div',success?'✦':quit?'×':'⌛','adventure-result-symbol');symbol.setAttribute('aria-hidden','true');
   const next=el('button','다음으로','adventure-result-next');next.type='button';
   next.onclick=()=>{if(overlay!==active)return;next.disabled=true;clear();onContinue();};
-  panel.append(symbol,el('h2',success?'모험 성공!':'시간이 다 되었어요'),el('p',success?'목표를 모두 발견했어요.':'이번 모험은 여기까지예요.'),el('p',`찾은 목표 ${result.foundCount} / ${result.objectiveCount}`,'adventure-result-count'),el('p',result.feedback,'adventure-result-effect'),next);
+  panel.append(symbol,el('h2',success?'모험 성공!':quit?'모험 실패':'시간이 다 되었어요'),el('p',success?'목표를 모두 발견했어요.':quit?'모험을 중단했어요. 이미 사용한 체력은 유지되고 탐험 성장·목표 보상은 없어요.':'이번 모험은 여기까지예요.'),el('p',`찾은 목표 ${result.foundCount} / ${result.objectiveCount}`,'adventure-result-count'),el('p',result.feedback,'adventure-result-effect'),next);
   overlay.append(panel);host.append(overlay);overlay.showModal();next.focus?.();
  }};
 }

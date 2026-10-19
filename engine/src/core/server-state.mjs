@@ -63,7 +63,7 @@ const projectHistoryEntry=(run,entry,week,day)=>{
  if(transfer&&typeof transfer.fromStat==='string'&&typeof transfer.toStat==='string'&&Number.isFinite(transfer.amount)){
   transferChanges[statKey(transfer.fromStat)]=-transfer.amount;transferChanges[statKey(transfer.toStat)]=transfer.amount;
  }
- const resolutions={GREAT:'greatSuccess',SUCCESS:'success',FAIL:'failure',MISSION_COMPLETE:'success',TIMEOUT:'timeout',TRANSFERRED:'transferred',SKIPPED:'skipped',INTERRUPTED:'interrupted'};
+ const resolutions={GREAT:'greatSuccess',SUCCESS:'success',FAIL:'failure',MISSION_COMPLETE:'success',TIMEOUT:'timeout',QUIT:'failure',TRANSFERRED:'transferred',SKIPPED:'skipped',INTERRUPTED:'interrupted'};
  const forcedRestDays=entry.type==='FORCED_REST'?(Number.isInteger(entry.forcedRestDays)?entry.forcedRestDays:run.forcedRest?.remainingWeekdays??0):0;
  return {week,day,action,...(locationFor(entry)?{locationId:locationFor(entry)}:{}),status:entry.resolution==='INTERRUPTED'?'INTERRUPTED':'COMPLETED',effect:{outcome:resolutions[entry.resolution]??String(entry.resolution??'complete').toLowerCase(),staminaChange,staminaAfter,growth,...(Object.keys(transferChanges).length?{transferChanges}:{}),forcedRest:entry.type==='FORCED_REST',forcedRestDays}};
 };

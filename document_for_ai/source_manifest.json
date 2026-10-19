@@ -343,7 +343,7 @@
     },
     {
       "path": "backend/api/README.md",
-      "sha256": "41b26df166a6f2d2c979901eb302e381099705b653fa6e8cd813b127fb734d49"
+      "sha256": "b87b4d81732791ab00548b847a4fdb29e5ec54adf1059063a9fa6edc85b3c349"
     },
     {
       "path": "backend/api/deploy/README.md",
@@ -635,11 +635,11 @@
     },
     {
       "path": "document/content/01_CORE_LOOP.md",
-      "sha256": "5d42627dcefa8aeeffe96d5129317ff2c9119dcb63a3aea23ee7893772aaba4f"
+      "sha256": "375c58f72085bb7ef79ee44f3fdee850264354659a534859e2454dcfd68c5502"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/01_STATS_SYSTEM.md",
-      "sha256": "a43cad20f3bab6315f339f88d6de04db93e6d6420bde76ea8c807af9fb2e7998"
+      "sha256": "3a26d4cb856fc9958c700883e52832fafe281df2ed1cbf49b65efa79bbeee1a9"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/02_EVENTS.md",
@@ -683,7 +683,7 @@
     },
     {
       "path": "document/content/04_SAVE_META_PROGRESSION.md",
-      "sha256": "9ee800fcb2dec9b936cc820d0933fdb292b9181c020523e431445df16916d8fd"
+      "sha256": "e05fe3985503f22faefa95cd141f5d3917ee31ebc9abc45617ca3679994ed17b"
     },
     {
       "path": "document/content/05_OPEN_DECISIONS.md",
@@ -691,7 +691,7 @@
     },
     {
       "path": "document/content/06_01_LOCATION_ACTIVITIES.md",
-      "sha256": "a8fb292919f6f5cdbdf669d2c9349623ef8a263ddda1ef88f125aa2eb1aaba37"
+      "sha256": "70c53ae8c9d6e88753020544ab80e826cb2c51a038b47f22f946f30fbe850b7f"
     },
     {
       "path": "document/content/06_CLASSES_MINIGAMES.md",
@@ -711,15 +711,15 @@
     },
     {
       "path": "document/content/10_COMMON_ENGINE_FRAME.md",
-      "sha256": "877328b8446a98d45d487ecec0432d18e761f4998cb0d71dc78a24d2115900a4"
+      "sha256": "c83598723fb0f85401568ac8d108a5b5234c723720beb9018615b05b3eeecc00"
     },
     {
       "path": "document/content/11_FEATURE_FRAME.md",
-      "sha256": "38414aeb41a140e82be10fa71ac7f5d64fdf224d0769e9225d41216ea2549a02"
+      "sha256": "2f2d124cbca92f96d7c53a8304ffda2a1bd981de0672165cb794801d61d6db3f"
     },
     {
       "path": "document/content/12_USER_UCS.md",
-      "sha256": "4c1884e6fec404d9d1190c9aa33a3e3bc55b43e09b20c19094bfd64956e4b6d6"
+      "sha256": "c970e247eac8bf7b8f6c4832c56dca55308b4c57b9e8de046e5343bc3cd75ed5"
     },
     {
       "path": "document/content/13_DIALOGUE_SEQUENCE.md",
@@ -743,7 +743,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "04a2c61aae35aa858f52fe21c46f64785d2964726a34cec2abd3cd59fe8c33e3"
+      "sha256": "8d35ddf7661416c200ea2da4cda391d0e71777643c04d6a9811707d97f75bf71"
     },
     {
       "path": "lumia/README.md",

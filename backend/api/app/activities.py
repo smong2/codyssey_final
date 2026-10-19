@@ -72,7 +72,7 @@ class CompleteClassReplayRequest(MutationRequest):
 class CompleteAdventureRequest(MutationRequest):
     model_config = ConfigDict(extra="forbid")
 
-    resolution: Literal["MISSION_COMPLETE", "TIMEOUT"]
+    resolution: Literal["MISSION_COMPLETE", "TIMEOUT", "QUIT"]
     foundCount: int = Field(ge=0, le=5)
     targetCount: int = Field(ge=1, le=5)
 
@@ -82,8 +82,8 @@ class CompleteAdventureRequest(MutationRequest):
             raise ValueError("Found count cannot exceed target count")
         if self.resolution == "MISSION_COMPLETE" and self.foundCount != self.targetCount:
             raise ValueError("MISSION_COMPLETE requires finding all target items")
-        if self.resolution == "TIMEOUT" and self.foundCount == self.targetCount:
-            raise ValueError("TIMEOUT cannot have found all target items")
+        if self.resolution in ("TIMEOUT", "QUIT") and self.foundCount == self.targetCount:
+            raise ValueError(f"{self.resolution} cannot have found all target items")
         return self
 
 
@@ -1260,7 +1260,7 @@ def complete_adventure(
     master: ActivityMaster = Depends(get_activity_master),
     candidates: StoryCandidates = Depends(get_story_candidates),
 ) -> dict:
-    """Resolve adventure outcome (MISSION_COMPLETE or TIMEOUT with partial growth)."""
+    """Resolve adventure outcome through the existing completion endpoint."""
     now = datetime.now(timezone.utc)
     kst_date = now.astimezone(KST).date().isoformat()
     day_path = UserDocPath("activityDays", kst_date)
@@ -1328,7 +1328,7 @@ def complete_adventure(
         )
         if body.resolution == "MISSION_COMPLETE":
             growth = success_growth
-        else:  # TIMEOUT
+        elif body.resolution == "TIMEOUT":
             if body.foundCount == 0:
                 growth = 0
             else:
@@ -1338,6 +1338,8 @@ def complete_adventure(
                 else:
                     partial = success_growth * body.foundCount // (objective_count * 2)
                     growth = min(max(1, partial), available_cap)
+        else:  # QUIT: explicit player stop is a failed adventure with no growth.
+            growth = 0
 
         stats["exploration"] = min(500, current + growth)
         entry["status"] = "COMPLETED"

@@ -128,7 +128,12 @@ export function stopAdventure(p,id,token){
  const r=runOf(p,id);if(token===r.lastAction)return false;
  const checkpoint=r.inProgressActivity;
  if(!checkpoint||checkpoint.action!=='adventure'||checkpoint.token!==token)throw new Error('현재 모험 일정과 중단 요청이 일치하지 않습니다.');
- return recoverInterruptedAction(p,id);
+ if(!checkpoint.forcedRest&&checkpoint.forcedRestDaysAfterStart)r.forcedRestDays=checkpoint.forcedRestDaysAfterStart;
+ r.exhausted=r.forcedRestDays>0;
+ const effect={outcome:'failure',staminaChange:r.stamina-checkpoint.staminaBefore,staminaAfter:r.stamina,growth:{},forcedRest:checkpoint.forcedRest,forcedRestDays:r.forcedRestDays};
+ (r.actionHistory??=[]).push({week:r.week,day:r.day,action:'adventure',locationId:checkpoint.locationId??r.scheduleLocations?.[r.day]??'greenhouse',status:'COMPLETED',effect});
+ p.meta.counters.adventures++;
+ r.lastAction=checkpoint.token;delete r.inProgressActivity;r.day++;if(r.day===5)r.phase='WEEK_COMPLETE';return true;
 }
 export function finishWeek(p,id){
  const r=runOf(p,id);if(r.pendingDialogue||r.pendingActivityStory||r.storyState?.pending||r.narrativeState?.pending)throw new Error('진행 중인 이야기를 먼저 마쳐 주세요.');

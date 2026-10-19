@@ -63,3 +63,10 @@ test('changing screens cancels result navigation and timeout uses its own result
  assert.match(host.textContent,/시간이 다 되었어요/);assert.doesNotMatch(host.textContent,/모험 성공/);
  const button=findButton(host);ui.clear();button.onclick();t.mock.timers.tick(3000);assert.equal(continued,0);assert.equal(host.children[0].removed,true);
 });
+test('manual quit is shown as adventure failure rather than timeout',()=>{
+ const host=node('main'),ui=createAdventureResultUI({el:node});let continued=0;
+ ui.show(host,{outcome:'QUIT',foundCount:1,objectiveCount:3,feedback:'모험 · 실패 · 체력 -15 (85/100)'},()=>continued++);
+ assert.equal(host.children[0].attributes['aria-label'],'모험 실패 결과');
+ assert.match(host.textContent,/모험 실패/);assert.match(host.textContent,/탐험 성장·목표 보상은 없어요/);assert.doesNotMatch(host.textContent,/시간이 다 되었어요/);
+ findButton(host).onclick();assert.equal(continued,1);
+});
