@@ -416,7 +416,10 @@ export function createMyroomUI(ctx) {
 				locationId = r.scheduleLocations?.[r.day] ?? "greenhouse";
 			action.append(el("span", WEEKDAYS[r.day + 1] + "요일 · " + (restDays ? "강제 휴식 · " + restDays + "일 남음" : activityTitle(a, locationId))), btn(a === "adventure" ? "모험 시작" : lesson ? "수업 시작" : a === "fairy-trade" ? "요정의 거래" : restDays ? restDays + "일 쉬기" : "휴식하기", onAction));
 		} else if (r.phase === "WEEK_COMPLETE") action.append(el("span", "평일 일정 완료"), btn("주말 보내기 · 자동 저장", onFinish));
-		else if (r.phase === "AWAITING_ENDING") action.append(el("span", "52주 육성 완료 · 마지막 1일"), btn("최종 이벤트·엔딩 프레임", onEnding));
+		else if (r.phase === "AWAITING_ENDING") {
+			action.className = "room-current-action room-ending-action";
+			action.append(createImageButton({ el, btn, src: "./design-assets/ui/BT04_blank_pale_green_short.png", label: "엔딩 보기", caption: "엔딩 보기", onClick: onEnding, className: "room-ending-button" }));
+		}
 		const dateStack = el("div", null, "room-date-stack");
 		const profileUI = btn("", profile, "room-profile-card");
 		profileUI.setAttribute("aria-label", c.name + " 프로필 · 체력 " + r.stamina + " / 100");

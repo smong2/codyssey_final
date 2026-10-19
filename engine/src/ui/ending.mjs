@@ -1,41 +1,33 @@
 import {endingSnapshot,validateEndingView,exampleEnding,displayedEndingRecords,ENDING_RECORD_LABELS} from '../core/ending-frame.mjs';
 import {ENDING_SUBTITLES} from '../core/ending-system.mjs';
+import {createEndingJourney} from './ending-journey.mjs';
 import {createCloseButton} from './button-art.mjs';
 
-export function createEndingUI({el,btn,shell,heading,current,character,slotId,onReturn,onComplete=()=>{},loadEnding=null,onReceive=()=>false,isSaveFailed=()=>false}){
+export function createEndingUI({el,btn,shell,heading,current,character,slotId,onReturn,onComplete=()=>{},loadEnding=null,onReceive=()=>false,isSaveFailed=()=>false,onWelcome}){
  let generation=0;
  function render({example=false,response=null,error='',loading=false}={}){
   const id=++generation,run=current(),snapshot=endingSnapshot(run,character());
   if(arguments[0]?.actual){
-   const record=run.endingRecord,key={slotId:slotId(),runNumber:run.runNumber};let stage=0,loading=false,error=false,received=null;
-   const live=active=>active===generation&&current()===run&&shell.classList.contains('ending-page');
-   const fetchLetter=async()=>{
-    if(loading||!loadEnding&&!received)return;loading=true;error=false;paint();const active=generation;
-    try{const value=received??validateEndingView(await loadEnding(key),key);if(!live(active))return;
-     received=value;if(!onReceive(value))throw new Error('save');received=null;loading=false;paint();
-    }catch{if(!live(active))return;loading=false;error=true;paint();}
-   };
-   const paint=()=>{
-    const active=++generation;heading('아르카디아에서 그려 본 미래','ending-page');
-    const layout=el('div',null,'ending-layout ending-career-art'),summary=el('aside',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
-    summary.append(shell.querySelector('h1'),el('h2',snapshot.character.name),el('p',snapshot.runNumber+'회차 · 52주차'));
-    if(stage===0){letter.append(el('p','최종 질문','ending-label'),el('h2','무엇을 지켰니?'),el('p','이 질문은 정답을 요구하지 않습니다.','ending-placeholder'));}
-    else if(stage===1){letter.append(el('p','너의 미래는','ending-label'),el('h2',record?.careerName??'진로 결과 준비 대기'));
-     const subtitle=ENDING_SUBTITLES[record?.careerId];if(subtitle)letter.append(el('p','《'+subtitle+'》','ending-placeholder'));
-    }else if(stage===2){
-     letter.append(el('p','엔딩 편지','ending-label'),el('h2',snapshot.character.name+'에게'));
-     summary.append(el('h3','아르카디아에서의 기록'));const rows=displayedEndingRecords(record);for(const metric of rows)summary.append(el('p',ENDING_RECORD_LABELS[metric.key]+' · '+metric.value+'회'));
-     if(!record.playRecords)summary.append(el('small','현재 회차에서 확인되는 기록입니다. 최종 기록 선별 연결 대기.'));
-     if(record?.letter?.status==='ready'){letter.append(el('small',record.letter.source==='ai'?'AI가 작성한 개인화 편지':'아르카디아의 기본 편지'));for(const [title,key]of [['이번 이야기의 미래','future'],['이야기 돌아보기','reflection'],['미래 모습과 응원','encouragement']]){const section=el('section');section.append(el('h3',title),el('p',record.letter.sections[key]));letter.append(section);}}
-     else letter.append(el('p',error?'편지를 불러오지 못했습니다.':loading?'아르카디아에서 온 편지를 준비하고 있어요...':loadEnding?'아르카디아에서 온 편지를 준비하고 있어요...':'편지 연결을 기다리고 있어요.','ending-placeholder'));
-     if((record?.letter?.status!=='ready'||isSaveFailed())&&(loadEnding||received)){const retry=btn(isSaveFailed()?'저장 다시 시도':'다시 시도',fetchLetter);retry.disabled=loading;letter.append(retry);}
-    }else{letter.append(el('h2','이번 여행으로 새롭게 열린 것'));for(const [kind,label]of [['character','새로운 캐릭터'],['pet','새로운 펫'],['badge','배지'],['background','마이룸 배경']]){const count=record.newUnlocks.filter(item=>item.kind===kind).length;if(count)letter.append(el('p',label+' '+count+(kind==='character'?'명':kind==='pet'?'마리':'개')));}}
-    layout.append(summary,letter);shell.append(layout);
-    const advance=()=>{if(!live(active)||loading)return;stage++;paint();if(stage===2&&record.letter.status!=='ready'&&loadEnding)fetchLetter();};
-    if(stage<2){const next=btn(stage===0?'계속':'편지 보기',advance,'ending-continue');next.disabled=loading||record.type==='PENDING';shell.append(next);if(record.type==='PENDING'&&!loading&&loadEnding)shell.append(btn(error?'다시 시도':'직업 결과 확인',fetchLetter,'ending-continue'));}
-    else if(stage===2&&record.newUnlocks?.length){const next=btn('다음',advance,'ending-continue');next.disabled=record.letter.status!=='ready'||isSaveFailed();shell.append(next);}
-    else{const final=btn('타이틀로',()=>{if(live(active)&&!isSaveFailed()&&record.letter.status==='ready')onComplete();},'ending-continue');final.disabled=record.letter.status!=='ready'||isSaveFailed();shell.append(final);}
-   };paint();if(record.type==='PENDING'&&loadEnding)fetchLetter();return;
+   const record=run.endingRecord,key={slotId:slotId(),runNumber:run.runNumber};let received=null;
+   const sameRun=()=>id===generation&&current()===run&&slotId()===key.slotId;
+   const journey=createEndingJourney({el,btn,shell,heading,current,onWelcome,
+    async onPrepare({ready,active}){
+     const live=()=>sameRun()&&active();
+     if(!live())return false;
+     if(record.letter.status!=='ready'||isSaveFailed()){
+      if(!loadEnding&&!received)return false;
+      const value=received??validateEndingView(await loadEnding(key),key);if(!live())return false;
+      received=value;if(!onReceive(value))return false;received=null;
+     }
+     if(record.letter.status!=='ready'||isSaveFailed())return false;
+     ready({careerName:record.careerName,subtitle:ENDING_SUBTITLES[record.careerId],source:record.letter.source,content:['future','reflection','encouragement'].map(key=>record.letter.sections[key]).join('\n\n')});
+     return true;
+    },
+    getUnlocks:()=>(record.newUnlocks??[]).map(item=>({...item,label:{character:'새로운 캐릭터',pet:'새로운 펫',badge:'새로운 배지',background:'새로운 마이룸 배경'}[item.kind]})),
+    onFinish(){if(!sameRun()||record.letter.status!=='ready'||isSaveFailed())return false;onComplete();return true;},
+    onTitle:onComplete
+   });
+   journey.render({resume:record.letter.status==='ready'});return;
   }
   heading('아르카디아에서 그려 본 미래','ending-page');
   const layout=el('div',null,'ending-layout ending-career-art'),summary=el('aside',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
