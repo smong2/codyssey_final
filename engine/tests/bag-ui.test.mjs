@@ -12,22 +12,29 @@ test('pending character conditions are shown without enabling that character ear
 });
 
 function node(tag,text='',className=''){
- const item={tag,text,className,children:[],attributes:{},dataset:{},style:{},disabled:false,append(...children){this.children.push(...children);},replaceChildren(...children){this.children=children;},setAttribute(key,value){this.attributes[key]=value;},get textContent(){return [this.text,...this.children.map(child=>child.textContent)].filter(Boolean).join(' ');}};
+ const item={tag,text,className,children:[],attributes:{},dataset:{},style:{},disabled:false,isConnected:true,append(...children){this.children.push(...children);},replaceChildren(...children){this.children=children;},setAttribute(key,value){this.attributes[key]=value;},get textContent(){return [this.text,...this.children.map(child=>child.textContent)].filter(Boolean).join(' ');}};
  return item;
 }
 function all(item,predicate){return [...(predicate(item)?[item]:[]),...item.children.flatMap(child=>all(child,predicate))];}
-function setup(meta={unlockedCharacters:['CH01','CH02','CH08','CH15','CH16','CH31'],unlockedPetIds:['PET01']}){
+function setup(meta={unlockedCharacters:['CH01','CH02','CH08','CH15','CH16','CH31'],unlockedPetIds:['PET01']},run={actionHistory:[]}){
  const shell=node('main'),modals=[];let headingNode,selectedPetId=null;shell.querySelector=selector=>selector==='h1'?headingNode:null;
  const ui=createJournalUI({
   el:node,
   btn(text,action,className=''){const button=node('button',text,className);button.onclick=action;return button;},
   shell,heading(title){headingNode=node('h1',title);shell.replaceChildren(headingNode);},
-  current:()=>({actionHistory:[]}),meta:()=>meta,activePet:()=>({id:'PET01'}),
+  current:()=>run,meta:()=>meta,activePet:()=>({id:'PET01'}),
   onSelectPet:id=>{selectedPetId=id;return true;},isSaveFailed:()=>false,onReturn(){},turnPage:(_layout,done)=>done(),
   modal(title,body,actions=[]){const entry={title,body,actions};modals.push(entry);return entry;}
  });
  return {ui,shell,modals,get headingNode(){return headingNode;},get selectedPetId(){return selectedPetId;}};
 }
+
+test('story diary shows the saved choice text instead of an implementation placeholder',()=>{
+ const run={actionHistory:[],dialogueHistory:[{eventId:'MS01',storyId:'MS01',title:'각자의 이유로 아카데미에',week:1,day:0,completionMode:'COMPLETE',selectedChoices:[{choiceNodeId:'C1',choiceId:'A',text:'천천히 둘러보고 싶어.'},{choiceNodeId:'C2',choiceId:'B',text:'친구와 함께하고 싶어.'}],effect:{growth:{}}}]};
+ const {ui,shell}=setup(undefined,run);ui.diary();
+ all(shell,n=>n.tag==='button'&&n.text==='이야기')[0].onclick();
+ assert.match(shell.textContent,/내가 고른 선택/);assert.match(shell.textContent,/천천히 둘러보고 싶어/);assert.match(shell.textContent,/친구와 함께하고 싶어/);assert.doesNotMatch(shell.textContent,/상세 문구 연결 대기/);
+});
 
 test('bag opens on badges with the approved tab order and omits item previews',()=>{
  const {ui,shell}=setup();ui.bag();

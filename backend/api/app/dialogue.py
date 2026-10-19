@@ -143,9 +143,21 @@ def _validated_choices(groups: list[dict], selected: list[SelectedChoice], mode:
     return choice_ids
 
 
+def _choice_records(compiled: dict, selected: list[SelectedChoice]) -> list[dict]:
+    texts = {
+        (command["choiceNodeId"], option["choiceId"]): option["text"]
+        for command in compiled["sequence"] if command["type"] == "CHOICE"
+        for option in command["options"]
+    }
+    return [
+        {**choice.model_dump(), "text": texts[(choice.choiceNodeId, choice.choiceId)]}
+        for choice in selected
+    ]
+
+
 def _apply_effects(run: dict, bundle: dict, *, mode: str, event_id: str,
                    story_id: str, title: str, story_type: str, step_no: int,
-                   selected_choices: list[SelectedChoice], choice_ids: list[str],
+                   selected_choices: list[dict], choice_ids: list[str],
                    now: datetime) -> tuple[dict, dict]:
     result = deepcopy(run)
     visible_delta: dict[str, int] = {}
@@ -207,7 +219,7 @@ def _apply_effects(run: dict, bundle: dict, *, mode: str, event_id: str,
             "week": result["week"],
             "day": day_index,
             "completionMode": mode,
-            "selectedChoices": [choice.model_dump() for choice in selected_choices],
+            "selectedChoices": deepcopy(selected_choices),
             "effect": {"growth": deepcopy(visible_delta)},
         })
     if story_type in {"NPC", "LOCATION"}:
@@ -303,14 +315,17 @@ def complete_dialogue(
                 character_id=run["characterId"], cast=run["storyCast"],
             )
             _check_pending_metadata(run, compiled)
-            choice_ids = _validated_choices(compiled["choiceGroups"], body.selectedChoices, body.completionMode)
+            choice_ids = _validated_choices(
+                compiled["choiceGroups"], body.selectedChoices, body.completionMode,
+            )
+            choice_records = _choice_records(compiled, body.selectedChoices)
             bundle = master.effects(version=slot.gameDataVersion, event_id=claims["eventId"],
                                     choice_ids=choice_ids)
             updated_run, summary = _apply_effects(
                 run, bundle, mode=body.completionMode, event_id=claims["eventId"],
                 story_id=compiled["storyId"], title=compiled["title"],
                 story_type=compiled["storyType"], step_no=compiled["stepNo"],
-                selected_choices=body.selectedChoices,
+                selected_choices=choice_records,
                 choice_ids=choice_ids, now=now,
             )
             if body.completionMode == "COMPLETE":

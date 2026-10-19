@@ -105,11 +105,14 @@ export function createJournalUI(ctx) {
 			const content = diaryStory(record),
 				choices = record.selectedChoices ?? content.choices.filter((c) => c.id === record.choiceId);
 			right.append(el("p", record.week + "주차" + (Number.isInteger(record.day) ? " · " + ["월", "화", "수", "목", "금"][record.day] + "요일" : "")));
-			for (const choice of choices) {
-				const text = choice.label ?? choice.text;
-				if (text) right.append(el("p", text));
-			}
-			if (choices.length && !choices.some((choice) => choice.label || choice.text)) right.append(el("p", "선택 " + choices.length + "개 기록 · 상세 문구 연결 대기"));
+			if (choices.length) {
+				const choiceList = el("section", null, "story-choice-records");
+				choiceList.append(el("h3", "내가 고른 선택"));
+				const items = el("ol");
+				for (const choice of choices) items.append(el("li", choice.label ?? choice.text ?? "이전 버전에서 저장한 선택"));
+				choiceList.append(items);
+				right.append(choiceList);
+			} else if (record.completionMode === "SKIP") right.append(el("p", "이 이야기는 건너뛰어 선택 기록이 없어요."));
 			if (content.closing) right.append(el("p", content.closing));
 			right.append(el("small", content.formal ? "완료한 이야기의 선택과 마무리입니다." : "기존 연결 확인용 임시 이야기 기록 · 정식 스토리·해금 아님"));
 		} else right.append(el("p", "아직 펼쳐 볼 기록이 없어요. 활동과 이야기를 마치면 이곳에 남아요.", "book-empty"));

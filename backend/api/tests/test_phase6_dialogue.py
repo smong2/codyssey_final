@@ -22,6 +22,18 @@ def _selected(payload):
     ]
 
 
+def _selected_with_text(payload):
+    texts = {
+        (item["choiceNodeId"], option["choiceId"]): option["text"]
+        for item in payload["sequence"] if item["type"] == "CHOICE"
+        for option in item["options"]
+    }
+    return [
+        {**choice, "text": texts[(choice["choiceNodeId"], choice["choiceId"])]}
+        for choice in _selected(payload)
+    ]
+
+
 def _complete(client, payload, choices, *, request_id="complete-ms01", mode="COMPLETE"):
     return client.post(
         "/v1/dialogue/complete", headers=headers(),
@@ -151,8 +163,14 @@ def test_load_complete_and_idempotent_replay(content_db):
         assert record["title"]
         assert record["week"] == 1 and record["day"] == 0
         assert record["completionMode"] == "COMPLETE"
-        assert record["selectedChoices"] == choices
+        assert record["selectedChoices"] == _selected_with_text(payload)
         assert record["effect"]["growth"] == result["appliedSummary"]["visibleStatDelta"]
+        stored_choices = database.data["users/owner/saveSlots/1"]["activeRun"]["dialogueHistory"][0]["selectedChoices"]
+        for choice in stored_choices:
+            choice.pop("text")
+        loaded = client.get("/v1/save-slots/1", headers=headers()).json()
+        assert loaded["activeRun"]["dialogueHistory"][0]["selectedChoices"] == _selected_with_text(payload)
+        assert all("text" not in choice for choice in stored_choices)
         snapshot = deepcopy(database.data)
         replay = _complete(client, payload, choices).json()
         assert replay["replayed"] is True

@@ -911,9 +911,6 @@ function renderCharacters(id, isNew, gender = "male", selectedId = null) {
 	}
 	list.append(grid);
 	const detail = el("aside", null, "character-detail-panel paper");
-	const full = el("img", null, "selected-character-full");
-	full.src = "./character-assets/" + selected.fullbody;
-	full.alt = selected.name + " 전신";
 	const detailCopy = el("div", null, "character-detail-copy");
 	appendCharacterInfo(detailCopy, selected, el);
 	detailCopy.append(el("small", "체력 100 · 초기 성장 스탯에 캐릭터 보정과 영구 보너스 적용"));
@@ -943,7 +940,7 @@ function renderCharacters(id, isNew, gender = "male", selectedId = null) {
 		blackDissolve(renderAdmission);
 	});
 	start.disabled = saveFailed;
-	detail.append(full, detailCopy, start);
+	detail.append(detailCopy, start);
 	layout.append(list, detail);
 	shell.append(layout, btn("뒤로가기", isNew ? () => renderTitle(false, null, "preserve") : renderSlots, "text-button character-select-back"));
 }

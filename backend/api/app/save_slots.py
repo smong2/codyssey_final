@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Literal
 from uuid import NAMESPACE_URL, uuid5
 
@@ -13,6 +14,7 @@ from pydantic import BaseModel, Field
 from .account import GAME_DATA_VERSION, _STATS, _TAGS
 from .authentication import AuthenticatedUser, require_verified_user
 from .content_master import ContentMaster, ContentMasterError, UnknownCharacter
+from .dialogue_master import DialogueMaster, DialogueMasterError
 from .firebase import FirebaseServices, get_firebase_services
 from .models import GlobalMetaProgress, SaveSlot
 from .repositories import (
@@ -56,7 +58,14 @@ def get_content_master(request: Request) -> ContentMaster:
     return ContentMaster(request.app.state.settings.content_sqlite_path)
 
 
-def _slot_payload(slot: SaveSlot) -> dict:
+def get_diary_dialogue_master(request: Request) -> DialogueMaster:
+    return DialogueMaster(
+        request.app.state.settings.content_sqlite_path,
+        asset_root=Path(__file__).resolve().parents[3] / "asset",
+    )
+
+
+def _slot_payload(slot: SaveSlot, dialogue_master: DialogueMaster | None = None) -> dict:
     payload = slot.model_dump(mode="json")
     active_run = slot.activeRun or {}
     schedule = active_run.get("weeklySchedule") or {}
@@ -64,6 +73,32 @@ def _slot_payload(slot: SaveSlot) -> dict:
         isinstance(entry, dict) and entry.get("status") == "IN_PROGRESS"
         for entry in schedule.values()
     )
+    if dialogue_master is not None and isinstance(payload.get("activeRun"), dict):
+        run = payload["activeRun"]
+        character_id = run.get("characterId")
+        records = run.get("dialogueHistory") or []
+        event_ids = {
+            record.get("eventId") for record in records
+            if isinstance(record, dict) and isinstance(record.get("eventId"), str)
+        }
+        try:
+            texts = dialogue_master.choice_texts(
+                version=slot.gameDataVersion, event_ids=event_ids,
+                character_id=character_id,
+            ) if isinstance(character_id, str) else {}
+        except DialogueMasterError:
+            texts = {}
+        for record in records:
+            if not isinstance(record, dict):
+                continue
+            for choice in record.get("selectedChoices") or []:
+                if not isinstance(choice, dict) or choice.get("text"):
+                    continue
+                text = texts.get((
+                    record.get("eventId"), choice.get("choiceNodeId"), choice.get("choiceId"),
+                ))
+                if text:
+                    choice["text"] = text
     return payload
 
 
@@ -88,24 +123,31 @@ def _error(error: Exception) -> HTTPException:
 
 
 @router.get("")
-def list_save_slots(repository: SaveSlotRepository = Depends(get_slot_repository)) -> dict:
+def list_save_slots(
+    repository: SaveSlotRepository = Depends(get_slot_repository),
+    dialogue_master: DialogueMaster = Depends(get_diary_dialogue_master),
+) -> dict:
     try:
         slots = repository.list_slots()
     except Exception as error:
         raise _error(error) from None
     return {"slots": [
-        _slot_payload(slot) if slot is not None else {"slotId": index, "status": "LOAD_ERROR"}
+        _slot_payload(slot, dialogue_master) if slot is not None else {"slotId": index, "status": "LOAD_ERROR"}
         for index, slot in enumerate(slots, 1)
     ]}
 
 
 @router.get("/{slot_id}")
-def get_save_slot(slot_id: int, repository: SaveSlotRepository = Depends(get_slot_repository)) -> dict:
+def get_save_slot(
+    slot_id: int,
+    repository: SaveSlotRepository = Depends(get_slot_repository),
+    dialogue_master: DialogueMaster = Depends(get_diary_dialogue_master),
+) -> dict:
     try:
         slot = repository.get(slot_id)
         if slot.slotId != slot_id:
             raise SlotNotFound
-        return _slot_payload(slot)
+        return _slot_payload(slot, dialogue_master)
     except Exception as error:
         raise _error(error) from None
 

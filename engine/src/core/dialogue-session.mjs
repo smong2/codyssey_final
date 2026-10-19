@@ -45,7 +45,12 @@ export function createDialogueRuntime({services,getProfile,getSlotId,getUid=()=>
     ensureLive();if(!prepared){
      prepared=prepareDialogueCompletion(source,slotId,response,{run,eventId});
      const cache=structuredClone(run.dialogueHistory??[]);
-     if(!cache.some(record=>record.eventId===eventId))cache.push({eventId,storyId:content.storyId,title:content.title??'완료한 이야기',week:run.week,day:/^MS0[1-6]$/.test(eventId)?0:Math.max(0,run.day-1),completionMode:response.completionMode,selectedChoices:structuredClone(choices),effect:{growth:prepared.visibleStatDelta}});
+     if(!cache.some(record=>record.eventId===eventId)){
+      const received=prepared.profile.slots[slotId-1].activeRun.dialogueHistory?.find(record=>record.eventId===eventId);
+      const texts=new Map((content.sequence??[]).filter(command=>command.type==='CHOICE').flatMap(command=>(command.options??[]).map(option=>[command.choiceNodeId+'\u0000'+option.choiceId,option.text])));
+      const selectedChoices=choices.map(choice=>({...structuredClone(choice),...(texts.has(choice.choiceNodeId+'\u0000'+choice.choiceId)?{text:texts.get(choice.choiceNodeId+'\u0000'+choice.choiceId)}:{})}));
+      cache.push(received??{eventId,storyId:content.storyId,title:content.title??'완료한 이야기',week:run.week,day:/^MS0[1-6]$/.test(eventId)?0:Math.max(0,run.day-1),completionMode:response.completionMode,selectedChoices,effect:{growth:prepared.visibleStatDelta}});
+     }
      prepared.profile.slots[slotId-1].activeRun.dialogueHistory=cache;
      validateProfile(prepared.profile);
     }

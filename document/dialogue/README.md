@@ -110,6 +110,19 @@ FastAPI는 DB의 정규화 데이터를 읽고 현재 슬롯·회차의 정보�
 
 대화 화면에는 기본적으로 **한 개의 중심 이미지(focus visual)**만 사용한다.
 
+### 문서에서 이미지 연결을 읽는 기준
+
+각 `main/*.md`, `npc/*.md`, `location/*.md`의 `## 이미지`에는 **현재 저장소에 실제로 존재하고 대화 런타임에서 해석 가능한 파일만** 링크와 미리보기로 표시한다.
+
+- 배경: `asset/background/<파일명>` → API `/world-assets/<파일명>`
+- 학생·NPC 초상: `asset/character/<파일명>` → API `/character-assets/<파일명>`
+- 채택된 FOCUS: `asset/item/<파일명>` → API `/item-assets/<파일명>`
+- `ART-*`가 제작 ID만 있고 실제 파일이 없으면 **예약·미납**으로 표시하고 미리보기를 만들지 않는다.
+- 비슷한 후보 이미지가 있어도 Production 설명과 정확히 일치하고 사용자 채택이 끝나기 전에는 `ART-*`에 연결하지 않는다.
+- 현재 채택·API 연결이 끝난 FOCUS는 `ART-N01`, `ART-N06`, `ART-L01`이다. `ART-L02/L03`은 `LOC_GH_01`에서 미납 상태이므로 런타임이 해당 FOCUS를 숨겨 대화를 계속한다. 그 외 미납 FOCUS는 임의 대체하지 않는다.
+
+현재 연결 상태의 단일 배포 대장은 [`backend/api/deploy/FOCUS_ASSET_LINKS.md`](../../backend/api/deploy/FOCUS_ASSET_LINKS.md), 장면별 제작 의도는 [`story/ASSET_DIALOGUE_LEDGER.md`](../../story/ASSET_DIALOGUE_LEDGER.md)를 따른다.
+
 ### 말하는 인물
 
 - NPC/캐릭터가 말하고 `portraitSrc`가 있으면 해당 화자 이미지를 중심 이미지로 표시한다.
@@ -264,7 +277,7 @@ Main Story, NPC Story, Location Story 모두 같은 방식으로 작성한다.
       "kind": "CHARACTER",
       "id": "CH16",
       "name": "티아",
-      "portraitSrc": "/character-assets/tia1_base.png"
+      "portraitSrc": "/character-assets/tia0_fullbody.png"
     }
   },
   "sequence": [
@@ -293,7 +306,7 @@ Main Story, NPC Story, Location Story 모두 같은 방식으로 작성한다.
       "target": "FOCUS",
       "action": "SHOW",
       "assetType": "CHARACTER",
-      "src": "/character-assets/tia1_base.png",
+      "src": "/character-assets/tia0_fullbody.png",
       "alt": "티아"
     },
     {
@@ -322,15 +335,15 @@ Main Story, NPC Story, Location Story 모두 같은 방식으로 작성한다.
       "target": "FOCUS",
       "action": "REPLACE",
       "assetType": "ITEM",
-      "src": "/design-assets/item/rune1_fragment.png",
-      "alt": "작은 룬 조각"
+      "src": "/item-assets/IT_focus_NPC_GUIDE_01_meeting_notices_01.png",
+      "alt": "바람에 흩어진 모임 안내지"
     },
     {
       "type": "LINE",
       "lineMode": "DIALOGUE",
       "speaker": "GUIDE",
       "visualMode": "KEEP",
-      "text": "광장 근처에서 찾은 작은 룬 조각이야. 자세히 보면 희미하게 빛나."
+      "text": "바람에 날린 안내지야. 몇 장이 아직 광장에 흩어져 있어."
     },
     {
       "type": "CHOICE",
