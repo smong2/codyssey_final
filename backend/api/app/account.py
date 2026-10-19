@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .authentication import AuthenticatedUser, require_verified_user
 from .firebase import FirebaseServices, get_firebase_services
+from .models import AccountSettings
 from .repositories import AccountNotFound, DeletionPending, InvalidMutation, UserRepository
 
 
@@ -36,11 +37,16 @@ class UpdateSettingsRequest(BaseModel):
 
     activePetId: str | None = Field(default=None, pattern=r"^PET(?:0[1-9]|10)$")
     activeRoomBackgroundId: str | None = Field(default=None, pattern=r"^ROOM_(?:DEFAULT|0[1-3])$")
+    roomActorPositions: dict[str, dict[str, float]] | None = None
 
     @model_validator(mode="after")
     def has_change(self) -> UpdateSettingsRequest:
-        if self.activePetId is None and self.activeRoomBackgroundId is None:
+        if self.activePetId is None and self.activeRoomBackgroundId is None and self.roomActorPositions is None:
             raise ValueError("At least one account setting is required")
+        if self.roomActorPositions is not None:
+            AccountSettings(activePetId="PET01", activeRoomBackgroundId="ROOM_DEFAULT",
+                            roomActorPositions=self.roomActorPositions, locale="ko-KR",
+                            updatedAt=datetime.now(timezone.utc))
         return self
 
 
@@ -59,6 +65,7 @@ def _initial_documents(created_at: datetime, now: datetime) -> dict[str, dict]:
         "settings/account": {
             "activePetId": "PET01",
             "activeRoomBackgroundId": "ROOM_DEFAULT",
+            "roomActorPositions": {},
             "locale": "ko-KR",
             "updatedAt": now,
         },
@@ -196,6 +203,7 @@ def update_account_settings(
             user.uid,
             active_pet_id=body.activePetId,
             active_room_background_id=body.activeRoomBackgroundId,
+            room_actor_positions=body.roomActorPositions,
         )
     except AccountNotFound:
         raise HTTPException(status_code=404, detail="Account settings unavailable") from None

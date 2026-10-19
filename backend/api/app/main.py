@@ -59,6 +59,7 @@ def create_app(
     from .activities import router as activities_router
     from .progression import router as progression_router
     from .endings import router as endings_router
+    from .pets import router as pets_router
     from .admin import router as admin_router
 
     api.include_router(account_router)
@@ -67,6 +68,7 @@ def create_app(
     api.include_router(activities_router)
     api.include_router(progression_router)
     api.include_router(endings_router)
+    api.include_router(pets_router)
     api.include_router(admin_router)
 
     return api

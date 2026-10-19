@@ -108,6 +108,7 @@ class UserRepository:
         *,
         active_pet_id: str | None = None,
         active_room_background_id: str | None = None,
+        room_actor_positions: dict[str, dict[str, float]] | None = None,
     ) -> AccountSettings:
         self.get(uid)
         root = _user_root(self.database, uid)
@@ -127,6 +128,8 @@ class UserRepository:
             if active_room_background_id not in meta.unlockedRoomBackgroundIds:
                 raise InvalidMutation("Room background is not unlocked")
             settings.activeRoomBackgroundId = active_room_background_id
+        if room_actor_positions is not None:
+            settings.roomActorPositions.update(room_actor_positions)
         settings.updatedAt = datetime.now(timezone.utc)
         settings_ref.set(settings.model_dump(mode="python"))
         return settings
@@ -301,6 +304,17 @@ class SaveSlotRepository:
 
     def get_user_document(self, path: UserDocPath) -> dict[str, Any] | None:
         return self.get_user_documents((path,))[path]
+
+    def list_ending_records(self) -> list[dict[str, Any]]:
+        root = _user_root(self.database, self.uid)
+        _account_from_snapshot(root.get())
+        collection = root.collection("endingRecords")
+        records = []
+        for item in collection.stream():
+            snapshot = collection.document(item.id).get()
+            if snapshot.exists:
+                records.append(deepcopy(snapshot.to_dict()))
+        return records
 
     def get_user_documents(
         self, paths: Sequence[UserDocPath],

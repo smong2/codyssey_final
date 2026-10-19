@@ -235,6 +235,12 @@ def test_gemini_provider_failure_twice_uses_reviewed_fallback_and_does_not_block
         assert fetched.status_code == 200, fetched.text
         assert fetched.json()["endingRecordId"] == record_id
         assert fetched.json()["hiddenStatsSummary"] == {"dominant": ["curiosity", "cooperation"]}
+        listed = client.get("/v1/ending-records", headers=headers())
+        assert listed.status_code == 200, listed.text
+        assert len(listed.json()["records"]) == 1
+        assert listed.json()["records"][0]["endingRecordId"] == record_id
+        assert listed.json()["records"][0]["careerName"] == "별길 개척자"
+        assert listed.json()["records"][0]["letter"]["content"] == record["letter"]["content"]
 
         # Receipt replay still works after activeRun was cleared by RUN_COMPLETE.
         replay = client.post(

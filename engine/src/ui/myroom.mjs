@@ -21,7 +21,51 @@ export function createMyroomUI(ctx) {
 		selectedDayIndex = null,
 		selectedLocationId = "greenhouse",
 		monthOffset = 0,
-		category = "교육";
+		category = "수업",
+		lastPetLine = -1;
+	const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+	function positionActor(target, position) {
+		if (!position || !Number.isFinite(position.x) || !Number.isFinite(position.y)) return;
+		target.classList.add("room-actor-positioned");
+		target.style.setProperty("--room-x", (position.x * 100) + "%");
+		target.style.setProperty("--room-y", (position.y * 100) + "%");
+	}
+	function makeDraggable(target, kind, actors) {
+		if (typeof target.addEventListener !== "function" || typeof target.classList?.add !== "function") return;
+		target.classList.add("room-actor-draggable");
+		target.draggable = false;
+		let drag = null;
+		target.addEventListener("pointerdown", event => {
+			if (event.button !== 0) return;
+			const bounds = actors.getBoundingClientRect(), box = target.getBoundingClientRect();
+			drag = { id:event.pointerId, startX:event.clientX, startY:event.clientY,
+				x:(box.left + box.width / 2 - bounds.left) / bounds.width,
+				y:(box.top + box.height / 2 - bounds.top) / bounds.height, moved:false };
+			target.setPointerCapture?.(event.pointerId);
+		});
+		target.addEventListener("pointermove", event => {
+			if (!drag || drag.id !== event.pointerId) return;
+			const dx = event.clientX - drag.startX, dy = event.clientY - drag.startY;
+			if (!drag.moved && Math.hypot(dx, dy) < 7) return;
+			drag.moved = true;
+			const bounds = actors.getBoundingClientRect();
+			const position = {x:clamp(drag.x + dx / bounds.width, kind === "pet" ? 0.12 : 0.18, kind === "pet" ? 0.88 : 0.82),
+				y:clamp(drag.y + dy / bounds.height, 0.18, 0.84)};
+			positionActor(target, position);
+			drag.position = position;
+		});
+		const finish = event => {
+			if (!drag || drag.id !== event.pointerId) return;
+			if (drag.moved && drag.position) {
+				target.dataset.dragged = "true";
+				setTimeout(() => { delete target.dataset.dragged; }, 0);
+				void ctx.onActorPosition?.(kind, drag.position);
+			}
+			drag = null;
+		};
+		target.addEventListener("pointerup", finish);
+		target.addEventListener("pointercancel", finish);
+	}
 	const portrait = (c, cls) => {
 		const i = el("img", null, cls);
 		i.src = "./character-assets/" + c.fullbody;
@@ -43,7 +87,7 @@ export function createMyroomUI(ctx) {
 			selectedDayIndex = null;
 			selectedLocationId = "greenhouse";
 			monthOffset = 0;
-			category = "교육";
+			category = "수업";
 		}
 	}
 	function profile() {
@@ -235,7 +279,7 @@ export function createMyroomUI(ctx) {
 		const activities = el("section", null, "paper activity-panel");
 		activities.append(el("h2", "활동 카드"));
 		const tabs = el("nav", null, "activity-tabs");
-		for (const t of ["교육", "모험", "휴식", "특별"]) {
+		for (const t of ["수업", "모험", "휴식", "특별"]) {
 			const b = btn(
 				t,
 				() => {
@@ -249,7 +293,7 @@ export function createMyroomUI(ctx) {
 		}
 		activities.append(tabs);
 		const cards = el("div", null, "activity-cards");
-		const list = category === "교육" ? AVAILABLE_CLASSES : category === "휴식" ? [{ id: "rest", title: "휴식" }] : category === "특별" ? [{ id: "fairy-trade", title: "요정의 거래" }] : ADVENTURE_LOCATIONS;
+		const list = category === "수업" ? AVAILABLE_CLASSES : category === "휴식" ? [{ id: "rest", title: "휴식" }] : category === "특별" ? [{ id: "fairy-trade", title: "요정의 거래" }] : ADVENTURE_LOCATIONS;
 		for (const a of list) {
 			const isAdventure = category === "모험",
 				actionId = isAdventure ? "adventure" : a.id,
@@ -297,7 +341,7 @@ export function createMyroomUI(ctx) {
 				};
 				picture.append(image);
 			} else picture.textContent = "◇";
-			const detail = isAdventure ? "체력 -15 · 임시 온실 지도" : actionId === "rest" ? "체력 회복 · 휴식 방법 3가지" : actionId === "fairy-trade" ? "주 1회 · 체력 소모 없음" : (STAT_NAMES[a.stat] ?? "교육") + " · 체력 -10";
+			const detail = isAdventure ? "체력 -15 · 임시 온실 지도" : actionId === "rest" ? "체력 회복 · 휴식 방법 3가지" : actionId === "fairy-trade" ? "주 1회 · 체력 소모 없음" : (STAT_NAMES[a.stat] ?? "수업") + " · 체력 -10";
 			b.append(picture, el("strong", a.title), el("small", detail));
 			cards.append(b);
 		}
@@ -396,10 +440,32 @@ export function createMyroomUI(ctx) {
 		actors.append(actor);
 		actors.dataset.character = c.id;
 		const chosenPet = ctx.activePet(),
-			pet = btn("", ctx.onPet, "room-pet");
-		pet.setAttribute("aria-label", chosenPet.name + " 펫 선택");
+			pet = btn("", () => {
+				if (pet.dataset.dragged) return;
+				bubble.hidden = false;
+				bubble.replaceChildren(el("span", "잠깐만, 이야기할게!"), el("small", "펫 변경: 가방 → 펫"));
+				void Promise.resolve(ctx.petDialogues?.(chosenPet.id)).then(lines => {
+					if (!pet.isConnected) return;
+					if (!Array.isArray(lines) || !lines.length) throw new Error("대사를 불러올 수 없습니다.");
+					let index = Math.floor(Math.random() * lines.length);
+					if (lines.length > 1 && index === lastPetLine) index = (index + 1) % lines.length;
+					lastPetLine = index;
+					bubble.replaceChildren(el("span", lines[index]), el("small", "펫 변경: 가방 → 펫"));
+				}).catch(() => {
+					if (pet.isConnected) bubble.replaceChildren(el("span", "지금은 이야기할 수 없어. 잠시 뒤 다시 눌러 줘."), el("small", "펫 변경: 가방 → 펫"));
+				});
+			}, "room-pet"),
+			bubble = el("span", null, "room-pet-bubble");
+		bubble.hidden = true;
+		pet.setAttribute("aria-label", chosenPet.name + " 대화하기");
 		pet.append(img("pet", chosenPet.image, chosenPet.name, "room-bern"), el("span", chosenPet.name));
+		pet.append(bubble);
 		actors.append(pet);
+		const positions = ctx.actorPositions?.() ?? {};
+		positionActor(actor, positions.player);
+		positionActor(pet, positions.pet);
+		makeDraggable(actor, "player", actors);
+		makeDraggable(pet, "pet", actors);
 		const action = el("section", null, "room-current-action paper");
 		if (isSaveFailed())
 			action.append(

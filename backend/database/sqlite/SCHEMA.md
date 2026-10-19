@@ -2,6 +2,10 @@
 
 이 문서는 [001_initial.sql](001_initial.sql), [002_dialogue_sequences.sql](002_dialogue_sequences.sql), [003_dialogue_runtime_content.sql](003_dialogue_runtime_content.sql), [004_story_event_rules.sql](004_story_event_rules.sql)에 실제로 생성되는 테이블·컬럼·제약을 설명한다. 저장 위치와 Firestore와의 권한 경계는 [STORAGE_DESIGN.md](../STORAGE_DESIGN.md), 중앙 사용자 문서의 상세 구조는 [SCHEMA.md](../SCHEMA.md)를 따른다. SQL이 실행 기준이며, 이 문서는 그 의미를 설명한다.
 
+## 펫 대사 추가 확장 (2026-10-20)
+
+`pet_dialogues_extension.sql`은 v4 스키마에 `(version, pet_id, line_no)` 키와 최대 200자 대사 본문을 가진 `pet_dialogues` 테이블을 추가한다. 기존 `user_version=4`와 기존 행은 유지한다. `seed_pet_dialogues.py`는 버전별 펫 10종의 누락된 마스터 행만 추가하고 펫당 20줄, 총 200줄을 적재한다. Render 빌드와 기존 로컬 DB의 추가 적재에 같은 스크립트를 사용한다.
+
 ## 범위와 공통 규칙
 
 - 빈 SQLite DB에는 `001 → 002 → 003 → 004` 순서로 적용한다. 적용 후 `PRAGMA user_version = 4`다.

@@ -268,6 +268,27 @@ def test_account_settings_read_and_update_only_allow_unlocked_pet_and_room():
         assert changed.json()["activeRoomBackgroundId"] == "ROOM_01"
         assert db.data["users/owner/settings/account"]["activePetId"] == "PET02"
 
+        moved = client.patch(
+            "/v1/account/settings",
+            json={"roomActorPositions": {"pet": {"x": 0.28, "y": 0.68}}},
+            headers=headers(),
+        )
+        assert moved.status_code == 200, moved.text
+        assert moved.json()["roomActorPositions"]["pet"] == {"x": 0.28, "y": 0.68}
+        assert moved.json()["activePetId"] == "PET02"
+        assert client.patch(
+            "/v1/account/settings",
+            json={"roomActorPositions": {"player": {"x": 0.55, "y": 0.52}}},
+            headers=headers(),
+        ).json()["roomActorPositions"] == {
+            "pet": {"x": 0.28, "y": 0.68}, "player": {"x": 0.55, "y": 0.52},
+        }
+        assert client.patch(
+            "/v1/account/settings",
+            json={"roomActorPositions": {"pet": {"x": 1.5, "y": 0.5}}},
+            headers=headers(),
+        ).status_code == 422
+
         assert client.patch("/v1/account/settings", json={}, headers=headers()).status_code == 422
         assert client.patch(
             "/v1/account/settings", json={"activeRoomBackgroundId": "ROOM_99"}, headers=headers()

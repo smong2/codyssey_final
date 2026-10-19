@@ -33,6 +33,7 @@ import { createRoomLight } from "./core/room-light.mjs";
 import { appendCharacterInfo } from "./ui/character-info.mjs";
 import { createEndingUI } from "./ui/ending.mjs";
 import { activePet } from "./core/pets.mjs";
+import { PET_DIALOGUES } from "./core/pet-dialogues.mjs";
 import { createTitleAudioController } from "./core/title-audio.mjs";
 import { createAdventureResultUI } from "./ui/adventure-result.mjs";
 import { createActivityResultUI } from "./ui/activity-result.mjs";
@@ -94,6 +95,8 @@ let serverGame = serverMode
 	serverRecoveryBusy = false;
 const serverRoomVisits = new Set(),
 	serverRoomVisitInFlight = new Set();
+const petDialogueCache = new Map();
+let actorPositionSave = Promise.resolve();
 const asset = (category, file) => "./design-assets/" + category + "/" + file;
 function el(tag, text, cls) {
 	const e = document.createElement(tag);
@@ -294,6 +297,28 @@ function retrySave() {
 	const continuing = Boolean(afterSaveSuccess),
 		saved = save(true);
 	return saved && !continuing;
+}
+async function saveActorPosition(actor, position) {
+	const roomActorPositions = { ...(profile.settings?.roomActorPositions ?? {}), [actor]: position };
+	profile.settings = { ...(profile.settings ?? {}), roomActorPositions };
+	try {
+		if (serverMode) {
+			actorPositionSave = actorPositionSave.catch(() => {}).then(() => serverGame.updateSettings({ roomActorPositions: { [actor]: position } }));
+			await actorPositionSave;
+		}
+		else {
+			repository.saveSettings({ roomActorPositions });
+		}
+	} catch (error) { message("마이룸 위치를 저장하지 못했습니다. " + error.message); }
+}
+async function petDialogues(petId) {
+	if (!serverMode) return PET_DIALOGUES[petId] ?? [];
+	if (petDialogueCache.has(petId)) return petDialogueCache.get(petId);
+	if (typeof engineServices.getPetDialogues !== "function") throw new Error("펫 대사 API가 없습니다.");
+	const response = await engineServices.getPetDialogues(petId);
+	if (response?.petId !== petId || !Array.isArray(response.lines) || response.lines.length !== 20) throw new Error("펫 대사 응답이 올바르지 않습니다.");
+	petDialogueCache.set(petId, response.lines);
+	return response.lines;
 }
 const activityStoryFlow = createPostActivityStoryFlow({ current, save: (next) => save(false, slotId, next), receive: (token) => selectActivityEvent(engineServices.storyEvents ?? profile.meta.narrativeEvents, { slotId, activityToken: token, uid: clientUid }), queue: typeof engineServices.loadDialogue === "function" || typeof engineServices.completeDialogue === "function" ? queueServiceDialogue : undefined, onStory: renderPendingStory, onContinue: continueSchedule });
 async function selectPet(id) {
@@ -538,7 +563,19 @@ function menu() {
 			action();
 		}});
 	pop.append(entry("소리 설정", soundSettings));
-	pop.append(entry("지난 엔딩 편지", () => endingUI.history(profile.meta.endingRecords ?? [])));
+	pop.append(entry("지난 엔딩 편지", () => {
+		if (!serverMode) { endingUI.history(profile.meta.endingRecords ?? []); return; }
+		endingUI.history([], 0, { loading: true });
+		if (typeof engineServices.listEndingRecords !== "function") {
+			endingUI.history([], 0, { error: "지난 엔딩 목록을 불러올 수 없습니다. 게임을 새로고침해 주세요." });
+			return;
+		}
+		void engineServices.listEndingRecords().then((result) => {
+			if (shell.classList.contains("ending-history-page")) endingUI.history(result.records ?? []);
+		}).catch(() => {
+			if (shell.classList.contains("ending-history-page")) endingUI.history([], 0, { error: "지난 엔딩 목록을 불러오지 못했습니다. 다시 열어 주세요." });
+		});
+	}));
 	pop.append(
 		entry("계정", () => {
 			if (saveFailed) {
@@ -1618,7 +1655,9 @@ const roomUI = createMyroomUI({
 	onDiary: () => journalUI.diary(),
 	onBag: () => journalUI.bag(),
 	onAdmission: renderAdmission,
-	onPet: () => journalUI.bag("펫"),
+	petDialogues,
+	actorPositions: () => profile.settings?.roomActorPositions ?? {},
+	onActorPosition: saveActorPosition,
 	activePet: () => activePet(profile),
 	meta: () => profile.meta,
 	isSaveFailed: () => saveFailed,

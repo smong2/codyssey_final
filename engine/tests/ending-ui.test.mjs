@@ -8,6 +8,20 @@ test('past ending letters are read without loading, completing a run, or changin
  assert.match(s.shell.textContent,/과거 기억/);assert.doesNotMatch(s.shell.textContent,/AI가 작성한/);
  assert.equal(s.calls.finished,0);assert.equal(s.calls.received,0);assert.deepEqual(record,before);
 });
+test('server ending history shows the saved career, stats, activity counts and letter verbatim',()=>{
+ const s=setup(),content='카엘에게\n\n그날의 이야기를 기억해.\n\n— 아르카디아 아카데미';
+ s.ui.history([{slotId:2,runNumber:3,endingId:'ENDING_RUNE_RESEARCHER',careerName:'룬 연구자',
+  finalStats:{knowledge:211,expression:120,skill:98,exploration:57,magic:240},
+  playStatistics:{classCount:72,adventureCount:41,restCount:33},letter:{content}}]);
+ assert.match(s.shell.textContent,/2번 슬롯 · 3회차 · 룬 연구자/);
+ assert.match(s.shell.textContent,/지식 · 211/);
+ assert.match(s.shell.textContent,/솜씨 · 98/);
+ assert.match(s.shell.textContent,/수업 · 72회/);
+ assert.match(s.shell.textContent,/휴식 · 33회/);
+ assert.ok(all(s.shell).some(item=>item.className==='ending-letter-content'&&item.text===content));
+ assert.ok(all(s.shell).some(item=>item.className==='close-x'));
+ assert.ok(!all(s.shell).some(item=>item.tag==='button'&&item.text==='마이룸으로'));
+});
 function setup({ready=false,newUnlocks=[],loadEnding=null,save=true}={}){
  const shell=node('main'),calls={finished:0,received:0},record={careerId:'ENDING_RUNE_RESEARCHER',careerName:'룬 연구자',records:[{key:'classes',value:10},{key:'npcMeetings',value:null}],letter:ready?{status:'ready',sections:{future:'준비된 미래',reflection:'준비된 기록',encouragement:'준비된 응원'}}:{status:'pending'},newUnlocks};
  const run={characterId:'CH01',runNumber:1,week:52,phase:'AWAITING_ENDING',endingRecord:record};shell.root=true;

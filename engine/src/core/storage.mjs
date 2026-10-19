@@ -118,7 +118,7 @@ export function createLocalRepository(storage){return {
  save(profile){validateProfile(profile);storage.setItem(STORAGE_KEY,JSON.stringify(profile));},
  saveSettings(settings){
   const raw=storage.getItem(STORAGE_KEY),saved=raw===null?createProfile():validateProfile(JSON.parse(raw));
-  if(!settings||Object.keys(settings).some(key=>!['activePetId','activeRoomBackgroundId'].includes(key)))throw new Error('지원하지 않는 설정입니다.');
+  if(!settings||Object.keys(settings).some(key=>!['activePetId','activeRoomBackgroundId','roomActorPositions'].includes(key)))throw new Error('지원하지 않는 설정입니다.');
   if(Object.hasOwn(settings,'activePetId')&&!unlockedPetIds(saved.meta).includes(settings.activePetId))throw new Error('해금되지 않은 펫은 선택할 수 없습니다.');
   if(Object.hasOwn(settings,'activeRoomBackgroundId')){const room=roomProgress(saved.meta,settings.activeRoomBackgroundId);if(!room.unlocked||!room.images)throw new Error('사용할 수 없는 마이룸 배경입니다.');}
   saved.settings={...(saved.settings??{}),...settings};

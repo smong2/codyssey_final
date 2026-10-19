@@ -101,6 +101,8 @@ export function createLumiaApiProvider({baseUrl,getIdToken,fetchImpl=globalThis.
   getEnding:slotId=>request(`${slotPath(slotId)}/ending`),
   finishEnding:(slotId,body)=>mutation(`${slotPath(slotId)}/ending/finish`,body),
   getEndingRecord:recordId=>request(`/v1/ending-records/${encodeURIComponent(recordId)}`),
+  listEndingRecords:()=>request('/v1/ending-records'),
+  getPetDialogues:petId=>request(`/v1/pets/${encodeURIComponent(petId)}/dialogues`),
  };
 }
 

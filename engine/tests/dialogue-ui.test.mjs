@@ -116,6 +116,7 @@ test('completes automatically at END without a synthetic ending sentence',async(
  view.surfaceClick();
  await Promise.resolve();
  assert.doesNotMatch(view.shell.textContent,/이야기가 끝났습니다/);
+ assert.ok(all(view.shell).some(item=>item.className.includes('life-dialogue')&&!item.hidden&&item.textContent.includes('마지막 인사')));
  assert.deepEqual(view.completed,{completionMode:'COMPLETE',selectedChoices:[]});
 });
 

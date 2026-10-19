@@ -17,7 +17,7 @@ from .ending_workflow import (PROMPT_VERSION, EndingContentMaster, EndingWorkflo
 from .gemini import GeminiEndingLetterGenerator, GeminiGenerationError
 from .models import EndingRecord, GlobalMetaProgress, GlobalStatistics, SaveSlot, UnlockState
 from .progression_rules import (ProgressionError, evaluate_progression,
-                                promote_pending_characters, record_daily_unlocks)
+                                promote_pending_characters, record_daily_unlocks, ENDING_RULES)
 from .repositories import MutationPlan, RevisionConflict, SaveSlotRepository, UserDocPath
 from .save_slots import MutationRequest, get_slot_repository, mutation_response, _error as slot_error
 from pydantic import Field
@@ -412,6 +412,22 @@ def finish_ending(
             mutator=mutate,
         )
         return mutation_response(result, slot_id)
+    except Exception as error:
+        raise _error(error) from None
+
+
+@router.get("/v1/ending-records")
+def list_ending_records(
+    repository: SaveSlotRepository = Depends(get_slot_repository),
+) -> dict:
+    try:
+        names = {rule.ending_id: rule.title for rule in ENDING_RULES}
+        names["ENDING_STARPATH_PIONEER"] = "별길 개척자"
+        records = [EndingRecord.model_validate(raw) for raw in repository.list_ending_records()]
+        records.sort(key=lambda record: (record.completedAt, record.slotId, record.runNumber), reverse=True)
+        return {"records": [{**record.model_dump(mode="json"),
+                             "careerName": names.get(record.endingId, record.endingId)}
+                            for record in records]}
     except Exception as error:
         raise _error(error) from None
 

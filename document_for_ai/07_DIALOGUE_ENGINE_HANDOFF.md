@@ -1,5 +1,7 @@
 # LUMIA 대화 시스템 — 엔진 AI 인계
 
+2026-10-20 추가 구현: Dialogue UI가 END 직전에 마지막 대화창을 숨기지 않고 완료 콜백으로 넘어가도록 변경했다. 저장 응답 대기 중 화자 이름만 남는 화면을 막는 목적이며, MS02 구출 전 아이리스의 `visualMode=NONE`은 원고 의도로 유지한다. 코드·로컬 테스트 검증과 운영 브라우저 재검증을 구분한다.
+
 2026-10-18 Phase 12 최신 검증: 엔진의 운영 HTTP provider와 Firebase Web Auth adapter를 웹 빌드에 연결했다. Firebase Auth·Firestore Emulator 브라우저와 실제 Firebase/Render/Vercel 운영 환경에서 MS01 Dialogue 조회·완료를 확인했다. 이후 운영 브라우저 검수에서 대화 UI·마이룸 배경·Location 발생 시점·409 재시도 문제가 발견되어 수정 중이다. 최신 표시 계약은 대화 배경 fullscreen, 선택지를 대화 패널 안에 유지, `NARRATION/CONTEXT=[ ... ]`, `THOUGHT=' ... '`, 별도 `장면/속마음` 라벨 및 `이야기가 끝났습니다.` 합성 문구 제거다. Location Story는 활동 시작 체크포인트 직후 실제 게임 화면 전에 먼저 실행하며 `OBS01=3 / GH01=7 / LIB01=13 / OBS02=22 / OBS03=33 / OBS04=46` 최초 후보 주차와 Location 주 1회 제한을 사용한다. 이 검수 수정은 코드·테스트 계약까지 반영됐지만 실제 재배포 브라우저 재검증 전이므로 새 검수 완료로 간주하지 않는다. 52주 엔딩·관리자·탈퇴까지 포함한 운영 E2E도 계속 진행 중이다. 아래 과거 단계의 미연결·재검증 대기 설명보다 이 상태를 우선한다.
 
 이 문서는 엔진 개발 AI가 Main/NPC/Location Story의 정식 대화 API를 연결할 때 읽는 **구현 요약**이다.

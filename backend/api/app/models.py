@@ -28,8 +28,18 @@ class AccountProfile(FirestoreModel):
 class AccountSettings(FirestoreModel):
     activePetId: str
     activeRoomBackgroundId: str
+    roomActorPositions: dict[str, dict[str, float]] = Field(default_factory=dict)
     locale: str
     updatedAt: datetime
+
+    @model_validator(mode="after")
+    def validate_room_actor_positions(self) -> AccountSettings:
+        if any(actor not in {"player", "pet"} or set(position) != {"x", "y"}
+               or any(type(value) not in {float, int} or not 0 <= value <= 1
+                      for value in position.values())
+               for actor, position in self.roomActorPositions.items()):
+            raise ValueError("Room actor positions are invalid")
+        return self
 
 
 class GlobalMetaProgress(FirestoreModel):

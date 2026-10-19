@@ -85,7 +85,7 @@ export function createDialogueUI({el,btn,shell,heading,modal,getRoomBackground=(
    if(completed||disposed)return;
    if(event.target?.closest?.('button,a,input,select,textarea'))return;
    const current=playback.snapshot().node;
-   if(current.type==='LINE'){playback.next();paint();return;}
+   if(current.type==='LINE'){playback.next();if(playback.snapshot().node.type==='END'){complete();return;}paint();return;}
    if(current.type==='END')complete();
   };
   const syncNameplate=speaker=>{
@@ -177,7 +177,7 @@ export function createDialogueUI({el,btn,shell,heading,modal,getRoomBackground=(
    syncBackground(state.background);syncFocus(state.focus);
    frame.replaceChildren();
    choiceLayer.replaceChildren();choiceLayer.hidden=current.type!=='CHOICE';
-   frame.hidden=current.type==='END';
+   frame.hidden=false;
    stage.classList?.toggle('dialogue-choice-active',current.type==='CHOICE');
    if(current.type==='LINE')lastLine=current;
    const shownLine=current.type==='LINE'?current:current.type==='CHOICE'?lastLine:null;
@@ -208,7 +208,7 @@ export function createDialogueUI({el,btn,shell,heading,modal,getRoomBackground=(
    }else if(current.type==='CHOICE'){
     const choices=el('nav',null,'dialogue-choice-panel-right');
     for(const option of current.options)choices.append(btn(option.text,()=>{
-     log.push({type:'choice',text:option.text});playback.choose(current.choiceNodeId,option.choiceId);paint();
+     log.push({type:'choice',text:option.text});playback.choose(current.choiceNodeId,option.choiceId);if(playback.snapshot().node.type==='END')complete();else paint();
     },'dialogue-choice dialogue-choice-nameplate'));
     for(const option of choices.children){
      const tag=(option.tagName??option.tag??'').toLowerCase();
@@ -216,7 +216,7 @@ export function createDialogueUI({el,btn,shell,heading,modal,getRoomBackground=(
     }
     choiceLayer.append(choices);
    }else{
-    queueMicrotask(complete);
+    complete();
    }
    if(actions.children?.length)frame.append(actions);
   };

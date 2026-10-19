@@ -136,7 +136,7 @@ export function serverAdventureStartData(checkpoint){
 export function projectServerSettings(collection){
  const settings=collection?.settings??{},meta=collection?.meta??{},roomId=settings.activeRoomBackgroundId??'ROOM_DEFAULT',room=SERVER_ROOMS[roomId];
  if(typeof settings.activePetId!=='string'||!/^PET(?:0[1-9]|10)$/.test(settings.activePetId)||!room||!Array.isArray(meta.unlockedPetIds)||!meta.unlockedPetIds.includes(settings.activePetId)||!Array.isArray(meta.unlockedRoomBackgroundIds)||!meta.unlockedRoomBackgroundIds.includes(roomId))throw new Error('서버 계정 설정이 올바르지 않습니다.');
- return {activePetId:settings.activePetId,activeRoomBackgroundId:room};
+ return {activePetId:settings.activePetId,activeRoomBackgroundId:room,roomActorPositions:settings.roomActorPositions??{}};
 }
 
 function projectServerRooms(meta){

@@ -27,6 +27,7 @@ Email/Password 인증과 패스워드 관리는 Firebase Authentication이 담�
 - [SQLite 캐릭터별 대화 테이블 추가 SQL](sqlite/002_dialogue_sequences.sql)
 - [SQLite Dialogue 런타임/효과 v3 마이그레이션](sqlite/003_dialogue_runtime_content.sql)
 - [SQLite Story 발생 정책 v4 마이그레이션](sqlite/004_story_event_rules.sql)
+- [펫 대사 테이블 확장](sqlite/pet_dialogues_extension.sql) · [펫 대사 200개 적재기](sqlite/seed_pet_dialogues.py)
 - [Main Story 대화 마스터 적재기](sqlite/seed_dialogue_content.py)
 - [NPC Story 마스터·32인 대화 적재기](sqlite/seed_npc_story.py)
 - [NPC Story v4 검증 SQL](sqlite/validate_npc_story.sql)

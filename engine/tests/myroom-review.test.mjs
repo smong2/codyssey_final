@@ -98,6 +98,11 @@ test('room date card opens schedule and no separate bottom schedule button is re
  assert.equal(state.headingTitle,'스케줄');
  assert.equal(findAll(state.shell,node=>node.className.includes('room-schedule')).length,0);
 });
+test('schedule calls its class category 수업',()=>{
+ const {ui,shell}=renderRoom({phase:'PLANNING'});ui.schedule();
+ assert.ok(findAll(shell,node=>node.tag==='button'&&node.text==='수업').length>0);
+ assert.equal(findAll(shell,node=>node.tag==='button'&&node.text==='교육').length,0);
+});
 
 test('calendar image arrows preserve accessible month navigation in both directions',()=>{
  const {ui,shell}=renderRoom({phase:'PLANNING'});ui.schedule();

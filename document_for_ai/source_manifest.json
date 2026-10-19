@@ -343,7 +343,7 @@
     },
     {
       "path": "backend/api/README.md",
-      "sha256": "f6aba600ae7a282e5f55036b4a11d19d3f1cd67d4edc65ad12771cc127a52a97"
+      "sha256": "41b26df166a6f2d2c979901eb302e381099705b653fa6e8cd813b127fb734d49"
     },
     {
       "path": "backend/api/deploy/README.md",
@@ -351,7 +351,7 @@
     },
     {
       "path": "backend/database/README.md",
-      "sha256": "e1a46b8e739c58b6df0e38dc62f354c6596e0eb15104d6d984162a519b7e8ce4"
+      "sha256": "a85318e5c79e2d9310f5b56f6fd9f8626eed4a1fb463c43d66774f1560bb4a34"
     },
     {
       "path": "backend/database/LOCATION_STORY_DB_SPEC.md",
@@ -647,7 +647,7 @@
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/03_ENDINGS.md",
-      "sha256": "4af3b891a57bafad5a8773972077ccd2f4eac3058236539584e459b54868ca04"
+      "sha256": "14247710647273117283ed5a55dc1f3684888bc0b333d07e4bc16425a6c32817"
     },
     {
       "path": "document/content/02_STATS_EVENTS_ENDINGS/README.md",
@@ -675,7 +675,7 @@
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/05_PET_SYSTEM.md",
-      "sha256": "448d14c98499e7d4af064ad48df2a70cee252f79f46591f4f9b55b846637712c"
+      "sha256": "0cc7339ca84986db1c9487560e73671e6dbcdffb473c09b3cb9eef60382ec23a"
     },
     {
       "path": "document/content/03_COLLECTION_UNLOCKS/README.md",
@@ -711,11 +711,11 @@
     },
     {
       "path": "document/content/10_COMMON_ENGINE_FRAME.md",
-      "sha256": "945c2e65404949e52c6cbd23ba6f47991aff1689516df5ee6a8a5d29cfd36c57"
+      "sha256": "13686ea3cfb636e9f4ef0da098a0e8862e1e46c84360e49618cddbef9cc08abe"
     },
     {
       "path": "document/content/11_FEATURE_FRAME.md",
-      "sha256": "a04ceb19b530a2e164cff1ec5338a8617d3a8d495282b80ff94f86298d90a466"
+      "sha256": "10f36cfcb2565eb09b0742e82140b8b5374dd9cc8f93aa52f4c9690ff39de276"
     },
     {
       "path": "document/content/12_USER_UCS.md",
@@ -743,7 +743,7 @@
     },
     {
       "path": "engine/README.md",
-      "sha256": "0824fe4c893cef5b53b92daaf14199f760be417d060bc8f727ab140629482aed"
+      "sha256": "d71ac7d54002e5ae2c14bcf3d4deb3b9624749422ef1730e2f739e41756c7565"
     },
     {
       "path": "lumia/README.md",

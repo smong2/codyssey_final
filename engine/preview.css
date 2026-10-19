@@ -882,6 +882,13 @@ dialog.paper-modal.room-puzzle-modal{box-sizing:border-box;width:min(920px,88vw)
 
 .dialogue-service-page{display:grid;align-content:center;justify-items:center;gap:16px;color:#394d3e}.dialogue-service-page>.stat-panel{width:min(560px,90%);box-sizing:border-box;text-align:center}
 .ending-history-page{overflow:auto!important}.ending-history-page .ending-summary{display:flex;flex-direction:column;gap:8px;overflow:auto;max-height:80dvh}.ending-history-page .ending-letter{max-height:80dvh;overflow:auto}
+.room-actor-draggable{pointer-events:auto;touch-action:none;cursor:grab;user-select:none;-webkit-user-drag:none}
+.room-actor-draggable:active{cursor:grabbing}
+#shell .room-actors .room-main-character.room-actor-positioned,#shell .room-actors .room-pet.room-actor-positioned{left:var(--room-x)!important;right:auto!important;top:var(--room-y)!important;bottom:auto!important;transform:translate(-50%,-50%)!important}
+#shell .room-actors .room-pet{z-index:3}
+.room-pet>.room-pet-bubble{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);width:min(250px,52vw);padding:11px 13px;border:2px solid #a98b61;border-radius:16px;background:#fff9e8;color:#374333;box-shadow:0 6px 18px #22153044;text-align:center;white-space:normal;line-height:1.45;pointer-events:none;z-index:5}
+.room-pet-bubble[hidden]{display:none}
+.room-pet-bubble small{display:block;margin-top:6px;color:#76694d;font-size:11px}
 @media(max-width:600px){.ending-history-page .ending-layout{grid-template-columns:1fr}.ending-history-page .ending-summary{max-height:22dvh}.ending-history-page .ending-letter{max-height:65dvh}}
 
 /* Room quick profile: match the utility-button height and show name plus stamina only. */

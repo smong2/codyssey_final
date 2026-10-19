@@ -49,8 +49,8 @@ backend/api/.venv/bin/uvicorn backend.api.app.main:app --host 127.0.0.1 --port 8
 |---|---|
 | `POST /v1/account/bootstrap` | JSON `{ "privacyConsentAccepted": true, "privacyConsentVersion": "2026-10-15" }`. Firebase Auth의 인증 완료 계정만 자기 UID 아래 초기 문서 10개를 원자적 batch create한다. 기존 계정 재호출은 세이브를 덮어쓰지 않고 `created: false`를 반환한다. |
 | `GET /v1/account/me` | 자기 계정의 최소 메타만 반환한다. 미초기화는 404다. |
-| `GET /v1/account/settings` | 계정 전역 `activePetId / activeRoomBackgroundId / locale`을 반환한다. 슬롯별 설정으로 복제하지 않는다. |
-| `PATCH /v1/account/settings` | `activePetId` 또는 `activeRoomBackgroundId` 일부 변경. 서버가 현재 계정의 해금 목록에 포함된 ID만 허용하며 펫은 `PET01~PET10`, 마이룸 배경은 `ROOM_DEFAULT / ROOM_01~03`만 받는다. |
+| `GET /v1/account/settings` | 계정 전역 `activePetId / activeRoomBackgroundId / roomActorPositions / locale`을 반환한다. `roomActorPositions`는 주인공·펫의 정규화 좌표(0~1)이며 기존 계정은 빈 값으로 읽는다. |
+| `PATCH /v1/account/settings` | 펫·배경 또는 `roomActorPositions`의 `player`/`pet` 좌표를 일부 변경한다. 좌표는 기존 항목과 병합해 계정에 저장하며, 펫·배경 ID는 해금된 항목만 받는다. |
 | `DELETE /v1/account` | JSON `{ "confirm": true }`와 최근 5분 내 재인증된 ID Token을 요구한다. 자기 UID 하위 문서, Auth 계정을 삭제한다. |
 | `POST /v1/account/revoke-sessions` | 최근 5분 내 재인증된 ID Token으로 다른 세션의 refresh token을 폐기한다. 현재 브라우저는 새 ID Token을 받아 계속 사용한다. |
 
@@ -146,6 +146,8 @@ Phase 9는 Phase 8의 `ENDING_DECIDED` 직업을 입력으로 사용하며 **Gem
 | `POST /v1/save-slots/{slot_id}/ending/prepare` | `{requestId, expectedServerRevision}`. `ENDING_DECIDED`에서 Long-term Play Memory를 구성하고 Gemini 편지를 최대 2회 생성·검증한다. provider 오류·timeout·JSON/문구 검증 실패가 계속되면 서버 fallback 편지를 사용한다. 성공 결과를 `activeRun.endingPrepared`에 먼저 안전 저장하고 `ENDING_READY`로 전환한다. 이미 준비된 엔딩의 재호출은 저장된 결과를 반환하며 Gemini를 다시 호출하지 않는다. |
 | `GET /v1/save-slots/{slot_id}/ending` | `ENDING_READY` 상태의 저장된 직업·편지·아르카디아 기록을 재조회한다. 재접속 시 AI를 재호출하지 않는다. raw Hidden 점수, prompt, UID, 이메일, provider 내부정보는 반환하지 않는다. |
 | `POST /v1/save-slots/{slot_id}/ending/finish` | `{requestId, expectedServerRevision, recordId}`. 화면의 마지막 `타이틀로` 성공 경계다. Ending Record 생성, `totalCompletedRuns`, 캐릭터 플레이 횟수, 엔딩 열람 횟수, 정규 `seenEndingIds`, completion 기반 펫/캐릭터 조건, pending 캐릭터 승격, `activityDays.run`, 슬롯 `RUN_COMPLETE`를 한 transaction으로 확정한다. 같은 요청 재전송은 activeRun이 이미 삭제된 뒤에도 receipt로 replay된다. |
+| `GET /v1/ending-records` | 현재 UID의 완료 엔딩 목록을 최신순으로 반환한다. 직업명, 당시 Visible 스탯·활동 횟수·편지 원문을 포함하며 raw Hidden 점수는 반환하지 않는다. |
+| `GET /v1/pets/{pet_id}/dialogues` | 현재 계정에서 활성화한 펫의 SQLite 대사 20개를 읽는다. 다른 펫 ID 요청은 거부한다. |
 | `GET /v1/ending-records/{record_id}` | 현재 UID의 완료 회차 Ending Record를 읽는다. 최종 편지, 사용한 4~6개 기록, 검수된 대표 선택, 최종 보이는 스탯, Hidden dominant ID만 보존·반환한다. raw Hidden 점수는 기록 조회에 노출하지 않는다. |
 
 Gemini 요청은 Render 서버의 `GEMINI_API_KEY`만 사용하고 클라이언트로 키를 전달하지 않는다. 현재 REST 경계는 `generateContent`와 JSON 응답을 사용하고 `System Instruction`에 어린이 대상 표현, 사실 기반 개인화, 직업 변경 금지, 심리·성격·진로 단정 금지, `무엇을 지켰니?`의 정답 대리 금지, raw 스탯 숫자 노출 금지를 고정한다. 응답은 서버가 길이·캐릭터명·직업명·서명·금지 표현을 다시 검증한다. 정상 Gemini 응답 여부와 관계없이 AI 실패가 회차 완료를 막지 않도록 검수된 fallback 편지가 항상 준비돼 있다.

@@ -150,7 +150,13 @@ export function completeRun(p,id){
  const s=slotOf(p,id),run=s.activeRun;if(s.status!=='PLAYING'||!run||run.phase!=='AWAITING_ENDING'||!run.endingRecord||run.pendingWeekSummaryWeek!==undefined)throw new Error('엔딩 마지막 확인 단계가 아닙니다.');
  const ready=validateEndingView({slotId:id,runNumber:run.runNumber,career:{id:run.endingRecord.careerId,name:run.endingRecord.careerName},letter:run.endingRecord.letter},{slotId:id,runNumber:run.runNumber});
  if(ready.letter.status!=='ready')throw new Error('준비된 편지를 먼저 확인해 주세요.');
- const record={...structuredClone(run.endingRecord),characterId:run.characterId,completedAt:new Date().toISOString()};
+ const completedActions=(run.actionHistory??[]).filter(item=>item.status==='COMPLETED');
+ const record={...structuredClone(run.endingRecord),characterId:run.characterId,completedAt:new Date().toISOString(),
+  finalStats:structuredClone(run.stats),playStatistics:{
+   classCount:completedActions.filter(item=>classOf(item.action)).length,
+   adventureCount:completedActions.filter(item=>item.action==='adventure').length,
+   restCount:completedActions.filter(item=>item.action==='rest').length,
+  }};
  p.meta.endingRecords??=[];p.meta.seenEndings??=[];p.meta.endingViewCounts??={};p.meta.endingRecords.push(record);p.meta.endingViewCounts[record.careerId]=(p.meta.endingViewCounts[record.careerId]??0)+1;if(record.type==='CAREER'&&!p.meta.seenEndings.includes(record.careerId))p.meta.seenEndings.push(record.careerId);
  s.completedRunCount++;s.status='RUN_COMPLETE';s.activeRun=null;return structuredClone(record);
 }
