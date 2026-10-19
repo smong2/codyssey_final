@@ -9,7 +9,7 @@
 | 폴더 · 상세 README | 찾는 이미지 | 파일명 기준 | 판단 기준 |
 |---|---|---|---|
 | [background/](background/README.md) | 장면·시간대별 공간 배경 · 이미지 31장 | `BG*, 기존 마이룸 계열` | MS/LOC/NPC의 BACKGROUND·마이룸; 채택과 후보 구분 |
-| [character/](character/README.md) | 학생 전신·교수 캐릭터·`요정의 거래` 전용 요정 캐릭터 · 이미지 35장 | `기존 32인 전신 이름` / `CH_DRM_fairy_trade_upperbody_01.png` | 캐스팅 조건에 맞는 화자 이미지와 기숙사 `DRM` 특수 활동에 사용하는 요정 캐릭터를 구분 |
+| [character/](character/README.md) | 학생 전신 32장·상반신 표정 160장·교수 시안 2장·`요정의 거래` 요정 1장 · 이미지 195장 | `이름0_fullbody.png` / `이름1_base.png`~`이름5_relieved.png` / `CH_DRM_fairy_trade_upperbody_01.png` | 캐스팅 조건에 맞는 화자 이미지와 기숙사 `DRM` 특수 활동에 사용하는 요정 캐릭터를 구분 |
 | [item/](item/README.md) · [모험 목표 15종](item/adventure/README.md) | 스토리 FOCUS·소품·가구·모험 목표 · 이미지 60장 | `IT_*` / `ADV_GH/LIB/OBS_*` | `ART-*` FOCUS와 `ADV_*` 모험 목표를 용도별로 검색; 후보는 자동 배치 금지 |
 | [ui/](ui/README.md) | 버튼·프레임·로고·환경 UI · 이미지 62장 | `BT / UI / LG 및 실행 호환 이름` | 마이룸 프로필·날짜 프레임 `UI21`·`UI22`(공통 가로 2058px), 일지 화살표·닫기, 대화·선택지 버튼 |
 | [map/](map/README.md) | 이동·충돌용 맵 · 이미지 22장 | `MP* 및 기존 참고 맵` | MP02·MP03 갱신 마스터와 기존 게임용 WebP를 구분. [대서고 원본](map/MP02_grand_library_master_3840x2161.png) <img src="map/MP02_grand_library_master_3840x2161.png" width="72" alt="갱신된 대서고 마스터"> · [천문대 원본](map/MP03_starlight_observatory_master_3840x2162.png) <img src="map/MP03_starlight_observatory_master_3840x2162.png" width="72" alt="갱신된 천문대 마스터"> |
@@ -99,7 +99,7 @@ item 폴더 이미지 **60장**은 확정 17장·비교 카드 3장·일반 아�
 | `MS06-S1–S5` 후일담 | 평온한 광장 장면. [기본 광장](background/BG02_clocktower_plaza_1920x1080_011.png)<br><img src="background/BG02_clocktower_plaza_1920x1080_011.png" width="92" alt="기본 광장">은 장소 대응 후보 | `ART-M06` [겨울 놀이회 한 장](item/IT_focus_MS06_winter_games_decor_01.png)을 S1–S5 재사용 | 배경 버전 확인 필요 / FOCUS 파일·API 경로 연결 |
 | `END` 직업·편지 | 배경 파일 지정 없음 | `ART-E01` [공용 직업 카드·편지 받침](item/IT_focus_END_career_letter_card_01.png)<br><img src="item/IT_focus_END_career_letter_card_01.png" width="92" alt="직업 카드와 편지 받침">; 직업명·부제·편지는 텍스트 | 엔딩 UI 배경 경로 연결. 직업별 10장으로 추정하지 않음 |
 
-메인 등장 학생 역할(`MAIN_GUIDE_STUDENT`, `MAIN_GREENHOUSE_STUDENT` 등)은 [메인 제작 문서의 캐스팅 순서](../story/main/MAIN_STORY_PRODUCTION.md)에 따라 주인공과 겹치지 않게 결정합니다. 한 인물의 파일명을 모든 플레이에 고정하지 않습니다. 실제 학생 전신과 발렌티누스 교수 시안은 [character/](character/README.md)에서 확인합니다. 상반신 표정 파일은 로컬 보관본으로 옮겼으며, 엔진의 기존 참조는 전신 기준으로 연결 확인이 필요합니다.
+메인 등장 학생 역할(`MAIN_GUIDE_STUDENT`, `MAIN_GREENHOUSE_STUDENT` 등)은 [메인 제작 문서의 캐스팅 순서](../story/main/MAIN_STORY_PRODUCTION.md)에 따라 주인공과 겹치지 않게 결정합니다. 한 인물의 파일명을 모든 플레이에 고정하지 않습니다. 실제 학생 전신과 발렌티누스 교수 시안은 [character/](character/README.md)에서 확인합니다. 상반신 표정 160장은 로컬 보관본에서 [캐릭터 폴더](character/README.md#학생-상반신-표정-160장)로 복원했습니다. 현재 게임은 학생 전신을 사용하며, 표정별 대사 매핑과 실행 화면 연결은 아직 확정되지 않았습니다.
 
 ## NPC 대화 12회
 
