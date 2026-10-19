@@ -48,7 +48,7 @@ NPC Story는 한 번의 큰 사건이 아니라 4번의 작은 만남이 이어�
 
 - GUIDE: `BG02_clocktower_plaza_1920x1080_011.png`
 - WORK: `BG08_magic_workshop_1920x1080_018.png`
-- LULU: `BG06_glass_greenhouse_1920x1080_016.png`
+- LULU: 현재 DB location `GH`의 `BG06_glass_greenhouse_1920x1080_016.png`
 
 Production 신규 소품 식별자:
 
@@ -59,9 +59,20 @@ Production 신규 소품 식별자:
 - `ART-N05` — 루루의 작은 앞발 위 단추
 - `ART-N06` — 루루의 열린 보물상자
 
-`ART-N01~N06`은 제작 식별자이며 실제 asset 파일이 확인되기 전까지 임의 파일명을 만들지 않는다.
+현재 실제 연결 상태:
 
-루루 기본 NPC 이미지는 `asset/pet/`에 실제 파일이 존재하지만, 소품 IMAGE와 화자 초상은 별개로 취급한다. 어떤 의상 세트를 최종 대화 초상으로 쓸지는 엔진/미술 적용 단계에서 확정한다.
+| 제작 ID | 실제 파일 | 상태 | 미리보기 |
+|---|---|---|---|
+| `ART-N01` | [`IT_focus_NPC_GUIDE_01_meeting_notices_01.png`](../../../asset/item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png) | **채택·API 연결** | <img src="../../../asset/item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png" width="220" alt="바람에 흩어진 모임 안내지"> |
+| `ART-N02` | `IT_focus_NPC_GUIDE_03_two_ribbons_01.png` | 예약·미납 | 미리보기 없음 |
+| `ART-N03` | `IT_focus_NPC_WORK_01_workshop_parts_01.png` | 예약·미납 | 미리보기 없음 |
+| `ART-N04` | `IT_focus_NPC_WORK_03_tidy_workbench_02.png` | 예약·미납 | 미리보기 없음 |
+| `ART-N05` | `IT_focus_NPC_LULU_01_patterned_button_01.png` | 예약·미납 | 미리보기 없음 |
+| `ART-N06` | [`IT_focus_NPC_LULU_02_treasure_chest_02.png`](../../../asset/item/IT_focus_NPC_LULU_02_treasure_chest_02.png) | **채택·API 연결** | <img src="../../../asset/item/IT_focus_NPC_LULU_02_treasure_chest_02.png" width="220" alt="루루의 열린 보물상자"> |
+
+`ART-N02~N05`는 예약 파일명이 있더라도 파일이 실제로 존재하지 않으므로 Sequence의 `ART-*` ID를 후보 그림으로 바꾸지 않는다.
+
+루루 기본 NPC 이미지는 `asset/pet/`에 실제 파일이 존재하지만, 소품 IMAGE와 화자 초상은 별개로 취급한다. 현재 SQLite의 `NPC:LULU`는 `portrait_asset_ref=NULL`이며 어떤 의상 세트를 대화 초상으로 쓸지는 미정이다. 따라서 보유 의상을 회차 번호에 맞춰 임의 연결하지 않는다.
 
 ## 선택 구조
 

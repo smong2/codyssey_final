@@ -20,9 +20,20 @@
 
 ## 이미지
 
-- 기존 `BG06_glass_greenhouse_1920x1080_016.png`
-- `ART-L02` — 시든 작은 허브 화분
-- `ART-L03` — 같은 화분의 건강해진 상태
+| 용도 | 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG06_glass_greenhouse_1920x1080_016.png`](../../../asset/background/BG06_glass_greenhouse_1920x1080_016.png) | 실제 파일·API 연결 가능 | <img src="../../../asset/background/BG06_glass_greenhouse_1920x1080_016.png" width="240" alt="유리 온실"> |
+| `ART-L02` · 시든 작은 허브 화분 | 예약 파일 `IT_focus_LOC_GH_01_wilted_pot_01.png` | **예약·미납**; 기존 시든 화분 카드는 후보 | 미리보기 없음 |
+| `ART-L03` · 같은 화분의 건강한 상태 | 예약 파일 `IT_focus_LOC_GH_01_restored_pot_02.png` | **예약·미납**; 기존 회복 화분 카드는 후보 | 미리보기 없음 |
+
+현재 서버는 `LOC_GH_01`의 두 FOCUS가 미납인 동안 해당 IMAGE 명령을 `HIDE`로 처리해 장면 진행을 막지 않는다. `IT_card_candidate_GH_wilted_plant_01.png` / `IT_card_candidate_GH_restored_plant_02.png`는 승인 FOCUS가 아니므로 연결하지 않는다.
+
+마스터 기본 화자는 요한이며 실제 회차는 캐스팅 규칙에 따라 하젤 등이 배정될 수 있다.
+
+| 배역 예시 | 실제 파일 | 미리보기 |
+|---|---|---|
+| 기본 요한 `CH19` | [`johan0_fullbody.png`](../../../asset/character/johan0_fullbody.png) | <img src="../../../asset/character/johan0_fullbody.png" width="90" alt="요한 전신"> |
+| 대체 예시 하젤 `CH20` | [`hazel0_fullbody.png`](../../../asset/character/hazel0_fullbody.png) | <img src="../../../asset/character/hazel0_fullbody.png" width="90" alt="하젤 전신"> |
 
 ## Sequence
 

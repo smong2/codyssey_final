@@ -21,6 +21,12 @@ test('API provider sends the Firebase token and exact mutation body',async()=>{
  assert.equal(calls[0].init.method,'POST');
 });
 
+test('unreadable slot deletion is the only mutation that does not guess a revision',async()=>{
+ const calls=[];const provider=createLumiaApiProvider({baseUrl:'https://api.example',getIdToken:async()=>'token',maxAttempts:1,fetchImpl:async(url,init)=>{calls.push({url,init});return response(200,{serverRevision:0});}});
+ const body={requestId:'delete-broken',confirm:true,resetUnreadable:true};await provider.deleteUnreadableSaveSlot(3,body);
+ assert.equal(calls[0].init.method,'DELETE');assert.deepEqual(JSON.parse(calls[0].init.body),body);
+});
+
 test('account bootstrap sends the reviewed privacy consent version before slot usage',async()=>{
  const calls=[];const provider=createLumiaApiProvider({baseUrl:'https://api.example',getIdToken:async()=>'token',maxAttempts:1,fetchImpl:async(url,init)=>{calls.push({url,init});return response(200,{created:false});}});
  await provider.bootstrapAccount({privacyConsentAccepted:true,privacyConsentVersion:'2026-10-15'});

@@ -21,8 +21,17 @@
 
 ## 이미지
 
-- 배경: `BG02_clocktower_plaza_1920x1080_011.png`
-- `ART-N01` — 바람에 흩어진 작은 모임 안내지 몇 장
+| 용도 | 실제 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG02_clocktower_plaza_1920x1080_011.png`](../../../asset/background/BG02_clocktower_plaza_1920x1080_011.png) | 실제 파일·API 연결 가능 | <img src="../../../asset/background/BG02_clocktower_plaza_1920x1080_011.png" width="240" alt="시계탑 광장"> |
+| `ART-N01` · 모임 안내지 | [`IT_focus_NPC_GUIDE_01_meeting_notices_01.png`](../../../asset/item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png) | **채택·API 연결** | <img src="../../../asset/item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png" width="220" alt="바람에 흩어진 모임 안내지"> |
+
+`NPC_GUIDE_ACTOR`는 기본 티아, 주인공이 티아일 때 로빈이다.
+
+| 배역 | 실제 파일 | 미리보기 |
+|---|---|---|
+| 기본 티아 `CH16` | [`tia0_fullbody.png`](../../../asset/character/tia0_fullbody.png) | <img src="../../../asset/character/tia0_fullbody.png" width="90" alt="티아 전신"> |
+| 대체 로빈 `CH15` | [`robin0_fullbody.png`](../../../asset/character/robin0_fullbody.png) | <img src="../../../asset/character/robin0_fullbody.png" width="90" alt="로빈 전신"> |
 
 ## Sequence
 

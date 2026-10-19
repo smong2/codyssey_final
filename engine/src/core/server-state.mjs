@@ -79,6 +79,7 @@ const projectDialogueHistory=run=>{
  const rows=[],seen=new Set();
  for(const record of stored??[]){
   if(!record||typeof record!=='object'||typeof record.eventId!=='string'||!record.eventId||typeof record.title!=='string'||!Number.isInteger(record.week)||record.week<1||record.week>run.week||!Number.isInteger(record.day)||record.day<0||record.day>4||!['COMPLETE','SKIP'].includes(record.completionMode)||!Array.isArray(record.selectedChoices)||record.selectedChoices.some(choice=>!choice||typeof choice.choiceNodeId!=='string'||typeof choice.choiceId!=='string'))throw new Error('서버 이야기 기록이 올바르지 않습니다.');
+  if(record.selectedChoices.some(choice=>choice.text!==undefined&&(typeof choice.text!=='string'||!choice.text.trim()||choice.text.length>500)))throw new Error('서버 이야기 선택 문구가 올바르지 않습니다.');
   const rawGrowth=record.effect?.growth??{};
   if(!rawGrowth||typeof rawGrowth!=='object'||Array.isArray(rawGrowth)||Object.entries(rawGrowth).some(([key,value])=>!['knowledge','expression','skill','exploration','magic'].includes(key)||!Number.isFinite(value)||value<0||value>500))throw new Error('서버 이야기 기록이 올바르지 않습니다.');
   const growth=projectStats(rawGrowth);

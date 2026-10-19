@@ -14,6 +14,16 @@
 - 단추 주인을 찾는 별도 퀘스트를 만들지 않고, 찾을 수 있을 때까지 안전하게 보관하는 작은 결정을 한다.
 - `잘 보이게 / 안전하게`를 서로 다른 보관 기준으로 다룬다.
 
+## 이미지
+
+| 용도 | 실제 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG06_glass_greenhouse_1920x1080_016.png`](../../../asset/background/BG06_glass_greenhouse_1920x1080_016.png) | 현재 NPC Story DB의 `GH` 배경 | <img src="../../../asset/background/BG06_glass_greenhouse_1920x1080_016.png" width="240" alt="유리 온실"> |
+| `ART-N06` · 열린 보물상자 | [`IT_focus_NPC_LULU_02_treasure_chest_02.png`](../../../asset/item/IT_focus_NPC_LULU_02_treasure_chest_02.png) | **채택·API 연결** | <img src="../../../asset/item/IT_focus_NPC_LULU_02_treasure_chest_02.png" width="220" alt="루루의 열린 보물상자"> |
+| 루루 화자 초상 | `NPC:LULU portrait_asset_ref=NULL` | **현재 런타임 미연결** | 미리보기 없음 |
+
+루루 의상 자원은 보유하고 있지만 회차별 배정이 미정이므로 특정 의상을 자동 연결하지 않는다.
+
 ## Sequence
 
 ### S1 · 먼저 다가오는 루루

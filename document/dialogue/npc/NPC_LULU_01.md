@@ -14,6 +14,16 @@
 - 단추 무늬를 함께 바라보는 짧은 대화로 수집 취향을 자연스럽게 소개한다.
 - 별/동그라미 어느 해석도 정답으로 만들지 않는다.
 
+## 이미지
+
+| 용도 | 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG06_glass_greenhouse_1920x1080_016.png`](../../../asset/background/BG06_glass_greenhouse_1920x1080_016.png) | 현재 NPC Story DB의 `GH` 배경 | <img src="../../../asset/background/BG06_glass_greenhouse_1920x1080_016.png" width="240" alt="유리 온실"> |
+| `ART-N05` · 손 위의 무늬 단추 | 예약 파일 `IT_focus_NPC_LULU_01_patterned_button_01.png` | **예약·미납** | 미리보기 없음 |
+| 루루 화자 초상 | `NPC:LULU portrait_asset_ref=NULL` | **현재 런타임 미연결** | 미리보기 없음 |
+
+`asset/pet/`에는 루루 의상 3세트가 존재하지만 스토리 회차와 의상 번호의 대응은 확정되지 않았다. 따라서 이 문서에서는 특정 의상 이미지를 대화 초상으로 임의 연결하지 않는다.
+
 ## Sequence
 
 ### S1 · 반짝이는 작은 것

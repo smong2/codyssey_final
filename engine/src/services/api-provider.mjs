@@ -14,9 +14,9 @@ const safeDetail=value=>{
 };
 const clone=value=>value===undefined?undefined:structuredClone(value);
 const slotIdOf=value=>{if(!Number.isInteger(value)||value<1||value>5)throw new LumiaApiError('저장 슬롯 번호가 올바르지 않습니다.',{code:'VALIDATION'});return value;};
-const requestIdBody=body=>{
+const requestIdBody=(body,{revision=true}={})=>{
  if(!body||typeof body!=='object'||Array.isArray(body)||typeof body.requestId!=='string'||!body.requestId.trim())throw new LumiaApiError('변경 요청에는 requestId가 필요합니다.',{code:'VALIDATION'});
- if(!Number.isInteger(body.expectedServerRevision)||body.expectedServerRevision<0)throw new LumiaApiError('변경 요청에는 서버 revision이 필요합니다.',{code:'VALIDATION'});
+ if(revision&&(!Number.isInteger(body.expectedServerRevision)||body.expectedServerRevision<0))throw new LumiaApiError('변경 요청에는 서버 revision이 필요합니다.',{code:'VALIDATION'});
  return clone(body);
 };
 
@@ -65,6 +65,7 @@ export function createLumiaApiProvider({baseUrl,getIdToken,fetchImpl=globalThis.
   getSaveSlot:slotId=>request(slotPath(slotId)),
   startRun:(slotId,body)=>mutation(`${slotPath(slotId)}/runs`,body),
   deleteSaveSlot:(slotId,body)=>mutation(slotPath(slotId),body,'DELETE'),
+	deleteUnreadableSaveSlot:(slotId,body)=>request(slotPath(slotId),{method:'DELETE',body:requestIdBody(body,{revision:false}),retryable:true}),
   recoverSaveSlot:(slotId,body)=>mutation(`${slotPath(slotId)}/recover`,body),
   confirmSchedule:(slotId,body)=>mutation(`${slotPath(slotId)}/schedule`,body),
   startActivity:(slotId,body)=>mutation(`${slotPath(slotId)}/activities/start`,body),

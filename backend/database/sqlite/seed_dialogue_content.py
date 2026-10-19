@@ -69,7 +69,7 @@ NON_PLAYER_SPEAKERS = (
         "speaker_id": "VALENTINUS",
         "display_name": "발렌티누스",
         "speaker_type": "NPC",
-        "portrait_asset_ref": None,
+        "portrait_asset_ref": "asset/character/NPC02_발렌티누스_임시.png",
         "description": "메인 스토리의 고정 교사·조력자",
         "sort_order": 1,
     },

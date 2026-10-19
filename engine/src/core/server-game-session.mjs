@@ -32,6 +32,11 @@ export function createServerGameSession({services,requestIdFactory=defaultId,onC
   const current=slot(slotId);if(!Number.isInteger(current.serverRevision))throw new Error('현재 슬롯의 서버 revision이 없습니다.');
   pendingMutation={service,slotId,refresh,input:{...clone(command),requestId:requestId(),expectedServerRevision:current.serverRevision}};return submit();
  };
+	const deleteUnreadable=async slotId=>{
+		if(pendingMutation)throw new Error('실패한 서버 저장 요청을 먼저 다시 시도해 주세요.');
+		const current=slot(slotId);if(current.status!=='LOAD_ERROR')throw new Error('문제가 있는 저장 슬롯만 이 방식으로 삭제할 수 있습니다.');
+		pendingMutation={service:'deleteUnreadableSaveSlot',slotId,refresh:'full',input:{confirm:true,resetUnreadable:true,requestId:requestId()}};return submit();
+	};
  const load=async()=>{const listed=await services.listSaveSlots(),collection=await services.getCollection();profile=createServerProfile(listed?.slots,collection);pendingMutation=null;return emit();};
  return {
   load,
@@ -53,6 +58,7 @@ export function createServerGameSession({services,requestIdFactory=defaultId,onC
   },
   startRun:(slotId,characterId)=>mutate('startRun',slotId,{characterId}),
   deleteSaveSlot:slotId=>mutate('deleteSaveSlot',slotId,{confirm:true}),
+	deleteUnreadableSaveSlot:deleteUnreadable,
   recoverSaveSlot:slotId=>mutate('recoverSaveSlot',slotId),
   confirmSchedule:(slotId,activityIds)=>mutate('confirmSchedule',slotId,{activityIds:clone(activityIds)},'revision'),
   startActivity:slotId=>mutate('startActivity',slotId,{},'slot'),

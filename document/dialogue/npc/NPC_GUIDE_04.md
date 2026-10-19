@@ -14,6 +14,16 @@
 - 지난번 리본 선택이 실제 준비에 반영됐음을 짧게 확인한다.
 - 체인 완료를 친밀도 선언이 아니라 자연스러운 호흡으로 보여 준다.
 
+## 이미지
+
+| 용도 | 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG02_clocktower_plaza_1920x1080_011.png`](../../../asset/background/BG02_clocktower_plaza_1920x1080_011.png) | 실제 파일·API 연결 가능 | <img src="../../../asset/background/BG02_clocktower_plaza_1920x1080_011.png" width="240" alt="시계탑 광장"> |
+| 현재 Sequence의 `ART-N02` 재사용 | 예약 파일 `IT_focus_NPC_GUIDE_03_two_ribbons_01.png` | **예약·미납** | 미리보기 없음 |
+| `ART-N01` | [`IT_focus_NPC_GUIDE_01_meeting_notices_01.png`](../../../asset/item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png) | 채택·API 연결됐지만 현재 Sequence에서는 FOCUS로 호출하지 않음 | <img src="../../../asset/item/IT_focus_NPC_GUIDE_01_meeting_notices_01.png" width="180" alt="모임 안내지"> |
+
+화자는 기본 [`티아`](../../../asset/character/tia0_fullbody.png) <img src="../../../asset/character/tia0_fullbody.png" width="72" alt="티아 전신">, CH16 주인공일 때 [`로빈`](../../../asset/character/robin0_fullbody.png) <img src="../../../asset/character/robin0_fullbody.png" width="72" alt="로빈 전신">으로 대체된다. 이 장면은 리본을 실제로 다시 보여 주므로 `ART-N02`가 납품되기 전에는 해당 FOCUS를 임의 후보로 교체하지 않는다.
+
 ## Sequence
 
 ### S1 · 거의 끝난 준비

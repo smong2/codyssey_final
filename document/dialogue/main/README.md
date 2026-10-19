@@ -22,6 +22,14 @@
 - `ROLE:*` 대사는 아래 기본 우선 캐스팅의 성격을 반영한 마스터다. 주인공 충돌 7건은 `character_sets/CAST_MATRIX.md`에 정리했으며 해당 Character Set에는 대체 화자 반응을 반영했다.
 - 현재 상태는 **32인 Character Set 작성 완료 / Main SQLite 적재 코드 구현 / 기존 v3 Main 실행 검증 완료**다. `backend/database/sqlite/seed_dialogue_content.py`가 공통 마스터와 Character Set을 병합해 canonical `choiceId`·분기 반응·선택 효과를 실제 DB 행으로 생성하며, 사용자가 로컬 DB에서 `192 sequences / 40 canonical choices / 80 choice effects` 결과를 확인했다. 스크립트는 현재 공통 Story 발생 정책이 추가된 SQLite v4 migration까지 지원하며, v4는 Location master seed 실행과 함께 추가 검증한다.
 
+### 이미지 연결 상태
+
+- 각 `MS*.md`의 `## 이미지` 표는 실제 `asset/` 파일을 링크하고 문서 안에 미리보기를 표시한다.
+- 메인 FOCUS `ART-M01~M06`은 Production 제작 ID와 예약 파일명은 확정됐지만 **현재 실제 파일이 미납**이다. 비슷한 일반 아이템·후보 이미지를 임의 연결하지 않는다.
+- `MS05`의 밝음/꺼짐 축제 배경 2장은 실제 저장소 파일을 사용하는 확정 연결이다.
+- 학생 화자 이미지는 `storyCast`가 선택한 학생의 `asset/character/*0_fullbody.png`를 서버가 해석한다. 문서에는 마스터 기준 화자를 예시로 보여 주되 실제 회차에서는 대체 배역이 사용될 수 있다.
+- 발렌티누스는 현재 `asset/character/NPC02_발렌티누스_임시.png`를 서버가 사용하며 **임시 시안**이다.
+
 ## 기본 우선 캐스팅 기준
 
 | 역할 | 마스터 원고의 기본 화자 |

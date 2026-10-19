@@ -15,6 +15,15 @@
 - `위치를 직접 알려 주기 / 상대에게 먼저 확인해 보기`를 독립성과 협력의 다른 방식으로 다룬다.
 - WORK 체인은 이 장면에서 자연스럽게 끝낸다.
 
+## 이미지
+
+| 용도 | 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG08_magic_workshop_1920x1080_018.png`](../../../asset/background/BG08_magic_workshop_1920x1080_018.png) | 실제 파일·API 연결 가능 | <img src="../../../asset/background/BG08_magic_workshop_1920x1080_018.png" width="240" alt="마도 공방"> |
+| `ART-N04` 재사용 | 예약 파일 `IT_focus_NPC_WORK_03_tidy_workbench_02.png` | **예약·미납** | 미리보기 없음 |
+
+화자는 기본 [`렌`](../../../asset/character/ren0_fullbody.png) <img src="../../../asset/character/ren0_fullbody.png" width="72" alt="렌 전신">, CH25 주인공일 때 [`다나`](../../../asset/character/dana0_fullbody.png) <img src="../../../asset/character/dana0_fullbody.png" width="72" alt="다나 전신">로 대체된다.
+
 ## Sequence
 
 ### S1 · 익숙해진 작업대

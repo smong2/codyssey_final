@@ -74,6 +74,37 @@ class DialogueMaster:
         base = {"character": "character-assets", "background": "world-assets", "item": "item-assets"}[category]
         return f"/{base}/{quote(filename)}"
 
+    def choice_texts(
+        self, *, version: str, event_ids: set[str], character_id: str,
+    ) -> dict[tuple[str, str, str], str]:
+        """Return display text for saved choice IDs without compiling images or effects."""
+        if not event_ids:
+            return {}
+        try:
+            with closing(_database(self.path)) as connection:
+                placeholders = ",".join("?" for _ in event_ids)
+                rows = connection.execute(
+                    f"""SELECT events.event_id,options.choice_node_id,
+                               options.choice_id,options.choice_text
+                        FROM (
+                          SELECT DISTINCT event_id,story_id,step_no
+                          FROM dialogue_sequences
+                          WHERE version=? AND character_id=?
+                            AND event_id IN ({placeholders})
+                        ) AS events
+                        JOIN dialogue_options AS options
+                          ON options.version=? AND options.character_id=?
+                         AND options.story_id=events.story_id
+                         AND options.step_no=events.step_no""",
+                    (version, character_id, *sorted(event_ids), version, character_id),
+                ).fetchall()
+                return {
+                    (row["event_id"], row["choice_node_id"], row["choice_id"]): row["choice_text"]
+                    for row in rows
+                }
+        except (sqlite3.Error, OSError):
+            raise DialogueMasterError("Dialogue choice text is unavailable") from None
+
     def _speaker(self, connection, version: str, reference: str, cast: dict[str, str]) -> tuple[str, dict]:
         if reference.startswith("ROLE:"):
             role_id = reference[5:]

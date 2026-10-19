@@ -43,6 +43,13 @@ test('investigation displays a missed-object hint and screen cleanup cannot adva
  assert.match(host.textContent,/오른쪽을 더 찾아보자/);
  const button=findButton(host);ui.clear();advance(2000);button.onclick();assert.equal(continued,0);
 });
+test('the final discovery waits for confirmation and then starts result processing once',()=>{
+ const host=node('main'),ui=createAdventureResultUI({el:node});let continued=0;
+ ui.showFound(host,{foundCount:3,objectiveCount:3},()=>continued++);
+ assert.match(host.textContent,/목표를 모두 찾았어요!/);
+ const button=findButton(host);assert.equal(button.text,'결과 확인하기');assert.notEqual(button.disabled,true);assert.equal(continued,0);
+ button.onclick();assert.equal(continued,1);assert.equal(host.children[0].removed,true);button.onclick();assert.equal(continued,1);
+});
 test('mission success waits indefinitely for the confirmation button and advances only once',t=>{
  t.mock.timers.enable({apis:['setTimeout']});const host=node('main'),ui=createAdventureResultUI({el:node});let continued=0;
  ui.show(host,{outcome:'MISSION_COMPLETE',foundCount:2,objectiveCount:2,feedback:'탐험 +8'},()=>continued++);

@@ -14,6 +14,16 @@
 - 새 소품 이미지를 추가하지 않고 `반짝이는 것 / 바스락거리는 것`을 대사로만 묘사한다.
 - 플레이어 취향을 루루가 기억하는 작은 관계 변화를 만든다.
 
+## 이미지
+
+| 용도 | 실제 연결 | 상태 | 미리보기 |
+|---|---|---|---|
+| 배경 | [`BG06_glass_greenhouse_1920x1080_016.png`](../../../asset/background/BG06_glass_greenhouse_1920x1080_016.png) | 현재 NPC Story DB의 `GH` 배경 | <img src="../../../asset/background/BG06_glass_greenhouse_1920x1080_016.png" width="240" alt="유리 온실"> |
+| `ART-N06` 재사용 | [`IT_focus_NPC_LULU_02_treasure_chest_02.png`](../../../asset/item/IT_focus_NPC_LULU_02_treasure_chest_02.png) | **채택·API 연결** | <img src="../../../asset/item/IT_focus_NPC_LULU_02_treasure_chest_02.png" width="220" alt="루루의 열린 보물상자"> |
+| 루루 화자 초상 | `NPC:LULU portrait_asset_ref=NULL` | **현재 런타임 미연결** | 미리보기 없음 |
+
+새 발견물은 Production 지시대로 대사로만 설명하고 별도 이미지를 연결하지 않는다.
+
 ## Sequence
 
 ### S1 · 다시 열린 보물상자
