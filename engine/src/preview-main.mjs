@@ -1542,6 +1542,7 @@ const endingUI = createEndingUI({
 	character: () => CHARACTERS.find((c) => c.id === current().characterId),
 	slotId: () => slotId,
 	onReturn: renderRoom,
+	onWelcome: () => roomUI.room(),
 	isSaveFailed: () => saveFailed,
 	loadEnding: typeof engineServices.loadEnding === "function" ? (key) => engineServices.loadEnding(key) : null,
 	onReceive: receiveEnding,
@@ -1550,7 +1551,9 @@ const endingUI = createEndingUI({
 		save(false, slotId, renderTitle);
 		if (saveFailed) {
 			heading("저장 확인이 필요합니다.", "ending-page");
-			shell.append(el("p", "회차 완료를 저장하지 못했습니다. 저장에 성공할 때까지 진행 상태를 유지합니다.", "ending-placeholder"), btn("저장 다시 시도", retrySave, "ending-continue"));
+			const scene = el("section", null, "ending-scene"), card = el("article", null, "ending-card");
+			card.append(el("h2", "저장 확인이 필요합니다."), el("p", "회차 완료를 저장하지 못했어요. 다시 저장하면 다음 이야기로 이어갈 수 있어요."), btn("저장 다시 시도", retrySave, "ending-art-button"));
+			scene.append(card);shell.append(scene);
 		}
 	},
 });
@@ -1566,6 +1569,7 @@ const serverEndingUI = serverMode
 			services: engineServices,
 			mutate: performServerMutation,
 			character: () => CHARACTERS.find((character) => character.id === current()?.characterId),
+			onWelcome: () => roomUI.room(),
 			onTitle: () => renderTitle(false, null, "preserve"),
 		})
 	: null;
@@ -1590,7 +1594,10 @@ const roomUI = createMyroomUI({
 	isSaveFailed: () => saveFailed,
 	onAcknowledgeWeekSummary: () => {
 		if (serverMode) {
-			performServerMutation(() => serverGame.acknowledgeWeekSummary(slotId), renderRoom);
+			performServerMutation(() => serverGame.acknowledgeWeekSummary(slotId), () => {
+				if (current()?.serverPhase === "ENDING_PENDING") serverEndingUI.render();
+				else renderRoom();
+			});
 			return;
 		}
 		const final = current().phase === "AWAITING_ENDING",

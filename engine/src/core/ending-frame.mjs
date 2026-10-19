@@ -13,6 +13,18 @@ export function endingSnapshot(run,character){
 }
 
 // Client display adapter proposal, not a finalized HTTP or AI request contract.
+export function endingYearSummary(run){
+ const valid=value=>Number.isSafeInteger(value)&&value>=0;
+ const stats=Object.entries({knowledge:'지식',expression:'표현력',dexterity:'솜씨',exploration:'탐험',magic:'마법'})
+  .filter(([key])=>valid(run.stats?.[key])).map(([key,label])=>({key,label,value:run.stats[key]}));
+ const labels=[['classCount','수업에 참여한 횟수'],['restCount','휴식을 취한 횟수'],['adventureCount','모험을 떠난 횟수'],['npcEncounterCount','NPC와 만난 횟수'],['locationDiscoveryCount','새로운 장소를 발견한 횟수'],['specialItemDiscoveryCount','특별한 발견을 한 횟수']];
+ // Server actionHistory can cover only the current week; use full-run counters.
+ if(run.serverRunStatistics!==undefined)return {stats,records:labels.filter(([key])=>valid(run.serverRunStatistics?.[key])).map(([key,label])=>({key,label,value:run.serverRunStatistics[key]}))};
+ const history=run.actionHistory?.filter(item=>item.status==='COMPLETED'),saved=Object.fromEntries((run.endingRecord?.playRecords??run.endingRecord?.records??[]).filter(row=>valid(row.value)).map(row=>[row.key,row.value]));
+ const counts={classCount:saved.classes??(history?history.filter(item=>classOf(item.action)).length:undefined),restCount:history?history.filter(item=>item.action==='rest').length:undefined,adventureCount:saved.adventures??(history?history.filter(item=>item.action==='adventure').length:undefined),npcEncounterCount:saved.npcMeetings,locationDiscoveryCount:saved.locationsDiscovered,specialItemDiscoveryCount:saved.specialItemDiscoveries};
+ return {stats,records:labels.filter(([key])=>valid(counts[key])).map(([key,label])=>({key,label,value:counts[key]}))};
+}
+
 export function validateEndingView(value,{slotId,runNumber}){
  if(!value||value.slotId!==slotId||value.runNumber!==runNumber)throw new Error('현재 회차와 다른 엔딩 응답입니다.');
  if(typeof value.career?.id!=='string'||!value.career.id.trim()||typeof value.career.name!=='string'||!value.career.name.trim())throw new Error('확정 직업 정보가 없습니다.');
