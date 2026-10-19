@@ -52,13 +52,13 @@ test('three planned adventure locations select their distinct replaceable previe
 test('every selected place resolves its registered layers and unknown map ids fail explicitly',()=>{
  assert.equal(typeof missions.getAdventureMap,'function');
  for(const [id,world,mask,foreground]of [
-  ['greenhouse','MP01_greenhouse_master_3840x2160.png','MP01_greenhouse_collision_mask_3840x2160.png','MP01_greenhouse_foreground_3840x2160-1.png'],
-  ['library','MP02_grand_library_3840x2160.png','MP02_grand_library_collision_mask_3840x2160.png','MP02_grand_library_foreground_3840x2160.png'],
-  ['observatory','MP03_starlight_observatory_world_3840x2160.webp','MP03_starlight_observatory_collision_mask_1920x1080.png','MP03_starlight_observatory_foreground_3840x2160.webp']
+  ['greenhouse','MP01_greenhouse_world_3840x2160.webp','MP01_greenhouse_collision_mask_3840x2160.png','MP01_greenhouse_foreground_3840x2160.webp'],
+  ['library','MP02_grand_library_world_3840x2160.webp','MP02_grand_library_collision_mask_3840x2160.png','MP02_grand_library_foreground_3840x2160.webp'],
+  ['observatory','MP03_starlight_observatory_world_3840x2160.webp','MP03_starlight_observatory_collision_mask_3840x2160.png','MP03_starlight_observatory_foreground_3840x2160.webp']
  ]){
   const map=missions.getAdventureMap(id);
   assert.equal(map.world,'./design-assets/map/'+world);
-  assert.equal(map.thumbnail,'./design-assets/map/'+(id==='observatory'?'MP03_starlight_observatory_world_1920x1080.webp':world));
+  assert.equal(map.thumbnail,'./design-assets/map/'+world.replace('3840x2160','1920x1080'));
   assert.equal(map.mask,'./design-assets/map/'+mask);
   assert.equal(map.foreground,'./design-assets/map/'+foreground);
  }
