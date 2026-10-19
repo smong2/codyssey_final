@@ -34,9 +34,12 @@ export function createMyroomUI(ctx) {
 		if (typeof target.addEventListener !== "function" || typeof target.classList?.add !== "function") return;
 		target.classList.add("room-actor-draggable");
 		target.draggable = false;
+		for (const image of target.querySelectorAll?.("img") ?? []) image.draggable = false;
+		target.addEventListener("dragstart", event => event.preventDefault());
 		let drag = null;
 		target.addEventListener("pointerdown", event => {
 			if (event.button !== 0) return;
+			event.preventDefault();
 			const bounds = actors.getBoundingClientRect(), box = target.getBoundingClientRect();
 			drag = { id:event.pointerId, startX:event.clientX, startY:event.clientY,
 				x:(box.left + box.width / 2 - bounds.left) / bounds.width,
@@ -65,6 +68,7 @@ export function createMyroomUI(ctx) {
 		};
 		target.addEventListener("pointerup", finish);
 		target.addEventListener("pointercancel", finish);
+		target.addEventListener("lostpointercapture", finish);
 	}
 	const portrait = (c, cls) => {
 		const i = el("img", null, cls);
@@ -366,14 +370,14 @@ export function createMyroomUI(ctx) {
 			schedule();
 			return;
 		}
-		const summary = (r.lastWeekSummary?.week === week ? projectServerWeeklySummary(r.lastWeekSummary) : null) ?? createWeeklySummary(r.actionHistory, week, storyDiaryRecords(r)),
+		const summary = (r.lastWeekSummary?.week === week ? projectServerWeeklySummary(r.lastWeekSummary, r.actionHistory) : null) ?? createWeeklySummary(r.actionHistory, week, storyDiaryRecords(r)),
 			final = week === 52;
 		heading(final ? "52주차 주간 요약" : "지난주 주간 요약", "weekly-summary-page");
 		const frame = el("section", null, "paper weekly-summary");
 		frame.append(el("p", week + "주차 · " + (final ? "회차 마지막 주" : "활동 기록 요약"), "weekly-summary-kicker"));
 		if (!summary.activityCount) frame.append(el("p", "이 주의 상세 활동 기록을 확인할 수 없습니다. 기록을 새로 만들지 않고 저장된 내용만 표시합니다.", "weekly-summary-empty"));
 		else {
-			frame.append(el("p", "기록된 일정 " + summary.activityCount + " / 5일", "weekly-summary-count"));
+			const columns = el("div", null, "weekly-summary-columns"), details = el("div", null, "weekly-summary-details");
 			const stats = el("section", null, "weekly-summary-section");
 			stats.append(el("h2", "성장 스탯 변화"));
 			for (const [key, label] of Object.entries(STAT_NAMES)) {
@@ -382,7 +386,7 @@ export function createMyroomUI(ctx) {
 				row.append(el("span", label), el("strong", (value > 0 ? "+" : "") + value));
 				stats.append(row);
 			}
-			frame.append(stats);
+			columns.append(stats, details);
 			const classes = el("section", null, "weekly-summary-section");
 			classes.append(el("h2", "수업 진행 " + summary.classCount + "회"));
 			const classEntries = Object.entries(summary.classCounts);
@@ -390,15 +394,15 @@ export function createMyroomUI(ctx) {
 				const list = el("ul");
 				for (const [id, count] of classEntries) list.append(el("li", (classOf(id)?.title ?? id) + " · " + count + "회"));
 				classes.append(list);
-			} else if (summary.classCount) classes.append(el("p", "수업별 상세 내역은 서버 주간 요약에 포함되지 않습니다."));
-			else classes.append(el("p", "완료한 수업 기록 없음"));
-			frame.append(classes);
+			}
+			details.append(classes);
 			const stamina = el("section", null, "weekly-summary-section");
 			stamina.append(el("h2", "체력"));
 			stamina.append(el("p", "소비 " + summary.staminaSpent + " · 회복 " + summary.staminaRecovered));
-			stamina.append(el("p", "주간 시작 " + (summary.staminaAtStart === null ? "기록 없음" : summary.staminaAtStart) + " / 종료 " + (summary.staminaAtEnd === null ? "기록 없음" : summary.staminaAtEnd)));
-			stamina.append(el("p", "강제 휴식 " + summary.forcedRestDays + "일"));
-			frame.append(stamina);
+			stamina.append(el("p", (summary.staminaAtStart === null ? "기록 없음" : summary.staminaAtStart) + " → " + (summary.staminaAtEnd === null ? "기록 없음" : summary.staminaAtEnd), "weekly-stamina-change"));
+			if (summary.forcedRestDays > 0) stamina.append(el("p", "강제 휴식 " + summary.forcedRestDays + "일"));
+			details.append(stamina);
+			frame.append(columns);
 		}
 		if (isSaveFailed())
 			frame.append(

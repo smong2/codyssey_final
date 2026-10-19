@@ -7,11 +7,12 @@ import {SPACES} from '../core/spaces.mjs';
 
 const ART={observatory:'BG05_starlight_observatory_1920x1080_015.png',plaza:'BG02_clocktower_plaza_1920x1080_011.png',greenhouse:'BG06_glass_greenhouse_1920x1080_016.png',library:'BG04_grand_library_1920x1080_014.png',workshop:'BG08_magic_workshop_1920x1080_018.png',training:'BG09_rune_training_ground_1920x1080_019.png'};
 const COLORS=['#de8b82','#8ca97f','#8da8c0','#c5a15f','#aa90bd','#81b7ac'];
+const SHELF_TONES=[['#6289b5','푸른색'],['#b87a69','산호색'],['#7e9d72','초록색'],['#a587b1','보라색'],['#59a59b','청록색'],['#bf925c','갈색']];
 const GUIDES={
  'observatory-mirror':['거울을 눌러 별빛의 방향을 바꿔요.','별빛이 모든 관측 룬에 닿으면 다음 단계로 넘어가요.'],
  'starlight-stage':['별빛이 아래 선에 닿을 때 같은 레인을 눌러요.','길게 이어진 별빛은 끝날 때까지 누르고 있어요.'],
- 'spirit-pot-sort':['화분 두 개를 차례로 골라 꽃빛을 옮겨요.','각 화분에 같은 꽃빛만 모으면 성공이에요.'],
- 'sealed-shelves':['옮길 책 묶음을 고른 뒤 화살표를 눌러요.','별이 표시된 고서 A를 오른쪽 출구로 보내요.'],
+ 'spirit-pot-sort':['화분 두 개를 차례로 골라 반짝이는 맨 위 꽃빛을 옮겨요.','각 화분에 같은 꽃빛만 모으면 성공이에요.'],
+ 'sealed-shelves':['같은 색으로 묶인 책을 고른 뒤 화살표를 눌러요.','금빛 별 고서를 오른쪽 출구 화살표로 보내요.'],
  'rune-circuit':['회로 조각을 눌러 방향을 돌려요.','마력 발생점부터 모든 목표까지 길을 이어요.'],
  'rune-pin-training':['원판의 빈 곳을 보고 룬 핀을 보내요.','다른 핀과 보호 구역을 피해서 세 라운드를 마쳐요.']
 };
@@ -113,7 +114,7 @@ function mirrorSvg(cellType,orientation,isLit){
 function button(text,action){const node=el('button',text);node.type='button';node.onclick=action;return node;}
 export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
  constructor(){super(lesson.sceneKey);this.gameId=lesson.id;}
- init(data){this.startData=data;this.round=0;this.moves=0;this.mistakes=0;this.hits=0;this.extras=0;this.greatLimit=0;this.done=false;this.pausedMs=0;this.pauseStartedAt=null;this.selected=null;this.history=[];this.inputLog=[];this.pattern=null;this.disc=null;this.solved=false;this.roundStarted=0;}
+ init(data){this.startData=data;this.round=0;this.moves=0;this.mistakes=0;this.hits=0;this.extras=0;this.greatLimit=0;this.done=false;this.pausedMs=0;this.pauseStartedAt=null;this.selected=null;this.history=[];this.inputLog=[];this.pattern=null;this.disc=null;this.solved=false;this.roundStarted=0;this.roundTransition=null;this.feedback=null;this.lastMirrorTurn=null;}
  create(){
   this.startedAt=performance.now();this.root=el('section',null,'curriculum-game');
   const bg=SPACES[lesson.locationId]?.image??ART[lesson.locationId];
@@ -152,7 +153,15 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
   const result={...curriculumResult(this.startData,{metrics,remainingMs,endReason,durationMs:elapsed,score:this.hits||this.round*100}),inputLog:structuredClone(this.inputLog)};
   this.scene.start('home');this.game.events.emit(endReason==='QUIT'?'minigame:quit':'minigame:complete',result);
  }
- completeRound(){if(this.done)return;this.round++;if(this.round===3)this.finish();else{this.selected=null;this.history=[];this.loadRound();}}
+ completeRound(){
+  if(this.done||this.roundTransition)return;
+  if(['observatory-mirror','rune-circuit','sealed-shelves'].includes(this.gameId))this.drawPuzzle();
+  this.round++;
+  if(this.round===3){this.finish();return;}
+  if(this.gameId==='rune-pin-training'){this.selected=null;this.history=[];this.loadRound();return;}
+  const notice=el('div',null,'course-round-clear');notice.setAttribute('role','status');notice.append(el('strong','✦ '+this.round+'단계 성공!'),el('span','다음 판으로 이어집니다…'));
+  this.root.append(notice);this.board.inert=true;this.roundTransition={until:this.elapsed()+1000,notice};
+ }
  loadRound(){
   const d=this.startData.difficulty,seed=this.startData.seed;
   if(this.gameId==='starlight-stage'){this.loadRhythm();return;}
@@ -167,17 +176,27 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
   this.board.replaceChildren();this.board.className='paper curriculum-board';
   if(this.gameId==='spirit-pot-sort'){
    this.instruction.textContent='화분을 고른 뒤 옮길 화분을 누르세요. 같은 꽃빛끼리 모아 주세요.';const grid=el('div',null,'course-pots');
-   this.puzzle.pots.forEach((pot,index)=>{const b=button('',()=>{if(this.done)return;if(this.selected===null){this.selected=index;this.drawPuzzle();return;}const source=this.selected;if(pourPot(this.puzzle.pots,source,index)){this.logInput('POUR',{fromPot:source,toPot:index});this.moves++;if(potsSolved(this.puzzle.pots)){this.solved=true;this.finish();return;}}this.selected=null;this.drawPuzzle();});b.setAttribute('aria-label',`${index+1}번 화분 · ${pot.length} / 4`);b.classList.toggle('selected',this.selected===index);for(let row=3;row>=0;row--){const color=pot[row],part=el('span',color===undefined?'':String(color+1));part.style.background=color===undefined?'#f4ecd8':COLORS[color];b.append(part);}grid.append(b);});this.board.append(grid);this.status.textContent='이동 '+this.moves+'회';return;
+   this.puzzle.pots.forEach((pot,index)=>{
+    const b=button('',()=>{if(this.done||this.pauseStartedAt!==null)return;if(this.selected===null){this.selected=index;this.drawPuzzle();return;}const source=this.selected;if(pourPot(this.puzzle.pots,source,index)){this.lastPouredPot=index;this.logInput('POUR',{fromPot:source,toPot:index});this.moves++;if(potsSolved(this.puzzle.pots)){this.solved=true;this.finish();return;}}this.selected=null;this.drawPuzzle();});
+    b.setAttribute('aria-label',`${index+1}번 화분 · 꽃 ${pot.length}개`);b.setAttribute('aria-pressed',String(this.selected===index));b.classList.toggle('selected',this.selected===index);
+    const flowers=el('div',null,'pot-flowers');
+    for(let row=3;row>=0;row--){const color=pot[row],flower=el('span',color===undefined?'':'✿','pot-flower');flower.setAttribute('aria-hidden','true');if(color!==undefined){flower.style.setProperty('--flower-color',COLORS[color]);if(row===pot.length-1)flower.classList.add('pot-top-flower');}else flower.classList.add('empty');flowers.append(flower);}
+    const vessel=el('div',null,'pot-vessel');vessel.append(el('i',null,'pot-rim'),el('i',null,'pot-leaf'));b.append(flowers,vessel);
+    if(this.lastPouredPot===index)b.classList.add('pot-receiving');grid.append(b);
+   });this.lastPouredPot=null;this.board.append(grid);this.status.textContent='이동 '+this.moves+'회';return;
   }
   if(this.gameId==='sealed-shelves'){
-   this.instruction.textContent='책 묶음을 고르고 화살표로 미세요. 별 고서 A를 오른쪽 출구로 보내세요.';
-   const grid=el('div',null,'course-grid course-shelves');grid.style.setProperty('--columns',6);
-   for(let y=0;y<6;y++)for(let x=0;x<6;x++){
-    const piece=this.puzzle.pieces.find(p=>x>=p.x&&y>=p.y&&x<p.x+(p.axis==='h'?p.length:1)&&y<p.y+(p.axis==='v'?p.length:1));
-    const b=button(piece?(piece.id==='A'?'★':piece.id):'·',()=>{this.selected=piece?.id??null;this.drawPuzzle();});b.disabled=!piece;b.classList.toggle('selected',piece?.id===this.selected);b.classList.toggle('shelf-goal',piece?.id==='A');grid.append(b);
-   }
-   const controls=el('nav',null,'course-controls');for(const [label,axis,delta]of [['←','h',-1],['→','h',1],['↑','v',-1],['↓','v',1]]){const b=button(label,()=>{if(this.done)return;const piece=this.puzzle.pieces.find(p=>p.id===this.selected);if(piece?.axis!==axis)return;const before=structuredClone(this.puzzle.pieces),pieceId=this.selected;if(moveShelf(this.puzzle.pieces,pieceId,delta)){this.logInput('MOVE',{pieceId,delta});this.history.push(before);this.moves++;if(shelvesSolved(this.puzzle.pieces)){this.completeRound();return;}this.drawPuzzle();}});b.disabled=!this.selected;controls.append(b);}
-   controls.append(button('되돌리기',()=>{if(!this.history.length||this.done)return;this.puzzle.pieces=this.history.pop();this.logInput('UNDO');this.moves++;this.drawPuzzle();}),button('현재 판 초기화',()=>{if(this.done)return;this.history.push(structuredClone(this.puzzle.pieces));this.puzzle.pieces=structuredClone(this.originalPieces);this.logInput('RESET');this.moves++;this.drawPuzzle();}));this.board.append(grid,controls);this.status.textContent=`${this.round+1} / 3 서가 · 이동 ${this.moves}회`;return;
+   this.instruction.textContent='색깔 책 묶음을 고르고 화살표로 미세요. 금빛 별 고서를 오른쪽 출구 →로 보내세요.';
+   const stage=el('div',null,'course-shelf-stage'),grid=el('div',null,'course-grid course-shelves');grid.style.setProperty('--columns',6);
+   for(let y=0;y<6;y++)for(let x=0;x<6;x++){const cell=el('span',null,'shelf-space');cell.style.gridColumn=String(x+1);cell.style.gridRow=String(y+1);grid.append(cell);}
+   this.puzzle.pieces.forEach((piece,index)=>{
+    const goal=piece.id==='A',[color,name]=goal?['#d8b15f','금빛 별 고서']:SHELF_TONES[(index-1)%SHELF_TONES.length];
+    const b=button(goal?'★':'',()=>{if(this.done||this.roundTransition||this.pauseStartedAt!==null)return;this.selected=piece.id;this.drawPuzzle();});b.className='shelf-piece';b.classList.toggle('selected',piece.id===this.selected);b.classList.toggle('shelf-goal',goal);
+    b.style.setProperty('--book-color',color);b.style.gridColumn=`${piece.x+1} / span ${piece.axis==='h'?piece.length:1}`;b.style.gridRow=`${piece.y+1} / span ${piece.axis==='v'?piece.length:1}`;b.setAttribute('aria-label',name+' 책 묶음 · '+(piece.axis==='h'?'좌우':'위아래')+' 이동');b.setAttribute('aria-pressed',String(piece.id===this.selected));grid.append(b);
+   });
+   const exit=el('div','출구 →','shelf-exit');exit.style.top=((this.puzzle.pieces.find(p=>p.id==='A').y+.5)/6*100)+'%';stage.append(grid,exit);
+   const controls=el('nav',null,'course-controls');for(const [label,axis,delta]of [['←','h',-1],['→','h',1],['↑','v',-1],['↓','v',1]]){const b=button(label,()=>{if(this.done||this.roundTransition||this.pauseStartedAt!==null)return;const piece=this.puzzle.pieces.find(p=>p.id===this.selected);if(piece?.axis!==axis)return;const before=structuredClone(this.puzzle.pieces),pieceId=this.selected;if(moveShelf(this.puzzle.pieces,pieceId,delta)){this.logInput('MOVE',{pieceId,delta});this.history.push(before);this.moves++;if(shelvesSolved(this.puzzle.pieces)){this.completeRound();return;}this.drawPuzzle();}});b.disabled=this.puzzle.pieces.find(p=>p.id===this.selected)?.axis!==axis;controls.append(b);}
+   controls.append(button('되돌리기',()=>{if(!this.history.length||this.done||this.roundTransition)return;this.puzzle.pieces=this.history.pop();this.logInput('UNDO');this.moves++;this.drawPuzzle();}),button('현재 판 초기화',()=>{if(this.done||this.roundTransition)return;this.history.push(structuredClone(this.puzzle.pieces));this.puzzle.pieces=structuredClone(this.originalPieces);this.logInput('RESET');this.moves++;this.drawPuzzle();}));this.board.append(stage,controls);this.status.textContent=`${this.round+1} / 3 서가 · 이동 ${this.moves}회`;return;
   }
   const mirror=this.gameId==='observatory-mirror',p=this.puzzle,width=mirror?p.level.width:p.size,height=mirror?p.level.height:p.size;
   this.instruction.textContent=mirror?'거울을 눌러 별빛을 돌리세요. 관측 룬을 모두 밝혀 주세요.':'회로를 눌러 돌리세요. 고정 회로는 움직이지 않아요. 모든 목표까지 연결하세요.';
@@ -196,16 +215,17 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
     const cellType=index>=0?'mirror':isSource?'source':isBlock?'block':isGoal?'goal':isRune?'rune':isPrism?'prism':'empty';
     const orient=index>=0?p.orientations[index]:null;
     aria=(marker?marker+' · ':'')+(index>=0?'거울 ('+orient+')':'빈 칸');
-    b=button('',()=>{if(this.done)return;p.orientations[index]=p.orientations[index]==='/'?'\\':'/';this.logInput('TOGGLE',{mirrorIndex:index});this.moves++;if(traceBeam(p.level,p.orientations).success)this.completeRound();else this.drawPuzzle();});
+    b=button('',()=>{if(this.done||this.roundTransition||this.pauseStartedAt!==null)return;this.lastMirrorTurn={index,from:p.orientations[index]};p.orientations[index]=p.orientations[index]==='/'?'\\':'/';this.logInput('TOGGLE',{mirrorIndex:index});this.moves++;if(traceBeam(p.level,p.orientations).success)this.completeRound();else this.drawPuzzle();});
     b.className='mirror-cell';
-    b.append(mirrorSvg(cellType,orient,isLit));
+    const art=mirrorSvg(cellType,orient,isLit);b.append(art);
+    if(index>=0&&this.lastMirrorTurn?.index===index)art.animate?.([{transform:`rotate(${this.lastMirrorTurn.from==='/'?-90:90}deg)`},{transform:'rotate(0deg)'}],{duration:260,easing:'ease-out'});
    }else{
     const isStart=point(p.start),isGoal=point(p.goal)||point(p.branchGoal),isMandatory=point(p.mandatory);
     const isFixed=p.fixed?.some(([fx,fy])=>fx===x&&fy===y);
     disabled=[p.start,p.goal,p.branchGoal,...p.fixed].filter(Boolean).some(([px,py])=>px===x&&py===y);
     marker=isStart?'광원':isGoal?'목표':isMandatory?'필수 룬':isFixed?'고정':null;
     aria=(marker?marker+' · ':'')+(isFixed?'고정 회로 · ':'')+`회로 (${x+1},${y+1})`;
-    b=button('',()=>{if(this.done)return;p.tiles[index]=rotate(p.tiles[index]);this.logInput('ROTATE',{cellIndex:index});this.moves++;if(connections(p).won)this.completeRound();else this.drawPuzzle();});
+    b=button('',()=>{if(this.done||this.roundTransition||this.pauseStartedAt!==null)return;p.tiles[index]=rotate(p.tiles[index]);this.logInput('ROTATE',{cellIndex:index});this.moves++;if(connections(p).won)this.completeRound();else this.drawPuzzle();});
     b.className='pipe-cell';
     if(isFixed)b.classList.add('fixed-cell');
     b.append(pipeSvg(p.tiles[index],isLit,{isStart,isGoal,isMandatory,isFixed}));
@@ -214,20 +234,37 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
    if(marker)b.append(el('small',marker,'course-cell-label'));
    b.setAttribute('aria-label',aria);grid.append(b);
   }
+  if(mirror){const beam=svgNode('svg',{viewBox:`0 0 ${width*100} ${height*100}`,preserveAspectRatio:'none',class:'course-beam','aria-hidden':'true'});for(const route of light.paths)beam.append(svgNode('polyline',{points:route.map(([x,y])=>`${x*100+50},${y*100+50}`).join(' '),fill:'none',stroke:'#fff3a0','stroke-width':'5','stroke-linejoin':'round'}));grid.append(beam);this.lastMirrorTurn=null;}
   this.board.append(grid);this.status.textContent=`${this.round+1} / 3 단계 · 조작 ${this.moves}회`;
  }
  loadRhythm(){
-  this.pattern=rhythmPattern(this.startData.difficulty,this.startData.seed,this.startData.maxDurationMs);this.board.replaceChildren();this.board.className='paper curriculum-board course-rhythm';this.instruction.textContent='별빛이 아래 선에 닿을 때 해당 레인을 누르세요. 긴 별빛은 끝까지 눌러 주세요.';
+  this.pattern=rhythmPattern(this.startData.difficulty,this.startData.seed,this.startData.maxDurationMs);this.board.replaceChildren();this.board.className='paper curriculum-board course-rhythm';this.instruction.textContent='별 중심이 빛나는 판정선에 닿을 때 누르세요. 긴 별빛은 끝까지 누른 뒤 놓아 주세요.';
+  this.feedback=el('div','','course-judgement');this.feedback.setAttribute('role','status');this.feedback.setAttribute('aria-live','polite');this.root.append(this.feedback);
   this.lanes=[];for(let lane=0;lane<this.pattern.lanes;lane++){
-   const b=button(['표정','몸짓','마법 연출'][lane],()=>{});b.className='course-rhythm-lane';b.onpointerdown=event=>{event.preventDefault();b.setPointerCapture(event.pointerId);this.hitLane(lane,false);};const release=()=>this.hitLane(lane,true);b.onpointerup=release;b.onpointercancel=release;b.onlostpointercapture=release;this.lanes.push(b);this.board.append(b);
+   const b=button('',()=>{});b.className='course-rhythm-lane';b.setAttribute('aria-label',['표정','몸짓','마법 연출'][lane]+' 레인');b.append(el('span',['표정','몸짓','마법 연출'][lane],'course-lane-label'));
+   const zone=el('span',null,'course-hit-zone');zone.setAttribute('aria-hidden','true');zone.append(el('i',null,'course-hit-center'));b.append(zone);
+   b.onpointerdown=event=>{event.preventDefault();b.setPointerCapture?.(event.pointerId);this.hitLane(lane,false);};const release=()=>this.hitLane(lane,true);b.onpointerup=release;b.onpointercancel=release;b.onlostpointercapture=release;
+   b.onkeydown=event=>{if([' ','Enter'].includes(event.key)){event.preventDefault();if(!event.repeat)this.hitLane(lane,false);}};b.onkeyup=event=>{if([' ','Enter'].includes(event.key)){event.preventDefault();release();}};this.lanes.push(b);this.board.append(b);
   }
-  this.pattern.notes.forEach(note=>{note.element=el('span','✦','course-note');note.element.style.height=Math.max(20,note.hold*.1)+'px';this.lanes[note.lane].append(note.element);});
+  this.pattern.notes.forEach(note=>{note.element=el('span',null,'course-note');note.element.append(el('span','✦','course-note-head'));if(note.hold)note.element.classList.add('course-note-hold');this.lanes[note.lane].append(note.element);});
+  this.drawRhythm(this.elapsed());
+ }
+ judge(label,lane){
+  if(!this.feedback)return;this.feedback.textContent=label;this.feedback.hidden=false;this.feedbackUntil=this.elapsed()+800;this.feedback.setAttribute('data-grade',label.split(' ')[0].toLowerCase());
+  this.feedback.animate?.([{opacity:0,transform:'translate(-50%,-8px)'},{opacity:1,transform:'translate(-50%,0)'}],{duration:130});
+  this.lanes[lane]?.animate?.([{boxShadow:label==='Miss'?'inset 0 0 45px #d6817288':'inset 0 0 45px #fff1a5dd'},{boxShadow:'inset 0 0 0 transparent'}],{duration:350});
+ }
+ timingGrade(offset){return Math.abs(offset)<=45?'Excellent':Math.abs(offset)<=95?'Great':'Good';}
+ drawRhythm(elapsed){
+  const speed=Math.max(.04,((this.lanes[0]?.clientHeight||400)-100)/1800);
+  this.board.style.setProperty('--rhythm-window',(320*speed)+'px');this.board.style.setProperty('--rhythm-exact',(90*speed)+'px');
+  for(const note of this.pattern.notes){note.element.hidden=Boolean(note.hit||note.missed);note.element.style.height=(20+(note.pressed?Math.max(0,note.at+note.hold-elapsed):note.hold)*speed)+'px';note.element.style.bottom=`${46+(note.pressed?0:(note.at-elapsed)*speed)}px`;note.element.classList.toggle('holding',Boolean(note.pressed));}
  }
  hitLane(lane,release){
-  if(this.done)return;const elapsed=this.logInput(release?'RELEASE':'PRESS',{lane}).atMs;
-  if(release){const note=this.pattern.notes.find(n=>n.lane===lane&&n.pressed&&!n.hit);if(note){note.hit=elapsed>=note.at+note.hold-140;note.missed=!note.hit;note.pressed=false;}return;}
+  if(this.done||this.pauseStartedAt!==null||this.roundTransition)return;const elapsed=this.logInput(release?'RELEASE':'PRESS',{lane}).atMs;
+  if(release){const note=this.pattern.notes.find(n=>n.lane===lane&&n.pressed&&!n.hit);if(note){note.hit=elapsed>=note.at+note.hold-140;note.missed=!note.hit;note.pressed=false;this.judge(note.hit?this.timingGrade(Math.max(note.pressOffset,Math.abs(elapsed-note.at-note.hold))):'Miss',lane);}return;}
   const note=this.pattern.notes.filter(n=>n.lane===lane&&!n.hit&&!n.missed&&!n.pressed&&Math.abs(n.at-elapsed)<=160).sort((a,b)=>Math.abs(a.at-elapsed)-Math.abs(b.at-elapsed))[0];
-  if(!note){this.extras++;return;}if(note.hold)note.pressed=true;else note.hit=true;
+  if(!note){this.extras++;this.judge('Miss',lane);return;}note.pressOffset=Math.abs(note.at-elapsed);if(note.hold){note.pressed=true;this.judge('Hold · 끝까지 눌러요',lane);}else{note.hit=true;this.judge(this.timingGrade(note.pressOffset),lane);}this.drawRhythm(elapsed);
  }
  loadPins(){
   this.pins=[];this.pinTarget=4+this.startData.difficulty+this.round;
@@ -240,7 +277,8 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
  }
  update(){
   if(this.done||!this.root)return;const elapsed=this.elapsed(),left=Math.max(0,this.startData.maxDurationMs-elapsed);this.timer.textContent=`남은 시간 ${Math.ceil(left/1000)}초`;
-  if(this.pattern){for(const note of this.pattern.notes){if(!note.hit&&!note.pressed&&elapsed>note.at+160)note.missed=true;if(note.pressed&&elapsed>note.at+note.hold+500){note.pressed=false;note.missed=true;}note.element.hidden=note.hit||note.missed;note.element.style.bottom=`${45+(note.at-elapsed)*.1}px`;}this.hits=this.pattern.notes.filter(n=>n.hit).length;this.status.textContent=`맞춘 별빛 ${this.hits} / ${this.pattern.notes.length}`;}
+  if(this.roundTransition&&elapsed>=this.roundTransition.until&&this.pauseStartedAt===null){this.roundTransition.notice.remove();this.roundTransition=null;this.board.inert=false;this.selected=null;this.history=[];this.loadRound();}
+  if(this.pattern){for(const note of this.pattern.notes){if(!note.hit&&!note.missed&&(!note.pressed&&elapsed>note.at+160||note.pressed&&elapsed>note.at+note.hold+500)){note.missed=true;note.pressed=false;this.judge('Miss',note.lane);}}this.drawRhythm(elapsed);this.hits=this.pattern.notes.filter(n=>n.hit).length;this.status.textContent=`맞춘 별빛 ${this.hits} / ${this.pattern.notes.length} · 판정선 가운데에 가까울수록 더 정확해요`;if(this.feedback&&elapsed>this.feedbackUntil)this.feedback.hidden=true;}
   if(this.disc){this.disc.style.transform=`rotate(${pinRotation(this.startData.difficulty,elapsed-this.roundStarted)}rad)`;this.status.textContent=`${this.round+1} / 3 라운드 · 핀 ${this.pins.length} / ${this.pinTarget} · 실수 ${this.mistakes} / 3`;}
   if(left===0)this.finish(this.pattern?'COMPLETE':'TIMEOUT');
  }

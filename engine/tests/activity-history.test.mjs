@@ -6,6 +6,12 @@ import {createProfile,startRun,setSchedule,finishWeek} from '../src/core/state.m
 import {runAction as applyAction} from './activity-helpers.mjs';
 import {createLocalRepository,createBoundaryWriter} from '../src/core/storage.mjs';
 import {calendarModel} from '../src/core/preview.mjs';
+test('server weekly class detail uses completed records for that week only',()=>{
+ const stored={week:2,statDelta:{knowledge:0,expression:0,skill:0,exploration:0,magic:0},classCount:2,staminaSpent:20,staminaRecovered:0,startingStamina:100,endingStamina:80,forcedRestDays:0};
+ const rows=[{week:2,action:'rune-circuit',status:'COMPLETED'},{week:2,action:'rune-circuit',status:'COMPLETED'},{week:2,action:'rune-circuit',status:'INTERRUPTED'},{week:1,action:'starlight-stage',status:'COMPLETED'}];
+ assert.deepEqual(history.projectServerWeeklySummary(stored,rows).classCounts,{'rune-circuit':2});
+ assert.deepEqual(history.projectServerWeeklySummary({...stored,classCount:3},rows).classCounts,{},'do not invent incomplete detail');
+});
 test('story diary includes Main stories and all supplied choices without changing saved records',()=>{
  assert.equal(typeof history.storyDiaryRecords,'function');
  const run={mainStory:{history:[{id:'MS01',week:1,selectedChoices:[{choiceNodeId:'C1',choiceId:'A'},{choiceNodeId:'C2',choiceId:'B'}]}]},narrativeState:{history:[{id:'LOC_OBS_01',week:3,day:1,choiceId:'C'}]}};

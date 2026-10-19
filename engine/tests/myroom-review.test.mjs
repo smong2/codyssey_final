@@ -3,8 +3,11 @@ import assert from 'node:assert/strict';
 import {createMyroomUI} from '../src/ui/myroom.mjs';
 
 function fakeNode(tag,text='',className=''){
- const node={tag,text,className,children:[],attributes:{},dataset:{},style:{setProperty(){}},disabled:false,
-  classList:{toggle(){}},
+ const node={tag,text,className,children:[],attributes:{},dataset:{},events:{},style:{values:{},setProperty(key,value){this.values[key]=value;}},disabled:false,
+  classList:{toggle(){},add(){}},
+  addEventListener(name,handler){this.events[name]=handler;},
+  getBoundingClientRect(){return this.className==='room-actors'?{left:0,top:0,width:1000,height:600}:{left:200,top:200,width:100,height:200};},
+  querySelectorAll(selector){return selector==='img'?this.children.filter(child=>child.tag==='pet'||child.tag==='img'):[];},
   append(...children){this.children.push(...children);},
   replaceChildren(...children){this.children=children;},
   setAttribute(name,value){this.attributes[name]=value;},
@@ -122,6 +125,24 @@ test('pet sleeps until dialogues are ready, then greets before the first click',
  pet.onclick();
  assert.equal(bubble.textContent,'오늘도 같이 책을 읽자.');
  assert.doesNotMatch(pet.textContent,/펫 변경/);
+});
+
+test('mouse dragging the pet suppresses native image dragging and updates its room position',()=>{
+ const {shell}=renderRoom(),pet=findAll(shell,node=>node.className==='room-pet')[0];let prevented=false;
+ pet.events.pointerdown({button:0,pointerId:1,clientX:250,clientY:300,preventDefault(){prevented=true;}});
+ assert.equal(prevented,true);assert.equal(pet.querySelectorAll('img')[0].draggable,false);
+ pet.events.pointermove({pointerId:1,clientX:350,clientY:360});
+ assert.equal(pet.style.values['--room-x'],'35%');assert.equal(pet.style.values['--room-y'],'60%');
+ pet.events.pointerup({pointerId:1});assert.equal(pet.dataset.dragged,'true');
+});
+
+test('weekly review separates growth from activities and omits empty forced-rest details',()=>{
+ const {ui,shell,run}=renderRoom();run.pendingWeekSummaryWeek=1;
+ run.lastWeekSummary={week:1,statDelta:{knowledge:1,expression:0,skill:0,exploration:0,magic:0},classCount:1,staminaSpent:10,staminaRecovered:0,startingStamina:100,endingStamina:90,forcedRestDays:0};
+ run.actionHistory=[{week:1,day:0,action:'rune-circuit',status:'COMPLETED',effect:{}}];ui.weeklySummary();
+ const columns=findAll(shell,n=>n.className==='weekly-summary-columns')[0];assert.equal(columns.children.length,2);
+ assert.match(columns.children[0].textContent,/성장 스탯 변화/);assert.doesNotMatch(columns.children[0].textContent,/수업 진행/);
+ assert.match(columns.children[1].textContent,/룬 회로 · 1회/);assert.match(columns.children[1].textContent,/100 → 90/);assert.doesNotMatch(shell.textContent,/강제 휴식|서버 주간 요약에 포함/);
 });
 
 test('calendar image arrows preserve accessible month navigation in both directions',()=>{

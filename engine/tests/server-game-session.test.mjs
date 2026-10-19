@@ -1,11 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createServerDialogueSession,createServerGameSession} from '../src/core/server-game-session.mjs';
+import {recoverInterruptedAction} from '../src/core/state.mjs';
 
 const empty=id=>({slotId:id,status:'EMPTY',completedRunCount:0,lastCompletedCharacterId:null,lastEndingId:null,createdAt:null,lastSavedAt:null,saveVersion:1,gameDataVersion:'v1',activeRun:null,serverRevision:0});
 const playing=(revision=3,activeRun={runId:'run-1',runNumber:1,characterId:'CH01',week:1,day:'MONDAY',phase:'MAIN_STORY_PENDING',storyCast:{},pendingStoryEvent:{eventId:'MS01'},stats:{knowledge:50,expression:50,skill:50,exploration:50,magic:50},stamina:{current:100,max:100},hiddenStats:{},forcedRest:{active:false,remainingWeekdays:0},minigameFailStreaks:{},runStatistics:{classCounts:{}},weeklySchedule:{}})=>({...empty(1),status:'PLAYING',activeRun,serverRevision:revision});
 const ROOM_01_PIECES=Array.from({length:12},(_,index)=>`PUZZLE_ROOM_01_${String(index+1).padStart(2,'0')}`);
 const collection={meta:{unlockedCharacterIds:['CH01'],unlockedPetIds:['PET01','PET02'],permanentBonuses:{knowledge:0,expression:0,skill:0,exploration:0,magic:0},seenEndingIds:[],acquiredBadgeIds:[],acquiredPuzzlePieceIds:ROOM_01_PIECES,unlockedRoomBackgroundIds:['ROOM_DEFAULT','ROOM_01'],playedCharacterIds:[]},statistics:{totalMinigamePlayCount:0,totalClassCount:0,totalAdventureCount:0,endingViewCounts:{}},pendingCharacterUnlockIds:[],settings:{activePetId:'PET01',activeRoomBackgroundId:'ROOM_DEFAULT'}};
+
+test('resuming an in-progress server slot recovers through the server and preserves paid stamina',async()=>{
+ let current=playing();current.activeRun={...current.activeRun,phase:'ACTIVITY_IN_PROGRESS',pendingStoryEvent:null,stamina:{current:90,max:100},weeklySchedule:Object.fromEntries(['MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY'].map((day,index)=>[day,{type:'CLASS',contentId:'rune-circuit',status:index===0?'IN_PROGRESS':'PLANNED',staminaBefore:100,staminaCost:10}]))};
+ const services={bootstrapAccount:async()=>({}),listSaveSlots:async()=>({slots:[current,...[2,3,4,5].map(empty)]}),getCollection:async()=>collection,getSaveSlot:async()=>current,
+  async recoverSaveSlot(){current=structuredClone(current);current.serverRevision++;current.activeRun.weeklySchedule.MONDAY.status='COMPLETED';current.activeRun.weeklySchedule.MONDAY.resolution='INTERRUPTED';current.activeRun.day='TUESDAY';current.activeRun.completedWeekdayCount=1;current.activeRun.phase='MY_ROOM_RECOVERY';return {slot:current};}};
+ const game=createServerGameSession({services,requestIdFactory:()=> 'resume'});await game.load();
+ await recoverInterruptedAction(game.profile(),1,{serverGame:game});
+ const run=game.slot(1).activeRun;assert.equal(run.day,1);assert.equal(run.stamina,90);assert.equal(run.inProgressActivity,undefined);assert.equal(run.actionHistory[0].status,'INTERRUPTED');assert.equal(game.slot(1).serverRevision,4);
+});
 
 test('server mutation uses current revision and retains the identical request for explicit retry',async()=>{
  let current=playing(),attempt=0,bootstraps=0;const calls=[];
