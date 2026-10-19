@@ -28,6 +28,34 @@ test('all six scene types mount at every difficulty, time out once and remove th
  }finally{Object.assign(globalThis,previous);}
 });
 
+test('a solved mirror stays visibly rotated until the next round transition completes',async t=>{
+ let now=0;const host=element('main'),previous={Phaser:globalThis.Phaser,document:globalThis.document};
+ globalThis.Phaser={Scene:class{}};globalThis.document={createElement:element,querySelector:()=>host};t.mock.method(performance,'now',()=>now);
+ try{
+  const {curriculumScenes}=await import('../src/scenes/CurriculumScenes.mjs');const scene=new curriculumScenes[0]();
+  scene.events={once(){}};scene.scene={start(){}};scene.game={events:{emit(){}}};scene.init(curriculumStart({gameId:'observatory-mirror',statValue:50,seed:'rotation'}));scene.create();
+  if(scene.guideOverlay)scene.guideOverlay.children[0].children.at(-1).onclick();
+  const puzzle=scene.puzzle,[x,y]=puzzle.level.mirrors[0];scene.board.children[0].children[y*puzzle.level.width+x].onclick();
+  assert.equal(scene.round,1);assert.equal(scene.puzzle,puzzle,'keep the solved board visible');assert.equal(scene.puzzle.orientations[0],'/');
+  assert.ok(scene.roundTransition);now=1200;scene.update();assert.notEqual(scene.puzzle,puzzle);assert.equal(scene.roundTransition,null);
+ }finally{Object.assign(globalThis,previous);}
+});
+
+test('rhythm reports timing grades and does not accept input behind instructions',async t=>{
+ let now=0;const host=element('main'),previous={Phaser:globalThis.Phaser,document:globalThis.document};
+ globalThis.Phaser={Scene:class{}};globalThis.document={createElement:element,querySelector:()=>host};t.mock.method(performance,'now',()=>now);
+ try{
+  const {curriculumScenes}=await import('../src/scenes/CurriculumScenes.mjs');const scene=new curriculumScenes[1]();
+  scene.events={once(){}};scene.scene={start(){}};scene.game={events:{emit(){}}};scene.init(curriculumStart({gameId:'starlight-stage',statValue:50,seed:'timing'}));scene.create();
+  if(!scene.guideOverlay)scene.showGuide();scene.hitLane(0,false);assert.equal(scene.inputLog.length,0);
+  scene.guideOverlay.children[0].children.at(-1).onclick();
+  for(const [offset,grade] of [[0,'Excellent'],[80,'Great'],[150,'Good']]){
+   const note=scene.pattern.notes.find(n=>!n.hit&&!n.missed);now=note.at+offset;scene.hitLane(note.lane,false);assert.equal(note.hit,true);assert.match(scene.feedback.textContent,new RegExp(grade));
+  }
+  const note=scene.pattern.notes.find(n=>!n.hit&&!n.missed);now=note.at+161;scene.update();assert.equal(note.missed,true);assert.match(scene.feedback.textContent,/Miss/);
+ }finally{Object.assign(globalThis,previous);}
+});
+
 test('quit confirmation stays inside the game and pauses its timer until a choice',async t=>{
  let now=0;const host=element('main'),previous={Phaser:globalThis.Phaser,document:globalThis.document,window:globalThis.window};
  globalThis.Phaser={Scene:class {constructor(key){this.key=key;}}};globalThis.document={createElement:element,querySelector:()=>host};globalThis.window={confirm:()=>{throw new Error('browser confirm must not open');}};t.mock.method(performance,'now',()=>now);

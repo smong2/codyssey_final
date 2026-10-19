@@ -171,6 +171,7 @@ export function projectServerRun(run){
  const actions=hasSchedule?WEEKDAYS.map(day=>actionFor(schedule[day])):[],locations=hasSchedule?WEEKDAYS.map(day=>locationFor(schedule[day])):[];
  const finalSummary=run.phase==='FINAL_SUMMARY_PENDING',summaryPending=['WEEK_SUMMARY_PENDING','FINAL_SUMMARY_PENDING'].includes(run.phase);
  const result={runId:run.runId,runNumber:run.runNumber,characterId:run.characterId,week:run.week,day:dayIndex,phase:localPhase(run.phase),serverPhase:run.phase,schedule:actions,scheduleLocations:locations,stamina:run.stamina?.current??0,exhausted:Boolean(run.forcedRest?.active),forcedRestDays:run.forcedRest?.remainingWeekdays??0,stats:projectStats(run.stats),consecutiveFails:clone(run.minigameFailStreaks??{}),pendingStoryEvent:clone(run.pendingStoryEvent??null),storyCast:clone(run.storyCast??{}),dialogueHistory:projectDialogueHistory(run),actionHistory:projectedHistory(run,schedule),lastWeekSummary:clone(run.lastWeekSummary??null),serverRunStatistics:clone(run.runStatistics??{}),endingDecision:clone(run.endingDecision),endingPrepared:clone(run.endingPrepared)};
+ if(run.phase==='MY_ROOM_RECOVERY'&&run.completedWeekdayCount===5&&WEEKDAYS.every(day=>schedule[day]?.status==='COMPLETED')){result.phase='WEEK_COMPLETE';result.day=5;}
  const progress=inProgressActivity(run,schedule,dayIndex);if(progress)result.inProgressActivity=progress;
  if(summaryPending)result.pendingWeekSummaryWeek=run.lastWeekSummary?.week??(finalSummary?52:Math.max(1,run.week-1));
  return result;

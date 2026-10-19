@@ -113,7 +113,11 @@ export function applyAction(p,id,token,result,random=Math.random){
  (r.actionHistory??=[]).push({week:r.week,day:r.day,action,...(lesson?{stat:lesson.stat}:{}),...(action==='adventure'?{locationId:checkpoint.locationId??r.scheduleLocations?.[r.day]??'greenhouse'}:{}),status:'COMPLETED',effect});
  r.lastAction=token;delete r.inProgressActivity;r.day++;if(r.day===5)r.phase='WEEK_COMPLETE';return true;
 }
-export function recoverInterruptedAction(p,id){
+export function recoverInterruptedAction(p,id,{serverGame}={}){
+ if(p.serverBacked){
+  if(!serverGame)throw new Error('서버 저장 복구 연결이 필요합니다.');
+  return serverGame.recoverSaveSlot(id);
+ }
  const r=runOf(p,id),checkpoint=r.inProgressActivity;
  if(!checkpoint)return false;
  if(r.phase!=='ACTING'||r.day>=5||checkpoint.token!==actionToken(r))throw new Error('중단된 활동 체크포인트가 현재 일정과 일치하지 않습니다.');

@@ -811,6 +811,11 @@ function renderSlots() {
 		previousRoomBackground = null;
 		if (s.status === "PLAYING") {
 			if (current().inProgressActivity) {
+				if (serverMode) {
+					renderBusy("중단된 활동을 정리하고 저장 기록을 이어가고 있어요.", "activity-transition-page");
+					void performServerMutation(() => recoverInterruptedAction(profile, slotId, { serverGame }), resumeToRoom);
+					return;
+				}
 				recoverInterruptedAction(profile, slotId);
 				save(false, slotId, () => resumeToRoom());
 				if (saveFailed) renderRoom();
@@ -1541,6 +1546,7 @@ function renderFairyTrade(checkpoint) {
 		stats = ["knowledge", "expression", "dexterity", "exploration", "magic"],
 		names = { knowledge: "지식", expression: "표현력", dexterity: "솜씨", exploration: "탐험", magic: "마법" };
 	heading("요정의 거래", "fairy-trade-page");
+	shell.querySelector("h1")?.remove();
 	const stage = el("section", null, "fairy-trade-stage"),
 		fairy = el("img", null, "fairy-trade-character"),
 		panel = el("section", null, "paper fairy-trade-panel"),
