@@ -9,7 +9,7 @@
 | 폴더 · 상세 README | 찾는 이미지 | 파일명 기준 | 판단 기준 |
 |---|---|---|---|
 | [background/](background/README.md) | 장면·시간대별 공간 배경 · 이미지 31장 | `BG*, 기존 마이룸 계열` | MS/LOC/NPC의 BACKGROUND·마이룸; 채택과 후보 구분 |
-| [character/](character/README.md) | 학생 전신 32장·상반신 표정 160장·교수 시안 2장·`요정의 거래` 요정 1장 · 이미지 195장 | `이름0_fullbody.png` / `이름1_base.png`~`이름5_relieved.png` / `CH_DRM_fairy_trade_upperbody_01.png` | 캐스팅 조건에 맞는 화자 이미지와 기숙사 `DRM` 특수 활동에 사용하는 요정 캐릭터를 구분 |
+| [character/](character/README.md) | 학생 전신 32장·상반신 표정 160장·교수 원본 시안 2장·대화 상반신 3장·`요정의 거래` 요정 1장 · Git 추적 이미지 198장 | `이름0_fullbody.png` / `이름1_base.png`~`이름5_relieved.png` / `CH_DRM_fairy_trade_upperbody_01.png` / `CH_<대사 ID>_valentinus_*_upperbody_01.png` | 교수 대사별 화자 이미지와 기숙사 `DRM` 특수 활동 전용 요정을 구분 |
 | [item/](item/README.md) · [모험 목표 15종](item/adventure/README.md) | 스토리 FOCUS·소품·가구·모험 목표 · 이미지 60장 | `IT_*` / `ADV_GH/LIB/OBS_*` | `ART-*` FOCUS와 `ADV_*` 모험 목표를 용도별로 검색; 후보는 자동 배치 금지 |
 | [ui/](ui/README.md) | 버튼·프레임·로고·환경 UI · 이미지 62장 | `BT / UI / LG 및 실행 호환 이름` | 마이룸 프로필·날짜 프레임 `UI21`·`UI22`(공통 가로 2058px), 일지 화살표·닫기, 대화·선택지 버튼 |
 | [map/](map/README.md) | 이동·충돌용 맵 · 이미지 22장 | `MP* 및 기존 참고 맵` | MP02·MP03 갱신 마스터와 기존 게임용 WebP를 구분. [대서고 원본](map/MP02_grand_library_master_3840x2161.png) <img src="map/MP02_grand_library_master_3840x2161.png" width="72" alt="갱신된 대서고 마스터"> · [천문대 원본](map/MP03_starlight_observatory_master_3840x2162.png) <img src="map/MP03_starlight_observatory_master_3840x2162.png" width="72" alt="갱신된 천문대 마스터"> |
@@ -50,6 +50,16 @@
 **콘텐츠 식별자:** `fairy-trade` · **정확한 에셋 경로:** `asset/character/CH_DRM_fairy_trade_upperbody_01.png`. 백엔드·엔진에서 해당 활동의 요정 이미지를 찾을 때 이 경로를 기준으로 합니다. 실제 화면 연결은 별도 검수 대상입니다.
 
 세부 구도·파일 상태는 [캐릭터 README](character/README.md#기숙사-공용-공간-요정의-거래), 활동 규칙은 [7개 공간 콘텐츠 상세 규칙](../document/content/06_01_LOCATION_ACTIVITIES.md)을 참조합니다.
+
+## 발렌티누스 교수 · 대사별 상반신 바로 찾기
+
+`MAIN_TEACHER`의 새 대화 시안 3장은 [캐릭터 폴더 상세표](character/README.md#발렌티누스-교수--대화-상반신-3장)에 있습니다. 선택지 반응과 일반 대사는 서로 다른 장면 ID로 찾습니다. 파일 등록 완료와 엔진 화면 표시 완료는 별개입니다.
+
+| 대사 ID | 이미지 · 작은 미리보기 | 장면 동작 | 상태 |
+|---|---|---|---|
+| `MS01_S3_L01` | [CH_MS01_S3_L01_valentinus_greeting_upperbody_01.png](character/CH_MS01_S3_L01_valentinus_greeting_upperbody_01.png)<br><img src="character/CH_MS01_S3_L01_valentinus_greeting_upperbody_01.png" width="95" alt="발렌티누스 교수 첫 만남·인사"> | 시계탑 광장에서 두 학생에게 말을 걸며 찻잔을 들지 않은 손을 들어 인사하는 화자 상반신 | 에셋 등록·엔진 연결 미확인 |
+| `MS01_S3_ASK` | [CH_MS01_S3_ASK_valentinus_observing_upperbody_01.png](character/CH_MS01_S3_ASK_valentinus_observing_upperbody_01.png)<br><img src="character/CH_MS01_S3_ASK_valentinus_observing_upperbody_01.png" width="95" alt="발렌티누스 교수 문제 확인·관찰"> | 시계탑의 빛을 살피며 안경을 짚는 선택지 반응 화자 상반신 | 에셋 등록·엔진 연결 미확인 |
+| `MS03_S3_L04` | [CH_MS03_S3_L04_valentinus_insight_upperbody_01.png](character/CH_MS03_S3_L04_valentinus_insight_upperbody_01.png)<br><img src="character/CH_MS03_S3_L04_valentinus_insight_upperbody_01.png" width="95" alt="발렌티누스 교수 실패에서 단서 발견"> | 시계탑 룬의 실패에서 정보를 얻고 손가락을 들어 설명하는 화자 상반신 | 에셋 등록·엔진 연결 미확인 |
 
 ## 모험 목표 아이템 · 15장
 
