@@ -10,7 +10,7 @@ const COLORS=['#de8b82','#8ca97f','#8da8c0','#c5a15f','#aa90bd','#81b7ac'];
 const SHELF_TONES=[['#6289b5','푸른색'],['#b87a69','산호색'],['#7e9d72','초록색'],['#a587b1','보라색'],['#59a59b','청록색'],['#bf925c','갈색']];
 const GUIDES={
  'observatory-mirror':['여러 거울을 눌러 별빛의 방향을 차례로 바꿔요.','별빛이 모든 관측 룬에 닿으면 다음 단계로 넘어가요.'],
- 'starlight-stage':['별빛이 아래 선에 닿을 때 같은 레인을 눌러요.','길게 이어진 별빛은 끝날 때까지 누르고 있어요.'],
+ 'starlight-stage':['별빛이 아래 선에 닿을 때 같은 레인을 눌러요. 키보드는 왼쪽부터 A · S · D를 사용해요.','길게 이어진 별빛은 끝날 때까지 누르고 있어요.'],
  'spirit-pot-sort':['화분 두 개를 차례로 골라 반짝이는 맨 위 꽃빛을 옮겨요.','각 화분에 같은 꽃빛만 모으면 성공이에요.'],
  'sealed-shelves':['같은 색으로 묶인 책을 고른 뒤 화살표를 눌러요.','금빛 별 고서를 오른쪽 출구 화살표로 보내요.'],
  'rune-circuit':['회로 조각을 눌러 방향을 돌려요.','마력 발생점부터 모든 목표까지 길을 이어요.'],
@@ -114,7 +114,7 @@ function mirrorSvg(cellType,orientation,isLit){
 function button(text,action){const node=el('button',text);node.type='button';node.onclick=action;return node;}
 export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
  constructor(){super(lesson.sceneKey);this.gameId=lesson.id;}
- init(data){this.startData=data;this.round=0;this.moves=0;this.mistakes=0;this.hits=0;this.extras=0;this.greatLimit=0;this.done=false;this.pausedMs=0;this.pauseStartedAt=null;this.selected=null;this.history=[];this.inputLog=[];this.pattern=null;this.disc=null;this.solved=false;this.roundStarted=0;this.roundTransition=null;this.feedback=null;this.lastMirrorTurn=null;}
+ init(data){this.startData=data;this.round=0;this.moves=0;this.mistakes=0;this.hits=0;this.extras=0;this.greatLimit=0;this.done=false;this.pausedMs=0;this.pauseStartedAt=null;this.selected=null;this.history=[];this.inputLog=[];this.pattern=null;this.disc=null;this.solved=false;this.roundStarted=0;this.roundTransition=null;this.feedback=null;this.lastMirrorTurn=null;this.rhythmGrades=null;this.rhythmKeyDown=null;this.rhythmKeyUp=null;}
  create(){
   this.startedAt=performance.now();this.root=el('section',null,'curriculum-game');
   const bg=SPACES[lesson.locationId]?.image??ART[lesson.locationId];
@@ -122,7 +122,7 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
   const header=el('header',null,'paper curriculum-header');this.timer=el('span','');header.append(el('h1',lesson.title),this.timer,button('게임 방법 보기',()=>this.showGuide()),button('포기하기',()=>this.quit()));
   this.instruction=el('p','', 'curriculum-instruction');this.board=el('div',null,'paper curriculum-board');this.status=el('p','', 'curriculum-status');
   this.root.append(header,this.instruction,this.board,this.status);document.querySelector('#game').append(this.root);
-  this.events.once('shutdown',()=>{this.done=true;this.root?.remove();});
+  this.events.once('shutdown',()=>{this.done=true;if(this.rhythmKeyDown)globalThis.window?.removeEventListener?.('keydown',this.rhythmKeyDown);if(this.rhythmKeyUp)globalThis.window?.removeEventListener?.('keyup',this.rhythmKeyUp);this.root?.remove();});
   if(this.startData.assistLevel)this.status.textContent='조금 더 쉬운 연습으로 준비했어.';
   this.loadRound();if(!hasSeenGuide(this.gameId))this.showGuide(true);
  }
@@ -238,18 +238,25 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
   this.board.append(grid);this.status.textContent=`${this.round+1} / 3 단계 · 조작 ${this.moves}회`;
  }
  loadRhythm(){
-  this.pattern=rhythmPattern(this.startData.difficulty,this.startData.seed,this.startData.maxDurationMs);this.board.replaceChildren();this.board.className='paper curriculum-board course-rhythm';this.instruction.textContent='별 중심이 빛나는 판정선에 닿을 때 누르세요. 긴 별빛은 끝까지 누른 뒤 놓아 주세요.';
+  this.pattern=rhythmPattern(this.startData.difficulty,this.startData.seed,this.startData.maxDurationMs);this.rhythmGrades={Excellent:0,Great:0,Good:0};this.board.replaceChildren();this.board.className='paper curriculum-board course-rhythm';
+  const keys=['A','S','D'];this.instruction.textContent=`별 중심이 빛나는 판정선에 닿을 때 누르세요. 긴 별빛은 끝까지 누른 뒤 놓아 주세요. 키보드는 왼쪽부터 ${keys.slice(0,this.pattern.lanes).join(' · ')}입니다.`;
   this.feedback=el('div','','course-judgement');this.feedback.setAttribute('role','status');this.feedback.setAttribute('aria-live','polite');this.root.append(this.feedback);
   this.lanes=[];for(let lane=0;lane<this.pattern.lanes;lane++){
-   const b=button('',()=>{});b.className='course-rhythm-lane';b.setAttribute('aria-label',['표정','몸짓','마법 연출'][lane]+' 레인');
+   const b=button('',()=>{});b.className='course-rhythm-lane';b.setAttribute('aria-label',`${keys[lane]} 키 · ${['표정','몸짓','마법 연출'][lane]} 레인`);b.append(el('span',keys[lane],'course-lane-key'));
    const zone=el('span',null,'course-hit-zone');zone.setAttribute('aria-hidden','true');zone.append(el('i',null,'course-hit-center'));b.append(zone);
    b.onpointerdown=event=>{event.preventDefault();b.setPointerCapture?.(event.pointerId);this.hitLane(lane,false);};const release=()=>this.hitLane(lane,true);b.onpointerup=release;b.onpointercancel=release;b.onlostpointercapture=release;
    b.onkeydown=event=>{if([' ','Enter'].includes(event.key)){event.preventDefault();if(!event.repeat)this.hitLane(lane,false);}};b.onkeyup=event=>{if([' ','Enter'].includes(event.key)){event.preventDefault();release();}};this.lanes.push(b);this.board.append(b);
   }
+  const laneForKey=event=>{const lane={KeyA:0,KeyS:1,KeyD:2}[event.code]??{a:0,s:1,d:2}[String(event.key??'').toLowerCase()];return lane!==undefined&&lane<this.pattern.lanes?lane:undefined;};
+  this.rhythmKeyDown=event=>{const lane=laneForKey(event);if(lane===undefined)return;event.preventDefault?.();if(!event.repeat)this.hitLane(lane,false);};
+  this.rhythmKeyUp=event=>{const lane=laneForKey(event);if(lane===undefined)return;event.preventDefault?.();this.hitLane(lane,true);};
+  globalThis.window?.addEventListener?.('keydown',this.rhythmKeyDown);globalThis.window?.addEventListener?.('keyup',this.rhythmKeyUp);
   this.pattern.notes.forEach(note=>{note.element=el('span',null,'course-note');note.element.append(el('span','✦','course-note-head'));if(note.hold)note.element.classList.add('course-note-hold');this.lanes[note.lane].append(note.element);});
-  this.drawRhythm(this.elapsed());
+  this.renderRhythmStatus();this.drawRhythm(this.elapsed());
  }
+ renderRhythmStatus(){if(!this.rhythmGrades)return;this.status.textContent=`Excellent ${this.rhythmGrades.Excellent} · Great ${this.rhythmGrades.Great} · Good ${this.rhythmGrades.Good}`;}
  judge(label,lane){
+  if(this.rhythmGrades&&Object.hasOwn(this.rhythmGrades,label)){this.rhythmGrades[label]++;this.renderRhythmStatus();}
   if(!this.feedback)return;this.feedback.textContent=label;this.feedback.hidden=false;this.feedbackUntil=this.elapsed()+800;this.feedback.setAttribute('data-grade',label.split(' ')[0].toLowerCase());
   this.feedback.animate?.([{opacity:0,transform:'translate(-50%,-8px)'},{opacity:1,transform:'translate(-50%,0)'}],{duration:130});
   this.lanes[lane]?.animate?.([{boxShadow:label==='Miss'?'inset 0 0 45px #d6817288':'inset 0 0 45px #fff1a5dd'},{boxShadow:'inset 0 0 0 transparent'}],{duration:350});
@@ -278,7 +285,7 @@ export const curriculumScenes=CLASSES.map(lesson=>class extends Phaser.Scene{
  update(){
   if(this.done||!this.root)return;const elapsed=this.elapsed(),left=Math.max(0,this.startData.maxDurationMs-elapsed);this.timer.textContent=`남은 시간 ${Math.ceil(left/1000)}초`;
   if(this.roundTransition&&elapsed>=this.roundTransition.until&&this.pauseStartedAt===null){this.roundTransition.notice.remove();this.roundTransition=null;this.board.inert=false;this.selected=null;this.history=[];this.loadRound();}
-  if(this.pattern){for(const note of this.pattern.notes){if(!note.hit&&!note.missed&&(!note.pressed&&elapsed>note.at+160||note.pressed&&elapsed>note.at+note.hold+500)){note.missed=true;note.pressed=false;this.judge('Miss',note.lane);}}this.drawRhythm(elapsed);this.hits=this.pattern.notes.filter(n=>n.hit).length;this.status.textContent='';if(this.feedback&&elapsed>this.feedbackUntil)this.feedback.hidden=true;}
+  if(this.pattern){for(const note of this.pattern.notes){if(!note.hit&&!note.missed&&(!note.pressed&&elapsed>note.at+160||note.pressed&&elapsed>note.at+note.hold+500)){note.missed=true;note.pressed=false;this.judge('Miss',note.lane);}}this.drawRhythm(elapsed);this.hits=this.pattern.notes.filter(n=>n.hit).length;if(this.feedback&&elapsed>this.feedbackUntil)this.feedback.hidden=true;}
   if(this.disc){this.disc.style.transform=`rotate(${pinRotation(this.startData.difficulty,elapsed-this.roundStarted)}rad)`;this.status.textContent=`${this.round+1} / 3 라운드 · 핀 ${this.pins.length} / ${this.pinTarget} · 실수 ${this.mistakes} / 3`;}
   if(left===0)this.finish(this.pattern?'COMPLETE':'TIMEOUT');
  }
