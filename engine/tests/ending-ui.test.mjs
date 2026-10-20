@@ -13,11 +13,14 @@ test('server ending history shows the saved career, stats, activity counts and l
  s.ui.history([{slotId:2,runNumber:3,endingId:'ENDING_RUNE_RESEARCHER',careerName:'룬 연구자',
   finalStats:{knowledge:211,expression:120,skill:98,exploration:57,magic:240},
   playStatistics:{classCount:72,adventureCount:41,restCount:33},letter:{content}}]);
- assert.match(s.shell.textContent,/2번 슬롯 · 3회차 · 룬 연구자/);
+ assert.match(s.shell.textContent,/3회차 · 룬 연구자/);assert.doesNotMatch(s.shell.textContent,/2번 슬롯/);
  assert.match(s.shell.textContent,/지식 · 211/);
  assert.match(s.shell.textContent,/솜씨 · 98/);
  assert.match(s.shell.textContent,/수업 · 72회/);
  assert.match(s.shell.textContent,/휴식 · 33회/);
+ assert.ok(all(s.shell).some(item=>item.className==='ending-card ending-history-card'));
+ assert.ok(all(s.shell).some(item=>item.className==='ending-history-summary-grid'));
+ assert.ok(all(s.shell).some(item=>item.className==='ending-history-letter-body'));
  assert.ok(all(s.shell).some(item=>item.className==='ending-letter-content'&&item.text===content));
  assert.ok(all(s.shell).some(item=>item.className==='close-x'));
  assert.ok(!all(s.shell).some(item=>item.tag==='button'&&item.text==='마이룸으로'));

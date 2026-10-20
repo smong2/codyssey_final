@@ -59,28 +59,30 @@ export function createEndingUI({el,btn,shell,heading,current,character,slotId,on
  }
  function history(records=[],selected=0,{loading=false,error=''}={}){
   generation++;heading('지난 엔딩 편지','ending-history-page');
-  const layout=el('div',null,'ending-layout ending-career-art'),list=el('nav',null,'paper ending-summary'),letter=el('article',null,'paper ending-letter');
+  const card=el('section',null,'ending-card ending-history-card'),layout=el('div',null,'ending-history-layout'),list=el('nav',null,'ending-history-list'),letter=el('article',null,'ending-history-detail');
+  list.setAttribute('aria-label','지난 엔딩 목록');
   const careerName=record=>record.careerName??ENDING_CAREERS.find(career=>career.id===(record.endingId??record.careerId))?.name??(record.endingId==='ENDING_STARPATH_PIONEER'?'별길 개척자':'지난 여행');
-  for(const [index,record]of records.entries())list.append(btn((record.slotId?record.slotId+'번 슬롯 · ':'')+record.runNumber+'회차 · '+careerName(record),()=>history(records,index),index===selected?'selected':'quiet'));
+  for(const [index,record]of records.entries())list.append(btn(record.runNumber+'회차 · '+careerName(record),()=>history(records,index),`ending-history-choice ${index===selected?'selected':'quiet'}`));
   const record=records[selected];
   if(record){
-   letter.append(el('h2',careerName(record)));
+   letter.append(el('h2',careerName(record)),el('p',record.runNumber+'회차의 기록','ending-history-run-label'));
    const statNames={knowledge:'지식',expression:'표현력',skill:'솜씨',dexterity:'솜씨',exploration:'탐험',magic:'마법'};
-   const stats=record.finalStats??{};
-   if(Object.keys(stats).length){
-    letter.append(el('h3','엔딩 당시 스탯'));
-    for(const [key,label]of Object.entries(statNames))if(Number.isFinite(stats[key]))letter.append(el('p',label+' · '+stats[key]));
-   }
+   const stats=record.finalStats??{},summary=el('div',null,'ending-history-summary-grid'),statPanel=el('section',null,'ending-history-summary-panel'),activityPanel=el('section',null,'ending-history-summary-panel');
+   statPanel.append(el('h3','엔딩 당시 스탯'));
+   let statCount=0;
+   for(const [key,label]of Object.entries(statNames))if(Number.isFinite(stats[key])){const row=el('p',null,'ending-history-metric');row.append(el('span',label+' ·'),el('strong',String(stats[key])));statPanel.append(row);statCount++;}
+   if(!statCount)statPanel.append(el('p','저장된 스탯 정보가 없어요.','ending-history-empty'));
    const activityNames={classCount:'수업',adventureCount:'모험',restCount:'휴식',minigamePlayCount:'미니게임 플레이',minigameClearCount:'미니게임 클리어',npcEncounterCount:'NPC 만남',completedNpcStoryCount:'NPC 스토리 완료',locationDiscoveryCount:'장소 발견',specialItemDiscoveryCount:'특별 발견',importantChoiceCount:'중요 선택'};
    const activity=record.playStatistics??{};
    const counts=Object.entries(activityNames).filter(([key])=>Number.isSafeInteger(activity[key])&&activity[key]>=0);
-   if(counts.length){letter.append(el('h3','활동 횟수'));for(const [key,label]of counts)letter.append(el('p',label+' · '+activity[key]+'회'));}
-   else {const metrics=displayedEndingRecords(record);if(metrics.length)letter.append(el('h3','아르카디아에서의 기록'));for(const metric of metrics)letter.append(el('p',ENDING_RECORD_LABELS[metric.key]+' · '+metric.value+'회'));}
-   letter.append(el('h3','엔딩 편지'));
+   activityPanel.append(el('h3','활동 횟수'));
+   if(counts.length){for(const [key,label]of counts){const row=el('p',null,'ending-history-metric');row.append(el('span',label+' ·'),el('strong',activity[key]+'회'));activityPanel.append(row);}}
+   else {const metrics=displayedEndingRecords(record);for(const metric of metrics){const row=el('p',null,'ending-history-metric');row.append(el('span',ENDING_RECORD_LABELS[metric.key]+' ·'),el('strong',metric.value+'회'));activityPanel.append(row);}if(!metrics.length)activityPanel.append(el('p','저장된 활동 기록이 없어요.','ending-history-empty'));}
+   summary.append(statPanel,activityPanel);letter.append(summary,el('h3','엔딩 편지','ending-history-letter-title'));
    const content=typeof record.letter?.content==='string'?record.letter.content:['future','reflection','encouragement'].map(key=>record.letter?.sections?.[key]).filter(Boolean).join('\n\n');
-   letter.append(el('p',content||'저장된 편지를 확인할 수 없습니다.','ending-letter-content'));
+   const body=el('div',null,'ending-history-letter-body');body.setAttribute('tabindex','0');body.setAttribute('aria-label','지난 엔딩 편지 내용');body.append(el('p',content||'저장된 편지를 확인할 수 없습니다.','ending-letter-content'));letter.append(body);
   }else letter.append(el('p',loading?'지난 엔딩을 불러오고 있어요.':error||'아직 완료한 여행의 편지가 없어요.'));
-  layout.append(list,letter);shell.append(layout,createCloseButton({el,btn,onClick:onReturn,label:'마이룸으로 닫기'}));
+  layout.append(list,letter);card.append(layout);shell.append(card,createCloseButton({el,btn,onClick:onReturn,label:'마이룸으로 닫기'}));
  }
  return {render,history};
 }
