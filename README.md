@@ -154,6 +154,8 @@ Phaser 3는 기존 데모를 재사용하기 위해서가 아니라, **브라우
 
 세부 R&R과 협업 경계는 [팀 역할 문서](document/05_TEAM_ROLES.md)를 기준으로 합니다.
 
+팀은 [GitHub Project 애자일 보드](https://github.com/users/smong2/projects/2)에서 WBS 이슈의 담당자·목표 일정·진행 현황과 처리 내용을 공유했습니다. 약 3주간 기획하고 매일 회의하며 핵심 방향을 유지한 채 세부 작업을 조정했습니다. `story/`·`asset/`·`engine/`·`backend/`의 역할별 작업 공간과 공통 인계 문서를 사용해 병렬 작업을 이어 갔습니다.
+
 ---
 
 ## 6. 실행 방법

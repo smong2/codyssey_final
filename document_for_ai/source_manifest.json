@@ -387,7 +387,7 @@
     },
     {
       "path": "document/05_TEAM_ROLES.md",
-      "sha256": "c4020aea605d214abb31e178e1c678273952b218bf969cfdf470cd53d7f4a068"
+      "sha256": "c15fe46a03494473f5f62b39c3d3bebe0161b731ce94d28a241101fe1dfb6004"
     },
     {
       "path": "document/06_GAME_CONTENT.md",
@@ -411,7 +411,7 @@
     },
     {
       "path": "document/11_PROJECT_PLAN.md",
-      "sha256": "58d0ddf464ef67270e417e67df65a32796cc9dd12112a594932e1609391343f3"
+      "sha256": "e83a9ecfc82da5fe5e5dce0ed551345e23714f46098ae8ee22754c9c18f93103"
     },
     {
       "path": "document/12_REQUIREMENTS_ARCHITECTURE.md",
@@ -427,7 +427,7 @@
     },
     {
       "path": "document/15_PRESENTATION.md",
-      "sha256": "36cc5089e3ff38f1599353916523406bfe34a6e3373b1dd04fa4cc8353be77c6"
+      "sha256": "692bc89db12795bcbfe407d89e7ec20ab1a8924739d926bdc2243b3aa3b2371e"
     },
     {
       "path": "document/16_SUBMISSION_CHECKLIST.md",
@@ -751,7 +751,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "8f82dca44b6f9669f3ff4425c76045dc3eeea2488cf785c7ce1db04ab521226b"
+      "sha256": "4b9217f27c57b94356329809f86e19f2faec0d60ebb6af4966081db3e1180113"
     },
     {
       "path": "story/ending/README.md",

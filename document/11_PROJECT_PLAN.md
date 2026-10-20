@@ -111,6 +111,12 @@ Must는 Final Project 제출판의 목표 범위이며, Should는 Must를 해치
 
 각 담당자는 자기 산출물을 검수하고, PM은 시나리오·화면·디자인·엔진·API가 이어지는 데이터 계약과 일정을 조율합니다. [WBS 9 통합·배포](https://github.com/smong2/codyssey_final/issues/186)는 네 담당자가 함께 검토하는 단계입니다.
 
+### 6.1 협업 방식과 실제 운영
+
+팀은 [GitHub Project 애자일 보드](https://github.com/users/smong2/projects/2)를 공동 작업판으로 사용했습니다. WBS 이슈마다 담당자와 목표 일정을 두고, `Backlog`·`진행중`·`작업완료` 뷰를 통해 역할 배분뿐 아니라 실제 진행 현황과 작업 처리 내용을 공유했습니다. 예를 들어 [WBS 1.2 협업·인계 관리](https://github.com/smong2/codyssey_final/issues/47)는 [역할별 산출물·검수 기준](https://github.com/smong2/codyssey_final/issues/48)과 [의존 관계·일정 운영](https://github.com/smong2/codyssey_final/issues/49)으로 나누어 관리했습니다. 매일 회의에서 막힌 일과 다음 인계를 논의하고, 이슈·문서·Git 변경 이력을 연결해 결정을 확인할 수 있게 했습니다.
+
+약 3주간의 기획에서는 사용자 문제와 세계관, 52주 경험, 영역 간 연결을 반복해서 검토했습니다. 세부 기능과 우선순위는 조정했지만 **어린이가 관계와 선택을 경험하는 게임**이라는 핵심 방향을 유지하며 구현까지 이어 갔습니다. `story/`·`asset/`·`engine/`·`backend/`로 주 작업 디렉터리를 나누어 병렬 작업의 간섭을 줄이고, 콘텐츠 ID·화면 흐름·API/데이터 계약은 공통 문서와 담당자 간 인계로 맞췄습니다. 상세 운영 기준은 [팀 역할과 협업 경계](05_TEAM_ROLES.md)에 정리했습니다.
+
 ## 7. 완료 판단 기준
 
 WBS 10.1.1은 다음 항목이 이 문서와 연결 문서에서 모두 확인되면 기획 산출물 기준으로 완료합니다.

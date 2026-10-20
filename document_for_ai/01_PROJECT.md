@@ -33,4 +33,6 @@ AI 엔딩에는 엔진 표시 프레임과 백엔드의 직업 판정·편지 �
 
 제출 범위는 [Final Project 기획서](../document/11_PROJECT_PLAN.md)의 **Must / Should / Post-Submission** 표로 고정한다. Must는 52주 핵심 게임(5개 미니게임과 `요정의 거래` 포함)·계정/저장·AI 엔딩 및 생성물 안내·관리자 최소 운영 기능·배포·5명 사용자 검증과 필수 제출 근거이며, 별도 AI Agent와 asset/콘텐츠 CMS·보호자 대화 단서를 위한 AI 활동 보고서는 제출 후 범위다. 미니게임 품질과 게임 전체 톤앤매너 개선, 등장인물·공간 추가를 통한 주인공별 경험 확대도 제출 후 확장한다. 웹 게임의 앱 전환은 검토 방향이며 플랫폼과 배포 방식은 확정하지 않았다. 향후 운영 콘솔에서 해당 보고서를 조회하는 방향을 검토하되 보호자 제공 화면·권한·내용은 별도 설계하며 아이의 마음이나 성격을 단정하지 않는다. 관리자 AI 키 등록·교체 화면은 후속 범위에도 넣지 않는다. Gemini API 키와 Firebase Admin 자격 증명은 배포 환경의 비밀 변수와 권한으로 관리한다. AI 프롬프트 기획은 `System Prompt / Task Context / Task Prompt / Output Contract` 네 계층의 책임을 고정하고, Long-term Play Memory의 원본은 Firestore의 현재 회차 저장값이며 백엔드가 직접 조회·선별한다. 별도 RAG·벡터 검색·외부 웹 검색은 제출판에서 사용하지 않는다.
 
+팀은 [GitHub Project 애자일 보드](https://github.com/users/smong2/projects/2)를 공동 작업판으로 사용해 WBS 담당자·일정·진행 현황과 처리 내용을 공유했다. 약 3주간 기획과 매일 회의를 통해 핵심 방향을 유지하며 세부 우선순위를 조정했고, 역할별 디렉터리와 공통 인계 문서로 병렬 작업을 연결했다. 실제 협업 방식은 [팀 역할](../document/05_TEAM_ROLES.md)과 [기획서](../document/11_PROJECT_PLAN.md)를 확인한다.
+
 상세 자료가 있을 때: [프로젝트 개요](../document/01_PROJECT_OVERVIEW.md), [Final Project 기획서](../document/11_PROJECT_PLAN.md), [요구 명세·아키텍처](../document/12_REQUIREMENTS_ARCHITECTURE.md), [AI 핵심 기능](../document/09_AI_ENDING_LETTER.md), [기술 스택](../document/10_TECH_STACK.md).
