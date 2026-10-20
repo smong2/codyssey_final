@@ -44,6 +44,7 @@ import { createServerDialogueSession, createServerGameSession } from "./core/ser
 import { canRecordServerRoomVisit, isServerEndingPhase, serverAdventureStartData, serverClassStartData, serverRoomBackgroundId, serverRoomVisitKey, serverScheduleActivityIds } from "./core/server-state.mjs";
 import { PRIVACY_CONSENT_VERSION } from "./services/api-provider.mjs";
 import { createServerEndingUI } from "./ui/server-ending.mjs";
+import { dialogueRecoveryCopy, serverLoadRecoveryCopy, serverSaveRecoveryCopy } from "./core/recovery-copy.mjs";
 const roomLight = createRoomLight(),
 	engineServices = globalThis.lumiaEngineServices ?? {};
 const SERVER_GAME_METHODS = ["bootstrapAccount", "updateAccountSettings", "listSaveSlots", "getSaveSlot", "startRun", "deleteSaveSlot", "deleteUnreadableSaveSlot", "recoverSaveSlot", "confirmSchedule", "startActivity", "completeSpecial", "completeClassQuit", "completeClassReplay", "completeForcedRest", "completeRest", "completeAdventure", "closeWeek", "acknowledgeWeekSummary", "loadDialogue", "completeDialogue", "getCollection", "openMyRoom", "decideEnding", "prepareEnding", "getEnding", "finishEnding"];
@@ -310,7 +311,7 @@ async function saveActorPosition(actor, position) {
 		else {
 			repository.saveSettings({ roomActorPositions });
 		}
-	} catch (error) { message("마이룸 위치를 저장하지 못했습니다. " + error.message); }
+	} catch { message("위치를 저장하지 못했어요. 잠시 후 다시 움직여 주세요."); }
 }
 async function petDialogues(petId) {
 	if (!serverMode) return PET_DIALOGUES[petId] ?? [];
@@ -335,8 +336,8 @@ async function selectPet(id) {
 			await serverGame.updateSettings({ activePetId: id });
 			message(activePet(profile).name + "과 함께합니다.");
 			return true;
-		} catch (e) {
-			message("펫 선택을 저장하지 못했습니다. " + e.message);
+		} catch {
+			message("선택을 저장하지 못했어요. 잠시 후 다시 눌러 주세요.");
 			return false;
 		}
 	}
@@ -356,8 +357,8 @@ async function selectRoom(id) {
 		try {
 			await serverGame.updateSettings({ activeRoomBackgroundId: serverRoomBackgroundId(id) });
 			return true;
-		} catch (e) {
-			message("배경을 변경하지 못했습니다. 다시 시도해 주세요. " + e.message);
+		} catch {
+			message("배경을 바꾸지 못했어요. 잠시 후 다시 눌러 주세요.");
 			return false;
 		}
 	}
@@ -395,7 +396,7 @@ function setServerRecoveryBusy(label) {
 async function retryServerMutation() {
 	if (!serverMode || serverRecoveryBusy) return false;
 	if (!serverGame?.pending()) return recoverServerConflict();
-	setServerRecoveryBusy("같은 저장 요청을 다시 확인하고 있어요.");
+	setServerRecoveryBusy("저장한 내용을 다시 확인하고 있어요.");
 	let result;
 	try {
 		result = await serverGame.retry();
@@ -409,12 +410,12 @@ async function retryServerMutation() {
 	serverRetryContinuation = null;
 	document.querySelector("dialog.server-save-error[open]")?.close();
 	try { continuation?.(result); }
-	catch (error) { message("저장 후 화면을 이어가지 못했습니다. 서버 상태를 다시 확인합니다. " + error.message); resumeToRoom(); }
+	catch { message("화면을 이어가는 중에 문제가 생겼어요. 저장된 곳에서 다시 이어갈게요."); resumeToRoom(); }
 	return true;
 }
 async function recoverServerConflict() {
 	if (!serverMode || serverRecoveryBusy) return false;
-	setServerRecoveryBusy("서버에 저장된 상태를 다시 읽고 있어요.");
+	setServerRecoveryBusy("저장된 게임을 다시 불러오고 있어요.");
 	try {
 		if (serverGame?.pending()) await serverGame.resolveConflict();
 		else await serverGame.refreshSlot(slotId);
@@ -426,7 +427,7 @@ async function recoverServerConflict() {
 	serverRecoveryBusy = false;
 	serverRetryContinuation = null;
 	document.querySelector("dialog.server-save-error[open]")?.close();
-	message("최신 서버 저장 상태를 불러왔습니다.");
+	message("저장된 곳에서 다시 이어갈게요.");
 	if (current()) resumeToRoom();
 	else renderSlots();
 	return true;
@@ -434,21 +435,15 @@ async function recoverServerConflict() {
 function showServerMutationError(error, continuation = null) {
 	serverRetryContinuation = continuation;
 	document.querySelector("dialog.server-save-error[open]")?.close();
-	const body = el("div", null, "empty-frame");
-	const conflict = error?.status === 409 || error?.code === "CONFLICT";
-	body.append(el("p", conflict ? "다른 저장이 먼저 반영되어 현재 상태가 달라졌습니다." : "서버 저장을 완료하지 못했습니다."), el("small", "저장 여부를 확인하기 전에는 다음 일정으로 넘어가지 않습니다."));
-	const status = el("p", error?.message ?? "잠시 후 다시 시도해 주세요.", "server-save-status");
+	const body = el("div", null, "empty-frame"),copy=serverSaveRecoveryCopy(error);
+	body.append(el("p",copy.message),el("small",copy.hint));
+	const status = el("p",copy.status,"server-save-status");
 	status.setAttribute("role", "status");
-	body.append(status, el("small", "연결이 계속 불안정하면 게임을 다시 불러와 마지막 서버 저장 상태에서 이어갈 수 있어요."));
+	body.append(status);
 	const actions = [];
-	if (!conflict && serverGame?.pending()) actions.push(btn("저장 다시 시도", retryServerMutation));
-	actions.push(btn("서버 상태 확인", recoverServerConflict));
-	actions.push(btn("게임 다시 불러오기", () => {
-		document.querySelector("dialog.server-save-error[open]")?.close();
-		serverRetryContinuation = null;
-		void loadServerProfile();
-	}));
-	const d = modal("서버 저장 확인", body, actions, { closable: false });
+	if(copy.retryLabel&&serverGame?.pending())actions.push(btn(copy.retryLabel,retryServerMutation));
+	actions.push(btn(copy.loadLabel,recoverServerConflict));
+	const d = modal(copy.title, body, actions, { closable: false });
 	d.classList.add("server-save-error");
 }
 async function performServerMutation(work, continuation = null) {
@@ -461,11 +456,12 @@ async function performServerMutation(work, continuation = null) {
 	}
 	serverRetryContinuation = null;
 	try { continuation?.(result); }
-	catch (error) { message("저장 후 화면을 이어가지 못했습니다. 서버 상태를 다시 확인합니다. " + error.message); resumeToRoom(); }
+	catch { message("화면을 이어가는 중에 문제가 생겼어요. 저장된 곳에서 다시 이어갈게요."); resumeToRoom(); }
 	return true;
 }
 function renderServerLoadError(error) {
-	heading("게임 데이터를 불러오지 못했습니다.", "account-page");
+	const copy=serverLoadRecoveryCopy(error);
+	heading(copy.title, "account-page");
 	const body = el("section", null, "account-panel");
 	if (error?.code === "NOT_FOUND" && /account not initialized/i.test(error?.message ?? "")) {
 		const consent = el("label", "[필수] 개인정보 수집·이용 동의", "account-consent"),
@@ -473,15 +469,15 @@ function renderServerLoadError(error) {
 		check.type = "checkbox";
 		consent.append(check);
 		body.append(
-			el("p", "게임 저장 데이터를 처음 연결하려면 개인정보 수집·이용 동의가 필요합니다."),
+			el("p", "게임을 처음 시작하려면 개인정보 수집·이용 동의가 필요해요."),
 			el("p", "수집 항목: 이메일 주소 · 이용 목적: 계정 인증, 로그인, 비밀번호 재설정, 게임 저장 데이터 연결 · 보관 기간: 회원 탈퇴 시까지", "account-policy"),
 			consent,
-			btn("게임 데이터 시작", async () => {
+			btn("게임 시작하기", async () => {
 				if (!check.checked) {
 					message("개인정보 수집·이용 동의가 필요합니다.");
 					return;
 				}
-				heading("게임 데이터 준비 중", "account-page");
+				heading("게임을 준비하고 있어요", "account-page");
 				try {
 					await serverGame.bootstrap({ privacyConsentAccepted: true, privacyConsentVersion: PRIVACY_CONSENT_VERSION });
 					renderIntro();
@@ -490,12 +486,12 @@ function renderServerLoadError(error) {
 				}
 			}),
 		);
-	} else body.append(el("p", "로그인은 유지했지만 저장 데이터를 읽지 못했습니다."), el("small", error?.message ?? "잠시 후 다시 시도해 주세요."), btn("다시 불러오기", loadServerProfile));
+	} else body.append(el("p",copy.message),el("small",copy.hint),btn(copy.actionLabel,loadServerProfile));
 	shell.append(body);
 }
 async function loadServerProfile() {
 	if (!serverMode) return false;
-	heading("게임 데이터 불러오는 중", "account-page");
+	heading("게임을 불러오고 있어요", "account-page");
 	try {
 		await serverGame.load();
 		writer = null;
@@ -864,8 +860,8 @@ function renderSlots() {
 					try {
 						await serverGame.refreshSlot(s.slotId);
 						renderSlots();
-					} catch (error) {
-						message("슬롯 다시 불러오기 실패: " + error.message);
+					} catch {
+						message("저장된 게임을 아직 불러오지 못했어요. 잠시 후 다시 눌러 주세요.");
 					}
 				}),
 				btn("삭제", () => confirmSlotDelete(s, true), "danger slot-delete"),
@@ -917,7 +913,7 @@ function renderSlots() {
 		);
 	if (serverMode && serverGame.pending())
 		retryActions.push(
-			btn("서버 저장 다시 시도", async () => {
+			btn("다시 저장하기", async () => {
 				if (await retryServerMutation()) renderSlots();
 			}),
 		);
@@ -1111,11 +1107,12 @@ function playDialogueMusic(payload) {
 const usesServerDialogue = () => serverMode;
 function showDialogueError(error, retry) {
 	console.warn("대화 서비스:", error);
-	heading("이야기를 이어갈 준비가 필요해요.", "dialogue-service-page");
+	const copy=dialogueRecoveryCopy();
+	heading(copy.title, "dialogue-service-page");
 	const frame = el("section", null, "paper stat-panel");
 	frame.append(
-		el("p", "이야기를 불러오거나 저장하지 못했어요. 다음 일정은 잠시 기다립니다."),
-		btn("다시 시도", () => {
+		el("p",copy.message),el("small",copy.hint),
+		btn(copy.actionLabel, () => {
 			renderBusy("이야기를 확인하고 있어요.");
 			retry();
 		}),
