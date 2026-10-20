@@ -59,7 +59,7 @@ export function createEndingUI({el,btn,shell,heading,current,character,slotId,on
  }
  function history(records=[],selected=0,{loading=false,error=''}={}){
   generation++;heading('지난 엔딩 편지','ending-history-page');
-  const card=el('section',null,'ending-card ending-history-card'),layout=el('div',null,'ending-history-layout'),list=el('nav',null,'ending-history-list'),letter=el('article',null,'ending-history-detail');
+  const card=el('section',null,'ending-card ending-history-card'),title=el('h1','지난 엔딩 편지','ending-history-title'),layout=el('div',null,'ending-history-layout'),list=el('nav',null,'ending-history-list'),letter=el('article',null,'ending-history-detail');
   list.setAttribute('aria-label','지난 엔딩 목록');
   const careerName=record=>record.careerName??ENDING_CAREERS.find(career=>career.id===(record.endingId??record.careerId))?.name??(record.endingId==='ENDING_STARPATH_PIONEER'?'별길 개척자':'지난 여행');
   for(const [index,record]of records.entries())list.append(btn(record.runNumber+'회차 · '+careerName(record),()=>history(records,index),`ending-history-choice ${index===selected?'selected':'quiet'}`));
@@ -82,7 +82,7 @@ export function createEndingUI({el,btn,shell,heading,current,character,slotId,on
    const content=typeof record.letter?.content==='string'?record.letter.content:['future','reflection','encouragement'].map(key=>record.letter?.sections?.[key]).filter(Boolean).join('\n\n');
    const body=el('div',null,'ending-history-letter-body');body.setAttribute('tabindex','0');body.setAttribute('aria-label','지난 엔딩 편지 내용');body.append(el('p',content||'저장된 편지를 확인할 수 없습니다.','ending-letter-content'));letter.append(body);
   }else letter.append(el('p',loading?'지난 엔딩을 불러오고 있어요.':error||'아직 완료한 여행의 편지가 없어요.'));
-  layout.append(list,letter);card.append(layout);shell.append(card,createCloseButton({el,btn,onClick:onReturn,label:'마이룸으로 닫기'}));
+  layout.append(list,letter);card.append(title,layout);shell.append(card,createCloseButton({el,btn,onClick:onReturn,label:'마이룸으로 닫기'}));
  }
  return {render,history};
 }

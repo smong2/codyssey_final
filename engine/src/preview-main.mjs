@@ -145,6 +145,7 @@ document.addEventListener(
 	},
 	true,
 );
+document.addEventListener("contextmenu", (event) => event.preventDefault());
 function blackDissolve(action, duration = 900) {
 	const cover = el("div", null, "black-dissolve");
 	cover.style.transitionDuration = duration + "ms";
@@ -2202,6 +2203,10 @@ else {
 	renderIntro();
 }
 window.addEventListener("keydown", (e) => {
+	if (e.key === "F12") {
+		e.preventDefault();
+		return;
+	}
 	if (e.key === "Escape" && view === "room-page" && !document.querySelector("dialog[open]")) menu();
 });
 window.addEventListener("beforeunload", (e) => {

@@ -14,6 +14,7 @@ test('server ending history shows the saved career, stats, activity counts and l
   finalStats:{knowledge:211,expression:120,skill:98,exploration:57,magic:240},
   playStatistics:{classCount:72,adventureCount:41,restCount:33},letter:{content}}]);
  assert.match(s.shell.textContent,/3회차 · 룬 연구자/);assert.doesNotMatch(s.shell.textContent,/2번 슬롯/);
+ assert.ok(all(s.shell).some(item=>item.className==='ending-history-title'&&item.text==='지난 엔딩 편지'));
  assert.match(s.shell.textContent,/지식 · 211/);
  assert.match(s.shell.textContent,/솜씨 · 98/);
  assert.match(s.shell.textContent,/수업 · 72회/);
